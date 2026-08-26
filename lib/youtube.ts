@@ -7,7 +7,10 @@ export type YoutubeVideo = {
   isShort?: boolean;
 };
 
-const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || "";
+// Default: DoyinTech official channel (@doyintechfoundation)
+// Override anytime with YOUTUBE_CHANNEL_ID env var
+const CHANNEL_ID =
+  process.env.YOUTUBE_CHANNEL_ID || "UCzZeP2RV2VuS2ymtoaealGQ";
 const API_KEY = process.env.YOUTUBE_API_KEY || "";
 
 /**
@@ -37,13 +40,10 @@ async function fetchFromRss(limit = 8): Promise<YoutubeVideo[]> {
   const videos: YoutubeVideo[] = [];
 
   for (const entry of entries.slice(0, limit)) {
-    const idMatch = entry.match(
-      /<yt:videoId>([^<]+)<\/yt:videoId>/
-    );
+    const idMatch = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
     const titleMatch = entry.match(/<title>([^<]+)<\/title>/);
-    const publishedMatch = entry.match(
-      /<published>([^<]+)<\/published>/
-    );
+    const publishedMatch = entry.match(/<published>([^<]+)<\/published>/);
+    const linkMatch = entry.match(/href="([^"]+)"/);
 
     if (!idMatch || !titleMatch) continue;
 
@@ -56,15 +56,20 @@ async function fetchFromRss(limit = 8): Promise<YoutubeVideo[]> {
       .replace(/&#39;/g, "'")
       .trim();
 
+    const link = linkMatch?.[1] || `https://www.youtube.com/watch?v=${id}`;
+    const isShort =
+      link.includes("/shorts/") ||
+      /#shorts|\bshorts?\b/i.test(title);
+
     videos.push({
       id,
       title,
       published: publishedMatch?.[1] || "",
       thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-      url: `https://www.youtube.com/watch?v=${id}`,
-      // Heuristic: many Shorts have #shorts or short titles; real duration needs API
-      isShort:
-        /#shorts|short/i.test(title) || title.length < 45,
+      url: isShort
+        ? `https://www.youtube.com/shorts/${id}`
+        : `https://www.youtube.com/watch?v=${id}`,
+      isShort,
     });
   }
 
@@ -79,7 +84,6 @@ async function fetchFromApi(limit = 8): Promise<YoutubeVideo[]> {
   if (!CHANNEL_ID || !API_KEY) return [];
 
   try {
-    // First get uploads playlist ID via channels.list
     const channelRes = await fetch(
       `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`,
       { next: { revalidate: 86400 } }
@@ -103,6 +107,7 @@ async function fetchFromApi(limit = 8): Promise<YoutubeVideo[]> {
     return items.map((item: any) => {
       const id = item.snippet?.resourceId?.videoId;
       const title = item.snippet?.title || "Untitled";
+      const isShort = /#shorts|\bshorts?\b/i.test(title);
       return {
         id,
         title,
@@ -111,8 +116,10 @@ async function fetchFromApi(limit = 8): Promise<YoutubeVideo[]> {
           item.snippet?.thumbnails?.high?.url ||
           item.snippet?.thumbnails?.medium?.url ||
           `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-        url: `https://www.youtube.com/watch?v=${id}`,
-        isShort: /#shorts|short/i.test(title),
+        url: isShort
+          ? `https://www.youtube.com/shorts/${id}`
+          : `https://www.youtube.com/watch?v=${id}`,
+        isShort,
       } as YoutubeVideo;
     });
   } catch {
@@ -136,7 +143,6 @@ export async function getLatestYoutubeVideos(
   return fetchFromRss(limit);
 }
 
-export function getYoutubeChannelUrl(): string | null {
-  if (!CHANNEL_ID) return null;
-  return `https://www.youtube.com/channel/${CHANNEL_ID}`;
+export function getYoutubeChannelUrl(): string {
+  return "https://www.youtube.com/@doyintechfoundation";
 }
