@@ -7,39 +7,43 @@ import ScrollReveal from "../animations/ScrollReveal";
 
 const categories = [
   { id: "all", label: "All Projects" },
-  { id: "backend", label: "Backend & APIs" },
-  { id: "mobile", label: "Mobile Apps" },
+  { id: "property", label: "Property & Fintech" },
   { id: "web", label: "Web Platforms" },
+  { id: "saas", label: "SaaS & Dashboards" },
 ];
 
 const projects = [
   {
-    title: "Fintech API Platform",
-    subtitle: "Auth • Webhooks • Observability",
-    tags: ["API Gateway", "OAuth2", "Redis", "Telemetry"],
-    img: "/port-fintech.png",
-    category: "backend",
+    title: "Imperial Villa Property",
+    subtitle: "Corporate Website + Mortgage Solutions",
+    tags: ["Next.js", "Property", "25% Equity Mortgage"],
+    img: "/port-ecom.png",
+    category: "property",
+    liveUrl: "https://www.imperialvillapropertydevelopment.com",
   },
   {
-    title: "Church / Community Platform",
-    subtitle: "Membership • Giving • Events",
-    tags: ["Next.js", "PostgreSQL", "Paystack", "Admin Panel"],
+    title: "Imperial Villa System",
+    subtitle: "Staff Portal • Client Management",
+    tags: ["Dashboard", "Multi-branch", "RSA Accounts"],
+    img: "/service-backend.png",
+    category: "saas",
+    liveUrl: "https://system.imperialvillapropertydevelopment.com",
+  },
+  {
+    title: "DoyinMart",
+    subtitle: "African Software Marketplace",
+    tags: ["Next.js", "Marketplace", "E-commerce"],
+    img: "/port-edu.png",
+    category: "web",
+    liveUrl: "https://doyinsoft.vercel.app",
+  },
+  {
+    title: "LegacyPlay",
+    subtitle: "PlayStation Gaming Lounge",
+    tags: ["Next.js", "Booking", "Tournaments"],
     img: "/port-church.png",
     category: "web",
-  },
-  {
-    title: "E-commerce Backend Service",
-    subtitle: "Inventory • Payments • Scaling",
-    tags: ["Go", "gRPC", "RabbitMQ", "Stripe"],
-    img: "/port-ecom.png",
-    category: "backend",
-  },
-  {
-    title: "Education / Learning App",
-    subtitle: "Content • Progress • Subscriptions",
-    tags: ["Flutter", "Dart", "Firebase", "State Management"],
-    img: "/port-edu.png",
-    category: "mobile",
+    liveUrl: "https://legacyplay.vercel.app",
   },
 ];
 
@@ -52,7 +56,6 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-32 bg-[#080A0F] relative overflow-hidden">
-      {/* Glow asset */}
       <div className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -66,11 +69,10 @@ export default function Projects() {
                 Engineered Solutions
               </h2>
               <p className="mt-4 text-gray-400 max-w-xl">
-                A showcase of production-ready systems, secure codebases, and fluid interfaces built by DoyinTech.
+                Real platforms and systems shipped for clients and brands. Every project links to the live site.
               </p>
             </div>
 
-            {/* Filter Tabs */}
             <div className="flex flex-wrap gap-2 rounded-xl bg-white/5 border border-white/10 p-1.5 self-start md:self-auto">
               {categories.map((cat) => (
                 <button
@@ -94,13 +96,9 @@ export default function Projects() {
           </div>
         </ScrollReveal>
 
-        {/* Projects Grid with Smooth Re-Ordering Layout */}
-        <motion.div 
-          layout
-          className="mt-14 grid md:grid-cols-2 gap-8"
-        >
+        <motion.div layout className="mt-14 grid md:grid-cols-2 gap-8">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((p, i) => (
+            {filteredProjects.map((p) => (
               <motion.div
                 layout
                 key={p.title}
@@ -111,11 +109,9 @@ export default function Projects() {
                 whileHover={{ y: -6 }}
                 className="group relative rounded-2xl border border-white/10 bg-black/30 overflow-hidden hover:border-primary/60 transition-all duration-300"
               >
-                {/* Glow Spotlights */}
                 <div className="pointer-events-none absolute -top-16 -left-16 h-48 w-48 rounded-full bg-primary/15 blur-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
                 <div className="pointer-events-none absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
 
-                {/* Screenshot & Overlay */}
                 <div className="relative h-56 overflow-hidden">
                   <Image
                     src={p.img}
@@ -124,14 +120,11 @@ export default function Projects() {
                     className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F] via-black/35 to-transparent" />
-                  
-                  {/* Floating category tag */}
                   <span className="absolute top-4 right-4 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gray-300 backdrop-blur-md">
                     {p.category}
                   </span>
                 </div>
 
-                {/* Info and Tags */}
                 <div className="p-6 border-t border-white/5 bg-black/10">
                   <h3 className="font-display text-xl font-bold text-white tracking-tight">
                     {p.title}
@@ -139,8 +132,7 @@ export default function Projects() {
                   <p className="text-xs text-primary font-medium mt-1 uppercase tracking-wide">
                     {p.subtitle}
                   </p>
-                  
-                  {/* Detailed tech tags */}
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     {p.tags.map((tag) => (
                       <span
@@ -154,11 +146,19 @@ export default function Projects() {
 
                   <div className="mt-6 flex items-center justify-between">
                     <a
-                      href="/portfolio"
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-xs font-semibold text-gray-300 hover:text-white transition flex items-center gap-1"
                     >
-                      <span>Explore Case Study</span>
+                      <span>Visit Live Site</span>
                       <span>→</span>
+                    </a>
+                    <a
+                      href="/portfolio"
+                      className="text-xs font-semibold text-primary hover:underline"
+                    >
+                      Full Portfolio
                     </a>
                   </div>
                 </div>
