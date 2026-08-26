@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import {
   FaWhatsapp,
   FaFacebook,
@@ -16,7 +15,6 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/5 bg-[#0B0E14] relative overflow-hidden">
-      {/* Subtle background glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
@@ -32,7 +30,6 @@ export default function Footer() {
                   We engineer premium, scalable backend systems, secure APIs, and high-performance mobile/web applications designed to scale with your business.
                 </p>
 
-                {/* Social Icons (brand colored + glow + bounce) */}
                 <div className="mt-6 flex items-center gap-3">
                   <SocialIcon
                     href="https://wa.me/2348085343926"
@@ -82,12 +79,12 @@ export default function Footer() {
               </div>
 
               <p className="mt-12 text-xs text-gray-500">
-                © {year} DoyinTech. All rights reserved. Built with premium quality.
+                © {year} DoyinTech. All rights reserved.
               </p>
             </ScrollReveal>
           </div>
 
-          {/* Quick Links Column */}
+          {/* Quick Links */}
           <div className="md:col-span-3">
             <ScrollReveal direction="up" delay={0.1}>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
@@ -101,16 +98,22 @@ export default function Footer() {
                   Portfolio
                 </a>
                 <a className="hover:text-primary transition duration-200" href="/about">
-                  About DoyinTech
+                  About
                 </a>
                 <a className="hover:text-primary transition duration-200" href="/contact">
-                  Get in touch
+                  Contact
+                </a>
+                <a className="hover:text-primary transition duration-200" href="/privacy">
+                  Privacy Policy
+                </a>
+                <a className="hover:text-primary transition duration-200" href="/terms">
+                  Terms of Service
                 </a>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Contact & CTA Column */}
+          {/* Contact & CTA */}
           <div className="md:col-span-4">
             <ScrollReveal direction="up" delay={0.15}>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
@@ -168,9 +171,6 @@ function SocialIcon({
       rel="noreferrer"
       aria-label={label}
       className="group relative h-10 w-10 rounded-xl border border-white/10 bg-white/5 hover:border-primary/50 hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
-      style={{
-        boxShadow: `0 0 0 0 ${glow}`,
-      }}
     >
       <span
         className={[
@@ -181,9 +181,8 @@ function SocialIcon({
       >
         {children}
       </span>
-      {/* Hover glow pulse circle */}
-      <span 
-        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
+      <span
+        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{
           boxShadow: `0 0 16px 2px ${glow}`,
         }}
