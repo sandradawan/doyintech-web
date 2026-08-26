@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -9,19 +9,33 @@ interface ScrollRevealProps {
   delay?: number;
   duration?: number;
   distance?: number;
+  scale?: number;
+  blur?: boolean;
   className?: string;
+  once?: boolean;
+  amount?: number;
 }
 
 export default function ScrollReveal({
   children,
   direction = "up",
   delay = 0,
-  duration = 0.6,
-  distance = 30,
+  duration = 0.7,
+  distance = 36,
+  scale = 0.96,
+  blur = false,
   className = "",
+  once = true,
+  amount = 0.18,
 }: ScrollRevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.15 });
+  const isInView = useInView(ref, { once, amount });
+  const prefersReducedMotion = useReducedMotion();
+
+  // Respect user preference for reduced motion
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   const getDirectionOffset = () => {
     switch (direction) {
@@ -34,23 +48,29 @@ export default function ScrollReveal({
       case "right":
         return { x: -distance };
       default:
-        return {};
+        return { x: 0, y: 0 };
     }
   };
+
+  const offset = getDirectionOffset();
 
   const variants = {
     hidden: {
       opacity: 0,
-      ...getDirectionOffset(),
+      ...offset,
+      scale: scale,
+      filter: blur ? "blur(8px)" : "blur(0px)",
     },
     visible: {
       opacity: 1,
       x: 0,
       y: 0,
+      scale: 1,
+      filter: "blur(0px)",
       transition: {
-        duration: duration,
-        ease: [0.21, 0.47, 0.32, 0.98] as const, // Custom premium easeOut
-        delay: delay,
+        duration,
+        ease: [0.22, 1, 0.36, 1] as const, // Premium easeOutExpo-ish
+        delay,
       },
     },
   };
