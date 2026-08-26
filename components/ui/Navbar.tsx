@@ -9,6 +9,7 @@ import { FaBars, FaXmark } from "react-icons/fa6";
 const navItems = [
   { name: "Services", href: "/services" },
   { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -20,17 +21,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on page transition
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -45,7 +41,6 @@ export default function Navbar() {
         }`}
       >
         <div className="flex items-center justify-between">
-          {/* Left: Logo */}
           <a
             href="/"
             className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-white hover:opacity-90 transition"
@@ -63,10 +58,11 @@ export default function Navbar() {
             </span>
           </a>
 
-          {/* Middle: Links */}
           <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href));
               return (
                 <a
                   key={item.name}
@@ -88,20 +84,23 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Right: CTA & Mobile Menu Toggle */}
           <div className="flex items-center gap-3">
-            <span className="hidden lg:inline-flex items-center rounded-full px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 animate-pulseGlow">
-              ⚡ Fast & Secure
-            </span>
+            <a
+              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:inline-flex text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-white/30 transition"
+            >
+              Book a Call
+            </a>
 
             <a
               href="/contact"
-              className="hidden sm:inline-flex text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full bg-primary hover:bg-primary/95 text-white transition duration-300 shadow-md shadow-primary/10 hover:shadow-primary/20"
+              className="hidden sm:inline-flex text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full bg-primary hover:bg-primary/95 text-white transition duration-300 shadow-md shadow-primary/10"
             >
               Let’s Talk
             </a>
 
-            {/* Mobile Menu Icon */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex md:hidden h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 hover:text-white transition"
@@ -113,7 +112,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -125,7 +123,9 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-3">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/" && pathname.startsWith(item.href));
                 return (
                   <a
                     key={item.name}
@@ -139,6 +139,14 @@ export default function Navbar() {
                 );
               })}
               <div className="mt-4 pt-4 border-t border-white/5 flex flex-col gap-3">
+                <a
+                  href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center text-xs font-semibold uppercase tracking-wider py-3.5 rounded-xl border border-white/15 text-white transition"
+                >
+                  Book a Call
+                </a>
                 <a
                   href="/contact"
                   className="w-full text-center text-xs font-semibold uppercase tracking-wider py-3.5 rounded-xl bg-primary text-white transition"

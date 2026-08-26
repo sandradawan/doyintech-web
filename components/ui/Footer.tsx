@@ -19,7 +19,6 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
         <div className="grid gap-12 md:grid-cols-12">
-          {/* Brand Column */}
           <div className="md:col-span-5 flex flex-col justify-between">
             <ScrollReveal direction="up" delay={0.05}>
               <div>
@@ -39,7 +38,6 @@ export default function Footer() {
                   >
                     <FaWhatsapp size={18} />
                   </SocialIcon>
-
                   <SocialIcon
                     href="https://facebook.com/doyintechnology"
                     label="Facebook"
@@ -48,7 +46,6 @@ export default function Footer() {
                   >
                     <FaFacebook size={18} />
                   </SocialIcon>
-
                   <SocialIcon
                     href="https://x.com/@doyintechnology"
                     label="Twitter / X"
@@ -57,7 +54,6 @@ export default function Footer() {
                   >
                     <FaXTwitter size={18} />
                   </SocialIcon>
-
                   <SocialIcon
                     href="https://instagram.com/doyintechofficial"
                     label="Instagram"
@@ -66,7 +62,6 @@ export default function Footer() {
                   >
                     <FaInstagram size={18} />
                   </SocialIcon>
-
                   <SocialIcon
                     href="https://www.tiktok.com/@doyintechfoundation"
                     label="TikTok"
@@ -84,63 +79,53 @@ export default function Footer() {
             </ScrollReveal>
           </div>
 
-          {/* Quick Links */}
           <div className="md:col-span-3">
             <ScrollReveal direction="up" delay={0.1}>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
                 Quick Links
               </h3>
               <div className="mt-6 flex flex-col gap-3.5 text-sm text-gray-400">
-                <a className="hover:text-primary transition duration-200" href="/services">
-                  Services
-                </a>
-                <a className="hover:text-primary transition duration-200" href="/portfolio">
-                  Portfolio
-                </a>
-                <a className="hover:text-primary transition duration-200" href="/about">
-                  About
-                </a>
-                <a className="hover:text-primary transition duration-200" href="/contact">
-                  Contact
-                </a>
-                <a className="hover:text-primary transition duration-200" href="/privacy">
-                  Privacy Policy
-                </a>
-                <a className="hover:text-primary transition duration-200" href="/terms">
-                  Terms of Service
-                </a>
+                <a className="hover:text-primary transition" href="/services">Services</a>
+                <a className="hover:text-primary transition" href="/portfolio">Portfolio</a>
+                <a className="hover:text-primary transition" href="/blog">Blog</a>
+                <a className="hover:text-primary transition" href="/company-profile">Company Profile</a>
+                <a className="hover:text-primary transition" href="/about">About</a>
+                <a className="hover:text-primary transition" href="/contact">Contact</a>
+                <a className="hover:text-primary transition" href="/privacy">Privacy</a>
+                <a className="hover:text-primary transition" href="/terms">Terms</a>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Contact & CTA */}
           <div className="md:col-span-4">
             <ScrollReveal direction="up" delay={0.15}>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
                 Contact details
               </h3>
               <div className="mt-6 flex flex-col gap-3 text-sm text-gray-400">
-                <a
-                  className="hover:text-primary transition duration-200"
-                  href="mailto:doyintechnology@outlook.com"
-                >
+                <a className="hover:text-primary transition" href="mailto:doyintechnology@outlook.com">
                   doyintechnology@outlook.com
                 </a>
-                <a
-                  className="hover:text-primary transition duration-200"
-                  href="tel:+2348085343926"
-                >
+                <a className="hover:text-primary transition" href="tel:+2348085343926">
                   +234 808 534 3926
                 </a>
                 <p className="text-gray-500 mt-1">Jos, Nigeria • Available Remote</p>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 flex flex-col gap-3">
                 <a
                   href="/contact"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-primary/95 transition duration-300 shadow-lg shadow-primary/10 hover:shadow-primary/25"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-primary/95 transition"
                 >
                   Start a Project
+                </a>
+                <a
+                  href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/5 transition"
+                >
+                  Book a Call
                 </a>
               </div>
             </ScrollReveal>
@@ -172,20 +157,12 @@ function SocialIcon({
       aria-label={label}
       className="group relative h-10 w-10 rounded-xl border border-white/10 bg-white/5 hover:border-primary/50 hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
     >
-      <span
-        className={[
-          "transition-all duration-300 ease-out",
-          "group-hover:-translate-y-0.5 group-hover:scale-110",
-          colorClass,
-        ].join(" ")}
-      >
+      <span className={["transition-all duration-300 group-hover:-translate-y-0.5 group-hover:scale-110", colorClass].join(" ")}>
         {children}
       </span>
       <span
         className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{
-          boxShadow: `0 0 16px 2px ${glow}`,
-        }}
+        style={{ boxShadow: `0 0 16px 2px ${glow}` }}
       />
     </a>
   );
