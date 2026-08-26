@@ -2,6 +2,8 @@ import "./globals.css";
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
@@ -57,6 +59,8 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <WhatsAppButton />
+        <CookieConsent />
       </body>
     </html>
   );
