@@ -9,35 +9,35 @@ import Scene from "../three/Scene";
 const slides = [
   {
     title: "Website & Web Applications Development",
-    desc: "Building large-scale and small-scale business web applications for digital visibility and edge cutting technology.",
+    desc: "Production-grade web apps and business websites built for performance, conversion and long-term growth.",
     img: "/services/web.png",
     accent: "text-blue-400",
     glow: "rgba(59, 130, 246, 0.18)",
   },
   {
     title: "High-Performance Backend Engineering",
-    desc: "Scalable APIs, microservices, secure caching, message queues, and professional database query tuning.",
+    desc: "Laravel, PHP, Node.js, MySQL & PostgreSQL systems — secure APIs, microservices and databases that scale.",
     img: "/services/backend.png",
     accent: "text-indigo-400",
     glow: "rgba(99, 102, 241, 0.18)",
   },
   {
     title: "Secure API Development & Gateways",
-    desc: "Auth validation, rate limiting, comprehensive swagger docs, usage telemetry, and API analytics integrations.",
+    desc: "Auth, rate limiting, documentation and telemetry so your integrations stay reliable and measurable.",
     img: "/services/api.png",
     accent: "text-cyan-400",
     glow: "rgba(34, 211, 238, 0.18)",
   },
   {
     title: "Premium Flutter Mobile Applications",
-    desc: "Cross-platform Android and iOS solutions designed with clean architecture and fluid micro-interactions.",
+    desc: "Cross-platform Android and iOS apps with clean architecture and fluid, native-feeling interactions.",
     img: "/services/mobile.png",
     accent: "text-violet-400",
     glow: "rgba(139, 92, 246, 0.18)",
   },
   {
-    title: "Scalable Systems & Infrastructure Design",
-    desc: "Architecting fail-safe systems, load balanced workflows, and cloud-native databases designed for real growth.",
+    title: "AI Automation & System Design",
+    desc: "Practical AI workflows and scalable infrastructure that remove manual work and support real growth.",
     img: "/services/system.png",
     accent: "text-teal-400",
     glow: "rgba(20, 184, 166, 0.18)",
@@ -69,7 +69,6 @@ export default function Hero() {
     pausedElapsed.current = 0;
   }, []);
 
-  // Smooth progress using requestAnimationFrame
   useEffect(() => {
     if (prefersReducedMotion) return;
 
@@ -118,7 +117,6 @@ export default function Hero() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Slideshow with refined Ken Burns */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
           <motion.div
@@ -144,7 +142,6 @@ export default function Hero() {
         </AnimatePresence>
       </div>
 
-      {/* Dynamic accent glow that follows the slide color */}
       <motion.div
         key={`glow-${current}`}
         className="absolute inset-0 z-[1] pointer-events-none"
@@ -156,16 +153,13 @@ export default function Hero() {
         }}
       />
 
-      {/* Premium gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent z-[1]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-[#0B0E14] z-[1]" />
 
-      {/* Floating 3D Ambient Mesh Layer */}
       <div className="absolute top-1/2 right-[6%] -translate-y-1/2 w-[480px] h-[480px] hidden lg:block z-[2] opacity-70 pointer-events-none">
         <Scene />
       </div>
 
-      {/* Core Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
         <div className="grid lg:grid-cols-12 gap-8 w-full items-center">
           <div className="lg:col-span-8 max-w-3xl">
@@ -204,7 +198,7 @@ export default function Hero() {
                   className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium tracking-wide text-gray-300 backdrop-blur-sm"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                  Premium Digital Engineering
+                  Production-grade engineering for African businesses
                 </motion.span>
 
                 <motion.h1
@@ -262,10 +256,10 @@ export default function Hero() {
                   </a>
 
                   <a
-                    href="/services"
+                    href="/portfolio"
                     className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl border border-white/15 text-white font-medium hover:bg-white/5 hover:border-white/30 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-center"
                   >
-                    View Services
+                    View Portfolio
                   </a>
                 </motion.div>
               </motion.div>
@@ -274,7 +268,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Progress + Controls */}
       <div className="absolute bottom-10 inset-x-0 z-20">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div className="flex items-center gap-3 w-full sm:max-w-lg">

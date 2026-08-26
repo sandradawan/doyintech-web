@@ -1,5 +1,6 @@
 import Hero from "@/components/hero/Hero";
 import Stats from "@/components/sections/Stats";
+import ClientLogos from "@/components/sections/ClientLogos";
 import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
@@ -16,6 +17,7 @@ export default function Home() {
       <main className="pt-16">
         <Hero />
         <Stats />
+        <ClientLogos />
         <Services />
         <Process />
         <Projects />
