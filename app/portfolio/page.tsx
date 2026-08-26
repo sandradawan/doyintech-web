@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import Footer from "@/components/ui/Footer";
@@ -15,7 +14,6 @@ const categories = [
   { id: "brand", label: "Brand & Creative" },
 ];
 
-// Real live screenshots via Thum.io (free, no key required)
 const shot = (url: string) =>
   `https://image.thum.io/get/width/900/crop/560/noanimate/${url}`;
 
@@ -28,6 +26,7 @@ const projects = [
     img: shot("https://www.imperialvillapropertydevelopment.com"),
     category: "property",
     liveUrl: "https://www.imperialvillapropertydevelopment.com",
+    caseStudyUrl: "/case-studies/imperial-villa",
   },
   {
     title: "Imperial Villa Client Portal",
@@ -37,6 +36,7 @@ const projects = [
     img: shot("https://portal.imperialvillapropertydevelopment.com"),
     category: "property",
     liveUrl: "https://portal.imperialvillapropertydevelopment.com",
+    caseStudyUrl: "/case-studies/imperial-villa",
   },
   {
     title: "Imperial Villa Management System",
@@ -46,6 +46,7 @@ const projects = [
     img: shot("https://system.imperialvillapropertydevelopment.com"),
     category: "saas",
     liveUrl: "https://system.imperialvillapropertydevelopment.com",
+    caseStudyUrl: "/case-studies/imperial-villa",
   },
   {
     title: "IPVL Lobby Dashboard",
@@ -73,6 +74,7 @@ const projects = [
     img: shot("https://doyinsoft.vercel.app"),
     category: "web",
     liveUrl: "https://doyinsoft.vercel.app",
+    caseStudyUrl: "/case-studies/doyinmart",
   },
   {
     title: "LegacyPlay",
@@ -82,6 +84,7 @@ const projects = [
     img: shot("https://legacyplay.vercel.app"),
     category: "web",
     liveUrl: "https://legacyplay.vercel.app",
+    caseStudyUrl: "/case-studies/legacyplay",
   },
   {
     title: "JennyGlams",
@@ -127,7 +130,7 @@ export default function PortfolioPage() {
                   Selected Work
                 </h1>
                 <p className="mt-5 text-gray-400 max-w-xl leading-relaxed">
-                  Real products and platforms built and shipped. Every card shows a live screenshot of the actual website and links to it.
+                  Real products and platforms built and shipped. Live screenshots + case studies where available.
                 </p>
               </div>
 
@@ -171,7 +174,6 @@ export default function PortfolioPage() {
                 >
                   <div>
                     <div className="relative h-56 overflow-hidden border-b border-white/5 bg-[#0B0E14]">
-                      {/* Real live website screenshot */}
                       <img
                         src={p.img}
                         alt={`Screenshot of ${p.title}`}
@@ -219,6 +221,14 @@ export default function PortfolioPage() {
                       >
                         Visit Live Site <FaExternalLinkAlt size={11} />
                       </a>
+                      {p.caseStudyUrl && (
+                        <a
+                          href={p.caseStudyUrl}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-gray-300 text-xs font-semibold hover:border-primary hover:text-white transition duration-300"
+                        >
+                          View Case Study
+                        </a>
+                      )}
                     </div>
                   </div>
                 </motion.div>
