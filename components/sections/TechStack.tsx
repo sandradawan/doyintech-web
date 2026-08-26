@@ -7,9 +7,13 @@ const technologies = [
   { name: "React", category: "Frontend" },
   { name: "TypeScript", category: "Language" },
   { name: "Flutter", category: "Mobile" },
+  { name: "Laravel", category: "Backend" },
+  { name: "PHP", category: "Backend" },
   { name: "Node.js", category: "Backend" },
+  { name: "MySQL", category: "Database" },
   { name: "PostgreSQL", category: "Database" },
   { name: "Redis", category: "Cache" },
+  { name: "AI Automation", category: "AI" },
   { name: "Docker", category: "DevOps" },
   { name: "Tailwind CSS", category: "Styling" },
   { name: "Framer Motion", category: "Animation" },
@@ -30,7 +34,7 @@ export default function TechStack() {
               Modern stack. Production-ready tools.
             </h2>
             <p className="mt-4 text-gray-400">
-              We choose technologies that scale, stay maintainable, and deliver real performance.
+              We choose technologies that scale, stay maintainable, and deliver real performance — from classic PHP/Laravel systems to modern AI-powered automation.
             </p>
           </div>
         </ScrollReveal>
