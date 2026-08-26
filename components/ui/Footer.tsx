@@ -7,6 +7,7 @@ import {
   FaInstagram,
   FaTiktok,
   FaXTwitter,
+  FaYoutube,
 } from "react-icons/fa6";
 import ScrollReveal from "../animations/ScrollReveal";
 
@@ -29,7 +30,7 @@ export default function Footer() {
                   We engineer premium, scalable backend systems, secure APIs, and high-performance mobile/web applications designed to scale with your business.
                 </p>
 
-                <div className="mt-6 flex items-center gap-3">
+                <div className="mt-6 flex items-center gap-3 flex-wrap">
                   <SocialIcon
                     href="https://wa.me/2348085343926"
                     label="WhatsApp"
@@ -37,6 +38,14 @@ export default function Footer() {
                     glow="rgba(37, 211, 102, 0.45)"
                   >
                     <FaWhatsapp size={18} />
+                  </SocialIcon>
+                  <SocialIcon
+                    href="https://www.youtube.com/@doyintechfoundation"
+                    label="YouTube"
+                    colorClass="text-[#FF0000]"
+                    glow="rgba(255, 0, 0, 0.4)"
+                  >
+                    <FaYoutube size={18} />
                   </SocialIcon>
                   <SocialIcon
                     href="https://facebook.com/doyintechnology"
