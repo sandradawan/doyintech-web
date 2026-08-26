@@ -206,8 +206,8 @@ export default function CompanyProfilePage() {
             </h2>
             <div className="grid sm:grid-cols-2 gap-3 text-sm text-gray-300">
               <p>
-                <span className="text-gray-500">Registered Name:</span>{" "}{
-                DOYIN&apos;S TECHNOLOGY
+                <span className="text-gray-500">Registered Name:</span>{" "}
+                DOYIN'S TECHNOLOGY
               </p>
               <p>
                 <span className="text-gray-500">CAC Reg. No:</span> 9380561
