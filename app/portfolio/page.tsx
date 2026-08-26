@@ -3,77 +3,99 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import Footer from "@/components/ui/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 
 const categories = [
   { id: "all", label: "All Projects" },
-  { id: "api", label: "APIs & Backend" },
+  { id: "property", label: "Property & Fintech" },
   { id: "web", label: "Web Platforms" },
   { id: "saas", label: "SaaS & Dashboards" },
+  { id: "brand", label: "Brand & Creative" },
 ];
 
 const projects = [
   {
-    title: "DoyinTech API Dashboard",
-    subtitle: "SaaS Control Center",
-    tags: ["Next.js", "Auth", "Usage Tracking", "API Keys", "Analytics"],
-    desc: "Full SaaS dashboard for managing KYC, Property AI, WhatsApp and Learn APIs — includes key management, usage telemetry, billing views and live testers.",
-    img: "/port-fintech.png",
-    category: "saas",
-    liveUrl: "https://doyintech-dashboard.vercel.app",
-    github: "https://github.com/sandradawan/doyintech-dashboard",
-  },
-  {
-    title: "DoyinTech KYC API",
-    subtitle: "Identity Verification",
-    tags: ["TypeScript", "BVN", "NIN", "Face Match", "Document OCR"],
-    desc: "Production-ready KYC & identity API for Nigerian fintech and proptech. Supports BVN/NIN verification, document extraction and face matching with live tester.",
-    img: "/service-api.png",
-    category: "api",
-    liveUrl: "https://doyintech-kyc-api.vercel.app",
-    github: "https://github.com/sandradawan/doyintech-kyc-api",
-  },
-  {
-    title: "DoyinTech Property AI API",
-    subtitle: "Real Estate Intelligence",
-    tags: ["AI", "TypeScript", "Listings", "Document Analysis"],
-    desc: "AI-powered property API that generates high-converting listing descriptions, analyzes title documents, summarizes reports and suggests improvements for Nigerian real estate.",
+    title: "Imperial Villa Property Website",
+    subtitle: "Premium Property Solutions",
+    tags: ["Next.js", "Property", "Mortgage", "Marketing"],
+    desc: "Official corporate website for ImperialVilla Property Development Ltd. Showcases estates, 25% Equity Mortgage solutions, testimonials and lead generation for premium property clients.",
     img: "/port-ecom.png",
-    category: "api",
-    liveUrl: "https://doyintech-property-api.vercel.app",
-    github: "https://github.com/sandradawan/doyintech-property-api",
+    category: "property",
+    liveUrl: "https://www.imperialvillapropertydevelopment.com",
+  },
+  {
+    title: "Imperial Villa Client Portal",
+    subtitle: "Secure Client Access",
+    tags: ["Auth", "Portal", "Pension", "Dashboard"],
+    desc: "Secure client-facing portal for ImperialVilla. Handles sign-in, pension management messaging and 25% equity mortgage client onboarding experience.",
+    img: "/port-fintech.png",
+    category: "property",
+    liveUrl: "https://portal.imperialvillapropertydevelopment.com",
+  },
+  {
+    title: "Imperial Villa Management System",
+    subtitle: "Staff & Branch Operations",
+    tags: ["Dashboard", "Client Management", "RSA", "Multi-branch"],
+    desc: "Internal staff portal and operations system for ImperialVilla Property Development. Manages 1,800+ clients, RSA accounts, fund disbursements across multiple branches and PFA partners.",
+    img: "/service-backend.png",
+    category: "saas",
+    liveUrl: "https://system.imperialvillapropertydevelopment.com",
+  },
+  {
+    title: "IPVL Lobby Dashboard",
+    subtitle: "Operations Lobby",
+    tags: ["Dashboard", "Real-time", "Operations"],
+    desc: "Lobby and operations dashboard for ImperialVilla (IPVL). Provides real-time overview and staff access point for the property & pension facilitation platform.",
+    img: "/service-api.png",
+    category: "saas",
+    liveUrl: "https://ipvl.vercel.app",
+  },
+  {
+    title: "DoyinTech Official Website",
+    subtitle: "Engineering Agency Brand",
+    tags: ["Next.js 16", "Framer Motion", "Three.js", "Tailwind"],
+    desc: "The official DoyinTech website — premium dark UI, animated hero, 3D ambient scene, services, portfolio and contact flows. Built for conversion and brand presence.",
+    img: "/services/web.png",
+    category: "web",
+    liveUrl: "https://doyintech.vercel.app",
   },
   {
     title: "DoyinMart",
     subtitle: "African Software Marketplace",
-    tags: ["Next.js", "Marketplace", "Payments", "Product Catalog"],
-    desc: "A modern marketplace platform built for African markets — software products, learning systems, logistics tools and design assets with ratings and pricing in local currency.",
+    tags: ["Next.js", "Marketplace", "E-commerce", "Products"],
+    desc: "A modern marketplace platform built for African markets. Features software products, learning systems, logistics tools and design assets with local pricing and ratings.",
     img: "/port-edu.png",
     category: "web",
     liveUrl: "https://doyinsoft.vercel.app",
-    github: "https://github.com/sandradawan/doyinsoft",
   },
   {
-    title: "DoyinTech Website",
-    subtitle: "Agency & Engineering Brand",
-    tags: ["Next.js 16", "Framer Motion", "Three.js", "Tailwind"],
-    desc: "The official DoyinTech website — premium dark UI, 3D ambient scene, animated hero slideshow, services, portfolio and contact flows. Built for conversion and brand presence.",
-    img: "/services/web.png",
-    category: "web",
-    liveUrl: "https://doyintech-web.vercel.app",
-    github: "https://github.com/sandradawan/doyintech-web",
-  },
-  {
-    title: "Church / Community Platform",
-    subtitle: "Membership • Giving • Events",
-    tags: ["Next.js", "PostgreSQL", "Paystack", "Admin Panel"],
-    desc: "All-in-one community system with online giving, event scheduling, membership management and admin dashboard — designed for churches and community organizations.",
+    title: "LegacyPlay",
+    subtitle: "PlayStation Gaming Lounge",
+    tags: ["Next.js", "Booking", "Tournaments", "Local Business"],
+    desc: "Complete website for LegacyPlay — Abuja’s premium PlayStation gaming lounge. Station booking, tournament listings, pricing, location and WhatsApp integration.",
     img: "/port-church.png",
     category: "web",
-    liveUrl: null,
-    github: null,
+    liveUrl: "https://legacyplay.vercel.app",
+  },
+  {
+    title: "JennyGlams",
+    subtitle: "Makeup Artistry Brand",
+    tags: ["Next.js", "Portfolio", "Booking", "Creative"],
+    desc: "Elegant portfolio and booking site for JennyGlams (Jennifer Jesse) — Jos-based makeup artist specialising in bridal, soft glam, editorial and masterclasses.",
+    img: "/port-fintech.png",
+    category: "brand",
+    liveUrl: "https://jennyglams.vercel.app",
+  },
+  {
+    title: "Arqademy CBT Platform",
+    subtitle: "Computer-Based Testing",
+    tags: ["CBT", "Education", "Exam Platform"],
+    desc: "Computer-Based Testing platform under the Arqademy domain. Built for practice exams, student assessment and digital learning workflows.",
+    img: "/service-arch.png",
+    category: "saas",
+    liveUrl: "https://cbt.arqademy.com.ng",
   },
 ];
 
@@ -87,7 +109,6 @@ export default function PortfolioPage() {
   return (
     <>
       <main className="pt-32 pb-24 bg-[#0B0E14] relative overflow-hidden">
-        {/* Decorative backdrop gradients */}
         <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
@@ -102,11 +123,10 @@ export default function PortfolioPage() {
                   Selected Work
                 </h1>
                 <p className="mt-5 text-gray-400 max-w-xl leading-relaxed">
-                  Real products and APIs shipped by DoyinTech. Click any card to open the live project or repository.
+                  Real products and platforms built and shipped. Every card links to the live site.
                 </p>
               </div>
 
-              {/* Filtering Selector */}
               <div className="flex flex-wrap gap-2 rounded-xl bg-white/5 border border-white/10 p-1.5 self-start md:self-auto">
                 {categories.map((cat) => (
                   <button
@@ -132,7 +152,6 @@ export default function PortfolioPage() {
             </div>
           </ScrollReveal>
 
-          {/* Grid */}
           <motion.div layout className="mt-14 grid md:grid-cols-2 gap-8">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((p) => (
@@ -147,7 +166,6 @@ export default function PortfolioPage() {
                   className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-black/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
                 >
                   <div>
-                    {/* Banner Image */}
                     <div className="relative h-56 overflow-hidden border-b border-white/5">
                       <Image
                         src={p.img}
@@ -156,14 +174,11 @@ export default function PortfolioPage() {
                         className="object-cover object-top opacity-90 transition duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-black/25 to-transparent" />
-
-                      {/* Floating category tag */}
                       <span className="absolute top-4 right-4 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-gray-300 backdrop-blur-md">
                         {p.category}
                       </span>
                     </div>
 
-                    {/* Content */}
                     <div className="p-6">
                       <div className="flex flex-wrap gap-2 mb-4">
                         {p.tags.map((tag) => (
@@ -189,37 +204,16 @@ export default function PortfolioPage() {
                     </div>
                   </div>
 
-                  {/* Actions */}
                   <div className="p-6 pt-0 mt-auto">
                     <div className="border-t border-white/5 pt-5 flex flex-wrap items-center gap-3">
-                      {p.liveUrl && (
-                        <a
-                          href={p.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary/95 transition duration-300 hover:scale-[1.02]"
-                        >
-                          Live Site <FaExternalLinkAlt size={11} />
-                        </a>
-                      )}
-                      {p.github && (
-                        <a
-                          href={p.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 hover:border-primary text-gray-300 text-xs font-semibold transition duration-300"
-                        >
-                          <FaGithub size={14} /> Code
-                        </a>
-                      )}
-                      {!p.liveUrl && !p.github && (
-                        <a
-                          href="/contact"
-                          className="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary/95 transition duration-300"
-                        >
-                          Request Similar Build
-                        </a>
-                      )}
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary/95 transition duration-300 hover:scale-[1.02]"
+                      >
+                        Visit Live Site <FaExternalLinkAlt size={11} />
+                      </a>
                     </div>
                   </div>
                 </motion.div>
