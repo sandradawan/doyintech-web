@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollReveal from "../animations/ScrollReveal";
 
@@ -12,12 +11,15 @@ const categories = [
   { id: "saas", label: "SaaS & Dashboards" },
 ];
 
+const shot = (url: string) =>
+  `https://image.thum.io/get/width/900/crop/560/noanimate/${url}`;
+
 const projects = [
   {
     title: "Imperial Villa Property",
     subtitle: "Corporate Website + Mortgage Solutions",
     tags: ["Next.js", "Property", "25% Equity Mortgage"],
-    img: "/port-ecom.png",
+    img: shot("https://www.imperialvillapropertydevelopment.com"),
     category: "property",
     liveUrl: "https://www.imperialvillapropertydevelopment.com",
   },
@@ -25,7 +27,7 @@ const projects = [
     title: "Imperial Villa System",
     subtitle: "Staff Portal • Client Management",
     tags: ["Dashboard", "Multi-branch", "RSA Accounts"],
-    img: "/service-backend.png",
+    img: shot("https://system.imperialvillapropertydevelopment.com"),
     category: "saas",
     liveUrl: "https://system.imperialvillapropertydevelopment.com",
   },
@@ -33,7 +35,7 @@ const projects = [
     title: "DoyinMart",
     subtitle: "African Software Marketplace",
     tags: ["Next.js", "Marketplace", "E-commerce"],
-    img: "/port-edu.png",
+    img: shot("https://doyinsoft.vercel.app"),
     category: "web",
     liveUrl: "https://doyinsoft.vercel.app",
   },
@@ -41,7 +43,7 @@ const projects = [
     title: "LegacyPlay",
     subtitle: "PlayStation Gaming Lounge",
     tags: ["Next.js", "Booking", "Tournaments"],
-    img: "/port-church.png",
+    img: shot("https://legacyplay.vercel.app"),
     category: "web",
     liveUrl: "https://legacyplay.vercel.app",
   },
@@ -69,7 +71,7 @@ export default function Projects() {
                 Engineered Solutions
               </h2>
               <p className="mt-4 text-gray-400 max-w-xl">
-                Real platforms and systems shipped for clients and brands. Every project links to the live site.
+                Real platforms and systems shipped for clients and brands. Every project shows a live screenshot and links to the actual site.
               </p>
             </div>
 
@@ -112,14 +114,14 @@ export default function Projects() {
                 <div className="pointer-events-none absolute -top-16 -left-16 h-48 w-48 rounded-full bg-primary/15 blur-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
                 <div className="pointer-events-none absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
 
-                <div className="relative h-56 overflow-hidden">
-                  <Image
+                <div className="relative h-56 overflow-hidden bg-[#0B0E14]">
+                  <img
                     src={p.img}
-                    alt={p.title}
-                    fill
-                    className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
+                    alt={`Screenshot of ${p.title}`}
+                    className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F] via-black/35 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F] via-black/30 to-transparent" />
                   <span className="absolute top-4 right-4 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gray-300 backdrop-blur-md">
                     {p.category}
                   </span>
