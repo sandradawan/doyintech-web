@@ -56,6 +56,7 @@ const projects = [
     img: shot("https://ipvl.vercel.app"),
     category: "saas",
     liveUrl: "https://ipvl.vercel.app",
+    caseStudyUrl: "/case-studies/ipvl",
   },
   {
     title: "DoyinTech Official Website",
@@ -94,6 +95,7 @@ const projects = [
     img: shot("https://jennyglams.vercel.app"),
     category: "brand",
     liveUrl: "https://jennyglams.vercel.app",
+    caseStudyUrl: "/case-studies/jennyglams",
   },
   {
     title: "Arqademy CBT Platform",
@@ -103,6 +105,7 @@ const projects = [
     img: shot("https://cbt.arqademy.com.ng"),
     category: "saas",
     liveUrl: "https://cbt.arqademy.com.ng",
+    caseStudyUrl: "/case-studies/arqademy-cbt",
   },
 ];
 
