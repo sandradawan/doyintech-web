@@ -1,8 +1,11 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
+import ShareBar from "@/components/blog/ShareBar";
 
 export const metadata = {
   title: "Laravel vs Node.js — When to Choose Which",
+  description:
+    "Both are excellent. The right choice depends on your team, timeline, and the type of product you’re building.",
 };
 
 export default function Post() {
@@ -13,30 +16,66 @@ export default function Post() {
           <Link href="/blog" className="text-sm text-primary hover:underline">
             ← Back to Blog
           </Link>
-          <p className="mt-8 text-sm text-primary font-medium">Engineering · August 2026</p>
+          <p className="mt-8 text-sm text-primary font-medium">
+            Engineering · August 2026 · 5 min read
+          </p>
           <h1 className="mt-3 font-display text-3xl md:text-4xl font-bold text-white leading-tight">
             Laravel vs Node.js — When to Choose Which
           </h1>
           <div className="mt-10 space-y-6 text-gray-300 leading-relaxed">
             <p>
-              Both Laravel and Node.js are excellent choices for modern backends. The decision usually comes down to team skills, project type, and long-term maintenance.
+              Both Laravel and Node.js are excellent choices for production
+              systems. The right pick depends less on internet debates and more
+              on your team skills, delivery timeline, and the product shape.
             </p>
             <p>
-              <strong className="text-white">Laravel</strong> shines for business applications, admin panels, content systems, and projects that benefit from a structured, batteries-included framework. It is especially strong when you need rapid development with clear conventions.
+              <strong className="text-white">Laravel</strong> shines when you
+              need structured MVC apps, admin panels, batteries-included auth,
+              and rapid business-logic delivery with PHP talent available.
             </p>
             <p>
-              <strong className="text-white">Node.js</strong> is often preferred for real-time features, heavy API workloads, and teams already deep in the JavaScript/TypeScript ecosystem.
+              <strong className="text-white">Node.js</strong> is strong for
+              real-time features, JavaScript/TypeScript full-stack teams, and
+              API-heavy products that share language across frontend and backend.
             </p>
             <p>
-              At DoyinTech we work with both. We help you pick the stack that fits your product and your team — not the one that is currently trending.
+              At DoyinTech we ship both. We help you choose based on maintainers,
+              risk, and time-to-value — then we build it properly.
             </p>
             <div className="pt-6">
               <a
                 href="/contact"
                 className="inline-flex px-6 py-3 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 transition"
               >
-                Get advice on your stack
+                Get a stack recommendation
               </a>
+            </div>
+
+            <ShareBar
+              title="Laravel vs Node.js — When to Choose Which"
+              path="/blog/laravel-vs-node-when-to-choose"
+            />
+
+            <div className="border-t border-white/10 pt-8">
+              <p className="text-sm font-semibold text-white mb-3">Related</p>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link
+                    href="/blog/why-production-grade-backends-matter"
+                    className="text-primary hover:underline"
+                  >
+                    Why Production-Grade Backends Matter
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/services/backend"
+                    className="text-primary hover:underline"
+                  >
+                    Backend Engineering services
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </article>
