@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CookieConsent from "@/components/ui/CookieConsent";
+import ChatBot from "@/components/ui/ChatBot";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
@@ -97,6 +98,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <ChatBot />
         <WhatsAppButton />
         <CookieConsent />
       </body>
