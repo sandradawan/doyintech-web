@@ -55,9 +55,9 @@ export default function AIAutomationPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Investment range</h2>
+              <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li>Single workflow pilot — from ₦250k</li>
+                <li>Single workflow pilot — from $150</li>
                 <li>Multi-process automation package — custom quote</li>
               </ul>
             </section>
