@@ -59,10 +59,10 @@ export default function MobileServicePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Investment range</h2>
+              <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li>Focused utility app — from ₦500k</li>
-                <li>Full product MVP — typically ₦1.2m–₦4m+</li>
+                <li>Focused utility app — from $350</li>
+                <li>Full product MVP — typically $800–$2,800+</li>
               </ul>
             </section>
 
