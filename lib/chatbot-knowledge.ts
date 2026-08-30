@@ -24,9 +24,19 @@ export const INTENTS: ChatIntent[] = [
   },
   {
     id: "pricing",
-    keywords: ["price", "pricing", "cost", "how much", "budget", "rate", "₦", "naira"],
+    keywords: [
+      "price",
+      "pricing",
+      "cost",
+      "how much",
+      "budget",
+      "rate",
+      "dollar",
+      "usd",
+      "$",
+    ],
     answer:
-      "Pricing depends on scope. Typical ranges:\n• API / module work — from ₦300k\n• Backend MVP — often ₦800k–₦2.5m+\n• Flutter MVP — often ₦1.2m–₦4m+\n• AI automation pilot — from ₦250k\n\nShare your idea and we will give a clearer quote. Want me to connect you on WhatsApp?",
+      "Pricing is quoted in USD and depends on scope. Typical ranges:\n• API / module work — from $200\n• Backend MVP — often $500–$1,800+\n• Flutter mobile MVP — often $800–$2,800+\n• AI automation pilot — from $150\n\nShare your idea and we will give a clearer quote. Want me to connect you on WhatsApp?",
   },
   {
     id: "timeline",
@@ -38,7 +48,7 @@ export const INTENTS: ChatIntent[] = [
     id: "location",
     keywords: ["where", "location", "jos", "nigeria", "based", "office"],
     answer:
-      "We are based in Jos, Nigeria, and work with clients locally and internationally. Remote delivery is standard.",
+      "We are based in Jos, Nigeria, and work with clients locally and internationally. Remote delivery is standard. Quotes are available in USD.",
   },
   {
     id: "contact",
@@ -62,7 +72,7 @@ export const INTENTS: ChatIntent[] = [
     id: "start",
     keywords: ["start", "begin", "hire", "quote", "proposal", "project"],
     answer:
-      "To start: tell us what you want to build, your timeline, and budget range. You can use the Contact form or continue on WhatsApp for a faster reply. Shall I hand you over to WhatsApp?",
+      "To start: tell us what you want to build, your timeline, and budget range (USD). You can use the Contact form or continue on WhatsApp for a faster reply. Shall I hand you over to WhatsApp?",
   },
   {
     id: "founder",
@@ -95,7 +105,7 @@ export function matchIntent(message: string): ChatIntent | null {
 
 export function defaultReply(): string {
   return (
-    "Thanks for your message. I can help with services, pricing, timelines, portfolio, and contact details.\n\n" +
+    "Thanks for your message. I can help with services, pricing (USD), timelines, portfolio, and contact details.\n\n" +
     "For a custom project discussion, continue on WhatsApp or leave your name and email and we will follow up.\n\n" +
     "Type a topic (e.g. pricing, Flutter, Laravel) or say human to talk to the team."
   );
