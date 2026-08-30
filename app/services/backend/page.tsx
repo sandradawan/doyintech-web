@@ -65,14 +65,14 @@ export default function BackendServicePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Investment range</h2>
+              <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
               <p className="text-gray-400 text-sm mb-3">
                 Indicative only — final quote depends on scope. We price clearly
                 after discovery.
               </p>
               <ul className="list-disc pl-5 space-y-2">
-                <li>API / module extensions — from ₦300k</li>
-                <li>Full product backend MVP — typically ₦800k–₦2.5m+</li>
+                <li>API / module extensions — from $200</li>
+                <li>Full product backend MVP — typically $500–$1,800+</li>
                 <li>Enterprise systems — custom proposal</li>
               </ul>
             </section>
