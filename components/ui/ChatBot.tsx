@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { FaComments, FaPaperPlane, FaTimes, FaWhatsapp } from "react-icons/fa";
-import { WHATSAPP_LINK } from "@/lib/chatbot-knowledge";
+import { FaPaperPlane, FaTimes, FaWhatsapp } from "react-icons/fa";
 
 type Msg = { role: "user" | "bot"; content: string };
 
@@ -13,6 +12,30 @@ const QUICK = [
   "Talk to a human",
 ];
 
+function ChatSparkIcon({ size = 26 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <path
+        d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8h-1.2L7 20.5V17.2C5.2 15.9 4 14.1 4 12z"
+        fill="currentColor"
+        opacity="0.95"
+      />
+      <path
+        d="M12 7.2l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7.7-1.9z"
+        fill="#0B0E14"
+      />
+      <circle cx="16.2" cy="9.2" r="0.7" fill="#0B0E14" opacity="0.7" />
+    </svg>
+  );
+}
+
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -21,7 +44,7 @@ export default function ChatBot() {
     {
       role: "bot",
       content:
-        "Hi — I am the DoyinTech assistant (available 24/7). Ask about services, pricing, timelines, or portfolio. Type human anytime to reach the team on WhatsApp.",
+        "Hi — I am the DoyinTech assistant (available 24/7). Ask about services, pricing in USD, timelines, or portfolio. Type human anytime to reach the team on WhatsApp.",
     },
   ]);
   const [showHandoff, setShowHandoff] = useState(false);
@@ -84,16 +107,14 @@ export default function ChatBot() {
           mode: "handoff",
           name: name.trim(),
           email: email.trim(),
-          message: messages.filter((m) => m.role === "user").slice(-1)[0]?.content || "",
+          message:
+            messages.filter((m) => m.role === "user").slice(-1)[0]?.content || "",
           history: messages,
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed");
-      setMessages((m) => [
-        ...m,
-        { role: "bot", content: data.reply },
-      ]);
+      setMessages((m) => [...m, { role: "bot", content: data.reply }]);
       setShowHandoff(false);
     } catch {
       setMessages((m) => [
@@ -121,22 +142,37 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Launcher — sits above the green WhatsApp button */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close chat" : "Open chat"}
-        className="fixed bottom-24 right-6 z-[100] flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/30 hover:scale-110 active:scale-95 transition-transform duration-300"
+        aria-label={open ? "Close chat" : "Open AI assistant"}
+        className="group fixed bottom-24 right-6 z-[100] flex h-14 w-14 items-center justify-center"
       >
-        {open ? <FaTimes size={20} /> : <FaComments size={22} />}
+        {/* Soft pulse ring when closed */}
+        {!open && (
+          <span className="absolute inset-0 animate-ping rounded-full bg-primary/40 opacity-40" />
+        )}
+        <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 via-primary to-rose-600 text-white shadow-xl shadow-primary/40 ring-2 ring-white/10 transition duration-300 group-hover:scale-110 group-active:scale-95">
+          {open ? <FaTimes size={18} /> : <ChatSparkIcon size={26} />}
+          {!open && (
+            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400 text-[9px] font-bold text-[#0B0E14] ring-2 ring-[#0B0E14]">
+              AI
+            </span>
+          )}
+        </span>
       </button>
 
       {open && (
         <div className="fixed bottom-40 right-4 z-[100] flex w-[min(100vw-2rem,380px)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#121826] shadow-2xl shadow-black/50 sm:right-6">
           <div className="flex items-center justify-between border-b border-white/10 bg-[#0B0E14] px-4 py-3">
-            <div>
-              <p className="text-sm font-semibold text-white">DoyinTech Assistant</p>
-              <p className="text-[11px] text-green-400">Online · 24/7</p>
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 via-primary to-rose-600 text-white">
+                <ChatSparkIcon size={20} />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-white">DoyinTech AI</p>
+                <p className="text-[11px] text-green-400">Online · Replies 24/7</p>
+              </div>
             </div>
             <a
               href={whatsappHref()}
@@ -161,9 +197,7 @@ export default function ChatBot() {
                 {m.content}
               </div>
             ))}
-            {loading && (
-              <p className="text-xs text-gray-500">Typing…</p>
-            )}
+            {loading && <p className="text-xs text-gray-500">Typing…</p>}
             <div ref={bottomRef} />
           </div>
 
