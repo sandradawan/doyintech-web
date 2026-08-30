@@ -111,7 +111,6 @@ export default function ContactPage() {
             className="mt-12 grid lg:grid-cols-12 gap-8 items-start"
           >
             <motion.div variants={item} className="lg:col-span-5 grid gap-4">
-              {/* Book a call — primary conversion */}
               <div className="rounded-2xl border border-primary/30 bg-primary/10 p-6">
                 <p className="text-sm font-semibold uppercase tracking-wider text-primary">
                   Fastest path
@@ -255,13 +254,13 @@ export default function ContactPage() {
                     />
                     <SelectField
                       name="budget"
-                      label="Budget Range (optional)"
+                      label="Budget Range USD (optional)"
                       options={[
                         "Not sure yet",
-                        "₦100k - ₦300k",
-                        "₦300k - ₦800k",
-                        "₦800k - ₦2m",
-                        "₦2m+",
+                        "$200 – $500",
+                        "$500 – $1,500",
+                        "$1,500 – $5,000",
+                        "$5,000+",
                       ]}
                     />
                   </div>
