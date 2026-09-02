@@ -8,6 +8,7 @@ import { FaBars, FaXmark } from "react-icons/fa6";
 
 const navItems = [
   { name: "Services", href: "/services" },
+  { name: "Tools", href: "/tools" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
@@ -86,6 +87,15 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <a
+              href="https://doyintechacademy.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden xl:inline-flex text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-white/30 transition"
+            >
+              Academy
+            </a>
+
+            <a
               href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
               target="_blank"
               rel="noopener noreferrer"
@@ -138,6 +148,14 @@ export default function Navbar() {
                   </a>
                 );
               })}
+              <a
+                href="https://doyintechacademy.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full rounded-xl p-3 text-sm font-semibold uppercase tracking-wider text-gray-300 hover:bg-white/5"
+              >
+                Academy
+              </a>
               <div className="mt-4 pt-4 border-t border-white/5 flex flex-col gap-3">
                 <a
                   href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
