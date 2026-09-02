@@ -18,14 +18,14 @@ export const BUSINESS_TYPES = [
 ] as const;
 
 export const WEBSITE_TYPES = [
-  { id: "landing", label: "Landing page", baseMin: 120_000, baseMax: 280_000, weeks: [1, 2] },
-  { id: "business", label: "Business website", baseMin: 250_000, baseMax: 650_000, weeks: [2, 5] },
-  { id: "ecommerce", label: "E-commerce website", baseMin: 450_000, baseMax: 1_400_000, weeks: [4, 10] },
-  { id: "booking", label: "Booking platform", baseMin: 500_000, baseMax: 1_600_000, weeks: [4, 12] },
-  { id: "school", label: "School portal", baseMin: 600_000, baseMax: 2_000_000, weeks: [6, 14] },
-  { id: "realestate", label: "Real estate platform", baseMin: 550_000, baseMax: 1_800_000, weeks: [5, 12] },
-  { id: "membership", label: "Membership platform", baseMin: 500_000, baseMax: 1_500_000, weeks: [4, 11] },
-  { id: "custom", label: "Custom web application", baseMin: 800_000, baseMax: 3_500_000, weeks: [8, 20] },
+  { id: "landing", label: "Landing page", baseMin: 120_000, baseMax: 280_000, weeks: [1, 2] as [number, number] },
+  { id: "business", label: "Business website", baseMin: 250_000, baseMax: 650_000, weeks: [2, 5] as [number, number] },
+  { id: "ecommerce", label: "E-commerce website", baseMin: 450_000, baseMax: 1_400_000, weeks: [4, 10] as [number, number] },
+  { id: "booking", label: "Booking platform", baseMin: 500_000, baseMax: 1_600_000, weeks: [4, 12] as [number, number] },
+  { id: "school", label: "School portal", baseMin: 600_000, baseMax: 2_000_000, weeks: [6, 14] as [number, number] },
+  { id: "realestate", label: "Real estate platform", baseMin: 550_000, baseMax: 1_800_000, weeks: [5, 12] as [number, number] },
+  { id: "membership", label: "Membership platform", baseMin: 500_000, baseMax: 1_500_000, weeks: [4, 11] as [number, number] },
+  { id: "custom", label: "Custom web application", baseMin: 800_000, baseMax: 3_500_000, weeks: [8, 20] as [number, number] },
 ] as const;
 
 export const FEATURES = [
@@ -98,8 +98,9 @@ export function calculateWebsitePrice(input: CalculatorInput): CalculatorResult 
   const wt =
     WEBSITE_TYPES.find((w) => w.id === input.websiteTypeId) || WEBSITE_TYPES[1];
 
-  let min = wt.baseMin;
-  let max = wt.baseMax;
+  // Explicit number so multipliers can reassign (const object literals narrow otherwise)
+  let min: number = wt.baseMin;
+  let max: number = wt.baseMax;
   const featureLabels: string[] = [];
 
   for (const id of input.featureIds) {
@@ -134,8 +135,8 @@ export function calculateWebsitePrice(input: CalculatorInput): CalculatorResult 
     notes.push("Hosting/domain setup included in range (first year estimate)");
   }
 
-  let weeksMin = wt.weeks[0];
-  let weeksMax = wt.weeks[1];
+  let weeksMin: number = wt.weeks[0];
+  let weeksMax: number = wt.weeks[1];
   if (input.timeline === "rush") {
     weeksMin = Math.max(1, Math.round(weeksMin * 0.7));
     weeksMax = Math.max(weeksMin + 1, Math.round(weeksMax * 0.75));
