@@ -11,6 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/backend",
     "/services/mobile",
     "/services/ai-automation",
+    "/tools",
+    "/tools/website-calculator",
+    "/tools/business-audit",
+    "/tools/cv-builder",
+    "/tools/digital-readiness",
     "/portfolio",
     "/blog",
     "/blog/why-production-grade-backends-matter",
@@ -32,7 +37,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((path) => ({
     url: `${BASE}${path}`,
     lastModified: now,
-    changeFrequency: path === "" || path === "/blog" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : path.startsWith("/case-studies") ? 0.7 : 0.8,
+    changeFrequency:
+      path === "" || path === "/blog" || path.startsWith("/tools")
+        ? "weekly"
+        : "monthly",
+    priority:
+      path === ""
+        ? 1
+        : path.startsWith("/tools")
+          ? 0.9
+          : path.startsWith("/case-studies")
+            ? 0.7
+            : 0.8,
   }));
 }
