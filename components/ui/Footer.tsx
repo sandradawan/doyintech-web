@@ -95,8 +95,10 @@ export default function Footer() {
               </h3>
               <div className="mt-6 flex flex-col gap-3.5 text-sm text-gray-400">
                 <a className="hover:text-primary transition" href="/services">Services</a>
+                <a className="hover:text-primary transition" href="/tools">Free Tools</a>
                 <a className="hover:text-primary transition" href="/portfolio">Portfolio</a>
                 <a className="hover:text-primary transition" href="/blog">Blog</a>
+                <a className="hover:text-primary transition" href="https://doyintechacademy.vercel.app" target="_blank" rel="noopener noreferrer">Academy</a>
                 <a className="hover:text-primary transition" href="/company-profile">Company Profile</a>
                 <a className="hover:text-primary transition" href="/about">About</a>
                 <a className="hover:text-primary transition" href="/contact">Contact</a>
@@ -129,12 +131,10 @@ export default function Footer() {
                   Start a Project
                 </a>
                 <a
-                  href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/tools"
                   className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/5 transition"
                 >
-                  Book a Call
+                  Free Tools
                 </a>
               </div>
             </ScrollReveal>
