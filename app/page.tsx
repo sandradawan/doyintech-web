@@ -2,6 +2,7 @@ import Hero from "@/components/hero/Hero";
 import Stats from "@/components/sections/Stats";
 import ClientLogos from "@/components/sections/ClientLogos";
 import Services from "@/components/sections/Services";
+import ToolsSection from "@/components/sections/ToolsSection";
 import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
@@ -19,6 +20,7 @@ export default function Home() {
         <Stats />
         <ClientLogos />
         <Services />
+        <ToolsSection />
         <Process />
         <Projects />
         <TechStack />
