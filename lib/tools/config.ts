@@ -4,7 +4,7 @@ export const TOOLS_CONFIG = {
   siteUrl: "https://doyintech.vercel.app",
   academyUrl: "https://doyintechacademy.vercel.app",
   email: "doyintechnology@outlook.com",
-  whatsappNumber: "2348085343926", // digits only, no +
+  whatsappNumber: "2348085343926",
   phoneDisplay: "+234 808 534 3926",
   currency: "NGN" as const,
   currencySymbol: "₦",
@@ -14,41 +14,220 @@ export function whatsappUrl(message: string) {
   return `https://wa.me/${TOOLS_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export const TOOLS_META = [
+export type ToolMeta = {
+  slug: string;
+  href: string;
+  title: string;
+  short: string;
+  description: string;
+  icon: string;
+  category: "core" | "business" | "career" | "ai" | "utility";
+};
+
+export const TOOLS_META: ToolMeta[] = [
+  // Core (existing)
   {
     slug: "website-calculator",
     href: "/tools/website-calculator",
     title: "Website Price Calculator",
     short: "Estimate what your website project could cost.",
-    description:
-      "Interactive website development cost estimator for Nigerian businesses. Get an estimated project range in Naira.",
+    description: "Interactive website development cost estimator for Nigerian businesses.",
     icon: "calculator",
+    category: "core",
   },
   {
     slug: "business-audit",
     href: "/tools/business-audit",
     title: "Business Audit Tool",
     short: "Discover what's holding your business back online.",
-    description:
-      "Free online business digital audit. Score your website, SEO, payments, and social presence.",
+    description: "Free online business digital audit.",
     icon: "audit",
+    category: "core",
   },
   {
     slug: "cv-builder",
     href: "/tools/cv-builder",
     title: "CV & Portfolio Builder",
     short: "Create a professional CV and portfolio.",
-    description:
-      "Free professional CV and portfolio generator for students, developers, and job seekers in Nigeria.",
+    description: "Free professional CV and portfolio generator.",
     icon: "cv",
+    category: "core",
   },
   {
     slug: "digital-readiness",
     href: "/tools/digital-readiness",
     title: "Digital Readiness Checker",
-    short: "Measure how ready your business is for the digital economy.",
-    description:
-      "Assess your business digital transformation readiness across presence, payments, marketing, and security.",
+    short: "Measure digital economy readiness.",
+    description: "Assess digital transformation readiness.",
     icon: "readiness",
+    category: "core",
   },
-] as const;
+  // Business
+  {
+    slug: "project-brief",
+    href: "/tools/project-brief",
+    title: "Project Brief Generator",
+    short: "Turn your idea into a clear project brief.",
+    description: "Structured project brief for websites, apps, and automation.",
+    icon: "brief",
+    category: "business",
+  },
+  {
+    slug: "tech-stack",
+    href: "/tools/tech-stack",
+    title: "Tech Stack Advisor",
+    short: "Get a recommended stack for your product.",
+    description: "Advice on Flutter, Laravel, Next.js, WordPress and more.",
+    icon: "stack",
+    category: "business",
+  },
+  {
+    slug: "hosting-planner",
+    href: "/tools/hosting-planner",
+    title: "Hosting & Domain Planner",
+    short: "Plan domain and hosting costs in Naira.",
+    description: "Estimate domain and hosting needs for Nigerian projects.",
+    icon: "hosting",
+    category: "business",
+  },
+  {
+    slug: "roi-calculator",
+    href: "/tools/roi-calculator",
+    title: "Website ROI Calculator",
+    short: "Estimate return on a website investment.",
+    description: "Simple ROI model for website and digital projects.",
+    icon: "roi",
+    category: "business",
+  },
+  {
+    slug: "invoice-generator",
+    href: "/tools/invoice-generator",
+    title: "Invoice & Quote Generator",
+    short: "Create a printable invoice or quote.",
+    description: "Free invoice and quote PDF for freelancers and SMEs.",
+    icon: "invoice",
+    category: "business",
+  },
+  {
+    slug: "whatsapp-checklist",
+    href: "/tools/whatsapp-checklist",
+    title: "WhatsApp Business Checklist",
+    short: "Set up WhatsApp Business the right way.",
+    description: "Practical checklist for Nigerian businesses on WhatsApp.",
+    icon: "wa",
+    category: "business",
+  },
+  {
+    slug: "maintenance-picker",
+    href: "/tools/maintenance-picker",
+    title: "Maintenance Plan Picker",
+    short: "Choose the right website care plan.",
+    description: "Match your site to a maintenance package.",
+    icon: "maintain",
+    category: "business",
+  },
+  {
+    slug: "email-signature",
+    href: "/tools/email-signature",
+    title: "Email Signature Generator",
+    short: "Build a professional email signature.",
+    description: "Clean HTML-ready email signature for business.",
+    icon: "email",
+    category: "business",
+  },
+  // Career
+  {
+    slug: "salary-calculator",
+    href: "/tools/salary-calculator",
+    title: "Tech Salary & Rate Calculator",
+    short: "Estimate Nigerian tech salaries and freelance rates.",
+    description: "Planning ranges for junior to senior tech roles in Nigeria.",
+    icon: "salary",
+    category: "career",
+  },
+  {
+    slug: "skill-gap",
+    href: "/tools/skill-gap",
+    title: "Skill Gap Checker",
+    short: "See what to learn next for your tech path.",
+    description: "Skill roadmap checker for backend, mobile, and AI tracks.",
+    icon: "skills",
+    category: "career",
+  },
+  {
+    slug: "cover-letter",
+    href: "/tools/cover-letter",
+    title: "Cover Letter Generator",
+    short: "Draft a professional cover letter.",
+    description: "Structured cover letter builder for job applications.",
+    icon: "letter",
+    category: "career",
+  },
+  {
+    slug: "project-ideas",
+    href: "/tools/project-ideas",
+    title: "Portfolio Project Ideas",
+    short: "Get project ideas that impress employers.",
+    description: "Portfolio project ideas for students and junior developers.",
+    icon: "ideas",
+    category: "career",
+  },
+  {
+    slug: "interview-practice",
+    href: "/tools/interview-practice",
+    title: "Interview Practice",
+    short: "Practice common tech interview questions.",
+    description: "Role-based interview questions for developers.",
+    icon: "interview",
+    category: "career",
+  },
+  // AI
+  {
+    slug: "ai-usecase",
+    href: "/tools/ai-usecase",
+    title: "AI Use-Case Finder",
+    short: "Find AI automation ideas for your business.",
+    description: "Discover practical AI and automation opportunities.",
+    icon: "ai",
+    category: "ai",
+  },
+  {
+    slug: "chatbot-script",
+    href: "/tools/chatbot-script",
+    title: "Chatbot Script Generator",
+    short: "Create FAQ scripts for WhatsApp or web chat.",
+    description: "Generate starter chatbot and WhatsApp auto-reply scripts.",
+    icon: "bot",
+    category: "ai",
+  },
+  // Utility
+  {
+    slug: "qr-generator",
+    href: "/tools/qr-generator",
+    title: "QR Code Generator",
+    short: "Create QR codes for links and WhatsApp.",
+    description: "Free QR code generator for business links.",
+    icon: "qr",
+    category: "utility",
+  },
+  {
+    slug: "password-generator",
+    href: "/tools/password-generator",
+    title: "Password Generator",
+    short: "Generate strong random passwords.",
+    description: "Secure password generator — runs in your browser.",
+    icon: "lock",
+    category: "utility",
+  },
+];
+
+export const TOOL_CATEGORIES: {
+  id: ToolMeta["category"];
+  label: string;
+}[] = [
+  { id: "core", label: "Core tools" },
+  { id: "business", label: "Business & growth" },
+  { id: "career", label: "Career & learning" },
+  { id: "ai", label: "AI & automation" },
+  { id: "utility", label: "Quick utilities" },
+];
