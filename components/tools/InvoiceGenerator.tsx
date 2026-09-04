@@ -82,6 +82,7 @@ export default function InvoiceGenerator() {
   const [status, setStatus] = useState<"Unpaid" | "Paid" | "Partial" | "Overdue">(
     "Unpaid",
   );
+  const [paidDate, setPaidDate] = useState(todayISO);
 
   const [biz, setBiz] = useState<Biz>({
     name: "",
@@ -141,10 +142,7 @@ export default function InvoiceGenerator() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ biz, payment }),
-      );
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ biz, payment }));
     } catch {
       /* ignore */
     }
@@ -159,7 +157,7 @@ export default function InvoiceGenerator() {
     [items],
   );
   const taxAmount = useMemo(
-    () => Math.round(subtotal * (Number(taxPercent) || 0) / 100),
+    () => Math.round((subtotal * (Number(taxPercent) || 0)) / 100),
     [subtotal, taxPercent],
   );
   const total = useMemo(
@@ -181,18 +179,20 @@ export default function InvoiceGenerator() {
   }
 
   function removeItem(id: string) {
-    setItems((prev) => (prev.length <= 1 ? prev : prev.filter((x) => x.id !== id)));
+    setItems((prev) =>
+      prev.length <= 1 ? prev : prev.filter((x) => x.id !== id),
+    );
   }
 
   function handlePrint() {
     document.body.classList.add("printing-invoice");
     window.print();
-    // cleanup in case print dialog cancelled quickly
     setTimeout(() => document.body.classList.remove("printing-invoice"), 500);
   }
 
   useEffect(() => {
-    const onAfterPrint = () => document.body.classList.remove("printing-invoice");
+    const onAfterPrint = () =>
+      document.body.classList.remove("printing-invoice");
     window.addEventListener("afterprint", onAfterPrint);
     return () => window.removeEventListener("afterprint", onAfterPrint);
   }, []);
@@ -210,7 +210,6 @@ export default function InvoiceGenerator() {
 
   return (
     <div className="space-y-6">
-      {/* Editor */}
       <div className="invoice-no-print space-y-6 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
         <div className="flex flex-wrap gap-2">
           {(["Invoice", "Quote", "Receipt"] as const).map((t) => (
@@ -232,15 +231,29 @@ export default function InvoiceGenerator() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <label className={label}>{docType} number</label>
-            <input className={field} value={invoiceNo} onChange={(e) => setInvoiceNo(e.target.value)} />
+            <input
+              className={field}
+              value={invoiceNo}
+              onChange={(e) => setInvoiceNo(e.target.value)}
+            />
           </div>
           <div>
             <label className={label}>Issue date</label>
-            <input type="date" className={field} value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
+            <input
+              type="date"
+              className={field}
+              value={issueDate}
+              onChange={(e) => setIssueDate(e.target.value)}
+            />
           </div>
           <div>
             <label className={label}>Due date</label>
-            <input type="date" className={field} value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+            <input
+              type="date"
+              className={field}
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+            />
           </div>
           <div>
             <label className={label}>Status</label>
@@ -260,7 +273,9 @@ export default function InvoiceGenerator() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
-            <legend className="px-1 text-sm font-semibold text-white">From (your business)</legend>
+            <legend className="px-1 text-sm font-semibold text-white">
+              From (your business)
+            </legend>
             <input className={field} placeholder="Business name" value={biz.name} onChange={(e) => setBiz({ ...biz, name: e.target.value })} />
             <input className={field} placeholder="Street address" value={biz.address} onChange={(e) => setBiz({ ...biz, address: e.target.value })} />
             <input className={field} placeholder="City / State" value={biz.city} onChange={(e) => setBiz({ ...biz, city: e.target.value })} />
@@ -272,7 +287,9 @@ export default function InvoiceGenerator() {
           </fieldset>
 
           <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
-            <legend className="px-1 text-sm font-semibold text-white">Bill to (client)</legend>
+            <legend className="px-1 text-sm font-semibold text-white">
+              Bill to (client)
+            </legend>
             <input className={field} placeholder="Client / company name" value={client.name} onChange={(e) => setClient({ ...client, name: e.target.value })} />
             <input className={field} placeholder="Street address" value={client.address} onChange={(e) => setClient({ ...client, address: e.target.value })} />
             <input className={field} placeholder="City / State" value={client.city} onChange={(e) => setClient({ ...client, city: e.target.value })} />
@@ -293,42 +310,12 @@ export default function InvoiceGenerator() {
           <div className="space-y-3">
             {items.map((it) => (
               <div key={it.id} className="grid gap-2 rounded-xl border border-white/10 p-3 sm:grid-cols-12">
-                <input
-                  className={field + " sm:col-span-5"}
-                  placeholder="Description"
-                  value={it.description}
-                  onChange={(e) => updateItem(it.id, { description: e.target.value })}
-                />
-                <input
-                  type="number"
-                  min={0}
-                  className={field + " sm:col-span-2"}
-                  placeholder="Qty"
-                  value={it.qty}
-                  onChange={(e) => updateItem(it.id, { qty: Number(e.target.value) || 0 })}
-                />
-                <input
-                  type="number"
-                  min={0}
-                  className={field + " sm:col-span-3"}
-                  placeholder="Unit price (₦)"
-                  value={it.unitPrice}
-                  onChange={(e) =>
-                    updateItem(it.id, { unitPrice: Number(e.target.value) || 0 })
-                  }
-                />
+                <input className={field + " sm:col-span-5"} placeholder="Description" value={it.description} onChange={(e) => updateItem(it.id, { description: e.target.value })} />
+                <input type="number" min={0} className={field + " sm:col-span-2"} placeholder="Qty" value={it.qty} onChange={(e) => updateItem(it.id, { qty: Number(e.target.value) || 0 })} />
+                <input type="number" min={0} className={field + " sm:col-span-3"} placeholder="Unit price (₦)" value={it.unitPrice} onChange={(e) => updateItem(it.id, { unitPrice: Number(e.target.value) || 0 })} />
                 <div className="flex items-center justify-between gap-2 sm:col-span-2">
-                  <span className="text-sm text-gray-300">
-                    {formatNgn((it.qty || 0) * (it.unitPrice || 0))}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => removeItem(it.id)}
-                    className="text-xs text-red-400 hover:underline"
-                    aria-label="Remove item"
-                  >
-                    Remove
-                  </button>
+                  <span className="text-sm text-gray-300">{formatNgn((it.qty || 0) * (it.unitPrice || 0))}</span>
+                  <button type="button" onClick={() => removeItem(it.id)} className="text-xs text-red-400 hover:underline">Remove</button>
                 </div>
               </div>
             ))}
@@ -338,23 +325,11 @@ export default function InvoiceGenerator() {
         <div className="grid gap-3 sm:grid-cols-3">
           <div>
             <label className={label}>Tax %</label>
-            <input
-              type="number"
-              min={0}
-              className={field}
-              value={taxPercent}
-              onChange={(e) => setTaxPercent(Number(e.target.value) || 0)}
-            />
+            <input type="number" min={0} className={field} value={taxPercent} onChange={(e) => setTaxPercent(Number(e.target.value) || 0)} />
           </div>
           <div>
             <label className={label}>Discount (₦)</label>
-            <input
-              type="number"
-              min={0}
-              className={field}
-              value={discount}
-              onChange={(e) => setDiscount(Number(e.target.value) || 0)}
-            />
+            <input type="number" min={0} className={field} value={discount} onChange={(e) => setDiscount(Number(e.target.value) || 0)} />
           </div>
           <div className="flex flex-col justify-end rounded-xl border border-primary/30 bg-primary/10 px-3 py-2">
             <span className="text-[11px] uppercase text-gray-400">Total</span>
@@ -365,120 +340,69 @@ export default function InvoiceGenerator() {
         <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
           <legend className="px-1 text-sm font-semibold text-white">Payment method</legend>
           <div className="flex flex-wrap gap-2">
-            {(
-              [
-                ["bank", "Bank transfer"],
-                ["paystack", "Paystack"],
-                ["flutterwave", "Flutterwave"],
-                ["cash", "Cash"],
-                ["other", "Other"],
-              ] as const
-            ).map(([id, lab]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setPayment({ ...payment, method: id })}
-                className={`rounded-full border px-3 py-1.5 text-xs ${
-                  payment.method === id
-                    ? "border-primary bg-primary/20 text-white"
-                    : "border-white/10 text-gray-400"
-                }`}
-              >
+            {([["bank", "Bank transfer"], ["paystack", "Paystack"], ["flutterwave", "Flutterwave"], ["cash", "Cash"], ["other", "Other"]] as const).map(([id, lab]) => (
+              <button key={id} type="button" onClick={() => setPayment({ ...payment, method: id })} className={`rounded-full border px-3 py-1.5 text-xs ${payment.method === id ? "border-primary bg-primary/20 text-white" : "border-white/10 text-gray-400"}`}>
                 {lab}
               </button>
             ))}
           </div>
           {payment.method === "bank" && (
             <div className="grid gap-3 sm:grid-cols-3">
-              <input
-                className={field}
-                placeholder="Bank name"
-                value={payment.bankName}
-                onChange={(e) => setPayment({ ...payment, bankName: e.target.value })}
-              />
-              <input
-                className={field}
-                placeholder="Account name"
-                value={payment.accountName}
-                onChange={(e) =>
-                  setPayment({ ...payment, accountName: e.target.value })
-                }
-              />
-              <input
-                className={field}
-                placeholder="Account number"
-                value={payment.accountNumber}
-                onChange={(e) =>
-                  setPayment({ ...payment, accountNumber: e.target.value })
-                }
-              />
+              <input className={field} placeholder="Bank name" value={payment.bankName} onChange={(e) => setPayment({ ...payment, bankName: e.target.value })} />
+              <input className={field} placeholder="Account name" value={payment.accountName} onChange={(e) => setPayment({ ...payment, accountName: e.target.value })} />
+              <input className={field} placeholder="Account number" value={payment.accountNumber} onChange={(e) => setPayment({ ...payment, accountNumber: e.target.value })} />
             </div>
           )}
-          {(payment.method === "paystack" ||
-            payment.method === "flutterwave" ||
-            payment.method === "other") && (
-            <input
-              className={field}
-              placeholder={
-                payment.method === "other"
-                  ? "Payment instructions"
-                  : "Payment link or reference note (optional)"
-              }
-              value={payment.otherNote}
-              onChange={(e) => setPayment({ ...payment, otherNote: e.target.value })}
-            />
+          {(payment.method === "paystack" || payment.method === "flutterwave" || payment.method === "other") && (
+            <input className={field} placeholder={payment.method === "other" ? "Payment instructions" : "Payment link or reference note (optional)"} value={payment.otherNote} onChange={(e) => setPayment({ ...payment, otherNote: e.target.value })} />
           )}
         </fieldset>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
             <label className={label}>Notes</label>
-            <textarea
-              className={field + " resize-none"}
-              rows={3}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-            />
+            <textarea className={field + " resize-none"} rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
           <div>
             <label className={label}>Terms</label>
-            <textarea
-              className={field + " resize-none"}
-              rows={3}
-              value={terms}
-              onChange={(e) => setTerms(e.target.value)}
-            />
+            <textarea className={field + " resize-none"} rows={3} value={terms} onChange={(e) => setTerms(e.target.value)} />
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={handlePrint}
-            className="rounded-xl bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-white"
-          >
+        <div className="flex flex-wrap items-center gap-3">
+          <button type="button" onClick={handlePrint} className="rounded-xl bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-white">
             Print / Save PDF
           </button>
-          <p className="self-center text-xs text-gray-500">
-            Only the invoice sheet prints — not the website menu or footer.
-          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setStatus("Paid");
+              setDocType("Receipt");
+              setPaidDate(todayISO());
+              if (!invoiceNo.toUpperCase().startsWith("RCT")) {
+                setInvoiceNo((n) => n.replace(/^INV/i, "RCT"));
+              }
+            }}
+            className="rounded-xl border border-green-500/40 bg-green-500/10 px-5 py-3 text-xs font-bold uppercase tracking-wider text-green-300"
+          >
+            Mark paid + receipt
+          </button>
+          {status === "Paid" && (
+            <div className="flex items-center gap-2 text-sm text-gray-300">
+              <span>Paid on</span>
+              <input type="date" className={field + " w-auto"} value={paidDate} onChange={(e) => setPaidDate(e.target.value)} />
+            </div>
+          )}
+          <p className="text-xs text-gray-500">Only the document sheet prints — not the website chrome.</p>
         </div>
       </div>
 
-      {/* Printable sheet */}
-      <div
-        id="invoice-sheet"
-        className="invoice-sheet overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl"
-      >
+      <div id="invoice-sheet" className="invoice-sheet overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
         <div className="border-b-4 border-blue-600 px-6 py-6 sm:px-10">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">
-                {docType}
-              </p>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight text-gray-900">
-                {biz.name || "Your Business Name"}
-              </h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">{docType}</p>
+              <h2 className="mt-1 text-2xl font-bold tracking-tight text-gray-900">{biz.name || "Your Business Name"}</h2>
               <div className="mt-2 space-y-0.5 text-sm text-gray-600">
                 {biz.address && <p>{biz.address}</p>}
                 {biz.city && <p>{biz.city}</p>}
@@ -488,26 +412,11 @@ export default function InvoiceGenerator() {
               </div>
             </div>
             <div className="text-right text-sm">
-              <p className="text-gray-500">
-                {docType} No.{" "}
-                <span className="font-semibold text-gray-900">{invoiceNo}</span>
-              </p>
-              <p className="mt-1 text-gray-500">
-                Date: <span className="text-gray-900">{formatDate(issueDate)}</span>
-              </p>
-              <p className="text-gray-500">
-                Due: <span className="text-gray-900">{formatDate(dueDate)}</span>
-              </p>
+              <p className="text-gray-500">{docType} No. <span className="font-semibold text-gray-900">{invoiceNo}</span></p>
+              <p className="mt-1 text-gray-500">Date: <span className="text-gray-900">{formatDate(issueDate)}</span></p>
+              <p className="text-gray-500">Due: <span className="text-gray-900">{formatDate(dueDate)}</span></p>
               <p className="mt-2">
-                <span
-                  className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                    status === "Paid"
-                      ? "bg-green-100 text-green-800"
-                      : status === "Overdue"
-                        ? "bg-red-100 text-red-800"
-                        : "bg-amber-100 text-amber-800"
-                  }`}
-                >
+                <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${status === "Paid" ? "bg-green-100 text-green-800" : status === "Overdue" ? "bg-red-100 text-red-800" : "bg-amber-100 text-amber-800"}`}>
                   {status}
                 </span>
               </p>
@@ -517,12 +426,8 @@ export default function InvoiceGenerator() {
 
         <div className="grid gap-6 px-6 py-6 sm:grid-cols-2 sm:px-10">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-              Bill to
-            </p>
-            <p className="mt-1 text-base font-semibold text-gray-900">
-              {client.name || "Client name"}
-            </p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Bill to</p>
+            <p className="mt-1 text-base font-semibold text-gray-900">{client.name || "Client name"}</p>
             <div className="mt-1 space-y-0.5 text-sm text-gray-600">
               {client.address && <p>{client.address}</p>}
               {client.city && <p>{client.city}</p>}
@@ -532,10 +437,15 @@ export default function InvoiceGenerator() {
           </div>
           <div className="sm:text-right">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-              Amount due
+              {docType === "Receipt" || status === "Paid" ? "Amount paid" : "Amount due"}
             </p>
             <p className="mt-1 text-3xl font-bold text-blue-700">{formatNgn(total)}</p>
             <p className="text-xs text-gray-500">Currency: Nigerian Naira (NGN)</p>
+            {(docType === "Receipt" || status === "Paid") && (
+              <p className="mt-1 text-sm font-medium text-green-700">
+                Payment received{paidDate ? ` on ${formatDate(paidDate)}` : ""}
+              </p>
+            )}
           </div>
         </div>
 
@@ -552,86 +462,41 @@ export default function InvoiceGenerator() {
             <tbody>
               {items.map((it) => (
                 <tr key={it.id} className="border-b border-gray-100">
-                  <td className="py-3 pr-2 text-gray-800">
-                    {it.description || "—"}
-                  </td>
+                  <td className="py-3 pr-2 text-gray-800">{it.description || "—"}</td>
                   <td className="py-3 px-2 text-right text-gray-700">{it.qty || 0}</td>
-                  <td className="py-3 px-2 text-right text-gray-700">
-                    {formatNgn(it.unitPrice || 0)}
-                  </td>
-                  <td className="py-3 pl-2 text-right font-medium text-gray-900">
-                    {formatNgn((it.qty || 0) * (it.unitPrice || 0))}
-                  </td>
+                  <td className="py-3 px-2 text-right text-gray-700">{formatNgn(it.unitPrice || 0)}</td>
+                  <td className="py-3 pl-2 text-right font-medium text-gray-900">{formatNgn((it.qty || 0) * (it.unitPrice || 0))}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-
           <div className="mt-4 flex justify-end">
             <div className="w-full max-w-xs space-y-1.5 text-sm">
-              <div className="flex justify-between text-gray-600">
-                <span>Subtotal</span>
-                <span>{formatNgn(subtotal)}</span>
-              </div>
-              {taxPercent > 0 && (
-                <div className="flex justify-between text-gray-600">
-                  <span>Tax ({taxPercent}%)</span>
-                  <span>{formatNgn(taxAmount)}</span>
-                </div>
-              )}
-              {discount > 0 && (
-                <div className="flex justify-between text-gray-600">
-                  <span>Discount</span>
-                  <span>-{formatNgn(discount)}</span>
-                </div>
-              )}
-              <div className="flex justify-between border-t border-gray-200 pt-2 text-base font-bold text-gray-900">
-                <span>Total</span>
-                <span>{formatNgn(total)}</span>
-              </div>
+              <div className="flex justify-between text-gray-600"><span>Subtotal</span><span>{formatNgn(subtotal)}</span></div>
+              {taxPercent > 0 && <div className="flex justify-between text-gray-600"><span>Tax ({taxPercent}%)</span><span>{formatNgn(taxAmount)}</span></div>}
+              {discount > 0 && <div className="flex justify-between text-gray-600"><span>Discount</span><span>-{formatNgn(discount)}</span></div>}
+              <div className="flex justify-between border-t border-gray-200 pt-2 text-base font-bold text-gray-900"><span>Total</span><span>{formatNgn(total)}</span></div>
             </div>
           </div>
         </div>
 
         <div className="mt-8 grid gap-6 border-t border-gray-100 px-6 py-6 sm:grid-cols-2 sm:px-10">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-              Payment method
-            </p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Payment method</p>
             <p className="mt-1 text-sm font-semibold text-gray-900">{paymentLabel}</p>
             {payment.method === "bank" && (
               <div className="mt-1 space-y-0.5 text-sm text-gray-600">
                 {payment.bankName && <p>Bank: {payment.bankName}</p>}
                 {payment.accountName && <p>Account name: {payment.accountName}</p>}
-                {payment.accountNumber && (
-                  <p>Account number: {payment.accountNumber}</p>
-                )}
+                {payment.accountNumber && <p>Account number: {payment.accountNumber}</p>}
               </div>
             )}
-            {payment.otherNote && (
-              <p className="mt-1 text-sm text-gray-600">{payment.otherNote}</p>
-            )}
-            {payment.method === "cash" && (
-              <p className="mt-1 text-sm text-gray-600">Pay in cash to the business.</p>
-            )}
+            {payment.otherNote && <p className="mt-1 text-sm text-gray-600">{payment.otherNote}</p>}
+            {payment.method === "cash" && <p className="mt-1 text-sm text-gray-600">Pay in cash to the business.</p>}
           </div>
           <div>
-            {notes && (
-              <>
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-                  Notes
-                </p>
-                <p className="mt-1 whitespace-pre-wrap text-sm text-gray-600">{notes}</p>
-              </>
-            )}
-            {terms && (
-              <>
-                <p className="mt-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-                  Terms
-                </p>
-                <p className="mt-1 whitespace-pre-wrap text-sm text-gray-600">{terms}</p>
-              </>
-            )}
+            {notes && (<><p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Notes</p><p className="mt-1 whitespace-pre-wrap text-sm text-gray-600">{notes}</p></>)}
+            {terms && (<><p className="mt-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400">Terms</p><p className="mt-1 whitespace-pre-wrap text-sm text-gray-600">{terms}</p></>)}
           </div>
         </div>
 
@@ -641,11 +506,7 @@ export default function InvoiceGenerator() {
       </div>
 
       <div className="invoice-no-print">
-        <LeadForm
-          tool="Invoice Generator"
-          resultSummary={`${docType} ${invoiceNo}`}
-          defaultMessage="Hi DoyinTech, I used your invoice generator and need a custom billing system or website."
-        />
+        <LeadForm tool="Invoice Generator" resultSummary={`${docType} ${invoiceNo}`} defaultMessage="Hi DoyinTech, I used your invoice generator and need a custom billing system or website." />
       </div>
     </div>
   );
