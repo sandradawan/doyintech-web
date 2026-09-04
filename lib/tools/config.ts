@@ -25,7 +25,6 @@ export type ToolMeta = {
 };
 
 export const TOOLS_META: ToolMeta[] = [
-  // Core (existing)
   {
     slug: "website-calculator",
     href: "/tools/website-calculator",
@@ -62,7 +61,6 @@ export const TOOLS_META: ToolMeta[] = [
     icon: "readiness",
     category: "core",
   },
-  // Business
   {
     slug: "project-brief",
     href: "/tools/project-brief",
@@ -70,6 +68,33 @@ export const TOOLS_META: ToolMeta[] = [
     short: "Turn your idea into a clear project brief.",
     description: "Structured project brief for websites, apps, and automation.",
     icon: "brief",
+    category: "business",
+  },
+  {
+    slug: "proposal-builder",
+    href: "/tools/proposal-builder",
+    title: "Proposal Builder",
+    short: "Create a professional client proposal.",
+    description: "Scope, timeline, investment, and deposit in a print-ready proposal.",
+    icon: "proposal",
+    category: "business",
+  },
+  {
+    slug: "contract-generator",
+    href: "/tools/contract-generator",
+    title: "Contract Generator",
+    short: "Generate a simple service agreement.",
+    description: "Service agreement template with signature lines.",
+    icon: "contract",
+    category: "business",
+  },
+  {
+    slug: "project-status",
+    href: "/tools/project-status",
+    title: "Project Status Page",
+    short: "Share live project progress with clients.",
+    description: "Discovery to Done status board clients can open anytime.",
+    icon: "status",
     category: "business",
   },
   {
@@ -102,9 +127,9 @@ export const TOOLS_META: ToolMeta[] = [
   {
     slug: "invoice-generator",
     href: "/tools/invoice-generator",
-    title: "Invoice & Quote Generator",
-    short: "Create a printable invoice or quote.",
-    description: "Free invoice and quote PDF for freelancers and SMEs.",
+    title: "Invoice & Receipt Generator",
+    short: "Create invoices, quotes, and paid receipts.",
+    description: "Professional invoice and receipt PDF for freelancers and SMEs.",
     icon: "invoice",
     category: "business",
   },
@@ -135,7 +160,6 @@ export const TOOLS_META: ToolMeta[] = [
     icon: "email",
     category: "business",
   },
-  // Career
   {
     slug: "salary-calculator",
     href: "/tools/salary-calculator",
@@ -181,7 +205,6 @@ export const TOOLS_META: ToolMeta[] = [
     icon: "interview",
     category: "career",
   },
-  // AI
   {
     slug: "ai-usecase",
     href: "/tools/ai-usecase",
@@ -200,7 +223,6 @@ export const TOOLS_META: ToolMeta[] = [
     icon: "bot",
     category: "ai",
   },
-  // Utility
   {
     slug: "qr-generator",
     href: "/tools/qr-generator",
