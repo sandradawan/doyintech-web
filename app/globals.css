@@ -118,3 +118,50 @@ body {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* —— Invoice print: only the invoice sheet —— */
+@media print {
+  @page {
+    margin: 12mm;
+    size: A4;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    overflow: visible !important;
+  }
+
+  body.printing-invoice * {
+    visibility: hidden !important;
+  }
+
+  body.printing-invoice #invoice-sheet,
+  body.printing-invoice #invoice-sheet * {
+    visibility: visible !important;
+  }
+
+  body.printing-invoice #invoice-sheet {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .invoice-no-print {
+    display: none !important;
+  }
+
+  header,
+  footer,
+  nav,
+  .invoice-no-print {
+    display: none !important;
+  }
+}
