@@ -156,6 +156,14 @@ export function TechStackTool() {
     setNeeds((p) => (p.includes(n) ? p.filter((x) => x !== n) : [...p, n]));
   }
 
+  const stackCards: [string, string][] = [
+    ["Primary", result.primary],
+    ["Mobile", result.mobile],
+    ["Backend", result.backend],
+    ["Database", result.db],
+    ["Hosting", result.hosting],
+  ];
+
   return (
     <div className={box}>
       {!done ? (
@@ -190,10 +198,10 @@ export function TechStackTool() {
         <>
           <p className="text-sm text-gray-400">{result.summary}</p>
           <div className="grid gap-3 sm:grid-cols-2">
-            {["Primary", result.primary], ["Mobile", result.mobile], ["Backend", result.backend], ["Database", result.db], ["Hosting", result.hosting]].map(([l, v]) => (
-              <div key={l as string} className="rounded-xl border border-white/10 bg-black/30 p-3">
-                <p className="text-[11px] uppercase text-gray-500">{l as string}</p>
-                <p className="text-sm text-white">{v as string}</p>
+            {stackCards.map(([l, v]) => (
+              <div key={l} className="rounded-xl border border-white/10 bg-black/30 p-3">
+                <p className="text-[11px] uppercase text-gray-500">{l}</p>
+                <p className="text-sm text-white">{v}</p>
               </div>
             ))}
           </div>
