@@ -1,31 +1,52 @@
 # DoyinTech Tools Hub
 
-Free business & career tools integrated into the main site.
+Free business & career tools at `/tools`.
 
-## Routes
+## Categories
 
-| Path | Tool |
-|------|------|
-| `/tools` | Hub |
-| `/tools/website-calculator` | Website price calculator (NGN) |
-| `/tools/business-audit` | Business digital audit |
-| `/tools/cv-builder` | CV & portfolio builder |
-| `/tools/portfolio-builder` | Redirects to CV builder |
-| `/tools/digital-readiness` | Digital readiness checker |
+### Core
+- `/tools/website-calculator` — NGN website cost estimator
+- `/tools/business-audit` — digital presence audit
+- `/tools/cv-builder` — CV + portfolio builder
+- `/tools/digital-readiness` — transformation readiness score
 
-## Where to change settings
+### Business & growth
+- `/tools/project-brief`
+- `/tools/tech-stack`
+- `/tools/hosting-planner`
+- `/tools/roi-calculator`
+- `/tools/invoice-generator`
+- `/tools/whatsapp-checklist`
+- `/tools/maintenance-picker`
+- `/tools/email-signature`
+
+### Career & learning
+- `/tools/salary-calculator`
+- `/tools/skill-gap`
+- `/tools/cover-letter`
+- `/tools/project-ideas`
+- `/tools/interview-practice`
+
+### AI & automation
+- `/tools/ai-usecase`
+- `/tools/chatbot-script`
+
+### Utilities
+- `/tools/qr-generator`
+- `/tools/password-generator`
+
+## Config files
 
 | What | File |
 |------|------|
-| WhatsApp number, email, Academy URL, brand | `lib/tools/config.ts` |
-| Website price bases & feature costs | `lib/tools/pricing.ts` |
-| Audit questions & weights | `lib/tools/audit.ts` |
-| Readiness questions & weights | `lib/tools/readiness.ts` |
-| Analytics hook | `lib/tools/analytics.ts` |
+| Catalog, WhatsApp, Academy URL | `lib/tools/config.ts` |
+| Website pricing engine | `lib/tools/pricing.ts` |
+| Audit questions | `lib/tools/audit.ts` |
+| Readiness questions | `lib/tools/readiness.ts` |
+| Stack, salary, ROI, ideas, etc. | `lib/tools/extra.ts` |
+| UI for extended tools | `components/tools/ExtendedTools.tsx` |
 
-## Environment variables
-
-Same as contact form (optional for leads):
+## Env (leads)
 
 ```env
 RESEND_API_KEY=
@@ -33,20 +54,9 @@ CONTACT_TO_EMAIL=doyintechnology@outlook.com
 CONTACT_FROM_EMAIL=onboarding@resend.dev
 ```
 
-Without `RESEND_API_KEY`, lead forms still succeed in demo mode (logged server-side).
-
-## Lead API
-
-`POST /api/tools/lead` — name, email, phone, businessName, tool, resultSummary, message.
-
 ## Notes
 
-- Calculator shows **estimated ranges**, not formal quotes.
-- Audit / readiness scores are **self-reported** (no live site crawl).
-- CV drafts use **localStorage**; print/PDF via browser print.
-- Public portfolio URLs (`/portfolio/username`) can be added later with Supabase auth.
-
-## Academy
-
-Link Academy → Tools: `https://doyintech.vercel.app/tools`  
-Navbar includes Academy → `https://doyintechacademy.vercel.app`
+- Estimates are not formal quotes.
+- Audit/readiness are self-reported.
+- CV/invoice print via browser print dialog.
+- QR uses public `api.qrserver.com` image URL.
