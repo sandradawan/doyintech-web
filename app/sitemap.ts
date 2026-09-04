@@ -1,21 +1,18 @@
 import type { MetadataRoute } from "next";
+import { TOOLS_META } from "@/lib/tools/config";
 
 const BASE = "https://doyintech.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const routes = [
+  const staticRoutes = [
     "",
     "/services",
     "/services/backend",
     "/services/mobile",
     "/services/ai-automation",
     "/tools",
-    "/tools/website-calculator",
-    "/tools/business-audit",
-    "/tools/cv-builder",
-    "/tools/digital-readiness",
     "/portfolio",
     "/blog",
     "/blog/why-production-grade-backends-matter",
@@ -33,6 +30,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/case-studies/arqademy-cbt",
     "/case-studies/ipvl",
   ];
+
+  const toolRoutes = TOOLS_META.map((t) => t.href);
+
+  const routes = [...new Set([...staticRoutes, ...toolRoutes])];
 
   return routes.map((path) => ({
     url: `${BASE}${path}`,
