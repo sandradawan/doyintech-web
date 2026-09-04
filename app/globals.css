@@ -14,13 +14,11 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Selection Highlight */
 ::selection {
   background-color: rgba(59, 130, 246, 0.35);
   color: #ffffff;
 }
 
-/* Custom Scrollbar for Webkit */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -36,7 +34,6 @@ body {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Animations */
 @keyframes pulseGlow {
   0% {
     transform: scale(0.98);
@@ -85,7 +82,6 @@ body {
   animation: float 5s ease-in-out infinite;
 }
 
-/* Glassmorphism Styles */
 .glass-card {
   background: rgba(18, 24, 38, 0.4);
   backdrop-filter: blur(16px);
@@ -100,7 +96,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Reduced motion support — critical for professionalism & accessibility */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -119,7 +114,7 @@ body {
   }
 }
 
-/* —— Invoice print: only the invoice sheet —— */
+/* Print: invoice sheet OR generic doc sheet */
 @media print {
   @page {
     margin: 12mm;
@@ -133,16 +128,20 @@ body {
     overflow: visible !important;
   }
 
-  body.printing-invoice * {
+  body.printing-invoice *,
+  body.printing-doc * {
     visibility: hidden !important;
   }
 
   body.printing-invoice #invoice-sheet,
-  body.printing-invoice #invoice-sheet * {
+  body.printing-invoice #invoice-sheet *,
+  body.printing-doc #doc-sheet,
+  body.printing-doc #doc-sheet * {
     visibility: visible !important;
   }
 
-  body.printing-invoice #invoice-sheet {
+  body.printing-invoice #invoice-sheet,
+  body.printing-doc #doc-sheet {
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
@@ -154,14 +153,11 @@ body {
     background: #ffffff !important;
   }
 
-  .invoice-no-print {
-    display: none !important;
-  }
-
+  .invoice-no-print,
+  .doc-no-print,
   header,
   footer,
-  nav,
-  .invoice-no-print {
+  nav {
     display: none !important;
   }
 }
