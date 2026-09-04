@@ -7,9 +7,15 @@ const icons: Record<string, string> = {
   audit: "◎",
   cv: "▤",
   readiness: "◈",
+  brief: "☰",
+  stack: "⬡",
+  roi: "%",
+  ai: "◉",
 };
 
 export default function ToolsSection() {
+  const featured = TOOLS_META.filter((t) => t.category === "core").slice(0, 4);
+
   return (
     <section className="py-20 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6">
@@ -23,21 +29,21 @@ export default function ToolsSection() {
                 Useful tools. Real value. Zero cost.
               </h2>
               <p className="mt-3 max-w-xl text-gray-400">
-                Estimate website cost, audit your digital presence, build a CV, and
-                check digital readiness — then talk to us when you are ready to build.
+                Estimate website cost, audit your digital presence, build a CV, plan
+                tech stacks, and more — then talk to us when you are ready to build.
               </p>
             </div>
             <Link
               href="/tools"
               className="inline-flex text-sm font-semibold text-primary hover:underline"
             >
-              View all tools →
+              View all {TOOLS_META.length} tools →
             </Link>
           </div>
         </ScrollReveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {TOOLS_META.map((t, i) => (
+          {featured.map((t, i) => (
             <ScrollReveal key={t.slug} delay={0.05 * i}>
               <Link
                 href={t.href}
