@@ -14,7 +14,16 @@ type ScanFinding = {
   page: string;
   description: string;
   recommendation: string;
-  evidence?: string;
+  evidence: string;
+  verified: boolean;
+};
+
+type PageResult = {
+  url: string;
+  path: string;
+  status: number | null;
+  ok: boolean;
+  title?: string;
 };
 
 type ScanResult = {
@@ -23,9 +32,21 @@ type ScanResult = {
   finalUrl: string;
   status: number;
   tech: string[];
+  tls: {
+    valid: boolean;
+    authorized: boolean;
+    protocol?: string;
+    daysRemaining?: number;
+    validFrom?: string;
+    validTo?: string;
+    issuer?: string;
+    subject?: string;
+    error?: string;
+  } | null;
   headers: Record<string, string | null>;
-  pagesChecked: { path: string; status: number | null; ok: boolean }[];
+  pagesChecked: PageResult[];
   findings: ScanFinding[];
+  scope: { checks: string[]; notChecked: string[] };
   scannedAt: string;
 };
 
@@ -52,6 +73,10 @@ function normalizeUrl(input: string): string | null {
   }
 }
 
+function shotUrl(pageUrl: string) {
+  return `https://s0.wp.com/mshots/v1/${encodeURIComponent(pageUrl)}?w=1280`;
+}
+
 export default function SecurityScanner() {
   const [input, setInput] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
@@ -59,34 +84,39 @@ export default function SecurityScanner() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeFailed, setIframeFailed] = useState(false);
+  const [useScreenshot, setUseScreenshot] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [statusLine, setStatusLine] = useState("");
   const [progress, setProgress] = useState(0);
   const [laserY, setLaserY] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(0);
+  const [verifiedOnly, setVerifiedOnly] = useState(true);
   const timers = useRef<number[]>([]);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const clearTimers = () => {
     timers.current.forEach((t) => window.clearTimeout(t));
     timers.current = [];
   };
-
   useEffect(() => () => clearTimers(), []);
 
-  const findings = result?.findings || [];
+  const allFindings = result?.findings || [];
+  const findings = useMemo(
+    () =>
+      verifiedOnly ? allFindings.filter((f) => f.verified) : allFindings,
+    [allFindings, verifiedOnly],
+  );
   const pages = result?.pagesChecked || [];
 
   const score = useMemo(() => {
-    if (!findings.length) return 100;
+    const list = findings.filter((f) => f.severity !== "info");
+    if (!list.length) return 100;
     let penalty = 0;
-    for (const f of findings) {
+    for (const f of list) {
       if (f.severity === "critical") penalty += 25;
       else if (f.severity === "high") penalty += 14;
       else if (f.severity === "medium") penalty += 8;
       else if (f.severity === "low") penalty += 3;
-      else penalty += 0; // info does not hurt score much
     }
     return Math.max(5, 100 - penalty);
   }, [findings]);
@@ -107,44 +137,39 @@ export default function SecurityScanner() {
     setPageIndex(0);
     setVisibleCount(0);
 
-    const pathList =
-      data.pagesChecked.length > 0
-        ? data.pagesChecked
-        : [{ path: "/", status: data.status, ok: true }];
+    const pathList = data.pagesChecked.length
+      ? data.pagesChecked
+      : [
+          {
+            url: data.finalUrl,
+            path: "/",
+            status: data.status,
+            ok: true,
+          },
+        ];
 
-    const perPage = 1200;
-    const total = pathList.length * perPage;
+    const perPage = 900;
+    const total = Math.min(pathList.length, 18) * perPage;
+    const slice = pathList.slice(0, 18);
 
-    pathList.forEach((p, idx) => {
+    slice.forEach((p, idx) => {
       timers.current.push(
         window.setTimeout(() => {
           setPageIndex(idx);
           setStatusLine(
-            `Scanning ${p.path} ${p.status ? `(HTTP ${p.status})` : ""}`.trim(),
+            `Checking ${p.path}${p.status != null ? ` · HTTP ${p.status}` : ""}`,
           );
-          // laser sweep
-          for (let s = 0; s <= 5; s++) {
+          setPreviewUrl(p.url);
+          setIframeLoaded(false);
+          for (let s = 0; s <= 4; s++) {
             timers.current.push(
-              window.setTimeout(() => {
-                setLaserY((s / 5) * 100);
-              }, (perPage / 6) * s),
+              window.setTimeout(() => setLaserY((s / 4) * 100), (perPage / 5) * s),
             );
           }
-          setProgress(Math.round(((idx + 1) / pathList.length) * 100));
-          const unlock = Math.ceil(
-            ((idx + 1) / pathList.length) * data.findings.length,
+          setProgress(Math.round(((idx + 1) / slice.length) * 100));
+          setVisibleCount(
+            Math.ceil(((idx + 1) / slice.length) * data.findings.length),
           );
-          setVisibleCount(unlock);
-
-          // navigate preview to path when possible (same origin iframe may still block)
-          try {
-            const base = new URL(data.finalUrl);
-            const next = new URL(p.path, base).toString();
-            setPreviewUrl(next);
-            setIframeLoaded(false);
-          } catch {
-            /* ignore */
-          }
         }, idx * perPage),
       );
     });
@@ -154,17 +179,17 @@ export default function SecurityScanner() {
         setVisibleCount(data.findings.length);
         setProgress(100);
         setLaserY(100);
-        setStatusLine("Scan complete");
+        setStatusLine("Scan complete — evidence-based report ready");
         setPhase("done");
         setPreviewUrl(data.finalUrl);
-      }, total + 300),
+      }, total + 250),
     );
   }, []);
 
   const startScan = useCallback(async () => {
     const normalized = normalizeUrl(input);
     if (!normalized) {
-      setError("Enter a valid website URL (e.g. https://example.com)");
+      setError("Enter a valid public URL (https://…)");
       setPhase("error");
       return;
     }
@@ -174,16 +199,15 @@ export default function SecurityScanner() {
     setResult(null);
     setIframeFailed(false);
     setIframeLoaded(false);
+    setUseScreenshot(false);
     setPreviewUrl(normalized);
     setPhase("loading-site");
-    setStatusLine("Loading website…");
+    setStatusLine("Loading the real website first…");
     setProgress(0);
     setVisibleCount(0);
 
-    // Give the real URL a moment to load in the iframe before scanning
-    await new Promise((r) => setTimeout(r, 1800));
-
-    setStatusLine("Running live checks on the server…");
+    await new Promise((r) => setTimeout(r, 1600));
+    setStatusLine("Running live TLS, header, and crawl checks…");
 
     try {
       const res = await fetch("/api/security-scan", {
@@ -201,7 +225,7 @@ export default function SecurityScanner() {
       setPreviewUrl(data.finalUrl || normalized);
       runAnimatedScan(data as ScanResult);
     } catch {
-      setError("Could not complete scan. Check your connection and try again.");
+      setError("Could not complete scan. Try again.");
       setPhase("error");
     }
   }, [input, runAnimatedScan]);
@@ -218,29 +242,31 @@ export default function SecurityScanner() {
     return () => window.removeEventListener("afterprint", fn);
   }, []);
 
-  // If iframe has not loaded after a few seconds, mark failed (X-Frame-Options)
   useEffect(() => {
     if (!previewUrl || phase === "idle") return;
     const t = window.setTimeout(() => {
-      if (!iframeLoaded) setIframeFailed(true);
-    }, 4000);
+      if (!iframeLoaded) {
+        setIframeFailed(true);
+        setUseScreenshot(true);
+      }
+    }, 4500);
     return () => window.clearTimeout(t);
   }, [previewUrl, phase, iframeLoaded]);
 
-  const shown = findings.slice(0, visibleCount);
+  const shown = findings.slice(0, Math.max(visibleCount, phase === "done" ? findings.length : visibleCount));
 
   return (
     <div className="space-y-8">
       <div className="doc-no-print mx-auto max-w-2xl text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-          Live passive security scan
+          Evidence-based passive scanner
         </p>
         <h2 className="mt-2 font-display text-2xl font-bold text-white md:text-3xl">
-          Real URL load + header & path checks
+          Real load · real crawl · real findings
         </h2>
         <p className="mt-2 text-sm text-gray-400">
-          Loads your site first, then checks real HTTP headers, tech signals, and sensitive
-          paths. Findings include evidence — no fake WordPress guesses on Next.js sites.
+          Loads your URL, checks TLS, security headers, same-origin links, robots/sitemap,
+          and sensitive paths. Every issue includes evidence. No fake CMS guesses.
         </p>
 
         <form
@@ -256,7 +282,7 @@ export default function SecurityScanner() {
             placeholder="https://yourwebsite.com"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full flex-1 rounded-2xl border border-white/15 bg-black/50 px-5 py-3.5 text-sm text-white outline-none ring-primary/40 placeholder:text-gray-500 focus:border-primary/50 focus:ring-2"
+            className="w-full flex-1 rounded-2xl border border-white/15 bg-black/50 px-5 py-3.5 text-sm text-white outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/30"
           />
           <button
             type="submit"
@@ -264,13 +290,47 @@ export default function SecurityScanner() {
             className="rounded-2xl bg-primary px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-60"
           >
             {phase === "loading-site"
-              ? "Loading site…"
+              ? "Loading…"
               : phase === "scanning"
                 ? "Scanning…"
                 : "Start scan"}
           </button>
         </form>
+
+        <label className="mt-4 inline-flex cursor-pointer items-center gap-2 text-xs text-gray-400">
+          <input
+            type="checkbox"
+            checked={verifiedOnly}
+            onChange={(e) => setVerifiedOnly(e.target.checked)}
+            className="rounded border-white/20 bg-black accent-primary"
+          />
+          Verified only (hide soft heuristics)
+        </label>
+
         {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
+      </div>
+
+      {/* Scope */}
+      <div className="doc-no-print mx-auto grid max-w-3xl gap-3 rounded-2xl border border-white/10 bg-black/30 p-4 text-left text-xs text-gray-400 sm:grid-cols-2">
+        <div>
+          <p className="font-semibold text-green-400">What this checks</p>
+          <ul className="mt-1 list-inside list-disc space-y-0.5">
+            <li>TLS certificate & expiry</li>
+            <li>Security headers & cookies</li>
+            <li>Same-origin link crawl</li>
+            <li>robots.txt / sitemap</li>
+            <li>Sensitive paths (with body proof)</li>
+          </ul>
+        </div>
+        <div>
+          <p className="font-semibold text-amber-400">What it does not check</p>
+          <ul className="mt-1 list-inside list-disc space-y-0.5">
+            <li>Logged-in / authenticated areas</li>
+            <li>Full XSS or SQLi exploitation</li>
+            <li>Business logic flaws</li>
+            <li>Rate-limit or botnet abuse</li>
+          </ul>
+        </div>
       </div>
 
       {previewUrl && (
@@ -287,9 +347,9 @@ export default function SecurityScanner() {
 
             {pages.length > 0 && (phase === "scanning" || phase === "done") && (
               <div className="flex gap-1 overflow-x-auto border-b border-white/5 px-2 py-1.5">
-                {pages.map((p, i) => (
+                {pages.slice(0, 18).map((p, i) => (
                   <span
-                    key={p.path}
+                    key={p.url + i}
                     className={`shrink-0 rounded-md px-2 py-1 font-mono text-[10px] ${
                       i === pageIndex
                         ? "bg-green-500/20 text-green-300"
@@ -299,46 +359,48 @@ export default function SecurityScanner() {
                     }`}
                   >
                     {p.path}
-                    {p.status ? ` · ${p.status}` : ""}
+                    {p.status != null ? `·${p.status}` : ""}
                   </span>
                 ))}
               </div>
             )}
 
             <div className="relative h-[420px] md:h-[540px] bg-white">
-              {/* Real site iframe */}
-              <iframe
-                ref={iframeRef}
-                key={previewUrl}
-                src={previewUrl}
-                title="Live website preview"
-                className="h-full w-full bg-white"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                onLoad={() => {
-                  setIframeLoaded(true);
-                  setIframeFailed(false);
-                }}
-              />
+              {!useScreenshot ? (
+                <iframe
+                  key={previewUrl}
+                  src={previewUrl}
+                  title="Live website"
+                  className="h-full w-full bg-white"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                  onLoad={() => {
+                    setIframeLoaded(true);
+                    setIframeFailed(false);
+                  }}
+                />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={shotUrl(previewUrl)}
+                  src={shotUrl(previewUrl)}
+                  alt="Site snapshot"
+                  className="h-full w-full object-cover object-top"
+                />
+              )}
 
-              {/* Overlay only while loading or if frame blocked */}
-              {(phase === "loading-site" || (iframeFailed && !iframeLoaded)) && (
+              {(phase === "loading-site" || (iframeFailed && !useScreenshot)) && (
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0b1220]/95 p-6 text-center">
                   <div className="mb-3 h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
                   <p className="text-sm font-semibold text-white">
                     {phase === "loading-site"
                       ? "Loading the real website…"
-                      : "This site blocks embedding in other pages"}
-                  </p>
-                  <p className="mt-2 max-w-md text-xs text-gray-400">
-                    {phase === "loading-site"
-                      ? "We open your URL first, then run live server-side checks."
-                      : "Browser security (X-Frame-Options / CSP) prevents showing it here. The scan still uses the real URL. Open it in a new tab to view."}
+                      : "Embed blocked — switching to snapshot"}
                   </p>
                   <a
                     href={previewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 text-xs font-semibold text-primary hover:underline"
+                    className="mt-3 text-xs font-semibold text-primary hover:underline"
                   >
                     Open real URL in new tab →
                   </a>
@@ -346,55 +408,43 @@ export default function SecurityScanner() {
               )}
 
               {(phase === "scanning" || phase === "done") && (
-                <>
-                  <div
-                    className="pointer-events-none absolute left-0 right-0 z-20 h-[3px] shadow-[0_0_20px_5px_rgba(34,197,94,0.9)] transition-[top] duration-200"
-                    style={{
-                      top: `${Math.min(laserY, 98)}%`,
-                      background:
-                        "linear-gradient(90deg, transparent, #22c55e, #bbf7d0, #22c55e, transparent)",
-                    }}
-                  />
-                  <div
-                    className="pointer-events-none absolute left-0 right-0 z-10 h-16 opacity-35"
-                    style={{
-                      top: `calc(${Math.min(laserY, 98)}% - 2rem)`,
-                      background:
-                        "linear-gradient(180deg, transparent, rgba(34,197,94,0.35), transparent)",
-                    }}
-                  />
-                </>
+                <div
+                  className="pointer-events-none absolute left-0 right-0 z-20 h-[3px] shadow-[0_0_20px_5px_rgba(34,197,94,0.9)] transition-[top] duration-200"
+                  style={{
+                    top: `${Math.min(laserY, 98)}%`,
+                    background:
+                      "linear-gradient(90deg, transparent, #22c55e, #bbf7d0, #22c55e, transparent)",
+                  }}
+                />
               )}
 
-              {/* Red markers for non-info findings */}
-              {phase !== "loading-site" &&
-                shown
-                  .filter((f) => f.severity !== "info")
-                  .map((f, i) => (
-                    <div
-                      key={f.id}
-                      className="pointer-events-none absolute z-30"
-                      style={{
-                        top: `${15 + ((i * 17) % 70)}%`,
-                        left: `${12 + ((i * 23) % 70)}%`,
-                      }}
-                    >
-                      <span className="relative flex h-3.5 w-3.5">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-70" />
-                        <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-600 ring-2 ring-red-200" />
-                      </span>
-                    </div>
-                  ))}
+              {shown
+                .filter((f) => f.severity !== "info")
+                .map((f, i) => (
+                  <div
+                    key={f.id}
+                    className="pointer-events-none absolute z-30"
+                    style={{
+                      top: `${15 + ((i * 17) % 70)}%`,
+                      left: `${12 + ((i * 23) % 70)}%`,
+                    }}
+                  >
+                    <span className="relative flex h-3.5 w-3.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-70" />
+                      <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-600 ring-2 ring-red-200" />
+                    </span>
+                  </div>
+                ))}
 
               {(phase === "scanning" || phase === "loading-site") && (
-                <div className="absolute bottom-3 left-3 right-3 z-40 rounded-xl border border-green-500/30 bg-black/80 px-3 py-2 backdrop-blur">
-                  <div className="flex items-center justify-between gap-2 text-[11px] text-green-300">
+                <div className="absolute bottom-3 left-3 right-3 z-40 rounded-xl border border-green-500/30 bg-black/80 px-3 py-2">
+                  <div className="flex justify-between gap-2 text-[11px] text-green-300">
                     <span className="truncate font-mono">{statusLine}</span>
-                    <span className="shrink-0 font-mono">{progress}%</span>
+                    <span className="font-mono">{progress}%</span>
                   </div>
                   <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
                     <div
-                      className="h-full rounded-full bg-green-500 transition-all duration-300"
+                      className="h-full rounded-full bg-green-500 transition-all"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -405,61 +455,50 @@ export default function SecurityScanner() {
 
           <div className="flex flex-col rounded-3xl border border-white/10 bg-surface/80 p-5 lg:col-span-2">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="font-display text-lg font-bold text-white">Scan console</h3>
+              <h3 className="font-display text-lg font-bold text-white">Console</h3>
               {phase === "done" && (
                 <span className="rounded-full border border-white/15 px-3 py-1 text-xs font-bold text-white">
-                  Score {score} · {grade}
+                  {score} · {grade}
                 </span>
               )}
             </div>
 
             {result?.tech?.length ? (
               <p className="mt-2 text-xs text-gray-400">
-                Detected stack:{" "}
-                <span className="text-primary">{result.tech.join(", ")}</span>
+                Stack: <span className="text-primary">{result.tech.join(", ")}</span>
               </p>
             ) : null}
 
-            {pages.length > 0 && (
-              <div className="mt-3">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">
-                  Paths checked (real HTTP status)
-                </p>
-                <div className="mt-1 flex flex-wrap gap-1">
-                  {pages.map((p) => (
-                    <span
-                      key={p.path}
-                      className="rounded bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-gray-400"
-                    >
-                      {p.path}:{p.status ?? "—"}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            {result?.tls && (
+              <p className="mt-1 text-xs text-gray-400">
+                TLS:{" "}
+                {result.tls.error
+                  ? result.tls.error
+                  : `${result.tls.protocol || "TLS"} · ${result.tls.daysRemaining ?? "?"}d left`}
+              </p>
             )}
 
-            <ul className="mt-4 max-h-[340px] space-y-2.5 overflow-y-auto pr-1">
+            <ul className="mt-4 max-h-[360px] space-y-2.5 overflow-y-auto pr-1">
               {shown.map((f) => (
-                <li
-                  key={f.id}
-                  className="rounded-xl border border-white/10 bg-black/30 p-3"
-                >
+                <li key={f.id} className="rounded-xl border border-white/10 bg-black/30 p-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${severityStyles[f.severity]}`}
                     >
                       {f.severity}
                     </span>
-                    <span className="text-[10px] text-gray-500">{f.category}</span>
+                    {f.verified ? (
+                      <span className="text-[10px] font-semibold text-green-400">Verified</span>
+                    ) : (
+                      <span className="text-[10px] text-amber-400">Heuristic</span>
+                    )}
                     <span className="font-mono text-[10px] text-primary">{f.page}</span>
                   </div>
                   <p className="mt-1 text-sm font-semibold text-white">{f.title}</p>
                   <p className="mt-1 text-xs text-gray-400">{f.description}</p>
-                  {f.evidence && (
-                    <p className="mt-1 font-mono text-[10px] text-gray-500">
-                      Evidence: {f.evidence}
-                    </p>
-                  )}
+                  <p className="mt-1 font-mono text-[10px] text-gray-500">
+                    Evidence: {f.evidence}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -478,22 +517,27 @@ export default function SecurityScanner() {
       )}
 
       {phase === "done" && result && (
-        <div
-          id="doc-sheet"
-          className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl"
-        >
+        <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
           <div className="border-b-4 border-red-600 px-8 py-8">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
-              Live security scan report
+              Evidence-based security report
             </p>
-            <h2 className="mt-2 text-2xl font-bold">Website vulnerability check</h2>
-            <p className="mt-2 text-sm text-gray-600">Target: {result.finalUrl}</p>
+            <h2 className="mt-2 text-2xl font-bold">Passive website scan</h2>
+            <p className="mt-2 text-sm text-gray-600">{result.finalUrl}</p>
             <p className="text-sm text-gray-500">
-              {new Date(result.scannedAt).toLocaleString("en-NG")} · Score {score}/100
-              (Grade {grade})
-              {result.tech?.length ? ` · Stack: ${result.tech.join(", ")}` : ""}
+              {new Date(result.scannedAt).toLocaleString("en-NG")} · Score {score}/100 ({grade})
+              {result.tech?.length ? ` · ${result.tech.join(", ")}` : ""}
+              {verifiedOnly ? " · Verified findings only" : " · Including heuristics"}
             </p>
           </div>
+
+          {result.tls && (
+            <div className="border-b border-gray-100 px-8 py-4 text-sm text-gray-700">
+              <strong>TLS:</strong>{" "}
+              {result.tls.error ||
+                `${result.tls.protocol || "OK"} · expires in ${result.tls.daysRemaining} days · ${result.tls.issuer || ""}`}
+            </div>
+          )}
 
           <div className="grid gap-4 border-b border-gray-100 px-8 py-6 sm:grid-cols-4">
             {(["critical", "high", "medium", "low"] as Severity[]).map((s) => (
@@ -511,19 +555,15 @@ export default function SecurityScanner() {
               <div key={f.id} className="border-b border-gray-100 pb-4 last:border-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-bold text-gray-400">#{i + 1}</span>
-                  <span
-                    className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${severityStyles[f.severity]}`}
-                  >
+                  <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${severityStyles[f.severity]}`}>
                     {f.severity}
                   </span>
-                  <span className="text-xs text-gray-500">{f.category}</span>
+                  <span className="text-xs text-gray-500">{f.verified ? "Verified" : "Heuristic"}</span>
                   <span className="font-mono text-xs text-blue-700">{f.page}</span>
                 </div>
                 <h3 className="mt-1 font-semibold">{f.title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{f.description}</p>
-                {f.evidence && (
-                  <p className="mt-1 font-mono text-xs text-gray-500">Evidence: {f.evidence}</p>
-                )}
+                <p className="mt-1 font-mono text-xs text-gray-500">Evidence: {f.evidence}</p>
                 <p className="mt-2 text-sm">
                   <strong>Recommendation:</strong> {f.recommendation}
                 </p>
@@ -533,10 +573,12 @@ export default function SecurityScanner() {
 
           <div className="border-t border-gray-100 px-8 py-5 text-xs text-gray-500">
             <p>
-              Passive scan by {TOOLS_CONFIG.brand}: real HTTP headers, HTML signals, and path
-              responses only. Not a full penetration test.
+              <strong>Scope:</strong> {(result.scope?.checks || []).join("; ")}.{" "}
+              <strong>Not checked:</strong> {(result.scope?.notChecked || []).join("; ")}.
             </p>
-            <p className="mt-2">{TOOLS_CONFIG.email}</p>
+            <p className="mt-2">
+              Passive evidence-based scan by {TOOLS_CONFIG.brand}. Not a penetration test.
+            </p>
           </div>
         </div>
       )}
@@ -545,7 +587,7 @@ export default function SecurityScanner() {
         <LeadForm
           tool="Security Scanner"
           resultSummary={result ? `${result.finalUrl} score ${score}` : undefined}
-          defaultMessage="Hi DoyinTech, I ran the live security scanner and want help fixing the issues on my website."
+          defaultMessage="Hi DoyinTech, I ran the evidence-based security scanner and want help hardening my site."
         />
       </div>
     </div>
