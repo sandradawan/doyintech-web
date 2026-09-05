@@ -4,14 +4,14 @@ import Footer from "@/components/ui/Footer";
 import { TOOLS_META, TOOLS_CONFIG, TOOL_CATEGORIES } from "@/lib/tools/config";
 
 export const metadata: Metadata = {
-  title: "Free Business & Career Tools",
+  title: "Free Business, Security & Career Tools",
   description:
-    "Free DoyinTech tools: website cost calculator Nigeria, security scanner, business audit, CV builder, tech stack advisor, salary calculator, AI use-case finder, and more.",
+    "Free DoyinTech tools: security scanner, headers checker, SSL report, website calculator, CV builder, and more.",
   alternates: { canonical: "/tools" },
   openGraph: {
-    title: "DoyinTech Tools — Free Business & Career Tools",
+    title: "DoyinTech Tools",
     description:
-      "Calculate costs, scan security risks, audit your business, build a CV, plan tech stacks, and more — free tools for Nigerian businesses and professionals.",
+      "Security, business, and career tools for Nigerian professionals.",
     url: `${TOOLS_CONFIG.siteUrl}/tools`,
   },
 };
@@ -20,6 +20,18 @@ const icons: Record<string, string> = {
   calculator: "₦",
   audit: "◎",
   shield: "🛡",
+  headers: "☰",
+  ssl: "🔐",
+  exposed: "📂",
+  cookie: "🍪",
+  csp: "🧩",
+  robots: "🤖",
+  mixed: "🔗",
+  redirect: "↪",
+  checklist: "☑",
+  golive: "🚀",
+  breach: "⚠",
+  deps: "📦",
   cv: "▤",
   readiness: "◈",
   brief: "☰",
@@ -53,11 +65,11 @@ export default function ToolsHubPage() {
             DoyinTech Tools
           </p>
           <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Free Tools to Grow Your Business & Career
+            Free Tools to Grow & Protect Your Business
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-400">
-            Practical free tools for Nigerian businesses, freelancers, students, and
-            founders — from cost estimates to security scans, CVs, and AI ideas.
+            Security checks, cost estimators, career tools, and more — built for Nigerian
+            businesses and professionals.
           </p>
 
           {TOOL_CATEGORIES.map((cat) => {
@@ -95,20 +107,11 @@ export default function ToolsHubPage() {
               Built for Nigerian businesses & professionals
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-gray-400">
-              Use these tools freely. When you are ready to implement — websites, mobile
-              apps, AI automation, or training —{" "}
+              Use these tools freely. When you need implementation — websites, apps, security
+              hardening, or training —{" "}
               <Link href="/contact" className="text-primary hover:underline">
                 talk to DoyinTech
-              </Link>{" "}
-              or explore{" "}
-              <a
-                href={TOOLS_CONFIG.academyUrl}
-                className="text-primary hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                DoyinTech Academy
-              </a>
+              </Link>
               .
             </p>
           </section>
