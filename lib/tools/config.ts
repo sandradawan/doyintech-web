@@ -44,6 +44,16 @@ export const TOOLS_META: ToolMeta[] = [
     category: "core",
   },
   {
+    slug: "security-scanner",
+    href: "/tools/security-scanner",
+    title: "Website Security Scanner",
+    short: "Laser-scan a URL for bugs & risks, download PDF.",
+    description:
+      "Visual website vulnerability scan simulation with PDF report.",
+    icon: "shield",
+    category: "core",
+  },
+  {
     slug: "cv-builder",
     href: "/tools/cv-builder",
     title: "CV & Portfolio Builder",
