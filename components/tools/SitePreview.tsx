@@ -2,16 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-/** Build ordered screenshot provider URLs for a page */
+/** Ordered real-page snapshot providers (direct image URLs) */
 export function previewCandidates(pageUrl: string): string[] {
-  const u = encodeURIComponent(pageUrl);
+  const encoded = encodeURIComponent(pageUrl);
   return [
-    // WordPress mShots — free full-page snapshots
-    `https://s0.wp.com/mshots/v1/${u}?w=1400`,
-    // thum.io
-    `https://image.thum.io/get/width/1400/crop/900/noanimate/${pageUrl}`,
-    // microlink screenshot (public)
-    `https://api.microlink.io/?url=${u}&screenshot=true&meta=false&embed=screenshot.url`,
+    `https://s0.wp.com/mshots/v1/${encoded}?w=1400`,
+    `https://image.thum.io/get/width/1400/crop/1000/noanimate/${pageUrl}`,
+    `https://image.thum.io/get/width/1400/${pageUrl}`,
   ];
 }
 
@@ -22,10 +19,9 @@ type Props = {
 };
 
 /**
- * Always tries to show the real website visually.
- * Browsers block most live iframes (X-Frame-Options / CSP).
- * We use real page screenshots from public snapshot services,
- * with automatic failover between providers.
+ * Shows the real website for any public URL.
+ * Live iframes are blocked by most sites (X-Frame-Options / CSP).
+ * We capture real page snapshots instead, with provider failover.
  */
 export default function SitePreview({ url, className = "", onReady }: Props) {
   const candidates = useMemo(() => previewCandidates(url), [url]);
@@ -41,11 +37,10 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
     setMode("snapshot");
   }, [url]);
 
-  const src = candidates[index];
+  const src = candidates[Math.min(index, candidates.length - 1)];
 
   return (
     <div className={`relative h-full w-full bg-[#e8eef5] ${className}`}>
-      {/* Toolbar */}
       <div className="absolute left-2 top-2 z-30 flex flex-wrap gap-1">
         <button
           type="button"
@@ -85,8 +80,8 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-[#0b1220]/80">
               <div className="h-9 w-9 animate-spin rounded-full border-2 border-primary border-t-transparent" />
               <p className="text-xs text-gray-300">Loading real page preview…</p>
-              <p className="max-w-xs text-center text-[10px] text-gray-500">
-                Capturing {url}
+              <p className="max-w-xs truncate px-4 text-center text-[10px] text-gray-500">
+                {url}
               </p>
             </div>
           )}
@@ -94,7 +89,7 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
           {failedAll ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
               <p className="text-sm font-semibold text-gray-800">
-                Preview service busy — site is still scanned
+                Snapshot providers busy — your scan still uses the real URL
               </p>
               <a
                 href={url}
@@ -102,7 +97,7 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
                 rel="noopener noreferrer"
                 className="rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white"
               >
-                Open {url} in new tab
+                Open site in new tab
               </a>
             </div>
           ) : (
@@ -139,8 +134,8 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           />
           <p className="absolute bottom-2 left-2 right-2 rounded-lg bg-black/75 px-2 py-1 text-[10px] text-gray-300">
-            Many sites block live embeds (security headers). If this stays blank, use{" "}
-            <strong>Page snapshot</strong> or <strong>Open real site</strong>.
+            If this stays blank, the site blocks embedding. Switch to{" "}
+            <strong>Page snapshot</strong> or open the real site.
           </p>
         </div>
       )}
