@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 import LeadForm from "./LeadForm";
+import SitePreview from "./SitePreview";
 
 type Severity = "critical" | "high" | "medium" | "low" | "info";
 
@@ -73,18 +74,11 @@ function normalizeUrl(input: string): string | null {
   }
 }
 
-function shotUrl(pageUrl: string) {
-  return `https://s0.wp.com/mshots/v1/${encodeURIComponent(pageUrl)}?w=1280`;
-}
-
 export default function SecurityScanner() {
   const [input, setInput] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [iframeLoaded, setIframeLoaded] = useState(false);
-  const [iframeFailed, setIframeFailed] = useState(false);
-  const [useScreenshot, setUseScreenshot] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [statusLine, setStatusLine] = useState("");
   const [progress, setProgress] = useState(0);
@@ -102,8 +96,7 @@ export default function SecurityScanner() {
 
   const allFindings = result?.findings || [];
   const findings = useMemo(
-    () =>
-      verifiedOnly ? allFindings.filter((f) => f.verified) : allFindings,
+    () => (verifiedOnly ? allFindings.filter((f) => f.verified) : allFindings),
     [allFindings, verifiedOnly],
   );
   const pages = result?.pagesChecked || [];
@@ -139,14 +132,7 @@ export default function SecurityScanner() {
 
     const pathList = data.pagesChecked.length
       ? data.pagesChecked
-      : [
-          {
-            url: data.finalUrl,
-            path: "/",
-            status: data.status,
-            ok: true,
-          },
-        ];
+      : [{ url: data.finalUrl, path: "/", status: data.status, ok: true }];
 
     const perPage = 900;
     const total = Math.min(pathList.length, 18) * perPage;
@@ -160,7 +146,6 @@ export default function SecurityScanner() {
             `Checking ${p.path}${p.status != null ? ` · HTTP ${p.status}` : ""}`,
           );
           setPreviewUrl(p.url);
-          setIframeLoaded(false);
           for (let s = 0; s <= 4; s++) {
             timers.current.push(
               window.setTimeout(() => setLaserY((s / 4) * 100), (perPage / 5) * s),
@@ -197,16 +182,13 @@ export default function SecurityScanner() {
     clearTimers();
     setError(null);
     setResult(null);
-    setIframeFailed(false);
-    setIframeLoaded(false);
-    setUseScreenshot(false);
     setPreviewUrl(normalized);
     setPhase("loading-site");
     setStatusLine("Loading the real website first…");
     setProgress(0);
     setVisibleCount(0);
 
-    await new Promise((r) => setTimeout(r, 1600));
+    await new Promise((r) => setTimeout(r, 1200));
     setStatusLine("Running live TLS, header, and crawl checks…");
 
     try {
@@ -242,18 +224,10 @@ export default function SecurityScanner() {
     return () => window.removeEventListener("afterprint", fn);
   }, []);
 
-  useEffect(() => {
-    if (!previewUrl || phase === "idle") return;
-    const t = window.setTimeout(() => {
-      if (!iframeLoaded) {
-        setIframeFailed(true);
-        setUseScreenshot(true);
-      }
-    }, 4500);
-    return () => window.clearTimeout(t);
-  }, [previewUrl, phase, iframeLoaded]);
-
-  const shown = findings.slice(0, Math.max(visibleCount, phase === "done" ? findings.length : visibleCount));
+  const shown = findings.slice(
+    0,
+    Math.max(visibleCount, phase === "done" ? findings.length : visibleCount),
+  );
 
   return (
     <div className="space-y-8">
@@ -265,8 +239,8 @@ export default function SecurityScanner() {
           Real load · real crawl · real findings
         </h2>
         <p className="mt-2 text-sm text-gray-400">
-          Loads your URL, checks TLS, security headers, same-origin links, robots/sitemap,
-          and sensitive paths. Every issue includes evidence. No fake CMS guesses.
+          Every URL shows a real page snapshot. Scans use live TLS, headers, crawl, and
+          path checks with evidence — no fake results.
         </p>
 
         <form
@@ -310,7 +284,6 @@ export default function SecurityScanner() {
         {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
       </div>
 
-      {/* Scope */}
       <div className="doc-no-print mx-auto grid max-w-3xl gap-3 rounded-2xl border border-white/10 bg-black/30 p-4 text-left text-xs text-gray-400 sm:grid-cols-2">
         <div>
           <p className="font-semibold text-green-400">What this checks</p>
@@ -365,47 +338,8 @@ export default function SecurityScanner() {
               </div>
             )}
 
-            <div className="relative h-[420px] md:h-[540px] bg-white">
-              {!useScreenshot ? (
-                <iframe
-                  key={previewUrl}
-                  src={previewUrl}
-                  title="Live website"
-                  className="h-full w-full bg-white"
-                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                  onLoad={() => {
-                    setIframeLoaded(true);
-                    setIframeFailed(false);
-                  }}
-                />
-              ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={shotUrl(previewUrl)}
-                  src={shotUrl(previewUrl)}
-                  alt="Site snapshot"
-                  className="h-full w-full object-cover object-top"
-                />
-              )}
-
-              {(phase === "loading-site" || (iframeFailed && !useScreenshot)) && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#0b1220]/95 p-6 text-center">
-                  <div className="mb-3 h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                  <p className="text-sm font-semibold text-white">
-                    {phase === "loading-site"
-                      ? "Loading the real website…"
-                      : "Embed blocked — switching to snapshot"}
-                  </p>
-                  <a
-                    href={previewUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 text-xs font-semibold text-primary hover:underline"
-                  >
-                    Open real URL in new tab →
-                  </a>
-                </div>
-              )}
+            <div className="relative h-[420px] md:h-[540px] bg-[#e8eef5]">
+              <SitePreview url={previewUrl} />
 
               {(phase === "scanning" || phase === "done") && (
                 <div
@@ -517,7 +451,10 @@ export default function SecurityScanner() {
       )}
 
       {phase === "done" && result && (
-        <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
+        <div
+          id="doc-sheet"
+          className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl"
+        >
           <div className="border-b-4 border-red-600 px-8 py-8">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
               Evidence-based security report
@@ -527,27 +464,7 @@ export default function SecurityScanner() {
             <p className="text-sm text-gray-500">
               {new Date(result.scannedAt).toLocaleString("en-NG")} · Score {score}/100 ({grade})
               {result.tech?.length ? ` · ${result.tech.join(", ")}` : ""}
-              {verifiedOnly ? " · Verified findings only" : " · Including heuristics"}
             </p>
-          </div>
-
-          {result.tls && (
-            <div className="border-b border-gray-100 px-8 py-4 text-sm text-gray-700">
-              <strong>TLS:</strong>{" "}
-              {result.tls.error ||
-                `${result.tls.protocol || "OK"} · expires in ${result.tls.daysRemaining} days · ${result.tls.issuer || ""}`}
-            </div>
-          )}
-
-          <div className="grid gap-4 border-b border-gray-100 px-8 py-6 sm:grid-cols-4">
-            {(["critical", "high", "medium", "low"] as Severity[]).map((s) => (
-              <div key={s} className="rounded-xl bg-gray-50 p-3 text-center">
-                <p className="text-[11px] uppercase text-gray-400">{s}</p>
-                <p className="text-2xl font-bold">
-                  {findings.filter((f) => f.severity === s).length}
-                </p>
-              </div>
-            ))}
           </div>
 
           <div className="space-y-5 px-8 py-8">
@@ -555,10 +472,11 @@ export default function SecurityScanner() {
               <div key={f.id} className="border-b border-gray-100 pb-4 last:border-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-bold text-gray-400">#{i + 1}</span>
-                  <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${severityStyles[f.severity]}`}>
+                  <span
+                    className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${severityStyles[f.severity]}`}
+                  >
                     {f.severity}
                   </span>
-                  <span className="text-xs text-gray-500">{f.verified ? "Verified" : "Heuristic"}</span>
                   <span className="font-mono text-xs text-blue-700">{f.page}</span>
                 </div>
                 <h3 className="mt-1 font-semibold">{f.title}</h3>
@@ -572,13 +490,7 @@ export default function SecurityScanner() {
           </div>
 
           <div className="border-t border-gray-100 px-8 py-5 text-xs text-gray-500">
-            <p>
-              <strong>Scope:</strong> {(result.scope?.checks || []).join("; ")}.{" "}
-              <strong>Not checked:</strong> {(result.scope?.notChecked || []).join("; ")}.
-            </p>
-            <p className="mt-2">
-              Passive evidence-based scan by {TOOLS_CONFIG.brand}. Not a penetration test.
-            </p>
+            Passive evidence-based scan by {TOOLS_CONFIG.brand}. Not a penetration test.
           </div>
         </div>
       )}
@@ -587,7 +499,7 @@ export default function SecurityScanner() {
         <LeadForm
           tool="Security Scanner"
           resultSummary={result ? `${result.finalUrl} score ${score}` : undefined}
-          defaultMessage="Hi DoyinTech, I ran the evidence-based security scanner and want help hardening my site."
+          defaultMessage="Hi DoyinTech, I ran the security scanner and want help hardening my site."
         />
       </div>
     </div>
