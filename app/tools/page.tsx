@@ -6,12 +6,12 @@ import { TOOLS_META, TOOLS_CONFIG, TOOL_CATEGORIES } from "@/lib/tools/config";
 export const metadata: Metadata = {
   title: "Free Business & Career Tools",
   description:
-    "Free DoyinTech tools: website cost calculator Nigeria, business audit, CV builder, tech stack advisor, salary calculator, AI use-case finder, and more.",
+    "Free DoyinTech tools: website cost calculator Nigeria, security scanner, business audit, CV builder, tech stack advisor, salary calculator, AI use-case finder, and more.",
   alternates: { canonical: "/tools" },
   openGraph: {
     title: "DoyinTech Tools — Free Business & Career Tools",
     description:
-      "Calculate costs, audit your business, build a CV, plan tech stacks, and more — free tools for Nigerian businesses and professionals.",
+      "Calculate costs, scan security risks, audit your business, build a CV, plan tech stacks, and more — free tools for Nigerian businesses and professionals.",
     url: `${TOOLS_CONFIG.siteUrl}/tools`,
   },
 };
@@ -19,9 +19,13 @@ export const metadata: Metadata = {
 const icons: Record<string, string> = {
   calculator: "₦",
   audit: "◎",
+  shield: "🛡",
   cv: "▤",
   readiness: "◈",
   brief: "☰",
+  proposal: "📄",
+  contract: "✍",
+  status: "▣",
   stack: "⬡",
   hosting: "☁",
   roi: "%",
@@ -53,7 +57,7 @@ export default function ToolsHubPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-400">
             Practical free tools for Nigerian businesses, freelancers, students, and
-            founders — from cost estimates to CVs, stack advice, and AI ideas.
+            founders — from cost estimates to security scans, CVs, and AI ideas.
           </p>
 
           {TOOL_CATEGORIES.map((cat) => {
