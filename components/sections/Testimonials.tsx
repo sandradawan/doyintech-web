@@ -10,6 +10,7 @@ const testimonials = [
     name: "Imperial Villa Property",
     role: "Property Development",
     project: "Portal + Management System",
+    initials: "IV",
   },
   {
     quote:
@@ -17,6 +18,7 @@ const testimonials = [
     name: "DoyinMart Client",
     role: "Software Marketplace",
     project: "DoyinMart",
+    initials: "DM",
   },
   {
     quote:
@@ -24,49 +26,71 @@ const testimonials = [
     name: "LegacyPlay",
     role: "Gaming Lounge",
     project: "LegacyPlay Website",
+    initials: "LP",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-28 bg-[#080A0F] relative overflow-hidden">
-      <div className="absolute bottom-0 right-0 w-[500px] h-[400px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
+    <section className="relative overflow-hidden bg-[#080A0F] py-28">
+      <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[520px] rounded-full bg-accent/5 blur-[120px]" />
+      <div className="pointer-events-none absolute left-0 top-1/3 h-64 w-64 rounded-full bg-primary/10 blur-[90px]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <ScrollReveal direction="up">
           <div className="max-w-2xl">
-            <span className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Client Feedback
-            </span>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight text-white">
-              Trusted by founders & teams
+            <span className="section-eyebrow text-primary">Client feedback</span>
+            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
+              Trusted by founders{" "}
+              <span className="gradient-text">& teams</span>
             </h2>
             <p className="mt-4 text-gray-400">
-              Real results from real projects. Here’s what clients say after working with DoyinTech.
+              Real results from real projects. Here’s what clients say after working with
+              DoyinTech.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="mt-14 grid md:grid-cols-3 gap-6">
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <ScrollReveal key={t.name} direction="up" delay={i * 0.1}>
-              <motion.div
-                whileHover={{ y: -4 }}
-                className="h-full rounded-2xl border border-white/5 bg-black/30 p-7 flex flex-col"
+              <motion.article
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                className="pro-card flex h-full flex-col p-7"
               >
-                <div className="flex gap-1 text-primary mb-5">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                    </svg>
-                  ))}
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex gap-1 text-primary">
+                    {[...Array(5)].map((_, idx) => (
+                      <svg
+                        key={idx}
+                        className="h-4 w-4 fill-current"
+                        viewBox="0 0 20 20"
+                        aria-hidden
+                      >
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="text-4xl leading-none text-white/10">“</span>
                 </div>
-                <p className="text-gray-300 leading-relaxed flex-1">“{t.quote}”</p>
-                <div className="mt-6 pt-5 border-t border-white/5">
-                  <p className="font-semibold text-white">{t.name}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{t.role} · {t.project}</p>
+
+                <p className="flex-1 text-[15px] leading-relaxed text-gray-300">
+                  {t.quote}
+                </p>
+
+                <div className="mt-6 flex items-center gap-3 border-t border-white/8 pt-5">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-primary/30 bg-primary/15 text-xs font-bold text-primary">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{t.name}</p>
+                    <p className="text-xs text-gray-500">
+                      {t.role} · {t.project}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
+              </motion.article>
             </ScrollReveal>
           ))}
         </div>
