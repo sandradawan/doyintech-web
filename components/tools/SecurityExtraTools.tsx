@@ -57,7 +57,6 @@ function Err({ error }: { error: string | null }) {
   return <p className="text-sm text-red-400">{error}</p>;
 }
 
-// ——— Headers ———
 export function SecurityHeadersTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -109,7 +108,6 @@ export function SecurityHeadersTool() {
   );
 }
 
-// ——— SSL ———
 export function SslCheckerTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -172,7 +170,6 @@ export function SslCheckerTool() {
   );
 }
 
-// ——— Exposed files ———
 export function ExposedFilesTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -223,7 +220,6 @@ export function ExposedFilesTool() {
   );
 }
 
-// ——— Cookies ———
 export function CookieAuditorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -269,7 +265,6 @@ export function CookieAuditorTool() {
   );
 }
 
-// ——— CSP generator ———
 export function CspGeneratorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -322,7 +317,6 @@ export function CspGeneratorTool() {
   );
 }
 
-// ——— Robots / sitemap ———
 export function RobotsAuditorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -346,7 +340,7 @@ export function RobotsAuditorTool() {
         <div className="space-y-3 text-sm text-gray-300">
           <p>robots.txt: HTTP {data.robotsStatus ?? "—"}</p>
           <p>sitemap.xml: HTTP {data.sitemapStatus ?? "—"}</p>
-          <p>Sitemap <loc> count: {data.sitemapHasLocs}</p>
+          <p>Sitemap URL count: {data.sitemapHasLocs}</p>
           {data.disallows?.length > 0 && (
             <div>
               <p className="text-xs uppercase text-gray-500">Disallow rules</p>
@@ -369,7 +363,6 @@ export function RobotsAuditorTool() {
   );
 }
 
-// ——— Mixed content ———
 export function MixedContentTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -407,7 +400,6 @@ export function MixedContentTool() {
   );
 }
 
-// ——— Redirects ———
 export function RedirectInspectorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -447,7 +439,6 @@ export function RedirectInspectorTool() {
   );
 }
 
-// ——— Interactive checklists ———
 function Checklist({
   title,
   items,
