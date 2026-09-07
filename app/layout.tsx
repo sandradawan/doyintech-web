@@ -5,6 +5,10 @@ import Navbar from "@/components/ui/Navbar";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CookieConsent from "@/components/ui/CookieConsent";
 import ChatBot from "@/components/ui/ChatBot";
+import { ToastProvider } from "@/components/ui/Toast";
+import PageTransition from "@/components/ui/PageTransition";
+import MobileStickyCta from "@/components/ui/MobileStickyCta";
+import SkipToContent from "@/components/ui/SkipToContent";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
@@ -96,11 +100,17 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${space.variable} bg-[#0B0E14] text-[#E5E7EB] antialiased`}
       >
-        <Navbar />
-        {children}
-        <ChatBot />
-        <WhatsAppButton />
-        <CookieConsent />
+        <ToastProvider>
+          <SkipToContent />
+          <Navbar />
+          <PageTransition>
+            <div id="main-content">{children}</div>
+          </PageTransition>
+          <MobileStickyCta />
+          <ChatBot />
+          <WhatsAppButton />
+          <CookieConsent />
+        </ToastProvider>
       </body>
     </html>
   );
