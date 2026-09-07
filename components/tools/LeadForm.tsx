@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { trackToolEvent } from "@/lib/tools/analytics";
 import { whatsappUrl } from "@/lib/tools/config";
+import { useToast } from "@/components/ui/Toast";
 
 export default function LeadForm({
   tool,
@@ -15,6 +16,7 @@ export default function LeadForm({
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "err">("idle");
   const [error, setError] = useState("");
+  const { toast } = useToast();
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -46,10 +48,12 @@ export default function LeadForm({
       }
       trackToolEvent("lead_submitted", { tool });
       setStatus("ok");
+      toast("Message sent. We will respond shortly.", "success");
       e.currentTarget.reset();
     } catch {
       setStatus("err");
       setError("Could not send. Try WhatsApp instead.");
+      toast("Could not send form. Try WhatsApp.", "error");
     }
   }
 
@@ -57,6 +61,9 @@ export default function LeadForm({
     defaultMessage ||
       `Hi DoyinTech, I used your ${tool} tool${resultSummary ? ` (${resultSummary})` : ""} and would like help.`,
   );
+
+  const field =
+    "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none transition focus:border-primary/50";
 
   return (
     <div className="rounded-2xl border border-white/10 bg-black/30 p-5 md:p-6">
@@ -72,48 +79,50 @@ export default function LeadForm({
           Message sent. We will respond shortly.
         </p>
       ) : (
-        <form onSubmit={onSubmit} className="mt-4 grid gap-3">
+        <form onSubmit={onSubmit} className="mt-4 grid gap-3" noValidate>
           <input name="company_website" className="hidden" tabIndex={-1} autoComplete="off" />
           <div className="grid gap-3 sm:grid-cols-2">
-            <input
-              name="name"
-              required
-              placeholder="Your name"
-              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
-            />
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="Email"
-              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
-            />
+            <label className="block text-xs text-gray-500">
+              Your name
+              <input name="name" required placeholder="Ada Okafor" className={`mt-1 ${field}`} />
+            </label>
+            <label className="block text-xs text-gray-500">
+              Email
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="you@company.com"
+                className={`mt-1 ${field}`}
+              />
+            </label>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <input
-              name="phone"
-              placeholder="WhatsApp / Phone"
-              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
-            />
-            <input
-              name="businessName"
-              placeholder="Business name (optional)"
-              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
-            />
+            <label className="block text-xs text-gray-500">
+              WhatsApp / Phone
+              <input name="phone" placeholder="+234…" className={`mt-1 ${field}`} />
+            </label>
+            <label className="block text-xs text-gray-500">
+              Business name (optional)
+              <input name="businessName" placeholder="Your company" className={`mt-1 ${field}`} />
+            </label>
           </div>
-          <textarea
-            name="message"
-            rows={3}
-            defaultValue={defaultMessage}
-            placeholder="How can we help?"
-            className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50 resize-none"
-          />
+          <label className="block text-xs text-gray-500">
+            How can we help?
+            <textarea
+              name="message"
+              rows={3}
+              defaultValue={defaultMessage}
+              placeholder="Tell us about your project…"
+              className={`mt-1 resize-none ${field}`}
+            />
+          </label>
           {error && <p className="text-sm text-red-400">{error}</p>}
           <div className="flex flex-col gap-2 sm:flex-row">
             <button
               type="submit"
               disabled={status === "sending"}
-              className="flex-1 rounded-xl bg-primary py-3 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-60"
+              className="flex-1 rounded-xl bg-primary py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-primary/90 disabled:opacity-60"
             >
               {status === "sending" ? "Sending…" : "Get Free Consultation"}
             </button>
@@ -122,7 +131,7 @@ export default function LeadForm({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackToolEvent("whatsapp_clicked", { tool })}
-              className="flex-1 rounded-xl border border-[#25D366]/40 bg-[#25D366]/10 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#25D366]"
+              className="flex-1 rounded-xl border border-[#25D366]/40 bg-[#25D366]/10 py-3 text-center text-xs font-bold uppercase tracking-wider text-[#25D366] transition hover:bg-[#25D366]/20"
             >
               WhatsApp
             </a>
