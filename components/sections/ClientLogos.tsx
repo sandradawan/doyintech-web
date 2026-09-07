@@ -13,12 +13,12 @@ const clients = [
   { name: "DoyinTech Academy", tag: "Training" },
 ];
 
-function Row() {
+function Row({ prefix }: { prefix: string }) {
   return (
     <>
       {clients.map((client) => (
         <div
-          key={client.name + Math.random()}
+          key={`${prefix}-${client.name}`}
           className="mx-6 flex shrink-0 flex-col items-center text-center sm:mx-10"
         >
           <span className="font-display text-lg font-bold text-gray-400 transition-colors hover:text-white md:text-xl">
@@ -50,12 +50,12 @@ export default function ClientLogos() {
 
         <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
           <div className="flex items-center">
-            <Row />
-            <Row />
+            <Row prefix="a" />
+            <Row prefix="b" />
           </div>
           <div className="flex items-center" aria-hidden>
-            <Row />
-            <Row />
+            <Row prefix="c" />
+            <Row prefix="d" />
           </div>
         </div>
       </div>
