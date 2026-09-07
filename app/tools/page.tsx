@@ -6,7 +6,7 @@ import { TOOLS_META, TOOLS_CONFIG, TOOL_CATEGORIES } from "@/lib/tools/config";
 export const metadata: Metadata = {
   title: "Free Business, Security & Career Tools",
   description:
-    "Free DoyinTech tools: security scanner, headers checker, SSL report, website calculator, CV builder, and more.",
+    "Free DoyinTech tools: org security dashboard, security scanner, SSL, website calculator, CV builder, and more.",
   alternates: { canonical: "/tools" },
   openGraph: {
     title: "DoyinTech Tools",
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 const icons: Record<string, string> = {
   calculator: "₦",
   audit: "◎",
+  orgsec: "📡",
   shield: "🛡",
   headers: "☰",
   ssl: "🔐",
