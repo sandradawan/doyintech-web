@@ -44,6 +44,16 @@ export const TOOLS_META: ToolMeta[] = [
     category: "core",
   },
   {
+    slug: "org-security",
+    href: "/tools/org-security",
+    title: "Organization Security Dashboard",
+    short: "Live multi-domain health, alerts, and monitoring.",
+    description:
+      "Monitor company domains for uptime, SSL, headers, SPF and DMARC with alert rules.",
+    icon: "orgsec",
+    category: "security",
+  },
+  {
     slug: "security-scanner",
     href: "/tools/security-scanner",
     title: "Website Security Scanner",
