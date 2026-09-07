@@ -307,7 +307,6 @@ export default function OrgSecurityDashboard() {
         </p>
       </div>
 
-      {/* Summary */}
       <div className="grid gap-3 sm:grid-cols-4">
         {[
           { label: "Domains", value: summary.total, color: "text-white" },
@@ -325,7 +324,6 @@ export default function OrgSecurityDashboard() {
         ))}
       </div>
 
-      {/* Alert feed */}
       <div className="rounded-3xl border border-white/10 bg-surface/80 p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h3 className="font-display text-lg font-bold text-white">Live alert feed</h3>
@@ -360,7 +358,6 @@ export default function OrgSecurityDashboard() {
         )}
       </div>
 
-      {/* Domain cards */}
       <div className="grid gap-4 lg:grid-cols-2">
         {domains.map((domain) => {
           const h = health[domain];
@@ -453,7 +450,6 @@ export default function OrgSecurityDashboard() {
         })}
       </div>
 
-      {/* Alert rules */}
       <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-6">
         <h3 className="font-display text-lg font-bold text-white">Alert rules</h3>
         <p className="mt-1 text-sm text-gray-400">
@@ -461,7 +457,7 @@ export default function OrgSecurityDashboard() {
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="block text-sm text-gray-300">
-            SSL alert if days remaining <
+            SSL alert if days remaining under threshold
             <input
               type="number"
               min={1}
@@ -474,7 +470,7 @@ export default function OrgSecurityDashboard() {
             />
           </label>
           <label className="block text-sm text-gray-300">
-            Headers alert if score <
+            Headers alert if score under threshold
             <input
               type="number"
               min={0}
