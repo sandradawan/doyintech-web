@@ -5,7 +5,7 @@ export default function Footer() {
 
   const cols = [
     {
-      title: "Shop and Learn",
+      title: "Explore",
       links: [
         ["/services", "Services"],
         ["/tools", "Free Tools"],
@@ -32,9 +32,9 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-black/10 bg-[#f5f5f7] text-[12px] text-[#6e6e73]">
+    <footer className="border-t border-white/10 bg-black text-[12px] text-[#a1a1a6]">
       <div className="mx-auto max-w-[980px] px-6 py-10">
-        <div className="rounded-[28px] bg-black px-8 py-12 text-center text-white sm:px-12">
+        <div className="rounded-[28px] bg-[#1d1d1f] px-8 py-12 text-center text-[#f5f5f7] sm:px-12">
           <h2 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">
             Let’s build what’s next.
           </h2>
@@ -54,7 +54,7 @@ export default function Footer() {
         <div className="mt-12 grid gap-8 sm:grid-cols-3">
           {cols.map((col) => (
             <div key={col.title}>
-              <h3 className="mb-3 font-semibold text-[#1d1d1f]">{col.title}</h3>
+              <h3 className="mb-3 font-semibold text-[#f5f5f7]">{col.title}</h3>
               <ul className="space-y-2">
                 {col.links.map(([href, label]) => (
                   <li key={href}>
@@ -63,7 +63,7 @@ export default function Footer() {
                       {...(href.startsWith("http")
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
-                      className="hover:text-[#1d1d1f] hover:underline"
+                      className="text-[#a1a1a6] hover:text-[#f5f5f7] hover:underline"
                     >
                       {label}
                     </a>
@@ -74,9 +74,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-black/10 pt-6">
+        <div className="mt-10 border-t border-white/10 pt-6">
           <p>
-            More ways to shop: visit{" "}
+            More ways to reach us:{" "}
             <a href="/contact" className="apple-link">
               Contact
             </a>{" "}
@@ -86,17 +86,17 @@ export default function Footer() {
             </a>
             .
           </p>
-          <div className="mt-4 flex flex-col gap-2 border-t border-black/10 pt-4 text-[12px] sm:flex-row sm:items-center sm:justify-between">
-            <p>Copyright © {year} DoyinTech. All rights reserved.</p>
-            <p className="flex flex-wrap gap-3">
-              <a href="/privacy" className="hover:underline">
+          <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[#a1a1a6]">Copyright © {year} DoyinTech. All rights reserved.</p>
+            <p className="flex flex-wrap gap-3 text-[#a1a1a6]">
+              <a href="/privacy" className="hover:text-[#f5f5f7] hover:underline">
                 Privacy Policy
               </a>
-              <span className="text-black/20">|</span>
-              <a href="/terms" className="hover:underline">
+              <span className="text-white/20">|</span>
+              <a href="/terms" className="hover:text-[#f5f5f7] hover:underline">
                 Terms of Use
               </a>
-              <span className="text-black/20">|</span>
+              <span className="text-white/20">|</span>
               <span>Jos, Nigeria</span>
             </p>
           </div>
