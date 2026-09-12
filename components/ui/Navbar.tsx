@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaXmark } from "react-icons/fa6";
+import { AnimatePresence, motion } from "framer-motion";
 
 const navItems = [
   { name: "Services", href: "/services" },
@@ -17,15 +16,7 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -39,40 +30,27 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[999] px-3 pt-3 sm:px-6 sm:pt-4">
-      <motion.nav
-        initial={false}
-        animate={{
-          maxWidth: scrolled ? 920 : 1280,
-          borderRadius: scrolled ? 999 : 20,
-        }}
-        transition={{ type: "spring", stiffness: 260, damping: 28 }}
-        className={`mx-auto border transition-colors duration-500 ${
-          scrolled || mobileMenuOpen
-            ? "glass-navbar border-white/10 shadow-2xl shadow-black/40"
-            : "border-transparent bg-transparent"
-        }`}
-      >
-        <div className="flex items-center justify-between gap-3 px-4 py-2.5 sm:px-5 sm:py-3">
+    <header className="fixed inset-x-0 top-0 z-[999]">
+      <nav className="glass-navbar h-12 w-full">
+        <div className="mx-auto flex h-full max-w-[980px] items-center justify-between px-4 sm:px-6">
           <a
             href="/"
-            className="group flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-white sm:text-xl"
+            className="flex items-center gap-2 text-[17px] font-semibold tracking-tight text-[#1d1d1f]"
+            aria-label="DoyinTech Home"
           >
-            <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/5 transition group-hover:border-primary/40">
+            <span className="relative h-5 w-5 overflow-hidden">
               <Image
                 src="/logo.png"
-                alt="DoyinTech Logo"
+                alt=""
                 fill
-                className="object-contain p-0.5"
-                sizes="32px"
+                className="object-contain"
+                sizes="20px"
               />
             </span>
-            <span>
-              Doyin<span className="text-primary">Tech</span>
-            </span>
+            <span className="hidden sm:inline">DoyinTech</span>
           </a>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-7 md:flex">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -81,128 +59,90 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`relative rounded-full px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition duration-300 ${
-                    isActive ? "text-white" : "text-gray-400 hover:text-white"
+                  className={`text-xs transition-opacity hover:opacity-100 ${
+                    isActive ? "text-[#1d1d1f] opacity-100" : "text-[#1d1d1f] opacity-80"
                   }`}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full border border-white/10 bg-white/10"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{item.name}</span>
+                  {item.name}
                 </a>
               );
             })}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <a
               href="https://doyintechacademy.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full border border-white/12 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-300 transition hover:border-white/25 hover:text-white xl:inline-flex"
+              className="hidden text-xs text-[#1d1d1f] opacity-80 transition hover:opacity-100 lg:inline"
             >
               Academy
             </a>
             <a
-              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden rounded-full border border-white/12 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-300 transition hover:border-white/25 hover:text-white lg:inline-flex"
-            >
-              Book a Call
-            </a>
-            <a
               href="/contact"
-              className="hidden rounded-full bg-primary px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg shadow-primary/25 transition hover:bg-primary/90 hover:shadow-primary/40 sm:inline-flex"
+              className="hidden rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs text-white transition hover:bg-[#0077ed] sm:inline-flex"
             >
-              Let’s Talk
+              Contact
             </a>
-
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-200 transition hover:border-white/20 hover:text-white md:hidden"
+              className="flex h-9 w-9 items-center justify-center text-[#1d1d1f] md:hidden"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <FaXmark size={18} /> : <FaBars size={18} />}
+              <span className="sr-only">Menu</span>
+              <div className="flex w-4 flex-col gap-1">
+                <span
+                  className={`h-px w-full bg-[#1d1d1f] transition ${
+                    mobileMenuOpen ? "translate-y-[2.5px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`h-px w-full bg-[#1d1d1f] transition ${
+                    mobileMenuOpen ? "-translate-y-[2.5px] -rotate-45" : ""
+                  }`}
+                />
+              </div>
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            <motion.button
-              type="button"
-              aria-label="Close menu overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-            />
-            <motion.div
-              initial={{ opacity: 0, y: -12, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -12, scale: 0.98 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-50 mx-auto mt-3 max-w-lg rounded-3xl border border-white/10 bg-[#0B0E14]/95 p-5 shadow-2xl backdrop-blur-xl md:hidden"
-            >
-              <div className="flex flex-col gap-1.5">
-                {navItems.map((item, i) => {
-                  const isActive =
-                    pathname === item.href ||
-                    (item.href !== "/" && pathname.startsWith(item.href));
-                  return (
-                    <motion.a
-                      key={item.name}
-                      href={item.href}
-                      initial={{ opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.04 * i }}
-                      className={`rounded-2xl px-4 py-3.5 text-sm font-semibold uppercase tracking-wider transition ${
-                        isActive
-                          ? "bg-primary/15 text-primary"
-                          : "text-gray-300 hover:bg-white/5"
-                      }`}
-                    >
-                      {item.name}
-                    </motion.a>
-                  );
-                })}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="border-b border-black/10 bg-[#fbfbfd] px-6 py-6 md:hidden"
+          >
+            <div className="mx-auto flex max-w-lg flex-col gap-1">
+              {navItems.map((item) => (
                 <a
-                  href="https://doyintechacademy.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-2xl px-4 py-3.5 text-sm font-semibold uppercase tracking-wider text-gray-300 hover:bg-white/5"
+                  key={item.name}
+                  href={item.href}
+                  className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#1d1d1f]"
                 >
-                  Academy
+                  {item.name}
                 </a>
-                <div className="mt-3 grid gap-2 border-t border-white/10 pt-4">
-                  <a
-                    href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20book%20a%20discovery%20call."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-2xl border border-white/15 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-white"
-                  >
-                    Book a Call
-                  </a>
-                  <a
-                    href="/contact"
-                    className="rounded-2xl bg-primary py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-white"
-                  >
-                    Let’s Talk
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          </>
+              ))}
+              <a
+                href="https://doyintechacademy.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#1d1d1f]"
+              >
+                Academy
+              </a>
+              <a
+                href="/contact"
+                className="mt-3 inline-flex items-center justify-center rounded-full bg-[#0071e3] px-5 py-3 text-[15px] text-white"
+              >
+                Contact us
+              </a>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
