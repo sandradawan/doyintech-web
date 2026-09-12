@@ -10,76 +10,87 @@ export type YoutubeVideo = {
 // DoyinTech official channel (@doyintechfoundation)
 const CHANNEL_ID =
   process.env.YOUTUBE_CHANNEL_ID || "UCzZeP2RV2VuS2ymtoaealGQ";
+
+/** Introduction To Web Development playlist */
+const PLAYLIST_ID =
+  process.env.YOUTUBE_PLAYLIST_ID || "PLb1kWUJelqlw";
+
 const API_KEY = process.env.YOUTUBE_API_KEY || "";
 
 /**
- * Curated fallback — real videos from @doyintechfoundation.
- * Used when YouTube RSS/API is blocked from the server (common on Vercel).
+ * Curated fallback from playlist "Introduction To Web Development".
+ * Used when YouTube RSS/API is blocked from the server.
  */
-const FALLBACK_VIDEOS: YoutubeVideo[] = [
+const FALLBACK_PLAYLIST: YoutubeVideo[] = [
   {
-    id: "sx0Yu3ijcTw",
-    title: "DoyinTech portfolio Episode 5",
-    published: "2026-08-19T13:38:10+00:00",
-    thumbnail: "https://i.ytimg.com/vi/sx0Yu3ijcTw/hqdefault.jpg",
-    url: "https://www.youtube.com/shorts/sx0Yu3ijcTw",
-    isShort: true,
+    id: "CTiMiM99wSE",
+    title: "Introduction To Web Development",
+    published: "2026-09-01T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/CTiMiM99wSE/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=CTiMiM99wSE",
   },
   {
-    id: "fX9xcouoibc",
-    title: "You definitely need Website",
-    published: "2026-08-14T18:24:37+00:00",
-    thumbnail: "https://i.ytimg.com/vi/fX9xcouoibc/hqdefault.jpg",
-    url: "https://www.youtube.com/shorts/fX9xcouoibc",
-    isShort: true,
+    id: "u7QxB-woWX0",
+    title: "Day 2",
+    published: "2026-09-02T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/u7QxB-woWX0/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=u7QxB-woWX0",
   },
   {
-    id: "_R8BaFLLUKk",
-    title: "How To Automate With AI",
-    published: "2026-07-26T08:13:55+00:00",
-    thumbnail: "https://i.ytimg.com/vi/_R8BaFLLUKk/hqdefault.jpg",
-    url: "https://www.youtube.com/shorts/_R8BaFLLUKk",
-    isShort: true,
+    id: "uJ7dUicwQOU",
+    title: "Day 3",
+    published: "2026-09-03T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/uJ7dUicwQOU/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=uJ7dUicwQOU",
   },
   {
-    id: "gHzJHQ-9FIA",
-    title: "Android & iOS Apps",
-    published: "2026-07-06T21:41:36+00:00",
-    thumbnail: "https://i.ytimg.com/vi/gHzJHQ-9FIA/hqdefault.jpg",
-    url: "https://www.youtube.com/watch?v=gHzJHQ-9FIA",
-    isShort: false,
+    id: "Um0cfZB9Lmc",
+    title: "Day 4",
+    published: "2026-09-04T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/Um0cfZB9Lmc/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=Um0cfZB9Lmc",
   },
   {
-    id: "4n4X2PRvwnI",
-    title: "We Design all Ads",
-    published: "2026-07-06T07:12:53+00:00",
-    thumbnail: "https://i.ytimg.com/vi/4n4X2PRvwnI/hqdefault.jpg",
-    url: "https://www.youtube.com/watch?v=4n4X2PRvwnI",
-    isShort: false,
+    id: "V2YAF2DrFyY",
+    title: "Day 5",
+    published: "2026-09-05T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/V2YAF2DrFyY/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=V2YAF2DrFyY",
   },
   {
-    id: "gHlW21NtaWQ",
-    title: "Welcome to July — Productive, Progressive & Prosperous Month",
-    published: "2026-07-01T09:02:48+00:00",
-    thumbnail: "https://i.ytimg.com/vi/gHlW21NtaWQ/hqdefault.jpg",
-    url: "https://www.youtube.com/watch?v=gHlW21NtaWQ",
-    isShort: false,
+    id: "TLPVp39aS0E",
+    title: "Day 6",
+    published: "2026-09-06T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/TLPVp39aS0E/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=TLPVp39aS0E",
   },
   {
-    id: "Tc2zsEDE3SE",
-    title: "June 2, 2026",
-    published: "2026-06-02T22:44:18+00:00",
-    thumbnail: "https://i.ytimg.com/vi/Tc2zsEDE3SE/hqdefault.jpg",
-    url: "https://www.youtube.com/shorts/Tc2zsEDE3SE",
-    isShort: true,
+    id: "9xBtaGI8uns",
+    title: "Day 7",
+    published: "2026-09-07T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/9xBtaGI8uns/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=9xBtaGI8uns",
   },
   {
-    id: "sLm8t9-5XTE",
-    title: "Coding life moments",
-    published: "2026-04-14T15:37:11+00:00",
-    thumbnail: "https://i.ytimg.com/vi/sLm8t9-5XTE/hqdefault.jpg",
-    url: "https://www.youtube.com/shorts/sLm8t9-5XTE",
-    isShort: true,
+    id: "1A2nbj1-XBY",
+    title: "Day 8",
+    published: "2026-09-08T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/1A2nbj1-XBY/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=1A2nbj1-XBY",
+  },
+  {
+    id: "CVD8p-Wc-fY",
+    title: "Day 9",
+    published: "2026-09-09T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/CVD8p-Wc-fY/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=CVD8p-Wc-fY",
+  },
+  {
+    id: "Ts2VHzCyjfY",
+    title: "Day 10",
+    published: "2026-09-10T00:00:00+00:00",
+    thumbnail: "https://i.ytimg.com/vi/Ts2VHzCyjfY/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=Ts2VHzCyjfY",
   },
 ];
 
@@ -93,14 +104,34 @@ function decodeTitle(raw: string): string {
     .trim();
 }
 
-async function fetchFromRss(limit = 8): Promise<YoutubeVideo[]> {
-  if (!CHANNEL_ID) return [];
+function mapEntry(entry: string): YoutubeVideo | null {
+  const idMatch = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
+  const titleMatch = entry.match(/<title>([^<]+)<\/title>/);
+  const publishedMatch = entry.match(/<published>([^<]+)<\/published>/);
+  if (!idMatch || !titleMatch) return null;
 
+  const id = idMatch[1].trim();
+  const title = decodeTitle(titleMatch[1]);
+  const isShort = /#shorts|\bshorts?\b/i.test(title);
+
+  return {
+    id,
+    title,
+    published: publishedMatch?.[1] || "",
+    thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    url: isShort
+      ? `https://www.youtube.com/shorts/${id}`
+      : `https://www.youtube.com/watch?v=${id}`,
+    isShort,
+  };
+}
+
+async function fetchPlaylistFromRss(limit = 10): Promise<YoutubeVideo[]> {
+  if (!PLAYLIST_ID) return [];
   try {
     const res = await fetch(
-      `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`,
+      `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`,
       {
-        // Avoid caching empty/error responses for long
         next: { revalidate: 1800 },
         headers: {
           Accept: "application/atom+xml, application/xml, text/xml, */*",
@@ -109,72 +140,31 @@ async function fetchFromRss(limit = 8): Promise<YoutubeVideo[]> {
         },
       }
     );
-
     if (!res.ok) return [];
-
     const xml = await res.text();
     if (!xml.includes("<entry>")) return [];
-
     const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) || [];
     const videos: YoutubeVideo[] = [];
-
     for (const entry of entries.slice(0, limit)) {
-      const idMatch = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
-      const titleMatch = entry.match(/<title>([^<]+)<\/title>/);
-      const publishedMatch = entry.match(/<published>([^<]+)<\/published>/);
-      const linkMatch = entry.match(/href="(https:\/\/www\.youtube\.com\/[^"]+)"/);
-
-      if (!idMatch || !titleMatch) continue;
-
-      const id = idMatch[1].trim();
-      const title = decodeTitle(titleMatch[1]);
-      const link =
-        linkMatch?.[1] || `https://www.youtube.com/watch?v=${id}`;
-      const isShort =
-        link.includes("/shorts/") || /#shorts|\bshorts?\b/i.test(title);
-
-      videos.push({
-        id,
-        title,
-        published: publishedMatch?.[1] || "",
-        thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-        url: isShort
-          ? `https://www.youtube.com/shorts/${id}`
-          : `https://www.youtube.com/watch?v=${id}`,
-        isShort,
-      });
+      const v = mapEntry(entry);
+      if (v) videos.push(v);
     }
-
     return videos;
   } catch {
     return [];
   }
 }
 
-async function fetchFromApi(limit = 8): Promise<YoutubeVideo[]> {
-  if (!CHANNEL_ID || !API_KEY) return [];
-
+async function fetchPlaylistFromApi(limit = 10): Promise<YoutubeVideo[]> {
+  if (!PLAYLIST_ID || !API_KEY) return [];
   try {
-    const channelRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`,
-      { next: { revalidate: 86400 } }
-    );
-    if (!channelRes.ok) return [];
-
-    const channelData = await channelRes.json();
-    const uploadsId =
-      channelData?.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-    if (!uploadsId) return [];
-
     const playlistRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsId}&maxResults=${limit}&key=${API_KEY}`,
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=${limit}&key=${API_KEY}`,
       { next: { revalidate: 1800 } }
     );
     if (!playlistRes.ok) return [];
-
     const playlistData = await playlistRes.json();
     const items = playlistData?.items || [];
-
     return items.map((item: any) => {
       const id = item.snippet?.resourceId?.videoId as string;
       const title = (item.snippet?.title as string) || "Untitled";
@@ -198,24 +188,32 @@ async function fetchFromApi(limit = 8): Promise<YoutubeVideo[]> {
   }
 }
 
-/**
- * Prefers live API → live RSS → curated fallback (always shows content).
- */
-export async function getLatestYoutubeVideos(
-  limit = 6
-): Promise<YoutubeVideo[]> {
+/** Latest videos from the configured playlist (default: Introduction To Web Development). */
+export async function getPlaylistVideos(limit = 10): Promise<YoutubeVideo[]> {
   if (API_KEY) {
-    const apiVideos = await fetchFromApi(limit);
+    const apiVideos = await fetchPlaylistFromApi(limit);
     if (apiVideos.length > 0) return apiVideos.slice(0, limit);
   }
-
-  const rssVideos = await fetchFromRss(limit);
+  const rssVideos = await fetchPlaylistFromRss(limit);
   if (rssVideos.length > 0) return rssVideos.slice(0, limit);
+  return FALLBACK_PLAYLIST.slice(0, limit);
+}
 
-  // Vercel / some hosts block YouTube RSS — show real channel videos
-  return FALLBACK_VIDEOS.slice(0, limit);
+/** Channel uploads (legacy helper). */
+export async function getLatestYoutubeVideos(
+  limit = 10
+): Promise<YoutubeVideo[]> {
+  return getPlaylistVideos(limit);
 }
 
 export function getYoutubeChannelUrl(): string {
   return "https://www.youtube.com/@doyintechfoundation";
+}
+
+export function getYoutubePlaylistUrl(): string {
+  return `https://www.youtube.com/playlist?list=${PLAYLIST_ID}`;
+}
+
+export function getYoutubePlaylistTitle(): string {
+  return "Introduction To Web Development";
 }
