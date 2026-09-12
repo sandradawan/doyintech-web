@@ -1,33 +1,26 @@
 "use client";
 
-import ScrollReveal from "../animations/ScrollReveal";
-
 const clients = [
-  { name: "Imperial Villa", tag: "Property & Fintech" },
-  { name: "DoyinMart", tag: "Marketplace" },
-  { name: "LegacyPlay", tag: "Gaming Lounge" },
-  { name: "JennyGlams", tag: "Beauty Brand" },
-  { name: "Arqademy", tag: "Education / CBT" },
-  { name: "IPVL", tag: "Operations" },
-  { name: "DoyinSoft", tag: "Software" },
-  { name: "DoyinTech Academy", tag: "Training" },
+  "Imperial Villa",
+  "DoyinMart",
+  "LegacyPlay",
+  "JennyGlams",
+  "Arqademy",
+  "IPVL",
+  "DoyinSoft",
+  "DoyinTech Academy",
 ];
 
 function Row({ prefix }: { prefix: string }) {
   return (
     <>
-      {clients.map((client) => (
-        <div
-          key={`${prefix}-${client.name}`}
-          className="mx-6 flex shrink-0 flex-col items-center text-center sm:mx-10"
+      {clients.map((name) => (
+        <span
+          key={`${prefix}-${name}`}
+          className="mx-8 shrink-0 text-[17px] font-semibold tracking-tight text-[#1d1d1f]/55 sm:mx-12 sm:text-[21px]"
         >
-          <span className="font-display text-lg font-bold text-gray-400 transition-colors hover:text-white md:text-xl">
-            {client.name}
-          </span>
-          <span className="mt-1 text-[10px] uppercase tracking-wider text-gray-600">
-            {client.tag}
-          </span>
-        </div>
+          {name}
+        </span>
       ))}
     </>
   );
@@ -35,19 +28,13 @@ function Row({ prefix }: { prefix: string }) {
 
 export default function ClientLogos() {
   return (
-    <section className="border-y border-white/5 bg-[#080A0F] py-16">
-      <div className="mx-auto max-w-7xl px-6">
-        <ScrollReveal direction="up">
-          <p className="mb-10 text-center text-sm font-semibold uppercase tracking-wider text-gray-500">
-            Trusted by growing businesses & brands
-          </p>
-        </ScrollReveal>
-      </div>
-
+    <section className="apple-section-gray py-14">
+      <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-[#6e6e73]">
+        Trusted by growing businesses
+      </p>
       <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#080A0F] to-transparent sm:w-28" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#080A0F] to-transparent sm:w-28" />
-
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#f5f5f7] to-transparent sm:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#f5f5f7] to-transparent sm:w-24" />
         <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
           <div className="flex items-center">
             <Row prefix="a" />
