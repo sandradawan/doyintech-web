@@ -15,7 +15,7 @@ import Footer from "@/components/ui/Footer";
 export default function Home() {
   return (
     <>
-      <main className="pt-16">
+      <main>
         <Hero />
         <Stats />
         <ClientLogos />
@@ -29,7 +29,6 @@ export default function Home() {
         <FAQ />
         <Contact />
       </main>
-
       <Footer />
     </>
   );
