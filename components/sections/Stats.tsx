@@ -5,10 +5,10 @@ import { useInView, useReducedMotion } from "framer-motion";
 import ScrollReveal from "../animations/ScrollReveal";
 
 const stats = [
-  { value: 25, suffix: "+", label: "Projects Delivered" },
-  { value: 4, suffix: "+", label: "Years Experience" },
-  { value: 12, suffix: "+", label: "Happy Clients" },
-  { value: 99.9, suffix: "%", label: "Uptime Systems" },
+  { value: 25, suffix: "+", label: "Projects delivered" },
+  { value: 4, suffix: "+", label: "Years experience" },
+  { value: 12, suffix: "+", label: "Happy clients" },
+  { value: 99.9, suffix: "%", label: "Uptime systems" },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
@@ -24,7 +24,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
       return;
     }
     let start = 0;
-    const duration = 1600;
+    const duration = 1400;
     const step = (timestamp: number) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
@@ -36,7 +36,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   }, [isInView, value, reduce]);
 
   return (
-    <span ref={ref} className="font-display text-4xl font-bold text-white md:text-5xl">
+    <span ref={ref} className="text-[40px] font-semibold tracking-tight text-[#1d1d1f] sm:text-[48px]">
       {count}
       {suffix}
     </span>
@@ -45,16 +45,14 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function Stats() {
   return (
-    <section className="border-y border-white/5 bg-[#080A0F] py-20">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+    <section className="apple-section-white border-y border-black/5 py-16">
+      <div className="mx-auto max-w-[980px] px-6">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {stats.map((stat, i) => (
-            <ScrollReveal key={stat.label} direction="up" delay={i * 0.08}>
-              <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-6 text-center transition hover:border-primary/25">
+            <ScrollReveal key={stat.label} direction="up" delay={i * 0.06}>
+              <div className="text-center">
                 <Counter value={stat.value} suffix={stat.suffix} />
-                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-gray-400 md:text-sm">
-                  {stat.label}
-                </p>
+                <p className="mt-2 text-[14px] text-[#6e6e73]">{stat.label}</p>
               </div>
             </ScrollReveal>
           ))}
