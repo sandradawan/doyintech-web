@@ -2,14 +2,16 @@ import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import YouTubeShorts from "@/components/sections/YouTubeShorts";
 import {
-  getLatestYoutubeVideos,
+  getPlaylistVideos,
   getYoutubeChannelUrl,
+  getYoutubePlaylistTitle,
+  getYoutubePlaylistUrl,
 } from "@/lib/youtube";
 
 export const metadata = {
   title: "Blog & Insights",
   description:
-    "Practical insights on backend engineering, Laravel, Flutter, APIs, AI automation and building production systems.",
+    "Practical insights on backend engineering, Laravel, Flutter, APIs, AI automation and building production systems — plus the Introduction To Web Development playlist.",
 };
 
 const posts = [
@@ -40,54 +42,54 @@ const posts = [
 ];
 
 export default async function BlogPage() {
-  const videos = await getLatestYoutubeVideos(6);
-  const channelUrl = getYoutubeChannelUrl();
+  const videos = await getPlaylistVideos(10);
+  // Newest first
+  const sorted = [...videos].sort((a, b) => {
+    const da = a.published ? new Date(a.published).getTime() : 0;
+    const db = b.published ? new Date(b.published).getTime() : 0;
+    return db - da;
+  });
 
   return (
     <>
-      <main className="pt-32 pb-24">
-        <div className="max-w-4xl mx-auto px-6">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+      <main className="bg-black pb-24 pt-24">
+        <div className="mx-auto max-w-[980px] px-6">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
             Insights
           </p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Blog & Engineering Notes
-          </h1>
-          <p className="mt-4 text-gray-400 max-w-2xl">
-            Practical writing on backends, APIs, mobile, Laravel, and AI
-            automation — written for founders and teams who need systems that
-            work in production.
+          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Blog & notes</h1>
+          <p className="apple-subhead mt-4 max-w-2xl">
+            Practical writing on backends, APIs, mobile, Laravel, and AI automation — plus
+            lessons from our YouTube playlist.
           </p>
 
-          <div className="mt-14 space-y-6">
+          <div className="mt-12 space-y-4">
             {posts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="block group rounded-2xl border border-white/5 bg-white/[0.02] p-6 hover:border-primary/40 transition"
+                className="apple-card group block p-6 transition hover:border-[#2997ff]/40"
               >
-                <div className="flex items-center gap-3 text-xs text-gray-500">
-                  <span className="text-primary font-medium">
-                    {post.category}
-                  </span>
+                <div className="flex items-center gap-3 text-[12px] text-[#a1a1a6]">
+                  <span className="font-semibold text-[#2997ff]">{post.category}</span>
                   <span>·</span>
                   <span>{post.date}</span>
                 </div>
-                <h2 className="mt-3 font-display text-xl font-bold text-white group-hover:text-primary transition">
+                <h2 className="mt-3 text-[22px] font-semibold tracking-tight text-[#f5f5f7] transition group-hover:text-[#2997ff]">
                   {post.title}
                 </h2>
-                <p className="mt-2 text-gray-400 text-sm leading-relaxed">
-                  {post.excerpt}
-                </p>
-                <span className="mt-4 inline-block text-sm text-primary font-medium">
-                  Read article →
-                </span>
+                <p className="mt-2 text-[15px] leading-relaxed text-[#a1a1a6]">{post.excerpt}</p>
+                <span className="apple-link mt-4 inline-block text-[14px]">Read article ›</span>
               </Link>
             ))}
           </div>
 
-          {/* Auto-pulled YouTube Shorts */}
-          <YouTubeShorts videos={videos} channelUrl={channelUrl} />
+          <YouTubeShorts
+            videos={sorted.slice(0, 10)}
+            channelUrl={getYoutubeChannelUrl()}
+            playlistUrl={getYoutubePlaylistUrl()}
+            playlistTitle={getYoutubePlaylistTitle()}
+          />
         </div>
       </main>
       <Footer />
