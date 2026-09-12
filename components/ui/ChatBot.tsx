@@ -12,7 +12,7 @@ const QUICK = [
   "Talk to a human",
 ];
 
-function ChatSparkIcon({ size = 26 }: { size?: number }) {
+function ChatSparkIcon({ size = 22 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -31,7 +31,6 @@ function ChatSparkIcon({ size = 26 }: { size?: number }) {
         d="M12 7.2l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7.7-1.9z"
         fill="#0B0E14"
       />
-      <circle cx="16.2" cy="9.2" r="0.7" fill="#0B0E14" opacity="0.7" />
     </svg>
   );
 }
@@ -50,7 +49,35 @@ export default function ChatBot() {
   const [showHandoff, setShowHandoff] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [bottom, setBottom] = useState(88);
+  const [ready, setReady] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sync = () => {
+      const cookieOk = document.documentElement.dataset.cookieOk === "1";
+      const cookieBanner = document.documentElement.dataset.cookieBanner === "1";
+      // Show launcher only after cookie accepted, or after 8s fallback
+      setReady(cookieOk || localStorage.getItem("cookie-consent") === "true");
+      let b = 88; // above WhatsApp
+      if (cookieBanner) b += 64;
+      if (window.innerWidth < 768 && window.scrollY > 420) b += 62;
+      setBottom(b);
+    };
+    sync();
+    const t = window.setTimeout(() => setReady(true), 8000);
+    window.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    window.addEventListener("cookie-accepted", sync);
+    const id = window.setInterval(sync, 400);
+    return () => {
+      window.clearTimeout(t);
+      window.clearInterval(id);
+      window.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+      window.removeEventListener("cookie-accepted", sync);
+    };
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -140,64 +167,64 @@ export default function ChatBot() {
     return `https://wa.me/2348085343926?text=${encodeURIComponent(text)}`;
   }
 
+  if (!ready && !open) return null;
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close chat" : "Open AI assistant"}
-        className="group fixed bottom-24 right-6 z-[100] flex h-14 w-14 items-center justify-center"
+        style={{ bottom }}
+        className="fixed right-5 z-[100] flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#1d1d1f] text-[#f5f5f7] shadow-lg transition hover:border-[#2997ff]/50 sm:right-6 sm:h-12 sm:w-12"
       >
-        {/* Soft pulse ring when closed */}
+        {open ? <FaTimes size={16} /> : <ChatSparkIcon size={20} />}
         {!open && (
-          <span className="absolute inset-0 animate-ping rounded-full bg-primary/40 opacity-40" />
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#0071e3] text-[8px] font-bold text-white">
+            AI
+          </span>
         )}
-        <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 via-primary to-rose-600 text-white shadow-xl shadow-primary/40 ring-2 ring-white/10 transition duration-300 group-hover:scale-110 group-active:scale-95">
-          {open ? <FaTimes size={18} /> : <ChatSparkIcon size={26} />}
-          {!open && (
-            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400 text-[9px] font-bold text-[#0B0E14] ring-2 ring-[#0B0E14]">
-              AI
-            </span>
-          )}
-        </span>
       </button>
 
       {open && (
-        <div className="fixed bottom-40 right-4 z-[100] flex w-[min(100vw-2rem,380px)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#121826] shadow-2xl shadow-black/50 sm:right-6">
-          <div className="flex items-center justify-between border-b border-white/10 bg-[#0B0E14] px-4 py-3">
+        <div
+          style={{ bottom: bottom + 56 }}
+          className="fixed right-4 z-[100] flex w-[min(100vw-2rem,360px)] flex-col overflow-hidden rounded-2xl border border-white/12 bg-[#1d1d1f] shadow-2xl sm:right-6"
+        >
+          <div className="flex items-center justify-between border-b border-white/10 bg-black/40 px-4 py-3">
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 via-primary to-rose-600 text-white">
-                <ChatSparkIcon size={20} />
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0071e3] text-white">
+                <ChatSparkIcon size={16} />
               </span>
               <div>
-                <p className="text-sm font-semibold text-white">DoyinTech AI</p>
-                <p className="text-[11px] text-green-400">Online · Replies 24/7</p>
+                <p className="text-sm font-semibold text-[#f5f5f7]">DoyinTech AI</p>
+                <p className="text-[11px] text-emerald-400">Online · 24/7</p>
               </div>
             </div>
             <a
               href={whatsappHref()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366]/15 px-3 py-1.5 text-[11px] font-semibold text-[#25D366] hover:bg-[#25D366]/25"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366]/15 px-3 py-1.5 text-[11px] font-semibold text-[#25D366]"
             >
               <FaWhatsapp /> WhatsApp
             </a>
           </div>
 
-          <div className="flex max-h-[360px] flex-col gap-3 overflow-y-auto p-4">
+          <div className="flex max-h-[320px] flex-col gap-3 overflow-y-auto p-4">
             {messages.map((m, i) => (
               <div
                 key={i}
                 className={`max-w-[90%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                   m.role === "user"
-                    ? "ml-auto bg-primary text-white"
-                    : "bg-white/5 text-gray-200"
+                    ? "ml-auto bg-[#0071e3] text-white"
+                    : "bg-white/5 text-[#f5f5f7]"
                 }`}
               >
                 {m.content}
               </div>
             ))}
-            {loading && <p className="text-xs text-gray-500">Typing…</p>}
+            {loading && <p className="text-xs text-[#a1a1a6]">Typing…</p>}
             <div ref={bottomRef} />
           </div>
 
@@ -208,7 +235,7 @@ export default function ChatBot() {
                   key={q}
                   type="button"
                   onClick={() => send(q)}
-                  className="rounded-full border border-white/10 px-2.5 py-1 text-[10px] text-gray-400 hover:border-primary/50 hover:text-white"
+                  className="rounded-full border border-white/10 px-2.5 py-1 text-[10px] text-[#a1a1a6] hover:border-[#2997ff]/50 hover:text-white"
                 >
                   {q}
                 </button>
@@ -218,28 +245,28 @@ export default function ChatBot() {
 
           {showHandoff && (
             <div className="space-y-2 border-t border-white/10 bg-black/30 p-3">
-              <p className="text-[11px] text-gray-400">
+              <p className="text-[11px] text-[#a1a1a6]">
                 Leave your details — we will follow up. Or continue on WhatsApp now.
               </p>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
-                className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-primary/50"
+                className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-[#2997ff]/50"
               />
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 placeholder="Email"
-                className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-primary/50"
+                className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white outline-none focus:border-[#2997ff]/50"
               />
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={submitHandoff}
                   disabled={loading}
-                  className="flex-1 rounded-lg bg-primary py-2 text-xs font-semibold text-white disabled:opacity-60"
+                  className="flex-1 rounded-lg bg-[#0071e3] py-2 text-xs font-semibold text-white disabled:opacity-60"
                 >
                   Send to team
                 </button>
@@ -266,12 +293,12 @@ export default function ChatBot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything…"
-              className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
+              className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#2997ff]/50"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white disabled:opacity-50"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0071e3] text-white disabled:opacity-50"
               aria-label="Send"
             >
               <FaPaperPlane size={14} />
