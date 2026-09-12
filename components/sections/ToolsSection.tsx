@@ -6,7 +6,7 @@ export default function ToolsSection() {
   const featured = TOOLS_META.filter((t) => t.category === "core").slice(0, 4);
 
   return (
-    <section className="apple-section apple-section-white">
+    <section className="apple-section apple-section-black">
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal>
           <div className="text-center">
@@ -24,14 +24,11 @@ export default function ToolsSection() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2">
           {featured.map((t, i) => (
             <ScrollReveal key={t.slug} delay={0.05 * i}>
-              <Link
-                href={t.href}
-                className="apple-card flex h-full flex-col p-8 transition hover:bg-[#fbfbfd]"
-              >
-                <h3 className="text-[21px] font-semibold tracking-tight text-[#1d1d1f]">
+              <Link href={t.href} className="apple-card flex h-full flex-col p-8">
+                <h3 className="text-[21px] font-semibold tracking-tight text-[#f5f5f7]">
                   {t.title}
                 </h3>
-                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-[#6e6e73]">
+                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-[#a1a1a6]">
                   {t.short}
                 </p>
                 <span className="apple-link mt-5 text-[14px]">Use tool ›</span>
