@@ -5,12 +5,22 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function MobileStickyCta() {
   const [show, setShow] = useState(false);
+  const [pad, setPad] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 420);
+    const onScroll = () => {
+      setShow(window.scrollY > 420);
+      setPad(document.documentElement.dataset.cookieBanner === "1" ? 56 : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("cookie-accepted", onScroll);
+    const id = window.setInterval(onScroll, 400);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("cookie-accepted", onScroll);
+      window.clearInterval(id);
+    };
   }, []);
 
   return (
@@ -21,7 +31,8 @@ export default function MobileStickyCta() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-x-0 bottom-0 z-[900] border-t border-white/10 bg-[rgba(22,22,23,0.92)] p-3 backdrop-blur-xl md:hidden"
+          style={{ bottom: pad }}
+          className="fixed inset-x-0 z-[95] border-t border-white/10 bg-[rgba(22,22,23,0.94)] p-3 backdrop-blur-xl md:hidden"
         >
           <div className="mx-auto flex max-w-lg gap-2">
             <a
