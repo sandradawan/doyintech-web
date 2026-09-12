@@ -25,7 +25,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="apple-section apple-section-white">
+    <section className="apple-section apple-section-black">
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">
@@ -40,12 +40,12 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <ScrollReveal key={t.name} direction="up" delay={i * 0.08}>
               <figure className="apple-card flex h-full flex-col p-8">
-                <blockquote className="flex-1 text-[17px] leading-relaxed text-[#1d1d1f]">
+                <blockquote className="flex-1 text-[17px] leading-relaxed text-[#f5f5f7]">
                   “{t.quote}”
                 </blockquote>
-                <figcaption className="mt-6 border-t border-black/5 pt-5">
-                  <p className="text-[14px] font-semibold text-[#1d1d1f]">{t.name}</p>
-                  <p className="text-[13px] text-[#6e6e73]">{t.role}</p>
+                <figcaption className="mt-6 border-t border-white/10 pt-5">
+                  <p className="text-[14px] font-semibold text-[#f5f5f7]">{t.name}</p>
+                  <p className="text-[13px] text-[#a1a1a6]">{t.role}</p>
                 </figcaption>
               </figure>
             </ScrollReveal>
