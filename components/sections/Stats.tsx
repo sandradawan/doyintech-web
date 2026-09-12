@@ -36,7 +36,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   }, [isInView, value, reduce]);
 
   return (
-    <span ref={ref} className="text-[40px] font-semibold tracking-tight text-[#1d1d1f] sm:text-[48px]">
+    <span ref={ref} className="text-[40px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[48px]">
       {count}
       {suffix}
     </span>
@@ -45,14 +45,14 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function Stats() {
   return (
-    <section className="apple-section-white border-y border-black/5 py-16">
+    <section className="border-y border-white/10 bg-black py-16">
       <div className="mx-auto max-w-[980px] px-6">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {stats.map((stat, i) => (
             <ScrollReveal key={stat.label} direction="up" delay={i * 0.06}>
               <div className="text-center">
                 <Counter value={stat.value} suffix={stat.suffix} />
-                <p className="mt-2 text-[14px] text-[#6e6e73]">{stat.label}</p>
+                <p className="mt-2 text-[14px] text-[#a1a1a6]">{stat.label}</p>
               </div>
             </ScrollReveal>
           ))}
