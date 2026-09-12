@@ -35,17 +35,11 @@ export default function Navbar() {
         <div className="mx-auto flex h-full max-w-[980px] items-center justify-between px-4 sm:px-6">
           <a
             href="/"
-            className="flex items-center gap-2 text-[17px] font-semibold tracking-tight text-[#1d1d1f]"
+            className="flex items-center gap-2 text-[17px] font-semibold tracking-tight text-[#f5f5f7]"
             aria-label="DoyinTech Home"
           >
             <span className="relative h-5 w-5 overflow-hidden">
-              <Image
-                src="/logo.png"
-                alt=""
-                fill
-                className="object-contain"
-                sizes="20px"
-              />
+              <Image src="/logo.png" alt="" fill className="object-contain" sizes="20px" />
             </span>
             <span className="hidden sm:inline">DoyinTech</span>
           </a>
@@ -59,8 +53,10 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`text-xs transition-opacity hover:opacity-100 ${
-                    isActive ? "text-[#1d1d1f] opacity-100" : "text-[#1d1d1f] opacity-80"
+                  className={`text-xs transition ${
+                    isActive
+                      ? "text-white opacity-100"
+                      : "text-[#f5f5f7] opacity-80 hover:opacity-100"
                   }`}
                 >
                   {item.name}
@@ -74,7 +70,7 @@ export default function Navbar() {
               href="https://doyintechacademy.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden text-xs text-[#1d1d1f] opacity-80 transition hover:opacity-100 lg:inline"
+              className="hidden text-xs text-[#f5f5f7] opacity-80 transition hover:opacity-100 lg:inline"
             >
               Academy
             </a>
@@ -87,19 +83,19 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center text-[#1d1d1f] md:hidden"
+              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] md:hidden"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
               <span className="sr-only">Menu</span>
               <div className="flex w-4 flex-col gap-1">
                 <span
-                  className={`h-px w-full bg-[#1d1d1f] transition ${
+                  className={`h-px w-full bg-[#f5f5f7] transition ${
                     mobileMenuOpen ? "translate-y-[2.5px] rotate-45" : ""
                   }`}
                 />
                 <span
-                  className={`h-px w-full bg-[#1d1d1f] transition ${
+                  className={`h-px w-full bg-[#f5f5f7] transition ${
                     mobileMenuOpen ? "-translate-y-[2.5px] -rotate-45" : ""
                   }`}
                 />
@@ -115,14 +111,14 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            className="border-b border-black/10 bg-[#fbfbfd] px-6 py-6 md:hidden"
+            className="border-b border-white/10 bg-[#161617] px-6 py-6 md:hidden"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#1d1d1f]"
+                  className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#f5f5f7]"
                 >
                   {item.name}
                 </a>
@@ -131,7 +127,7 @@ export default function Navbar() {
                 href="https://doyintechacademy.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#1d1d1f]"
+                className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#f5f5f7]"
               >
                 Academy
               </a>
