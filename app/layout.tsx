@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
@@ -11,7 +11,6 @@ import MobileStickyCta from "@/components/ui/MobileStickyCta";
 import SkipToContent from "@/components/ui/SkipToContent";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://doyintech.vercel.app"),
@@ -90,16 +89,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body
-        className={`${inter.variable} ${space.variable} bg-[#0B0E14] text-[#E5E7EB] antialiased`}
-      >
+      <body className={`${inter.variable} bg-[#f5f5f7] text-[#1d1d1f] antialiased`}>
         <ToastProvider>
           <SkipToContent />
           <Navbar />
