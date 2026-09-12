@@ -2,27 +2,26 @@
 @import "leaflet/dist/leaflet.css";
 
 :root {
-  --apple-bg: #f5f5f7;
-  --apple-black: #000000;
-  --apple-ink: #1d1d1f;
-  --apple-muted: #6e6e73;
-  --apple-blue: #0071e3;
-  --apple-blue-hover: #0077ed;
-  --apple-link: #0066cc;
-  --apple-card: #ffffff;
-  --apple-hairline: rgba(0, 0, 0, 0.08);
-  --apple-nav: rgba(251, 251, 253, 0.8);
+  --apple-bg: #000000;
+  --apple-surface: #1d1d1f;
+  --apple-elevated: #2a2a2c;
+  --apple-ink: #f5f5f7;
+  --apple-muted: #a1a1a6;
+  --apple-blue: #2997ff;
+  --apple-blue-solid: #0071e3;
+  --apple-hairline: rgba(255, 255, 255, 0.12);
+  --apple-nav: rgba(22, 22, 23, 0.72);
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) #f5f5f7;
+  scrollbar-color: rgba(255, 255, 255, 0.25) #000;
 }
 
 body {
-  background-color: var(--apple-bg);
-  color: var(--apple-ink);
+  background-color: #000;
+  color: #f5f5f7;
   font-family:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI",
     Inter, Roboto, Helvetica, Arial, sans-serif;
@@ -38,8 +37,8 @@ body {
 }
 
 ::selection {
-  background-color: rgba(0, 113, 227, 0.22);
-  color: #000;
+  background-color: rgba(41, 151, 255, 0.35);
+  color: #fff;
 }
 
 :focus-visible {
@@ -51,14 +50,13 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f5f5f7;
+  background: #000;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.22);
   border-radius: 9999px;
 }
 
-/* Apple-style section blocks */
 .apple-section {
   padding: 5.5rem 0;
 }
@@ -68,14 +66,10 @@ body {
   color: #f5f5f7;
 }
 
-.apple-section-white {
-  background: #fff;
-  color: #1d1d1f;
-}
-
+.apple-section-white,
 .apple-section-gray {
-  background: #f5f5f7;
-  color: #1d1d1f;
+  background: #000;
+  color: #f5f5f7;
 }
 
 .apple-headline {
@@ -83,21 +77,18 @@ body {
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.025em;
+  color: #f5f5f7;
 }
 
 .apple-subhead {
   font-size: clamp(1.15rem, 2.2vw, 1.65rem);
   font-weight: 400;
-  line-height: 1.35;
-  color: var(--apple-muted);
-}
-
-.apple-section-black .apple-subhead {
+  line-height: 1.4;
   color: #a1a1a6;
 }
 
 .apple-link {
-  color: var(--apple-link);
+  color: var(--apple-blue);
   text-decoration: none;
   font-weight: 400;
 }
@@ -121,12 +112,12 @@ body {
 }
 
 .apple-btn-primary {
-  background: var(--apple-blue);
+  background: var(--apple-blue-solid);
   color: #fff;
 }
 
 .apple-btn-primary:hover {
-  background: var(--apple-blue-hover);
+  background: #0077ed;
 }
 
 .apple-btn-secondary {
@@ -136,20 +127,15 @@ body {
 }
 
 .apple-btn-secondary:hover {
-  background: rgba(0, 113, 227, 0.08);
-}
-
-.apple-section-black .apple-btn-secondary {
-  color: #2997ff;
-  border-color: #2997ff;
+  background: rgba(41, 151, 255, 0.12);
 }
 
 .apple-card {
-  background: #fff;
+  background: #1d1d1f;
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: none;
-  border: 1px solid var(--apple-hairline);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f5f5f7;
   transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -163,20 +149,20 @@ body {
   color: #f5f5f7;
 }
 
-/* Keep legacy class names mapping so old sections don't fully break */
 .glass-card,
 .pro-card {
-  background: #fff;
-  border: 1px solid var(--apple-hairline);
+  background: #1d1d1f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 28px;
   box-shadow: none;
+  color: #f5f5f7;
   transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .pro-card:hover {
   transform: scale(1.015);
-  border-color: rgba(0, 0, 0, 0.12);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(41, 151, 255, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
 .pro-card::before {
@@ -187,7 +173,7 @@ body {
   background: var(--apple-nav);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
 }
 
@@ -196,11 +182,11 @@ body {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: none;
-  color: var(--apple-muted);
+  color: #a1a1a6;
 }
 
 .gradient-text {
-  color: var(--apple-ink);
+  color: #f5f5f7;
   background: none;
   -webkit-text-fill-color: unset;
 }
@@ -210,7 +196,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 980px;
-  background: var(--apple-blue);
+  background: var(--apple-blue-solid);
   color: #fff;
   font-weight: 400;
   transition: background 0.2s ease;
@@ -218,7 +204,7 @@ body {
 }
 
 .btn-primary:hover {
-  background: var(--apple-blue-hover);
+  background: #0077ed;
   transform: none;
   box-shadow: none;
 }
@@ -239,9 +225,9 @@ body {
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.04) 0%,
-    rgba(0, 0, 0, 0.08) 50%,
-    rgba(0, 0, 0, 0.04) 100%
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.04) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
