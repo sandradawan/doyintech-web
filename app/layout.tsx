@@ -89,14 +89,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} bg-[#f5f5f7] text-[#1d1d1f] antialiased`}>
+      <body className={`${inter.variable} bg-black text-[#f5f5f7] antialiased`}>
         <ToastProvider>
           <SkipToContent />
           <Navbar />
