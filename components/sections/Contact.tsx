@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import ScrollReveal from "../animations/ScrollReveal";
+import ContactCta from "@/components/ui/ContactCta";
 
 export default function Contact() {
   return (
@@ -28,16 +29,11 @@ export default function Contact() {
               Let’s build something that scales.
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-[17px] text-[#a1a1a6]">
-              Tell us what you’re building — we’ll help plan, architect, and ship it.
+              No forms. Email us or book a call.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <a href="/contact" className="apple-btn apple-btn-primary">
-                Contact us
-              </a>
-              <a href="/services" className="apple-btn apple-btn-secondary">
-                View services ›
-              </a>
+            <div className="mx-auto mt-8 max-w-md">
+              <ContactCta compact />
             </div>
           </div>
         </ScrollReveal>
