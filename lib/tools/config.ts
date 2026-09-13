@@ -21,7 +21,15 @@ export type ToolMeta = {
   short: string;
   description: string;
   icon: string;
-  category: "core" | "business" | "career" | "ai" | "utility" | "security" | "paid";
+  category:
+    | "core"
+    | "business"
+    | "career"
+    | "ai"
+    | "utility"
+    | "security"
+    | "paid"
+    | "markets";
   paid?: boolean;
 };
 
@@ -44,8 +52,48 @@ const PAID_TOOL_ENTRIES: ToolMeta[] = [
   { slug: "interview-pack", href: "/tools/interview-pack", title: "Tech Interview Pack", short: "Full question bank unlock.", description: "Paid interview pack.", icon: "interview", category: "paid", paid: true },
 ];
 
+const MARKET_TOOLS: ToolMeta[] = [
+  {
+    slug: "position-risk",
+    href: "/tools/position-risk",
+    title: "Position Size & Risk Calculator",
+    short: "Size trades by % of equity risked.",
+    description: "Educational position sizing. Not financial advice.",
+    icon: "calculator",
+    category: "markets",
+  },
+  {
+    slug: "paper-journal",
+    href: "/tools/paper-journal",
+    title: "Paper Trading Journal",
+    short: "Log simulated trades & session stats.",
+    description: "Paper trading journal. No real orders.",
+    icon: "brief",
+    category: "markets",
+  },
+  {
+    slug: "signal-explainer",
+    href: "/tools/signal-explainer",
+    title: "Signal Explainer",
+    short: "Learn MA stack readings (educational).",
+    description: "Textbook MA examples only.",
+    icon: "audit",
+    category: "markets",
+  },
+  {
+    slug: "trade-checklist",
+    href: "/tools/trade-checklist",
+    title: "Pre-Trade Checklist",
+    short: "Discipline checklist before you trade.",
+    description: "Risk hygiene checklist.",
+    icon: "checklist",
+    category: "markets",
+  },
+];
+
 export const TOOLS_META: ToolMeta[] = [
   ...PAID_TOOL_ENTRIES,
+  ...MARKET_TOOLS,
   { slug: "website-calculator", href: "/tools/website-calculator", title: "Website Price Calculator", short: "Estimate website project cost.", description: "Cost estimator.", icon: "calculator", category: "core" },
   { slug: "business-audit", href: "/tools/business-audit", title: "Business Audit Tool", short: "Digital business audit.", description: "Free audit.", icon: "audit", category: "core" },
   { slug: "org-security", href: "/tools/org-security", title: "Organization Security Dashboard", short: "Multi-domain monitoring.", description: "Org security.", icon: "orgsec", category: "security" },
@@ -89,6 +137,7 @@ export const TOOLS_META: ToolMeta[] = [
 
 export const TOOL_CATEGORIES: { id: ToolMeta["category"]; label: string }[] = [
   { id: "paid", label: "Paid tools" },
+  { id: "markets", label: "Markets (education)" },
   { id: "core", label: "Core tools" },
   { id: "security", label: "Security tools" },
   { id: "business", label: "Business & growth" },
