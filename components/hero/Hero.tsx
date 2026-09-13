@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { discoveryCallLink } from "@/lib/packages";
 
 const slides = [
   {
@@ -10,28 +11,24 @@ const slides = [
     sub: "Built for performance.",
     desc: "Production websites and web apps designed for speed, clarity, and growth.",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
-    tone: "black" as const,
   },
   {
     title: "Backend systems",
     sub: "Secure. Scalable.",
     desc: "Laravel, PHP, Node, and MySQL architectures that stay reliable under load.",
     img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80",
-    tone: "black" as const,
   },
   {
     title: "Mobile apps",
     sub: "iOS and Android.",
     desc: "Flutter products with clean architecture and a polished user experience.",
     img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1600&q=80",
-    tone: "black" as const,
   },
   {
     title: "AI automation",
     sub: "Work, simplified.",
     desc: "Practical chatbots and workflows that remove repetitive tasks for your team.",
     img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80",
-    tone: "black" as const,
   },
 ];
 
@@ -72,12 +69,17 @@ export default function Hero() {
             <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[#a1a1a6] sm:text-[19px]">
               {slide.desc}
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-              <a href="/services" className="apple-btn apple-btn-primary">
-                Learn more
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <a href="/pricing" className="apple-btn apple-btn-primary">
+                View packages
               </a>
-              <a href="/contact" className="apple-btn apple-btn-secondary">
-                Get started ›
+              <a
+                href={discoveryCallLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="apple-btn apple-btn-secondary"
+              >
+                Book free call ›
               </a>
             </div>
           </motion.div>
