@@ -4,6 +4,8 @@ import ClientLogos from "@/components/sections/ClientLogos";
 import Services from "@/components/sections/Services";
 import Packages from "@/components/sections/Packages";
 import BookCall from "@/components/sections/BookCall";
+import PassiveProducts from "@/components/sections/PassiveProducts";
+import LeadMagnet from "@/components/sections/LeadMagnet";
 import ToolsSection from "@/components/sections/ToolsSection";
 import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
@@ -24,6 +26,8 @@ export default function Home() {
         <Services />
         <Packages />
         <BookCall />
+        <PassiveProducts />
+        <LeadMagnet />
         <ToolsSection />
         <Process />
         <Projects />
