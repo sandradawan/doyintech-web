@@ -11,9 +11,9 @@ export default function Footer() {
       links: [
         ["/services", "Services"],
         ["/pricing", "Pricing"],
+        ["/products", "Products"],
         ["/tools", "Free Tools"],
         ["/portfolio", "Portfolio"],
-        ["/blog", "Blog"],
       ],
     },
     {
@@ -22,6 +22,7 @@ export default function Footer() {
         ["/about", "About"],
         ["/company-profile", "Company Profile"],
         ["/contact", "Contact"],
+        ["/blog", "Blog"],
         ["https://doyintechacademy.vercel.app", "Academy"],
       ],
     },
@@ -39,10 +40,10 @@ export default function Footer() {
       <div className="mx-auto max-w-[980px] px-6 py-10">
         <div className="rounded-[28px] bg-[#1d1d1f] px-8 py-12 text-center text-[#f5f5f7] sm:px-12">
           <h2 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">
-            Ready to start?
+            Build income that compounds.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
-            Pick a package or book a free 15-minute discovery call on WhatsApp.
+            Packages for cash now. Products and care plans for money while you sleep.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <a
@@ -53,8 +54,8 @@ export default function Footer() {
             >
               Book free call
             </a>
-            <a href="/pricing" className="apple-btn apple-btn-secondary">
-              View pricing ›
+            <a href="/products" className="apple-btn apple-btn-secondary">
+              View products ›
             </a>
           </div>
         </div>
