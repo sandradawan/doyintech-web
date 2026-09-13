@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDigitalProduct } from "@/lib/products";
+import { getPayItem } from "@/lib/paystack-catalog";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
@@ -25,8 +25,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid email is required." }, { status: 400 });
     }
 
-    const product = getDigitalProduct(productId);
-    if (!product || product.type !== "one-time") {
+    const item = getPayItem(productId);
+    if (!item) {
       return NextResponse.json({ error: "Invalid product." }, { status: 400 });
     }
 
@@ -37,14 +37,14 @@ export async function POST(req: NextRequest) {
 
     const payload = {
       email,
-      amount: product.amountKobo,
+      amount: item.amountKobo,
       currency: "NGN",
-      callback_url: `${origin}/products/success?product=${encodeURIComponent(product.id)}`,
+      callback_url: `${origin}/products/success?product=${encodeURIComponent(item.id)}`,
       metadata: {
-        product_id: product.id,
-        product_name: product.name,
+        product_id: item.id,
+        product_name: item.name,
         customer_name: name || undefined,
-        delivery: product.delivery,
+        delivery: item.delivery,
       },
     };
 
@@ -68,9 +68,9 @@ export async function POST(req: NextRequest) {
     console.log(
       JSON.stringify({
         event: "paystack_initialize",
-        product: product.id,
+        product: item.id,
         email,
-        amount: product.amountKobo,
+        amount: item.amountKobo,
         reference: data.data?.reference,
         at: new Date().toISOString(),
       })
