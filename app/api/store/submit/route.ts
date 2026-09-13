@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { addToQueue } from "@/lib/store/queue";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,6 +9,7 @@ export async function POST(req: NextRequest) {
     const developerName = String(body.developerName || "").trim();
     const platform = String(body.platform || "");
     const kind = String(body.kind || "app");
+    const packageType = String(body.packageType || "").toLowerCase();
 
     if (!title || !developerEmail.includes("@") || !developerName) {
       return NextResponse.json(
@@ -16,38 +18,50 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (platform === "android" && body.packageType === "aab") {
+    if (platform === "android" && (packageType === "aab" || packageType === "abb")) {
       return NextResponse.json(
         {
           error:
-            "AAB cannot be installed by users outside Play. Upload an APK build instead.",
+            "AAB/ABB cannot be installed by users outside Play. Upload an APK build instead.",
         },
         { status: 400 }
       );
     }
 
-    const submission = {
-      id: `sub_${Date.now()}`,
-      ...body,
+    const row = addToQueue({
       title,
-      developerEmail,
+      shortDescription: String(body.shortDescription || "").slice(0, 160),
+      description: String(body.description || ""),
       developerName,
-      kind,
+      developerEmail,
       platform,
-      reviewStatus: "submitted",
-      virusScanStatus: "pending",
-      pipeline: ["submitted", "scanning", "in_review"],
-      at: new Date().toISOString(),
-    };
+      kind,
+      priceNgn: Math.max(0, Number(body.priceNgn) || 0),
+      category: String(body.category || "Business"),
+      version: String(body.version || "1.0.0"),
+      packageType: packageType || undefined,
+      fileName: body.fileName ? String(body.fileName) : undefined,
+      privacyPolicyUrl: body.privacyPolicyUrl
+        ? String(body.privacyPolicyUrl)
+        : undefined,
+    });
 
-    // Persist later in Supabase; for now structured log + notify path
-    console.log(JSON.stringify({ event: "store_submission", submission }));
+    console.log(
+      JSON.stringify({
+        event: "store_submission",
+        id: row.id,
+        title: row.title,
+        developerEmail: row.developerEmail,
+        at: row.createdAt,
+      })
+    );
 
     return NextResponse.json({
       ok: true,
       message:
-        "Submission received. It enters security scan → human review before any public listing. You will be contacted at your developer email.",
-      submissionId: submission.id,
+        "Submission received. Pipeline: submitted → scanning → in_review → approved/rejected. You will be contacted at your developer email.",
+      submissionId: row.id,
+      reviewStatus: row.reviewStatus,
       nextSteps: [
         "Automated package checks",
         "Malware scan queue",
