@@ -82,6 +82,7 @@ export const TOOLS_META: ToolMeta[] = [
   { slug: "interview-practice", href: "/tools/interview-practice", title: "Interview Practice", short: "Free practice questions.", description: "Interview free.", icon: "interview", category: "career" },
   { slug: "ai-usecase", href: "/tools/ai-usecase", title: "AI Use-Case Finder", short: "AI ideas for business.", description: "AI use cases.", icon: "ai", category: "ai" },
   { slug: "chatbot-script", href: "/tools/chatbot-script", title: "Chatbot Script Generator", short: "Chatbot FAQ scripts.", description: "Bot scripts.", icon: "bot", category: "ai" },
+  { slug: "text-cleaner", href: "/tools/text-cleaner", title: "Text Cleaner", short: "Clean messy text for WhatsApp & email.", description: "Free text cleaner.", icon: "letter", category: "utility" },
   { slug: "qr-generator", href: "/tools/qr-generator", title: "QR Code Generator", short: "Free QR codes.", description: "QR free.", icon: "qr", category: "utility" },
   { slug: "password-generator", href: "/tools/password-generator", title: "Password Generator", short: "Strong passwords.", description: "Password.", icon: "lock", category: "utility" },
 ];
