@@ -25,13 +25,25 @@ function SuccessInner() {
         if (data.ok) {
           setState("ok");
           setDetail(data);
+          const pid = data.metadata?.product_id || productId;
+          if (pid === "pdf-studio-unlock") {
+            try {
+              localStorage.setItem("doyintech_pdf_studio_unlocked", "1");
+            } catch {
+              /* ignore */
+            }
+          }
         } else {
           setState("fail");
           setDetail(data);
         }
       })
       .catch(() => setState("fail"));
-  }, [reference]);
+  }, [reference, productId]);
+
+  const isPdfUnlock =
+    productId === "pdf-studio-unlock" ||
+    detail?.metadata?.product_id === "pdf-studio-unlock";
 
   const wa = encodeURIComponent(
     `Hi DoyinTech, I paid for "${product?.name || productId}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}\nPlease send my product files.`
@@ -60,26 +72,39 @@ function SuccessInner() {
             )}
             <p className="mt-1 text-[13px] text-[#a1a1a6]">Ref: {reference}</p>
 
-            <div className="mt-8 rounded-2xl border border-white/10 bg-[#1d1d1f] p-5 text-left text-[14px] text-[#f5f5f7]">
-              <p className="font-semibold">What happens next</p>
-              <ol className="mt-2 list-decimal space-y-1 pl-5 text-[#a1a1a6]">
-                <li>We receive your payment (Paystack)</li>
-                <li>Product files are prepared for you</li>
-                <li>Delivery by email / WhatsApp (usually within a few hours)</li>
-              </ol>
-              {product?.delivery && (
-                <p className="mt-3 text-[13px] text-[#2997ff]">{product.delivery}</p>
-              )}
-            </div>
+            {isPdfUnlock ? (
+              <div className="mt-8 space-y-3">
+                <p className="text-[15px] text-emerald-400">
+                  PDF Studio is unlocked on this browser.
+                </p>
+                <a
+                  href="/tools/pdf-studio"
+                  className="inline-flex rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-black"
+                >
+                  Open PDF Studio
+                </a>
+              </div>
+            ) : (
+              <>
+                <div className="mt-8 rounded-2xl border border-white/10 bg-[#1d1d1f] p-5 text-left text-[14px] text-[#f5f5f7]">
+                  <p className="font-semibold">What happens next</p>
+                  <ol className="mt-2 list-decimal space-y-1 pl-5 text-[#a1a1a6]">
+                    <li>We receive your payment</li>
+                    <li>Product files are prepared</li>
+                    <li>Delivery by email / WhatsApp</li>
+                  </ol>
+                </div>
+                <a
+                  href={`https://wa.me/2348085343926?text=${wa}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+                >
+                  Message us to receive files
+                </a>
+              </>
+            )}
 
-            <a
-              href={`https://wa.me/2348085343926?text=${wa}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
-            >
-              Message us to receive files
-            </a>
             <a href="/products" className="mt-4 block text-[14px] text-[#2997ff] hover:underline">
               Back to products
             </a>
@@ -90,19 +115,15 @@ function SuccessInner() {
           <>
             <h1 className="text-[28px] font-semibold text-[#f5f5f7]">Payment not confirmed</h1>
             <p className="mt-3 text-[15px] text-[#a1a1a6]">
-              If you were charged, message us with your reference and we will sort it out.
+              If you were charged, message us with your reference.
             </p>
-            <p className="mt-2 text-[13px] text-[#a1a1a6]">Ref: {reference || "none"}</p>
             <a
               href={`https://wa.me/2348085343926?text=${wa}`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
             >
-              Contact support on WhatsApp
-            </a>
-            <a href="/products" className="mt-4 block text-[14px] text-[#2997ff] hover:underline">
-              Try again
+              Contact support
             </a>
           </>
         )}
