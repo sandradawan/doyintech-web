@@ -60,7 +60,8 @@ export function ListingCard({ item }: { item: StoreListing }) {
       <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
         <span className="text-[15px] font-semibold text-white">{formatNgn(item.priceNgn)}</span>
         <span className="text-[12px] text-[#86868b]">
-          ★ {item.ratingAvg.toFixed(1)} · {item.downloads} dl
+          ★ {item.ratingAvg.toFixed(1)}
+          {item.launchUrl ? " · Open" : ` · ${item.downloads} dl`}
         </span>
       </div>
     </Link>
@@ -134,7 +135,15 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "err">("idle");
   const [msg, setMsg] = useState("");
 
+  const isWebApp = item.platform === "web" && !!item.launchUrl;
+
   async function start() {
+    // Free web apps: open instantly
+    if (isWebApp && item.priceNgn === 0 && item.launchUrl) {
+      window.location.href = item.launchUrl;
+      return;
+    }
+
     setStatus("loading");
     setMsg("");
     try {
@@ -184,32 +193,37 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
       <p className="mt-1 text-[12px] text-[#a1a1a6]">
         {item.reviewStatus === "approved" ? "Security reviewed · " : ""}
         {item.virusScanStatus === "clean" ? "Scan clean" : "Scan pending"}
+        {isWebApp ? " · Web app" : ""}
       </p>
 
-      <label className="mt-4 block">
-        <span className="text-[12px] text-[#a1a1a6]">
-          {item.priceNgn > 0 ? "Email for receipt" : "Email (optional)"}
-        </span>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
-          placeholder="you@email.com"
-        />
-      </label>
+      {!isWebApp && (
+        <label className="mt-4 block">
+          <span className="text-[12px] text-[#a1a1a6]">
+            {item.priceNgn > 0 ? "Email for receipt" : "Email (optional)"}
+          </span>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+            placeholder="you@email.com"
+          />
+        </label>
+      )}
 
       <button
         type="button"
         onClick={start}
-        disabled={status === "loading" || (item.priceNgn > 0 && !email.includes("@"))}
+        disabled={status === "loading" || (item.priceNgn > 0 && !isWebApp && !email.includes("@"))}
         className="mt-4 w-full rounded-full bg-[#ff8c14] py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
       >
         {status === "loading"
           ? "Please wait…"
-          : item.priceNgn === 0
-            ? "Download"
-            : `Buy · ${formatNgn(item.priceNgn)}`}
+          : isWebApp && item.priceNgn === 0
+            ? "Open app"
+            : item.priceNgn === 0
+              ? "Download"
+              : `Buy · ${formatNgn(item.priceNgn)}`}
       </button>
 
       {msg && (
@@ -219,9 +233,18 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
       )}
 
       <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-[12px] leading-relaxed text-amber-100/90">
-        <strong className="text-amber-200">Install note:</strong> After payment/claim, the file{" "}
-        <strong>downloads automatically</strong>. Installing still needs{" "}
-        <strong>your confirmation</strong> (OS security). Android: use APK, not AAB.
+        {isWebApp ? (
+          <>
+            <strong className="text-amber-200">Web app:</strong> Runs in your browser. No APK
+            install. Data stays on this device when the app uses local storage.
+          </>
+        ) : (
+          <>
+            <strong className="text-amber-200">Install note:</strong> After payment/claim, the file{" "}
+            <strong>downloads automatically</strong>. Installing still needs your confirmation (OS
+            security).
+          </>
+        )}
       </div>
     </div>
   );
