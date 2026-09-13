@@ -12,11 +12,23 @@ export function StoreNav() {
       <Link href="/store" className="rounded-full bg-white/10 px-3 py-1.5 text-white">
         Browse
       </Link>
-      <Link href="/store/developer" className="rounded-full border border-white/15 px-3 py-1.5 text-[#a1a1a6] hover:text-white">
+      <Link
+        href="/store/developer"
+        className="rounded-full border border-white/15 px-3 py-1.5 text-[#a1a1a6] hover:text-white"
+      >
         Publish app
       </Link>
-      <Link href="/store/security" className="rounded-full border border-white/15 px-3 py-1.5 text-[#a1a1a6] hover:text-white">
+      <Link
+        href="/store/security"
+        className="rounded-full border border-white/15 px-3 py-1.5 text-[#a1a1a6] hover:text-white"
+      >
         Security
+      </Link>
+      <Link
+        href="/store/admin"
+        className="rounded-full border border-white/15 px-3 py-1.5 text-[#a1a1a6] hover:text-white"
+      >
+        Admin
       </Link>
     </div>
   );
@@ -127,24 +139,24 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
     setMsg("");
     try {
       if (item.priceNgn === 0) {
-        // Free: issue download session
         const res = await fetch("/api/store/download", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ slug: item.slug, email: email || "guest@doyintech.local" }),
+          body: JSON.stringify({
+            slug: item.slug,
+            email: email || "guest@doyintech.local",
+          }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Failed");
         setStatus("ready");
         setMsg(data.message || "Download ready");
         if (data.downloadUrl) {
-          // Auto-start download
           window.location.href = data.downloadUrl;
         }
         return;
       }
 
-      // Paid: Paystack via existing initialize if mapped, else WhatsApp
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -174,19 +186,18 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
         {item.virusScanStatus === "clean" ? "Scan clean" : "Scan pending"}
       </p>
 
-      {item.priceNgn > 0 && (
-        <label className="mt-4 block">
-          <span className="text-[12px] text-[#a1a1a6]">Email for receipt</span>
-          <input
-            required
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
-            placeholder="you@email.com"
-          />
-        </label>
-      )}
+      <label className="mt-4 block">
+        <span className="text-[12px] text-[#a1a1a6]">
+          {item.priceNgn > 0 ? "Email for receipt" : "Email (optional)"}
+        </span>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+          placeholder="you@email.com"
+        />
+      </label>
 
       <button
         type="button"
@@ -208,10 +219,9 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
       )}
 
       <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-[12px] leading-relaxed text-amber-100/90">
-        <strong className="text-amber-200">Install note:</strong> After payment, the file{" "}
-        <strong>downloads automatically</strong>. Installing on Android/Windows requires{" "}
-        <strong>your confirmation</strong> — no website can silent-install apps (device security).
-        Use APK on Android (not AAB).
+        <strong className="text-amber-200">Install note:</strong> After payment/claim, the file{" "}
+        <strong>downloads automatically</strong>. Installing still needs{" "}
+        <strong>your confirmation</strong> (OS security). Android: use APK, not AAB.
       </div>
     </div>
   );
