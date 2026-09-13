@@ -5,9 +5,9 @@ import LeadMagnet from "@/components/sections/LeadMagnet";
 import BookCall from "@/components/sections/BookCall";
 
 export const metadata: Metadata = {
-  title: "Products & Recurring Plans",
+  title: "Digital Products — Pay with Paystack",
   description:
-    "Digital products, WhatsApp automation waitlist, SME CRM waitlist, and monthly care plans from DoyinTech.",
+    "Buy high-demand digital products from DoyinTech: WhatsApp Business Pack, Next.js website kit, invoice templates, Laravel API starter, and SME client tracker. Pay with Paystack.",
 };
 
 export default function ProductsPage() {
@@ -16,12 +16,11 @@ export default function ProductsPage() {
       <main className="bg-black pt-20">
         <div className="mx-auto max-w-[980px] px-6 pb-4 text-center">
           <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
-            Products
+            Instant digital products
           </p>
-          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Sell once. Bill monthly.</h1>
+          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Pay. Download. Use today.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Templates and checklists for one-time sales. Waitlists for SaaS. Care plans for
-            recurring income.
+            Five products Nigerian freelancers and SMEs buy. Secure checkout with Paystack.
           </p>
         </div>
         <PassiveProducts />
