@@ -15,6 +15,31 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "sme-digital-ops-system",
+    name: "SME Digital Ops System — Complete",
+    description:
+      "The full stack SMEs buy when they are ready to look professional and close clients: website kit, WhatsApp scripts, invoices & contracts, PDF pack, client tracker, AI prompts, and a 30-day launch plan — one payment.",
+    priceUsd: "$180",
+    priceNgn: "₦150,000",
+    amountKobo: 15000000,
+    type: "one-time",
+    badge: "Premium · This week",
+    features: [
+      "Next.js business website kit + deploy guide",
+      "WhatsApp growth pack (50+ scripts)",
+      "Invoice, proposal & contract templates",
+      "PDF letterhead / quote / report pack",
+      "Client & sales tracker (Sheets)",
+      "AI prompt pack + 30-day launch checklist",
+      "Delivery within 24 hours after payment",
+    ],
+    delivery:
+      "Full ZIP + guides within 24 hours (digital-products/07-sme-digital-ops-system)",
+    demandNote:
+      "Bundle pricing converts better than single templates for serious SMEs",
+    addedAt: "2026-09-13",
+  },
+  {
     id: "pdf-business-pack",
     name: "Professional PDF Business Pack",
     description:
