@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getListingBySlug } from "@/lib/store/catalog";
+import { getPublishedBySlug } from "@/lib/store/published";
 import { issueDownloadToken, verifyDownloadToken } from "@/lib/store/tokens";
 
 export async function POST(req: NextRequest) {
@@ -8,13 +8,12 @@ export async function POST(req: NextRequest) {
     const slug = String(body.slug || "");
     const email = String(body.email || "").trim();
     const paystackRef = body.reference ? String(body.reference) : "";
-    const listing = getListingBySlug(slug);
+    const listing = getPublishedBySlug(slug);
 
     if (!listing || listing.reviewStatus !== "approved") {
       return NextResponse.json({ error: "Listing not available." }, { status: 404 });
     }
 
-    // Paid: require Paystack verification reference (or skip only if free)
     if (listing.priceNgn > 0) {
       if (!paystackRef) {
         return NextResponse.json(
@@ -79,5 +78,8 @@ export async function GET(req: NextRequest) {
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 403 });
   }
-  return NextResponse.json({ ok: true, grant: { slug: result.grant.slug, expiresAt: result.grant.expiresAt } });
+  return NextResponse.json({
+    ok: true,
+    grant: { slug: result.grant.slug, expiresAt: result.grant.expiresAt },
+  });
 }
