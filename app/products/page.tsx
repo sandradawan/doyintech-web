@@ -7,7 +7,7 @@ import BookCall from "@/components/sections/BookCall";
 export const metadata: Metadata = {
   title: "Digital Products — Pay with Paystack",
   description:
-    "Buy high-demand digital products from DoyinTech: WhatsApp Business Pack, Next.js website kit, invoice templates, Laravel API starter, and SME client tracker. Pay with Paystack.",
+    "Buy digital products from DoyinTech: WhatsApp packs, website kits, invoice templates, PDF packs, and more. Pay with Paystack.",
 };
 
 export default function ProductsPage() {
@@ -20,7 +20,8 @@ export default function ProductsPage() {
           </p>
           <h1 className="apple-headline mt-3 text-[#f5f5f7]">Pay. Download. Use today.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Five products Nigerian freelancers and SMEs buy. Secure checkout with Paystack.
+            Digital packs for freelancers and SMEs. Secure checkout with Paystack — delivery by
+            email or WhatsApp after payment.
           </p>
         </div>
         <PassiveProducts />
