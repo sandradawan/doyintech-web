@@ -3,19 +3,22 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { BuyDownloadPanel, StoreNav } from "@/components/store/StoreShell";
-import { getListingBySlug, formatNgn } from "@/lib/store/catalog";
+import { formatNgn } from "@/lib/store/catalog";
+import { getPublishedBySlug } from "@/lib/store/published";
 
 type Props = { params: Promise<{ slug: string }> };
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const item = getListingBySlug(slug);
+  const item = getPublishedBySlug(slug);
   return { title: item ? `${item.title} · DoyinStore` : "Store" };
 }
 
 export default async function StoreDetailPage({ params }: Props) {
   const { slug } = await params;
-  const item = getListingBySlug(slug);
+  const item = getPublishedBySlug(slug);
   if (!item || item.reviewStatus !== "approved") notFound();
 
   return (
