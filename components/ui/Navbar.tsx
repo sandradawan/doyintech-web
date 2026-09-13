@@ -9,9 +9,9 @@ import { discoveryCallLink } from "@/lib/packages";
 const navItems = [
   { name: "Services", href: "/services" },
   { name: "Pricing", href: "/pricing" },
+  { name: "Products", href: "/products" },
   { name: "Tools", href: "/tools" },
   { name: "Portfolio", href: "/portfolio" },
-  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[999]">
       <nav className="glass-navbar h-12 w-full">
-        <div className="mx-auto flex h-full max-w-[1020px] items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-full max-w-[1080px] items-center justify-between px-4 sm:px-6">
           <a
             href="/"
             className="flex items-center gap-2 text-[17px] font-semibold tracking-tight text-[#f5f5f7]"
@@ -45,7 +45,7 @@ export default function Navbar() {
             <span className="hidden sm:inline">DoyinTech</span>
           </a>
 
-          <div className="hidden items-center gap-6 md:flex">
+          <div className="hidden items-center gap-5 lg:flex">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -78,7 +78,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] md:hidden"
+              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] lg:hidden"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -106,7 +106,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            className="border-b border-white/10 bg-[#161617] px-6 py-6 md:hidden"
+            className="border-b border-white/10 bg-[#161617] px-6 py-6 lg:hidden"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
               {navItems.map((item) => (
