@@ -12,7 +12,7 @@ export default function PdfStudioPage() {
   return (
     <ToolPageShell
       title="PDF Studio"
-      description="Build letters, quotes, and reports in the browser. Preview is free; PDF export requires a one-time ₦5,000 unlock."
+      subtitle="Build letters, quotes, and reports in the browser. Preview is free; PDF export requires a one-time ₦5,000 unlock."
     >
       <PdfStudio />
     </ToolPageShell>
