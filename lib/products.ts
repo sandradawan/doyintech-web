@@ -4,6 +4,8 @@ export type DigitalProduct = {
   description: string;
   priceUsd: string;
   priceNgn: string;
+  /** Amount in kobo for Paystack (NGN only) */
+  amountKobo: number;
   type: "one-time" | "subscription" | "waitlist";
   badge?: string;
   features: string[];
@@ -19,6 +21,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "Ready-to-customize Next.js business site template — sections, contact, WhatsApp CTA, SEO basics.",
     priceUsd: "$49",
     priceNgn: "₦35,000",
+    amountKobo: 3500000,
     type: "one-time",
     badge: "Digital download",
     features: [
@@ -27,7 +30,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "WhatsApp & contact form wiring",
       "Setup PDF included",
     ],
-    delivery: "GitHub access + PDF within 24 hours",
+    delivery: "GitHub access + PDF within 24 hours after payment",
   },
   {
     id: "flutter-app-boilerplate",
@@ -36,6 +39,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "Clean Flutter starter with auth screens, API client pattern, and production folder structure.",
     priceUsd: "$79",
     priceNgn: "₦55,000",
+    amountKobo: 5500000,
     type: "one-time",
     features: [
       "Auth UI screens",
@@ -43,7 +47,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "Theme + routing setup",
       "README handover",
     ],
-    delivery: "Private repo invite within 24 hours",
+    delivery: "Private repo invite within 24 hours after payment",
   },
   {
     id: "sme-ops-checklist",
@@ -52,15 +56,16 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "PDF checklist for Nigerian SMEs: website, WhatsApp, payments, backups, and security basics.",
     priceUsd: "$9",
     priceNgn: "₦5,000",
+    amountKobo: 500000,
     type: "one-time",
     badge: "Low ticket",
     features: [
       "Printable PDF",
       "Priority checklist",
       "Tool recommendations",
-      "Instant after payment confirm",
+      "Delivered after payment confirm",
     ],
-    delivery: "PDF via WhatsApp/email after payment",
+    delivery: "PDF via email/WhatsApp after payment",
   },
 ];
 
@@ -72,6 +77,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
       "Auto-replies, FAQs, and lead capture for businesses that live on WhatsApp. Monthly subscription.",
     priceUsd: "From $25/mo",
     priceNgn: "From ₦15,000/mo",
+    amountKobo: 1500000,
     type: "waitlist",
     badge: "Coming soon · Waitlist",
     features: [
@@ -87,8 +93,9 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
     name: "DoyinCRM — Simple SME CRM",
     description:
       "Clients, follow-ups, and pipeline in one place. Built for small teams who hate complex CRMs.",
-    priceUsd: "From $35/mo",
+    priceUsd: "$35/mo",
     priceNgn: "From ₦25,000/mo",
+    amountKobo: 2500000,
     type: "waitlist",
     badge: "Waitlist",
     features: [
@@ -100,6 +107,10 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
     delivery: "Waitlist — notify when beta opens",
   },
 ];
+
+export function getDigitalProduct(id: string): DigitalProduct | undefined {
+  return DIGITAL_PRODUCTS.find((p) => p.id === id);
+}
 
 export function productWhatsAppLink(productName: string, kind: string): string {
   const text = `Hi DoyinTech, I want to buy/join: "${productName}" (${kind}). Please send payment details.`;
