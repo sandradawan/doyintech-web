@@ -9,14 +9,22 @@ export default function DeveloperPublishPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "err">("idle");
   const [message, setMessage] = useState("");
   const [platform, setPlatform] = useState("android");
+  const [file, setFile] = useState<File | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("loading");
     setMessage("");
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries());
+    delete (payload as any).binary;
+
     try {
+      if (file) {
+        payload.fileName = file.name;
+      }
+
       const res = await fetch("/api/store/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,9 +32,26 @@ export default function DeveloperPublishPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed");
+
+      let uploadNote = "";
+      if (file && data.submissionId) {
+        const up = new FormData();
+        up.append("file", file);
+        up.append("submissionId", data.submissionId);
+        const ur = await fetch("/api/store/upload", { method: "POST", body: up });
+        const ud = await ur.json();
+        if (!ur.ok) {
+          uploadNote = ` Submission saved, but upload failed: ${ud.error || "error"}`;
+        } else {
+          uploadNote = ` Binary uploaded · SHA-256 ${String(ud.sha256).slice(0, 16)}…`;
+        }
+      }
+
       setStatus("ok");
-      setMessage(data.message);
-      e.currentTarget.reset();
+      setMessage((data.message || "Submitted.") + uploadNote);
+      form.reset();
+      setFile(null);
+      setPlatform("android");
     } catch (err: any) {
       setStatus("err");
       setMessage(err.message || "Error");
@@ -47,16 +72,15 @@ export default function DeveloperPublishPage() {
               </p>
               <h1 className="mt-2 text-[32px] font-semibold text-white">Publish to DoyinStore</h1>
               <p className="mt-2 text-[14px] text-[#a1a1a6]">
-                Submit your app or digital product. Nothing goes public until security scan + human
-                review pass.
+                Submit metadata + binary. Nothing goes public until security review passes.
               </p>
             </div>
             <StoreNav />
           </div>
 
           <div className="mb-6 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-4 text-[13px] leading-relaxed text-[#ffe0b8]">
-            <strong>Android:</strong> Upload <strong>APK</strong> only — AAB is not installable by
-            users outside Google Play. Desktop: signed installer preferred.
+            <strong>Android:</strong> <strong>APK only</strong> (not AAB). Max upload ~40MB. Larger
+            builds: host externally and put the URL in the description for now.
           </div>
 
           <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-6">
@@ -136,9 +160,20 @@ export default function DeveloperPublishPage() {
               </select>
             </label>
             <label className="block text-[12px] text-[#a1a1a6]">
-              Binary file name (upload hosting in phase 2 — declare name now)
-              <input name="fileName" placeholder="my-app-release.apk" className={`mt-1 ${field}`} />
+              App / product file (APK, ZIP, EXE…)
+              <input
+                name="binary"
+                type="file"
+                accept=".apk,.zip,.exe,.msi,.dmg,.deb,.pdf"
+                className={`mt-1 ${field} file:mr-3 file:rounded-lg file:border-0 file:bg-[#ff8c14] file:px-3 file:py-1 file:text-xs file:font-semibold file:text-black"`}
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
+              />
             </label>
+            {file && (
+              <p className="text-[12px] text-[#a1a1a6]">
+                Selected: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+              </p>
+            )}
             <label className="block text-[12px] text-[#a1a1a6]">
               Privacy policy URL (recommended)
               <input name="privacyPolicyUrl" type="url" className={`mt-1 ${field}`} />
