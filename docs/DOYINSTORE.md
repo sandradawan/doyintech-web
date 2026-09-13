@@ -1,38 +1,52 @@
 # DoyinStore — Engineering plan
 
-Independent marketplace for **apps** (Android APK, desktop installers) and **digital products**, with a security review pipeline. Goal: give African developers a path outside Google Play’s friction — without pretending the browser can bypass OS security.
+Independent marketplace for **apps** (Android APK, desktop installers) and **digital products**, with a security review pipeline.
 
-## Hard limits (must not lie to users)
+## Hard limits
 
 | Expectation | Reality |
 |-------------|--------|
-| Auto-download after payment | **Yes** — browser starts file download via signed URL |
-| Silent auto-install on phone/PC | **No** — Android/Windows/macOS block silent install from websites |
-| Install APK after download | **Yes** — user confirms “Install unknown apps” once |
-| Install AAB like Play Store | **No** — AAB is not user-sideloadable; require **APK** |
-| Google-level malware lab | **No** — we use scan + human review; improve over time |
+| Auto-download after payment | **Yes** — token URL starts download |
+| Silent auto-install | **No** — OS blocks websites from silent install |
+| AAB for users | **No** — require **APK** |
 
-Honest product copy: **“Download starts automatically after payment. Install requires your confirmation (device security).”**
+Copy: **“Download starts automatically. Install requires your confirmation.”**
 
-## Architecture (MVP → production)
+## Shipped
 
-1. **Next.js storefront** `/store`, `/store/[slug]`, `/store/developer`, `/store/security`
-2. **Listing catalog** (`lib/store`) → later Supabase tables `store_listings`, `store_developers`, `store_orders`
-3. **Payments** Paystack (paid) / free unlock session
-4. **Download** time-limited signed URL after free claim or successful payment
-5. **Review queue** statuses: submitted → scanning → in_review → approved | rejected
-6. **Storage** Vercel Blob or Supabase Storage for binaries (not in git)
+### Phase 1 — Storefront
+- `/store` browse + search + categories
+- `/store/[slug]` detail + buy/download panel
+- `/store/developer` submit form (rejects AAB)
+- `/store/security` pipeline explainer
+- Nav: Store
 
-## Security pipeline
+### Phase 2a — Review & delivery (this pass)
+- `/store/admin` review queue (approve / request changes / reject)
+- `POST /api/store/submit` → in-memory queue + scan simulation
+- `GET|PATCH /api/store/admin` (protect with `STORE_ADMIN_KEY` in production)
+- Download **tokens** (`lib/store/tokens.ts`) — 120 min TTL
+- `POST /api/store/download` issues token; paid path verifies Paystack when key set
+- `GET /api/store/file` token-gated delivery (MVP: secure receipt file; Blob next)
+- Supabase SQL: `lib/store/schema.sql`
 
-See `SECURITY_PIPELINE` in `lib/store/catalog.ts`.
+## Env vars
 
-- Never publish without `reviewStatus === approved` and scan not `flagged`
-- Show SHA-256 on listing when available
-- Suspend listings on abuse reports
+```
+STORE_ADMIN_KEY=long-random-secret
+PAYSTACK_SECRET_KEY=...
+NEXT_PUBLIC_SITE_URL=https://doyintech.vercel.app
+# Later:
+# SUPABASE_URL=
+# SUPABASE_SERVICE_ROLE_KEY=
+# VIRUSTOTAL_API_KEY=
+```
 
-## Roadmap
+## Next (Phase 2b)
 
-- **Phase 1 (shipped UI):** browse, detail, developer submit form, security policy pages, download/purchase UX
-- **Phase 2:** Supabase + Blob uploads, real Paystack product IDs per listing, admin review dashboard
-- **Phase 3:** VirusTotal API, automated permission diff, developer payouts split
+1. Run `lib/store/schema.sql` in Supabase
+2. Private bucket `store-binaries`
+3. Upload APK/ZIP from developer form
+4. `file` route → signed Blob URL
+5. VirusTotal scan job on submit
+6. Persist queue (replace process memory)
