@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import { StoreBrowse, StoreNav } from "@/components/store/StoreShell";
-import { getPublishedListings, STORE_CATEGORIES } from "@/lib/store/catalog";
+import { STORE_CATEGORIES } from "@/lib/store/catalog";
+import { getAllPublishedListings } from "@/lib/store/published";
 
 export const metadata: Metadata = {
   title: "DoyinStore — Apps & Digital Products",
@@ -9,8 +10,10 @@ export const metadata: Metadata = {
     "Discover reviewed Android, desktop apps and digital products. Pay, auto-download, install with your permission.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function StorePage() {
-  const listings = getPublishedListings();
+  const listings = getAllPublishedListings();
 
   return (
     <>
@@ -25,8 +28,7 @@ export default function StorePage() {
                 Apps & digital products
               </h1>
               <p className="mt-2 max-w-xl text-[15px] text-[#a1a1a6]">
-                Reviewed listings for developers and buyers — outside Play Store friction, with a
-                security pipeline before publish.
+                Reviewed listings for developers and buyers — security pipeline before publish.
               </p>
             </div>
             <StoreNav />
