@@ -19,9 +19,9 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     name: "SME Digital Ops System — Complete",
     description:
       "The full stack SMEs buy when they are ready to look professional and close clients: website kit, WhatsApp scripts, invoices & contracts, PDF pack, client tracker, AI prompts, and a 30-day launch plan — one payment.",
-    priceUsd: "$180",
-    priceNgn: "₦150,000",
-    amountKobo: 15000000,
+    priceUsd: "$120",
+    priceNgn: "₦100,000",
+    amountKobo: 10000000,
     type: "one-time",
     badge: "Premium · This week",
     features: [
