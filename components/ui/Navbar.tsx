@@ -4,13 +4,14 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { discoveryCallLink } from "@/lib/packages";
 
 const navItems = [
   { name: "Services", href: "/services" },
+  { name: "Pricing", href: "/pricing" },
   { name: "Tools", href: "/tools" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Blog", href: "/blog" },
-  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -32,7 +33,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[999]">
       <nav className="glass-navbar h-12 w-full">
-        <div className="mx-auto flex h-full max-w-[980px] items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-full max-w-[1020px] items-center justify-between px-4 sm:px-6">
           <a
             href="/"
             className="flex items-center gap-2 text-[17px] font-semibold tracking-tight text-[#f5f5f7]"
@@ -44,7 +45,7 @@ export default function Navbar() {
             <span className="hidden sm:inline">DoyinTech</span>
           </a>
 
-          <div className="hidden items-center gap-7 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -65,20 +66,14 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <a
-              href="https://doyintechacademy.vercel.app"
+              href={discoveryCallLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden text-xs text-[#f5f5f7] opacity-80 transition hover:opacity-100 lg:inline"
-            >
-              Academy
-            </a>
-            <a
-              href="/contact"
               className="hidden rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs text-white transition hover:bg-[#0077ed] sm:inline-flex"
             >
-              Contact
+              Book a call
             </a>
             <button
               type="button"
@@ -124,18 +119,12 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="https://doyintechacademy.vercel.app"
+                href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl px-2 py-3 text-[17px] font-semibold text-[#f5f5f7]"
+                className="mt-3 inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-[15px] font-semibold text-white"
               >
-                Academy
-              </a>
-              <a
-                href="/contact"
-                className="mt-3 inline-flex items-center justify-center rounded-full bg-[#0071e3] px-5 py-3 text-[15px] text-white"
-              >
-                Contact us
+                Book free call on WhatsApp
               </a>
             </div>
           </motion.div>
