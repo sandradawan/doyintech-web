@@ -1,5 +1,7 @@
 "use client";
 
+import { discoveryCallLink } from "@/lib/packages";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -8,6 +10,7 @@ export default function Footer() {
       title: "Explore",
       links: [
         ["/services", "Services"],
+        ["/pricing", "Pricing"],
         ["/tools", "Free Tools"],
         ["/portfolio", "Portfolio"],
         ["/blog", "Blog"],
@@ -36,17 +39,22 @@ export default function Footer() {
       <div className="mx-auto max-w-[980px] px-6 py-10">
         <div className="rounded-[28px] bg-[#1d1d1f] px-8 py-12 text-center text-[#f5f5f7] sm:px-12">
           <h2 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">
-            Let’s build what’s next.
+            Ready to start?
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
-            Websites, apps, APIs, automation, and security — engineered with care.
+            Pick a package or book a free 15-minute discovery call on WhatsApp.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href="/contact" className="apple-btn apple-btn-primary">
-              Contact us
+            <a
+              href={discoveryCallLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+            >
+              Book free call
             </a>
-            <a href="/tools" className="apple-btn apple-btn-secondary">
-              Free tools ›
+            <a href="/pricing" className="apple-btn apple-btn-secondary">
+              View pricing ›
             </a>
           </div>
         </div>
@@ -76,15 +84,14 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-white/10 pt-6">
           <p>
-            More ways to reach us:{" "}
-            <a href="/contact" className="apple-link">
-              Contact
-            </a>{" "}
-            or call{" "}
-            <a href="tel:+2348085343926" className="apple-link">
+            WhatsApp{" "}
+            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="apple-link">
               +234 808 534 3926
             </a>
-            .
+            {" "}·{" "}
+            <a href="mailto:doyintechnology@outlook.com" className="apple-link">
+              doyintechnology@outlook.com
+            </a>
           </p>
           <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[#a1a1a6]">Copyright © {year} DoyinTech. All rights reserved.</p>
