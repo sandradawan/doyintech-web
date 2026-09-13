@@ -1,5 +1,6 @@
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAID_TOOLS } from "@/lib/tools/paid";
+import { getAllPublishedListings } from "@/lib/store/published";
 
 export type PayItem = {
   id: string;
@@ -27,5 +28,23 @@ export function getPayItem(id: string): PayItem | undefined {
       delivery: "Instant unlock on this browser after payment",
     };
   }
+
+  // DoyinStore listings (slug or id)
+  try {
+    const listing = getAllPublishedListings().find(
+      (l) => l.id === id || l.slug === id
+    );
+    if (listing && listing.priceNgn > 0) {
+      return {
+        id: listing.slug,
+        name: listing.title,
+        amountKobo: listing.amountKobo || listing.priceNgn * 100,
+        delivery: "DoyinStore secure download after payment",
+      };
+    }
+  } catch {
+    /* ignore */
+  }
+
   return undefined;
 }
