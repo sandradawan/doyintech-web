@@ -1,6 +1,6 @@
 # SME Digital Ops System — Complete
 
-**Price:** ₦150,000 one-time  
+**Price:** ₦100,000 one-time  
 **Product ID:** `sme-digital-ops-system`  
 **Audience:** Nigerian SMEs, agencies, consultants who need a full digital operating stack this week.
 
@@ -19,9 +19,9 @@ Businesses pay for *one complete package* instead of buying tools piece by piece
 
 ## Delivery SOP (you)
 1. Confirm Paystack payment (reference)
-2. Zip folders 01–06 + this checklist into `SME-Digital-Ops-System.zip`
+2. Zip product folders into `SME-Digital-Ops-System.zip`
 3. Send download link + WhatsApp confirmation within 24 hours
-4. Offer optional paid install (website deploy) as upsell ₦50k–₦100k
+4. Optional upsell: website deploy install ₦50k–₦100k
 
 ## Positioning
 "Everything your business needs to look professional online and close clients on WhatsApp — in one payment."
