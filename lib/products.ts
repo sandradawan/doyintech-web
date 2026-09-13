@@ -4,7 +4,7 @@ export type DigitalProduct = {
   description: string;
   priceUsd: string;
   priceNgn: string;
-  /** Amount in kobo for Paystack (NGN only) */
+  /** Amount in kobo for Paystack (NGN) */
   amountKobo: number;
   type: "one-time" | "subscription" | "waitlist";
   badge?: string;
@@ -12,60 +12,104 @@ export type DigitalProduct = {
   delivery: string;
 };
 
-/** Things that can sell with little daily work once set up. */
+/**
+ * High-demand digital products for African SMEs, freelancers, and builders.
+ * Sold via Paystack on /products.
+ */
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
-    id: "business-website-starter-kit",
-    name: "Business Website Starter Kit",
+    id: "whatsapp-business-pack",
+    name: "WhatsApp Business Growth Pack",
     description:
-      "Ready-to-customize Next.js business site template — sections, contact, WhatsApp CTA, SEO basics.",
-    priceUsd: "$49",
-    priceNgn: "₦35,000",
-    amountKobo: 3500000,
+      "Ready-to-use auto-replies, catalog captions, order scripts, and follow-up messages businesses actually send on WhatsApp every day.",
+    priceUsd: "$29",
+    priceNgn: "₦25,000",
+    amountKobo: 2500000,
     type: "one-time",
-    badge: "Digital download",
+    badge: "Best seller",
     features: [
-      "Next.js + Tailwind starter",
-      "5 core page layouts",
-      "WhatsApp & contact form wiring",
-      "Setup PDF included",
+      "50+ copy-paste WhatsApp scripts",
+      "Auto-reply templates (open/closed hours)",
+      "Order & booking message flows",
+      "Customer follow-up sequences",
+      "Editable Google Doc + PDF",
     ],
-    delivery: "GitHub access + PDF within 24 hours after payment",
+    delivery: "PDF + Doc link within 2 hours after payment",
   },
   {
-    id: "flutter-app-boilerplate",
-    name: "Flutter App Boilerplate",
+    id: "nextjs-business-starter",
+    name: "Next.js Business Website Kit",
     description:
-      "Clean Flutter starter with auth screens, API client pattern, and production folder structure.",
-    priceUsd: "$79",
+      "Production-ready Next.js + Tailwind site: Home, Services, Pricing, Contact, WhatsApp CTA, SEO meta — deploy to Vercel in one afternoon.",
+    priceUsd: "$49",
+    priceNgn: "₦45,000",
+    amountKobo: 4500000,
+    type: "one-time",
+    badge: "Most popular",
+    features: [
+      "Full Next.js App Router project",
+      "5 conversion-focused pages",
+      "Mobile-first responsive UI",
+      "WhatsApp & contact form wired",
+      "Setup guide (deploy on Vercel)",
+    ],
+    delivery: "Private GitHub repo access within 24 hours",
+  },
+  {
+    id: "freelance-invoice-proposal-pack",
+    name: "Freelance Invoice & Proposal Pack",
+    description:
+      "Win clients faster with professional proposal, invoice, contract, and receipt templates used by freelancers and small agencies.",
+    priceUsd: "$19",
+    priceNgn: "₦15,000",
+    amountKobo: 1500000,
+    type: "one-time",
+    badge: "Low ticket",
+    features: [
+      "Proposal template (Word + PDF)",
+      "Invoice & receipt templates",
+      "Simple service agreement",
+      "Email follow-up scripts",
+      "Naira & USD versions",
+    ],
+    delivery: "ZIP download link via email/WhatsApp after payment",
+  },
+  {
+    id: "laravel-api-starter",
+    name: "Laravel API Starter (Auth + Roles)",
+    description:
+      "Skip weeks of setup. Secure Laravel API with auth, roles, API keys pattern, and Postman collection — built for real products.",
+    priceUsd: "$59",
     priceNgn: "₦55,000",
     amountKobo: 5500000,
     type: "one-time",
     features: [
-      "Auth UI screens",
-      "API service pattern",
-      "Theme + routing setup",
-      "README handover",
+      "Laravel API skeleton",
+      "Auth (login/register/token)",
+      "Roles & permissions starter",
+      "Postman collection",
+      "README + folder structure guide",
     ],
-    delivery: "Private repo invite within 24 hours after payment",
+    delivery: "Private repo invite within 24 hours",
   },
   {
-    id: "sme-ops-checklist",
-    name: "SME Digital Ops Checklist",
+    id: "sme-client-tracker",
+    name: "SME Client & Sales Tracker",
     description:
-      "PDF checklist for Nigerian SMEs: website, WhatsApp, payments, backups, and security basics.",
-    priceUsd: "$9",
-    priceNgn: "₦5,000",
-    amountKobo: 500000,
+      "Simple CRM-in-a-spreadsheet for shops and service businesses: clients, pipeline, follow-ups, and monthly revenue — no complex software.",
+    priceUsd: "$15",
+    priceNgn: "₦12,000",
+    amountKobo: 1200000,
     type: "one-time",
-    badge: "Low ticket",
+    badge: "For SMEs",
     features: [
-      "Printable PDF",
-      "Priority checklist",
-      "Tool recommendations",
-      "Delivered after payment confirm",
+      "Google Sheets template",
+      "Client & deal pipeline",
+      "Follow-up reminder columns",
+      "Monthly sales dashboard tab",
+      "1-page setup instructions",
     ],
-    delivery: "PDF via email/WhatsApp after payment",
+    delivery: "Google Sheets copy link within 2 hours after payment",
   },
 ];
 
@@ -93,7 +137,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
     name: "DoyinCRM — Simple SME CRM",
     description:
       "Clients, follow-ups, and pipeline in one place. Built for small teams who hate complex CRMs.",
-    priceUsd: "$35/mo",
+    priceUsd: "From $35/mo",
     priceNgn: "From ₦25,000/mo",
     amountKobo: 2500000,
     type: "waitlist",
