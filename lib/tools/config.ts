@@ -21,10 +21,21 @@ export type ToolMeta = {
   short: string;
   description: string;
   icon: string;
-  category: "core" | "business" | "career" | "ai" | "utility" | "security";
+  category: "core" | "business" | "career" | "ai" | "utility" | "security" | "paid";
+  paid?: boolean;
 };
 
 export const TOOLS_META: ToolMeta[] = [
+  {
+    slug: "pdf-studio",
+    href: "/tools/pdf-studio",
+    title: "PDF Studio",
+    short: "Letters, quotes & reports → PDF. Paid unlock.",
+    description: "Paid PDF automation tool. Preview free, export after Paystack unlock.",
+    icon: "pdf",
+    category: "paid",
+    paid: true,
+  },
   {
     slug: "website-calculator",
     href: "/tools/website-calculator",
@@ -374,6 +385,7 @@ export const TOOL_CATEGORIES: {
   id: ToolMeta["category"];
   label: string;
 }[] = [
+  { id: "paid", label: "Paid tools" },
   { id: "core", label: "Core tools" },
   { id: "security", label: "Security tools" },
   { id: "business", label: "Business & growth" },
@@ -381,3 +393,5 @@ export const TOOL_CATEGORIES: {
   { id: "ai", label: "AI & automation" },
   { id: "utility", label: "Quick utilities" },
 ];
+
+export const TOOLS_PER_PAGE = 9;
