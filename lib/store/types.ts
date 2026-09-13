@@ -34,6 +34,8 @@ export type StoreListing = {
   packageType?: "apk" | "exe" | "dmg" | "deb" | "zip" | "other";
   fileName?: string;
   fileSizeMb?: number;
+  /** Open web apps instantly (no binary) */
+  launchUrl?: string;
   /** Security pipeline */
   reviewStatus: ReviewStatus;
   securityNotes?: string;
@@ -60,13 +62,11 @@ export type DeveloperSubmission = {
   category: string;
   version: string;
   packageType?: string;
-  /** Client-side only until storage is wired */
   fileName?: string;
   website?: string;
   privacyPolicyUrl?: string;
 };
 
-/** Formats Android accepts for sideload; AAB is NOT directly installable by users */
 export const APP_PACKAGE_HINTS: Record<string, string> = {
   android: "Upload APK only (not AAB). Users install after download with permission.",
   windows: "Upload signed .exe or .msi installer ZIP.",
