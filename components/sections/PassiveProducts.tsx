@@ -5,10 +5,10 @@ import ScrollReveal from "../animations/ScrollReveal";
 import {
   DIGITAL_PRODUCTS,
   SAAS_PRODUCTS,
-  productWhatsAppLink,
   waitlistWhatsAppLink,
 } from "@/lib/products";
 import { packageWhatsAppLink } from "@/lib/packages";
+import PaystackBuyButton from "@/components/ui/PaystackBuyButton";
 
 export default function PassiveProducts() {
   return (
@@ -21,14 +21,14 @@ export default function PassiveProducts() {
             </p>
             <h2 className="apple-headline mt-2">Products & recurring.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              Digital downloads sell once. Subscriptions and care plans pay every
-              month — even when you’re offline.
+              Pay online with Paystack for digital products. Subscriptions and care
+              plans bill every month.
             </p>
           </div>
         </ScrollReveal>
 
         <h3 className="mt-14 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#a1a1a6]">
-          Digital products
+          Digital products — Paystack
         </h3>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {DIGITAL_PRODUCTS.map((p, i) => (
@@ -44,9 +44,9 @@ export default function PassiveProducts() {
                   {p.description}
                 </p>
                 <p className="mt-4 text-[22px] font-semibold text-[#f5f5f7]">
-                  {p.priceUsd}{" "}
+                  {p.priceNgn}{" "}
                   <span className="text-[13px] font-normal text-[#a1a1a6]">
-                    · {p.priceNgn}
+                    · {p.priceUsd}
                   </span>
                 </p>
                 <ul className="mt-3 space-y-1">
@@ -57,14 +57,7 @@ export default function PassiveProducts() {
                   ))}
                 </ul>
                 <p className="mt-3 text-[12px] text-[#a1a1a6]">{p.delivery}</p>
-                <a
-                  href={productWhatsAppLink(p.name, "digital product")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#0071e3] py-3 text-[14px] font-medium text-white hover:bg-[#0077ed]"
-                >
-                  Buy on WhatsApp
-                </a>
+                <PaystackBuyButton product={p} />
               </article>
             </ScrollReveal>
           ))}
