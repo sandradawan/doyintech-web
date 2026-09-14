@@ -8,6 +8,7 @@ import { getDigitalProduct } from "@/lib/products";
 import { getPaidToolByProductId, setUnlocked } from "@/lib/tools/paid";
 import { EBOOKS, getEbook } from "@/lib/ebooks";
 import { UI_COMPONENTS, getUiComponent } from "@/lib/ui-components";
+import { PAGE_TEMPLATES, getPageTemplate } from "@/lib/page-templates";
 
 function SuccessInner() {
   const params = useSearchParams();
@@ -15,15 +16,6 @@ function SuccessInner() {
   const productId = params.get("product") || "";
   const product = productId ? getDigitalProduct(productId) : undefined;
   const paidTool = productId ? getPaidToolByProductId(productId) : undefined;
-  const ebook =
-    productId
-      ? EBOOKS.find((e) => e.id === productId || e.slug === productId) || getEbook(productId)
-      : undefined;
-  const component =
-    productId
-      ? UI_COMPONENTS.find((c) => c.id === productId || c.slug === productId) ||
-        getUiComponent(productId)
-      : undefined;
 
   const [state, setState] = useState<"loading" | "ok" | "fail">("loading");
   const [detail, setDetail] = useState<any>(null);
@@ -62,11 +54,27 @@ function SuccessInner() {
             try {
               sessionStorage.setItem(`comp_unlocked_${comp.slug}`, "1");
               localStorage.setItem(`comp_unlocked_${comp.slug}`, "1");
-              // Bundle unlocks all
               if (comp.slug === "agency-ui-kit") {
                 UI_COMPONENTS.forEach((c) => {
                   localStorage.setItem(`comp_unlocked_${c.slug}`, "1");
                   sessionStorage.setItem(`comp_unlocked_${c.slug}`, "1");
+                });
+              }
+            } catch {
+              /* ignore */
+            }
+          }
+
+          const tpl =
+            PAGE_TEMPLATES.find((t) => t.id === pid || t.slug === pid) || getPageTemplate(pid);
+          if (tpl) {
+            try {
+              sessionStorage.setItem(`tpl_unlocked_${tpl.slug}`, "1");
+              localStorage.setItem(`tpl_unlocked_${tpl.slug}`, "1");
+              if (tpl.slug === "all-templates-bundle") {
+                PAGE_TEMPLATES.forEach((t) => {
+                  localStorage.setItem(`tpl_unlocked_${t.slug}`, "1");
+                  sessionStorage.setItem(`tpl_unlocked_${t.slug}`, "1");
                 });
               }
             } catch {
@@ -81,32 +89,26 @@ function SuccessInner() {
       .catch(() => setState("fail"));
   }, [reference, productId]);
 
+  const pid = resolvedProductId;
   const resolvedEbook =
-    ebook ||
-    (resolvedProductId
-      ? EBOOKS.find((e) => e.id === resolvedProductId || e.slug === resolvedProductId) ||
-        getEbook(resolvedProductId)
-      : undefined);
-
+    EBOOKS.find((e) => e.id === pid || e.slug === pid) || getEbook(pid || "");
   const resolvedComp =
-    component ||
-    (resolvedProductId
-      ? UI_COMPONENTS.find(
-          (c) => c.id === resolvedProductId || c.slug === resolvedProductId
-        ) || getUiComponent(resolvedProductId)
-      : undefined);
+    UI_COMPONENTS.find((c) => c.id === pid || c.slug === pid) || getUiComponent(pid || "");
+  const resolvedTpl =
+    PAGE_TEMPLATES.find((t) => t.id === pid || t.slug === pid) || getPageTemplate(pid || "");
 
   const toolHref = paidTool ? `/tools/${paidTool.toolSlug}` : null;
   const title =
     paidTool?.title ||
     resolvedEbook?.title ||
     resolvedComp?.name ||
+    resolvedTpl?.name ||
     product?.name ||
     productId ||
     "Purchase";
 
   const wa = encodeURIComponent(
-    `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}\nPlease confirm delivery.`
+    `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}`
   );
 
   return (
@@ -143,13 +145,20 @@ function SuccessInner() {
                 >
                   Open source code
                 </a>
-                <a href="/components" className="block text-[14px] text-[#2997ff] hover:underline">
-                  All components
+              </div>
+            ) : resolvedTpl ? (
+              <div className="mt-8 space-y-3">
+                <p className="text-[15px] text-emerald-400">Template guide unlocked.</p>
+                <a
+                  href={`/templates/${resolvedTpl.slug}?paid=1&reference=${encodeURIComponent(reference)}`}
+                  className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+                >
+                  Open template guide
                 </a>
               </div>
             ) : toolHref ? (
               <div className="mt-8 space-y-3">
-                <p className="text-[15px] text-emerald-400">Tool unlocked on this browser.</p>
+                <p className="text-[15px] text-emerald-400">Tool unlocked.</p>
                 <a
                   href={toolHref}
                   className="inline-flex rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-black"
@@ -168,15 +177,15 @@ function SuccessInner() {
               </a>
             )}
 
-            <div className="mt-6 flex justify-center gap-4 text-[14px]">
-              <a href="/ebooks" className="text-[#2997ff] hover:underline">
-                Ebooks
-              </a>
+            <div className="mt-6 flex flex-wrap justify-center gap-4 text-[14px]">
               <a href="/components" className="text-[#2997ff] hover:underline">
                 Components
               </a>
-              <a href="/products" className="text-[#2997ff] hover:underline">
-                Products
+              <a href="/templates" className="text-[#2997ff] hover:underline">
+                Templates
+              </a>
+              <a href="/ebooks" className="text-[#2997ff] hover:underline">
+                Ebooks
               </a>
             </div>
           </>
