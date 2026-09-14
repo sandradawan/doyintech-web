@@ -7,6 +7,7 @@ import EbookDelivery from "@/components/ebooks/EbookDelivery";
 import { getDigitalProduct } from "@/lib/products";
 import { getPaidToolByProductId, setUnlocked } from "@/lib/tools/paid";
 import { EBOOKS, getEbook } from "@/lib/ebooks";
+import { UI_COMPONENTS, getUiComponent } from "@/lib/ui-components";
 
 function SuccessInner() {
   const params = useSearchParams();
@@ -17,6 +18,11 @@ function SuccessInner() {
   const ebook =
     productId
       ? EBOOKS.find((e) => e.id === productId || e.slug === productId) || getEbook(productId)
+      : undefined;
+  const component =
+    productId
+      ? UI_COMPONENTS.find((c) => c.id === productId || c.slug === productId) ||
+        getUiComponent(productId)
       : undefined;
 
   const [state, setState] = useState<"loading" | "ok" | "fail">("loading");
@@ -49,6 +55,24 @@ function SuccessInner() {
               /* ignore */
             }
           }
+
+          const comp =
+            UI_COMPONENTS.find((c) => c.id === pid || c.slug === pid) || getUiComponent(pid);
+          if (comp) {
+            try {
+              sessionStorage.setItem(`comp_unlocked_${comp.slug}`, "1");
+              localStorage.setItem(`comp_unlocked_${comp.slug}`, "1");
+              // Bundle unlocks all
+              if (comp.slug === "agency-ui-kit") {
+                UI_COMPONENTS.forEach((c) => {
+                  localStorage.setItem(`comp_unlocked_${c.slug}`, "1");
+                  sessionStorage.setItem(`comp_unlocked_${c.slug}`, "1");
+                });
+              }
+            } catch {
+              /* ignore */
+            }
+          }
         } else {
           setState("fail");
           setDetail(data);
@@ -64,9 +88,22 @@ function SuccessInner() {
         getEbook(resolvedProductId)
       : undefined);
 
+  const resolvedComp =
+    component ||
+    (resolvedProductId
+      ? UI_COMPONENTS.find(
+          (c) => c.id === resolvedProductId || c.slug === resolvedProductId
+        ) || getUiComponent(resolvedProductId)
+      : undefined);
+
   const toolHref = paidTool ? `/tools/${paidTool.toolSlug}` : null;
   const title =
-    paidTool?.title || resolvedEbook?.title || product?.name || productId || "Purchase";
+    paidTool?.title ||
+    resolvedEbook?.title ||
+    resolvedComp?.name ||
+    product?.name ||
+    productId ||
+    "Purchase";
 
   const wa = encodeURIComponent(
     `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}\nPlease confirm delivery.`
@@ -97,6 +134,19 @@ function SuccessInner() {
                 bookTitle={resolvedEbook.title}
                 bookSlug={resolvedEbook.slug}
               />
+            ) : resolvedComp ? (
+              <div className="mt-8 space-y-3">
+                <p className="text-[15px] text-emerald-400">Component source unlocked.</p>
+                <a
+                  href={`/components/${resolvedComp.slug}?paid=1&reference=${encodeURIComponent(reference)}`}
+                  className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+                >
+                  Open source code
+                </a>
+                <a href="/components" className="block text-[14px] text-[#2997ff] hover:underline">
+                  All components
+                </a>
+              </div>
             ) : toolHref ? (
               <div className="mt-8 space-y-3">
                 <p className="text-[15px] text-emerald-400">Tool unlocked on this browser.</p>
@@ -118,9 +168,17 @@ function SuccessInner() {
               </a>
             )}
 
-            <a href="/ebooks" className="mt-6 block text-[14px] text-[#2997ff] hover:underline">
-              All ebooks
-            </a>
+            <div className="mt-6 flex justify-center gap-4 text-[14px]">
+              <a href="/ebooks" className="text-[#2997ff] hover:underline">
+                Ebooks
+              </a>
+              <a href="/components" className="text-[#2997ff] hover:underline">
+                Components
+              </a>
+              <a href="/products" className="text-[#2997ff] hover:underline">
+                Products
+              </a>
+            </div>
           </>
         )}
 
