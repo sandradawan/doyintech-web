@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   ebookFilename,
+  ebookPayload,
   findEbookByProductId,
   formatEbookDocument,
+  formatEbookHtml,
 } from "@/lib/ebooks/delivery";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
@@ -41,7 +43,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const reference = String(body.reference || "").trim();
-    const mode = String(body.mode || "download").toLowerCase(); // download | email
+    const mode = String(body.mode || "download").toLowerCase();
     const productHint = String(body.productId || "").trim();
 
     if (!reference) {
@@ -71,14 +73,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Optional: amount check (allow small variance)
-    if (tx.amount && book.amountKobo && Math.abs(tx.amount - book.amountKobo) > 100) {
-      // soft warning only — metadata is source of truth for product
-    }
-
-    const document = formatEbookDocument(book);
-    const filename = ebookFilename(book);
+    const html = formatEbookHtml(book);
+    const text = formatEbookDocument(book);
+    const filenameHtml = ebookFilename(book, "html");
     const buyerEmail = (tx.customer?.email || body.email || "").toLowerCase();
+    const payload = ebookPayload(book);
 
     if (mode === "email") {
       if (!buyerEmail || !buyerEmail.includes("@")) {
@@ -89,14 +88,17 @@ export async function POST(req: NextRequest) {
       }
 
       if (!RESEND_KEY) {
-        // Still allow download fallback message
         return NextResponse.json({
           ok: false,
           code: "NO_EMAIL_PROVIDER",
           message:
-            "Email delivery is not configured yet. Use Download, or message WhatsApp with your reference.",
+            "Email delivery is not configured yet. Use Download PDF / HTML, or message WhatsApp with your reference.",
           downloadAvailable: true,
           book: { title: book.title, slug: book.slug },
+          content: html,
+          filename: filenameHtml,
+          contentType: "text/html; charset=utf-8",
+          payload,
         });
       }
 
@@ -110,11 +112,14 @@ export async function POST(req: NextRequest) {
           from: FROM_EMAIL,
           to: [buyerEmail],
           subject: `Your ebook: ${book.title} — DoyinTech`,
-          text: `Hi,\n\nThank you for purchasing "${book.title}".\n\nYour ebook is attached as a text file, and you can also read it online after unlocking:\nhttps://doyintech.vercel.app/ebooks/${book.slug}?paid=1\n\nPayment reference: ${reference}\n\n— DoyinTech\ndoyintechnology@outlook.com`,
+          html: `<p>Hi,</p><p>Thanks for purchasing <strong>${book.title}</strong>.</p>
+            <p>Open online: <a href="https://doyintech.vercel.app/ebooks/${book.slug}?paid=1&reference=${encodeURIComponent(reference)}">Read ebook</a></p>
+            <p>An illustrated HTML copy is attached — open it and use <strong>Print → Save as PDF</strong>.</p>
+            <p>Ref: ${reference}</p><p>— DoyinTech</p>`,
           attachments: [
             {
-              filename,
-              content: Buffer.from(document, "utf-8").toString("base64"),
+              filename: filenameHtml,
+              content: Buffer.from(html, "utf-8").toString("base64"),
             },
           ],
         }),
@@ -126,6 +131,10 @@ export async function POST(req: NextRequest) {
           {
             error: emailData.message || "Could not send email.",
             downloadAvailable: true,
+            content: html,
+            filename: filenameHtml,
+            contentType: "text/html; charset=utf-8",
+            payload,
           },
           { status: 502 }
         );
@@ -139,13 +148,14 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Default: download payload (client saves as file)
     return NextResponse.json({
       ok: true,
       mode: "download",
-      filename,
-      contentType: "text/plain; charset=utf-8",
-      content: document,
+      filename: filenameHtml,
+      contentType: "text/html; charset=utf-8",
+      content: html,
+      textFallback: text,
+      payload,
       book: { title: book.title, slug: book.slug },
       email: buyerEmail || null,
     });
