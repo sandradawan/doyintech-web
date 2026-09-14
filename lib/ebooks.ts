@@ -1,4 +1,10 @@
-export type EbookChapter = { title: string; body: string };
+export type EbookChapter = {
+  title: string;
+  body: string;
+  /** Demonstrative image URL for PDF / illustrated reader */
+  image?: string;
+  imageCaption?: string;
+};
 
 export type Ebook = {
   id: string;
@@ -22,9 +28,7 @@ export type Ebook = {
 };
 
 /**
- * Original DoyinTech guides in niches that sell on Amazon
- * (AI for business, marketing plans, cash systems, habits, negotiation).
- * Not copies of any Amazon title — original content.
+ * Original DoyinTech guides. Not copies of Amazon titles.
  */
 export const EBOOKS: Ebook[] = [
   {
@@ -56,14 +60,20 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. Why WhatsApp is your real storefront",
         body: `Most small businesses do more selling in WhatsApp than on their website. Treat chats like a system: reply fast, sound professional, move from "how much?" to a paid booking.`,
+        image:
+          "https://images.unsplash.com/photo-1512941937669-90a1b58d7ffe?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Your phone is often the real storefront.",
       },
       {
         title: "2. The 4-message foundation",
         body: `Greeting · Menu · Away message · Quick replies. Without these, every chat starts from zero.`,
+        image:
+          "https://images.unsplash.com/photo-1556745753-b2904692b3cd?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Structure beats scrambling for every reply.",
       },
       {
         title: "3. Greeting & menu scripts",
-        body: `👋 Welcome to [Business]. Reply:\n1 — Prices\n2 — Book\n3 — Location\n4 — Talk to a person\n\nPut your best offer on option 1.`,
+        body: `Welcome to [Business]. Reply:\n1 — Prices\n2 — Book\n3 — Location\n4 — Talk to a person\n\nPut your best offer on option 1.`,
       },
       {
         title: "4. Away message that still sells",
@@ -72,6 +82,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "5. Follow-up without being annoying",
         body: `Day 0 confirm · Day 2 soft check-in · Day 5 polite close. One clear question beats a wall of text.`,
+        image:
+          "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Follow-up is a system, not spam.",
       },
       {
         title: "6. Payment & professionalism",
@@ -112,6 +125,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. Clients buy outcomes, not frameworks",
         body: `Lead with more enquiries, trust, and booking — not framework names.`,
+        image:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Sell the result the client feels.",
       },
       {
         title: "2. Where clients actually are",
@@ -120,6 +136,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "3. Three offers that are easy to buy",
         body: `Fix & polish · New brochure site · Monthly care — fixed prices reduce fear.`,
+        image:
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Clear packages close faster than hourly rates.",
       },
       {
         title: "4. Simple pricing logic",
@@ -163,6 +182,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. You are a target",
         body: `Automation means small businesses are still targets. Remove easy wins.`,
+        image:
+          "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Security is risk reduction, not perfection.",
       },
       {
         title: "2. Passwords and 2FA",
@@ -171,6 +193,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "3. Invoice and payment fraud",
         body: `Verify bank changes by calling a known number. Urgency + secrecy = stop.`,
+        image:
+          "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Verify payment detail changes offline.",
       },
       {
         title: "4. Website hygiene",
@@ -211,6 +236,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. A website is a sales tool",
         body: `Trust, offer clarity, contact path, mobile-friendly, fast enough.`,
+        image:
+          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Ship a clear offer before fancy animation.",
       },
       {
         title: "2. Pages you actually need",
@@ -227,11 +255,12 @@ export const EBOOKS: Ebook[] = [
       {
         title: "5. Launch week",
         body: `Test forms, links, alerts. Google Business if local. One improvement a month.`,
+        image:
+          "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Launch is a checklist, not a miracle day.",
       },
     ],
   },
-
-  // —— Amazon-trend niches (original DoyinTech titles) ——
   {
     id: "ebook-ai-sme",
     slug: "ai-for-small-business",
@@ -250,7 +279,7 @@ export const EBOOKS: Ebook[] = [
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=85",
     badge: "Amazon trend",
     blurb:
-      "Same demand as top AI business Kindle titles: use AI for offers, replies, content, and SOPs without becoming a prompt engineer.",
+      "Use AI for offers, replies, content, and SOPs without becoming a prompt engineer.",
     benefits: [
       "Daily AI use-cases for SMEs",
       "Prompt patterns that stay useful",
@@ -261,6 +290,9 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. AI is an intern, not a CEO",
         body: `Use AI to draft and accelerate. You still decide prices, promises, and legal claims. Never paste secrets or full customer databases into public tools.`,
+        image:
+          "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "AI drafts. You decide.",
       },
       {
         title: "2. Five jobs AI does well for SMEs",
@@ -268,11 +300,14 @@ export const EBOOKS: Ebook[] = [
       },
       {
         title: "3. Prompt pattern that works",
-        body: `Role + audience + task + constraints + format.\n\nExample: "You are a polite salon receptionist. Write a WhatsApp reply to a customer asking bridal makeup price. Mention packages start at X. Ask date and location. 6 lines max."`,
+        body: `Role + audience + task + constraints + format.\n\nExample: You are a polite salon receptionist. Write a WhatsApp reply about bridal makeup price. Mention packages start at X. Ask date and location. 6 lines max.`,
+        image:
+          "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Clear prompts beat clever ones.",
       },
       {
         title: "4. Content without sounding fake",
-        body: `Feed AI your real facts: prices, hours, cities, guarantees. Edit every output. Add one human detail AI cannot invent (a real client situation, a photo, a number you verified).`,
+        body: `Feed AI your real facts: prices, hours, cities, guarantees. Edit every output. Add one human detail AI cannot invent.`,
       },
       {
         title: "5. 14-day AI adoption plan",
@@ -298,7 +333,7 @@ export const EBOOKS: Ebook[] = [
       "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=900&q=85",
     badge: "Amazon trend",
     blurb:
-      "Inspired by the demand for simple marketing plan books: define who buys, the message, the channel, and the weekly actions on one page.",
+      "Define who buys, the message, the channel, and the weekly actions on one page.",
     benefits: [
       "Fill-in one-page template",
       "Message that is not vague",
@@ -309,22 +344,28 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. Strategy is choices, not slides",
         body: `If everything is a priority, nothing is. One page forces trade-offs.`,
+        image:
+          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "One page beats a forgotten deck.",
       },
       {
         title: "2. Who exactly pays you",
-        body: `Write one primary customer: job, pain, where they hang out, what they tried before. Secondary audiences wait.`,
+        body: `Write one primary customer: job, pain, where they hang out, what they tried before.`,
       },
       {
         title: "3. Promise in one sentence",
-        body: `We help [who] achieve [result] without [pain], so they can [outcome].\n\nIf you cannot say it in one breath, the market will not remember it.`,
+        body: `We help [who] achieve [result] without [pain], so they can [outcome].`,
       },
       {
         title: "4. Pick two channels max",
-        body: `Examples: Google Business + WhatsApp, or Instagram + referrals. Master two before adding a third.`,
+        body: `Examples: Google Business + WhatsApp, or Instagram + referrals.`,
+        image:
+          "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Master two channels before adding a third.",
       },
       {
         title: "5. Weekly actions & scoreboard",
-        body: `Track: enquiries, booked calls, paid jobs, referral asks. Review every Monday. Change one variable at a time.`,
+        body: `Track: enquiries, booked calls, paid jobs, referral asks. Review every Monday.`,
       },
     ],
   },
@@ -346,7 +387,7 @@ export const EBOOKS: Ebook[] = [
       "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=85",
     badge: "Amazon trend",
     blurb:
-      "Matches demand for Profit First–style cash systems: separate pots, owner pay, tax buffer, and simple weekly rituals for SMEs.",
+      "Separate pots, owner pay, tax buffer, and simple weekly rituals for SMEs.",
     benefits: [
       "Why busy businesses still go broke",
       "Simple account / pot system",
@@ -357,22 +398,28 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. Revenue is not safety",
         body: `High turnover with no buffer is a trap. Cash timing kills more SMEs than lack of customers.`,
+        image:
+          "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Cash in the bank beats vanity revenue.",
       },
       {
         title: "2. Split money on purpose",
-        body: `Create pots (even if virtual): Operating · Owner · Tax/compliance · Growth buffer. Percentages beat vibes.`,
+        body: `Create pots: Operating · Owner · Tax/compliance · Growth buffer.`,
       },
       {
         title: "3. Pay yourself like a bill",
-        body: `Owner pay is not leftover crumbs. Schedule it. Adjust lifestyle to the real number.`,
+        body: `Owner pay is not leftover crumbs. Schedule it.`,
       },
       {
         title: "4. Price with cash in mind",
-        body: `Include delivery cost, tools, tax buffer, and your time. Cheap prices that skip tax are expensive later.`,
+        body: `Include delivery cost, tools, tax buffer, and your time.`,
       },
       {
         title: "5. Weekly money ritual",
-        body: `20 minutes: balances, incoming invoices, bills due, pot transfers, one cut or one push. Same day every week.`,
+        body: `20 minutes: balances, invoices, bills due, pot transfers, one decision.`,
+        image:
+          "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Same day every week keeps cash clear.",
       },
     ],
   },
@@ -394,7 +441,7 @@ export const EBOOKS: Ebook[] = [
       "https://images.unsplash.com/photo-1484480974693-6ca0a78ebb4f?auto=format&fit=crop&w=900&q=85",
     badge: "Amazon trend",
     blurb:
-      "Built for the same reader who buys habit and productivity bestsellers — focused on founder realities: sales, delivery, and energy.",
+      "Focused on founder realities: sales, delivery, and energy.",
     benefits: [
       "Morning/evening founder loops",
       "Sales block that actually happens",
@@ -404,23 +451,26 @@ export const EBOOKS: Ebook[] = [
     chapters: [
       {
         title: "1. Systems beat mood",
-        body: `Motivation is weather. A calendar block is climate. Design defaults that work on tired days.`,
+        body: `Motivation is weather. A calendar block is climate.`,
+        image:
+          "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Design defaults for tired days.",
       },
       {
         title: "2. The three founder blocks",
-        body: `Make (delivery) · Sell (outreach/content) · Admin (money, messages). Most people only Make.`,
+        body: `Make (delivery) · Sell (outreach/content) · Admin (money, messages).`,
       },
       {
         title: "3. Tiny habits that stick",
-        body: `Attach new habits to existing anchors: after morning tea → 25 min outreach. After last delivery → invoice same day.`,
+        body: `Attach new habits to existing anchors: after morning tea → 25 min outreach.`,
       },
       {
         title: "4. Protect deep work",
-        body: `Silence notifications for one 90-minute block. Batch WhatsApp twice daily if your model allows.`,
+        body: `Silence notifications for one 90-minute block.`,
       },
       {
         title: "5. Weekly review (30 min)",
-        body: `What shipped · what sold · what leaked time · one change next week. Write it down.`,
+        body: `What shipped · what sold · what leaked time · one change next week.`,
       },
     ],
   },
@@ -442,10 +492,10 @@ export const EBOOKS: Ebook[] = [
       "https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=900&q=85",
     badge: "Amazon trend",
     blurb:
-      "Practical negotiation for freelancers and SMEs — same hunger as top persuasion/negotiation bestsellers, written for real price talks.",
+      "Practical negotiation for freelancers and SMEs — written for real price talks.",
     benefits: [
       "Listen before you discount",
-      "Scripts for "too expensive"",
+      "Scripts for when they say too expensive",
       "Anchoring without arrogance",
       "When to walk away",
     ],
@@ -453,14 +503,20 @@ export const EBOOKS: Ebook[] = [
       {
         title: "1. Negotiation starts before the number",
         body: `Understand their problem and alternatives. Discounting first trains buyers to wait.`,
+        image:
+          "https://images.unsplash.com/photo-1556761175-4b46a572b936?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Listen first. Price second.",
       },
       {
         title: "2. Ask calibrated questions",
-        body: `"What does success look like by [date]?" "What have you tried?" "What is the cost of waiting?" Questions gather power.`,
+        body: `What does success look like by [date]? What have you tried? What is the cost of waiting?`,
       },
       {
         title: "3. When they say too expensive",
-        body: `Do not collapse. Clarify scope, compare to their cost of inaction, offer a smaller package — not a random 40% cut.`,
+        body: `Do not collapse. Clarify scope, compare to cost of inaction, offer a smaller package — not a random 40% cut.`,
+        image:
+          "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+        imageCaption: "Trade scope before you slash price.",
       },
       {
         title: "4. Anchors and silence",
@@ -468,7 +524,7 @@ export const EBOOKS: Ebook[] = [
       },
       {
         title: "5. Walk-away line",
-        body: `Know your minimum before the call. Walking away is how you keep a business, not how you lose one.`,
+        body: `Know your minimum before the call. Walking away is how you keep a business.`,
       },
     ],
   },
