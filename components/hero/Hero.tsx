@@ -7,28 +7,28 @@ import { discoveryCallLink } from "@/lib/packages";
 
 const slides = [
   {
-    title: "Web applications",
-    sub: "Built for performance.",
-    desc: "Production websites and web apps designed for speed, clarity, and growth.",
+    title: "Websites that get clients",
+    sub: "Pay for results.",
+    desc: "Growth sites, WhatsApp systems, and digital products SMEs actually buy — not vanity pages.",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    title: "Backend systems",
-    sub: "Secure. Scalable.",
-    desc: "Laravel, PHP, Node, and MySQL architectures that stay reliable under load.",
+    title: "Digital products",
+    sub: "Sell while you sleep.",
+    desc: "Prompt packs, WhatsApp scripts, ebooks, and Next.js templates — checkout with Paystack.",
+    img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
+    title: "Free website audit",
+    sub: "Fill your pipeline.",
+    desc: "3-minute audit offer that turns strangers into leads for Starter and Growth packages.",
+    img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
+    title: "Components & templates",
+    sub: "Ship faster.",
+    desc: "Next.js UI packs with real demos. Developers pay once and paste production code.",
     img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    title: "Mobile apps",
-    sub: "iOS and Android.",
-    desc: "Flutter products with clean architecture and a polished user experience.",
-    img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    title: "AI automation",
-    sub: "Work, simplified.",
-    desc: "Practical chatbots and workflows that remove repetitive tasks for your team.",
-    img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80",
   },
 ];
 
@@ -70,16 +70,19 @@ export default function Hero() {
               {slide.desc}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <a href="/pricing" className="apple-btn apple-btn-primary">
-                View packages
+              <a href="/products" className="apple-btn apple-btn-primary">
+                Shop products
               </a>
               <a
                 href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="apple-btn apple-btn-secondary"
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-[15px] font-semibold text-white"
               >
-                Book free call ›
+                Book free call
+              </a>
+              <a href="/free-audit" className="apple-btn apple-btn-secondary">
+                Free audit ›
               </a>
             </div>
           </motion.div>
