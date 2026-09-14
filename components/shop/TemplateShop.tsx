@@ -1,0 +1,154 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import type { PageTemplate } from "@/lib/page-templates";
+import { formatTplPrice } from "@/lib/page-templates";
+import { productWhatsAppLink } from "@/lib/products";
+
+export function TemplateCard({ item }: { item: PageTemplate }) {
+  return (
+    <Link
+      href={`/templates/${item.slug}`}
+      className="group flex h-full flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-5 transition hover:border-[#ff8c14]/40"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{item.category}</p>
+        {item.badge && (
+          <span className="rounded-full bg-[#ff8c14]/15 px-2 py-0.5 text-[10px] font-semibold text-[#ff8c14]">
+            {item.badge}
+          </span>
+        )}
+      </div>
+      <h3 className="mt-2 text-[17px] font-semibold text-white group-hover:text-[#ff8c14]">
+        {item.name}
+      </h3>
+      <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{item.tagline}</p>
+      <p className="mt-3 text-[12px] text-white/50">{item.pages.join(" · ")}</p>
+      <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-3 mt-4">
+        <span className="text-[16px] font-semibold text-white">{formatTplPrice(item.priceNgn)}</span>
+        <span className="text-[12px] text-[#ff8c14]">View →</span>
+      </div>
+    </Link>
+  );
+}
+
+export function TemplateBuyPanel({ item }: { item: PageTemplate }) {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
+
+  async function buy() {
+    setLoading(true);
+    setErr("");
+    try {
+      const res = await fetch("/api/paystack/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: item.id,
+          email: email.trim(),
+          name: "Template buyer",
+        }),
+      });
+      const data = await res.json();
+      if (res.status === 503 || data.code === "NO_KEYS" || !data.authorization_url) {
+        window.location.href = productWhatsAppLink(item.name, "Next.js template");
+        return;
+      }
+      if (!res.ok) throw new Error(data.error || "Checkout failed");
+      window.location.href = data.authorization_url;
+    } catch (e: any) {
+      setErr(e.message || "Could not start payment");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+      <p className="text-[28px] font-semibold text-white">{formatTplPrice(item.priceNgn)}</p>
+      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Full template guide unlock</p>
+      <label className="mt-4 block text-[12px] text-[#a1a1a6]">
+        Email
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+          placeholder="you@email.com"
+        />
+      </label>
+      <button
+        type="button"
+        disabled={loading || !email.includes("@")}
+        onClick={buy}
+        className="mt-4 w-full rounded-full bg-[#ff8c14] py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
+      >
+        {loading ? "Redirecting…" : `Buy template · ${formatTplPrice(item.priceNgn)}`}
+      </button>
+      {err && <p className="mt-2 text-sm text-red-400">{err}</p>}
+    </div>
+  );
+}
+
+export function TemplateGuideGate({ item }: { item: PageTemplate }) {
+  const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+    try {
+      const key = `tpl_unlocked_${item.slug}`;
+      if (localStorage.getItem(key) === "1" || sessionStorage.getItem(key) === "1") {
+        setUnlocked(true);
+      }
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("paid") === "1" || params.get("reference")) {
+        localStorage.setItem(key, "1");
+        sessionStorage.setItem(key, "1");
+        setUnlocked(true);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [item.slug]);
+
+  function download() {
+    const blob = new Blob([item.fullGuide], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = item.slug + "-doyintech.md";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  if (!unlocked) {
+    return (
+      <div className="space-y-3">
+        <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">Outline preview</p>
+        <pre className="overflow-x-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[12px] leading-relaxed text-[#a1a1a6] whitespace-pre-wrap">
+          {item.previewOutline}
+        </pre>
+        <p className="text-[13px] text-[#86868b]">Full build guide unlocks after payment.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <p className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+        Full template guide unlocked.
+      </p>
+      <button
+        type="button"
+        onClick={download}
+        className="rounded-full bg-[#ff8c14] px-4 py-2 text-xs font-semibold text-black"
+      >
+        Download guide (.md)
+      </button>
+      <pre className="overflow-x-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[13px] leading-relaxed text-[#c7cdd8] whitespace-pre-wrap">
+        {item.fullGuide}
+      </pre>
+    </div>
+  );
+}
