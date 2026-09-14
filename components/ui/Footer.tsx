@@ -7,30 +7,33 @@ export default function Footer() {
 
   const cols = [
     {
-      title: "Explore",
+      title: "Shop",
+      links: [
+        ["/products", "Digital products"],
+        ["/ebooks", "Ebooks"],
+        ["/components", "UI components"],
+        ["/templates", "Page templates"],
+        ["/store", "App store"],
+      ],
+    },
+    {
+      title: "Services",
       links: [
         ["/services", "Services"],
-        ["/pricing", "Pricing"],
-        ["/products", "Products"],
-        ["/tools", "Free Tools"],
+        ["/pricing", "Packages & pricing"],
+        ["/free-audit", "Free website audit"],
         ["/portfolio", "Portfolio"],
+        ["/tools", "Free tools"],
       ],
     },
     {
       title: "Company",
       links: [
         ["/about", "About"],
-        ["/company-profile", "Company Profile"],
         ["/contact", "Contact"],
         ["/blog", "Blog"],
-        ["https://doyintechacademy.vercel.app", "Academy"],
-      ],
-    },
-    {
-      title: "Legal",
-      links: [
-        ["/privacy", "Privacy Policy"],
-        ["/terms", "Terms of Use"],
+        ["/privacy", "Privacy"],
+        ["/terms", "Terms"],
       ],
     },
   ];
@@ -40,10 +43,10 @@ export default function Footer() {
       <div className="mx-auto max-w-[980px] px-6 py-10">
         <div className="rounded-[28px] bg-[#1d1d1f] px-8 py-12 text-center text-[#f5f5f7] sm:px-12">
           <h2 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">
-            Build income that compounds.
+            Sell this month. Build systems next month.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
-            Packages for cash now. Products and care plans for money while you sleep.
+            Book a call for project cash. Or buy a pack today and deliver value in minutes.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <a
@@ -55,7 +58,10 @@ export default function Footer() {
               Book free call
             </a>
             <a href="/products" className="apple-btn apple-btn-secondary">
-              View products ›
+              Shop products ›
+            </a>
+            <a href="/free-audit" className="apple-btn apple-btn-secondary">
+              Free audit ›
             </a>
           </div>
         </div>
@@ -67,13 +73,7 @@ export default function Footer() {
               <ul className="space-y-2">
                 {col.links.map(([href, label]) => (
                   <li key={href}>
-                    <a
-                      href={href}
-                      {...(href.startsWith("http")
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="text-[#a1a1a6] hover:text-[#f5f5f7] hover:underline"
-                    >
+                    <a href={href} className="text-[#a1a1a6] hover:text-[#f5f5f7] hover:underline">
                       {label}
                     </a>
                   </li>
@@ -96,17 +96,7 @@ export default function Footer() {
           </p>
           <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[#a1a1a6]">Copyright © {year} DoyinTech. All rights reserved.</p>
-            <p className="flex flex-wrap gap-3 text-[#a1a1a6]">
-              <a href="/privacy" className="hover:text-[#f5f5f7] hover:underline">
-                Privacy Policy
-              </a>
-              <span className="text-white/20">|</span>
-              <a href="/terms" className="hover:text-[#f5f5f7] hover:underline">
-                Terms of Use
-              </a>
-              <span className="text-white/20">|</span>
-              <span>Jos, Nigeria</span>
-            </p>
+            <p className="text-[#a1a1a6]">Jos, Nigeria · doyintech.vercel.app</p>
           </div>
         </div>
       </div>
