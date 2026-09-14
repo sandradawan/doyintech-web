@@ -5,14 +5,16 @@ import { useEffect, useState } from "react";
 import type { UiComponentPack } from "@/lib/ui-components";
 import { formatCompPrice } from "@/lib/ui-components";
 import { productWhatsAppLink } from "@/lib/products";
+import { ComponentLivePreview } from "@/components/shop/LivePreviews";
 
 export function ComponentCard({ item }: { item: UiComponentPack }) {
   return (
     <Link
       href={`/components/${item.slug}`}
-      className="group flex h-full flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-5 transition hover:border-[#ff8c14]/40"
+      className="group flex h-full flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-4 transition hover:border-[#ff8c14]/40"
     >
-      <div className="flex items-start justify-between gap-2">
+      <ComponentLivePreview slug={item.slug} />
+      <div className="mt-3 flex items-start justify-between gap-2">
         <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{item.category}</p>
         {item.badge && (
           <span className="rounded-full bg-[#ff8c14]/15 px-2 py-0.5 text-[10px] font-semibold text-[#ff8c14]">
@@ -20,20 +22,13 @@ export function ComponentCard({ item }: { item: UiComponentPack }) {
           </span>
         )}
       </div>
-      <h3 className="mt-2 text-[17px] font-semibold text-white group-hover:text-[#ff8c14]">
+      <h3 className="mt-1 text-[17px] font-semibold text-white group-hover:text-[#ff8c14]">
         {item.name}
       </h3>
       <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{item.tagline}</p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {item.stack.map((s) => (
-          <span key={s} className="rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/70">
-            {s}
-          </span>
-        ))}
-      </div>
-      <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-3 mt-4">
+      <div className="mt-auto mt-4 flex items-center justify-between border-t border-white/10 pt-3">
         <span className="text-[16px] font-semibold text-white">{formatCompPrice(item.priceNgn)}</span>
-        <span className="text-[12px] text-[#ff8c14]">View →</span>
+        <span className="text-[12px] text-[#ff8c14]">Watch + buy →</span>
       </div>
     </Link>
   );
@@ -74,7 +69,7 @@ export function ComponentBuyPanel({ item }: { item: UiComponentPack }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
       <p className="text-[28px] font-semibold text-white">{formatCompPrice(item.priceNgn)}</p>
-      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Source code unlock after payment</p>
+      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Source unlock after payment</p>
       <label className="mt-4 block text-[12px] text-[#a1a1a6]">
         Email
         <input
