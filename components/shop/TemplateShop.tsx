@@ -25,7 +25,7 @@ export function TemplateCard({ item }: { item: PageTemplate }) {
       </h3>
       <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{item.tagline}</p>
       <p className="mt-3 text-[12px] text-white/50">{item.pages.join(" · ")}</p>
-      <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-3 mt-4">
+      <div className="mt-auto mt-4 flex items-center justify-between border-t border-white/10 pt-3">
         <span className="text-[16px] font-semibold text-white">{formatTplPrice(item.priceNgn)}</span>
         <span className="text-[12px] text-[#ff8c14]">View →</span>
       </div>
@@ -68,7 +68,7 @@ export function TemplateBuyPanel({ item }: { item: PageTemplate }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
       <p className="text-[28px] font-semibold text-white">{formatTplPrice(item.priceNgn)}</p>
-      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Full template guide unlock</p>
+      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Full page.tsx source unlock</p>
       <label className="mt-4 block text-[12px] text-[#a1a1a6]">
         Email
         <input
@@ -112,12 +112,19 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
     }
   }, [item.slug]);
 
-  function download() {
-    const blob = new Blob([item.fullGuide], { type: "text/markdown;charset=utf-8" });
+  function copy() {
+    navigator.clipboard.writeText(item.fullCode).then(
+      () => alert("Copied page.tsx source"),
+      () => alert("Copy failed")
+    );
+  }
+
+  function downloadTsx() {
+    const blob = new Blob([item.fullCode], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = item.slug + "-doyintech.md";
+    a.download = item.slug + "-page.tsx";
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -125,11 +132,15 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
   if (!unlocked) {
     return (
       <div className="space-y-3">
-        <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">Outline preview</p>
-        <pre className="overflow-x-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[12px] leading-relaxed text-[#a1a1a6] whitespace-pre-wrap">
+        <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+          Template outline (preview)
+        </p>
+        <pre className="overflow-x-auto whitespace-pre-wrap rounded-xl border border-white/10 bg-black/50 p-4 text-[12px] leading-relaxed text-[#a1a1a6]">
           {item.previewOutline}
         </pre>
-        <p className="text-[13px] text-[#86868b]">Full build guide unlocks after payment.</p>
+        <p className="text-[13px] text-[#86868b]">
+          Full Next.js page.tsx source unlocks after payment.
+        </p>
       </div>
     );
   }
@@ -137,18 +148,28 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
   return (
     <div className="space-y-3">
       <p className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
-        Full template guide unlocked.
+        Full template source unlocked — paste into app/page.tsx
       </p>
-      <button
-        type="button"
-        onClick={download}
-        className="rounded-full bg-[#ff8c14] px-4 py-2 text-xs font-semibold text-black"
-      >
-        Download guide (.md)
-      </button>
-      <pre className="overflow-x-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[13px] leading-relaxed text-[#c7cdd8] whitespace-pre-wrap">
-        {item.fullGuide}
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={copy}
+          className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+        >
+          Copy page.tsx
+        </button>
+        <button
+          type="button"
+          onClick={downloadTsx}
+          className="rounded-full bg-[#ff8c14] px-4 py-2 text-xs font-semibold text-black"
+        >
+          Download .tsx
+        </button>
+      </div>
+      <pre className="max-h-[480px] overflow-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[11px] leading-relaxed text-[#c7cdd8]">
+        {item.fullCode}
       </pre>
+      <p className="text-[12px] text-[#86868b]">{item.fullGuide}</p>
     </div>
   );
 }
