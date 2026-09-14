@@ -22,13 +22,7 @@ export function EbookCover({
         : { wrap: "h-[240px] w-[160px]", title: "text-[13px]", sub: "text-[10px]" };
 
   return (
-    <div
-      className={`${dims.wrap} relative`}
-      style={{
-        perspective: "900px",
-      }}
-    >
-      {/* Page edges */}
+    <div className={`${dims.wrap} relative`} style={{ perspective: "900px" }}>
       <div
         className="absolute inset-y-2 -right-1.5 w-2 rounded-r-sm bg-gradient-to-b from-neutral-200 via-neutral-100 to-neutral-300 shadow-inner"
         aria-hidden
@@ -38,7 +32,6 @@ export function EbookCover({
         aria-hidden
       />
 
-      {/* Cover board */}
       <div className="relative h-full w-full overflow-hidden rounded-r-md rounded-l-[3px] shadow-[4px_8px_24px_rgba(0,0,0,0.55)] ring-1 ring-black/40">
         <Image
           src={book.coverImage}
@@ -48,10 +41,7 @@ export function EbookCover({
           sizes="230px"
           priority={size === "lg"}
         />
-        {/* Dark gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/25" />
-
-        {/* Spine highlight */}
         <div className="absolute inset-y-0 left-0 w-[6px] bg-gradient-to-r from-black/50 to-transparent" />
 
         <div className="relative flex h-full flex-col justify-between p-3.5 sm:p-4">
@@ -182,7 +172,7 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
       </button>
       {err && <p className="mt-2 text-sm text-red-400">{err}</p>}
       <p className="mt-3 text-[11px] leading-relaxed text-[#86868b]">
-        After payment you get full chapter access on this page. Request PDF via WhatsApp if needed.
+        After payment: full chapters unlock on this site. Optional PDF via WhatsApp.
       </p>
     </div>
   );
@@ -209,10 +199,13 @@ export function EbookGatedReader({ book }: { book: Ebook }) {
   useEffect(() => {
     try {
       const key = `ebook_unlocked_${book.slug}`;
-      if (sessionStorage.getItem(key) === "1") setUnlocked(true);
+      if (sessionStorage.getItem(key) === "1" || localStorage.getItem(key) === "1") {
+        setUnlocked(true);
+      }
       const params = new URLSearchParams(window.location.search);
       if (params.get("paid") === "1" || params.get("reference")) {
         sessionStorage.setItem(key, "1");
+        localStorage.setItem(key, "1");
         setUnlocked(true);
       }
     } catch {
