@@ -10,11 +10,12 @@ export type Ebook = {
   amountKobo: number;
   pagesLabel: string;
   category: string;
-  /** Cover gradient stops */
   coverFrom: string;
   coverTo: string;
   accent: string;
   icon: string;
+  /** Real photograph for cover (Unsplash CDN) */
+  coverImage: string;
   blurb: string;
   benefits: string[];
   chapters: EbookChapter[];
@@ -36,6 +37,8 @@ export const EBOOKS: Ebook[] = [
     coverTo: "#0d9488",
     accent: "#2dd4bf",
     icon: "💬",
+    coverImage:
+      "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=800&q=80",
     badge: "Bestseller format",
     blurb:
       "A no-fluff playbook for salons, shops, agencies, and service businesses that live on WhatsApp. Greeting menus, away messages, price lists, and follow-up sequences you can copy today.",
@@ -48,7 +51,7 @@ export const EBOOKS: Ebook[] = [
     chapters: [
       {
         title: "1. Why WhatsApp is your real storefront",
-        body: `Most small businesses in Africa and emerging markets do more selling in WhatsApp than on their website. That is not a problem — it is an advantage if you treat chats like a system.\n\nYour goals:\n• Reply fast without living on your phone 24/7\n• Sound professional even when you are busy\n• Move from \"how much?\" to a paid booking or invoice\n\nThis guide gives you scripts and rules. Adapt the words to your brand voice; keep the structure.`,
+        body: `Most small businesses in Africa and emerging markets do more selling in WhatsApp than on their website. That is not a problem — it is an advantage if you treat chats like a system.\n\nYour goals:\n• Reply fast without living on your phone 24/7\n• Sound professional even when you are busy\n• Move from "how much?" to a paid booking or invoice\n\nThis guide gives you scripts and rules. Adapt the words to your brand voice; keep the structure.`,
       },
       {
         title: "2. The 4-message foundation",
@@ -60,11 +63,11 @@ export const EBOOKS: Ebook[] = [
       },
       {
         title: "4. Away message that still sells",
-        body: `Bad: \"I will reply later.\"\n\nBetter:\nThanks for messaging [Business]. We are currently offline ([hours]). Leave your name, what you need, and preferred time — we reply in order when we open. For urgent jobs, call [number].\n\nYou collect lead data even while you sleep.`,
+        body: `Bad: "I will reply later."\n\nBetter:\nThanks for messaging [Business]. We are currently offline ([hours]). Leave your name, what you need, and preferred time — we reply in order when we open. For urgent jobs, call [number].\n\nYou collect lead data even while you sleep.`,
       },
       {
         title: "5. Follow-up without being annoying",
-        body: `Day 0: Confirm you received their request + next step.\nDay 2: Soft check-in + one benefit or social proof.\nDay 5: Final polite close or \"should I close this request?\"\n\nNever send five messages in one day. One clear question beats a wall of text.`,
+        body: `Day 0: Confirm you received their request + next step.\nDay 2: Soft check-in + one benefit or social proof.\nDay 5: Final polite close or "should I close this request?"\n\nNever send five messages in one day. One clear question beats a wall of text.`,
       },
       {
         title: "6. Payment & professionalism",
@@ -90,6 +93,8 @@ export const EBOOKS: Ebook[] = [
     coverTo: "#c2410c",
     accent: "#fb923c",
     icon: "💻",
+    coverImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
     badge: "Career",
     blurb:
       "Stop waiting for job boards. Learn how to find local and remote clients, package simple offers, price without panic, and close without sounding desperate.",
@@ -102,11 +107,11 @@ export const EBOOKS: Ebook[] = [
     chapters: [
       {
         title: "1. Clients buy outcomes, not frameworks",
-        body: `Nobody wakes up wanting \"a Next.js site.\" They want more enquiries, a professional look, online booking, or fewer WhatsApp arguments about prices.\n\nLead with the outcome. Technology is how you deliver it.`,
+        body: `Nobody wakes up wanting "a Next.js site." They want more enquiries, a professional look, online booking, or fewer WhatsApp arguments about prices.\n\nLead with the outcome. Technology is how you deliver it.`,
       },
       {
         title: "2. Where clients actually are",
-        body: `• Local businesses with ugly or broken sites\n• Friends of businesses you already helped\n• LinkedIn posts from founders hiring \"someone technical\"\n• Communities (school, church, alumni) — warm intros beat cold DMs\n\nAim for conversations, not spray-and-pray applications.`,
+        body: `• Local businesses with ugly or broken sites\n• Friends of businesses you already helped\n• LinkedIn posts from founders hiring "someone technical"\n• Communities (school, church, alumni) — warm intros beat cold DMs\n\nAim for conversations, not spray-and-pray applications.`,
       },
       {
         title: "3. Three offers that are easy to buy",
@@ -140,6 +145,8 @@ export const EBOOKS: Ebook[] = [
     coverTo: "#0f172a",
     accent: "#4ade80",
     icon: "🔒",
+    coverImage:
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
     blurb:
       "Passwords, 2FA, fake invoices, staff access, and website hygiene — practical steps for owners who are not security experts.",
     benefits: [
@@ -167,7 +174,7 @@ export const EBOOKS: Ebook[] = [
       },
       {
         title: "5. 14-day hardening plan",
-        body: `Week 1: email 2FA, bank 2FA, unique passwords.\nWeek 2: staff access review, backup test, website update pass.\n\nWrite who owns each account. Shared \"company Gmail\" with no owner is a crisis waiting to happen.`,
+        body: `Week 1: email 2FA, bank 2FA, unique passwords.\nWeek 2: staff access review, backup test, website update pass.\n\nWrite who owns each account. Shared "company Gmail" with no owner is a crisis waiting to happen.`,
       },
     ],
   },
@@ -185,6 +192,8 @@ export const EBOOKS: Ebook[] = [
     coverTo: "#9f1239",
     accent: "#f472b6",
     icon: "🚀",
+    coverImage:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
     badge: "Founders",
     blurb:
       "For non-technical founders: what pages you need, what to skip, how to brief a developer, and how to avoid rebuilding three times.",
