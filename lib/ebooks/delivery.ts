@@ -1,15 +1,15 @@
-import { EBOOKS, type Ebook } from "@/lib/ebooks";
+import type { Ebook } from "@/lib/ebooks";
+import { findAnyEbook } from "@/lib/ebooks-catalog";
 
 export function findEbookByProductId(productId: string): Ebook | undefined {
-  return EBOOKS.find((e) => e.id === productId || e.slug === productId);
+  return findAnyEbook(productId);
 }
 
-/** Escape text for safe HTML attributes/content (no fragile quote entities in source). */
 function esc(s: string): string {
-  const amp = String.fromCharCode(38) + "amp;"; // &
-  const lt = String.fromCharCode(38) + "lt;"; // <
-  const gt = String.fromCharCode(38) + "gt;"; // >
-  const quot = String.fromCharCode(38) + "quot;"; // "
+  const amp = String.fromCharCode(38) + "amp;";
+  const lt = String.fromCharCode(38) + "lt;";
+  const gt = String.fromCharCode(38) + "gt;";
+  const quot = String.fromCharCode(38) + "quot;";
   return String(s)
     .replace(/&/g, amp)
     .replace(/</g, lt)
@@ -17,7 +17,6 @@ function esc(s: string): string {
     .replace(/"/g, quot);
 }
 
-/** Illustrated HTML document — open and Print to Save as PDF. */
 export function formatEbookHtml(book: Ebook): string {
   const chapters = book.chapters
     .map((ch) => {
