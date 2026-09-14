@@ -1,0 +1,3 @@
+date_added,market,city,business_name,industry,website_url,contact_name,contact_email,contact_channel,qualification_notes,specific_issue_1,specific_issue_2,status,first_touch_date,followup_3_date,followup_7_date,audit_sent,reply_notes,next_action,package_interest,deal_value_usd_gbp
+2026-09-14,US,Austin,Example Salon,Beauty,https://example.com,Jane,hello@example.com,email,"outdated mobile; no booking",Mobile layout broken,No online book button,new,,,,,,,
+2026-09-14,UK,Manchester,Example Clean Co,Cleaning,(none),,,,,No website found,No website,Only Instagram bio,new,,,,,,,
