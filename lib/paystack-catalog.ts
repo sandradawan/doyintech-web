@@ -1,7 +1,7 @@
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAID_TOOLS } from "@/lib/tools/paid";
 import { getAllPublishedListings } from "@/lib/store/published";
-import { EBOOKS } from "@/lib/ebooks";
+import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 
@@ -32,13 +32,13 @@ export function getPayItem(id: string): PayItem | undefined {
     };
   }
 
-  const ebook = EBOOKS.find((e) => e.id === id || e.slug === id);
+  const ebook = findAnyEbook(id);
   if (ebook) {
     return {
       id: ebook.id,
       name: ebook.title + " (Ebook)",
       amountKobo: ebook.amountKobo,
-      delivery: "Full ebook unlock on site + PDF on request",
+      delivery: "Full ebook unlock on site + illustrated PDF",
     };
   }
 
@@ -58,7 +58,7 @@ export function getPayItem(id: string): PayItem | undefined {
       id: tpl.id,
       name: tpl.name + " (Template)",
       amountKobo: tpl.amountKobo,
-      delivery: "Full template guide unlock on site after payment",
+      delivery: "Full template source unlock on site after payment",
     };
   }
 
