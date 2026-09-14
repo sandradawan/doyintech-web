@@ -10,6 +10,7 @@ const navItems = [
   { name: "Services", href: "/services" },
   { name: "Pricing", href: "/pricing" },
   { name: "Products", href: "/products" },
+  { name: "Ebooks", href: "/ebooks" },
   { name: "Store", href: "/store" },
   { name: "Tools", href: "/tools" },
   { name: "Portfolio", href: "/portfolio" },
