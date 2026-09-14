@@ -8,10 +8,10 @@ import { discoveryCallLink } from "@/lib/packages";
 
 const navItems = [
   { name: "Services", href: "/services" },
-  { name: "Pricing", href: "/pricing" },
   { name: "Products", href: "/products" },
   { name: "Ebooks", href: "/ebooks" },
   { name: "Components", href: "/components" },
+  { name: "Templates", href: "/templates" },
   { name: "Store", href: "/store" },
   { name: "Tools", href: "/tools" },
   { name: "Contact", href: "/contact" },
@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[999]">
       <nav className="glass-navbar h-12 w-full">
-        <div className="mx-auto flex h-full max-w-[1080px] items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-full max-w-[1100px] items-center justify-between px-4 sm:px-6">
           <a
             href="/"
             className="flex items-center gap-2 text-[17px] font-semibold tracking-tight text-[#f5f5f7]"
@@ -47,7 +47,7 @@ export default function Navbar() {
             <span className="hidden sm:inline">DoyinTech</span>
           </a>
 
-          <div className="hidden items-center gap-4 xl:flex">
+          <div className="hidden items-center gap-3 2xl:flex">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -56,7 +56,7 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`text-xs transition ${
+                  className={`text-[11px] transition ${
                     isActive
                       ? "text-white opacity-100"
                       : "text-[#f5f5f7] opacity-80 hover:opacity-100"
@@ -80,7 +80,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] xl:hidden"
+              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] 2xl:hidden"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -108,7 +108,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            className="border-b border-white/10 bg-[#161617] px-6 py-6 xl:hidden"
+            className="border-b border-white/10 bg-[#161617] px-6 py-6 2xl:hidden"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
               {navItems.map((item) => (
