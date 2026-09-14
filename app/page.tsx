@@ -1,4 +1,5 @@
 import Hero from "@/components/hero/Hero";
+import RevenueStrip from "@/components/sections/RevenueStrip";
 import Stats from "@/components/sections/Stats";
 import ClientLogos from "@/components/sections/ClientLogos";
 import Services from "@/components/sections/Services";
@@ -21,6 +22,7 @@ export default function Home() {
     <>
       <main>
         <Hero />
+        <RevenueStrip />
         <Stats />
         <ClientLogos />
         <Services />
