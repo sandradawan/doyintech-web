@@ -3,6 +3,7 @@ import { PAID_TOOLS } from "@/lib/tools/paid";
 import { getAllPublishedListings } from "@/lib/store/published";
 import { EBOOKS } from "@/lib/ebooks";
 import { UI_COMPONENTS } from "@/lib/ui-components";
+import { PAGE_TEMPLATES } from "@/lib/page-templates";
 
 export type PayItem = {
   id: string;
@@ -48,6 +49,16 @@ export function getPayItem(id: string): PayItem | undefined {
       name: comp.name + " (Component)",
       amountKobo: comp.amountKobo,
       delivery: "Full source code unlock on site after payment",
+    };
+  }
+
+  const tpl = PAGE_TEMPLATES.find((t) => t.id === id || t.slug === id);
+  if (tpl) {
+    return {
+      id: tpl.id,
+      name: tpl.name + " (Template)",
+      amountKobo: tpl.amountKobo,
+      delivery: "Full template guide unlock on site after payment",
     };
   }
 
