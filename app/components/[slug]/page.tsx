@@ -6,6 +6,7 @@ import {
   ComponentBuyPanel,
   ComponentCodeGate,
 } from "@/components/shop/ComponentShop";
+import { ComponentLivePreview } from "@/components/shop/LivePreviews";
 import { UI_COMPONENTS, getUiComponent, formatCompPrice } from "@/lib/ui-components";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -33,6 +34,14 @@ export default async function ComponentDetailPage({ params }: Props) {
           <Link href="/components" className="text-[14px] text-[#ff8c14] hover:underline">
             ← All components
           </Link>
+
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+            <ComponentLivePreview slug={item.slug} />
+          </div>
+          <p className="mt-2 text-center text-[11px] uppercase tracking-wide text-[#86868b]">
+            Live output — always moving so buyers see the result
+          </p>
+
           <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_300px]">
             <div>
               {item.badge && (
