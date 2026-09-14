@@ -6,6 +6,7 @@ import {
   TemplateBuyPanel,
   TemplateGuideGate,
 } from "@/components/shop/TemplateShop";
+import { TemplateLivePreview } from "@/components/shop/LivePreviews";
 import {
   PAGE_TEMPLATES,
   getPageTemplate,
@@ -37,6 +38,14 @@ export default async function TemplateDetailPage({ params }: Props) {
           <Link href="/templates" className="text-[14px] text-[#ff8c14] hover:underline">
             ← All templates
           </Link>
+
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+            <TemplateLivePreview slug={item.slug} />
+          </div>
+          <p className="mt-2 text-center text-[11px] uppercase tracking-wide text-[#86868b]">
+            Live output — scrolling mock of the finished page
+          </p>
+
           <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_300px]">
             <div>
               {item.badge && (
