@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import { EbookCard } from "@/components/ebooks/EbookShop";
-import { EBOOKS } from "@/lib/ebooks";
+import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
 
 export const metadata: Metadata = {
-  title: "Ebooks — Practical guides for business & builders",
+  title: "Ebooks — Digital marketing, affiliate, SMM, VA & more",
   description:
-    "Buy DoyinTech ebooks: WhatsApp Business, freelancing clients, cyber basics, founder website launch. Instant access after payment.",
+    "Buy DoyinTech ebooks: digital marketing, affiliate marketing, social media management, virtual assistant, WhatsApp, and founder guides.",
 };
 
 export default function EbooksPage() {
@@ -21,12 +21,12 @@ export default function EbooksPage() {
             Ebooks that get used
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
-            Short, practical guides for SMEs, freelancers, and founders — written to implement the
-            same day. Preview chapter free; unlock full book after payment.
+            Practical guides for SMEs and freelancers — digital marketing, affiliate marketing,
+            social media management, virtual assistant work, and more. Preview a chapter free.
           </p>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {EBOOKS.map((book) => (
+            {ALL_EBOOKS.map((book) => (
               <EbookCard key={book.id} book={book} />
             ))}
           </div>
