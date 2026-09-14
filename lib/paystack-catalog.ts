@@ -2,6 +2,7 @@ import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAID_TOOLS } from "@/lib/tools/paid";
 import { getAllPublishedListings } from "@/lib/store/published";
 import { EBOOKS } from "@/lib/ebooks";
+import { UI_COMPONENTS } from "@/lib/ui-components";
 
 export type PayItem = {
   id: string;
@@ -37,6 +38,16 @@ export function getPayItem(id: string): PayItem | undefined {
       name: ebook.title + " (Ebook)",
       amountKobo: ebook.amountKobo,
       delivery: "Full ebook unlock on site + PDF on request",
+    };
+  }
+
+  const comp = UI_COMPONENTS.find((c) => c.id === id || c.slug === id);
+  if (comp) {
+    return {
+      id: comp.id,
+      name: comp.name + " (Component)",
+      amountKobo: comp.amountKobo,
+      delivery: "Full source code unlock on site after payment",
     };
   }
 
