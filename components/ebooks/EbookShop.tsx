@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Ebook } from "@/lib/ebooks";
 import { formatEbookPrice } from "@/lib/ebooks";
 import { productWhatsAppLink } from "@/lib/products";
@@ -146,8 +146,7 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
       </button>
       {err && <p className="mt-2 text-sm text-red-400">{err}</p>}
       <p className="mt-3 text-[11px] leading-relaxed text-[#86868b]">
-        After payment you get full chapter access on this device and can request PDF delivery via
-        WhatsApp if needed.
+        After payment you get full chapter access on this page. Request PDF via WhatsApp if needed.
       </p>
     </div>
   );
@@ -156,31 +155,22 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
 export function EbookReader({ book }: { book: Ebook }) {
   return (
     <article className="space-y-8">
-      {book.chapters.map((ch, i) => (
+      {book.chapters.map((ch) => (
         <section key={ch.title} className="rounded-2xl border border-white/10 bg-black/25 p-5">
           <h3 className="text-[16px] font-semibold text-white">{ch.title}</h3>
           <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-[#c7cdd8]">
             {ch.body}
           </div>
-          {i === 0 && (
-            <p className="mt-4 rounded-xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 p-3 text-[12px] text-[#ffe0b8]">
-              Preview chapter — purchase unlocks the full ebook on this page after payment (and PDF
-              on request).
-            </p>
-          )}
         </section>
       ))}
     </article>
   );
 }
 
-/** Shows only first chapter until unlocked via session flag */
 export function EbookGatedReader({ book }: { book: Ebook }) {
   const [unlocked, setUnlocked] = useState(false);
 
-  // Check session unlock (set after paystack success redirect with ?ebook=slug)
-  useState(() => {
-    if (typeof window === "undefined") return;
+  useEffect(() => {
     try {
       const key = `ebook_unlocked_${book.slug}`;
       if (sessionStorage.getItem(key) === "1") setUnlocked(true);
@@ -192,32 +182,38 @@ export function EbookGatedReader({ book }: { book: Ebook }) {
     } catch {
       /* ignore */
     }
-  });
+  }, [book.slug]);
 
   if (unlocked) {
-    return <EbookReader book={book} />;
+    return (
+      <div className="space-y-4">
+        <p className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+          Full ebook unlocked on this device.
+        </p>
+        <EbookReader book={book} />
+      </div>
+    );
   }
 
   const preview = book.chapters.slice(0, 1);
-  const rest = book.chapters.slice(1);
+  const restCount = book.chapters.length - 1;
 
   return (
     <div className="space-y-6">
       {preview.map((ch) => (
         <section key={ch.title} className="rounded-2xl border border-white/10 bg-black/25 p-5">
-          <h3 className="text-[16px] font-semibold text-white">{ch.title}</h3>
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+            Free preview
+          </p>
+          <h3 className="mt-1 text-[16px] font-semibold text-white">{ch.title}</h3>
           <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-[#c7cdd8]">
             {ch.body}
           </div>
         </section>
       ))}
       <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-center">
-        <p className="text-[15px] font-semibold text-white">
-          + {rest.length} more chapters locked
-        </p>
-        <p className="mt-2 text-[13px] text-[#a1a1a6]">
-          Buy to unlock the full guide on this page.
-        </p>
+        <p className="text-[15px] font-semibold text-white">+ {restCount} more chapters locked</p>
+        <p className="mt-2 text-[13px] text-[#a1a1a6]">Buy to unlock the full guide on this page.</p>
         <p className="mt-4 text-[20px] font-semibold text-[#ff8c14]">
           {formatEbookPrice(book.priceNgn)}
         </p>
