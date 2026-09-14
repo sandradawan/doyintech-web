@@ -94,6 +94,15 @@ const MARKET_TOOLS: ToolMeta[] = [
 export const TOOLS_META: ToolMeta[] = [
   ...PAID_TOOL_ENTRIES,
   ...MARKET_TOOLS,
+  {
+    slug: "outreach-hub",
+    href: "/tools/outreach-hub",
+    title: "Outreach Hub (US & UK)",
+    short: "Prospect tracker, emails, audits, daily plan.",
+    description: "Client outreach pipeline for US and UK local businesses.",
+    icon: "brief",
+    category: "business",
+  },
   { slug: "website-calculator", href: "/tools/website-calculator", title: "Website Price Calculator", short: "Estimate website project cost.", description: "Cost estimator.", icon: "calculator", category: "core" },
   { slug: "business-audit", href: "/tools/business-audit", title: "Business Audit Tool", short: "Digital business audit.", description: "Free audit.", icon: "audit", category: "core" },
   { slug: "org-security", href: "/tools/org-security", title: "Organization Security Dashboard", short: "Multi-domain monitoring.", description: "Org security.", icon: "orgsec", category: "security" },
