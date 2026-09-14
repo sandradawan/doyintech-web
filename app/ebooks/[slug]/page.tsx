@@ -7,27 +7,28 @@ import {
   EbookCover,
   EbookGatedReader,
 } from "@/components/ebooks/EbookShop";
-import { EBOOKS, getEbook, formatEbookPrice } from "@/lib/ebooks";
+import { formatEbookPrice } from "@/lib/ebooks";
+import { ALL_EBOOKS, findAnyEbook } from "@/lib/ebooks-catalog";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return EBOOKS.map((e) => ({ slug: e.slug }));
+  return ALL_EBOOKS.map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const book = getEbook(slug);
+  const book = findAnyEbook(slug);
   if (!book) return { title: "Ebook" };
   return {
-    title: `${book.title} · Ebook`,
+    title: book.title + " · Ebook",
     description: book.blurb,
   };
 }
 
 export default async function EbookDetailPage({ params }: Props) {
   const { slug } = await params;
-  const book = getEbook(slug);
+  const book = findAnyEbook(slug);
   if (!book) notFound();
 
   return (
