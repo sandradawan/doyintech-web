@@ -11,9 +11,9 @@ const navItems = [
   { name: "Pricing", href: "/pricing" },
   { name: "Products", href: "/products" },
   { name: "Ebooks", href: "/ebooks" },
+  { name: "Components", href: "/components" },
   { name: "Store", href: "/store" },
   { name: "Tools", href: "/tools" },
-  { name: "Portfolio", href: "/portfolio" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -47,7 +47,7 @@ export default function Navbar() {
             <span className="hidden sm:inline">DoyinTech</span>
           </a>
 
-          <div className="hidden items-center gap-5 lg:flex">
+          <div className="hidden items-center gap-4 xl:flex">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -80,7 +80,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] lg:hidden"
+              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] xl:hidden"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -108,7 +108,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            className="border-b border-white/10 bg-[#161617] px-6 py-6 lg:hidden"
+            className="border-b border-white/10 bg-[#161617] px-6 py-6 xl:hidden"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
               {navItems.map((item) => (
