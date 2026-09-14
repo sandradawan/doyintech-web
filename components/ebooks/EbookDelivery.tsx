@@ -22,7 +22,13 @@ function triggerDownload(filename: string, mime: string, content: string) {
   URL.revokeObjectURL(url);
 }
 
-export default function EbookDelivery({ productId, reference, defaultEmail, bookTitle, bookSlug }: Props) {
+export default function EbookDelivery({
+  productId,
+  reference,
+  defaultEmail,
+  bookTitle,
+  bookSlug,
+}: Props) {
   const [email, setEmail] = useState(defaultEmail || "");
   const [loading, setLoading] = useState<"download" | "email" | null>(null);
   const [msg, setMsg] = useState("");
@@ -41,29 +47,51 @@ export default function EbookDelivery({ productId, reference, defaultEmail, book
           productId,
           mode,
           email: email.trim(),
-          format: "html",
         }),
       });
       const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Delivery failed");
-      }
 
-      if (mode === "download" || data.content) {
-        if (data.content && data.filename) {
-          triggerDownload(data.filename, data.mime || "text/html", data.content);
-          setMsg(
-            mode === "download"
-              ? "Download started. Open the HTML file in your browser. Use Print → Save as PDF for a PDF copy."
-              : data.emailed
-                ? data.message
-                : `${data.message || "Email not sent."} Your download started as backup.`
-          );
-        } else if (data.emailed) {
-          setMsg(data.message || `Sent to ${data.email}`);
+      if (mode === "download") {
+        if (!res.ok || !data.ok || !data.content) {
+          throw new Error(data.error || "Download failed");
         }
-      } else if (data.emailed) {
-        setMsg(data.message || `Sent to ${data.email}`);
+        triggerDownload(
+          data.filename || `${bookSlug}-doyintech.txt`,
+          data.contentType || "text/plain;charset=utf-8",
+          data.content
+        );
+        setMsg(
+          "Download started. Open the .txt file, or open it in Word / Google Docs and export PDF."
+        );
+      } else {
+        // email
+        if (data.code === "NO_EMAIL_PROVIDER" || data.downloadAvailable) {
+          // Fallback: still offer download if content was not returned
+          setErr(
+            data.message ||
+              "Email is not configured yet. Use Download, or WhatsApp us with your reference."
+          );
+          // Try download as backup if we can call download mode
+          const dl = await fetch("/api/ebooks/deliver", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reference, productId, mode: "download" }),
+          });
+          const dlData = await dl.json();
+          if (dl.ok && dlData.content) {
+            triggerDownload(
+              dlData.filename || `${bookSlug}-doyintech.txt`,
+              dlData.contentType || "text/plain;charset=utf-8",
+              dlData.content
+            );
+            setMsg("Email not available — your download started instead.");
+            setErr("");
+          }
+        } else if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Email failed");
+        } else {
+          setMsg(`Ebook sent to ${data.email || email}. Check inbox and spam.`);
+        }
       }
 
       try {
@@ -81,10 +109,11 @@ export default function EbookDelivery({ productId, reference, defaultEmail, book
 
   return (
     <div className="mt-8 rounded-2xl border border-white/10 bg-[#141a28] p-5 text-left">
-      <h2 className="text-[16px] font-semibold text-white">Get your ebook</h2>
+      <h2 className="text-[16px] font-semibold text-white">How do you want your ebook?</h2>
       <p className="mt-1 text-[13px] text-[#a1a1a6]">
-        Choose how you want <span className="text-white">{bookTitle}</span>. Payment is verified before
-        delivery.
+        Choose <span className="text-white">download</span> or{" "}
+        <span className="text-white">email</span> for <span className="text-white">{bookTitle}</span>.
+        We verify Paystack before sending the file.
       </p>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -95,15 +124,15 @@ export default function EbookDelivery({ productId, reference, defaultEmail, book
           className="rounded-xl border border-white/15 bg-black/40 px-4 py-4 text-left transition hover:border-[#ff8c14]/50 disabled:opacity-50"
         >
           <p className="text-[15px] font-semibold text-white">
-            {loading === "download" ? "Preparing…" : "Download copy"}
+            {loading === "download" ? "Preparing…" : "⬇ Download copy"}
           </p>
           <p className="mt-1 text-[12px] text-[#86868b]">
-            Instant HTML file · open offline · Print → Save as PDF
+            Instant .txt file — open offline or export to PDF
           </p>
         </button>
 
         <div className="rounded-xl border border-white/15 bg-black/40 px-4 py-4">
-          <p className="text-[15px] font-semibold text-white">Email me a copy</p>
+          <p className="text-[15px] font-semibold text-white">✉ Email me a copy</p>
           <input
             type="email"
             value={email}
@@ -128,7 +157,7 @@ export default function EbookDelivery({ productId, reference, defaultEmail, book
         </p>
       )}
       {err && (
-        <p className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-[13px] text-red-300">
+        <p className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-[13px] text-amber-200">
           {err}
         </p>
       )}
