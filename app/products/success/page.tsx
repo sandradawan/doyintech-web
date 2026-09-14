@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { getDigitalProduct } from "@/lib/products";
 import { getPaidToolByProductId, setUnlocked } from "@/lib/tools/paid";
+import { EBOOKS, getEbook } from "@/lib/ebooks";
 
 function SuccessInner() {
   const params = useSearchParams();
@@ -12,6 +13,10 @@ function SuccessInner() {
   const productId = params.get("product") || "";
   const product = productId ? getDigitalProduct(productId) : undefined;
   const paidTool = productId ? getPaidToolByProductId(productId) : undefined;
+  const ebook =
+    productId
+      ? EBOOKS.find((e) => e.id === productId || e.slug === productId) || getEbook(productId)
+      : undefined;
 
   const [state, setState] = useState<"loading" | "ok" | "fail">("loading");
   const [detail, setDetail] = useState<any>(null);
@@ -30,6 +35,18 @@ function SuccessInner() {
           const pid = data.metadata?.product_id || productId;
           const tool = getPaidToolByProductId(pid);
           if (tool) setUnlocked(tool.unlockKey);
+
+          // Unlock ebook on this browser
+          const book =
+            EBOOKS.find((e) => e.id === pid || e.slug === pid) || getEbook(pid);
+          if (book) {
+            try {
+              sessionStorage.setItem(`ebook_unlocked_${book.slug}`, "1");
+              localStorage.setItem(`ebook_unlocked_${book.slug}`, "1");
+            } catch {
+              /* ignore */
+            }
+          }
         } else {
           setState("fail");
           setDetail(data);
@@ -39,10 +56,11 @@ function SuccessInner() {
   }, [reference, productId]);
 
   const toolHref = paidTool ? `/tools/${paidTool.toolSlug}` : null;
-  const title = paidTool?.title || product?.name || productId || "Purchase";
+  const ebookHref = ebook ? `/ebooks/${ebook.slug}?paid=1&reference=${encodeURIComponent(reference)}` : null;
+  const title = paidTool?.title || ebook?.title || product?.name || productId || "Purchase";
 
   const wa = encodeURIComponent(
-    `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}`
+    `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}\nPlease confirm delivery.`
   );
 
   return (
@@ -62,7 +80,31 @@ function SuccessInner() {
             )}
             <p className="mt-1 text-[13px] text-[#a1a1a6]">Ref: {reference}</p>
 
-            {toolHref ? (
+            {ebookHref ? (
+              <div className="mt-8 space-y-3">
+                <p className="text-[15px] text-emerald-400">
+                  Your ebook is unlocked on this device.
+                </p>
+                <a
+                  href={ebookHref}
+                  className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+                >
+                  Read full ebook now
+                </a>
+                <p className="text-[13px] text-[#a1a1a6]">
+                  All chapters open on the book page. Keep this browser/device, or message us for a
+                  PDF copy.
+                </p>
+                <a
+                  href={`https://wa.me/2348085343926?text=${wa}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white"
+                >
+                  Request PDF on WhatsApp
+                </a>
+              </div>
+            ) : toolHref ? (
               <div className="mt-8 space-y-3">
                 <p className="text-[15px] text-emerald-400">Tool unlocked on this browser.</p>
                 <a
@@ -83,8 +125,8 @@ function SuccessInner() {
               </a>
             )}
 
-            <a href="/tools" className="mt-4 block text-[14px] text-[#2997ff] hover:underline">
-              All tools
+            <a href="/ebooks" className="mt-6 block text-[14px] text-[#2997ff] hover:underline">
+              All ebooks
             </a>
           </>
         )}
