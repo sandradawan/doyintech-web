@@ -15,6 +15,29 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "whatsapp-status-sales-calendar",
+    name: "WhatsApp Status Sales Calendar (30 Days)",
+    description:
+      "A ready-to-post 30-day WhatsApp Status plan for Nigerian SMEs: daily hooks, product drops, social proof, and CTA copy so Status views turn into chats.",
+    priceUsd: "$18",
+    priceNgn: "₦15,000",
+    amountKobo: 1500000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "30-day posting calendar (theme + time slot)",
+      "90+ Status captions in Naija English",
+      "Restock, testimonial, and offer templates",
+      "Weekly review checklist + tracker CSV",
+      "Pairs with WhatsApp Growth Pack scripts",
+    ],
+    delivery:
+      "ZIP within 2 hours after payment (digital-products/08-whatsapp-status-sales-calendar)",
+    demandNote:
+      "WhatsApp Status is the main free storefront for Nigerian sellers in 2026",
+    addedAt: "2026-09-14",
+  },
+  {
     id: "sme-digital-ops-system",
     name: "SME Digital Ops System — Complete",
     description:
@@ -48,7 +71,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦18,000",
     amountKobo: 1800000,
     type: "one-time",
-    badge: "New today",
+    badge: "Documents",
     features: [
       "Letterhead template",
       "Quote / estimate layout",
@@ -150,37 +173,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "Postman collection",
     ],
     delivery: "Private repo within 24 hours",
-    addedAt: "2026-09-13",
-  },
-  {
-    id: "sme-client-tracker",
-    name: "SME Client & Sales Tracker",
-    description:
-      "CRM-in-a-spreadsheet for clients, pipeline, and follow-ups.",
-    priceUsd: "$15",
-    priceNgn: "₦12,000",
-    amountKobo: 1200000,
-    type: "one-time",
-    badge: "For SMEs",
-    features: [
-      "Clients + pipeline CSV",
-      "Sheets setup guide",
-    ],
-    delivery: "Sheet link within 2 hours",
-    addedAt: "2026-09-13",
-  },
-  {
-    id: "ai-business-prompt-pack",
-    name: "AI Business Prompt Pack",
-    description:
-      "Prompts for sales, proposals, ads, and support — built for SMEs.",
-    priceUsd: "$17",
-    priceNgn: "₦12,000",
-    amountKobo: 1200000,
-    type: "one-time",
-    badge: "Hot",
-    features: ["80+ prompts", "Sales & ops", "Copy-paste ready"],
-    delivery: "PDF within 2 hours",
     addedAt: "2026-09-13",
   },
 ];
