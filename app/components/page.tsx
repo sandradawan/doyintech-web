@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     "Production-ready Next.js + Tailwind components with live demos and AI prompts. Pay once, download source.",
 };
 
-/** Rotate featured component by ISO week so the page feels fresh weekly */
+/** Rotate featured component weekly without Intl week options (TS-safe). */
 function featuredThisWeek() {
   const singles = UI_COMPONENTS.filter((c) => c.slug !== "agency-ui-kit");
-  const week =
-    Number(
-      new Intl.DateTimeFormat("en", { week: "numeric" }).format(new Date())
-    ) || 1;
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const dayOfYear = Math.floor((now.getTime() - start.getTime()) / 86_400_000) + 1;
+  const week = Math.floor(dayOfYear / 7);
   return singles[week % singles.length] || singles[0];
 }
 
