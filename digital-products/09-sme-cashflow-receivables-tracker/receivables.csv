@@ -1,0 +1,4 @@
+invoice_id,client,whatsapp,amount_ngn,issued_date,due_date,status,last_follow_up,next_follow_up,notes
+INV-001,Ada Stores,0803xxxxxxx,85000,2026-09-01,2026-09-08,Overdue,2026-09-10,2026-09-15,Partial 20k promised
+INV-002,Kemi Agency,0802xxxxxxx,45000,2026-09-05,2026-09-12,Sent,,,Website balance
+INV-003,Bola Fashion,0816xxxxxxx,12000,2026-09-08,2026-09-10,Paid,2026-09-10,,Transfer confirmed

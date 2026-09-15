@@ -1,0 +1,4 @@
+bill_id,vendor,whatsapp,amount_ngn,due_date,priority,status,notes
+BILL-01,Fabric supplier,0805xxxxxxx,210000,2026-09-18,High,Unpaid,Needed for weekend restock
+BILL-02,Data + airtime vendor,,15000,2026-09-20,Med,Unpaid,Office SIMs
+BILL-03,Designer retainer,0814xxxxxxx,40000,2026-09-25,Low,Scheduled,Pay after Ada pays INV-001

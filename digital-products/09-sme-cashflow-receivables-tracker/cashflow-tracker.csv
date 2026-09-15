@@ -1,0 +1,5 @@
+week_start,week_end,opening_balance_ngn,cash_in_sales,cash_in_collections,cash_in_other,cash_out_stock,cash_out_ops,cash_out_salary,cash_out_other,closing_balance_ngn,notes
+2026-09-01,2026-09-07,150000,80000,45000,0,60000,12000,0,5000,198000,POS + transfers
+2026-09-08,2026-09-14,198000,65000,30000,10000,40000,15000,80000,3000,165000,Salary week
+2026-09-15,2026-09-21,165000,,,,,,,,,
+2026-09-22,2026-09-28,,,,,,,,,,

@@ -15,6 +15,26 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "sme-cashflow-tracker",
+    name: "SME Cashflow & Receivables Tracker",
+    description:
+      "Sheets-ready cash in/out, who-owes-you log, payables, Sunday review, and WhatsApp collection scripts for Nigerian SMEs.",
+    priceUsd: "$19",
+    priceNgn: "₦14,500",
+    amountKobo: 1450000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "Weekly cashflow CSV",
+      "Receivables + payables logs",
+      "15-min weekly review",
+      "Polite WhatsApp chasers",
+      "Google Sheets import steps",
+    ],
+    delivery: "ZIP from digital-products/09-sme-cashflow-receivables-tracker after Paystack",
+    addedAt: "2026-09-15",
+  },
+  {
     id: "status-caption-pack",
     name: "Status & Caption Pack (Canva-ready)",
     description:
@@ -91,19 +111,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     addedAt: "2026-09-14",
   },
   {
-    id: "freelance-proposal-closer",
-    name: "Freelance Proposal & Close Kit",
-    description: "One-page proposal, objection scripts, and follow-up sequence.",
-    priceUsd: "$15",
-    priceNgn: "₦9,500",
-    amountKobo: 950000,
-    type: "one-time",
-    badge: "Freelancer",
-    features: ["Proposal one-pager", "Scope block", "Day 2 / Day 5 follow-ups"],
-    delivery: "/digital-products/freelance-proposal-close-kit.md",
-    addedAt: "2026-09-14",
-  },
-  {
     id: "whatsapp-status-sales-calendar",
     name: "WhatsApp Status Sales Calendar (30 Days)",
     description: "30-day Status plan with hooks, offers, and CTAs.",
@@ -115,45 +122,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     features: ["30-day calendar", "90+ captions", "Weekly review"],
     delivery: "ZIP / WhatsApp after payment",
     addedAt: "2026-09-14",
-  },
-  {
-    id: "sme-digital-ops-system",
-    name: "SME Digital Ops System — Complete",
-    description: "Website kit, WhatsApp scripts, invoices, AI prompts, 30-day plan.",
-    priceUsd: "$120",
-    priceNgn: "₦100,000",
-    amountKobo: 10000000,
-    type: "one-time",
-    badge: "Premium",
-    features: ["Website kit", "WhatsApp pack", "Invoice templates", "AI prompts"],
-    delivery: "Full ZIP within 24 hours",
-    addedAt: "2026-09-13",
-  },
-  {
-    id: "pdf-business-pack",
-    name: "Professional PDF Business Pack",
-    description: "Letterhead, quote, and report layouts.",
-    priceUsd: "$22",
-    priceNgn: "₦18,000",
-    amountKobo: 1800000,
-    type: "one-time",
-    badge: "Documents",
-    features: ["Letterhead", "Quote layout", "Print-ready"],
-    delivery: "Files within 2 hours",
-    addedAt: "2026-09-13",
-  },
-  {
-    id: "pdf-studio-unlock",
-    name: "PDF Studio — Full Unlock",
-    description: "Unlimited professional PDF generation in the browser.",
-    priceUsd: "$9",
-    priceNgn: "₦5,000",
-    amountKobo: 500000,
-    type: "one-time",
-    badge: "Paid tool",
-    features: ["Unlimited exports", "Letter / quote / report"],
-    delivery: "Instant unlock after Paystack",
-    addedAt: "2026-09-13",
   },
   {
     id: "whatsapp-business-pack",
@@ -178,31 +146,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     type: "one-time",
     badge: "Most popular",
     features: ["App Router", "Conversion pages", "WhatsApp wired"],
-    delivery: "Private repo within 24 hours",
-    addedAt: "2026-09-13",
-  },
-  {
-    id: "freelance-invoice-proposal-pack",
-    name: "Freelance Invoice & Proposal Pack",
-    description: "Proposal, invoice, contract, and receipt templates.",
-    priceUsd: "$19",
-    priceNgn: "₦15,000",
-    amountKobo: 1500000,
-    type: "one-time",
-    badge: "Low ticket",
-    features: ["Proposal + invoice", "Service agreement"],
-    delivery: "ZIP after payment",
-    addedAt: "2026-09-13",
-  },
-  {
-    id: "laravel-api-starter",
-    name: "Laravel API Starter (Auth + Roles)",
-    description: "Laravel API with auth, roles, and Postman collection.",
-    priceUsd: "$59",
-    priceNgn: "₦55,000",
-    amountKobo: 5500000,
-    type: "one-time",
-    features: ["Auth endpoints", "Role middleware", "Postman collection"],
     delivery: "Private repo within 24 hours",
     addedAt: "2026-09-13",
   },
@@ -236,7 +179,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === id);
+  return DIGITAL_PRODUCTS.find((p) => p.id === "id" ? undefined : DIGITAL_PRODUCTS.find((p) => p.id === id));
 }
 
 export function productWhatsAppLink(productName: string, kind: string): string {
