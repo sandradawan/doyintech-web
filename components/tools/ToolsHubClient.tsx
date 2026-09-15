@@ -8,48 +8,7 @@ import {
   TOOLS_PER_PAGE,
   type ToolMeta,
 } from "@/lib/tools/config";
-
-const icons: Record<string, string> = {
-  pdf: "📄",
-  calculator: "₦",
-  audit: "◎",
-  orgsec: "📡",
-  shield: "🛡",
-  headers: "☰",
-  ssl: "🔐",
-  exposed: "📂",
-  cookie: "🍪",
-  csp: "🧩",
-  robots: "🤖",
-  mixed: "🔗",
-  redirect: "↪",
-  checklist: "☑",
-  golive: "🚀",
-  breach: "⚠",
-  deps: "📦",
-  cv: "▤",
-  readiness: "◈",
-  brief: "☰",
-  proposal: "📄",
-  contract: "✍",
-  status: "▣",
-  stack: "⬡",
-  hosting: "☁",
-  roi: "%",
-  invoice: "§",
-  wa: "✆",
-  maintain: "⚙",
-  email: "✉",
-  salary: "₦",
-  skills: "◆",
-  letter: "✎",
-  ideas: "✦",
-  interview: "?",
-  ai: "◉",
-  bot: "▣",
-  qr: "▦",
-  lock: "🔒",
-};
+import { ToolIcon, CategoryIcon } from "@/components/ui/BrandIcons";
 
 type CatId = ToolMeta["category"] | "all";
 
@@ -96,12 +55,13 @@ export default function ToolsHubClient() {
               key={cat.id}
               type="button"
               onClick={() => selectCategory(cat.id)}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition ${
                 category === cat.id
                   ? "bg-white text-black"
                   : "border border-white/15 text-gray-300 hover:border-white/30"
               }`}
             >
+              <CategoryIcon category={cat.id} size={14} />
               {cat.label} ({count})
             </button>
           );
@@ -110,8 +70,7 @@ export default function ToolsHubClient() {
 
       <p className="mt-4 text-sm text-gray-500">
         Showing {slice.length} of {filtered.length} tools
-        {category !== "all" ? ` in this category` : ""} · Page {safePage} of{" "}
-        {totalPages}
+        {category !== "all" ? " in this category" : ""} · Page {safePage} of {totalPages}
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -119,11 +78,11 @@ export default function ToolsHubClient() {
           <Link
             key={t.slug}
             href={t.href}
-            className="group rounded-2xl border border-white/10 bg-surface/80 p-5 transition hover:border-primary/40 hover:bg-surface"
+            className="group rounded-2xl border border-white/10 bg-[#141a28]/90 p-5 transition hover:border-[#ff8c14]/40 hover:bg-[#1a2030]"
           >
             <div className="flex items-start justify-between gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-lg text-primary">
-                {icons[t.icon] || "•"}
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-[#ff8c14]/20 to-transparent shadow-inner">
+                <ToolIcon name={t.icon} size={22} />
               </div>
               {t.paid && (
                 <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-300">
@@ -131,11 +90,11 @@ export default function ToolsHubClient() {
                 </span>
               )}
             </div>
-            <h3 className="mt-3 font-display text-lg font-bold text-white group-hover:text-primary">
+            <h3 className="mt-3 text-lg font-semibold tracking-tight text-white group-hover:text-[#ff8c14]">
               {t.title}
             </h3>
-            <p className="mt-1.5 text-sm text-gray-400">{t.short}</p>
-            <span className="mt-4 inline-flex text-xs font-bold uppercase tracking-wider text-primary">
+            <p className="mt-1.5 text-sm leading-relaxed text-gray-400">{t.short}</p>
+            <span className="mt-4 inline-flex text-xs font-bold uppercase tracking-wider text-[#ff8c14]">
               Use tool →
             </span>
           </Link>
@@ -160,7 +119,7 @@ export default function ToolsHubClient() {
               className={`h-9 w-9 rounded-full text-sm font-semibold ${
                 n === safePage
                   ? "bg-white text-black"
-                  : "border border-white/15 text-gray-300"
+                  : "border border-white/15 text-white hover:border-white/30"
               }`}
             >
               {n}

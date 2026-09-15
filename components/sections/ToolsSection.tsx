@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TOOLS_META } from "@/lib/tools/config";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { ToolIcon } from "@/components/ui/BrandIcons";
 
 export default function ToolsSection() {
   const featured = TOOLS_META.filter((t) => t.category === "core").slice(0, 4);
@@ -25,6 +26,9 @@ export default function ToolsSection() {
           {featured.map((t, i) => (
             <ScrollReveal key={t.slug} delay={0.05 * i}>
               <Link href={t.href} className="apple-card flex h-full flex-col p-8">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-[#ff8c14]/20 to-transparent">
+                  <ToolIcon name={t.icon} size={22} />
+                </div>
                 <h3 className="text-[21px] font-semibold tracking-tight text-[#f5f5f7]">
                   {t.title}
                 </h3>
