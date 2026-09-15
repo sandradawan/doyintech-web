@@ -5,7 +5,11 @@ import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import EbookDelivery from "@/components/ebooks/EbookDelivery";
 import ProductDelivery from "@/components/products/ProductDelivery";
+import ProductUpsells, {
+  ServiceSuccessChecklist,
+} from "@/components/products/ProductUpsells";
 import { getDigitalProduct } from "@/lib/products";
+import { getServiceOffer } from "@/lib/service-offers";
 import { getPaidToolByProductId, setUnlocked } from "@/lib/tools/paid";
 import { getEbook } from "@/lib/ebooks";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
@@ -97,6 +101,7 @@ function SuccessInner() {
   const resolvedTpl =
     PAGE_TEMPLATES.find((t) => t.id === pid || t.slug === pid) || getPageTemplate(pid || "");
   const resolvedProduct = getDigitalProduct(pid || "") || product;
+  const resolvedService = getServiceOffer(pid || "");
   const kit = getUiComponent("agency-ui-kit");
   const showKitUpsell = resolvedComp && resolvedComp.slug !== "agency-ui-kit" && kit;
 
@@ -106,6 +111,7 @@ function SuccessInner() {
     resolvedEbook?.title ||
     resolvedComp?.name ||
     resolvedTpl?.name ||
+    resolvedService?.name ||
     resolvedProduct?.name ||
     productId ||
     "Purchase";
@@ -131,7 +137,13 @@ function SuccessInner() {
             )}
             <p className="mt-1 text-[13px] text-[#a1a1a6]">Ref: {reference}</p>
 
-            {resolvedEbook ? (
+            {resolvedService ? (
+              <ServiceSuccessChecklist
+                serviceName={resolvedService.name}
+                reference={reference}
+                email={detail?.email || ""}
+              />
+            ) : resolvedEbook ? (
               <EbookDelivery
                 productId={resolvedEbook.id}
                 reference={reference}
@@ -170,11 +182,14 @@ function SuccessInner() {
                 </a>
               </div>
             ) : resolvedProduct ? (
-              <ProductDelivery
-                product={resolvedProduct}
-                reference={reference}
-                email={detail?.email || ""}
-              />
+              <>
+                <ProductDelivery
+                  product={resolvedProduct}
+                  reference={reference}
+                  email={detail?.email || ""}
+                />
+                <ProductUpsells productId={resolvedProduct.id} />
+              </>
             ) : (
               <a
                 href={`https://wa.me/2348085343926?text=${wa}`}
@@ -205,14 +220,14 @@ function SuccessInner() {
             )}
 
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-[14px]">
+              <a href="/hire" className="text-[#ff8c14] hover:underline">
+                Hire us
+              </a>
               <a href="/products" className="text-[#2997ff] hover:underline">
-                More products
+                Products
               </a>
               <a href="/ebooks" className="text-[#2997ff] hover:underline">
                 Ebooks
-              </a>
-              <a href="/components" className="text-[#2997ff] hover:underline">
-                Components
               </a>
             </div>
           </>
