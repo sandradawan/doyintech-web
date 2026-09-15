@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { BuyDownloadPanel, StoreNav } from "@/components/store/StoreShell";
+import { StoreAppIcon } from "@/components/ui/BrandIcons";
 import { formatNgn } from "@/lib/store/catalog";
 import { getPublishedBySlug } from "@/lib/store/published";
 
@@ -35,8 +36,8 @@ export default async function StoreDetailPage({ params }: Props) {
           <div className="grid gap-10 lg:grid-cols-[1fr_320px]">
             <div>
               <div className="flex items-start gap-4">
-                <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-white/10 text-4xl">
-                  {item.iconEmoji}
+                <div className="flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-gradient-to-br from-[#ff8c14]/15 to-white/5 shadow-inner">
+                  <StoreAppIcon slug={item.slug} category={item.category} size={36} />
                 </div>
                 <div>
                   <h1 className="text-[28px] font-semibold text-white sm:text-[34px]">
