@@ -11,34 +11,85 @@ export type DigitalProduct = {
   delivery: string;
   demandNote?: string;
   addedAt?: string;
+  /** Public path under /public for instant post-payment download */
+  downloadPath?: string;
+  /** Extra files unlocked with this product (e.g. bundles) */
+  downloadPaths?: string[];
 };
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "bundle-freelancer-starter",
+    name: "Freelancer Starter Bundle",
+    description:
+      "Prompt Pack + Client Onboarding Kit + Notion Freelancer OS — quote, onboard, and run clients.",
+    priceUsd: "$32",
+    priceNgn: "₦25,000",
+    amountKobo: 2500000,
+    type: "one-time",
+    badge: "Bundle",
+    features: [
+      "AI Business Prompt Pack",
+      "Client Onboarding Kit",
+      "Notion Freelancer OS",
+      "Save vs buying separate",
+    ],
+    delivery: "Instant download of all 3 files after Paystack",
+    downloadPaths: [
+      "/digital-products/ai-business-prompt-pack.md",
+      "/digital-products/client-onboarding-kit.md",
+      "/digital-products/notion-freelancer-os.md",
+    ],
+    addedAt: "2026-09-15",
+  },
+  {
+    id: "bundle-sme-launch",
+    name: "SME Launch Bundle",
+    description:
+      "WhatsApp Status Sales Calendar + Status & Caption Pack — post daily and turn views into chats.",
+    priceUsd: "$24",
+    priceNgn: "₦19,500",
+    amountKobo: 1950000,
+    type: "one-time",
+    badge: "Bundle",
+    features: [
+      "30-day Status calendar",
+      "Caption / Status pack",
+      "CTA and offer formulas",
+      "Best value for local sellers",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPaths: [
+      "/digital-products/status-caption-pack.md",
+      "/digital-products/whatsapp-status-sales-calendar.md",
+    ],
+    addedAt: "2026-09-15",
+  },
+  {
     id: "sme-cashflow-tracker",
     name: "SME Cashflow & Receivables Tracker",
     description:
-      "Sheets-ready cash in/out, who-owes-you log, payables, Sunday review, and WhatsApp collection scripts for Nigerian SMEs.",
+      "Sheets-ready cash in/out, who-owes-you log, payables, Sunday review, and WhatsApp collection scripts.",
     priceUsd: "$19",
     priceNgn: "₦14,500",
     amountKobo: 1450000,
     type: "one-time",
     badge: "New today",
     features: [
-      "Weekly cashflow CSV",
+      "Weekly cashflow guide",
       "Receivables + payables logs",
       "15-min weekly review",
       "Polite WhatsApp chasers",
-      "Google Sheets import steps",
     ],
-    delivery: "ZIP from digital-products/09-sme-cashflow-receivables-tracker after Paystack",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/sme-cashflow-tracker.md",
     addedAt: "2026-09-15",
   },
   {
     id: "status-caption-pack",
     name: "Status & Caption Pack (Canva-ready)",
     description:
-      "120+ WhatsApp Status and Instagram captions for restocks, offers, proof, and CTAs. Paste into Canva or Status as-is.",
+      "120+ WhatsApp Status and Instagram captions for restocks, offers, proof, and CTAs.",
     priceUsd: "$12",
     priceNgn: "₦8,500",
     amountKobo: 850000,
@@ -50,14 +101,15 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "20 review/request lines",
       "Canva size notes",
     ],
-    delivery: "Markdown pack after payment — also at /digital-products/status-caption-pack.md",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/status-caption-pack.md",
     addedAt: "2026-09-14",
   },
   {
     id: "client-onboarding-kit",
     name: "Client Onboarding Kit",
     description:
-      "Kickoff form questions, welcome email, asset checklist, and project rules so new clients start clean.",
+      "Kickoff form questions, welcome email, asset checklist, and project rules.",
     priceUsd: "$14",
     priceNgn: "₦9,000",
     amountKobo: 900000,
@@ -69,14 +121,15 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "Asset checklist",
       "Revision rules blurb",
     ],
-    delivery: "Markdown kit after payment — /digital-products/client-onboarding-kit.md",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/client-onboarding-kit.md",
     addedAt: "2026-09-14",
   },
   {
     id: "notion-freelancer-os",
     name: "Freelancer OS (Notion blueprint)",
     description:
-      "Page structure for leads, projects, invoices, and content — rebuild in Notion in under an hour.",
+      "Page structure for leads, projects, invoices, and content — rebuild in Notion fast.",
     priceUsd: "$16",
     priceNgn: "₦10,000",
     amountKobo: 1000000,
@@ -88,7 +141,8 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "Project checklist",
       "Weekly review page",
     ],
-    delivery: "Blueprint markdown — /digital-products/notion-freelancer-os.md",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/notion-freelancer-os.md",
     addedAt: "2026-09-14",
   },
   {
@@ -107,7 +161,8 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "WhatsApp reply scripts",
       "SEO brief + blog outlines",
     ],
-    delivery: "/digital-products/ai-business-prompt-pack.md after payment",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/ai-business-prompt-pack.md",
     addedAt: "2026-09-14",
   },
   {
@@ -120,7 +175,8 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     type: "one-time",
     badge: "SME",
     features: ["30-day calendar", "90+ captions", "Weekly review"],
-    delivery: "ZIP / WhatsApp after payment",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/whatsapp-status-sales-calendar.md",
     addedAt: "2026-09-14",
   },
   {
@@ -133,7 +189,8 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     type: "one-time",
     badge: "Best seller",
     features: ["50+ scripts", "Auto-reply templates", "Booking flows"],
-    delivery: "PDF + Doc within 2 hours",
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/whatsapp-business-growth-pack.md",
     addedAt: "2026-09-13",
   },
   {
@@ -146,7 +203,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     type: "one-time",
     badge: "Most popular",
     features: ["App Router", "Conversion pages", "WhatsApp wired"],
-    delivery: "Private repo within 24 hours",
+    delivery: "Private repo via WhatsApp within 24 hours",
     addedAt: "2026-09-13",
   },
 ];
@@ -180,6 +237,12 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
   return DIGITAL_PRODUCTS.find((p) => p.id === id);
+}
+
+export function productDownloadUrls(product: DigitalProduct): string[] {
+  if (product.downloadPaths?.length) return product.downloadPaths;
+  if (product.downloadPath) return [product.downloadPath];
+  return [];
 }
 
 export function productWhatsAppLink(productName: string, kind: string): string {
