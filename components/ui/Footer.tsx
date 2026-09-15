@@ -19,11 +19,11 @@ export default function Footer() {
     {
       title: "Services",
       links: [
+        ["/hire", "Hire — fixed price"],
         ["/services", "Services"],
         ["/pricing", "Packages & pricing"],
         ["/free-audit", "Free website audit"],
         ["/portfolio", "Portfolio"],
-        ["/tools", "Free tools"],
       ],
     },
     {
@@ -46,9 +46,15 @@ export default function Footer() {
             Sell this month. Build systems next month.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
-            Book a call for project cash. Or buy a pack today and deliver value in minutes.
+            Book a fixed-price website with deposit, or buy a pack and use it today.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="/hire"
+              className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+            >
+              Hire — fixed price
+            </a>
             <a
               href={discoveryCallLink()}
               target="_blank"
@@ -59,9 +65,6 @@ export default function Footer() {
             </a>
             <a href="/products" className="apple-btn apple-btn-secondary">
               Shop products ›
-            </a>
-            <a href="/free-audit" className="apple-btn apple-btn-secondary">
-              Free audit ›
             </a>
           </div>
         </div>
