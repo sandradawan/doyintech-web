@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import type { StoreListing } from "@/lib/store/types";
 import { formatNgn } from "@/lib/store/catalog";
 import { productWhatsAppLink } from "@/lib/products";
+import { StoreAppIcon } from "@/components/ui/BrandIcons";
 
 export function StoreNav() {
   return (
@@ -41,8 +42,8 @@ export function ListingCard({ item }: { item: StoreListing }) {
       className="group flex h-full flex-col rounded-[20px] border border-white/10 bg-gradient-to-b from-[#1c2333] to-[#0f141f] p-5 transition hover:border-[#ff8c14]/40"
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-2xl">
-          {item.iconEmoji}
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-[#ff8c14]/15 to-white/5 shadow-inner">
+          <StoreAppIcon slug={item.slug} category={item.category} size={28} />
         </div>
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-[16px] font-semibold text-white group-hover:text-[#ff8c14]">
@@ -138,7 +139,6 @@ export function BuyDownloadPanel({ item }: { item: StoreListing }) {
   const isWebApp = item.platform === "web" && !!item.launchUrl;
 
   async function start() {
-    // Free web apps: open instantly
     if (isWebApp && item.priceNgn === 0 && item.launchUrl) {
       window.location.href = item.launchUrl;
       return;
