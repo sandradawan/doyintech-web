@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { discoveryCallLink } from "@/lib/packages";
 
 const navItems = [
+  { name: "Hire", href: "/hire" },
   { name: "Services", href: "/services" },
   { name: "Products", href: "/products" },
   { name: "Ebooks", href: "/ebooks" },
@@ -70,10 +71,16 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <a
+              href="/hire"
+              className="hidden rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-xs font-semibold text-black transition hover:brightness-110 sm:inline-flex"
+            >
+              Hire
+            </a>
+            <a
               href={discoveryCallLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs text-white transition hover:bg-[#0077ed] sm:inline-flex"
+              className="hidden rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs text-white transition hover:bg-[#0077ed] lg:inline-flex"
             >
               Book a call
             </a>
@@ -121,10 +128,16 @@ export default function Navbar() {
                 </a>
               ))}
               <a
+                href="/hire"
+                className="mt-3 inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black"
+              >
+                Hire — fixed price deposit
+              </a>
+              <a
                 href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-[15px] font-semibold text-white"
+                className="mt-2 inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-[15px] font-semibold text-white"
               >
                 Book free call on WhatsApp
               </a>
