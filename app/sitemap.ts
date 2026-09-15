@@ -8,16 +8,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes = [
     "",
+    "/hire",
+    "/products",
+    "/ebooks",
+    "/components",
+    "/templates",
+    "/free-audit",
+    "/pricing",
     "/services",
     "/services/backend",
     "/services/mobile",
     "/services/ai-automation",
     "/tools",
     "/portfolio",
+    "/store",
     "/blog",
-    "/blog/why-production-grade-backends-matter",
-    "/blog/laravel-vs-node-when-to-choose",
-    "/blog/practical-ai-automation-for-smes",
     "/about",
     "/contact",
     "/company-profile",
@@ -39,16 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE}${path}`,
     lastModified: now,
     changeFrequency:
-      path === "" || path === "/blog" || path.startsWith("/tools")
+      path === "" || path === "/blog" || path === "/products" || path.startsWith("/tools")
         ? "weekly"
         : "monthly",
     priority:
       path === ""
         ? 1
-        : path.startsWith("/tools")
-          ? 0.9
-          : path.startsWith("/case-studies")
-            ? 0.7
-            : 0.8,
+        : path === "/hire" || path === "/products"
+          ? 0.95
+          : path.startsWith("/tools")
+            ? 0.9
+            : path.startsWith("/case-studies")
+              ? 0.7
+              : 0.8,
   }));
 }
