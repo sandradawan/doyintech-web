@@ -179,7 +179,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === "id" ? undefined : DIGITAL_PRODUCTS.find((p) => p.id === id));
+  return DIGITAL_PRODUCTS.find((p) => p.id === id);
 }
 
 export function productWhatsAppLink(productName: string, kind: string): string {
