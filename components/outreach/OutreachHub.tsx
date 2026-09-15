@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import TemplatesLibrary from "@/components/outreach/TemplatesLibrary";
 
 type Market = "US" | "UK";
 type Status =
@@ -51,7 +52,7 @@ function today() {
 
 export default function OutreachHub() {
   const [tab, setTab] = useState<
-    "prospects" | "messages" | "audit" | "checklist" | "queries"
+    "prospects" | "messages" | "templates" | "audit" | "checklist" | "queries"
   >("prospects");
   const [prospects, setProspects] = useState<Prospect[]>([]);
   const [form, setForm] = useState({
@@ -66,7 +67,6 @@ export default function OutreachHub() {
     issue2: "",
   });
 
-  // Message builder
   const [msgMarket, setMsgMarket] = useState<Market>("US");
   const [msgBiz, setMsgBiz] = useState("");
   const [msgCity, setMsgCity] = useState("");
@@ -74,7 +74,6 @@ export default function OutreachHub() {
   const [msgIndustry, setMsgIndustry] = useState("local business");
   const [msgIssue, setMsgIssue] = useState("the site is hard to use on mobile");
 
-  // Audit builder
   const [auditBiz, setAuditBiz] = useState("");
   const [audit1, setAudit1] = useState("");
   const [audit1Impact, setAudit1Impact] = useState("");
@@ -128,7 +127,15 @@ export default function OutreachHub() {
       createdAt: today(),
     };
     setProspects((p) => [row, ...p]);
-    setForm((f) => ({ ...f, businessName: "", website: "", contactName: "", email: "", issue1: "", issue2: "" }));
+    setForm((f) => ({
+      ...f,
+      businessName: "",
+      website: "",
+      contactName: "",
+      email: "",
+      issue1: "",
+      issue2: "",
+    }));
   }
 
   function updateStatus(id: string, status: Status) {
@@ -206,6 +213,7 @@ export default function OutreachHub() {
   const tabs = [
     { id: "prospects" as const, label: "Prospects" },
     { id: "messages" as const, label: "Messages" },
+    { id: "templates" as const, label: "Templates" },
     { id: "audit" as const, label: "Free audit" },
     { id: "checklist" as const, label: "Daily plan" },
     { id: "queries" as const, label: "Search queries" },
@@ -246,6 +254,8 @@ export default function OutreachHub() {
           </button>
         ))}
       </div>
+
+      {tab === "templates" && <TemplatesLibrary />}
 
       {tab === "prospects" && (
         <div className="space-y-6">
@@ -359,10 +369,7 @@ export default function OutreachHub() {
               <p className="text-sm text-[#a1a1a6]">No prospects yet — add your first above.</p>
             )}
             {prospects.map((p) => (
-              <li
-                key={p.id}
-                className="rounded-2xl border border-white/10 bg-black/30 p-4"
-              >
+              <li key={p.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="font-semibold text-white">
@@ -429,42 +436,20 @@ export default function OutreachHub() {
             <input className={input} placeholder="Specific issue" value={msgIssue} onChange={(e) => setMsgIssue(e.target.value)} />
           </div>
           <div className="space-y-3">
-            <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-              <div className="mb-2 flex justify-between">
-                <p className="text-xs font-semibold text-[#ff8c14]">Cold email</p>
-                <button type="button" className="text-xs text-white" onClick={() => copy(coldEmail)}>
-                  Copy
-                </button>
-              </div>
-              <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-gray-300">{coldEmail}</pre>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-              <div className="mb-2 flex justify-between">
-                <p className="text-xs font-semibold text-[#ff8c14]">LinkedIn note</p>
-                <button type="button" className="text-xs text-white" onClick={() => copy(linkedInNote)}>
-                  Copy
-                </button>
-              </div>
-              <pre className="whitespace-pre-wrap text-[12px] text-gray-300">{linkedInNote}</pre>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-              <div className="mb-2 flex justify-between">
-                <p className="text-xs font-semibold text-[#ff8c14]">Day-3 follow-up</p>
-                <button type="button" className="text-xs text-white" onClick={() => copy(follow3)}>
-                  Copy
-                </button>
-              </div>
-              <pre className="whitespace-pre-wrap text-[12px] text-gray-300">{follow3}</pre>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-              <div className="mb-2 flex justify-between">
-                <p className="text-xs font-semibold text-[#ff8c14]">Day-7 follow-up</p>
-                <button type="button" className="text-xs text-white" onClick={() => copy(follow7)}>
-                  Copy
-                </button>
-              </div>
-              <pre className="whitespace-pre-wrap text-[12px] text-gray-300">{follow7}</pre>
-            </div>
+            {["Cold email", "LinkedIn note", "Day-3 follow-up", "Day-7 follow-up"].map((label, i) => {
+              const text = [coldEmail, linkedInNote, follow3, follow7][i];
+              return (
+                <div key={label} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                  <div className="mb-2 flex justify-between">
+                    <p className="text-xs font-semibold text-[#ff8c14]">{label}</p>
+                    <button type="button" className="text-xs text-white" onClick={() => copy(text)}>
+                      Copy
+                    </button>
+                  </div>
+                  <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-gray-300">{text}</pre>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -482,69 +467,39 @@ export default function OutreachHub() {
           </div>
           <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
             <div className="mb-2 flex justify-between">
-              <p className="text-xs font-semibold text-[#ff8c14]">Audit to send</p>
+              <p className="text-xs font-semibold text-[#ff8c14]">Audit text</p>
               <button type="button" className="text-xs text-white" onClick={() => copy(auditText)}>
                 Copy
               </button>
             </div>
-            <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-gray-300">{auditText}</pre>
+            <pre className="whitespace-pre-wrap text-[12px] text-gray-300">{auditText}</pre>
           </div>
         </div>
       )}
 
       {tab === "checklist" && (
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-sm text-gray-300">
-          <h2 className="text-base font-semibold text-white">90-minute daily plan</h2>
-          <div>
-            <p className="font-semibold text-[#ff8c14]">A · Research (30 min)</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Pick 1 city (US or UK) + 1 industry</li>
-              <li>Find 20–30 businesses (Google Maps / search)</li>
-              <li>Note 1–2 specific issues → add as Prospects</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-[#ff8c14]">B · First touches (40 min)</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Send 15–20 personalized messages (Messages tab)</li>
-              <li>Mark status → contacted</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-[#ff8c14]">C · Follow-ups & audits (20 min)</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Day-3 and day-7 follow-ups</li>
-              <li>Send free audits for “yes / audit” replies</li>
-              <li>Book calls → WhatsApp +234 808 534 3926</li>
-            </ul>
-          </div>
-          <p className="text-xs text-[#86868b]">
+        <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[14px] text-[#c7cdd8]">
+          <h2 className="text-sm font-semibold text-white">Daily 90-minute plan</h2>
+          <ol className="mt-4 list-decimal space-y-2 pl-5">
+            <li>Find 20–30 qualified prospects (Search queries tab).</li>
+            <li>Add them under Prospects with one specific issue each.</li>
+            <li>Send 15–20 personalized messages (Messages or Templates tab).</li>
+            <li>Send 5–10 free audits to engaged contacts.</li>
+            <li>Do day-3 and day-7 follow-ups on open threads.</li>
+          </ol>
+          <p className="mt-4 text-[13px] text-[#86868b]">
             You send the messages — this hub prepares copy and tracks the pipeline. No bulk spam.
           </p>
         </div>
       )}
 
       {tab === "queries" && (
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-            <h3 className="text-sm font-semibold text-white">🇺🇸 US search ideas</h3>
-            <pre className="mt-3 whitespace-pre-wrap text-[12px] text-gray-400">{`beauty salon in [CITY]
-"best cleaning service" [CITY]
-restaurant [CITY] menu
-estate agent [CITY]
-"makeup artist" [CITY] book`}</pre>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-            <h3 className="text-sm font-semibold text-white">🇬🇧 UK search ideas</h3>
-            <pre className="mt-3 whitespace-pre-wrap text-[12px] text-gray-400">{`"hair salon" [CITY] UK
-cleaning company [CITY]
-"estate agents" [CITY]
-"personal trainer" [CITY] book online
-"accountant" [CITY]`}</pre>
-          </div>
-          <div className="md:col-span-2 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-4 text-[13px] text-[#ffe0b8]">
-            <strong>Qualify if 2+:</strong> no/outdated site · not mobile-friendly · no booking · weak Google presence · phone-only enquiries · active business (reviews/hours).
-          </div>
+        <div className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[13px] text-[#c7cdd8]">
+          <h2 className="text-sm font-semibold text-white">Search queries (swap CITY)</h2>
+          <p className="font-semibold text-[#ff8c14]">US</p>
+          <pre className="whitespace-pre-wrap text-[12px]">{`beauty salon in [CITY] -facebook\n"best cleaning service" [CITY]\nrestaurant [CITY] menu\nestate agent [CITY]\n"makeup artist" [CITY] book`}</pre>
+          <p className="font-semibold text-[#ff8c14]">UK</p>
+          <pre className="whitespace-pre-wrap text-[12px]">{`"hair salon" [CITY] UK\ncleaning company [CITY]\n"estate agents" [CITY]\n"personal trainer" [CITY] book online\n"accountant" [CITY] sole trader`}</pre>
         </div>
       )}
     </div>
