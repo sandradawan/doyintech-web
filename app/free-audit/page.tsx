@@ -5,7 +5,7 @@ import { discoveryCallLink } from "@/lib/packages";
 export const metadata: Metadata = {
   title: "Free 3-Minute Website Audit | DoyinTech",
   description:
-    "Free website audit for small businesses. We check mobile, speed, contact paths, and WhatsApp — then tell you what to fix to get more enquiries.",
+    "Free website audit for small businesses plus free WhatsApp reply scripts. Fix contact paths and convert more chats.",
 };
 
 const checks = [
@@ -35,9 +35,8 @@ export default function FreeAuditPage() {
             Free 3-minute website audit
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
-            Send your URL on WhatsApp. We reply with 2–3 specific problems holding back enquiries
-            — and whether a small fix or a rebuild makes sense. Built for SMEs, freelancers, and
-            local service businesses.
+            Send your URL on WhatsApp. We reply with 2–3 specific problems holding back enquiries —
+            and whether a small fix or a rebuild makes sense.
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -59,7 +58,38 @@ export default function FreeAuditPage() {
             </a>
           </div>
 
-          <div className="mt-14 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-left">
+          <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-gradient-to-b from-[#ff8c14]/10 to-[#141a28] p-6 text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+              Free download · no payment
+            </p>
+            <h2 className="mt-2 text-[20px] font-semibold text-white">
+              WhatsApp reply scripts (sample pack)
+            </h2>
+            <p className="mt-2 text-[14px] leading-relaxed text-[#a1a1a6]">
+              Instant download: price enquiry, website quote, after-hours, soft close, and review
+              request scripts. Use today on your business line.
+            </p>
+            <a
+              href="/digital-products/free-whatsapp-reply-scripts.md"
+              download="free-whatsapp-reply-scripts.md"
+              className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
+            >
+              Download free scripts
+            </a>
+            <p className="mt-4 text-[13px] text-[#86868b]">
+              Ready for the full system?{" "}
+              <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
+                SME Launch Bundle
+              </a>{" "}
+              (Status calendar + caption pack) or the{" "}
+              <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
+                WhatsApp Business Growth Pack
+              </a>
+              .
+            </p>
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-left">
             <h2 className="text-[15px] font-semibold text-white">What we check</h2>
             <ul className="mt-4 space-y-2">
               {checks.map((c) => (
@@ -77,9 +107,9 @@ export default function FreeAuditPage() {
             </a>{" "}
             or buy a{" "}
             <a href="/products" className="text-[#ff8c14] hover:underline">
-              WhatsApp / prompt pack
-            </a>{" "}
-            to fix the gaps themselves.
+              digital pack
+            </a>
+            .
           </p>
         </div>
       </main>
