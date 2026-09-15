@@ -4,6 +4,7 @@ import { getAllPublishedListings } from "@/lib/store/published";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
+import { getServiceOffer } from "@/lib/service-offers";
 
 export type PayItem = {
   id: string;
@@ -13,6 +14,16 @@ export type PayItem = {
 };
 
 export function getPayItem(id: string): PayItem | undefined {
+  const service = getServiceOffer(id);
+  if (service) {
+    return {
+      id: service.id,
+      name: `${service.name} — ${service.depositNgn} deposit`,
+      amountKobo: service.amountKobo,
+      delivery: service.delivery,
+    };
+  }
+
   const product = DIGITAL_PRODUCTS.find((p) => p.id === id);
   if (product) {
     return {
