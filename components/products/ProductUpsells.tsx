@@ -24,6 +24,40 @@ const UPSELL_MAP: Record<string, { title: string; body: string; href: string; ct
       href: "/products",
       cta: "View bundle",
     },
+    {
+      title: "Local Business Website",
+      body: "Status traffic needs a pro site. Fixed price + deposit.",
+      href: "/hire",
+      cta: "Hire us",
+    },
+  ],
+  "whatsapp-business-pack": [
+    {
+      title: "SME Launch Bundle",
+      body: "Daily Status plan + captions to fill the inbox your scripts handle.",
+      href: "/products",
+      cta: "View SME Bundle",
+    },
+    {
+      title: "Fixed-price website",
+      body: "Put booking and WhatsApp on a real site visitors trust.",
+      href: "/hire",
+      cta: "View /hire",
+    },
+  ],
+  "sme-cashflow-tracker": [
+    {
+      title: "AI Prompt Pack",
+      body: "Chase invoices faster with ready collection scripts and emails.",
+      href: "/products",
+      cta: "View prompts",
+    },
+    {
+      title: "Growth Website",
+      body: "Clear offers online so cash in grows, not only tracking.",
+      href: "/hire",
+      cta: "Hire for Growth site",
+    },
   ],
   "ai-prompt-pack-business": [
     {
@@ -56,13 +90,33 @@ const UPSELL_MAP: Record<string, { title: string; body: string; href: string; ct
       href: "/hire",
       cta: "Hire DoyinTech",
     },
+    {
+      title: "WhatsApp Growth Pack",
+      body: "Auto-replies when Status starts bringing chats.",
+      href: "/products",
+      cta: "View Growth Pack",
+    },
   ],
   "bundle-freelancer-starter": [
     {
-      title: "Book a discovery call",
+      title: "See fixed packages",
       body: "Turn templates into client projects with a clear package.",
       href: "/hire",
-      cta: "See fixed packages",
+      cta: "Open /hire",
+    },
+    {
+      title: "UI Components",
+      body: "Ship client sites faster with ready Next.js blocks.",
+      href: "/components",
+      cta: "Browse components",
+    },
+  ],
+  "nextjs-business-starter": [
+    {
+      title: "Need it built for you?",
+      body: "Skip DIY — fixed-price website with deposit.",
+      href: "/hire",
+      cta: "Hire DoyinTech",
     },
   ],
 };
