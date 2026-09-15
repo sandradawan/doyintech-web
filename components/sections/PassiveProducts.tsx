@@ -1,7 +1,12 @@
 "use client";
 
 import ScrollReveal from "../animations/ScrollReveal";
-import { DIGITAL_PRODUCTS, SAAS_PRODUCTS, waitlistWhatsAppLink } from "@/lib/products";
+import {
+  DIGITAL_PRODUCTS,
+  SAAS_PRODUCTS,
+  productWhatsAppLink,
+  waitlistWhatsAppLink,
+} from "@/lib/products";
 import { packageWhatsAppLink } from "@/lib/packages";
 import PaystackBuyButton from "@/components/ui/PaystackBuyButton";
 import ContactCta from "@/components/ui/ContactCta";
@@ -17,7 +22,7 @@ export default function PassiveProducts() {
             </p>
             <h2 className="apple-headline mt-2">Products clients pay for.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              Pay securely with Paystack. Files delivered by email or WhatsApp after payment.
+              Pay with Paystack for instant download — or order on WhatsApp if you prefer.
             </p>
           </div>
         </ScrollReveal>
@@ -27,7 +32,8 @@ export default function PassiveProducts() {
             const featured =
               p.badge === "Best seller" ||
               p.badge === "Most popular" ||
-              p.badge === "New today";
+              p.badge === "New today" ||
+              p.badge === "Bundle";
             return (
               <ScrollReveal key={p.id} direction="up" delay={i * 0.04} className="h-full">
                 <article
@@ -42,9 +48,11 @@ export default function PassiveProducts() {
                       {p.badge ? (
                         <span
                           className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
-                            featured
-                              ? "bg-[#0071e3] text-white"
-                              : "bg-white/10 text-[#a1a1a6]"
+                            p.badge === "Bundle"
+                              ? "bg-[#ff8c14] text-black"
+                              : featured
+                                ? "bg-[#0071e3] text-white"
+                                : "bg-white/10 text-[#a1a1a6]"
                           }`}
                         >
                           {p.badge}
@@ -83,8 +91,16 @@ export default function PassiveProducts() {
                     <p className="mt-4 text-[11px] leading-snug text-[#86868b]">{p.delivery}</p>
                   </div>
 
-                  <div className="border-t border-white/10 bg-black/25 px-6 py-4">
+                  <div className="space-y-2 border-t border-white/10 bg-black/25 px-6 py-4">
                     <PaystackBuyButton product={p} />
+                    <a
+                      href={productWhatsAppLink(p.name, "digital product")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center rounded-full border border-[#25D366]/50 bg-[#25D366]/10 py-3 text-[13px] font-semibold text-[#25D366] transition hover:bg-[#25D366]/20"
+                    >
+                      Order on WhatsApp
+                    </a>
                   </div>
                 </article>
               </ScrollReveal>
