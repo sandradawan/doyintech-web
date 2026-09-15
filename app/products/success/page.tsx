@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import EbookDelivery from "@/components/ebooks/EbookDelivery";
+import ProductDelivery from "@/components/products/ProductDelivery";
 import { getDigitalProduct } from "@/lib/products";
 import { getPaidToolByProductId, setUnlocked } from "@/lib/tools/paid";
 import { getEbook } from "@/lib/ebooks";
@@ -95,9 +96,9 @@ function SuccessInner() {
     UI_COMPONENTS.find((c) => c.id === pid || c.slug === pid) || getUiComponent(pid || "");
   const resolvedTpl =
     PAGE_TEMPLATES.find((t) => t.id === pid || t.slug === pid) || getPageTemplate(pid || "");
+  const resolvedProduct = getDigitalProduct(pid || "") || product;
   const kit = getUiComponent("agency-ui-kit");
-  const showKitUpsell =
-    resolvedComp && resolvedComp.slug !== "agency-ui-kit" && kit;
+  const showKitUpsell = resolvedComp && resolvedComp.slug !== "agency-ui-kit" && kit;
 
   const toolHref = paidTool ? `/tools/${paidTool.toolSlug}` : null;
   const title =
@@ -105,7 +106,7 @@ function SuccessInner() {
     resolvedEbook?.title ||
     resolvedComp?.name ||
     resolvedTpl?.name ||
-    product?.name ||
+    resolvedProduct?.name ||
     productId ||
     "Purchase";
 
@@ -168,6 +169,12 @@ function SuccessInner() {
                   Open {paidTool?.title}
                 </a>
               </div>
+            ) : resolvedProduct ? (
+              <ProductDelivery
+                product={resolvedProduct}
+                reference={reference}
+                email={detail?.email || ""}
+              />
             ) : (
               <a
                 href={`https://wa.me/2348085343926?text=${wa}`}
@@ -186,8 +193,7 @@ function SuccessInner() {
                 </p>
                 <h2 className="mt-1 text-[18px] font-semibold text-white">Get the Full UI Kit</h2>
                 <p className="mt-2 text-[13px] text-[#a1a1a6]">
-                  Unlock all 14 components for {formatCompPrice(kit.priceNgn)} — better value than
-                  buying one-by-one.
+                  Unlock all components for {formatCompPrice(kit.priceNgn)}.
                 </p>
                 <a
                   href={`/components/${kit.slug}`}
@@ -199,14 +205,14 @@ function SuccessInner() {
             )}
 
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-[14px]">
-              <a href="/components" className="text-[#2997ff] hover:underline">
-                Components
-              </a>
               <a href="/products" className="text-[#2997ff] hover:underline">
-                Products
+                More products
               </a>
               <a href="/ebooks" className="text-[#2997ff] hover:underline">
                 Ebooks
+              </a>
+              <a href="/components" className="text-[#2997ff] hover:underline">
+                Components
               </a>
             </div>
           </>
