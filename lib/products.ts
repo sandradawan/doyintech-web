@@ -19,6 +19,27 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "sme-tax-compliance-calendar",
+    name: "SME Tax & Compliance Calendar 2026",
+    description:
+      "Nigeria-focused VAT, PAYE, WHT, pension, and CAC reminder board plus a Sheets tracker and accountant handoff pack.",
+    priceUsd: "$17",
+    priceNgn: "₦13,500",
+    amountKobo: 1350000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "2026 month-by-month reminder board",
+      "Sheets-ready compliance tracker CSV",
+      "WhatsApp nudges for your bookkeeper",
+      "Monthly accountant handoff checklist",
+      "Penalty-hygiene habits (not legal advice)",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/sme-tax-compliance-calendar.md",
+    addedAt: "2026-09-16",
+  },
+  {
     id: "whatsapp-quote-last-price-kit",
     name: "WhatsApp Quote & Last-Price Kit",
     description:
@@ -27,7 +48,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦11,500",
     amountKobo: 1150000,
     type: "one-time",
-    badge: "New today",
+    badge: "New",
     features: [
       "WhatsApp quote you can send today",
       "Last-price scripts (keep 10–15% margin)",
@@ -166,26 +187,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     downloadPath: "/digital-products/notion-freelancer-os.md",
     addedAt: "2026-09-14",
   },
-  {
-    id: "ai-prompt-pack-business",
-    name: "ChatGPT + Claude Business Prompt Pack",
-    description:
-      "Battle-tested prompts for proposals, ads, WhatsApp scripts, SEO outlines, and client emails.",
-    priceUsd: "$19",
-    priceNgn: "₦12,000",
-    amountKobo: 1200000,
-    type: "one-time",
-    badge: "Hot demand",
-    features: [
-      "Proposal & scope prompts",
-      "Ad + caption generators",
-      "WhatsApp reply scripts",
-      "SEO brief + blog outlines",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/ai-business-prompt-pack.md",
-    addedAt: "2026-09-14",
-  },
 ];
 
 export const SAAS_PRODUCTS: DigitalProduct[] = [
@@ -216,7 +217,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === id);
+  return DIGITAL_PRODUCTS.find((p) => p.id === p.id && p.id === id);
 }
 
 export function productDownloadUrls(product: DigitalProduct): string[] {
