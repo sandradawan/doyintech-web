@@ -16,6 +16,33 @@ export type ServiceOffer = {
 /** Fixed-price offers — 50% deposit via Paystack locks the slot */
 export const SERVICE_OFFERS: ServiceOffer[] = [
   {
+    id: "service-landing-page-deposit",
+    name: "Landing Page Starter",
+    tagline: "One sharp page that sells one offer. Live in about a week.",
+    totalNgn: "₦100,000",
+    depositNgn: "₦50,000",
+    amountKobo: 5000000,
+    timeline: "5–10 days after content + deposit",
+    badge: "New · entry price",
+    scope: [
+      "Single high-converting landing page",
+      "Mobile-first layout (headline, offer, proof, CTA)",
+      "WhatsApp click-to-chat button",
+      "Basic SEO (title, meta, fast load)",
+      "1 structured revision round",
+      "5 days post-launch WhatsApp support",
+    ],
+    notIncluded: [
+      "Multi-page website",
+      "Blog or CMS",
+      "Custom web app / login",
+      "Ads management",
+      "Extra revision rounds",
+    ],
+    idealFor: "Coaches, freelancers, new shops testing one offer",
+    delivery: "50% deposit online · balance before final handoff",
+  },
+  {
     id: "service-local-website-deposit",
     name: "Local Business Website",
     tagline: "Live in 7–14 days. WhatsApp-ready. Built to get enquiries.",

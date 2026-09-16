@@ -1,4 +1,5 @@
 import Hero from "@/components/hero/Hero";
+import TodayOffer from "@/components/sections/TodayOffer";
 import RevenueStrip from "@/components/sections/RevenueStrip";
 import Stats from "@/components/sections/Stats";
 import ClientLogos from "@/components/sections/ClientLogos";
@@ -22,6 +23,7 @@ export default function Home() {
     <>
       <main>
         <Hero />
+        <TodayOffer />
         <RevenueStrip />
         <Stats />
         <ClientLogos />

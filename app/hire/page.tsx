@@ -7,14 +7,14 @@ import { discoveryCallLink } from "@/lib/packages";
 export const metadata: Metadata = {
   title: "Hire DoyinTech — Fixed-price websites",
   description:
-    "Book a local business website or growth website with a clear fixed price and 50% Paystack deposit. Live in 7–14 days or 2–4 weeks.",
+    "Landing page from ₦100,000, local business site ₦250,000, or growth website ₦450,000. Clear fixed prices and 50% Paystack deposit.",
 };
 
 export default function HirePage() {
   return (
     <>
       <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
-        <div className="mx-auto max-w-[1000px] px-6">
+        <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Fixed price · 50% deposit
           </p>
@@ -22,8 +22,8 @@ export default function HirePage() {
             Hire us for a website that gets enquiries
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
-            No vague "from" quotes on this page. Pick a package, pay the deposit online, send your
-            content — we build and launch. Balance before final handoff.
+            No vague &quot;from&quot; quotes. Start with a single landing page or a full site. Pay the
+            deposit online, send your content — we build and launch. Balance before final handoff.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
@@ -34,12 +34,15 @@ export default function HirePage() {
             >
               Free 15-min call first
             </a>
-            <a href="/pricing" className="rounded-full px-5 py-2.5 text-[14px] text-[#a1a1a6] hover:text-white">
+            <a
+              href="/pricing"
+              className="rounded-full px-5 py-2.5 text-[14px] text-[#a1a1a6] hover:text-white"
+            >
               See full pricing ranges →
             </a>
           </div>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-2">
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
             {SERVICE_OFFERS.map((offer) => (
               <article
                 key={offer.id}
@@ -50,9 +53,9 @@ export default function HirePage() {
                     {offer.badge}
                   </span>
                 )}
-                <h2 className="text-[24px] font-semibold text-white">{offer.name}</h2>
-                <p className="mt-2 text-[15px] text-[#a1a1a6]">{offer.tagline}</p>
-                <p className="mt-4 text-[32px] font-semibold text-white">{offer.totalNgn}</p>
+                <h2 className="text-[22px] font-semibold text-white">{offer.name}</h2>
+                <p className="mt-2 text-[14px] text-[#a1a1a6]">{offer.tagline}</p>
+                <p className="mt-4 text-[28px] font-semibold text-white">{offer.totalNgn}</p>
                 <p className="text-[13px] text-[#86868b]">
                   Deposit {offer.depositNgn} · {offer.timeline}
                 </p>
@@ -63,7 +66,7 @@ export default function HirePage() {
                 </h3>
                 <ul className="mt-2 space-y-2">
                   {offer.scope.map((s) => (
-                    <li key={s} className="flex gap-2 text-[14px] text-[#e8eaed]">
+                    <li key={s} className="flex gap-2 text-[13px] text-[#e8eaed]">
                       <span className="text-[#ff8c14]">✓</span> {s}
                     </li>
                   ))}
@@ -74,13 +77,13 @@ export default function HirePage() {
                 </h3>
                 <ul className="mt-2 space-y-1">
                   {offer.notIncluded.map((s) => (
-                    <li key={s} className="text-[13px] text-[#86868b]">
+                    <li key={s} className="text-[12px] text-[#86868b]">
                       · {s}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-8">
+                <div className="mt-auto pt-8">
                   <ServiceDepositButton offer={offer} />
                 </div>
                 <a
@@ -101,7 +104,7 @@ export default function HirePage() {
               <li>Pay 50% deposit (Paystack or WhatsApp transfer).</li>
               <li>Send logo, colours, text, and photos on WhatsApp.</li>
               <li>We share a first draft in the timeline above.</li>
-              <li>One structured feedback round (or two on Growth).</li>
+              <li>Structured feedback round (or two on Growth).</li>
               <li>Balance payment → launch + short support window.</li>
             </ol>
           </div>
