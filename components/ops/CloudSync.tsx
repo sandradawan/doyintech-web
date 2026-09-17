@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { OpsWorkspace } from "@/lib/ops/types";
 import { getSupabaseBrowser, isSupabaseConfigured } from "@/lib/supabase/client";
 import { parseWorkspaceJson } from "@/lib/ops/store";
@@ -36,7 +36,7 @@ export default function CloudSync({ workspace, onPull }: Props) {
     return () => sub.subscription.unsubscribe();
   }, []);
 
-  async function sendMagicLink(e: React.FormEvent) {
+  async function sendMagicLink(e: FormEvent) {
     e.preventDefault();
     const sb = getSupabaseBrowser();
     if (!sb) return;
