@@ -11,17 +11,13 @@ type Props = {
 };
 
 export default function InvoicePrint({ orgName, invoice, client, onClose }: Props) {
-  function handlePrint() {
-    window.print();
-  }
-
   return (
     <div className="fixed inset-0 z-[200] flex items-start justify-center overflow-y-auto bg-black/80 p-4 print:static print:bg-white print:p-0">
       <div className="w-full max-w-2xl">
         <div className="mb-3 flex justify-end gap-2 print:hidden">
           <button
             type="button"
-            onClick={handlePrint}
+            onClick={() => window.print()}
             className="rounded-full bg-[#ff8c14] px-5 py-2 text-sm font-semibold text-black"
           >
             Print / Save PDF
@@ -101,23 +97,22 @@ export default function InvoicePrint({ orgName, invoice, client, onClose }: Prop
         </article>
       </div>
 
-      <style jsx global>{`
-        @media print {
-          body * {
-            visibility: hidden;
-          }
-          #doyinops-invoice-print,
-          #doyinops-invoice-print * {
-            visibility: visible;
-          }
-          #doyinops-invoice-print {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-          }
-        }
-      `}</style>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media print {
+              body * { visibility: hidden !important; }
+              #doyinops-invoice-print, #doyinops-invoice-print * { visibility: visible !important; }
+              #doyinops-invoice-print {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+              }
+            }
+          `,
+        }}
+      />
     </div>
   );
 }

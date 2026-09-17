@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/hire",
+    "/ops",
     "/products",
     "/ebooks",
     "/components",
@@ -44,13 +45,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE}${path}`,
     lastModified: now,
     changeFrequency:
-      path === "" || path === "/blog" || path === "/products" || path.startsWith("/tools")
+      path === "" || path === "/blog" || path === "/products" || path === "/ops" || path.startsWith("/tools")
         ? "weekly"
         : "monthly",
     priority:
       path === ""
         ? 1
-        : path === "/hire" || path === "/products"
+        : path === "/hire" || path === "/products" || path === "/ops"
           ? 0.95
           : path.startsWith("/tools")
             ? 0.9

@@ -1,7 +1,7 @@
 # DoyinOps — company product plan
 
 ## What it is
-SME operations platform under DoyinTech: contacts, sales pipeline, invoices.
+SME operations platform under DoyinTech: contacts, sales pipeline, invoices, tasks.
 
 ## Live routes
 - Marketing: `/ops`
@@ -9,10 +9,12 @@ SME operations platform under DoyinTech: contacts, sales pipeline, invoices.
 
 ## MVP (shipped)
 - Browser workspace (localStorage)
-- Contacts CRUD
-- Pipeline stages + deal values
-- Invoices + mark paid
-- JSON export backup
+- Contacts + search + WhatsApp
+- Pipeline stages + deal values + follow-ups
+- Invoices + mark paid + WA remind + **print / PDF**
+- Tasks (to-do with due dates)
+- JSON export / import
+- Load demo data
 
 ## Next (cloud)
 - Supabase multi-tenant orgs + RLS
