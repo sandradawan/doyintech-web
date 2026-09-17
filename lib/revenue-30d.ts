@@ -1,9 +1,18 @@
 /**
  * DoyinTech 30-day revenue focus (CEO operating plan).
- * Cash now = services + low-ticket digital. Traffic = free audit + tools.
  */
 
 export const REVENUE_OFFERS = [
+  {
+    id: "doyinops",
+    path: "Platform",
+    title: "DoyinOps",
+    price: "Free MVP",
+    href: "/ops",
+    wa: "Hi DoyinTech, I want DoyinOps for my business.",
+    pitch:
+      "Contacts, pipeline, invoices — run your SME ops. Open the free workspace today.",
+  },
   {
     id: "service-landing",
     path: "New · entry price",
@@ -40,15 +49,6 @@ export const REVENUE_OFFERS = [
     href: "/ebooks",
     wa: "Hi DoyinTech, I want to buy an ebook from your store.",
     pitch: "Digital marketing, affiliate, SMM, VA, WhatsApp — pay and unlock on site.",
-  },
-  {
-    id: "components",
-    path: "Developer market",
-    title: "Next.js Components & Templates",
-    price: "From ₦2,000",
-    href: "/components",
-    wa: "Hi DoyinTech, I want a Next.js component or template.",
-    pitch: "Real demos, full source after Paystack.",
   },
   {
     id: "audit",
