@@ -51,6 +51,10 @@ export type Invoice = {
   dueDate: string;
   createdAt: string;
   paidAt?: string;
+  /** Last Paystack authorization URL generated for this invoice */
+  paymentUrl?: string;
+  /** Last Paystack reference */
+  paymentRef?: string;
 };
 
 export type Quote = {
