@@ -46,12 +46,22 @@ export type Invoice = {
   paidAt?: string;
 };
 
+export type Task = {
+  id: string;
+  title: string;
+  done: boolean;
+  dueDate?: string;
+  contactId?: string;
+  createdAt: string;
+};
+
 export type OpsWorkspace = {
   version: 1;
   orgName: string;
   contacts: Contact[];
   deals: Deal[];
   invoices: Invoice[];
+  tasks: Task[];
 };
 
 export const DEAL_STAGES: { id: DealStage; label: string }[] = [

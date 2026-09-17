@@ -1,4 +1,4 @@
-import type { Contact, Deal, Invoice, OpsWorkspace } from "./types";
+import type { Contact, Deal, Invoice, OpsWorkspace, Task } from "./types";
 
 const KEY = "doyinops_workspace_v1";
 
@@ -7,7 +7,14 @@ function uid() {
 }
 
 export function emptyWorkspace(orgName = "My business"): OpsWorkspace {
-  return { version: 1, orgName, contacts: [], deals: [], invoices: [] };
+  return {
+    version: 1,
+    orgName,
+    contacts: [],
+    deals: [],
+    invoices: [],
+    tasks: [],
+  };
 }
 
 export function loadWorkspace(): OpsWorkspace {
@@ -15,7 +22,7 @@ export function loadWorkspace(): OpsWorkspace {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return emptyWorkspace();
-    const data = JSON.parse(raw) as OpsWorkspace;
+    const data = JSON.parse(raw) as Partial<OpsWorkspace>;
     if (!data || data.version !== 1) return emptyWorkspace();
     return {
       version: 1,
@@ -23,6 +30,7 @@ export function loadWorkspace(): OpsWorkspace {
       contacts: Array.isArray(data.contacts) ? data.contacts : [],
       deals: Array.isArray(data.deals) ? data.deals : [],
       invoices: Array.isArray(data.invoices) ? data.invoices : [],
+      tasks: Array.isArray(data.tasks) ? data.tasks : [],
     };
   } catch {
     return emptyWorkspace();
@@ -42,7 +50,6 @@ export function formatNgn(n: number) {
   }).format(n || 0);
 }
 
-/** Normalize phone to digits for wa.me (defaults NG 234 if local 0…) */
 export function phoneToWa(phone?: string): string | null {
   if (!phone) return null;
   let d = phone.replace(/\D/g, "");
@@ -99,6 +106,17 @@ export function newInvoice(
   };
 }
 
+export function newTask(partial: Omit<Task, "id" | "createdAt" | "done"> & { done?: boolean }): Task {
+  return {
+    title: partial.title,
+    dueDate: partial.dueDate,
+    contactId: partial.contactId,
+    done: partial.done ?? false,
+    id: uid(),
+    createdAt: new Date().toISOString(),
+  };
+}
+
 export function exportJson(ws: OpsWorkspace) {
   const blob = new Blob([JSON.stringify(ws, null, 2)], {
     type: "application/json",
@@ -113,7 +131,7 @@ export function exportJson(ws: OpsWorkspace) {
 
 export function parseWorkspaceJson(raw: string): OpsWorkspace | null {
   try {
-    const data = JSON.parse(raw) as OpsWorkspace;
+    const data = JSON.parse(raw) as Partial<OpsWorkspace>;
     if (!data || data.version !== 1) return null;
     return {
       version: 1,
@@ -121,6 +139,7 @@ export function parseWorkspaceJson(raw: string): OpsWorkspace | null {
       contacts: Array.isArray(data.contacts) ? data.contacts : [],
       deals: Array.isArray(data.deals) ? data.deals : [],
       invoices: Array.isArray(data.invoices) ? data.invoices : [],
+      tasks: Array.isArray(data.tasks) ? data.tasks : [],
     };
   } catch {
     return null;
@@ -129,4 +148,63 @@ export function parseWorkspaceJson(raw: string): OpsWorkspace | null {
 
 export function todayIsoDate() {
   return new Date().toISOString().slice(0, 10);
+}
+
+/** Sample data so new users see how the product works */
+export function seedDemoWorkspace(): OpsWorkspace {
+  const c1 = newContact({
+    name: "Ada Okeke",
+    business: "Glow Salon",
+    phone: "08031234567",
+    notes: "Wants booking site",
+  });
+  const c2 = newContact({
+    name: "James Bello",
+    business: "Bello Properties",
+    phone: "08039876543",
+    email: "james@example.com",
+  });
+  const d1 = newDeal({
+    contactId: c1.id,
+    title: "Salon website + WhatsApp",
+    stage: "quoted",
+    valueNgn: 250000,
+    nextFollowUp: todayIsoDate(),
+    notes: "Sent quote yesterday",
+  });
+  const d2 = newDeal({
+    contactId: c2.id,
+    title: "Property listing portal",
+    stage: "lead",
+    valueNgn: 450000,
+    nextFollowUp: todayIsoDate(),
+  });
+  const inv = newInvoice(
+    {
+      contactId: c1.id,
+      amountNgn: 125000,
+      status: "sent",
+      description: "50% deposit — Local Business Website",
+      dueDate: todayIsoDate(),
+    },
+    1
+  );
+  const t1 = newTask({
+    title: "Call Ada about deposit",
+    dueDate: todayIsoDate(),
+    contactId: c1.id,
+  });
+  const t2 = newTask({
+    title: "Send Bello portfolio samples",
+    dueDate: todayIsoDate(),
+    contactId: c2.id,
+  });
+  return {
+    version: 1,
+    orgName: "Demo Studio",
+    contacts: [c1, c2],
+    deals: [d1, d2],
+    invoices: [inv],
+    tasks: [t1, t2],
+  };
 }
