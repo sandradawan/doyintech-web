@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import type { Contact, Deal, DealStage, Invoice, OpsWorkspace } from "@/lib/ops/types";
 import { DEAL_STAGES } from "@/lib/ops/types";
@@ -8,11 +8,15 @@ import {
   emptyWorkspace,
   exportJson,
   formatNgn,
+  invoiceReminderMessage,
   loadWorkspace,
   newContact,
   newDeal,
   newInvoice,
+  parseWorkspaceJson,
   saveWorkspace,
+  todayIsoDate,
+  whatsappHref,
 } from "@/lib/ops/store";
 
 type Tab = "home" | "contacts" | "pipeline" | "invoices";
@@ -23,6 +27,8 @@ const input =
 export default function OpsApp() {
   const [ws, setWs] = useState<OpsWorkspace | null>(null);
   const [tab, setTab] = useState<Tab>("home");
+  const [q, setQ] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setWs(loadWorkspace());
@@ -44,6 +50,33 @@ export default function OpsApp() {
     };
   }, [ws]);
 
+  const dueFollowUps = useMemo(() => {
+    if (!ws) return [];
+    const today = todayIsoDate();
+    return ws.deals
+      .filter(
+        (d) =>
+          d.nextFollowUp &&
+          d.nextFollowUp <= today &&
+          d.stage !== "paid" &&
+          d.stage !== "lost"
+      )
+      .sort((a, b) => (a.nextFollowUp || "").localeCompare(b.nextFollowUp || ""));
+  }, [ws]);
+
+  const filteredContacts = useMemo(() => {
+    if (!ws) return [];
+    const s = q.trim().toLowerCase();
+    if (!s) return ws.contacts;
+    return ws.contacts.filter((c) =>
+      [c.name, c.business, c.phone, c.email, c.notes]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(s)
+    );
+  }, [ws, q]);
+
   if (!ws) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center text-[#a1a1a6]">
@@ -52,8 +85,12 @@ export default function OpsApp() {
     );
   }
 
+  function contactById(id: string) {
+    return ws.contacts.find((c) => c.id === id);
+  }
+
   function contactName(id: string) {
-    return ws.contacts.find((c) => c.id === id)?.name || "Unknown";
+    return contactById(id)?.name || "Unknown";
   }
 
   function addContact(e: FormEvent<HTMLFormElement>) {
@@ -112,7 +149,7 @@ export default function OpsApp() {
         amountNgn: Number(fd.get("amountNgn") || 0) || 0,
         status: "sent",
         description: String(fd.get("description") || "").trim() || "Services",
-        dueDate: String(fd.get("dueDate") || new Date().toISOString().slice(0, 10)),
+        dueDate: String(fd.get("dueDate") || todayIsoDate()),
       },
       ws.invoices.length + 1
     );
@@ -136,13 +173,38 @@ export default function OpsApp() {
   }
 
   function removeContact(id: string) {
-    if (!confirm("Remove this contact? Linked deals stay but show Unknown.")) return;
+    if (!confirm("Remove this contact?")) return;
     setWs((w) => (w ? { ...w, contacts: w.contacts.filter((c) => c.id !== id) } : w));
+  }
+
+  function removeDeal(id: string) {
+    if (!confirm("Remove this deal?")) return;
+    setWs((w) => (w ? { ...w, deals: w.deals.filter((d) => d.id !== id) } : w));
+  }
+
+  function removeInvoice(id: string) {
+    if (!confirm("Remove this invoice?")) return;
+    setWs((w) => (w ? { ...w, invoices: w.invoices.filter((i) => i.id !== id) } : w));
   }
 
   function resetAll() {
     if (!confirm("Clear entire local workspace? Export a backup first if needed.")) return;
     setWs(emptyWorkspace(ws.orgName));
+  }
+
+  function onImportFile(file: File | null) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const parsed = parseWorkspaceJson(String(reader.result || ""));
+      if (!parsed) {
+        alert("Invalid DoyinOps backup file.");
+        return;
+      }
+      if (!confirm(`Restore workspace "${parsed.orgName}"? This replaces current data.`)) return;
+      setWs(parsed);
+    };
+    reader.readAsText(file);
   }
 
   const tabs: { id: Tab; label: string }[] = [
@@ -166,16 +228,30 @@ export default function OpsApp() {
             aria-label="Organisation name"
           />
           <p className="text-[12px] text-[#86868b]">
-            Data saved in this browser · Export backup anytime · Cloud sync coming
+            Browser storage · Export / import backup · Cloud sync coming
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/json,.json"
+            className="hidden"
+            onChange={(e) => onImportFile(e.target.files?.[0] || null)}
+          />
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-white"
+          >
+            Import
+          </button>
           <button
             type="button"
             onClick={() => exportJson(ws)}
             className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-white"
           >
-            Export JSON
+            Export
           </button>
           <button
             type="button"
@@ -185,7 +261,7 @@ export default function OpsApp() {
             Reset
           </button>
           <Link href="/ops" className="rounded-full px-4 py-2 text-[12px] text-[#a1a1a6] hover:text-white">
-            About DoyinOps
+            About
           </Link>
         </div>
       </div>
@@ -203,6 +279,7 @@ export default function OpsApp() {
             }`}
           >
             {t.label}
+            {t.id === "home" && dueFollowUps.length > 0 ? ` (${dueFollowUps.length})` : ""}
           </button>
         ))}
       </div>
@@ -218,29 +295,77 @@ export default function OpsApp() {
                 ["Unpaid invoices", formatNgn(stats.unpaidNgn)],
               ] as const
             ).map(([label, val]) => (
-              <div
-                key={label}
-                className="rounded-2xl border border-white/10 bg-black/30 px-4 py-4"
-              >
+              <div key={label} className="rounded-2xl border border-white/10 bg-black/30 px-4 py-4">
                 <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
                 <p className="mt-1 text-2xl font-semibold text-white">{val}</p>
               </div>
             ))}
           </div>
-          <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5 text-[14px] text-[#a1a1a6]">
-            <p className="font-semibold text-white">How to use DoyinOps today</p>
+
+          <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+            <h2 className="text-sm font-semibold text-white">Follow-ups due</h2>
+            {dueFollowUps.length === 0 ? (
+              <p className="mt-2 text-[13px] text-[#a1a1a6]">
+                None overdue. Set a follow-up date on deals in Pipeline.
+              </p>
+            ) : (
+              <ul className="mt-3 space-y-2">
+                {dueFollowUps.map((d) => {
+                  const c = contactById(d.contactId);
+                  const wa = whatsappHref(
+                    c?.phone,
+                    `Hi ${c?.name || "there"}, following up on ${d.title}.`
+                  );
+                  return (
+                    <li
+                      key={d.id}
+                      className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2"
+                    >
+                      <div>
+                        <p className="text-sm font-semibold text-white">{d.title}</p>
+                        <p className="text-[12px] text-[#a1a1a6]">
+                          {contactName(d.contactId)} · due {d.nextFollowUp}
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        {wa && (
+                          <a
+                            href={wa}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-full bg-[#25D366] px-3 py-1 text-[11px] font-semibold text-white"
+                          >
+                            WhatsApp
+                          </a>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => setTab("pipeline")}
+                          className="rounded-full border border-white/20 px-3 py-1 text-[11px] text-white"
+                        >
+                          Pipeline
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-black/30 p-5 text-[14px] text-[#a1a1a6]">
+            <p className="font-semibold text-white">Quick start</p>
             <ol className="mt-3 list-decimal space-y-2 pl-5">
-              <li>Add contacts (clients / leads).</li>
-              <li>Create deals and move stages as you chat on WhatsApp.</li>
-              <li>Issue invoices and mark paid when money lands.</li>
-              <li>Export JSON weekly as backup until cloud accounts ship.</li>
+              <li>Add contacts with WhatsApp numbers.</li>
+              <li>Create deals and set follow-up dates.</li>
+              <li>Send invoices and remind clients on WhatsApp.</li>
+              <li>Export JSON weekly as backup.</li>
             </ol>
             <p className="mt-4 text-[13px]">
-              Need a full website or custom CRM?{" "}
+              Need a custom CRM or website?{" "}
               <Link href="/hire" className="text-[#ff8c14] hover:underline">
                 Hire DoyinTech
               </Link>
-              .
             </p>
           </div>
         </div>
@@ -259,27 +384,54 @@ export default function OpsApp() {
               Save contact
             </button>
           </form>
-          <ul className="space-y-3">
-            {ws.contacts.length === 0 && (
-              <p className="text-sm text-[#a1a1a6]">No contacts yet.</p>
-            )}
-            {ws.contacts.map((c: Contact) => (
-              <li key={c.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                <div className="flex justify-between gap-3">
-                  <div>
-                    <p className="font-semibold text-white">{c.name}</p>
-                    <p className="text-[12px] text-[#a1a1a6]">
-                      {[c.business, c.phone, c.email].filter(Boolean).join(" · ")}
-                    </p>
-                    {c.notes && <p className="mt-2 text-[13px] text-[#c7cdd8]">{c.notes}</p>}
-                  </div>
-                  <button type="button" onClick={() => removeContact(c.id)} className="text-xs text-red-400">
-                    Remove
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="space-y-3">
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search contacts…"
+              className={input}
+            />
+            <ul className="space-y-3">
+              {filteredContacts.length === 0 && (
+                <p className="text-sm text-[#a1a1a6]">No contacts match.</p>
+              )}
+              {filteredContacts.map((c: Contact) => {
+                const wa = whatsappHref(c.phone, `Hi ${c.name},`);
+                return (
+                  <li key={c.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <div className="flex justify-between gap-3">
+                      <div>
+                        <p className="font-semibold text-white">{c.name}</p>
+                        <p className="text-[12px] text-[#a1a1a6]">
+                          {[c.business, c.phone, c.email].filter(Boolean).join(" · ")}
+                        </p>
+                        {c.notes && <p className="mt-2 text-[13px] text-[#c7cdd8]">{c.notes}</p>}
+                      </div>
+                      <div className="flex flex-col items-end gap-2">
+                        {wa && (
+                          <a
+                            href={wa}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-semibold text-[#25D366]"
+                          >
+                            WhatsApp
+                          </a>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removeContact(c.id)}
+                          className="text-xs text-red-400"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       )}
 
@@ -327,6 +479,7 @@ export default function OpsApp() {
                         <p className="text-sm font-semibold text-white">{d.title}</p>
                         <p className="text-[12px] text-[#a1a1a6]">
                           {contactName(d.contactId)} · {formatNgn(d.valueNgn)}
+                          {d.nextFollowUp ? ` · FU ${d.nextFollowUp}` : ""}
                         </p>
                         <select
                           value={d.stage}
@@ -339,6 +492,13 @@ export default function OpsApp() {
                             </option>
                           ))}
                         </select>
+                        <button
+                          type="button"
+                          onClick={() => removeDeal(d.id)}
+                          className="mt-2 text-[11px] text-red-400"
+                        >
+                          Remove
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -378,32 +538,58 @@ export default function OpsApp() {
             {ws.invoices.length === 0 && (
               <p className="text-sm text-[#a1a1a6]">No invoices yet.</p>
             )}
-            {ws.invoices.map((inv: Invoice) => (
-              <li key={inv.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="font-semibold text-white">
-                      {inv.number}{" "}
-                      <span className="text-xs font-normal uppercase text-[#ff8c14]">{inv.status}</span>
-                    </p>
-                    <p className="text-[13px] text-[#a1a1a6]">
-                      {contactName(inv.contactId)} · {formatNgn(inv.amountNgn)}
-                    </p>
-                    <p className="mt-1 text-[13px] text-[#c7cdd8]">{inv.description}</p>
-                    <p className="mt-1 text-[11px] text-[#86868b]">Due {inv.dueDate}</p>
+            {ws.invoices.map((inv: Invoice) => {
+              const c = contactById(inv.contactId);
+              const wa = whatsappHref(
+                c?.phone,
+                invoiceReminderMessage(ws.orgName, inv, c?.name || "there")
+              );
+              return (
+                <li key={inv.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="font-semibold text-white">
+                        {inv.number}{" "}
+                        <span className="text-xs font-normal uppercase text-[#ff8c14]">{inv.status}</span>
+                      </p>
+                      <p className="text-[13px] text-[#a1a1a6]">
+                        {contactName(inv.contactId)} · {formatNgn(inv.amountNgn)}
+                      </p>
+                      <p className="mt-1 text-[13px] text-[#c7cdd8]">{inv.description}</p>
+                      <p className="mt-1 text-[11px] text-[#86868b]">Due {inv.dueDate}</p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      {inv.status !== "paid" && (
+                        <button
+                          type="button"
+                          onClick={() => markPaid(inv.id)}
+                          className="rounded-full bg-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-emerald-300"
+                        >
+                          Mark paid
+                        </button>
+                      )}
+                      {wa && inv.status !== "paid" && (
+                        <a
+                          href={wa}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-full bg-[#25D366] px-3 py-1.5 text-center text-xs font-semibold text-white"
+                        >
+                          Remind on WA
+                        </a>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => removeInvoice(inv.id)}
+                        className="text-xs text-red-400"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
-                  {inv.status !== "paid" && (
-                    <button
-                      type="button"
-                      onClick={() => markPaid(inv.id)}
-                      className="rounded-full bg-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-emerald-300"
-                    >
-                      Mark paid
-                    </button>
-                  )}
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
