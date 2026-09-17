@@ -33,7 +33,7 @@ import {
   HiOutlineDevicePhoneMobile,
   HiOutlinePuzzlePiece,
   HiOutlineQueueList,
-  HiOutlineSignal,
+  HiOutlineRss,
   HiOutlineEye,
   HiOutlineWrenchScrewdriver,
   HiOutlineSquare3Stack3D,
@@ -44,7 +44,7 @@ const TOOL_ICON_MAP: Record<string, IconType> = {
   pdf: HiOutlineDocumentText,
   calculator: HiOutlineCalculator,
   audit: HiOutlineEye,
-  orgsec: HiOutlineSignal,
+  orgsec: HiOutlineRss,
   shield: HiOutlineShieldCheck,
   headers: HiOutlineQueueList,
   ssl: HiOutlineLockClosed,
@@ -114,12 +114,11 @@ function IconShell({
       className={`inline-flex items-center justify-center text-[#ff8c14] ${className}`}
       aria-hidden
     >
-      <Icon size={size} strokeWidth={1.6} />
+      <Icon size={size} />
     </span>
   );
 }
 
-/** Professional tool tile icon (replaces emoji) */
 export function ToolIcon({
   name,
   className = "",
@@ -133,7 +132,6 @@ export function ToolIcon({
   return <IconShell Icon={Icon} className={className} size={size} />;
 }
 
-/** Store / app listing icon from slug or category */
 export function StoreAppIcon({
   slug,
   category,

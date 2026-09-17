@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import type { Contact, Deal, DealStage, Invoice, OpsWorkspace } from "@/lib/ops/types";
 import { DEAL_STAGES } from "@/lib/ops/types";
@@ -34,7 +34,7 @@ export default function OpsApp() {
 
   const stats = useMemo(() => {
     if (!ws) return { contacts: 0, openDeals: 0, pipelineNgn: 0, unpaidNgn: 0 };
-    const open = ws.deals.filter((d) => !["paid", "lost"].includes(d.stage));
+    const open = ws.deals.filter((d) => d.stage !== "paid" && d.stage !== "lost");
     const unpaid = ws.invoices.filter((i) => i.status === "sent" || i.status === "overdue");
     return {
       contacts: ws.contacts.length,
@@ -53,10 +53,10 @@ export default function OpsApp() {
   }
 
   function contactName(id: string) {
-    return ws!.contacts.find((c) => c.id === id)?.name || "Unknown";
+    return ws.contacts.find((c) => c.id === id)?.name || "Unknown";
   }
 
-  function addContact(e: React.FormEvent<HTMLFormElement>) {
+  function addContact(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const c = newContact({
@@ -71,7 +71,7 @@ export default function OpsApp() {
     e.currentTarget.reset();
   }
 
-  function addDeal(e: React.FormEvent<HTMLFormElement>) {
+  function addDeal(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const contactId = String(fd.get("contactId") || "");
@@ -101,7 +101,7 @@ export default function OpsApp() {
     );
   }
 
-  function addInvoice(e: React.FormEvent<HTMLFormElement>) {
+  function addInvoice(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const contactId = String(fd.get("contactId") || "");
@@ -127,7 +127,7 @@ export default function OpsApp() {
             ...w,
             invoices: w.invoices.map((i) =>
               i.id === id
-                ? { ...i, status: "paid", paidAt: new Date().toISOString() }
+                ? { ...i, status: "paid" as const, paidAt: new Date().toISOString() }
                 : i
             ),
           }
@@ -210,14 +210,16 @@ export default function OpsApp() {
       {tab === "home" && (
         <div className="space-y-6">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["Contacts", stats.contacts],
-              ["Open deals", stats.openDeals],
-              ["Pipeline value", formatNgn(stats.pipelineNgn)],
-              ["Unpaid invoices", formatNgn(stats.unpaidNgn)],
-            ].map(([label, val]) => (
+            {(
+              [
+                ["Contacts", String(stats.contacts)],
+                ["Open deals", String(stats.openDeals)],
+                ["Pipeline value", formatNgn(stats.pipelineNgn)],
+                ["Unpaid invoices", formatNgn(stats.unpaidNgn)],
+              ] as const
+            ).map(([label, val]) => (
               <div
-                key={String(label)}
+                key={label}
                 className="rounded-2xl border border-white/10 bg-black/30 px-4 py-4"
               >
                 <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
