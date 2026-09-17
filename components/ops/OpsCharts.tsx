@@ -383,9 +383,9 @@ function buildChartData(ws: OpsWorkspace) {
     draft: "#94a3b8",
     cancelled: "#64748b",
   };
-  const invoiceSegments = statusOrder
+  const invoiceSegments: { label: string; value: number; color: string }[] = statusOrder
     .map((st) => ({
-      label: st,
+      label: st as string,
       value: ws.invoices.filter((i) => i.status === st).length,
       color: statusColors[st] || COLORS[0],
     }))
@@ -416,7 +416,7 @@ function buildChartData(ws: OpsWorkspace) {
     ];
   }
 
-  const workSegments = [
+  const workSegments: { label: string; value: number; color: string }[] = [
     { label: "Contacts", value: ws.contacts.length, color: COLORS[0] },
     { label: "Deals", value: ws.deals.length, color: COLORS[1] },
     { label: "Quotes", value: (ws.quotes || []).length, color: COLORS[2] },
