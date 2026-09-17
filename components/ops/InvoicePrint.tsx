@@ -1,16 +1,25 @@
 "use client";
 
-import type { Contact, Invoice } from "@/lib/ops/types";
+import type { BusinessProfile, Contact, Invoice } from "@/lib/ops/types";
 import { formatNgn } from "@/lib/ops/store";
 
 type Props = {
   orgName: string;
+  profile: BusinessProfile;
   invoice: Invoice;
   client: Contact | undefined;
   onClose: () => void;
 };
 
-export default function InvoicePrint({ orgName, invoice, client, onClose }: Props) {
+export default function InvoicePrint({
+  orgName,
+  profile,
+  invoice,
+  client,
+  onClose,
+}: Props) {
+  const displayName = profile.legalName || orgName;
+
   return (
     <div className="fixed inset-0 z-[200] flex items-start justify-center overflow-y-auto bg-black/80 p-4 print:static print:bg-white print:p-0">
       <div className="w-full max-w-2xl">
@@ -40,8 +49,14 @@ export default function InvoicePrint({ orgName, invoice, client, onClose }: Prop
               <p className="text-xs font-semibold uppercase tracking-wider text-orange-600">
                 Invoice
               </p>
-              <h1 className="mt-1 text-2xl font-bold">{orgName}</h1>
-              <p className="mt-1 text-sm text-gray-600">Powered by DoyinOps · DoyinTech</p>
+              <h1 className="mt-1 text-2xl font-bold">{displayName}</h1>
+              <div className="mt-2 space-y-0.5 text-sm text-gray-600">
+                {profile.address && <p>{profile.address}</p>}
+                {profile.city && <p>{profile.city}</p>}
+                {profile.email && <p>{profile.email}</p>}
+                {profile.phone && <p>{profile.phone}</p>}
+                {profile.website && <p>{profile.website}</p>}
+              </div>
             </div>
             <div className="text-right text-sm">
               <p className="font-semibold">{invoice.number}</p>
@@ -88,6 +103,13 @@ export default function InvoicePrint({ orgName, invoice, client, onClose }: Prop
               </tr>
             </tfoot>
           </table>
+
+          {profile.bankNote && (
+            <div className="mt-8 rounded-lg bg-gray-50 p-4 text-sm text-gray-700">
+              <p className="text-xs font-semibold uppercase text-gray-500">Payment</p>
+              <p className="mt-1">{profile.bankNote}</p>
+            </div>
+          )}
 
           <p className="mt-10 text-xs text-gray-500">
             Created {invoice.createdAt.slice(0, 10)}
