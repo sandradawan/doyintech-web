@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import type { OpsWorkspace } from "@/lib/ops/types";
 import { DEAL_STAGES } from "@/lib/ops/types";
@@ -39,7 +39,7 @@ export default function OpsCharts({ ws }: Props) {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <GlassCard title="Revenue pulse" subtitle="Invoice amounts (last activity)">
+        <GlassCard title="Revenue pulse" subtitle="Invoice amounts over time">
           <LineChart points={chartData.linePoints} />
         </GlassCard>
         <GlassCard title="Work mix" subtitle="Contacts · Deals · Quotes · Tasks">
@@ -60,7 +60,7 @@ function GlassCard({
 }: {
   title: string;
   subtitle?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <motion.section
@@ -184,7 +184,6 @@ function DonutChart({
         const start = angle;
         const end = angle + sweep;
         angle = end;
-        // Full circle special-case
         if (sweep >= 359.9) {
           return (
             <motion.circle
@@ -310,7 +309,6 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
           <stop offset="100%" stopColor="#ff8c14" stopOpacity="0" />
         </linearGradient>
       </defs>
-      {/* grid */}
       {[0.25, 0.5, 0.75].map((t) => (
         <line
           key={t}
@@ -396,18 +394,16 @@ function buildChartData(ws: OpsWorkspace) {
     invoiceSegments.push({ label: "none", value: 0, color: "#475569" });
   }
 
-  // Line: last 6 buckets from invoice createdAt or deal values
   const buckets = new Map<string, number>();
   const invSorted = [...ws.invoices].sort((a, b) =>
     (a.createdAt || "").localeCompare(b.createdAt || "")
   );
   invSorted.forEach((inv) => {
-    const key = (inv.createdAt || "").slice(5, 10) || "—"; // MM-DD
+    const key = (inv.createdAt || "").slice(5, 10) || "—";
     buckets.set(key, (buckets.get(key) || 0) + (inv.amountNgn || 0));
   });
   let linePoints = Array.from(buckets.entries()).map(([label, value]) => ({ label, value }));
   if (linePoints.length < 2) {
-    // fallback synthetic from deals
     linePoints = ws.deals.slice(0, 6).map((d, i) => ({
       label: `D${i + 1}`,
       value: d.valueNgn || 0,
