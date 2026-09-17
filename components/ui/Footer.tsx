@@ -19,6 +19,7 @@ export default function Footer() {
     {
       title: "Services",
       links: [
+        ["/ops", "DoyinOps"],
         ["/hire", "Hire — fixed price"],
         ["/services", "Services"],
         ["/pricing", "Packages & pricing"],
@@ -46,9 +47,15 @@ export default function Footer() {
             Sell this month. Build systems next month.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
-            Book a fixed-price website with deposit, or buy a pack and use it today.
+            Run DoyinOps free, book a fixed-price website, or buy a pack and use it today.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="/ops/app"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white"
+            >
+              Open DoyinOps
+            </a>
             <a
               href="/hire"
               className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
@@ -62,9 +69,6 @@ export default function Footer() {
               className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
             >
               Book free call
-            </a>
-            <a href="/products" className="apple-btn apple-btn-secondary">
-              Shop products ›
             </a>
           </div>
         </div>
