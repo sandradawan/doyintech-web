@@ -55,9 +55,21 @@ export type Task = {
   createdAt: string;
 };
 
+/** Shown on printed invoices and settings */
+export type BusinessProfile = {
+  legalName?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  website?: string;
+  bankNote?: string;
+};
+
 export type OpsWorkspace = {
   version: 1;
   orgName: string;
+  profile: BusinessProfile;
   contacts: Contact[];
   deals: Deal[];
   invoices: Invoice[];

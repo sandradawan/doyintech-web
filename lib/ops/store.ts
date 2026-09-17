@@ -1,4 +1,11 @@
-import type { Contact, Deal, Invoice, OpsWorkspace, Task } from "./types";
+import type {
+  BusinessProfile,
+  Contact,
+  Deal,
+  Invoice,
+  OpsWorkspace,
+  Task,
+} from "./types";
 
 const KEY = "doyinops_workspace_v1";
 
@@ -10,10 +17,23 @@ export function emptyWorkspace(orgName = "My business"): OpsWorkspace {
   return {
     version: 1,
     orgName,
+    profile: {},
     contacts: [],
     deals: [],
     invoices: [],
     tasks: [],
+  };
+}
+
+function normalize(data: Partial<OpsWorkspace>): OpsWorkspace {
+  return {
+    version: 1,
+    orgName: data.orgName || "My business",
+    profile: data.profile && typeof data.profile === "object" ? data.profile : {},
+    contacts: Array.isArray(data.contacts) ? data.contacts : [],
+    deals: Array.isArray(data.deals) ? data.deals : [],
+    invoices: Array.isArray(data.invoices) ? data.invoices : [],
+    tasks: Array.isArray(data.tasks) ? data.tasks : [],
   };
 }
 
@@ -24,14 +44,7 @@ export function loadWorkspace(): OpsWorkspace {
     if (!raw) return emptyWorkspace();
     const data = JSON.parse(raw) as Partial<OpsWorkspace>;
     if (!data || data.version !== 1) return emptyWorkspace();
-    return {
-      version: 1,
-      orgName: data.orgName || "My business",
-      contacts: Array.isArray(data.contacts) ? data.contacts : [],
-      deals: Array.isArray(data.deals) ? data.deals : [],
-      invoices: Array.isArray(data.invoices) ? data.invoices : [],
-      tasks: Array.isArray(data.tasks) ? data.tasks : [],
-    };
+    return normalize(data);
   } catch {
     return emptyWorkspace();
   }
@@ -106,7 +119,9 @@ export function newInvoice(
   };
 }
 
-export function newTask(partial: Omit<Task, "id" | "createdAt" | "done"> & { done?: boolean }): Task {
+export function newTask(
+  partial: Omit<Task, "id" | "createdAt" | "done"> & { done?: boolean }
+): Task {
   return {
     title: partial.title,
     dueDate: partial.dueDate,
@@ -133,14 +148,7 @@ export function parseWorkspaceJson(raw: string): OpsWorkspace | null {
   try {
     const data = JSON.parse(raw) as Partial<OpsWorkspace>;
     if (!data || data.version !== 1) return null;
-    return {
-      version: 1,
-      orgName: data.orgName || "My business",
-      contacts: Array.isArray(data.contacts) ? data.contacts : [],
-      deals: Array.isArray(data.deals) ? data.deals : [],
-      invoices: Array.isArray(data.invoices) ? data.invoices : [],
-      tasks: Array.isArray(data.tasks) ? data.tasks : [],
-    };
+    return normalize(data);
   } catch {
     return null;
   }
@@ -150,7 +158,6 @@ export function todayIsoDate() {
   return new Date().toISOString().slice(0, 10);
 }
 
-/** Sample data so new users see how the product works */
 export function seedDemoWorkspace(): OpsWorkspace {
   const c1 = newContact({
     name: "Ada Okeke",
@@ -199,9 +206,19 @@ export function seedDemoWorkspace(): OpsWorkspace {
     dueDate: todayIsoDate(),
     contactId: c2.id,
   });
+  const profile: BusinessProfile = {
+    legalName: "Demo Studio Ltd",
+    email: "hello@demostudio.example",
+    phone: "+234 808 000 0000",
+    address: "12 Innovation Drive",
+    city: "Jos, Nigeria",
+    website: "https://doyintech.vercel.app",
+    bankNote: "Transfer to GTBank · Demo Studio · 0123456789",
+  };
   return {
     version: 1,
     orgName: "Demo Studio",
+    profile,
     contacts: [c1, c2],
     deals: [d1, d2],
     invoices: [inv],
