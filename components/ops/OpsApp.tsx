@@ -34,6 +34,7 @@ export default function OpsApp() {
   const [q, setQ] = useState("");
   const [menu, setMenu] = useState(false);
   const [printInv, setPrintInv] = useState<Invoice | null>(null);
+  const [payBusy, setPayBusy] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { setWs(loadWorkspace()); }, []);
@@ -86,6 +87,60 @@ export default function OpsApp() {
       setWs(parsed);
     };
     r.readAsText(file);
+  }
+
+  async function createPayLink(inv: Invoice) {
+    const c = byId(inv.contactId);
+    let email = c?.email || "";
+    if (!email) {
+      email = window.prompt("Client email for Paystack (required):", "") || "";
+    }
+    email = email.trim().toLowerCase();
+    if (!email || !email.includes("@")) {
+      alert("A valid client email is required to create a Paystack link.");
+      return;
+    }
+    setPayBusy(inv.id);
+    try {
+      const res = await fetch("/api/ops/invoice-pay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          amountNgn: inv.amountNgn,
+          invoiceNumber: inv.number,
+          description: inv.description,
+          customerName: c?.name || "",
+        }),
+      });
+      const dataJson = await res.json();
+      if (!res.ok || !dataJson.ok) {
+        alert(dataJson.error || "Could not create payment link. Check Paystack keys on Vercel.");
+        return;
+      }
+      const url = dataJson.authorization_url as string;
+      setWs((w) => {
+        if (!w) return w;
+        let next = {
+          ...normalizeWs(w),
+          invoices: w.invoices.map((i) =>
+            i.id === inv.id ? { ...i, paymentUrl: url, paymentRef: dataJson.reference } : i
+          ),
+        };
+        next = pushActivity(next, `Pay link created for ${inv.number}`);
+        return next;
+      });
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        /* ignore */
+      }
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch {
+      alert("Network error creating payment link.");
+    } finally {
+      setPayBusy(null);
+    }
   }
 
   return (
@@ -184,7 +239,6 @@ export default function OpsApp() {
                   )}
                 </Panel>
               </div>
-
               <Panel title="Recent activity">
                 {(data.activity || []).length === 0 ? (
                   <Empty>Actions you take will appear here.</Empty>
@@ -324,7 +378,7 @@ export default function OpsApp() {
                 <button type="submit" disabled={!data.contacts.length} className={`${btnP} w-full`}>Create quote</button>
               </form>
               <div className="space-y-3">
-                {(data.quotes || []).length === 0 && <Empty>No quotes yet. Send a quote before invoicing.</Empty>}
+                {(data.quotes || []).length === 0 && <Empty>No quotes yet.</Empty>}
                 {(data.quotes || []).map((qt: Quote) => {
                   const c = byId(qt.contactId);
                   const wa = whatsappHref(c?.phone, quoteMessage(data.orgName, qt, c?.name || "there"));
@@ -334,7 +388,6 @@ export default function OpsApp() {
                         <p className="font-semibold text-white">{qt.number} <StatusPill status={qt.status} /></p>
                         <p className="text-[13px] text-white/50">{nameOf(qt.contactId)} · {formatNgn(qt.amountNgn)}</p>
                         <p className="text-[13px] text-white/70">{qt.description}</p>
-                        <p className="text-[11px] text-white/35">Valid until {qt.validUntil}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {wa && qt.status !== "converted" && (
@@ -359,14 +412,7 @@ export default function OpsApp() {
                               next = pushActivity(next, `Quote ${qt.number} → invoice ${inv.number}`);
                               return next;
                             });
-                          }}>Convert to invoice</button>
-                        )}
-                        {qt.status === "sent" && (
-                          <button type="button" className="rounded-lg bg-emerald-500/15 px-3 py-2 text-xs font-semibold text-emerald-400" onClick={() => setWs((w) => {
-                            if (!w) return w;
-                            let next = { ...normalizeWs(w), quotes: (w.quotes || []).map((q) => q.id === qt.id ? { ...q, status: "accepted" as const } : q) };
-                            return pushActivity(next, `Quote ${qt.number} accepted`);
-                          })}>Accepted</button>
+                          }}>To invoice</button>
                         )}
                       </div>
                     </div>
@@ -401,16 +447,34 @@ export default function OpsApp() {
               <div className="space-y-3">
                 {data.invoices.map((inv: Invoice) => {
                   const c = byId(inv.contactId);
-                  const wa = whatsappHref(c?.phone, invoiceReminderMessage(data.orgName, inv, c?.name || "there"));
+                  const remindBody =
+                    invoiceReminderMessage(data.orgName, inv, c?.name || "there") +
+                    (inv.paymentUrl ? `\n\nPay online: ${inv.paymentUrl}` : "");
+                  const wa = whatsappHref(c?.phone, remindBody);
                   return (
                     <div key={inv.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-4">
                       <div>
                         <p className="font-semibold text-white">{inv.number} <StatusPill status={inv.status} /></p>
                         <p className="text-[13px] text-white/50">{nameOf(inv.contactId)} · {formatNgn(inv.amountNgn)}</p>
                         <p className="text-[13px] text-white/70">{inv.description}</p>
+                        {inv.paymentUrl && inv.status !== "paid" && (
+                          <a href={inv.paymentUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-[11px] text-[#ff8c14] underline">
+                            Open saved pay link
+                          </a>
+                        )}
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <button type="button" onClick={() => setPrintInv(inv)} className={btnG}>Print</button>
+                        {inv.status !== "paid" && (
+                          <button
+                            type="button"
+                            disabled={payBusy === inv.id}
+                            onClick={() => createPayLink(inv)}
+                            className="rounded-lg bg-[#0a5cbf] px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
+                          >
+                            {payBusy === inv.id ? "…" : "Pay link"}
+                          </button>
+                        )}
                         {inv.status !== "paid" && (
                           <button type="button" className="rounded-lg bg-emerald-500/15 px-3 py-2 text-xs font-semibold text-emerald-400" onClick={() => setWs((w) => w ? { ...normalizeWs(w), invoices: w.invoices.map((i) => i.id === inv.id ? { ...i, status: "paid" as const, paidAt: new Date().toISOString() } : i) } : w)}>Paid</button>
                         )}
