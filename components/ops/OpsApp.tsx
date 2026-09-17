@@ -2,17 +2,17 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import type { BusinessProfile, Contact, Deal, DealStage, Invoice, OpsWorkspace, Task } from "@/lib/ops/types";
+import type { BusinessProfile, Contact, Deal, DealStage, Invoice, OpsWorkspace, Quote, Task } from "@/lib/ops/types";
 import { DEAL_STAGES } from "@/lib/ops/types";
 import {
   emptyWorkspace, exportJson, formatNgn, invoiceReminderMessage, loadWorkspace,
-  newContact, newDeal, newInvoice, newTask, parseWorkspaceJson, saveWorkspace,
-  seedDemoWorkspace, todayIsoDate, whatsappHref,
+  newContact, newDeal, newInvoice, newQuote, newTask, parseWorkspaceJson, pushActivity,
+  quoteMessage, saveWorkspace, seedDemoWorkspace, todayIsoDate, whatsappHref,
 } from "@/lib/ops/store";
 import InvoicePrint from "@/components/ops/InvoicePrint";
 import { normalizeWs, Panel, Empty, StatusPill } from "@/components/ops/OpsHelpers";
 
-type Tab = "home" | "contacts" | "pipeline" | "invoices" | "tasks" | "settings";
+type Tab = "home" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
 
 const field = "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
 const btnP = "rounded-lg bg-[#ff8c14] px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
@@ -22,6 +22,7 @@ const NAV: { id: Tab; label: string }[] = [
   { id: "home", label: "Overview" },
   { id: "contacts", label: "Contacts" },
   { id: "pipeline", label: "Pipeline" },
+  { id: "quotes", label: "Quotes" },
   { id: "invoices", label: "Invoices" },
   { id: "tasks", label: "Tasks" },
   { id: "settings", label: "Settings" },
@@ -63,7 +64,7 @@ export default function OpsApp() {
     return <div className="flex min-h-[50vh] items-center justify-center text-white/50">Loading workspace…</div>;
   }
 
-  const data: OpsWorkspace = { ...ws, profile: ws.profile || {}, tasks: ws.tasks || [] };
+  const data: OpsWorkspace = { ...ws, profile: ws.profile || {}, tasks: ws.tasks || [], quotes: ws.quotes || [], activity: ws.activity || [] };
   const byId = (id: string) => data.contacts.find((c) => c.id === id);
   const nameOf = (id: string) => byId(id)?.name || "Unknown";
   const openTasks = data.tasks.filter((t) => !t.done);
@@ -183,6 +184,21 @@ export default function OpsApp() {
                   )}
                 </Panel>
               </div>
+
+              <Panel title="Recent activity">
+                {(data.activity || []).length === 0 ? (
+                  <Empty>Actions you take will appear here.</Empty>
+                ) : (
+                  <ul className="max-h-48 space-y-2 overflow-y-auto">
+                    {(data.activity || []).slice(0, 12).map((a) => (
+                      <li key={a.id} className="border-b border-white/[0.04] pb-2 text-[12px] text-white/55">
+                        <span className="text-white/80">{a.message}</span>
+                        <span className="mt-0.5 block text-[10px] text-white/30">{a.createdAt.slice(0, 16).replace("T", " ")}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Panel>
             </div>
           )}
 
@@ -278,6 +294,88 @@ export default function OpsApp() {
             </div>
           )}
 
+          {tab === "quotes" && (
+            <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+              <form onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                e.preventDefault();
+                const fd = new FormData(e.currentTarget);
+                const contactId = String(fd.get("contactId") || "");
+                if (!contactId) return;
+                const qt = newQuote({
+                  contactId,
+                  amountNgn: Number(fd.get("amountNgn") || 0) || 0,
+                  description: String(fd.get("description") || "").trim() || "Project quote",
+                  status: "sent",
+                  validUntil: String(fd.get("validUntil") || todayIsoDate()),
+                }, (data.quotes || []).length + 1);
+                setWs((w) => {
+                  if (!w) return w;
+                  let next = { ...normalizeWs(w), quotes: [qt, ...(w.quotes || [])] };
+                  next = pushActivity(next, `Quote ${qt.number} created`);
+                  return next;
+                });
+                e.currentTarget.reset();
+              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
+                <h2 className="text-sm font-semibold text-white">New quote</h2>
+                <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Client *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
+                <input name="amountNgn" type="number" required placeholder="Amount (NGN)" className={field} />
+                <input name="description" placeholder="Scope / description" className={field} />
+                <input name="validUntil" type="date" className={field} />
+                <button type="submit" disabled={!data.contacts.length} className={`${btnP} w-full`}>Create quote</button>
+              </form>
+              <div className="space-y-3">
+                {(data.quotes || []).length === 0 && <Empty>No quotes yet. Send a quote before invoicing.</Empty>}
+                {(data.quotes || []).map((qt: Quote) => {
+                  const c = byId(qt.contactId);
+                  const wa = whatsappHref(c?.phone, quoteMessage(data.orgName, qt, c?.name || "there"));
+                  return (
+                    <div key={qt.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-4">
+                      <div>
+                        <p className="font-semibold text-white">{qt.number} <StatusPill status={qt.status} /></p>
+                        <p className="text-[13px] text-white/50">{nameOf(qt.contactId)} · {formatNgn(qt.amountNgn)}</p>
+                        <p className="text-[13px] text-white/70">{qt.description}</p>
+                        <p className="text-[11px] text-white/35">Valid until {qt.validUntil}</p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {wa && qt.status !== "converted" && (
+                          <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-white">Send WA</a>
+                        )}
+                        {qt.status !== "converted" && qt.status !== "declined" && (
+                          <button type="button" className={btnG} onClick={() => {
+                            setWs((w) => {
+                              if (!w) return w;
+                              const inv = newInvoice({
+                                contactId: qt.contactId,
+                                amountNgn: qt.amountNgn,
+                                status: "sent",
+                                description: qt.description,
+                                dueDate: todayIsoDate(),
+                              }, w.invoices.length + 1);
+                              let next = {
+                                ...normalizeWs(w),
+                                quotes: (w.quotes || []).map((q) => q.id === qt.id ? { ...q, status: "converted" as const } : q),
+                                invoices: [inv, ...w.invoices],
+                              };
+                              next = pushActivity(next, `Quote ${qt.number} → invoice ${inv.number}`);
+                              return next;
+                            });
+                          }}>Convert to invoice</button>
+                        )}
+                        {qt.status === "sent" && (
+                          <button type="button" className="rounded-lg bg-emerald-500/15 px-3 py-2 text-xs font-semibold text-emerald-400" onClick={() => setWs((w) => {
+                            if (!w) return w;
+                            let next = { ...normalizeWs(w), quotes: (w.quotes || []).map((q) => q.id === qt.id ? { ...q, status: "accepted" as const } : q) };
+                            return pushActivity(next, `Quote ${qt.number} accepted`);
+                          })}>Accepted</button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {tab === "invoices" && (
             <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
               <form onSubmit={(e: FormEvent<HTMLFormElement>) => {
@@ -286,7 +384,11 @@ export default function OpsApp() {
                 const contactId = String(fd.get("contactId") || "");
                 if (!contactId) return;
                 const inv = newInvoice({ contactId, amountNgn: Number(fd.get("amountNgn") || 0) || 0, status: "sent", description: String(fd.get("description") || "").trim() || "Services", dueDate: String(fd.get("dueDate") || todayIsoDate()) }, data.invoices.length + 1);
-                setWs((w) => w ? { ...normalizeWs(w), invoices: [inv, ...w.invoices] } : w);
+                setWs((w) => {
+                  if (!w) return w;
+                  let next = { ...normalizeWs(w), invoices: [inv, ...w.invoices] };
+                  return pushActivity(next, `Invoice ${inv.number} created`);
+                });
                 e.currentTarget.reset();
               }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
                 <h2 className="text-sm font-semibold text-white">New invoice</h2>
