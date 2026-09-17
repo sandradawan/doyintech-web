@@ -1,0 +1,3 @@
+invoice_id,client,gross_ngn,wht_rate_pct,wht_ngn,net_expected_ngn,paid_ngn,paid_date,credit_note_received,next_action,status
+INV-001,Example Ltd,500000,5,25000,475000,475000,2026-09-10,yes,close file,paid
+INV-002,Studio X,200000,0,0,200000,0,,no,send deposit reminder,awaiting_deposit

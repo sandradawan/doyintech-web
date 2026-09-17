@@ -7,7 +7,7 @@ import BookCall from "@/components/sections/BookCall";
 export const metadata: Metadata = {
   title: "Digital Products — Pay with Paystack",
   description:
-    "Buy digital products from DoyinTech: tax compliance calendars, WhatsApp quote kits, Status calendars, trackers, and freelancer systems. Pay with Paystack.",
+    "Buy digital products from DoyinTech: freelance WHT contracts, tax calendars, WhatsApp quote kits, Status calendars, trackers. Pay with Paystack.",
 };
 
 export default function ProductsPage() {
@@ -20,8 +20,8 @@ export default function ProductsPage() {
           </p>
           <h1 className="apple-headline mt-3 text-[#f5f5f7]">Pay. Download. Use today.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Digital packs for freelancers and SMEs — including today’s SME Tax &amp; Compliance
-            Calendar 2026. Secure checkout with Paystack; delivery by download after payment.
+            Digital packs for freelancers and SMEs — including today’s Freelance Contract &amp; WHT
+            Survival Pack. Secure checkout with Paystack; delivery by download after payment.
           </p>
         </div>
         <PassiveProducts />

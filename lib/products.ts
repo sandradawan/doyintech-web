@@ -19,6 +19,28 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "freelance-contract-wht-pack",
+    name: "Freelance Contract & WHT Survival Pack",
+    description:
+      "Short service agreement, WHT invoice wording, credit-note chase scripts, change orders, and a milestone tracker for Nigerian freelancers.",
+    priceUsd: "$16",
+    priceNgn: "₦12,500",
+    amountKobo: 1250000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "Short service agreement (Docs-ready)",
+      "Gross invoice + WHT notes",
+      "WhatsApp credit-note chase scripts",
+      "One-page change order",
+      "Sheets milestone + WHT tracker",
+      "Pause-work rules when paper is late",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/freelance-contract-wht-pack.md",
+    addedAt: "2026-09-17",
+  },
+  {
     id: "sme-tax-compliance-calendar",
     name: "SME Tax & Compliance Calendar 2026",
     description:
@@ -27,7 +49,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦13,500",
     amountKobo: 1350000,
     type: "one-time",
-    badge: "New today",
+    badge: "New",
     features: [
       "2026 month-by-month reminder board",
       "Sheets-ready compliance tracker CSV",
@@ -165,26 +187,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     ],
     delivery: "Instant download after Paystack",
     downloadPath: "/digital-products/client-onboarding-kit.md",
-    addedAt: "2026-09-14",
-  },
-  {
-    id: "notion-freelancer-os",
-    name: "Freelancer OS (Notion blueprint)",
-    description:
-      "Page structure for leads, projects, invoices, and content — rebuild in Notion fast.",
-    priceUsd: "$16",
-    priceNgn: "₦10,000",
-    amountKobo: 1000000,
-    type: "one-time",
-    badge: "New",
-    features: [
-      "Database schemas",
-      "Lead pipeline views",
-      "Project checklist",
-      "Weekly review page",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/notion-freelancer-os.md",
     addedAt: "2026-09-14",
   },
 ];
