@@ -5,26 +5,26 @@ import Footer from "@/components/ui/Footer";
 export const metadata: Metadata = {
   title: "DoyinOps — SME operations platform",
   description:
-    "DoyinOps by DoyinTech: contacts, sales pipeline, and invoices for small businesses. Start free in your browser.",
+    "DoyinOps by DoyinTech: contacts, pipeline, invoices, tasks, and printable invoices for small businesses. Free in your browser.",
   alternates: { canonical: "/ops" },
 };
 
 const pillars = [
   {
-    title: "Contacts",
-    body: "Every client and lead in one place — phone, WhatsApp, notes.",
+    title: "Contacts + WhatsApp",
+    body: "Clients and leads with phone, search, and one-tap WhatsApp.",
   },
   {
-    title: "Pipeline",
-    body: "Lead → quoted → won → paid. Know what is open and what it is worth.",
+    title: "Pipeline + follow-ups",
+    body: "Lead → quoted → won → paid. Due follow-ups on the dashboard.",
   },
   {
-    title: "Invoices",
-    body: "Issue invoices, track unpaid, mark paid when money lands.",
+    title: "Invoices + print",
+    body: "Create invoices, remind on WhatsApp, mark paid, print or save PDF.",
   },
   {
-    title: "Your data",
-    body: "MVP saves in your browser. Export JSON backup. Cloud org accounts next.",
+    title: "Tasks + demo data",
+    body: "Daily to-dos linked to contacts. Load demo to try the product in 10 seconds.",
   },
 ];
 
@@ -82,7 +82,7 @@ export default function OpsLandingPage() {
           <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
             <h2 className="text-[18px] font-semibold text-white">Company roadmap</h2>
             <ul className="mt-3 space-y-2 text-[14px] text-[#c7cdd8]">
-              <li>✓ MVP: contacts, pipeline, invoices (this release)</li>
+              <li>✓ Contacts, pipeline, invoices, tasks, print PDF, demo data</li>
               <li>→ Cloud accounts + team seats (Supabase)</li>
               <li>→ Paystack payment links on invoices</li>
               <li>→ WhatsApp notification hooks</li>
