@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { discoveryCallLink } from "@/lib/packages";
 
 const navItems = [
+  { name: "Ops", href: "/ops" },
   { name: "Hire", href: "/hire" },
   { name: "Services", href: "/services" },
   { name: "Products", href: "/products" },
@@ -71,6 +72,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <a
+              href="/ops/app"
+              className="hidden rounded-full border border-white/20 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:border-[#ff8c14] sm:inline-flex"
+            >
+              Ops
+            </a>
+            <a
               href="/hire"
               className="hidden rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-xs font-semibold text-black transition hover:brightness-110 sm:inline-flex"
             >
@@ -128,8 +135,14 @@ export default function Navbar() {
                 </a>
               ))}
               <a
+                href="/ops/app"
+                className="mt-3 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
+              >
+                Open DoyinOps workspace
+              </a>
+              <a
                 href="/hire"
-                className="mt-3 inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black"
+                className="mt-2 inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black"
               >
                 Hire — fixed price deposit
               </a>
