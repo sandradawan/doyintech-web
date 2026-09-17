@@ -2,7 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import type { Contact, Deal, DealStage, Invoice, OpsWorkspace } from "@/lib/ops/types";
+import type {
+  Contact,
+  Deal,
+  DealStage,
+  Invoice,
+  OpsWorkspace,
+  Task,
+} from "@/lib/ops/types";
 import { DEAL_STAGES } from "@/lib/ops/types";
 import {
   emptyWorkspace,
@@ -13,13 +20,16 @@ import {
   newContact,
   newDeal,
   newInvoice,
+  newTask,
   parseWorkspaceJson,
   saveWorkspace,
+  seedDemoWorkspace,
   todayIsoDate,
   whatsappHref,
 } from "@/lib/ops/store";
+import InvoicePrint from "@/components/ops/InvoicePrint";
 
-type Tab = "home" | "contacts" | "pipeline" | "invoices";
+type Tab = "home" | "contacts" | "pipeline" | "invoices" | "tasks";
 
 const input =
   "w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]";
@@ -28,6 +38,7 @@ export default function OpsApp() {
   const [ws, setWs] = useState<OpsWorkspace | null>(null);
   const [tab, setTab] = useState<Tab>("home");
   const [q, setQ] = useState("");
+  const [printInv, setPrintInv] = useState<Invoice | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -39,7 +50,7 @@ export default function OpsApp() {
   }, [ws]);
 
   const stats = useMemo(() => {
-    if (!ws) return { contacts: 0, openDeals: 0, pipelineNgn: 0, unpaidNgn: 0 };
+    if (!ws) return { contacts: 0, openDeals: 0, pipelineNgn: 0, unpaidNgn: 0, openTasks: 0 };
     const open = ws.deals.filter((d) => d.stage !== "paid" && d.stage !== "lost");
     const unpaid = ws.invoices.filter((i) => i.status === "sent" || i.status === "overdue");
     return {
@@ -47,6 +58,7 @@ export default function OpsApp() {
       openDeals: open.length,
       pipelineNgn: open.reduce((s, d) => s + (d.valueNgn || 0), 0),
       unpaidNgn: unpaid.reduce((s, i) => s + (i.amountNgn || 0), 0),
+      openTasks: (ws.tasks || []).filter((t) => !t.done).length,
     };
   }, [ws]);
 
@@ -85,8 +97,10 @@ export default function OpsApp() {
     );
   }
 
-  // Local non-null snapshot so nested functions type-check
-  const data: OpsWorkspace = ws;
+  const data: OpsWorkspace = {
+    ...ws,
+    tasks: Array.isArray(ws.tasks) ? ws.tasks : [],
+  };
 
   function contactById(id: string) {
     return data.contacts.find((c) => c.id === id);
@@ -107,7 +121,7 @@ export default function OpsApp() {
       notes: String(fd.get("notes") || "").trim() || undefined,
     });
     if (!c.name) return;
-    setWs((w) => (w ? { ...w, contacts: [c, ...w.contacts] } : w));
+    setWs((w) => (w ? { ...w, contacts: [c, ...w.contacts], tasks: w.tasks || [] } : w));
     e.currentTarget.reset();
   }
 
@@ -124,7 +138,7 @@ export default function OpsApp() {
       notes: String(fd.get("notes") || "").trim() || undefined,
       nextFollowUp: String(fd.get("nextFollowUp") || "") || undefined,
     });
-    setWs((w) => (w ? { ...w, deals: [d, ...w.deals] } : w));
+    setWs((w) => (w ? { ...w, deals: [d, ...w.deals], tasks: w.tasks || [] } : w));
     e.currentTarget.reset();
   }
 
@@ -133,6 +147,7 @@ export default function OpsApp() {
       w
         ? {
             ...w,
+            tasks: w.tasks || [],
             deals: w.deals.map((d) =>
               d.id === id ? { ...d, stage, updatedAt: new Date().toISOString() } : d
             ),
@@ -156,8 +171,37 @@ export default function OpsApp() {
       },
       data.invoices.length + 1
     );
-    setWs((w) => (w ? { ...w, invoices: [inv, ...w.invoices] } : w));
+    setWs((w) => (w ? { ...w, invoices: [inv, ...w.invoices], tasks: w.tasks || [] } : w));
     e.currentTarget.reset();
+  }
+
+  function addTask(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const title = String(fd.get("title") || "").trim();
+    if (!title) return;
+    const t = newTask({
+      title,
+      dueDate: String(fd.get("dueDate") || "") || undefined,
+      contactId: String(fd.get("contactId") || "") || undefined,
+    });
+    setWs((w) => (w ? { ...w, tasks: [t, ...(w.tasks || [])] } : w));
+    e.currentTarget.reset();
+  }
+
+  function toggleTask(id: string) {
+    setWs((w) =>
+      w
+        ? {
+            ...w,
+            tasks: (w.tasks || []).map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+          }
+        : w
+    );
+  }
+
+  function removeTask(id: string) {
+    setWs((w) => (w ? { ...w, tasks: (w.tasks || []).filter((t) => t.id !== id) } : w));
   }
 
   function markPaid(id: string) {
@@ -165,6 +209,7 @@ export default function OpsApp() {
       w
         ? {
             ...w,
+            tasks: w.tasks || [],
             invoices: w.invoices.map((i) =>
               i.id === id
                 ? { ...i, status: "paid" as const, paidAt: new Date().toISOString() }
@@ -177,22 +222,41 @@ export default function OpsApp() {
 
   function removeContact(id: string) {
     if (!confirm("Remove this contact?")) return;
-    setWs((w) => (w ? { ...w, contacts: w.contacts.filter((c) => c.id !== id) } : w));
+    setWs((w) =>
+      w ? { ...w, contacts: w.contacts.filter((c) => c.id !== id), tasks: w.tasks || [] } : w
+    );
   }
 
   function removeDeal(id: string) {
     if (!confirm("Remove this deal?")) return;
-    setWs((w) => (w ? { ...w, deals: w.deals.filter((d) => d.id !== id) } : w));
+    setWs((w) =>
+      w ? { ...w, deals: w.deals.filter((d) => d.id !== id), tasks: w.tasks || [] } : w
+    );
   }
 
   function removeInvoice(id: string) {
     if (!confirm("Remove this invoice?")) return;
-    setWs((w) => (w ? { ...w, invoices: w.invoices.filter((i) => i.id !== id) } : w));
+    setWs((w) =>
+      w
+        ? { ...w, invoices: w.invoices.filter((i) => i.id !== id), tasks: w.tasks || [] }
+        : w
+    );
   }
 
   function resetAll() {
     if (!confirm("Clear entire local workspace? Export a backup first if needed.")) return;
     setWs(emptyWorkspace(data.orgName));
+  }
+
+  function loadDemo() {
+    if (
+      data.contacts.length > 0 &&
+      !confirm("Replace current workspace with demo data?")
+    ) {
+      return;
+    }
+    setWs(seedDemoWorkspace());
+    setTab("home");
   }
 
   function onImportFile(file: File | null) {
@@ -215,10 +279,22 @@ export default function OpsApp() {
     { id: "contacts", label: "Contacts" },
     { id: "pipeline", label: "Pipeline" },
     { id: "invoices", label: "Invoices" },
+    { id: "tasks", label: "Tasks" },
   ];
+
+  const openTasks = data.tasks.filter((t) => !t.done);
 
   return (
     <div className="space-y-6">
+      {printInv && (
+        <InvoicePrint
+          orgName={data.orgName}
+          invoice={printInv}
+          client={contactById(printInv.contactId)}
+          onClose={() => setPrintInv(null)}
+        />
+      )}
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
@@ -231,7 +307,7 @@ export default function OpsApp() {
             aria-label="Organisation name"
           />
           <p className="text-[12px] text-[#86868b]">
-            Browser storage · Export / import backup · Cloud sync coming
+            Browser storage · Export / import · Print invoices · Cloud sync coming
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -242,6 +318,13 @@ export default function OpsApp() {
             className="hidden"
             onChange={(e) => onImportFile(e.target.files?.[0] || null)}
           />
+          <button
+            type="button"
+            onClick={loadDemo}
+            className="rounded-full border border-[#ff8c14]/50 px-4 py-2 text-[12px] font-semibold text-[#ff8c14]"
+          >
+            Load demo
+          </button>
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
@@ -283,54 +366,54 @@ export default function OpsApp() {
           >
             {t.label}
             {t.id === "home" && dueFollowUps.length > 0 ? ` (${dueFollowUps.length})` : ""}
+            {t.id === "tasks" && openTasks.length > 0 ? ` (${openTasks.length})` : ""}
           </button>
         ))}
       </div>
 
       {tab === "home" && (
         <div className="space-y-6">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {(
               [
                 ["Contacts", String(stats.contacts)],
                 ["Open deals", String(stats.openDeals)],
-                ["Pipeline value", formatNgn(stats.pipelineNgn)],
-                ["Unpaid invoices", formatNgn(stats.unpaidNgn)],
+                ["Pipeline", formatNgn(stats.pipelineNgn)],
+                ["Unpaid", formatNgn(stats.unpaidNgn)],
+                ["Open tasks", String(stats.openTasks)],
               ] as const
             ).map(([label, val]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-black/30 px-4 py-4">
                 <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
-                <p className="mt-1 text-2xl font-semibold text-white">{val}</p>
+                <p className="mt-1 text-xl font-semibold text-white">{val}</p>
               </div>
             ))}
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
-            <h2 className="text-sm font-semibold text-white">Follow-ups due</h2>
-            {dueFollowUps.length === 0 ? (
-              <p className="mt-2 text-[13px] text-[#a1a1a6]">
-                None overdue. Set a follow-up date on deals in Pipeline.
-              </p>
-            ) : (
-              <ul className="mt-3 space-y-2">
-                {dueFollowUps.map((d) => {
-                  const c = contactById(d.contactId);
-                  const wa = whatsappHref(
-                    c?.phone,
-                    `Hi ${c?.name || "there"}, following up on ${d.title}.`
-                  );
-                  return (
-                    <li
-                      key={d.id}
-                      className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2"
-                    >
-                      <div>
-                        <p className="text-sm font-semibold text-white">{d.title}</p>
-                        <p className="text-[12px] text-[#a1a1a6]">
-                          {contactName(d.contactId)} · due {d.nextFollowUp}
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+              <h2 className="text-sm font-semibold text-white">Follow-ups due</h2>
+              {dueFollowUps.length === 0 ? (
+                <p className="mt-2 text-[13px] text-[#a1a1a6]">None overdue.</p>
+              ) : (
+                <ul className="mt-3 space-y-2">
+                  {dueFollowUps.map((d) => {
+                    const c = contactById(d.contactId);
+                    const wa = whatsappHref(
+                      c?.phone,
+                      `Hi ${c?.name || "there"}, following up on ${d.title}.`
+                    );
+                    return (
+                      <li
+                        key={d.id}
+                        className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2"
+                      >
+                        <div>
+                          <p className="text-sm font-semibold text-white">{d.title}</p>
+                          <p className="text-[12px] text-[#a1a1a6]">
+                            {contactName(d.contactId)} · {d.nextFollowUp}
+                          </p>
+                        </div>
                         {wa && (
                           <a
                             href={wa}
@@ -341,31 +424,64 @@ export default function OpsApp() {
                             WhatsApp
                           </a>
                         )}
-                        <button
-                          type="button"
-                          onClick={() => setTab("pipeline")}
-                          className="rounded-full border border-white/20 px-3 py-1 text-[11px] text-white"
-                        >
-                          Pipeline
-                        </button>
-                      </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+              <h2 className="text-sm font-semibold text-white">Open tasks</h2>
+              {openTasks.length === 0 ? (
+                <p className="mt-2 text-[13px] text-[#a1a1a6]">No open tasks.</p>
+              ) : (
+                <ul className="mt-3 space-y-2">
+                  {openTasks.slice(0, 6).map((t: Task) => (
+                    <li
+                      key={t.id}
+                      className="flex items-center justify-between gap-2 rounded-xl border border-white/10 px-3 py-2"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => toggleTask(t.id)}
+                        className="text-left text-sm text-white hover:text-[#ff8c14]"
+                      >
+                        {t.title}
+                        {t.dueDate ? (
+                          <span className="block text-[11px] text-[#86868b]">Due {t.dueDate}</span>
+                        ) : null}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => toggleTask(t.id)}
+                        className="text-[11px] text-emerald-400"
+                      >
+                        Done
+                      </button>
                     </li>
-                  );
-                })}
-              </ul>
-            )}
+                  ))}
+                </ul>
+              )}
+              <button
+                type="button"
+                onClick={() => setTab("tasks")}
+                className="mt-3 text-[12px] text-[#ff8c14] hover:underline"
+              >
+                All tasks →
+              </button>
+            </div>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-black/30 p-5 text-[14px] text-[#a1a1a6]">
             <p className="font-semibold text-white">Quick start</p>
             <ol className="mt-3 list-decimal space-y-2 pl-5">
-              <li>Add contacts with WhatsApp numbers.</li>
-              <li>Create deals and set follow-up dates.</li>
-              <li>Send invoices and remind clients on WhatsApp.</li>
-              <li>Export JSON weekly as backup.</li>
+              <li>Click <strong className="text-white">Load demo</strong> to explore with sample data.</li>
+              <li>Add your real contacts with WhatsApp numbers.</li>
+              <li>Track deals, tasks, and invoices — print invoices for clients.</li>
             </ol>
             <p className="mt-4 text-[13px]">
-              Need a custom CRM or website?{" "}
+              Need a custom system?{" "}
               <Link href="/hire" className="text-[#ff8c14] hover:underline">
                 Hire DoyinTech
               </Link>
@@ -562,6 +678,13 @@ export default function OpsApp() {
                       <p className="mt-1 text-[11px] text-[#86868b]">Due {inv.dueDate}</p>
                     </div>
                     <div className="flex flex-col gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPrintInv(inv)}
+                        className="rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white"
+                      >
+                        Print / PDF
+                      </button>
                       {inv.status !== "paid" && (
                         <button
                           type="button"
@@ -593,6 +716,62 @@ export default function OpsApp() {
                 </li>
               );
             })}
+          </ul>
+        </div>
+      )}
+
+      {tab === "tasks" && (
+        <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
+          <form onSubmit={addTask} className="space-y-3 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+            <h2 className="text-sm font-semibold text-white">New task</h2>
+            <input name="title" required placeholder="What to do *" className={input} />
+            <input name="dueDate" type="date" className={input} />
+            <select name="contactId" className={input} defaultValue="">
+              <option value="">Optional contact</option>
+              {data.contacts.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            <button type="submit" className="w-full rounded-full bg-[#ff8c14] py-2.5 text-sm font-semibold text-black">
+              Add task
+            </button>
+          </form>
+          <ul className="space-y-2">
+            {data.tasks.length === 0 && (
+              <p className="text-sm text-[#a1a1a6]">No tasks yet.</p>
+            )}
+            {data.tasks.map((t: Task) => (
+              <li
+                key={t.id}
+                className={`flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-white/10 px-4 py-3 ${
+                  t.done ? "bg-black/20 opacity-60" : "bg-black/30"
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={t.done}
+                    onChange={() => toggleTask(t.id)}
+                    className="mt-1"
+                  />
+                  <div>
+                    <p className={`text-sm font-medium text-white ${t.done ? "line-through" : ""}`}>
+                      {t.title}
+                    </p>
+                    <p className="text-[11px] text-[#86868b]">
+                      {[t.dueDate ? `Due ${t.dueDate}` : null, t.contactId ? contactName(t.contactId) : null]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  </div>
+                </div>
+                <button type="button" onClick={() => removeTask(t.id)} className="text-xs text-red-400">
+                  Remove
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       )}
