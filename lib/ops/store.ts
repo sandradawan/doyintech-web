@@ -17,7 +17,13 @@ export function loadWorkspace(): OpsWorkspace {
     if (!raw) return emptyWorkspace();
     const data = JSON.parse(raw) as OpsWorkspace;
     if (!data || data.version !== 1) return emptyWorkspace();
-    return data;
+    return {
+      version: 1,
+      orgName: data.orgName || "My business",
+      contacts: Array.isArray(data.contacts) ? data.contacts : [],
+      deals: Array.isArray(data.deals) ? data.deals : [],
+      invoices: Array.isArray(data.invoices) ? data.invoices : [],
+    };
   } catch {
     return emptyWorkspace();
   }
@@ -34,6 +40,37 @@ export function formatNgn(n: number) {
     currency: "NGN",
     maximumFractionDigits: 0,
   }).format(n || 0);
+}
+
+/** Normalize phone to digits for wa.me (defaults NG 234 if local 0…) */
+export function phoneToWa(phone?: string): string | null {
+  if (!phone) return null;
+  let d = phone.replace(/\D/g, "");
+  if (!d) return null;
+  if (d.startsWith("0") && d.length === 11) d = "234" + d.slice(1);
+  if (d.length < 10) return null;
+  return d;
+}
+
+export function whatsappHref(phone: string | undefined, message: string) {
+  const n = phoneToWa(phone);
+  if (!n) return null;
+  return `https://wa.me/${n}?text=${encodeURIComponent(message)}`;
+}
+
+export function invoiceReminderMessage(
+  orgName: string,
+  inv: Invoice,
+  clientName: string
+) {
+  return (
+    `Hello ${clientName},\n\n` +
+    `Invoice *${inv.number}* from *${orgName}*\n` +
+    `Amount: ${formatNgn(inv.amountNgn)}\n` +
+    `For: ${inv.description}\n` +
+    `Due: ${inv.dueDate}\n\n` +
+    `Please confirm payment when done. Thank you.`
+  );
 }
 
 export function newContact(
@@ -72,4 +109,24 @@ export function exportJson(ws: OpsWorkspace) {
   a.download = `doyinops-backup-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+export function parseWorkspaceJson(raw: string): OpsWorkspace | null {
+  try {
+    const data = JSON.parse(raw) as OpsWorkspace;
+    if (!data || data.version !== 1) return null;
+    return {
+      version: 1,
+      orgName: data.orgName || "My business",
+      contacts: Array.isArray(data.contacts) ? data.contacts : [],
+      deals: Array.isArray(data.deals) ? data.deals : [],
+      invoices: Array.isArray(data.invoices) ? data.invoices : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function todayIsoDate() {
+  return new Date().toISOString().slice(0, 10);
 }
