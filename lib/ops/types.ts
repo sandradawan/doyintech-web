@@ -11,6 +11,13 @@ export type DealStage =
 
 export type InvoiceStatus = "draft" | "sent" | "paid" | "overdue" | "cancelled";
 
+export type QuoteStatus =
+  | "draft"
+  | "sent"
+  | "accepted"
+  | "declined"
+  | "converted";
+
 export type Contact = {
   id: string;
   name: string;
@@ -46,6 +53,17 @@ export type Invoice = {
   paidAt?: string;
 };
 
+export type Quote = {
+  id: string;
+  number: string;
+  contactId: string;
+  amountNgn: number;
+  description: string;
+  status: QuoteStatus;
+  validUntil: string;
+  createdAt: string;
+};
+
 export type Task = {
   id: string;
   title: string;
@@ -55,7 +73,12 @@ export type Task = {
   createdAt: string;
 };
 
-/** Shown on printed invoices and settings */
+export type ActivityEvent = {
+  id: string;
+  message: string;
+  createdAt: string;
+};
+
 export type BusinessProfile = {
   legalName?: string;
   email?: string;
@@ -73,7 +96,9 @@ export type OpsWorkspace = {
   contacts: Contact[];
   deals: Deal[];
   invoices: Invoice[];
+  quotes: Quote[];
   tasks: Task[];
+  activity: ActivityEvent[];
 };
 
 export const DEAL_STAGES: { id: DealStage; label: string }[] = [

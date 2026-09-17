@@ -8,6 +8,8 @@ export function normalizeWs(w: OpsWorkspace): OpsWorkspace {
     ...w,
     profile: w.profile || {},
     tasks: w.tasks || [],
+    quotes: w.quotes || [],
+    activity: w.activity || [],
   };
 }
 
@@ -43,9 +45,9 @@ export function Empty({ children }: { children: ReactNode }) {
 
 export function StatusPill({ status }: { status: string }) {
   const color =
-    status === "paid"
+    status === "paid" || status === "accepted" || status === "converted"
       ? "bg-emerald-500/15 text-emerald-400"
-      : status === "overdue"
+      : status === "overdue" || status === "declined"
         ? "bg-red-500/15 text-red-400"
         : "bg-[#ff8c14]/15 text-[#ff8c14]";
   return (

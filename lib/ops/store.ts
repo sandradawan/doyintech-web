@@ -1,9 +1,11 @@
 import type {
+  ActivityEvent,
   BusinessProfile,
   Contact,
   Deal,
   Invoice,
   OpsWorkspace,
+  Quote,
   Task,
 } from "./types";
 
@@ -21,7 +23,9 @@ export function emptyWorkspace(orgName = "My business"): OpsWorkspace {
     contacts: [],
     deals: [],
     invoices: [],
+    quotes: [],
     tasks: [],
+    activity: [],
   };
 }
 
@@ -33,8 +37,24 @@ function normalize(data: Partial<OpsWorkspace>): OpsWorkspace {
     contacts: Array.isArray(data.contacts) ? data.contacts : [],
     deals: Array.isArray(data.deals) ? data.deals : [],
     invoices: Array.isArray(data.invoices) ? data.invoices : [],
+    quotes: Array.isArray(data.quotes) ? data.quotes : [],
     tasks: Array.isArray(data.tasks) ? data.tasks : [],
+    activity: Array.isArray(data.activity) ? data.activity : [],
   };
+}
+
+/** Mark sent invoices past dueDate as overdue */
+export function syncOverdueInvoices(ws: OpsWorkspace): OpsWorkspace {
+  const today = todayIsoDate();
+  let changed = false;
+  const invoices = ws.invoices.map((inv) => {
+    if (inv.status === "sent" && inv.dueDate && inv.dueDate < today) {
+      changed = true;
+      return { ...inv, status: "overdue" as const };
+    }
+    return inv;
+  });
+  return changed ? { ...ws, invoices } : ws;
 }
 
 export function loadWorkspace(): OpsWorkspace {
@@ -44,7 +64,7 @@ export function loadWorkspace(): OpsWorkspace {
     if (!raw) return emptyWorkspace();
     const data = JSON.parse(raw) as Partial<OpsWorkspace>;
     if (!data || data.version !== 1) return emptyWorkspace();
-    return normalize(data);
+    return syncOverdueInvoices(normalize(data));
   } catch {
     return emptyWorkspace();
   }
@@ -93,6 +113,17 @@ export function invoiceReminderMessage(
   );
 }
 
+export function quoteMessage(orgName: string, q: Quote, clientName: string) {
+  return (
+    `Hello ${clientName},\n\n` +
+    `Quote *${q.number}* from *${orgName}*\n` +
+    `Amount: ${formatNgn(q.amountNgn)}\n` +
+    `Scope: ${q.description}\n` +
+    `Valid until: ${q.validUntil}\n\n` +
+    `Reply if you would like to proceed.`
+  );
+}
+
 export function newContact(
   partial: Omit<Contact, "id" | "createdAt">
 ): Contact {
@@ -119,6 +150,19 @@ export function newInvoice(
   };
 }
 
+export function newQuote(
+  partial: Omit<Quote, "id" | "number" | "createdAt">,
+  seq: number
+): Quote {
+  const y = new Date().getFullYear();
+  return {
+    ...partial,
+    id: uid(),
+    number: `QT-${y}-${String(seq).padStart(4, "0")}`,
+    createdAt: new Date().toISOString(),
+  };
+}
+
 export function newTask(
   partial: Omit<Task, "id" | "createdAt" | "done"> & { done?: boolean }
 ): Task {
@@ -129,6 +173,22 @@ export function newTask(
     done: partial.done ?? false,
     id: uid(),
     createdAt: new Date().toISOString(),
+  };
+}
+
+export function pushActivity(
+  ws: OpsWorkspace,
+  message: string,
+  max = 40
+): OpsWorkspace {
+  const ev: ActivityEvent = {
+    id: uid(),
+    message,
+    createdAt: new Date().toISOString(),
+  };
+  return {
+    ...ws,
+    activity: [ev, ...(ws.activity || [])].slice(0, max),
   };
 }
 
@@ -196,6 +256,16 @@ export function seedDemoWorkspace(): OpsWorkspace {
     },
     1
   );
+  const qt = newQuote(
+    {
+      contactId: c2.id,
+      amountNgn: 450000,
+      description: "Property portal MVP — listings, search, WhatsApp leads",
+      status: "sent",
+      validUntil: todayIsoDate(),
+    },
+    1
+  );
   const t1 = newTask({
     title: "Call Ada about deposit",
     dueDate: todayIsoDate(),
@@ -215,13 +285,19 @@ export function seedDemoWorkspace(): OpsWorkspace {
     website: "https://doyintech.vercel.app",
     bankNote: "Transfer to GTBank · Demo Studio · 0123456789",
   };
-  return {
+  let ws: OpsWorkspace = {
     version: 1,
     orgName: "Demo Studio",
     profile,
     contacts: [c1, c2],
     deals: [d1, d2],
     invoices: [inv],
+    quotes: [qt],
     tasks: [t1, t2],
+    activity: [],
   };
+  ws = pushActivity(ws, "Demo workspace loaded");
+  ws = pushActivity(ws, `Quote ${qt.number} created for ${c2.name}`);
+  ws = pushActivity(ws, `Invoice ${inv.number} created for ${c1.name}`);
+  return ws;
 }
