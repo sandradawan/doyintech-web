@@ -85,8 +85,11 @@ export default function OpsApp() {
     );
   }
 
+  // Local non-null snapshot so nested functions type-check
+  const data: OpsWorkspace = ws;
+
   function contactById(id: string) {
-    return ws.contacts.find((c) => c.id === id);
+    return data.contacts.find((c) => c.id === id);
   }
 
   function contactName(id: string) {
@@ -151,7 +154,7 @@ export default function OpsApp() {
         description: String(fd.get("description") || "").trim() || "Services",
         dueDate: String(fd.get("dueDate") || todayIsoDate()),
       },
-      ws.invoices.length + 1
+      data.invoices.length + 1
     );
     setWs((w) => (w ? { ...w, invoices: [inv, ...w.invoices] } : w));
     e.currentTarget.reset();
@@ -189,7 +192,7 @@ export default function OpsApp() {
 
   function resetAll() {
     if (!confirm("Clear entire local workspace? Export a backup first if needed.")) return;
-    setWs(emptyWorkspace(ws.orgName));
+    setWs(emptyWorkspace(data.orgName));
   }
 
   function onImportFile(file: File | null) {
@@ -223,8 +226,8 @@ export default function OpsApp() {
           </p>
           <input
             className="mt-1 border-0 bg-transparent text-[22px] font-semibold text-white outline-none"
-            value={ws.orgName}
-            onChange={(e) => setWs({ ...ws, orgName: e.target.value })}
+            value={data.orgName}
+            onChange={(e) => setWs({ ...data, orgName: e.target.value })}
             aria-label="Organisation name"
           />
           <p className="text-[12px] text-[#86868b]">
@@ -248,7 +251,7 @@ export default function OpsApp() {
           </button>
           <button
             type="button"
-            onClick={() => exportJson(ws)}
+            onClick={() => exportJson(data)}
             className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-white"
           >
             Export
@@ -446,7 +449,7 @@ export default function OpsApp() {
               <option value="" disabled>
                 Select contact *
               </option>
-              {ws.contacts.map((c) => (
+              {data.contacts.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
                 </option>
@@ -458,7 +461,7 @@ export default function OpsApp() {
             <input name="notes" placeholder="Notes" className={`sm:col-span-2 ${input}`} />
             <button
               type="submit"
-              disabled={ws.contacts.length === 0}
+              disabled={data.contacts.length === 0}
               className="sm:col-span-2 rounded-full bg-[#ff8c14] py-2.5 text-sm font-semibold text-black disabled:opacity-40"
             >
               Add deal
@@ -467,7 +470,7 @@ export default function OpsApp() {
 
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {DEAL_STAGES.filter((s) => s.id !== "lost").map((stage) => {
-              const list = ws.deals.filter((d) => d.stage === stage.id);
+              const list = data.deals.filter((d) => d.stage === stage.id);
               return (
                 <div key={stage.id} className="rounded-2xl border border-white/10 bg-black/30 p-3">
                   <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
@@ -517,7 +520,7 @@ export default function OpsApp() {
               <option value="" disabled>
                 Client *
               </option>
-              {ws.contacts.map((c) => (
+              {data.contacts.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
                 </option>
@@ -528,21 +531,21 @@ export default function OpsApp() {
             <input name="dueDate" type="date" className={input} />
             <button
               type="submit"
-              disabled={ws.contacts.length === 0}
+              disabled={data.contacts.length === 0}
               className="w-full rounded-full bg-[#ff8c14] py-2.5 text-sm font-semibold text-black disabled:opacity-40"
             >
               Create invoice
             </button>
           </form>
           <ul className="space-y-3">
-            {ws.invoices.length === 0 && (
+            {data.invoices.length === 0 && (
               <p className="text-sm text-[#a1a1a6]">No invoices yet.</p>
             )}
-            {ws.invoices.map((inv: Invoice) => {
+            {data.invoices.map((inv: Invoice) => {
               const c = contactById(inv.contactId);
               const wa = whatsappHref(
                 c?.phone,
-                invoiceReminderMessage(ws.orgName, inv, c?.name || "there")
+                invoiceReminderMessage(data.orgName, inv, c?.name || "there")
               );
               return (
                 <li key={inv.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
