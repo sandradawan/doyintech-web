@@ -12,6 +12,7 @@ import {
 import InvoicePrint from "@/components/ops/InvoicePrint";
 import { normalizeWs, Panel, Empty, StatusPill } from "@/components/ops/OpsHelpers";
 import CloudSync from "@/components/ops/CloudSync";
+import OpsCharts from "@/components/ops/OpsCharts";
 
 type Tab = "home" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
 const field = "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
@@ -172,13 +173,15 @@ export default function OpsDashboard() {
           {tab === "home" && (
             <div className="space-y-6">
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-                {[["Contacts", String(stats.contacts)], ["Open deals", String(stats.openDeals)], ["Pipeline", formatNgn(stats.pipelineNgn)], ["Unpaid", formatNgn(stats.unpaidNgn)], ["Tasks", String(stats.openTasks)]].map(([l, v]) => (
-                  <div key={l} className="rounded-xl border border-white/[0.06] bg-gradient-to-b from-[#121a2b] to-[#0c1220] p-4">
-                    <p className="text-[11px] uppercase text-white/40">{l}</p>
-                    <p className="mt-2 text-2xl font-semibold text-white">{v}</p>
+                {[["Contacts", String(stats.contacts), "Clients"], ["Open deals", String(stats.openDeals), "Active"], ["Pipeline", formatNgn(stats.pipelineNgn), "Value"], ["Unpaid", formatNgn(stats.unpaidNgn), "Due"], ["Tasks", String(stats.openTasks), "Open"]].map(([l, v, sub]) => (
+                  <div key={l} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/40">{l}</p>
+                    <p className="mt-2 text-2xl font-semibold tracking-tight text-white">{v}</p>
+                    <p className="mt-1 text-[11px] text-[#ff8c14]/80">{sub}</p>
                   </div>
                 ))}
               </div>
+              <OpsCharts ws={data} />
               <div className="grid gap-4 lg:grid-cols-2">
                 <Panel title="Follow-ups due" action={() => go("pipeline")} actionLabel="Pipeline">
                   {dueFollowUps.length === 0 ? <Empty>None overdue.</Empty> : (
