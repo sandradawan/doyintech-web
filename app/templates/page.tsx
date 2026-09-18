@@ -22,8 +22,21 @@ export default function TemplatesPage() {
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
             Full landing and multi-page kits. Preview the outline free. Pay once, unlock the build
-            guide and structure.
+            guide and structure — or hire us to ship a live site from the same patterns.
           </p>
+
+          <div className="mt-8 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 p-5 sm:flex sm:items-center sm:justify-between sm:gap-4">
+            <p className="text-[14px] text-[#e8eaed]">
+              Prefer a done-for-you site? Fixed-price packages with deposit — not DIY.
+            </p>
+            <a
+              href="/hire"
+              className="mt-3 inline-flex shrink-0 rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black sm:mt-0"
+            >
+              Hire · pay deposit
+            </a>
+          </div>
+
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {PAGE_TEMPLATES.map((item) => (
               <TemplateCard key={item.id} item={item} />
