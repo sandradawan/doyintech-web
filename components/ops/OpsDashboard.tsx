@@ -13,13 +13,15 @@ import InvoicePrint from "@/components/ops/InvoicePrint";
 import { normalizeWs, Panel, Empty, StatusPill } from "@/components/ops/OpsHelpers";
 import CloudSync from "@/components/ops/CloudSync";
 import OpsCharts from "@/components/ops/OpsCharts";
+import OpsAgenda from "@/components/ops/OpsAgenda";
+import OpsWeeklyReport from "@/components/ops/OpsWeeklyReport";
 
-type Tab = "home" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
+type Tab = "home" | "agenda" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
 const field = "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
 const btnP = "rounded-lg bg-[#ff8c14] px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
 const btnG = "rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 hover:bg-white/10";
 const NAV: { id: Tab; label: string }[] = [
-  { id: "home", label: "Overview" }, { id: "contacts", label: "Contacts" },
+  { id: "home", label: "Overview" }, { id: "agenda", label: "Agenda" }, { id: "contacts", label: "Contacts" },
   { id: "pipeline", label: "Pipeline" }, { id: "quotes", label: "Quotes" },
   { id: "invoices", label: "Invoices" }, { id: "tasks", label: "Tasks" },
   { id: "settings", label: "Settings" },
@@ -29,6 +31,7 @@ export default function OpsDashboard() {
   const [ws, setWs] = useState<OpsWorkspace | null>(null);
   const [tab, setTab] = useState<Tab>("home");
   const [q, setQ] = useState("");
+  const [globalQ, setGlobalQ] = useState("");
   const [menu, setMenu] = useState(false);
   const [printInv, setPrintInv] = useState<Invoice | null>(null);
   const [payBusy, setPayBusy] = useState<string | null>(null);
@@ -86,6 +89,33 @@ export default function OpsDashboard() {
     const today = todayIsoDate();
     return ws.deals.filter((d) => d.nextFollowUp && d.nextFollowUp <= today && d.stage !== "paid" && d.stage !== "lost");
   }, [ws]);
+
+  const globalHits = useMemo(() => {
+    if (!ws || !globalQ.trim()) return [] as { type: string; id: string; title: string; sub: string; tab: Tab }[];
+    const qq = globalQ.trim().toLowerCase();
+    const hits: { type: string; id: string; title: string; sub: string; tab: Tab }[] = [];
+    for (const c of ws.contacts) {
+      const hay = [c.name, c.business, c.phone, c.email, c.notes].filter(Boolean).join(" ").toLowerCase();
+      if (hay.includes(qq)) hits.push({ type: "Contact", id: c.id, title: c.name, sub: c.business || c.phone || c.email || "", tab: "contacts" });
+    }
+    for (const d of ws.deals) {
+      if ((d.title + " " + d.stage).toLowerCase().includes(qq))
+        hits.push({ type: "Deal", id: d.id, title: d.title, sub: d.stage + " · " + formatNgn(d.valueNgn), tab: "pipeline" });
+    }
+    for (const inv of ws.invoices) {
+      if ((inv.number + " " + inv.description).toLowerCase().includes(qq))
+        hits.push({ type: "Invoice", id: inv.id, title: inv.number, sub: formatNgn(inv.amountNgn) + " · " + inv.status, tab: "invoices" });
+    }
+    for (const qt of ws.quotes || []) {
+      if ((qt.number + " " + qt.description).toLowerCase().includes(qq))
+        hits.push({ type: "Quote", id: qt.id, title: qt.number, sub: formatNgn(qt.amountNgn), tab: "quotes" });
+    }
+    for (const task of ws.tasks || []) {
+      if (task.title.toLowerCase().includes(qq))
+        hits.push({ type: "Task", id: task.id, title: task.title, sub: task.done ? "Done" : "Open", tab: "tasks" });
+    }
+    return hits.slice(0, 12);
+  }, [ws, globalQ]);
 
   if (!ws) return <div className="flex min-h-[50vh] items-center justify-center text-white/50">Loading workspace…</div>;
 
@@ -163,7 +193,32 @@ export default function OpsDashboard() {
             <button type="button" className="rounded-lg border border-white/10 p-2 lg:hidden" onClick={() => setMenu(true)} aria-label="Menu">☰</button>
             <h1 className="text-lg font-semibold text-white">{NAV.find((n) => n.id === tab)?.label}</h1>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-1 items-center justify-end gap-2">
+            <div className="relative hidden max-w-xs flex-1 sm:block">
+              <input
+                value={globalQ}
+                onChange={(e) => setGlobalQ(e.target.value)}
+                placeholder="Search everything…"
+                className="w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60"
+              />
+              {globalQ.trim() && globalHits.length > 0 && (
+                <ul className="absolute right-0 z-50 mt-1 max-h-72 w-80 overflow-y-auto rounded-xl border border-white/10 bg-[#0c1220] py-1 shadow-xl">
+                  {globalHits.map((h) => (
+                    <li key={h.type + h.id}>
+                      <button
+                        type="button"
+                        className="flex w-full flex-col px-3 py-2 text-left hover:bg-white/5"
+                        onClick={() => { setGlobalQ(""); go(h.tab); }}
+                      >
+                        <span className="text-[10px] uppercase text-[#ff8c14]/80">{h.type}</span>
+                        <span className="text-sm text-white">{h.title}</span>
+                        {h.sub && <span className="text-[11px] text-white/40">{h.sub}</span>}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <input ref={fileRef} type="file" accept=".json,application/json" className="hidden" onChange={(e) => onImport(e.target.files?.[0] || null)} />
             <button type="button" onClick={() => fileRef.current?.click()} className={btnG}>Import</button>
             <button type="button" onClick={() => exportJson(data)} className={btnG}>Export</button>
@@ -182,6 +237,7 @@ export default function OpsDashboard() {
                 ))}
               </div>
               <OpsCharts ws={data} />
+              <OpsWeeklyReport ws={data} />
               <div className="grid gap-4 lg:grid-cols-2">
                 <Panel title="Follow-ups due" action={() => go("pipeline")} actionLabel="Pipeline">
                   {dueFollowUps.length === 0 ? <Empty>None overdue.</Empty> : (
@@ -219,6 +275,25 @@ export default function OpsDashboard() {
                 )}
               </Panel>
             </div>
+          )}
+
+          {tab === "agenda" && (
+            <OpsAgenda
+              ws={data}
+              today={todayIsoDate()}
+              onDoneTask={(taskId) =>
+                setWs((w) =>
+                  w
+                    ? {
+                        ...normalizeWs(w),
+                        tasks: (w.tasks || []).map((x) =>
+                          x.id === taskId ? { ...x, done: true } : x
+                        ),
+                      }
+                    : w
+                )
+              }
+            />
           )}
 
           {tab === "contacts" && (
