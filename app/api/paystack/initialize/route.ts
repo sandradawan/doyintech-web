@@ -35,16 +35,22 @@ export async function POST(req: NextRequest) {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://doyintech.vercel.app";
 
+    const isServiceDeposit = item.id.startsWith("service-");
+    const callbackPath = isServiceDeposit
+      ? `/hire/success?product=${encodeURIComponent(item.id)}`
+      : `/products/success?product=${encodeURIComponent(item.id)}`;
+
     const payload = {
       email,
       amount: item.amountKobo,
       currency: "NGN",
-      callback_url: `${origin}/products/success?product=${encodeURIComponent(item.id)}`,
+      callback_url: `${origin}${callbackPath}`,
       metadata: {
         product_id: item.id,
         product_name: item.name,
         customer_name: name || undefined,
         delivery: item.delivery,
+        kind: isServiceDeposit ? "service_deposit" : "digital",
       },
     };
 

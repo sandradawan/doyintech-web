@@ -6,6 +6,7 @@ import Stats from "@/components/sections/Stats";
 import ClientLogos from "@/components/sections/ClientLogos";
 import Services from "@/components/sections/Services";
 import Packages from "@/components/sections/Packages";
+import PricingQuizCta from "@/components/sections/PricingQuizCta";
 import Guarantee from "@/components/sections/Guarantee";
 import BookCall from "@/components/sections/BookCall";
 import PassiveProducts from "@/components/sections/PassiveProducts";
@@ -33,6 +34,7 @@ export default function Home() {
         <ClientLogos />
         <Services />
         <Packages />
+        <PricingQuizCta />
         <Guarantee />
         <BookCall />
         <PassiveProducts />
