@@ -12,31 +12,50 @@ const stats = [
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(value); // start with final value to avoid "0" flash
+  const [animated, setAnimated] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || animated) return;
+
     if (reduce) {
       setCount(value);
+      setAnimated(true);
       return;
     }
+
+    // Reset to 0 only when animation actually starts
+    setCount(0);
     let start = 0;
     const duration = 1400;
+    let frame: number;
+
     const step = (timestamp: number) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Number((eased * value).toFixed(value % 1 === 0 ? 0 : 1)));
-      if (progress < 1) requestAnimationFrame(step);
+      const next = Number((eased * value).toFixed(value % 1 === 0 ? 0 : 1));
+      setCount(next);
+      if (progress < 1) {
+        frame = requestAnimationFrame(step);
+      } else {
+        setCount(value);
+        setAnimated(true);
+      }
     };
-    requestAnimationFrame(step);
-  }, [isInView, value, reduce]);
+
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [isInView, value, reduce, animated]);
 
   return (
-    <span ref={ref} className="text-[40px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[48px]">
+    <span
+      ref={ref}
+      className="text-[40px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[48px]"
+    >
       {count}
       {suffix}
     </span>
