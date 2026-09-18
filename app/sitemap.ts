@@ -12,6 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/pricing-quiz",
     "/refer",
     "/status-pack",
+    "/client-portal",
+    "/agency-vs-freelancer",
+    "/web-design-jos",
+    "/web-design-abuja",
     "/ops",
     "/products",
     "/ebooks",
@@ -34,6 +38,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog/website-for-clinic-nigeria",
     "/blog/property-website-nigeria",
     "/blog/website-for-gaming-lounge-nigeria",
+    "/blog/website-for-restaurant-nigeria",
+    "/blog/website-for-church-event-nigeria",
     "/blog/why-production-grade-backends-matter",
     "/blog/laravel-vs-node-when-to-choose",
     "/blog/practical-ai-automation-for-smes",
@@ -68,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? 0.95
           : path.startsWith("/tools")
             ? 0.9
-            : path.startsWith("/blog/")
+            : path.startsWith("/blog/") || path.startsWith("/web-design-")
               ? 0.85
               : path === "/case-studies" || path.startsWith("/case-studies")
                 ? 0.75
