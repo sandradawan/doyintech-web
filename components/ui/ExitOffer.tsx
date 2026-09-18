@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { getServiceOffer, serviceWhatsAppLink } from "@/lib/service-offers";
 
 const STORAGE_KEY = "doyin_exit_offer_dismissed";
 const COOLDOWN_MS = 18 * 60 * 60 * 1000; // 18 hours
+const OFFER = getServiceOffer("service-landing-page-deposit")!;
 
 function wasDismissedRecently() {
   if (typeof window === "undefined") return true;
@@ -21,6 +23,9 @@ function wasDismissedRecently() {
 export default function ExitOffer() {
   const [open, setOpen] = useState(false);
   const [armed, setArmed] = useState(false);
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
 
   const dismiss = useCallback(() => {
     setOpen(false);
@@ -34,17 +39,14 @@ export default function ExitOffer() {
   useEffect(() => {
     if (wasDismissedRecently()) return;
 
-    // Arm after user has seen some of the page
     const armTimer = window.setTimeout(() => setArmed(true), 12000);
 
-    // Desktop exit-intent
     const onLeave = (e: MouseEvent) => {
       if (!armed) return;
       if (e.clientY > 12) return;
       setOpen(true);
     };
 
-    // Mobile / tablet: timed offer after meaningful scroll
     let scrolledEnough = false;
     const onScroll = () => {
       if (window.scrollY > 500) scrolledEnough = true;
@@ -67,7 +69,6 @@ export default function ExitOffer() {
     };
   }, [armed]);
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -77,12 +78,33 @@ export default function ExitOffer() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, dismiss]);
 
-  const hireHref = "/hire";
-  const waHref =
-    "https://wa.me/2348085343926?text=" +
-    encodeURIComponent(
-      "Hi DoyinTech, I saw the Landing Page Starter offer (₦100,000 · deposit ₦50,000). I want to lock a slot."
-    );
+  async function payDeposit() {
+    setLoading(true);
+    setErr("");
+    try {
+      const res = await fetch("/api/paystack/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: OFFER.id,
+          email: email.trim(),
+          name: "Landing Page Starter deposit",
+        }),
+      });
+      const data = await res.json();
+      if (res.status === 503 || data.code === "NO_KEYS" || !data.authorization_url) {
+        window.location.href = serviceWhatsAppLink(OFFER);
+        return;
+      }
+      if (!res.ok) throw new Error(data.error || "Checkout failed");
+      dismiss();
+      window.location.href = data.authorization_url;
+    } catch (e: unknown) {
+      setErr(e instanceof Error ? e.message : "Could not start payment");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -116,35 +138,55 @@ export default function ExitOffer() {
             </div>
             <div className="px-6 py-6">
               <h2 id="exit-offer-title" className="text-[22px] font-semibold tracking-tight text-white">
-                Landing page that sells one offer
+                {OFFER.name}
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-[#a1a1a6]">
-                Fixed price <span className="font-semibold text-white">₦100,000</span> · deposit{" "}
-                <span className="font-semibold text-white">₦50,000</span> via Paystack. Live in about a
-                week after content.
+                Fixed price{" "}
+                <span className="font-semibold text-white">{OFFER.totalNgn}</span> · deposit{" "}
+                <span className="font-semibold text-white">{OFFER.depositNgn}</span> via Paystack.{" "}
+                {OFFER.timeline}.
               </p>
               <ul className="mt-4 space-y-1.5 text-[13px] text-[#e8eaed]">
-                <li>✓ One high-converting page</li>
-                <li>✓ WhatsApp click-to-chat</li>
-                <li>✓ Mobile-first + basic SEO</li>
-                <li>✓ 1 revision · 5 days support</li>
+                {OFFER.scope.slice(0, 4).map((s) => (
+                  <li key={s}>✓ {s}</li>
+                ))}
               </ul>
-              <div className="mt-6 flex flex-col gap-2">
-                <a
-                  href={hireHref}
-                  onClick={dismiss}
-                  className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[14px] font-semibold text-black"
+
+              <label className="mt-5 block text-[12px] text-[#a1a1a6]">
+                Email for Paystack receipt
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  className="mt-1.5 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+                />
+              </label>
+
+              <div className="mt-4 flex flex-col gap-2">
+                <button
+                  type="button"
+                  disabled={loading || !email.includes("@")}
+                  onClick={payDeposit}
+                  className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[14px] font-semibold text-black disabled:opacity-50"
                 >
-                  Pay deposit · lock slot
-                </a>
+                  {loading ? "Redirecting to Paystack…" : `Pay deposit · ${OFFER.depositNgn}`}
+                </button>
                 <a
-                  href={waHref}
+                  href={serviceWhatsAppLink(OFFER)}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={dismiss}
                   className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-[14px] font-semibold text-white"
                 >
-                  Ask on WhatsApp first
+                  Prefer WhatsApp
+                </a>
+                <a
+                  href="/hire"
+                  onClick={dismiss}
+                  className="text-center text-[13px] text-[#2997ff] hover:underline"
+                >
+                  See all packages →
                 </a>
                 <button
                   type="button"
@@ -154,6 +196,7 @@ export default function ExitOffer() {
                   Not now
                 </button>
               </div>
+              {err && <p className="mt-2 text-center text-sm text-red-400">{err}</p>}
             </div>
           </motion.div>
         </motion.div>
