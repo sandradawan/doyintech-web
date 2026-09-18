@@ -103,15 +103,58 @@ export async function GET(req: NextRequest) {
   }
 
   const limit = Math.min(Number(req.nextUrl.searchParams.get("limit") || 50), 200);
-  const { data, error } = await sb
-    .from("site_leads")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(limit);
+  const status = req.nextUrl.searchParams.get("status") || "";
+  const type = req.nextUrl.searchParams.get("type") || "";
+
+  let q = sb.from("site_leads").select("*").order("created_at", { ascending: false }).limit(limit);
+  if (status) q = q.eq("status", status);
+  if (type) q = q.eq("type", type);
+
+  const { data, error } = await q;
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true, leads: data || [] });
+}
+
+/** Update lead status. Body: { id, status }. Requires ADMIN_LEADS_SECRET. */
+export async function PATCH(req: NextRequest) {
+  if (!adminOk(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const sb = getSupabaseAdmin();
+  if (!sb) {
+    return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
+  }
+
+  try {
+    const body = await req.json();
+    const id = String(body.id || "").trim();
+    const status = String(body.status || "").trim();
+    const allowed = ["new", "contacted", "qualified", "won", "lost"];
+    if (!id || !allowed.includes(status)) {
+      return NextResponse.json(
+        { error: "id and status (new|contacted|qualified|won|lost) required" },
+        { status: 400 }
+      );
+    }
+
+    const { data, error } = await sb
+      .from("site_leads")
+      .update({ status })
+      .eq("id", id)
+      .select("*")
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true, lead: data });
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
 }
