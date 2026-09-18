@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/hire",
     "/pricing-quiz",
+    "/refer",
+    "/status-pack",
     "/ops",
     "/products",
     "/ebooks",
@@ -31,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog/whatsapp-booking-system-nigeria",
     "/blog/website-for-clinic-nigeria",
     "/blog/property-website-nigeria",
+    "/blog/website-for-gaming-lounge-nigeria",
     "/blog/why-production-grade-backends-matter",
     "/blog/laravel-vs-node-when-to-choose",
     "/blog/practical-ai-automation-for-smes",
@@ -61,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority:
       path === ""
         ? 1
-        : path === "/hire" || path === "/products" || path === "/ops"
+        : path === "/hire" || path === "/products" || path === "/ops" || path === "/free-audit"
           ? 0.95
           : path.startsWith("/tools")
             ? 0.9
