@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
+import FreeAuditForm from "@/components/tools/FreeAuditForm";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
   title: "Free 3-Minute Website Audit | DoyinTech",
   description:
-    "Free website audit for small businesses plus free WhatsApp reply scripts. Fix contact paths and convert more chats.",
+    "Free website audit for Nigerian SMEs. Send your URL — get 2–3 specific fixes. Plus free WhatsApp reply scripts.",
 };
 
 const checks = [
@@ -18,47 +19,39 @@ const checks = [
 ];
 
 export default function FreeAuditPage() {
-  const wa =
-    "https://wa.me/2348085343926?text=" +
-    encodeURIComponent(
-      "Hi DoyinTech, I want a FREE 3-minute website audit.\n\nMy website URL:\n\nMy business type:\n\nMain goal (more calls / WhatsApp / sales):"
-    );
-
   return (
     <>
       <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
-        <div className="mx-auto max-w-[720px] px-6 text-center">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
-            Free · no long form
-          </p>
-          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
-            Free 3-minute website audit
-          </h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
-            Send your URL on WhatsApp. We reply with 2–3 specific problems holding back enquiries —
-            and whether a small fix or a rebuild makes sense.
-          </p>
+        <div className="mx-auto max-w-[720px] px-6">
+          <div className="text-center">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+              Free · no long form · reply on WhatsApp
+            </p>
+            <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
+              Free 3-minute website audit
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[#a1a1a6]">
+              Drop your URL below. We reply with 2–3 specific problems holding back enquiries — and
+              whether a small fix or a rebuild makes sense. Honest next step, not a hard sell.
+            </p>
+          </div>
 
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-[#25D366] px-8 py-3.5 text-[16px] font-semibold text-white"
-            >
-              Send my URL on WhatsApp
-            </a>
+          <div className="mt-10">
+            <FreeAuditForm />
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-center">
             <a
               href={discoveryCallLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full border border-white/20 px-6 py-3.5 text-[15px] font-semibold text-white"
+              className="text-[14px] font-semibold text-[#2997ff] hover:underline"
             >
-              Book a free call instead
+              Prefer a 15-min call instead?
             </a>
           </div>
 
-          <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-gradient-to-b from-[#ff8c14]/10 to-[#141a28] p-6 text-left">
+          <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-gradient-to-b from-[#ff8c14]/10 to-[#141a28] p-6">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
               Free download · no payment
             </p>
@@ -81,7 +74,7 @@ export default function FreeAuditPage() {
               <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
                 SME Launch Bundle
               </a>{" "}
-              (Status calendar + caption pack) or the{" "}
+              or the{" "}
               <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
                 WhatsApp Business Growth Pack
               </a>
@@ -89,7 +82,7 @@ export default function FreeAuditPage() {
             </p>
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-left">
+          <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-6">
             <h2 className="text-[15px] font-semibold text-white">What we check</h2>
             <ul className="mt-4 space-y-2">
               {checks.map((c) => (
@@ -98,19 +91,30 @@ export default function FreeAuditPage() {
                 </li>
               ))}
             </ul>
+            <p className="mt-5 text-[13px] text-[#86868b]">
+              Self-check first: if you answer "no" to two or more, a focused landing page or
+              rebuild usually pays for itself in enquiries.
+            </p>
           </div>
 
-          <p className="mt-8 text-[13px] text-[#86868b]">
-            After the audit, many clients book a{" "}
-            <a href="/pricing" className="text-[#ff8c14] hover:underline">
-              Starter or Growth website
-            </a>{" "}
-            or buy a{" "}
-            <a href="/products" className="text-[#ff8c14] hover:underline">
-              digital pack
+          <div className="mt-10 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6 text-center">
+            <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+              After the audit
+            </p>
+            <h2 className="mt-2 text-[20px] font-semibold text-white">
+              Many clients book a fixed-price site
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-[14px] text-[#a1a1a6]">
+              Landing Page Starter ₦100,000 · Local Business Website ₦250,000 · 50% deposit via
+              Paystack.
+            </p>
+            <a
+              href="/hire"
+              className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
+            >
+              See packages & pay deposit
             </a>
-            .
-          </p>
+          </div>
         </div>
       </main>
       <Footer />
