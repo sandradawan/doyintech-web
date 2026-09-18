@@ -29,7 +29,6 @@ function HireSuccessInner() {
           const pid = data.metadata?.product_id || productId;
           setResolvedId(pid);
 
-          // Log deposit as high-intent lead (fire-and-forget)
           const service = getServiceOffer(pid);
           fetch("/api/leads", {
             method: "POST",
@@ -90,6 +89,12 @@ function HireSuccessInner() {
                 <li>· Timeline starts after content + logo arrive</li>
                 <li>· Balance due before final handoff / domain connect</li>
               </ul>
+              <a
+                href="/client-portal"
+                className="mt-4 inline-flex text-[13px] font-semibold text-[#2997ff] hover:underline"
+              >
+                Open client project portal →
+              </a>
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-[14px]">
@@ -123,6 +128,11 @@ function HireSuccessInner() {
             >
               Message on WhatsApp
             </a>
+            <p className="mt-4">
+              <a href="/client-portal" className="text-[14px] text-[#2997ff] hover:underline">
+                Project portal →
+              </a>
+            </p>
           </>
         )}
 
