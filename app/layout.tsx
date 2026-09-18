@@ -15,21 +15,26 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   metadataBase: new URL("https://doyintech.vercel.app"),
   title: {
-    default: "DoyinTech — Scalable Backend, APIs & Mobile Development",
+    default:
+      "DoyinTech — Websites, WhatsApp Systems & Digital Products for Nigerian SMEs",
     template: "%s | DoyinTech",
   },
   description:
-    "DoyinTech builds secure backend systems, scalable APIs, and high-quality mobile applications designed for performance and growth. Based in Jos, Nigeria.",
+    "Fixed-price websites that get enquiries, WhatsApp booking systems, free SME tools, and digital products. 50% deposit · Paystack · Live in days. Based in Jos, Nigeria.",
   keywords: [
+    "website design Nigeria",
+    "fixed price website",
+    "WhatsApp business system",
+    "SME website Jos",
+    "Paystack website",
+    "landing page Nigeria",
     "backend engineering",
     "API development",
-    "mobile development",
-    "Flutter",
-    "Laravel",
-    "system architecture",
-    "AI automation",
-    "Nigeria tech",
+    "Flutter app Nigeria",
+    "Laravel developer",
     "DoyinTech",
+    "business website Nigeria",
+    "digital products Nigeria",
   ],
   authors: [{ name: "Silas Doyin Jonathan", url: "https://doyintech.vercel.app" }],
   creator: "DoyinTech",
@@ -37,16 +42,17 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_NG",
     siteName: "DoyinTech",
-    title: "DoyinTech — Scalable Backend, APIs & Mobile Development",
+    title:
+      "DoyinTech — Websites that get clients · Fixed price · Nigeria",
     description:
-      "Premium engineering, clean architecture, and production-ready delivery — built for real business outcomes.",
+      "Growth sites, WhatsApp systems, and digital products SMEs actually buy. 50% deposit. Paystack. Live in days.",
     url: "https://doyintech.vercel.app",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DoyinTech — Scalable Backend, APIs & Mobile Development",
+    title: "DoyinTech — Websites that get clients",
     description:
-      "Premium engineering, clean architecture, and production-ready delivery.",
+      "Fixed-price websites, WhatsApp systems & digital products for Nigerian SMEs.",
     creator: "@doyintechnology",
   },
   robots: {
@@ -81,6 +87,8 @@ const jsonLd = {
     "@type": "Person",
     name: "Silas Doyin Jonathan",
   },
+  areaServed: "NG",
+  priceRange: "₦₦",
 };
 
 export default function RootLayout({
