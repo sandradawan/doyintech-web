@@ -11,10 +11,26 @@ import {
 export const metadata = {
   title: "Blog & Insights",
   description:
-    "Practical insights on backend engineering, Laravel, Flutter, APIs, AI automation and building production systems — plus the Introduction To Web Development playlist.",
+    "Practical insights for Nigerian SMEs: websites that get bookings, WhatsApp systems, Laravel, Flutter, and AI automation — plus the Introduction To Web Development playlist.",
 };
 
 const posts = [
+  {
+    slug: "website-for-salon-nigeria",
+    title: "Website for a Salon in Nigeria — What Actually Gets Bookings",
+    excerpt:
+      "How salons and makeup artists turn Instagram into WhatsApp bookings with a simple, fixed-price site.",
+    date: "September 2026",
+    category: "Local business",
+  },
+  {
+    slug: "whatsapp-booking-system-nigeria",
+    title: "WhatsApp Booking System for Nigerian SMEs",
+    excerpt:
+      "Clinics, lounges, and salons: combine a clear website with one-tap WhatsApp so customers book without friction.",
+    date: "September 2026",
+    category: "Systems",
+  },
   {
     slug: "why-production-grade-backends-matter",
     title: "Why Production-Grade Backends Matter for African Businesses",
@@ -43,7 +59,6 @@ const posts = [
 
 export default async function BlogPage() {
   const videos = await getPlaylistVideos(10);
-  // Newest first
   const sorted = [...videos].sort((a, b) => {
     const da = a.published ? new Date(a.published).getTime() : 0;
     const db = b.published ? new Date(b.published).getTime() : 0;
@@ -59,8 +74,8 @@ export default async function BlogPage() {
           </p>
           <h1 className="apple-headline mt-3 text-[#f5f5f7]">Blog & notes</h1>
           <p className="apple-subhead mt-4 max-w-2xl">
-            Practical writing on backends, APIs, mobile, Laravel, and AI automation — plus
-            lessons from our YouTube playlist.
+            Practical writing for Nigerian SMEs — websites that get bookings, WhatsApp systems,
+            backends, and AI automation — plus lessons from our YouTube playlist.
           </p>
 
           <div className="mt-12 space-y-4">
