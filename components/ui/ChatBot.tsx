@@ -6,9 +6,9 @@ import { FaPaperPlane, FaTimes, FaWhatsapp } from "react-icons/fa";
 type Msg = { role: "user" | "bot"; content: string };
 
 const QUICK = [
-  "What services do you offer?",
-  "Pricing",
-  "How long does a project take?",
+  "Landing page price",
+  "Local business website",
+  "Free website audit",
   "Talk to a human",
 ];
 
@@ -43,7 +43,7 @@ export default function ChatBot() {
     {
       role: "bot",
       content:
-        "Hi — I am the DoyinTech assistant (available 24/7). Ask about services, pricing in USD, timelines, or portfolio. Type human anytime to reach the team on WhatsApp.",
+        "Hi — DoyinTech assistant. Fixed-price websites from ₦100k (deposit ₦50k), free audit, or digital products. Ask pricing or type human for WhatsApp.",
     },
   ]);
   const [showHandoff, setShowHandoff] = useState(false);
@@ -57,9 +57,8 @@ export default function ChatBot() {
     const sync = () => {
       const cookieOk = document.documentElement.dataset.cookieOk === "1";
       const cookieBanner = document.documentElement.dataset.cookieBanner === "1";
-      // Show launcher only after cookie accepted, or after 8s fallback
       setReady(cookieOk || localStorage.getItem("cookie-consent") === "true");
-      let b = 88; // above WhatsApp
+      let b = 88;
       if (cookieBanner) b += 64;
       if (window.innerWidth < 768 && window.scrollY > 420) b += 62;
       setBottom(b);
@@ -109,7 +108,7 @@ export default function ChatBot() {
         },
       ]);
       if (data.suggestWhatsApp) setShowHandoff(true);
-      if (content.toLowerCase().includes("human")) setShowHandoff(true);
+      if (/human|price|deposit|hire|audit/i.test(content)) setShowHandoff(true);
     } catch {
       setMessages((m) => [
         ...m,
@@ -127,6 +126,19 @@ export default function ChatBot() {
     if (!name.trim() || !email.trim() || loading) return;
     setLoading(true);
     try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          product: "Chat handoff",
+          type: "chat",
+          source: "chatbot",
+          message:
+            messages.filter((m) => m.role === "user").slice(-2).map((m) => m.content).join(" | "),
+        }),
+      });
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -246,7 +258,7 @@ export default function ChatBot() {
           {showHandoff && (
             <div className="space-y-2 border-t border-white/10 bg-black/30 p-3">
               <p className="text-[11px] text-[#a1a1a6]">
-                Leave your details — we will follow up. Or continue on WhatsApp now.
+                Leave details — we follow up. Or WhatsApp now for deposit / audit.
               </p>
               <input
                 value={name}
