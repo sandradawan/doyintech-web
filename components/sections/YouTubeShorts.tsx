@@ -45,7 +45,8 @@ export default function YouTubeShorts({
             {playlistTitle || "Latest videos"}
           </h2>
           <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-[#a1a1a6]">
-            Latest {videos.length} videos from the playlist — newest first.
+            Latest {videos.length} videos — learn free, hire when you want the same quality on your
+            business site.
           </p>
         </div>
 
@@ -128,9 +129,27 @@ export default function YouTubeShorts({
                   })}
                 </p>
               )}
+              <a
+                href="/hire"
+                className="mt-3 inline-flex text-[12px] font-semibold text-[#ff8c14] hover:underline"
+              >
+                Get the same quality site →
+              </a>
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-8 rounded-2xl border border-white/10 bg-[#1d1d1f] p-5 text-center">
+        <p className="text-[14px] text-[#a1a1a6]">
+          Ready for a fixed-price build? Landing from ₦100k · Local site from ₦250k.
+        </p>
+        <a
+          href="/hire"
+          className="mt-3 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+        >
+          Hire — pay deposit
+        </a>
       </div>
     </section>
   );
