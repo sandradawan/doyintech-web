@@ -16,6 +16,14 @@ export const metadata = {
 
 const posts = [
   {
+    slug: "website-for-gaming-lounge-nigeria",
+    title: "Website for a Gaming Lounge in Nigeria — Bookings & Tournaments",
+    excerpt:
+      "Station prices, tournament calendar, Maps pin, and one-tap WhatsApp so gamers reserve seats.",
+    date: "September 2026",
+    category: "Local business",
+  },
+  {
     slug: "website-for-clinic-nigeria",
     title: "Website for a Clinic in Nigeria — Appointments via WhatsApp",
     excerpt:
