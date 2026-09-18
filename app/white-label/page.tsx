@@ -12,7 +12,7 @@ export default function WhiteLabelPage() {
   const wa =
     "https://wa.me/2348085343926?text=" +
     encodeURIComponent(
-      "Hi DoyinTech, I am a freelancer/agency interested in white-label website delivery. Let's discuss."
+      "Hi DoyinTech, I am a freelancer/agency interested in white-label website delivery. Let's discuss partner rates."
     );
 
   return (
@@ -38,13 +38,36 @@ export default function WhiteLabelPage() {
           </ul>
 
           <div className="mt-10 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
+            <h2 className="text-[18px] font-semibold text-white">Partner economics (illustrative)</h2>
+            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+              Example: public landing page ₦100k — partner build lower; you charge the client ₦150–200k+
+              and keep the margin. Exact partner rates on WhatsApp after a quick fit check.
+            </p>
+            <ul className="mt-3 space-y-1 text-[14px] text-[#c7cdd8]">
+              <li>· You sell & support the relationship</li>
+              <li>· We build & revise within agreed rounds</li>
+              <li>· Client never has to know the factory</li>
+            </ul>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
             <h2 className="text-[18px] font-semibold text-white">How it works</h2>
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-[#a1a1a6]">
-              <li>You close the client and collect your fee structure.</li>
+              <li>You close the client and set your fee to them.</li>
               <li>We quote a partner build price and timeline.</li>
               <li>Deposit locks the slot; you send content.</li>
               <li>You present drafts; we revise; you launch under your name.</li>
             </ol>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
+            <h2 className="text-[18px] font-semibold text-white">Partner checklist</h2>
+            <ul className="mt-3 space-y-1 text-[14px] text-[#c7cdd8]">
+              <li>□ Client brief + brand assets collected</li>
+              <li>□ Your invoice terms separate from our partner invoice</li>
+              <li>□ Content deadline agreed before build starts</li>
+              <li>□ Handoff: who hosts domain & who trains the client</li>
+            </ul>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
