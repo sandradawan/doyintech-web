@@ -24,6 +24,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/portfolio",
     "/store",
     "/blog",
+    "/blog/website-for-salon-nigeria",
+    "/blog/whatsapp-booking-system-nigeria",
+    "/blog/why-production-grade-backends-matter",
+    "/blog/laravel-vs-node-when-to-choose",
+    "/blog/practical-ai-automation-for-smes",
     "/about",
     "/contact",
     "/company-profile",
@@ -56,8 +61,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? 0.95
           : path.startsWith("/tools")
             ? 0.9
-            : path === "/case-studies" || path.startsWith("/case-studies")
-              ? 0.75
-              : 0.8,
+            : path.startsWith("/blog/")
+              ? 0.85
+              : path === "/case-studies" || path.startsWith("/case-studies")
+                ? 0.75
+                : 0.8,
   }));
 }
