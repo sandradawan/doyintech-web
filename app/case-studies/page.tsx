@@ -22,8 +22,8 @@ const studies = [
     slug: "jennyglams",
     name: "JennyGlams",
     sector: "Beauty · Jos",
-    outcome: "Portfolio + WhatsApp booking path for bridal & soft glam",
-    metric: "DM → book in minutes",
+    outcome: "Portfolio + WhatsApp booking — DM chaos → one-tap enquire",
+    metric: "Before → after in ~7 days",
     tag: "Local SME",
   },
   {
