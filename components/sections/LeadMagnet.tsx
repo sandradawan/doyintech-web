@@ -3,12 +3,6 @@
 import ScrollReveal from "../animations/ScrollReveal";
 
 export default function LeadMagnet() {
-  const wa =
-    "https://wa.me/2348085343926?text=" +
-    encodeURIComponent(
-      "Hi DoyinTech, send me the SME Digital Ops Checklist and/or audit my site.\nURL:"
-    );
-
   return (
     <section className="apple-section apple-section-black py-16">
       <div className="mx-auto max-w-[980px] px-6">
@@ -19,35 +13,34 @@ export default function LeadMagnet() {
                 Free · grows your list
               </p>
               <h2 className="mt-2 text-[28px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[34px]">
-                Free website audit + SME checklist
+                Free audit + WhatsApp scripts
               </h2>
               <p className="mt-3 text-[16px] leading-relaxed text-[#a1a1a6]">
-                No long forms. Message on WhatsApp with your URL — get 2–3 concrete fixes and the
-                ops checklist PDF.
+                Two ways to start: send your site URL for a 3-minute audit, or generate 5 ready
+                reply scripts for your business line — then upgrade to a fixed-price site when
+                ready.
               </p>
               <ul className="mt-4 space-y-1 text-[14px] text-[#f5f5f7]">
-                <li>✓ Mobile + contact path check</li>
-                <li>✓ WhatsApp / offer clarity</li>
-                <li>✓ Honest next step (DIY vs hire us)</li>
+                <li>✓ Free site audit → concrete fixes</li>
+                <li>✓ Free WA scripts → price, booking, close</li>
+                <li>✓ Clear path to hire (₦100k–₦250k packages)</li>
               </ul>
             </div>
             <div className="flex flex-col gap-3">
               <a
-                href={wa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[15px] font-semibold text-white"
+                href="/free-audit"
+                className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3.5 text-[15px] font-semibold text-black"
               >
-                Get audit on WhatsApp
+                Free website audit
               </a>
               <a
-                href="/free-audit"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-[15px] font-semibold text-white"
+                href="/tools/whatsapp-scripts"
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[15px] font-semibold text-white"
               >
-                Read how the audit works
+                Free WhatsApp scripts
               </a>
-              <a href="/products" className="text-center text-[14px] text-[#2997ff] hover:underline">
-                Or buy a pack now ›
+              <a href="/hire" className="text-center text-[14px] text-[#2997ff] hover:underline">
+                Or pay deposit on a fixed package ›
               </a>
             </div>
           </div>
