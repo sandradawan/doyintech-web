@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const metrics = [
-  { value: "1", label: "Brand site" },
-  { value: "WA", label: "Booking path" },
-  { value: "Mobile", label: "First design" },
-  { value: "Days", label: "Not months" },
+  { value: "DM chaos", label: "Before" },
+  { value: "1-tap book", label: "After" },
+  { value: "~7 days", label: "To live" },
+  { value: "Mobile", label: "First" },
 ];
 
 export default function JennyGlamsCaseStudy() {
@@ -53,7 +53,7 @@ export default function JennyGlamsCaseStudy() {
                 key={m.label}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center"
               >
-                <p className="text-2xl font-bold text-white">{m.value}</p>
+                <p className="text-xl font-bold text-white sm:text-2xl">{m.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wider text-gray-500">
                   {m.label}
                 </p>
@@ -65,9 +65,9 @@ export default function JennyGlamsCaseStudy() {
             <section>
               <h2 className="mb-3 text-2xl font-bold text-white">The challenge</h2>
               <p>
-                Jennifer needed more than Instagram posts. Clients wanted a professional place to
-                view work, understand services (bridal, soft glam, editorial, masterclasses), and
-                book without long chat threads.
+                Jennifer was booking through Instagram DMs. Clients asked the same questions
+                repeatedly (prices, packages, availability). Good photos were buried in the feed.
+                There was no single link that looked as premium as the work.
               </p>
             </section>
 
@@ -75,20 +75,30 @@ export default function JennyGlamsCaseStudy() {
               <h2 className="mb-3 text-2xl font-bold text-white">What we shipped</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>Clean portfolio layout optimised for high-quality photos</li>
-                <li>Clear service categories and next-step pricing pathways</li>
+                <li>Clear service categories (bridal, soft glam, editorial, masterclasses)</li>
                 <li>WhatsApp-first booking so clients can reserve in minutes</li>
                 <li>Mobile-first design for clients browsing on the go</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">Business results</h2>
+              <h2 className="mb-3 text-2xl font-bold text-white">Results (practical)</h2>
               <ul className="list-disc space-y-2 pl-5">
-                <li>Professional presence beyond social media</li>
-                <li>Faster path from discovery → enquire → book</li>
-                <li>A link she can send to brides, stylists and collaborators</li>
-                <li>Brand that looks as premium as the work</li>
+                <li>
+                  <strong className="text-white">Before:</strong> discovery → long DM thread → maybe
+                  a booking
+                </li>
+                <li>
+                  <strong className="text-white">After:</strong> one link → portfolio + services →
+                  WhatsApp with context pre-filled
+                </li>
+                <li>A professional link for brides, stylists, and collaborators</li>
+                <li>Brand presence that matches the quality of the makeup work</li>
               </ul>
+              <p className="mt-4 text-[14px] text-[#86868b]">
+                Metrics are directional (client-reported workflow change). Exact enquiry counts stay
+                private.
+              </p>
             </section>
 
             <div className="rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
