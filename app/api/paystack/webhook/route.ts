@@ -39,24 +39,40 @@ export async function POST(req: NextRequest) {
         })
       );
 
+      const admin = getSupabaseAdmin();
+
       // DoyinOps invoice payments → record for auto-mark paid
-      if (meta.source === "doyinops" && meta.invoice_number) {
-        const admin = getSupabaseAdmin();
-        if (admin) {
-          const { error } = await admin.from("ops_payment_events").upsert(
-            {
-              invoice_number: String(meta.invoice_number),
-              reference: data.reference || null,
-              amount_kobo: data.amount ?? null,
-              email: data.customer?.email || null,
-              paid_at: data.paid_at || new Date().toISOString(),
-              metadata: meta,
-            },
-            { onConflict: "reference" }
-          );
-          if (error) {
-            console.error("ops_payment_events insert", error.message);
-          }
+      if (meta.source === "doyinops" && meta.invoice_number && admin) {
+        const { error } = await admin.from("ops_payment_events").upsert(
+          {
+            invoice_number: String(meta.invoice_number),
+            reference: data.reference || null,
+            amount_kobo: data.amount ?? null,
+            email: data.customer?.email || null,
+            paid_at: data.paid_at || new Date().toISOString(),
+            metadata: meta,
+          },
+          { onConflict: "reference" }
+        );
+        if (error) {
+          console.error("ops_payment_events insert", error.message);
+        }
+      }
+
+      // Service deposits + digital purchases → site_leads for inbox
+      if (admin && (meta.kind === "service_deposit" || meta.product_id)) {
+        const { error } = await admin.from("site_leads").insert({
+          type: "purchase",
+          product: meta.product_name || meta.product_id || "Purchase",
+          name: meta.customer_name || data.customer?.email || "Paystack customer",
+          email: data.customer?.email || null,
+          phone: null,
+          message: `Paystack success. Ref: ${data.reference}. Amount: ${data.amount} ${data.currency || "NGN"}. kind=${meta.kind || "digital"}`,
+          source: meta.kind === "service_deposit" ? "hire-deposit" : "paystack",
+          status: "new",
+        });
+        if (error) {
+          console.error("site_leads from webhook", error.message);
         }
       }
     }
