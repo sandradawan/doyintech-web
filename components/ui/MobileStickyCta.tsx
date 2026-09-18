@@ -9,7 +9,7 @@ export default function MobileStickyCta() {
 
   useEffect(() => {
     const onScroll = () => {
-      setShow(window.scrollY > 420);
+      setShow(window.scrollY > 380);
       setPad(document.documentElement.dataset.cookieBanner === "1" ? 56 : 0);
     };
     onScroll();
@@ -32,24 +32,27 @@ export default function MobileStickyCta() {
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.25 }}
           style={{ bottom: pad }}
-          className="fixed inset-x-0 z-[95] border-t border-white/10 bg-[rgba(22,22,23,0.94)] p-3 backdrop-blur-xl md:hidden"
+          className="fixed inset-x-0 z-[95] border-t border-white/10 bg-[rgba(22,22,23,0.96)] p-3 backdrop-blur-xl md:hidden"
         >
           <div className="mx-auto flex max-w-lg gap-2">
             <a
-              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20discuss%20a%20project."
+              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20a%20free%20website%20audit%20%2F%20discovery%20call."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 rounded-full border border-white/15 py-3 text-center text-[13px] font-medium text-[#f5f5f7]"
+              className="flex-1 rounded-full bg-[#25D366] py-3 text-center text-[13px] font-semibold text-white"
             >
               WhatsApp
             </a>
             <a
-              href="/contact"
-              className="flex-[1.2] rounded-full bg-[#0071e3] py-3 text-center text-[13px] font-medium text-white"
+              href="/hire"
+              className="flex-[1.15] rounded-full bg-[#ff8c14] py-3 text-center text-[13px] font-semibold text-black"
             >
-              Contact
+              Hire · 50% deposit
             </a>
           </div>
+          <p className="mt-1.5 text-center text-[10px] text-white/40">
+            Fixed price · Live in days · Paystack accepted
+          </p>
         </motion.div>
       )}
     </AnimatePresence>
