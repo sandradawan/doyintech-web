@@ -49,7 +49,7 @@ export default function OpsLandingPage() {
               href="/ops/app"
               className="rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
             >
-              Open workspace
+              Open free workspace
             </Link>
             <Link
               href="/hire"
@@ -79,21 +79,46 @@ export default function OpsLandingPage() {
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
-            <h2 className="text-[18px] font-semibold text-white">Company roadmap</h2>
-            <ul className="mt-3 space-y-2 text-[14px] text-[#c7cdd8]">
-              <li>✓ Contacts, pipeline, invoices, tasks, print PDF, demo data</li>
-              <li>→ Cloud accounts + team seats (Supabase)</li>
-              <li>→ Paystack payment links on invoices</li>
-              <li>→ WhatsApp notification hooks</li>
-              <li>→ Vertical packs (salon, property)</li>
-            </ul>
-            <Link
-              href="/ops/app"
-              className="mt-5 inline-flex rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black"
-            >
-              Start free workspace →
-            </Link>
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-400">
+                Free forever (browser)
+              </p>
+              <h2 className="mt-2 text-[20px] font-semibold text-white">Local workspace</h2>
+              <ul className="mt-3 space-y-1 text-[14px] text-[#a1a1a6]">
+                <li>✓ Contacts, pipeline, invoices, tasks</li>
+                <li>✓ Data stays on this device (localStorage)</li>
+                <li>✓ Print / PDF invoices</li>
+                <li>✓ Demo data to explore in seconds</li>
+              </ul>
+              <Link
+                href="/ops/app"
+                className="mt-5 inline-flex rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black"
+              >
+                Start free →
+              </Link>
+            </div>
+            <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+                Coming · paid cloud
+              </p>
+              <h2 className="mt-2 text-[20px] font-semibold text-white">Team + sync tier</h2>
+              <ul className="mt-3 space-y-1 text-[14px] text-[#c7cdd8]">
+                <li>→ Cloud accounts + multi-device sync</li>
+                <li>→ Team seats for staff</li>
+                <li>→ Paystack payment links on invoices</li>
+                <li>→ WhatsApp notification hooks</li>
+                <li>→ Vertical packs (salon, property)</li>
+              </ul>
+              <a
+                href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20put%20me%20on%20the%20DoyinOps%20cloud%20waitlist."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+              >
+                Join cloud waitlist
+              </a>
+            </div>
           </div>
         </div>
       </main>
