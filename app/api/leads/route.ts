@@ -1,13 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseAdmin } from "@/lib/supabase/admin";
 
 type LeadBody = {
   name?: string;
   email?: string;
   phone?: string;
   product?: string;
-  type?: "waitlist" | "purchase" | "maintenance" | "lead-magnet";
+  type?: "waitlist" | "purchase" | "maintenance" | "lead-magnet" | "audit" | "chat" | "referral";
   message?: string;
+  source?: string;
 };
+
+function adminOk(req: NextRequest) {
+  const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET;
+  if (!secret) return false;
+  const header = req.headers.get("x-admin-secret") || "";
+  const q = req.nextUrl.searchParams.get("secret") || "";
+  return header === secret || q === secret;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,6 +27,8 @@ export async function POST(req: NextRequest) {
     const phone = (body.phone || "").trim();
     const product = (body.product || "General").trim();
     const type = body.type || "waitlist";
+    const message = (body.message || "").trim();
+    const source = (body.source || "website").trim();
 
     if (!name || (!email && !phone)) {
       return NextResponse.json(
@@ -25,26 +37,47 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Structured log for Vercel — also ready for Resend/Supabase later
-    console.log(
-      JSON.stringify({
-        event: "doyintech_lead",
-        type,
-        product,
-        name,
-        email,
-        phone,
-        message: body.message || "",
-        at: new Date().toISOString(),
-      })
-    );
+    const row = {
+      event: "doyintech_lead",
+      type,
+      product,
+      name,
+      email,
+      phone,
+      message,
+      source,
+      at: new Date().toISOString(),
+    };
+    console.log(JSON.stringify(row));
+
+    const sb = getSupabaseAdmin();
+    let savedId: string | null = null;
+    if (sb) {
+      const { data, error } = await sb
+        .from("site_leads")
+        .insert({
+          type,
+          product,
+          name,
+          email: email || null,
+          phone: phone || null,
+          message: message || null,
+          source,
+          status: "new",
+        })
+        .select("id")
+        .single();
+      if (!error && data?.id) savedId = data.id;
+      else if (error) console.log(JSON.stringify({ event: "lead_supabase_error", error: error.message }));
+    }
 
     const waText = encodeURIComponent(
-      `New ${type} lead\nProduct: ${product}\nName: ${name}\nEmail: ${email || "-"}\nPhone: ${phone || "-"}\n${body.message || ""}`
+      `New ${type} lead\nProduct: ${product}\nName: ${name}\nEmail: ${email || "-"}\nPhone: ${phone || "-"}\n${message || ""}`
     );
 
     return NextResponse.json({
       ok: true,
+      id: savedId,
       message:
         "Saved. We’ll follow up on WhatsApp/email. You can also message us now.",
       whatsapp: `https://wa.me/2348085343926?text=${waText}`,
@@ -52,4 +85,33 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
+}
+
+/** List leads for admin inbox. Requires ADMIN_LEADS_SECRET. */
+export async function GET(req: NextRequest) {
+  if (!adminOk(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const sb = getSupabaseAdmin();
+  if (!sb) {
+    return NextResponse.json({
+      ok: true,
+      leads: [],
+      note: "Supabase not configured. Set SUPABASE_SERVICE_ROLE_KEY and run docs/site-leads.sql",
+    });
+  }
+
+  const limit = Math.min(Number(req.nextUrl.searchParams.get("limit") || 50), 200);
+  const { data, error } = await sb
+    .from("site_leads")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ ok: true, leads: data || [] });
 }
