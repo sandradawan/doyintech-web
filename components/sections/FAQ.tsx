@@ -6,28 +6,36 @@ import ScrollReveal from "../animations/ScrollReveal";
 
 const faqs = [
   {
-    q: "What is your typical project timeline?",
-    a: "Most websites and medium-sized applications take 3–8 weeks depending on scope. Complex systems can take 2–4 months. You’ll get a clear timeline after discovery.",
+    q: "How much do I pay upfront?",
+    a: "For fixed-price websites: 50% deposit to start, balance before final handoff. Digital products are full payment via Paystack with instant download. No long contracts for entry packages.",
   },
   {
-    q: "How do you price projects?",
-    a: "Primarily fixed-scope after requirements are clear. Monthly retainers are available for ongoing work. You’ll know the investment before we start.",
+    q: "What if I’m not happy with the result?",
+    a: "We work in structured feedback rounds. You see drafts early. Balance is only due when you’re ready for launch. Care plans keep small fixes covered after go-live.",
+  },
+  {
+    q: "Can I pay with Naira / Paystack / transfer?",
+    a: "Yes. Deposits and digital products accept Paystack (card, bank, USSD). WhatsApp transfer is also fine for services — we’ll send account details after scope is clear.",
+  },
+  {
+    q: "How fast can a simple site go live?",
+    a: "Landing Page Starter: about 5–10 days after content + deposit. Local Business Website: typically 7–14 days. Growth packages take 2–4 weeks depending on pages and content readiness.",
+  },
+  {
+    q: "Do you only work with big companies?",
+    a: "No. Most clients are coaches, salons, property agents, clinics, freelancers, and local shops who need a site that gets WhatsApp enquiries — not a vanity brochure.",
+  },
+  {
+    q: "What is your typical project timeline?",
+    a: "Most websites and medium-sized applications take 1–8 weeks depending on scope. Complex systems can take 2–4 months. You get a clear timeline after a short discovery call.",
   },
   {
     q: "Do you provide support after launch?",
-    a: "Yes — maintenance packages cover fixes, small improvements, monitoring, and priority support.",
+    a: "Yes — optional Monthly Care Plans cover security updates, backups, small content changes, and priority WhatsApp support so your site stays fast and secure.",
   },
   {
-    q: "What technologies do you specialise in?",
-    a: "Next.js, React, Flutter, Laravel, PHP, Node.js, MySQL, PostgreSQL, and practical AI automation — focused on security and scale.",
-  },
-  {
-    q: "Can you work with existing codebases?",
-    a: "Yes. We audit, refactor, or extend existing projects with a clear plan before changes begin.",
-  },
-  {
-    q: "Do you work with clients outside Nigeria?",
-    a: "Yes. Based in Jos, Nigeria, we work across Africa, Europe, and North America via WhatsApp, email, and video calls.",
+    q: "Can you work with an existing website or codebase?",
+    a: "Yes. We audit, fix, redesign, or extend existing projects. You’ll get a clear plan and fixed price before any paid work begins.",
   },
 ];
 
@@ -39,8 +47,10 @@ export default function FAQ() {
       <div className="mx-auto max-w-[680px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">
-            <h2 className="apple-headline">Questions.</h2>
-            <p className="apple-subhead mt-3">Everything before you start a project.</p>
+            <h2 className="apple-headline">Questions before you buy.</h2>
+            <p className="apple-subhead mt-3">
+              Price, deposit, timeline, and risk — answered clearly.
+            </p>
           </div>
         </ScrollReveal>
 
@@ -53,7 +63,9 @@ export default function FAQ() {
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                   className="flex w-full items-center justify-between p-5 text-left"
                 >
-                  <span className="pr-4 text-[16px] font-medium text-[#f5f5f7]">{faq.q}</span>
+                  <span className="pr-4 text-[16px] font-medium text-[#f5f5f7]">
+                    {faq.q}
+                  </span>
                   <span className="shrink-0 text-[20px] text-[#2997ff]">
                     {openIndex === i ? "−" : "+"}
                   </span>
@@ -76,6 +88,19 @@ export default function FAQ() {
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal direction="up" delay={0.15}>
+          <div className="mt-10 text-center">
+            <a
+              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%20have%20a%20question%20before%20buying%20%2F%20hiring."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+            >
+              Ask on WhatsApp — free
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
