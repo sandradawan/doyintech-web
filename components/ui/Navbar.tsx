@@ -37,6 +37,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: "Free tools", href: "/tools", desc: "Business & security utilities" },
       { name: "DoyinOps", href: "/ops", desc: "SME ops workspace" },
       { name: "Free audit", href: "/free-audit", desc: "3-minute digital audit" },
+      { name: "Status pack", href: "/status-pack", desc: "Weekly captions to post" },
       { name: "Local SEO", href: "/local-seo", desc: "Google Business guide" },
       { name: "Outreach", href: "/outreach", desc: "Send templates" },
     ],
@@ -46,6 +47,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "About", href: "/about", desc: "Team & mission" },
       { name: "Blog", href: "/blog", desc: "Updates & videos" },
+      { name: "Refer & earn", href: "/refer", desc: "₦10k credit per deposit" },
       { name: "Company profile", href: "/company-profile", desc: "Legal & registration" },
       { name: "Contact", href: "/contact", desc: "Email or book a call" },
     ],
