@@ -41,7 +41,7 @@ export default function FreeAuditForm() {
         }),
       });
     } catch {
-      /* ignore */
+      /* ignore network errors — still open WhatsApp */
     }
 
     window.open(buildWa(), "_blank", "noopener,noreferrer");
