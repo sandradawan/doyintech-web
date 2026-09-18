@@ -35,6 +35,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Tools",
     items: [
       { name: "Free tools", href: "/tools", desc: "Business & security utilities" },
+      { name: "WhatsApp scripts", href: "/tools/whatsapp-scripts", desc: "5 free reply scripts" },
       { name: "DoyinOps", href: "/ops", desc: "SME ops workspace" },
       { name: "Free audit", href: "/free-audit", desc: "3-minute digital audit" },
       { name: "Status pack", href: "/status-pack", desc: "Weekly captions to post" },
