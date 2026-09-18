@@ -16,6 +16,22 @@ export const metadata = {
 
 const posts = [
   {
+    slug: "website-for-clinic-nigeria",
+    title: "Website for a Clinic in Nigeria — Appointments via WhatsApp",
+    excerpt:
+      "Clear services, hours, location, and one-tap WhatsApp booking for clinics.",
+    date: "September 2026",
+    category: "Local business",
+  },
+  {
+    slug: "property-website-nigeria",
+    title: "Property Website in Nigeria — Estates, Leads & Equity Mortgage",
+    excerpt:
+      "What property sites need to convert serious enquiries — lessons from real builds.",
+    date: "September 2026",
+    category: "Property",
+  },
+  {
     slug: "website-for-salon-nigeria",
     title: "Website for a Salon in Nigeria — What Actually Gets Bookings",
     excerpt:
