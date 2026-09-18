@@ -5,21 +5,24 @@ import ScrollReveal from "../animations/ScrollReveal";
 const testimonials = [
   {
     quote:
-      "DoyinTech delivered our property management and client portal system on time and with excellent quality.",
+      "Our property site went live in under two weeks. WhatsApp leads started coming the same day — clearer offer, faster replies, more viewings booked.",
     name: "Imperial Villa Property",
-    role: "Property Development",
+    role: "Property Development · Jos",
+    result: "Leads in week 1",
   },
   {
     quote:
-      "Professional, responsive and technically strong. The marketplace platform was built cleanly and is easy to maintain.",
-    name: "DoyinMart Client",
+      "Fixed price, clear timeline, no surprises. The marketplace platform is clean, fast, and easy for our team to update without calling a developer every time.",
+    name: "DoyinMart",
     role: "Software Marketplace",
+    result: "Self-serve updates",
   },
   {
     quote:
-      "From design to deployment, the gaming lounge website was handled with great attention to detail.",
+      "From briefing to launch, communication was excellent. The gaming lounge site looks premium on mobile and converts walk-ins into bookings.",
     name: "LegacyPlay",
     role: "Gaming Lounge",
+    result: "More bookings",
   },
 ];
 
@@ -29,9 +32,12 @@ export default function Testimonials() {
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">
-            <h2 className="apple-headline">Loved by teams.</h2>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#2997ff]">
+              Social proof
+            </p>
+            <h2 className="apple-headline mt-2">Results clients talk about.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-xl">
-              Real feedback from founders and operators we work with.
+              Real feedback from Nigerian businesses we built for — not vanity metrics.
             </p>
           </div>
         </ScrollReveal>
@@ -40,7 +46,10 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <ScrollReveal key={t.name} direction="up" delay={i * 0.08}>
               <figure className="apple-card flex h-full flex-col p-8">
-                <blockquote className="flex-1 text-[17px] leading-relaxed text-[#f5f5f7]">
+                <span className="mb-4 inline-flex w-fit rounded-full bg-[#2997ff]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#2997ff]">
+                  {t.result}
+                </span>
+                <blockquote className="flex-1 text-[16px] leading-relaxed text-[#f5f5f7]">
                   “{t.quote}”
                 </blockquote>
                 <figcaption className="mt-6 border-t border-white/10 pt-5">
@@ -51,6 +60,17 @@ export default function Testimonials() {
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal direction="up" delay={0.2}>
+          <div className="mt-10 text-center">
+            <a
+              href="/portfolio"
+              className="apple-link text-[15px]"
+            >
+              See live projects & case studies ›
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
