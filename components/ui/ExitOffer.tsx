@@ -133,26 +133,43 @@ export default function ExitOffer() {
           >
             <div className="border-b border-[#ff8c14]/20 bg-gradient-to-r from-[#ff8c14]/15 to-transparent px-6 py-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#ff8c14]">
-                Limited · entry price
+                Before you go
               </p>
             </div>
             <div className="px-6 py-6">
               <h2 id="exit-offer-title" className="text-[22px] font-semibold tracking-tight text-white">
-                {OFFER.name}
+                Free audit — or lock a ₦100k landing page
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-[#a1a1a6]">
-                Fixed price{" "}
-                <span className="font-semibold text-white">{OFFER.totalNgn}</span> · deposit{" "}
-                <span className="font-semibold text-white">{OFFER.depositNgn}</span> via Paystack.{" "}
-                {OFFER.timeline}.
+                Not ready to pay? Get a free 3-minute site check. Ready to sell?{" "}
+                <span className="font-semibold text-white">{OFFER.name}</span> is{" "}
+                <span className="font-semibold text-white">{OFFER.totalNgn}</span> (deposit{" "}
+                {OFFER.depositNgn}).
               </p>
-              <ul className="mt-4 space-y-1.5 text-[13px] text-[#e8eaed]">
-                {OFFER.scope.slice(0, 4).map((s) => (
-                  <li key={s}>✓ {s}</li>
-                ))}
-              </ul>
 
-              <label className="mt-5 block text-[12px] text-[#a1a1a6]">
+              <div className="mt-4 flex flex-col gap-2">
+                <a
+                  href="/free-audit"
+                  onClick={dismiss}
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[14px] font-semibold text-white"
+                >
+                  Free website audit
+                </a>
+                <a
+                  href="/tools/whatsapp-scripts"
+                  onClick={dismiss}
+                  className="inline-flex items-center justify-center rounded-full bg-[#25D366]/20 px-5 py-3 text-[14px] font-semibold text-[#25D366]"
+                >
+                  Free WhatsApp scripts
+                </a>
+              </div>
+
+              <div className="my-5 h-px bg-white/10" />
+
+              <p className="text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+                Or pay deposit now
+              </p>
+              <label className="mt-2 block text-[12px] text-[#a1a1a6]">
                 Email for Paystack receipt
                 <input
                   type="email"
@@ -163,30 +180,23 @@ export default function ExitOffer() {
                 />
               </label>
 
-              <div className="mt-4 flex flex-col gap-2">
+              <div className="mt-3 flex flex-col gap-2">
                 <button
                   type="button"
                   disabled={loading || !email.includes("@")}
                   onClick={payDeposit}
                   className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[14px] font-semibold text-black disabled:opacity-50"
                 >
-                  {loading ? "Redirecting to Paystack…" : `Pay deposit · ${OFFER.depositNgn}`}
+                  {loading ? "Redirecting…" : `Pay deposit · ${OFFER.depositNgn}`}
                 </button>
                 <a
                   href={serviceWhatsAppLink(OFFER)}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={dismiss}
-                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-[14px] font-semibold text-white"
-                >
-                  Prefer WhatsApp
-                </a>
-                <a
-                  href="/hire"
-                  onClick={dismiss}
                   className="text-center text-[13px] text-[#2997ff] hover:underline"
                 >
-                  See all packages →
+                  Prefer WhatsApp · all packages →
                 </a>
                 <button
                   type="button"
