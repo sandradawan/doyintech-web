@@ -15,6 +15,9 @@ import CloudSync from "@/components/ops/CloudSync";
 import OpsCharts from "@/components/ops/OpsCharts";
 import OpsAgenda from "@/components/ops/OpsAgenda";
 import OpsWeeklyReport from "@/components/ops/OpsWeeklyReport";
+import OpsContactDrawer from "@/components/ops/OpsContactDrawer";
+import OpsCommandPalette from "@/components/ops/OpsCommandPalette";
+import { exportContactsCsv, exportDealsCsv, exportInvoicesCsv } from "@/lib/ops/csv";
 
 type Tab = "home" | "agenda" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
 const field = "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
@@ -35,9 +38,21 @@ export default function OpsDashboard() {
   const [menu, setMenu] = useState(false);
   const [printInv, setPrintInv] = useState<Invoice | null>(null);
   const [payBusy, setPayBusy] = useState<string | null>(null);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [cmdOpen, setCmdOpen] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { setWs(loadWorkspace()); }, []);
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setCmdOpen((v) => !v);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
   useEffect(() => { if (ws) saveWorkspace(ws); }, [ws]);
 
   useEffect(() => {
@@ -88,6 +103,22 @@ export default function OpsDashboard() {
     if (!ws) return [];
     const today = todayIsoDate();
     return ws.deals.filter((d) => d.nextFollowUp && d.nextFollowUp <= today && d.stage !== "paid" && d.stage !== "lost");
+  }, [ws]);
+
+  const agendaCount = useMemo(() => {
+    if (!ws) return 0;
+    const today = todayIsoDate();
+    let n = 0;
+    for (const d of ws.deals) {
+      if (d.nextFollowUp && d.nextFollowUp <= today && d.stage !== "paid" && d.stage !== "lost") n++;
+    }
+    for (const task of ws.tasks || []) {
+      if (!task.done && task.dueDate && task.dueDate <= today) n++;
+    }
+    for (const inv of ws.invoices) {
+      if ((inv.status === "sent" || inv.status === "overdue") && inv.dueDate && inv.dueDate <= today) n++;
+    }
+    return n;
   }, [ws]);
 
   const globalHits = useMemo(() => {
@@ -168,6 +199,27 @@ export default function OpsDashboard() {
   return (
     <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-[1400px]">
       {printInv && <InvoicePrint orgName={data.orgName} profile={data.profile} invoice={printInv} client={byId(printInv.contactId)} onClose={() => setPrintInv(null)} />}
+      {selectedContact && (
+        <OpsContactDrawer contact={selectedContact} ws={data} onClose={() => setSelectedContact(null)} />
+      )}
+      <OpsCommandPalette
+        open={cmdOpen}
+        onClose={() => setCmdOpen(false)}
+        actions={[
+          { id: "home", label: "Go to Overview", hint: "Overview", run: () => go("home") },
+          { id: "agenda", label: "Go to Agenda", hint: "Agenda", run: () => go("agenda") },
+          { id: "contacts", label: "Go to Contacts", run: () => go("contacts") },
+          { id: "pipeline", label: "Go to Pipeline", run: () => go("pipeline") },
+          { id: "quotes", label: "Go to Quotes", run: () => go("quotes") },
+          { id: "invoices", label: "Go to Invoices", run: () => go("invoices") },
+          { id: "tasks", label: "Go to Tasks", run: () => go("tasks") },
+          { id: "settings", label: "Go to Settings", run: () => go("settings") },
+          { id: "csv-c", label: "Export contacts CSV", run: () => exportContactsCsv(data.contacts) },
+          { id: "csv-i", label: "Export invoices CSV", run: () => exportInvoicesCsv(data) },
+          { id: "csv-d", label: "Export deals CSV", run: () => exportDealsCsv(data) },
+          { id: "demo", label: "Load demo data", run: () => setWs(seedDemoWorkspace()) },
+        ]}
+      />
       {menu && <button type="button" className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setMenu(false)} aria-label="Close" />}
       <aside className={`fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-white/[0.06] bg-[#0a0f1a] pt-12 transition-transform lg:static lg:translate-x-0 lg:pt-0 ${menu ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-4">
@@ -179,6 +231,7 @@ export default function OpsDashboard() {
             <button key={item.id} type="button" onClick={() => go(item.id)} className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-[13px] font-medium ${tab === item.id ? "bg-[#ff8c14]/15 text-[#ff8c14]" : "text-white/65 hover:bg-white/5"}`}>
               {item.label}
               {item.id === "tasks" && openTasks.length > 0 && <span className="rounded-full bg-[#ff8c14]/20 px-2 text-[10px] text-[#ff8c14]">{openTasks.length}</span>}
+              {item.id === "agenda" && agendaCount > 0 && <span className="rounded-full bg-red-500/20 px-2 text-[10px] text-red-300">{agendaCount}</span>}
             </button>
           ))}
         </nav>
@@ -220,6 +273,7 @@ export default function OpsDashboard() {
               )}
             </div>
             <input ref={fileRef} type="file" accept=".json,application/json" className="hidden" onChange={(e) => onImport(e.target.files?.[0] || null)} />
+            <button type="button" onClick={() => setCmdOpen(true)} className={btnG} title="Command palette">⌘K</button>
             <button type="button" onClick={() => fileRef.current?.click()} className={btnG}>Import</button>
             <button type="button" onClick={() => exportJson(data)} className={btnG}>Export</button>
           </div>
@@ -314,14 +368,20 @@ export default function OpsDashboard() {
                 <button type="submit" className={`${btnP} w-full`}>Save</button>
               </form>
               <div className="space-y-3">
-                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className={field} />
+                <div className="flex flex-wrap gap-2">
+                  <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className={field + " flex-1"} />
+                  <button type="button" className={btnG} onClick={() => exportContactsCsv(data.contacts)}>Export CSV</button>
+                </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {contacts.map((c: Contact) => {
                     const wa = whatsappHref(c.phone, `Hi ${c.name},`);
                     return (
                       <div key={c.id} className="rounded-xl border border-white/[0.06] bg-[#0c1220] p-4">
-                        <p className="font-semibold text-white">{c.name}</p>
-                        <p className="text-[12px] text-white/45">{[c.business, c.phone, c.email].filter(Boolean).join(" · ")}</p>
+                        <button type="button" className="w-full text-left" onClick={() => setSelectedContact(c)}>
+                          <p className="font-semibold text-white">{c.name}</p>
+                          <p className="text-[12px] text-white/45">{[c.business, c.phone, c.email].filter(Boolean).join(" · ")}</p>
+                          <p className="mt-1 text-[11px] text-[#ff8c14]/70">View client 360 →</p>
+                        </button>
                         <div className="mt-2 flex gap-3">
                           {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="text-xs text-[#25D366]">WhatsApp</a>}
                           <button type="button" className="text-xs text-red-400" onClick={() => setWs((w) => w ? { ...normalizeWs(w), contacts: w.contacts.filter((x) => x.id !== c.id) } : w)}>Remove</button>
@@ -422,6 +482,10 @@ export default function OpsDashboard() {
           )}
 
           {tab === "invoices" && (
+            <div className="space-y-4">
+            <div className="flex justify-end">
+              <button type="button" className={btnG} onClick={() => exportInvoicesCsv(data)}>Export invoices CSV</button>
+            </div>
             <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
               <form onSubmit={(e: FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
@@ -462,6 +526,7 @@ export default function OpsDashboard() {
                   );
                 })}
               </div>
+            </div>
             </div>
           )}
 
