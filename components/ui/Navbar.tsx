@@ -15,9 +15,10 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "All services", href: "/services", desc: "Web, backend, mobile, AI" },
       { name: "Hire / packages", href: "/hire", desc: "Fixed-price deposits" },
+      { name: "Pricing quiz", href: "/pricing-quiz", desc: "Which package fits?" },
       { name: "Portfolio", href: "/portfolio", desc: "Live client work" },
       { name: "Case studies", href: "/case-studies", desc: "Results & process" },
-      { name: "Pricing", href: "/pricing", desc: "Transparent ranges" },
+      { name: "White-label", href: "/white-label", desc: "Resell our builds" },
     ],
   },
   {
@@ -35,8 +36,8 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "Free tools", href: "/tools", desc: "Business & security utilities" },
       { name: "DoyinOps", href: "/ops", desc: "SME ops workspace" },
-      { name: "Ops app", href: "/ops/app", desc: "Open workspace" },
       { name: "Free audit", href: "/free-audit", desc: "3-minute digital audit" },
+      { name: "Local SEO", href: "/local-seo", desc: "Google Business guide" },
       { name: "Outreach", href: "/outreach", desc: "Send templates" },
     ],
   },
@@ -113,7 +114,6 @@ export default function Navbar() {
             <span className="hidden sm:inline">DoyinTech</span>
           </a>
 
-          {/* Desktop categorized nav */}
           <div className="hidden items-center gap-0.5 lg:flex">
             {NAV_GROUPS.map((group) => {
               const isOpen = openDesktop === group.label;
@@ -142,9 +142,7 @@ export default function Navbar() {
                       width="10"
                       height="10"
                       viewBox="0 0 12 12"
-                      className={`opacity-60 transition ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
+                      className={`opacity-60 transition ${isOpen ? "rotate-180" : ""}`}
                       aria-hidden
                     >
                       <path
@@ -248,7 +246,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile: categorized accordion */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -265,9 +262,7 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={() =>
-                        setOpenMobileGroup((v) =>
-                          v === group.label ? null : group.label
-                        )
+                        setOpenMobileGroup((v) => (v === group.label ? null : group.label))
                       }
                       className="flex w-full items-center justify-between px-2 py-3 text-left text-[16px] font-semibold text-[#f5f5f7]"
                       aria-expanded={expanded}
