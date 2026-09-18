@@ -1,0 +1,4 @@
+sku,item,qty_on_hand,qty_incoming,supplier,supplier_lead_days,landed_cost_ngn,list_price_ngn,ember_price_ngn,deposit_ngn,cash_tied_ngn,reorder_by,status,notes
+SKU-01,Hero item A,12,20,Supplier Lagos,10,8000,13500,11500,5000,160000,2026-10-20,watch,Order only if deposits cover 50%
+SKU-02,Add-on B,30,0,Market,3,1200,3500,2500,0,36000,2026-11-01,ok,Use as GWP
+SKU-03,Dead stock C,8,0,Old PO,0,4500,9000,6000,0,36000,2026-10-05,clearance,Do not reorder

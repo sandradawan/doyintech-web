@@ -19,6 +19,28 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "ember-months-sales-playbook",
+    name: "Ember Months Sales Playbook 2026",
+    description:
+      "Oct–Dec week plan, offer math that keeps 15%+ margin, WhatsApp blast scripts, inventory/prepay tracker, and a 20-minute Ember ops checklist.",
+    priceUsd: "$19",
+    priceNgn: "₦14,500",
+    amountKobo: 1450000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "Oct–Dec week-by-week calendar",
+      "Offer math (discount without going broke)",
+      "WhatsApp Status + blast scripts",
+      "Sheets inventory & supplier prepay CSV",
+      "Morning/night Ember ops checklist",
+      "Deposit and last-delivery-date rules",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/ember-months-sales-playbook.md",
+    addedAt: "2026-09-18",
+  },
+  {
     id: "freelance-contract-wht-pack",
     name: "Freelance Contract & WHT Survival Pack",
     description:
@@ -27,7 +49,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦12,500",
     amountKobo: 1250000,
     type: "one-time",
-    badge: "New today",
+    badge: "New",
     features: [
       "Short service agreement (Docs-ready)",
       "Gross invoice + WHT notes",
@@ -169,26 +191,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     downloadPath: "/digital-products/status-caption-pack.md",
     addedAt: "2026-09-14",
   },
-  {
-    id: "client-onboarding-kit",
-    name: "Client Onboarding Kit",
-    description:
-      "Kickoff form questions, welcome email, asset checklist, and project rules.",
-    priceUsd: "$14",
-    priceNgn: "₦9,000",
-    amountKobo: 900000,
-    type: "one-time",
-    badge: "New",
-    features: [
-      "Kickoff questionnaire",
-      "Welcome email template",
-      "Asset checklist",
-      "Revision rules blurb",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/client-onboarding-kit.md",
-    addedAt: "2026-09-14",
-  },
 ];
 
 export const SAAS_PRODUCTS: DigitalProduct[] = [
@@ -219,7 +221,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === id);
+  return DIGITAL_PRODUCTS.find((p) => p.id === p.id);
 }
 
 export function productDownloadUrls(product: DigitalProduct): string[] {
