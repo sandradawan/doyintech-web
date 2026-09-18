@@ -16,6 +16,7 @@ import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
+import VideoTestimonials from "@/components/sections/VideoTestimonials";
 import ReferralOffer from "@/components/sections/ReferralOffer";
 import Founder from "@/components/sections/Founder";
 import FAQ from "@/components/sections/FAQ";
@@ -44,6 +45,7 @@ export default function Home() {
         <Projects />
         <TechStack />
         <Testimonials />
+        <VideoTestimonials />
         <ReferralOffer />
         <Founder />
         <FAQ />
