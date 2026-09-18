@@ -27,7 +27,6 @@ export default function FreeAuditForm() {
     e.preventDefault();
     setSending(true);
 
-    // Best-effort lead log (does not block WhatsApp)
     try {
       await fetch("/api/leads", {
         method: "POST",
@@ -36,7 +35,8 @@ export default function FreeAuditForm() {
           name: name.trim() || "Audit lead",
           phone: "whatsapp",
           product: "Free website audit",
-          type: "lead-magnet",
+          type: "audit",
+          source: "free-audit",
           message: `URL: ${url}\nBusiness: ${business}\nGoal: ${goal}`,
         }),
       });
