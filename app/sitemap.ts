@@ -9,12 +9,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/hire",
+    "/pricing-quiz",
     "/ops",
     "/products",
     "/ebooks",
     "/components",
     "/templates",
     "/free-audit",
+    "/local-seo",
+    "/white-label",
     "/pricing",
     "/services",
     "/services/backend",
@@ -26,6 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/blog/website-for-salon-nigeria",
     "/blog/whatsapp-booking-system-nigeria",
+    "/blog/website-for-clinic-nigeria",
+    "/blog/property-website-nigeria",
     "/blog/why-production-grade-backends-matter",
     "/blog/laravel-vs-node-when-to-choose",
     "/blog/practical-ai-automation-for-smes",
@@ -44,7 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const toolRoutes = TOOLS_META.map((t) => t.href);
-
   const routes = [...new Set([...staticRoutes, ...toolRoutes])];
 
   return routes.map((path) => ({
