@@ -6,6 +6,7 @@ import Stats from "@/components/sections/Stats";
 import ClientLogos from "@/components/sections/ClientLogos";
 import Services from "@/components/sections/Services";
 import Packages from "@/components/sections/Packages";
+import Guarantee from "@/components/sections/Guarantee";
 import BookCall from "@/components/sections/BookCall";
 import PassiveProducts from "@/components/sections/PassiveProducts";
 import LeadMagnet from "@/components/sections/LeadMagnet";
@@ -14,6 +15,7 @@ import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
 import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
+import ReferralOffer from "@/components/sections/ReferralOffer";
 import Founder from "@/components/sections/Founder";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
@@ -31,6 +33,7 @@ export default function Home() {
         <ClientLogos />
         <Services />
         <Packages />
+        <Guarantee />
         <BookCall />
         <PassiveProducts />
         <LeadMagnet />
@@ -39,6 +42,7 @@ export default function Home() {
         <Projects />
         <TechStack />
         <Testimonials />
+        <ReferralOffer />
         <Founder />
         <FAQ />
         <Contact />
