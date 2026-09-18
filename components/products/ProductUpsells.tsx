@@ -173,6 +173,7 @@ export default function ProductUpsells({ productId }: { productId: string }) {
   );
 }
 
+/** Post-deposit onboarding — reduce drop-off after Paystack */
 export function ServiceSuccessChecklist({
   serviceName,
   reference,
@@ -185,35 +186,44 @@ export function ServiceSuccessChecklist({
   const wa =
     "https://wa.me/2348085343926?text=" +
     encodeURIComponent(
-      `Hi DoyinTech, I paid the deposit for "${serviceName}".\nReference: ${reference}\nEmail: ${email || ""}\n\nI am ready to send logo, text, and photos.`
+      `Hi DoyinTech, I paid the deposit for "${serviceName}".\nReference: ${reference}\nEmail: ${email || ""}\n\nI am ready to send logo, text, and photos. Please share the project folder link.`
     );
 
   const steps = [
-    "Send logo (PNG/SVG), brand colours, and business name",
-    "Send page text + 5–10 real photos",
-    "Confirm WhatsApp number for the site button",
+    "Open WhatsApp (button below) so we can create your shared Google Drive folder",
+    "Upload logo (PNG or SVG), brand colours, and exact business name",
+    "Upload page text + 5–15 real photos (phone photos are fine)",
+    "Confirm the WhatsApp number that should appear on the site",
     "Reply to our first draft within 3 business days",
-    "Pay balance before final domain / files handoff",
+    "Pay balance only when you approve — before final handoff / domain",
   ];
 
   return (
     <div className="mt-8 space-y-4 text-left">
       <p className="text-[15px] font-medium text-emerald-400">Deposit received — you're booked</p>
       <p className="text-[14px] text-[#a1a1a6]">
-        Next: send project assets on WhatsApp so we can start on time.
+        Next step: send project assets so the timeline starts. We reply on WhatsApp within 1
+        business day and share a private Google Drive folder for logo, photos, and copy.
       </p>
       <ol className="list-decimal space-y-2 pl-5 text-[14px] text-[#c7cdd8]">
         {steps.map((s) => (
           <li key={s}>{s}</li>
         ))}
       </ol>
+      <div className="rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] text-[#a1a1a6]">
+        <p className="font-semibold text-white">Shared folder</p>
+        <p className="mt-1">
+          After you message us, you get a private Drive link. Drop files there — no email
+          attachments needed.
+        </p>
+      </div>
       <a
         href={wa}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex w-full items-center justify-center rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white"
       >
-        Open WhatsApp — start project
+        Open WhatsApp — start project + get folder
       </a>
     </div>
   );
