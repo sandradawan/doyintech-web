@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import type { Contact, OpsWorkspace } from "@/lib/ops/types";
 import { formatNgn, whatsappHref } from "@/lib/ops/store";
 import { StatusPill } from "@/components/ops/OpsHelpers";
@@ -145,7 +146,7 @@ export default function OpsContactDrawer({
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
       <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-white/40">{title}</h3>
