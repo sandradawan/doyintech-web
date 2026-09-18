@@ -16,6 +16,20 @@ export const metadata = {
 
 const posts = [
   {
+    slug: "website-for-restaurant-nigeria",
+    title: "Website for a Restaurant in Nigeria — Menu, Location & WhatsApp",
+    excerpt: "Menu, hours, Maps, and one-tap WhatsApp for reservations or bulk orders.",
+    date: "September 2026",
+    category: "Local business",
+  },
+  {
+    slug: "website-for-church-event-nigeria",
+    title: "Website for a Church or Event Centre in Nigeria",
+    excerpt: "Service times, location, programmes, and WhatsApp for hall bookings.",
+    date: "September 2026",
+    category: "Community",
+  },
+  {
     slug: "website-for-gaming-lounge-nigeria",
     title: "Website for a Gaming Lounge in Nigeria — Bookings & Tournaments",
     excerpt:
