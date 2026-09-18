@@ -95,6 +95,15 @@ export const TOOLS_META: ToolMeta[] = [
   ...PAID_TOOL_ENTRIES,
   ...MARKET_TOOLS,
   {
+    slug: "whatsapp-scripts",
+    href: "/tools/whatsapp-scripts",
+    title: "WhatsApp Reply Scripts",
+    short: "5 free scripts — price, booking, close, review.",
+    description: "Free WhatsApp Business reply scripts for Nigerian SMEs. Captures lead then delivers copy-paste replies.",
+    icon: "wa",
+    category: "business",
+  },
+  {
     slug: "outreach-hub",
     href: "/tools/outreach-hub",
     title: "Outreach Hub (US & UK)",
