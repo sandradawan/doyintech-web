@@ -115,7 +115,7 @@ export default function AdminLeadsPage() {
         <div className="mx-auto max-w-[960px] px-6">
           <h1 className="text-[28px] font-semibold text-white">Lead inbox</h1>
           <p className="mt-2 text-[14px] text-[#a1a1a6]">
-            Audits, deposits, chat handoffs. Needs{" "}
+            Audits, deposits, referrals, chat handoffs. Needs{" "}
             <code className="text-[#ff8c14]">ADMIN_LEADS_SECRET</code> + Supabase{" "}
             <code className="text-[#ff8c14]">site_leads</code> (see docs/site-leads.sql).
           </p>
@@ -148,6 +148,7 @@ export default function AdminLeadsPage() {
               <option value="">All types</option>
               <option value="audit">audit</option>
               <option value="purchase">purchase</option>
+              <option value="referral">referral</option>
               <option value="lead-magnet">lead-magnet</option>
               <option value="chat">chat</option>
               <option value="waitlist">waitlist</option>
