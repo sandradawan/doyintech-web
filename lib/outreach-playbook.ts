@@ -88,7 +88,7 @@ export const WEAKNESS_MAP: WeaknessOffer[] = [
   {
     id: "no_booking",
     label: "No online booking",
-    howToSpot: ["Salon/clinic/hotel with call-only", ""Book via DM"" only"],
+    howToSpot: ["Salon/clinic/hotel with call-only", "Book via DM only"],
     primaryOffer: "whatsapp_booking",
     secondaryOffer: "local_website",
     productUrl: `${SITE}/hire`,
