@@ -5,9 +5,9 @@ import LeadMagnet from "@/components/sections/LeadMagnet";
 import BookCall from "@/components/sections/BookCall";
 
 export const metadata: Metadata = {
-  title: "Digital Products — Pay with Paystack",
+  title: "Digital Products — Google Sheets Templates & Packs",
   description:
-    "Buy digital products from DoyinTech: freelance WHT contracts, tax calendars, WhatsApp quote kits, Status calendars, trackers. Pay with Paystack.",
+    "Buy Etsy-style Google Sheets templates from DoyinTech: budget dashboard, client CRM, content calendar, habit tracker, bookkeeping, project tracker — plus freelancer packs. Pay with Paystack.",
 };
 
 export default function ProductsPage() {
@@ -20,8 +20,9 @@ export default function ProductsPage() {
           </p>
           <h1 className="apple-headline mt-3 text-[#f5f5f7]">Pay. Download. Use today.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Digital packs for freelancers and SMEs — including today’s Freelance Contract &amp; WHT
-            Survival Pack. Secure checkout with Paystack; delivery by download after payment.
+            Etsy-style <strong className="font-medium text-[#f5f5f7]">Google Sheets templates</strong>{" "}
+            (budget, CRM, content calendar, habits, bookkeeping, projects) plus freelancer packs.
+            Secure Paystack checkout — download right after payment.
           </p>
         </div>
         <PassiveProducts />
