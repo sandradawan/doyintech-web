@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 32 32" role="img" aria-label="DoyinMart">
+  <rect width="32" height="32" rx="8.5" fill="#04553e"/>
+  <path d="M12 12.6v-1.7a4 4 0 0 1 8 0v1.7" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.7 12.4h14.6a1 1 0 0 1 1 1.07l-0.78 10.9a2.4 2.4 0 0 1-2.4 2.23H10.88a2.4 2.4 0 0 1-2.4-2.23l-0.78-10.9a1 1 0 0 1 1-1.07Zm4.5 3.3v8.1h3.06a4.05 4.05 0 0 0 0-8.1H13.2Zm2 1.95v4.2h1.06a2.1 2.1 0 0 0 0-4.2H15.2Z" fill="#ffffff"/>
+</svg>
