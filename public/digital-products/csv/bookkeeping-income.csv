@@ -1,0 +1,3 @@
+Date,Client,Description,AmountNGN,Method,InvoiceNo,TaxFlag
+2026-09-05,Glow Salon,Landing page 50% deposit,125000,Transfer,INV-001,Yes
+2026-09-10,Bello Properties,Discovery workshop,75000,Paystack,INV-002,Yes

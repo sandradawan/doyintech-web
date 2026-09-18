@@ -1,0 +1,5 @@
+ID,Title,Project,Status,Priority,Owner,DueDate,EstimateHrs,Done,Notes
+T01,Wireframe home,Salon Site,In Progress,High,You,2026-09-18,3,FALSE,Mobile first
+T02,Send portfolio PDF,Property Portal,Next,Medium,You,2026-09-18,1,FALSE,
+T03,Collect brand colors,Salon Site,Backlog,Low,You,2026-09-22,0.5,FALSE,Wait for Ada
+T04,Draft proposal,Property Portal,Review,High,You,2026-09-19,2,FALSE,

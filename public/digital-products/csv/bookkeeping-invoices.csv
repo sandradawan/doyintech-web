@@ -1,0 +1,4 @@
+Number,Client,IssueDate,DueDate,AmountNGN,Status,PaidDate
+INV-001,Glow Salon,2026-09-01,2026-09-08,125000,Paid,2026-09-05
+INV-002,Bello Properties,2026-09-08,2026-09-15,75000,Sent,
+INV-003,Fresh Bites,2026-09-12,2026-09-19,90000,Draft,
