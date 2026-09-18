@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/company-profile",
     "/privacy",
     "/terms",
+    "/case-studies",
     "/case-studies/imperial-villa",
     "/case-studies/doyinmart",
     "/case-studies/legacyplay",
@@ -55,8 +56,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? 0.95
           : path.startsWith("/tools")
             ? 0.9
-            : path.startsWith("/case-studies")
-              ? 0.7
+            : path === "/case-studies" || path.startsWith("/case-studies")
+              ? 0.75
               : 0.8,
   }));
 }
