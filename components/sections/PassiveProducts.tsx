@@ -22,7 +22,7 @@ export default function PassiveProducts() {
             </p>
             <h2 className="apple-headline mt-2">Products clients pay for.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              Pay with Paystack for instant download — or order on WhatsApp if you prefer.
+              New today: Review & Referral Harvest Kit. Paystack for instant download — or WhatsApp if you prefer.
             </p>
           </div>
         </ScrollReveal>
@@ -33,7 +33,8 @@ export default function PassiveProducts() {
               p.badge === "Best seller" ||
               p.badge === "Most popular" ||
               p.badge === "New today" ||
-              p.badge === "Bundle";
+              p.badge === "Bundle" ||
+              p.badge === "Bundle · Best value";
             return (
               <ScrollReveal key={p.id} direction="up" delay={i * 0.04} className="h-full">
                 <article
@@ -48,7 +49,7 @@ export default function PassiveProducts() {
                       {p.badge ? (
                         <span
                           className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
-                            p.badge === "Bundle"
+                            p.badge.startsWith("Bundle")
                               ? "bg-[#ff8c14] text-black"
                               : featured
                                 ? "bg-[#0071e3] text-white"
