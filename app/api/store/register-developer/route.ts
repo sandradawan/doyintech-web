@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbRegisterDeveloper } from "@/lib/store/membership";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { hashPassword, validatePasswordPolicy } from "@/lib/store/password";
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,9 +15,16 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
+    const password = String(body.password || "");
+    const policyErr = validatePasswordPolicy(password);
+    if (policyErr) {
+      return NextResponse.json({ error: policyErr }, { status: 400 });
+    }
+
     const result = await dbRegisterDeveloper({
       displayName: String(body.displayName || "").trim(),
       email: String(body.email || "").trim(),
+      passwordHash: hashPassword(password),
       phone: body.phone ? String(body.phone).trim() : undefined,
       website: body.website ? String(body.website).trim() : undefined,
       bio: body.bio ? String(body.bio).trim() : undefined,
@@ -35,7 +43,7 @@ export async function POST(req: NextRequest) {
       membershipStatus: result.membershipStatus,
       message:
         result.membershipStatus === "pending"
-          ? "Application received. We review new developers before first publish. You can still submit an app for review."
+          ? "Application received. We review new developers before first publish."
           : "Developer account ready.",
     });
   } catch {
