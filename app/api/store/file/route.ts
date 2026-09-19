@@ -1,17 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPublishedBySlug } from "@/lib/store/published";
 import { verifyDownloadToken } from "@/lib/store/tokens";
+import { dbVerifyOrderToken } from "@/lib/store/db";
 
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token") || "";
   const slug = req.nextUrl.searchParams.get("slug") || "";
 
-  const result = verifyDownloadToken(token, slug);
-  if (!result.ok) {
-    return new NextResponse(result.error, { status: 403 });
+  const mem = verifyDownloadToken(token, slug);
+  const db = mem.ok ? null : await dbVerifyOrderToken(token, slug);
+  if (!mem.ok && !(db && db.ok)) {
+    return new NextResponse(mem.ok ? "Forbidden" : mem.error, { status: 403 });
   }
 
-  const listing = getPublishedBySlug(slug);
+  const listing = await getPublishedBySlug(slug);
   if (!listing || listing.reviewStatus !== "approved") {
     return new NextResponse("Listing unavailable", { status: 404 });
   }
