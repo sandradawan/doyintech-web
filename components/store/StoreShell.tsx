@@ -12,6 +12,12 @@ export function StoreNav() {
   return (
     <div className="flex items-center gap-3 text-sm">
       <Link
+        href="/store/purchases"
+        className="rounded-full border border-white/15 px-4 py-2 font-medium text-[#cbd5e1] transition hover:border-white/30 hover:text-white"
+      >
+        Purchases
+      </Link>
+      <Link
         href="/store/auth"
         className="rounded-full bg-[#ff8c14] px-4 py-2 font-semibold text-black transition hover:bg-[#ffa03a]"
       >
@@ -46,7 +52,6 @@ export function HeroCarousel({ listings }: { listings: StoreListing[] }) {
       merged.push(item);
       if (merged.length >= 6) break;
     }
-    // Fallback: any approved listings if no screenshots yet
     if (merged.length === 0) {
       return listings.slice(0, 4);
     }
@@ -72,8 +77,7 @@ export function HeroCarousel({ listings }: { listings: StoreListing[] }) {
   }
 
   const current = slides[index];
-  const cover =
-    current.screenshots?.[0] || current.iconUrl || null;
+  const cover = current.screenshots?.[0] || current.iconUrl || null;
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0c1220]">
@@ -91,11 +95,9 @@ export function HeroCarousel({ listings }: { listings: StoreListing[] }) {
             <StoreAppIcon slug={current.slug} category={current.category} size={64} />
           </div>
         )}
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#070b12] via-[#070b12]/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#070b12]/80 via-transparent to-transparent" />
 
-        {/* Content */}
         <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-lg">
@@ -109,9 +111,7 @@ export function HeroCarousel({ listings }: { listings: StoreListing[] }) {
                 {current.shortDescription}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-3 text-[13px] text-[#cbd5e1]">
-                <span className="font-semibold text-white">
-                  {formatNgn(current.priceNgn)}
-                </span>
+                <span className="font-semibold text-white">{formatNgn(current.priceNgn)}</span>
                 <span className="text-[#64748b]">·</span>
                 <span className="flex items-center gap-1">
                   <span className="text-amber-400">★</span>
@@ -131,7 +131,6 @@ export function HeroCarousel({ listings }: { listings: StoreListing[] }) {
         </div>
       </div>
 
-      {/* Dots */}
       {slides.length > 1 && (
         <div className="absolute bottom-3 right-4 flex gap-1.5 sm:bottom-auto sm:right-6 sm:top-6">
           {slides.map((_, i) => (
@@ -188,9 +187,7 @@ export function ListingCard({ item }: { item: StoreListing }) {
           {item.shortDescription}
         </p>
         <div className="mt-3 flex items-center justify-between border-t border-white/[0.06] pt-3">
-          <span className="text-[14px] font-semibold text-white">
-            {formatNgn(item.priceNgn)}
-          </span>
+          <span className="text-[14px] font-semibold text-white">{formatNgn(item.priceNgn)}</span>
           <span className="flex items-center gap-1 text-[12px] text-[#64748b]">
             <span className="text-amber-400">★</span>
             {item.ratingAvg.toFixed(1)}
@@ -210,9 +207,11 @@ export function StoreBrowse({
 }) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("All");
+  const [price, setPrice] = useState<"all" | "free" | "paid">("all");
+  const [sort, setSort] = useState<"top" | "newest" | "price">("top");
 
   const filtered = useMemo(() => {
-    return listings.filter((l) => {
+    let list = listings.filter((l) => {
       const okCat =
         cat === "All" ||
         l.category === cat ||
@@ -222,30 +221,65 @@ export function StoreBrowse({
         l.title.toLowerCase().includes(q.toLowerCase()) ||
         l.shortDescription.toLowerCase().includes(q.toLowerCase()) ||
         l.developerName.toLowerCase().includes(q.toLowerCase());
-      return okCat && okQ;
+      const okPrice =
+        price === "all" ||
+        (price === "free" && l.priceNgn === 0) ||
+        (price === "paid" && l.priceNgn > 0);
+      return okCat && okQ && okPrice;
     });
-  }, [listings, q, cat]);
+    list = [...list].sort((a, b) => {
+      if (sort === "newest") {
+        return (
+          new Date(b.publishedAt || b.createdAt).getTime() -
+          new Date(a.publishedAt || a.createdAt).getTime()
+        );
+      }
+      if (sort === "price") return a.priceNgn - b.priceNgn;
+      return b.ratingAvg - a.ratingAvg || b.downloads - a.downloads;
+    });
+    return list;
+  }, [listings, q, cat, price, sort]);
 
   return (
     <div>
-      <div className="mx-auto max-w-md">
+      <div className="mx-auto flex max-w-2xl flex-col gap-3 sm:flex-row">
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search apps…"
           className="w-full rounded-xl border border-white/10 bg-[#0a0f1a] px-4 py-3 text-[14px] text-white outline-none placeholder:text-white/25 focus:border-[#ff8c14]/50"
         />
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value as "top" | "newest" | "price")}
+          className="rounded-xl border border-white/10 bg-[#0a0f1a] px-3 py-3 text-[13px] text-white outline-none focus:border-[#ff8c14]/50"
+        >
+          <option value="top">Top rated</option>
+          <option value="newest">Newest</option>
+          <option value="price">Price: low → high</option>
+        </select>
       </div>
       <div className="mt-4 flex flex-wrap justify-center gap-2">
+        {(["all", "free", "paid"] as const).map((p) => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => setPrice(p)}
+            className={`rounded-full px-3 py-1 text-[12px] font-medium transition ${
+              price === p ? "bg-white/15 text-white" : "text-[#64748b] hover:text-white"
+            }`}
+          >
+            {p === "all" ? "All prices" : p === "free" ? "Free" : "Paid"}
+          </button>
+        ))}
+        <span className="mx-1 text-[#334155]">|</span>
         {categories.map((c) => (
           <button
             key={c}
             type="button"
             onClick={() => setCat(c)}
             className={`rounded-full px-3 py-1 text-[12px] font-medium transition ${
-              cat === c
-                ? "bg-[#ff8c14] text-black"
-                : "text-[#64748b] hover:text-white"
+              cat === c ? "bg-[#ff8c14] text-black" : "text-[#64748b] hover:text-white"
             }`}
           >
             {c}
