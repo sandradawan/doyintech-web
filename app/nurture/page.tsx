@@ -64,8 +64,9 @@ export default function NurturePage() {
           </p>
           <h1 className="mt-2 text-[32px] font-semibold text-white">Lead nurture scripts</h1>
           <p className="mt-3 text-[15px] text-[#a1a1a6]">
-            Paste into WhatsApp from the lead inbox. Replace {"{{"}}name{{"}}"} and {"{{"}}url{{"}}"}. Consistency
-            beats perfect copy.
+            Paste into WhatsApp from the lead inbox. Replace{" "}
+            <code className="text-[#ff8c14]">{`{{name}}`}</code> and{" "}
+            <code className="text-[#ff8c14]">{`{{url}}`}</code>. Consistency beats perfect copy.
           </p>
           <div className="mt-10 space-y-10">
             {sequences.map((seq) => (
@@ -88,7 +89,10 @@ export default function NurturePage() {
             ))}
           </div>
           <p className="mt-10 text-[13px] text-[#86868b]">
-            Leads: <a href="/admin/leads" className="text-[#ff8c14] hover:underline">/admin/leads</a>
+            Leads:{" "}
+            <a href="/admin/leads" className="text-[#ff8c14] hover:underline">
+              /admin/leads
+            </a>
           </p>
         </div>
       </main>
