@@ -2,29 +2,31 @@ import { EBOOKS, type Ebook } from "./ebooks";
 import { MORE_EBOOKS } from "./ebooks-more";
 import { WAVE3_EBOOKS } from "./ebooks-wave3";
 import { LIFE_EBOOKS } from "./ebooks-life";
-import {
-  FULL_CHAPTERS,
-  FULL_CHAPTERS_MORE,
-  FULL_CHAPTERS_LIFE,
-} from "./ebooks-content-expand";
+import fs from "fs";
+import path from "path";
 
-const CHAPTER_MAP: Record<
-  string,
-  { title: string; body: string; imageCaption?: string }[]
-> = {
-  ...FULL_CHAPTERS,
-  ...FULL_CHAPTERS_MORE,
-  ...FULL_CHAPTERS_LIFE,
-};
+type Ch = { title: string; body: string; imageCaption?: string };
+
+function loadChapterMap(): Record<string, Ch[]> {
+  try {
+    const p = path.join(process.cwd(), "public", "ebook-chapters.json");
+    if (fs.existsSync(p)) {
+      return JSON.parse(fs.readFileSync(p, "utf8")) as Record<string, Ch[]>;
+    }
+  } catch {
+    /* ignore */
+  }
+  return {};
+}
+
+const CHAPTER_MAP = loadChapterMap();
 
 function withFullChapters(book: Ebook): Ebook {
   const full = CHAPTER_MAP[book.id];
   if (!full || !full.length) return book;
   return {
     ...book,
-    pagesLabel: book.pagesLabel.includes("Full")
-      ? book.pagesLabel
-      : `Full guide · ${full.length} chapters`,
+    pagesLabel: `Full guide · ${full.length} chapters`,
     chapters: full.map((ch) => ({
       title: ch.title,
       body: ch.body,
