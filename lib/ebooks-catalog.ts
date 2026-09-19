@@ -13,6 +13,8 @@ function loadChapterMap(): Record<string, Ch[]> {
   for (const name of [
     "ebook-chapters.json",
     "ebook-chapters-a.json",
+    "ebook-chapters-a1.json",
+    "ebook-chapters-a2.json",
     "ebook-chapters-b.json",
     "ebook-chapters-c.json",
   ]) {
@@ -38,7 +40,7 @@ function withFullChapters(book: Ebook): Ebook {
     pagesLabel: `Full guide · ${full.length} chapters`,
     chapters: full.map((ch) => ({
       title: ch.title,
-      body: ch.body,
+      body: ch.body.replace(/\\n/g, "\n"),
       imageCaption: ch.imageCaption,
     })),
   };
