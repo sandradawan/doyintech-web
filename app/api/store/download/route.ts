@@ -41,9 +41,8 @@ export async function POST(req: NextRequest) {
 
     const ttlMinutes = 120;
     const expiresAt = new Date(Date.now() + ttlMinutes * 60 * 1000);
-    // Prefer DB-backed token; also keep memory for file route compatibility
     const token = randomBytes(24).toString("hex");
-    issueDownloadToken(slug, email, ttlMinutes);
+    issueDownloadToken(slug, email, ttlMinutes, token);
 
     const saved = await dbCreateOrder({
       listingId: listing.id,
@@ -56,9 +55,6 @@ export async function POST(req: NextRequest) {
       expiresAt,
     });
 
-    // If DB save failed, still issue memory token
-    const finalToken = saved ? token : issueDownloadToken(slug, email, ttlMinutes);
-
     void dbBumpDownloads(listing.id);
 
     const origin =
@@ -66,7 +62,7 @@ export async function POST(req: NextRequest) {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://doyintech.vercel.app";
 
-    const downloadUrl = `${origin}/api/store/file?token=${encodeURIComponent(finalToken)}&slug=${encodeURIComponent(slug)}`;
+    const downloadUrl = `${origin}/api/store/file?token=${encodeURIComponent(token)}&slug=${encodeURIComponent(slug)}`;
 
     console.log(
       JSON.stringify({
@@ -83,7 +79,7 @@ export async function POST(req: NextRequest) {
       ok: true,
       message: `Download authorized for ${listing.fileName || listing.title}. Starting…`,
       downloadUrl,
-      token: finalToken,
+      token,
       expiresInMinutes: ttlMinutes,
       installHint:
         listing.platform === "android"
