@@ -4,13 +4,9 @@ import type { ReviewStatus } from "@/lib/store/types";
 
 function authorized(req: NextRequest): boolean {
   const key = process.env.STORE_ADMIN_KEY || "";
-  if (!key) {
-    // Dev fallback: allow read/update when key not set (lock down in production)
-    return process.env.NODE_ENV !== "production";
-  }
+  if (!key) return false; // Fail closed in all environments
   const header = req.headers.get("x-store-admin-key") || "";
-  const q = req.nextUrl.searchParams.get("key") || "";
-  return header === key || q === key;
+  return header === key;
 }
 
 export async function GET(req: NextRequest) {
@@ -29,7 +25,7 @@ export async function PATCH(req: NextRequest) {
     const id = String(body.id || "");
     const reviewStatus = String(body.reviewStatus || "") as ReviewStatus;
     const securityNotes = body.securityNotes
-      ? String(body.securityNotes)
+      ? String(body.securityNotes).slice(0, 2000)
       : undefined;
 
     const allowed: ReviewStatus[] = [
