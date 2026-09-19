@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { fulfillPaidProduct } from "@/lib/delivery/fulfill";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
@@ -9,7 +10,6 @@ export async function POST(req: NextRequest) {
     const raw = await req.text();
     const signature = req.headers.get("x-paystack-signature") || "";
 
-    // Fail closed: never process webhooks without a configured secret + valid signature
     if (!SECRET) {
       console.error("PAYSTACK_SECRET_KEY not configured — rejecting webhook");
       return NextResponse.json({ error: "Webhook not configured" }, { status: 503 });
@@ -26,58 +26,73 @@ export async function POST(req: NextRequest) {
 
     if (event === "charge.success") {
       const meta = data.metadata || {};
+      const email = String(data.customer?.email || "").trim().toLowerCase();
+      const productId = String(meta.product_id || "").trim();
+      const reference = String(data.reference || "");
+
       console.log(
         JSON.stringify({
           event: "paystack_sale",
-          reference: data.reference,
+          reference,
           amount: data.amount,
           currency: data.currency,
-          email: data.customer?.email,
-          product_id: meta.product_id,
+          email,
+          product_id: productId,
           product_name: meta.product_name,
           source: meta.source,
-          invoice_number: meta.invoice_number,
-          customer_name: meta.customer_name,
-          paid_at: data.paid_at,
+          kind: meta.kind,
           at: new Date().toISOString(),
         })
       );
 
       const admin = getSupabaseAdmin();
 
-      // DoyinOps invoice payments → record for auto-mark paid
       if (meta.source === "doyinops" && meta.invoice_number && admin) {
         const { error } = await admin.from("ops_payment_events").upsert(
           {
             invoice_number: String(meta.invoice_number),
-            reference: data.reference || null,
+            reference: reference || null,
             amount_kobo: data.amount ?? null,
-            email: data.customer?.email || null,
+            email: email || null,
             paid_at: data.paid_at || new Date().toISOString(),
             metadata: meta,
           },
           { onConflict: "reference" }
         );
-        if (error) {
-          console.error("ops_payment_events insert", error.message);
+        if (error) console.error("ops_payment_events insert", error.message);
+      }
+
+      if (
+        email &&
+        productId &&
+        meta.kind !== "service_deposit" &&
+        meta.source !== "doyinops"
+      ) {
+        try {
+          await fulfillPaidProduct({
+            productId,
+            email,
+            reference,
+            amountKobo: typeof data.amount === "number" ? data.amount : undefined,
+            customerName: meta.customer_name ? String(meta.customer_name) : undefined,
+          });
+        } catch (e) {
+          console.error("fulfill webhook", e);
         }
       }
 
-      // Service deposits + digital purchases → site_leads for inbox
-      if (admin && (meta.kind === "service_deposit" || meta.product_id)) {
+      if (admin && (meta.kind === "service_deposit" || productId)) {
         const { error } = await admin.from("site_leads").insert({
           type: "purchase",
-          product: meta.product_name || meta.product_id || "Purchase",
-          name: meta.customer_name || data.customer?.email || "Paystack customer",
-          email: data.customer?.email || null,
+          product: meta.product_name || productId || "Purchase",
+          name: meta.customer_name || email || "Paystack customer",
+          email: email || null,
           phone: null,
-          message: `Paystack success. Ref: ${data.reference}. Amount: ${data.amount} ${data.currency || "NGN"}. kind=${meta.kind || "digital"}`,
+          message: `Paystack success. Ref: ${reference}. Amount: ${data.amount} ${data.currency || "NGN"}. kind=${meta.kind || "digital"} · auto-delivery attempted`,
           source: meta.kind === "service_deposit" ? "hire-deposit" : "paystack",
           status: "new",
         });
-        if (error) {
-          console.error("site_leads from webhook", error.message);
-        }
+        if (error) console.error("site_leads from webhook", error.message);
       }
     }
 

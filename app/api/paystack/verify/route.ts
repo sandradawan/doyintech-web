@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { fulfillPaidProduct } from "@/lib/delivery/fulfill";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
+const recent = new Map<string, number>();
 
 export async function GET(req: NextRequest) {
   try {
@@ -31,6 +33,9 @@ export async function GET(req: NextRequest) {
 
     const tx = data.data;
     const paid = tx.status === "success";
+    const email = String(tx.customer?.email || "").trim().toLowerCase();
+    const meta = tx.metadata || {};
+    const productId = String(meta.product_id || "").trim();
 
     console.log(
       JSON.stringify({
@@ -38,21 +43,60 @@ export async function GET(req: NextRequest) {
         reference,
         status: tx.status,
         amount: tx.amount,
-        email: tx.customer?.email,
-        product: tx.metadata?.product_id || tx.metadata?.product_name,
+        email,
+        product: productId || meta.product_name,
         at: new Date().toISOString(),
       })
     );
+
+    let delivery: Awaited<ReturnType<typeof fulfillPaidProduct>> | null = null;
+
+    if (
+      paid &&
+      email &&
+      productId &&
+      meta.kind !== "service_deposit" &&
+      meta.source !== "doyinops"
+    ) {
+      const last = recent.get(reference) || 0;
+      if (Date.now() - last > 30_000) {
+        recent.set(reference, Date.now());
+        try {
+          const origin =
+            req.headers.get("origin") ||
+            process.env.NEXT_PUBLIC_SITE_URL ||
+            "https://doyintech.vercel.app";
+          delivery = await fulfillPaidProduct({
+            productId,
+            email,
+            reference,
+            amountKobo: typeof tx.amount === "number" ? tx.amount : undefined,
+            origin,
+            customerName: meta.customer_name ? String(meta.customer_name) : undefined,
+          });
+        } catch (e) {
+          console.error("fulfill verify", e);
+        }
+      }
+    }
 
     return NextResponse.json({
       ok: paid,
       status: tx.status,
       amount: tx.amount,
       currency: tx.currency,
-      email: tx.customer?.email,
+      email,
       paid_at: tx.paid_at,
-      metadata: tx.metadata || {},
+      metadata: meta,
       reference: tx.reference,
+      delivery: delivery
+        ? {
+            productName: delivery.productName,
+            emailed: delivery.emailed,
+            downloadLinks: delivery.downloadLinks,
+            error: delivery.error,
+          }
+        : null,
     });
   } catch {
     return NextResponse.json({ error: "Verification error." }, { status: 500 });
