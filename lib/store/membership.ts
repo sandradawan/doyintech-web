@@ -114,3 +114,92 @@ export async function dbAttachScreenshots(
     .eq("id", listingId);
   return true;
 }
+
+// ---------------------------------------------------------------------------
+// Login / lookup helpers
+// ---------------------------------------------------------------------------
+export async function dbGetDeveloperByEmail(email: string): Promise<{
+  id: string;
+  displayName: string;
+  email: string;
+  website: string | null;
+  membershipStatus: string;
+  membershipTier: string;
+} | null> {
+  const sb = getSupabaseAdmin();
+  if (!sb) return null;
+  const { data, error } = await sb
+    .from("store_developers")
+    .select("id, display_name, email, website, membership_status, membership_tier")
+    .eq("email", email.toLowerCase().trim())
+    .maybeSingle();
+  if (error || !data) return null;
+  return {
+    id: data.id,
+    displayName: data.display_name,
+    email: data.email,
+    website: data.website,
+    membershipStatus: data.membership_status || "pending",
+    membershipTier: data.membership_tier || "free",
+  };
+}
+
+export async function dbListDevelopers(): Promise<
+  Array<{
+    id: string;
+    displayName: string;
+    email: string;
+    website: string | null;
+    membershipStatus: string;
+    membershipTier: string;
+    createdAt: string;
+  }>
+> {
+  const sb = getSupabaseAdmin();
+  if (!sb) return [];
+  const { data, error } = await sb
+    .from("store_developers")
+    .select("id, display_name, email, website, membership_status, membership_tier, created_at")
+    .order("created_at", { ascending: false })
+    .limit(200);
+  if (error || !data) return [];
+  return data.map((d) => ({
+    id: d.id,
+    displayName: d.display_name,
+    email: d.email,
+    website: d.website,
+    membershipStatus: d.membership_status || "pending",
+    membershipTier: d.membership_tier || "free",
+    createdAt: d.created_at,
+  }));
+}
+
+export async function dbSetDeveloperStatus(
+  id: string,
+  status: "pending" | "active" | "suspended" | "rejected",
+  reason?: string
+): Promise<boolean> {
+  const sb = getSupabaseAdmin();
+  if (!sb) return false;
+  const patch: Record<string, unknown> = {
+    membership_status: status,
+    updated_at: new Date().toISOString(),
+  };
+  if (status === "active") patch.verified_at = new Date().toISOString();
+  if (reason) patch.rejection_reason = reason;
+  const { error } = await sb.from("store_developers").update(patch).eq("id", id);
+  return !error;
+}
+
+export async function dbListingsByDeveloperEmail(email: string) {
+  const sb = getSupabaseAdmin();
+  if (!sb) return [];
+  const { data, error } = await sb
+    .from("store_listings")
+    .select("*")
+    .eq("developer_email", email.toLowerCase().trim())
+    .order("created_at", { ascending: false })
+    .limit(100);
+  if (error || !data) return [];
+  return data;
+}
