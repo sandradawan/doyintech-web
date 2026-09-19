@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listQueue, updateQueueStatus } from "@/lib/store/queue";
+import { dbListQueue, dbUpdateStatus } from "@/lib/store/db";
 import type { ReviewStatus } from "@/lib/store/types";
 
 function authorized(req: NextRequest): boolean {
   const key = process.env.STORE_ADMIN_KEY || "";
-  if (!key) return false; // Fail closed in all environments
+  if (!key) return false;
   const header = req.headers.get("x-store-admin-key") || "";
   return header === key;
 }
@@ -13,7 +14,15 @@ export async function GET(req: NextRequest) {
   if (!authorized(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  return NextResponse.json({ ok: true, submissions: listQueue() });
+
+  const fromDb = await dbListQueue();
+  const submissions = fromDb ?? listQueue();
+
+  return NextResponse.json({
+    ok: true,
+    submissions,
+    source: fromDb ? "supabase" : "memory",
+  });
 }
 
 export async function PATCH(req: NextRequest) {
@@ -39,7 +48,10 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "Invalid id or status" }, { status: 400 });
     }
 
-    const updated = updateQueueStatus(id, reviewStatus, securityNotes);
+    const updated =
+      (await dbUpdateStatus(id, reviewStatus, securityNotes)) ||
+      updateQueueStatus(id, reviewStatus, securityNotes);
+
     if (!updated) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
