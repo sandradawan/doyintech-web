@@ -1,6 +1,6 @@
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAID_TOOLS } from "@/lib/tools/paid";
-import { getAllPublishedListings } from "@/lib/store/published";
+import { STORE_LISTINGS } from "@/lib/store/catalog";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
@@ -13,7 +13,8 @@ export type PayItem = {
   delivery?: string;
 };
 
-export async function getPayItem(id: string): Promise<PayItem | undefined> {
+/** Sync catalog lookup — safe for payment initialize (no async DB). */
+export function getPayItem(id: string): PayItem | undefined {
   const service = getServiceOffer(id);
   if (service) {
     return {
@@ -49,7 +50,7 @@ export async function getPayItem(id: string): Promise<PayItem | undefined> {
       id: ebook.id,
       name: ebook.title + " (Ebook)",
       amountKobo: ebook.amountKobo,
-      delivery: "Full ebook unlock on site + illustrated PDF",
+      delivery: "Full ebook unlock on site + automatic PDF/MD email",
     };
   }
 
@@ -73,19 +74,14 @@ export async function getPayItem(id: string): Promise<PayItem | undefined> {
     };
   }
 
-  try {
-    const listings = await getAllPublishedListings();
-    const listing = listings.find((l) => l.id === id || l.slug === id);
-    if (listing && listing.priceNgn > 0) {
-      return {
-        id: listing.slug,
-        name: listing.title,
-        amountKobo: listing.amountKobo || listing.priceNgn * 100,
-        delivery: "DoyinStore secure download after payment",
-      };
-    }
-  } catch {
-    /* ignore */
+  const listing = STORE_LISTINGS.find((l) => l.id === id || l.slug === id);
+  if (listing && listing.priceNgn > 0) {
+    return {
+      id: listing.slug,
+      name: listing.title,
+      amountKobo: listing.amountKobo || listing.priceNgn * 100,
+      delivery: "Automatic PDF + Markdown delivery after payment",
+    };
   }
 
   return undefined;
