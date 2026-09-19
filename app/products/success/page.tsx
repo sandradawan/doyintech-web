@@ -137,6 +137,29 @@ function SuccessInner() {
             )}
             <p className="mt-1 text-[13px] text-[#a1a1a6]">Ref: {reference}</p>
 
+            {detail?.delivery?.downloadLinks?.length > 0 && (
+              <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left">
+                <p className="text-[15px] font-semibold text-white">Your files (automatic delivery)</p>
+                <p className="mt-1 text-[13px] text-[#94a3b8]">
+                  {detail.delivery.emailed
+                    ? "Also sent to your email as PDF + Markdown."
+                    : "Download below. Email delivery activates when RESEND_API_KEY is set."}
+                </p>
+                <ul className="mt-4 space-y-2">
+                  {detail.delivery.downloadLinks.map((l: { label: string; url: string }) => (
+                    <li key={l.url}>
+                      <a
+                        href={l.url}
+                        className="text-[14px] font-medium text-[#ff8c14] hover:underline"
+                      >
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {resolvedService ? (
               <ServiceSuccessChecklist
                 serviceName={resolvedService.name}
