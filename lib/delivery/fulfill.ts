@@ -5,6 +5,9 @@ import { sendProductDeliveryEmail } from "./email";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { dbCreateOrder } from "@/lib/store/db";
 import { issueDownloadToken } from "@/lib/store/tokens";
+import { findAnyEbook } from "@/lib/ebooks-catalog";
+import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
+import { formatEbookDocument } from "@/lib/ebooks/delivery";
 
 export type FulfillResult = {
   ok: boolean;
@@ -24,13 +27,71 @@ export async function fulfillPaidProduct(opts: {
   customerName?: string;
 }): Promise<FulfillResult> {
   const email = opts.email.toLowerCase().trim();
-  const resolved = resolveProductDelivery(opts.productId);
-  const productName = resolved?.productName || opts.productId;
   const origin =
     opts.origin ||
     process.env.NEXT_PUBLIC_SITE_URL ||
     "https://doyintech.vercel.app";
 
+  const book = findAnyEbook(opts.productId);
+  if (book) {
+    const pdfBuffer = buildEbookPdf(book);
+    const mdText = formatEbookDocument(book);
+    const token = issueDeliveryToken({
+      email,
+      productId: book.id,
+      paths: [],
+    });
+
+    const downloadLinks = [
+      {
+        label: `${book.title} — Professional PDF`,
+        url: `${origin}/api/delivery/file?token=${encodeURIComponent(token)}&format=ebook-pdf&product=${encodeURIComponent(book.id)}`,
+      },
+    ];
+
+    const emailResult = await sendProductDeliveryEmail({
+      to: email,
+      productName: book.title,
+      reference: opts.reference,
+      downloadLinks,
+      attachments: [
+        { filename: ebookPdfFilename(book), content: pdfBuffer },
+        {
+          filename: `${book.slug}.md`,
+          content: Buffer.from(mdText, "utf8"),
+        },
+      ],
+    });
+
+    try {
+      const admin = getSupabaseAdmin();
+      if (admin) {
+        await admin.from("site_leads").insert({
+          type: "purchase_fulfilled",
+          product: book.title,
+          name: opts.customerName || email,
+          email,
+          message: `Ebook auto-PDF. Ref ${opts.reference}. Email=${emailResult.ok}`,
+          source: "paystack-ebook-fulfill",
+          status: "won",
+        });
+      }
+    } catch (e) {
+      console.error("ebook fulfill persist", e);
+    }
+
+    return {
+      ok: true,
+      productName: book.title,
+      email,
+      downloadLinks,
+      emailed: emailResult.ok,
+      error: emailResult.ok ? undefined : emailResult.error,
+    };
+  }
+
+  const resolved = resolveProductDelivery(opts.productId);
+  const productName = resolved?.productName || opts.productId;
   const mdPaths = resolved?.mdPaths || [];
   const token = issueDeliveryToken({
     email,
@@ -71,7 +132,7 @@ export async function fulfillPaidProduct(opts: {
   }
   if (!mdPaths.length) {
     combinedMd +=
-      "\nYour product is unlocked on the success page. If files are missing, contact support with your payment reference.\n";
+      "\nYour product is unlocked on the success page. Contact support with your payment reference if files are missing.\n";
   }
   try {
     const pdf = textToPdfBuffer(productName, combinedMd.slice(0, 50000));
@@ -83,13 +144,12 @@ export async function fulfillPaidProduct(opts: {
     console.error("pdf build", e);
   }
 
-  const lightAttachments = attachments.slice(0, 8);
   const emailResult = await sendProductDeliveryEmail({
     to: email,
     productName,
     reference: opts.reference,
     downloadLinks: downloadLinks.slice(0, 12),
-    attachments: lightAttachments,
+    attachments: attachments.slice(0, 8),
   });
 
   try {
@@ -119,17 +179,6 @@ export async function fulfillPaidProduct(opts: {
   } catch (e) {
     console.error("fulfill persist", e);
   }
-
-  console.log(
-    JSON.stringify({
-      event: "product_fulfilled",
-      productId: opts.productId,
-      reference: opts.reference,
-      emailed: emailResult.ok,
-      links: downloadLinks.length,
-      at: new Date().toISOString(),
-    })
-  );
 
   return {
     ok: true,

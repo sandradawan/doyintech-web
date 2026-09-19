@@ -2,17 +2,48 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyDeliveryToken } from "@/lib/delivery/tokens";
 import { readPublicFile, resolveProductDelivery } from "@/lib/delivery/resolve";
 import { textToPdfBuffer } from "@/lib/delivery/pdf";
+import { findAnyEbook } from "@/lib/ebooks-catalog";
+import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token") || "";
-  const format = (req.nextUrl.searchParams.get("format") || "md") as "md" | "pdf" | "raw";
+  const format = (req.nextUrl.searchParams.get("format") || "md") as
+    | "md"
+    | "pdf"
+    | "raw"
+    | "ebook-pdf";
   const pathParam = req.nextUrl.searchParams.get("path") || "";
+  const productParam = req.nextUrl.searchParams.get("product") || "";
 
   const verified = verifyDeliveryToken(token);
   if (!verified.ok) {
     return new NextResponse(verified.error, { status: 403 });
   }
   const { grant } = verified;
+
+  if (format === "ebook-pdf") {
+    const book = findAnyEbook(productParam || grant.productId);
+    if (!book) return new NextResponse("Ebook not found", { status: 404 });
+    if (
+      grant.productId !== book.id &&
+      grant.productId !== book.slug &&
+      productParam &&
+      productParam !== book.id &&
+      productParam !== book.slug
+    ) {
+      return new NextResponse("Token product mismatch", { status: 403 });
+    }
+    const pdf = buildEbookPdf(book);
+    return new NextResponse(new Uint8Array(pdf), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${ebookPdfFilename(book)}"`,
+        "Cache-Control": "no-store",
+      },
+    });
+  }
+
   const resolved = resolveProductDelivery(grant.productId);
   const productName = resolved?.productName || grant.productId;
 
