@@ -30,6 +30,9 @@ export type DbListingRow = {
   rating_count: number | null;
   features: unknown;
   privacy_policy_url?: string | null;
+  screenshots?: unknown;
+  icon_url?: string | null;
+  launch_url?: string | null;
   created_at: string;
   updated_at?: string | null;
   published_at: string | null;
@@ -84,6 +87,19 @@ export function rowToListing(r: DbListingRow): StoreListing {
     ratingAvg: Number(r.rating_avg || 0),
     ratingCount: r.rating_count || 0,
     features: features.length ? features : ["Community listing", "Security reviewed"],
+    screenshots: Array.isArray(r.screenshots)
+      ? (r.screenshots as string[])
+      : typeof r.screenshots === "string"
+        ? (() => {
+            try {
+              return JSON.parse(r.screenshots) as string[];
+            } catch {
+              return [];
+            }
+          })()
+        : [],
+    iconUrl: r.icon_url || undefined,
+    launchUrl: r.launch_url || undefined,
     createdAt: (r.created_at || "").slice(0, 10),
     publishedAt: r.published_at ? r.published_at.slice(0, 10) : undefined,
   };
@@ -127,6 +143,8 @@ export async function dbInsertSubmission(input: {
   packageType?: string;
   fileName?: string;
   privacyPolicyUrl?: string;
+  screenshots?: string[];
+  iconUrl?: string;
 }): Promise<QueuedSubmission | null> {
   const sb = getSupabaseAdmin();
   if (!sb) return null;
@@ -154,6 +172,8 @@ export async function dbInsertSubmission(input: {
       package_type: input.packageType || null,
       file_name: input.fileName || null,
       privacy_policy_url: input.privacyPolicyUrl || null,
+      screenshots: input.screenshots || [],
+      icon_url: input.iconUrl || null,
       review_status: "submitted",
       virus_scan_status: "pending",
       features: ["Pending review"],
@@ -170,7 +190,6 @@ export async function dbInsertSubmission(input: {
     payload: { ...input, listing_id: data.id, slug },
   });
 
-  // Advance pipeline: scanning → in_review (async simulation via status updates)
   void (async () => {
     try {
       await sb
@@ -321,9 +340,6 @@ export async function dbVerifyOrderToken(
 
   if (error || !data) return { ok: false, error: "Invalid or expired token" };
   if (data.listing_slug !== slug) return { ok: false, error: "Token mismatch" };
-  if (data.status !== "paid" && data.amount_kobo > 0) {
-    // free grants are stored as paid with 0 amount
-  }
   const exp = data.download_expires_at ? new Date(data.download_expires_at).getTime() : 0;
   if (exp && Date.now() > exp) return { ok: false, error: "Token expired" };
 
