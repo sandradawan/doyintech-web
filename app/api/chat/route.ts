@@ -4,14 +4,24 @@ import {
   matchIntent,
   WHATSAPP_NUMBER,
 } from "@/lib/chatbot-knowledge";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
+    const ip = clientIp(req);
+    const rl = rateLimit(`chat:${ip}`, 40, 15 * 60 * 1000);
+    if (!rl.ok) {
+      return Response.json(
+        { error: "Too many messages. Please slow down." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+      );
+    }
+
     const body = await req.json();
-    const message = String(body.message || "").trim();
-    const history = Array.isArray(body.history) ? body.history : [];
-    const name = String(body.name || "").trim();
-    const email = String(body.email || "").trim();
+    const message = String(body.message || "").trim().slice(0, 2000);
+    const history = Array.isArray(body.history) ? body.history.slice(-12) : [];
+    const name = String(body.name || "").trim().slice(0, 120);
+    const email = String(body.email || "").trim().slice(0, 200);
     const mode = String(body.mode || "reply"); // reply | handoff
 
     if (mode === "handoff") {
@@ -61,13 +71,13 @@ async function handleHandoff(opts: {
   if (!name || !email) {
     return Response.json(
       { error: "Name and email are required for handoff." },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
   const transcript = history
     .slice(-12)
-    .map((m) => `${m.role === "user" ? "Visitor" : "Bot"}: ${m.content || ""}`)
+    .map((m) => `${m.role === "user" ? "Visitor" : "Bot"}: ${String(m.content || "").slice(0, 500)}`)
     .join("\n");
 
   const summary =
@@ -77,7 +87,6 @@ async function handleHandoff(opts: {
     `Latest: ${message || "(handoff)"}\n\n` +
     `Transcript:\n${transcript || "(none)"}`;
 
-  // Email notify (uses existing Resend setup)
   try {
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
@@ -91,16 +100,13 @@ async function handleHandoff(opts: {
         to: toEmail,
         replyTo: email,
         subject: `Chat lead — ${name}`,
-        text: summary,
+        text: summary.slice(0, 8000),
       });
     }
   } catch (e) {
     console.warn("Chat email failed", e);
   }
 
-  // Optional: CallMeBot free WhatsApp push
-  // Setup: https://www.callmebot.com/blog/free-api-whatsapp-messages/
-  // Env: CALLMEBOT_API_KEY=your_key
   try {
     const apiKey = process.env.CALLMEBOT_API_KEY;
     if (apiKey) {
