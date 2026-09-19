@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { OUTREACH_TEMPLATES } from "@/lib/outreach-templates";
+
+const SECRET_KEY = "doyin_admin_leads_secret";
 
 function phoneToWaDigits(phone: string): string | null {
   let d = phone.replace(/\D/g, "");
@@ -54,6 +56,16 @@ export default function OutreachConsole() {
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [honeypot, setHoneypot] = useState("");
+  const [adminSecret, setAdminSecret] = useState("");
+
+  useEffect(() => {
+    try {
+      const s = sessionStorage.getItem(SECRET_KEY);
+      if (s) setAdminSecret(s);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   const template = useMemo(
     () => OUTREACH_TEMPLATES.find((t) => t.id === templateId) || OUTREACH_TEMPLATES[0],
@@ -119,11 +131,25 @@ export default function OutreachConsole() {
       return;
     }
 
+    if (!adminSecret.trim()) {
+      setStatus("Enter admin secret (same as lead inbox) to send email via API.");
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(SECRET_KEY, adminSecret.trim());
+    } catch {
+      /* ignore */
+    }
+
     setBusy(true);
     try {
       const res = await fetch("/api/outreach/send-email", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-secret": adminSecret.trim(),
+        },
         body: JSON.stringify({
           to: recipient.trim(),
           subject,
@@ -135,12 +161,13 @@ export default function OutreachConsole() {
       if (res.ok && data.ok) {
         setStatus("Email sent via Resend.");
       } else if (data.code === "NO_RESEND") {
-        // Fallback: open mail client
         const mailto = `mailto:${encodeURIComponent(recipient.trim())}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
         window.location.href = mailto;
         setStatus(
           "Resend not configured — opened your mail app. Set RESEND_API_KEY + CONTACT_FROM_EMAIL on Vercel for one-click send."
         );
+      } else if (data.code === "UNAUTHORIZED") {
+        setStatus("Wrong admin secret. Use the same ADMIN_LEADS_SECRET as /admin/leads.");
       } else {
         const mailto = `mailto:${encodeURIComponent(recipient.trim())}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
         window.location.href = mailto;
@@ -170,7 +197,7 @@ export default function OutreachConsole() {
         <h1 className="text-2xl font-semibold tracking-tight text-white">Outreach console</h1>
         <p className="mt-2 text-sm text-white/50">
           Pick a template, fill placeholders, send via WhatsApp or email. WhatsApp opens with the message ready — you confirm Send.
-          Email sends automatically when Resend is configured on Vercel.
+          Email API is locked to your admin secret (same as lead inbox).
         </p>
       </div>
 
@@ -207,6 +234,22 @@ export default function OutreachConsole() {
               className={field}
             />
           </div>
+
+          {channel === "email" && (
+            <div>
+              <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">
+                Admin secret (required for API email)
+              </label>
+              <input
+                type="password"
+                value={adminSecret}
+                onChange={(e) => setAdminSecret(e.target.value)}
+                placeholder="Same as /admin/leads"
+                className={field}
+                autoComplete="off"
+              />
+            </div>
+          )}
 
           <div>
             <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">
@@ -309,8 +352,7 @@ export default function OutreachConsole() {
 
       <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 px-4 py-3 text-[12px] text-amber-100/80">
         <strong className="text-amber-200">Note:</strong> Browsers cannot silently send WhatsApp messages — WhatsApp opens with text filled; you tap Send.
-        For true one-click email, add <code className="text-amber-100">RESEND_API_KEY</code> and a verified{" "}
-        <code className="text-amber-100">CONTACT_FROM_EMAIL</code> in Vercel env.
+        Email API requires <code className="text-amber-100">ADMIN_LEADS_SECRET</code> + <code className="text-amber-100">RESEND_API_KEY</code>.
       </div>
     </div>
   );
