@@ -6,11 +6,15 @@ import {
   formatEbookDocument,
   formatEbookHtml,
 } from "@/lib/ebooks/delivery";
+import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 const RESEND_KEY = process.env.RESEND_API_KEY || "";
 const FROM_EMAIL =
-  process.env.EBOOK_FROM_EMAIL || "DoyinTech <onboarding@resend.dev>";
+  process.env.EBOOK_FROM_EMAIL ||
+  process.env.DELIVERY_FROM_EMAIL ||
+  process.env.RESEND_FROM ||
+  "DoyinTech <onboarding@resend.dev>";
 
 async function verifyPaystack(reference: string) {
   const res = await fetch(
@@ -43,7 +47,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const reference = String(body.reference || "").trim();
-    const mode = String(body.mode || "download").toLowerCase();
+    const mode = String(body.mode || "pdf").toLowerCase();
     const productHint = String(body.productId || "").trim();
 
     if (!reference) {
@@ -73,11 +77,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const pdfBuffer = buildEbookPdf(book);
+    const pdfBase64 = pdfBuffer.toString("base64");
+    const filenamePdf = ebookPdfFilename(book);
     const html = formatEbookHtml(book);
     const text = formatEbookDocument(book);
     const filenameHtml = ebookFilename(book, "html");
     const buyerEmail = (tx.customer?.email || body.email || "").toLowerCase();
     const payload = ebookPayload(book);
+
+    if (mode === "pdf") {
+      return NextResponse.json({
+        ok: true,
+        mode: "pdf",
+        filename: filenamePdf,
+        contentType: "application/pdf",
+        contentBase64: pdfBase64,
+        book: { title: book.title, slug: book.slug },
+        email: buyerEmail || null,
+      });
+    }
 
     if (mode === "email") {
       if (!buyerEmail || !buyerEmail.includes("@")) {
@@ -92,13 +111,12 @@ export async function POST(req: NextRequest) {
           ok: false,
           code: "NO_EMAIL_PROVIDER",
           message:
-            "Email delivery is not configured yet. Use Download PDF / HTML, or message WhatsApp with your reference.",
+            "Email is not configured. Your professional PDF is ready to download.",
           downloadAvailable: true,
           book: { title: book.title, slug: book.slug },
-          content: html,
-          filename: filenameHtml,
-          contentType: "text/html; charset=utf-8",
-          payload,
+          filename: filenamePdf,
+          contentType: "application/pdf",
+          contentBase64: pdfBase64,
         });
       }
 
@@ -111,17 +129,18 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           from: FROM_EMAIL,
           to: [buyerEmail],
-          subject: `Your ebook: ${book.title} — DoyinTech`,
-          html: `<p>Hi,</p><p>Thanks for purchasing <strong>${book.title}</strong>.</p>
-            <p>Open online: <a href="https://doyintech.vercel.app/ebooks/${book.slug}?paid=1&reference=${encodeURIComponent(reference)}">Read ebook</a></p>
-            <p>An illustrated HTML copy is attached — open it and use <strong>Print → Save as PDF</strong>.</p>
-            <p>Ref: ${reference}</p><p>— DoyinTech</p>`,
-          attachments: [
-            {
-              filename: filenameHtml,
-              content: Buffer.from(html, "utf-8").toString("base64"),
-            },
-          ],
+          subject: `Your ebook PDF: ${book.title} — DoyinTech`,
+          html: `<div style="font-family:system-ui,sans-serif;max-width:560px">
+            <p>Hi,</p>
+            <p>Thanks for purchasing <strong>${book.title}</strong>.</p>
+            <p>Your <strong>professional PDF</strong> is attached to this email.</p>
+            <p>You can also read online:
+              <a href="https://doyintech.vercel.app/ebooks/${book.slug}?paid=1&reference=${encodeURIComponent(reference)}">Open ebook</a>
+            </p>
+            <p style="color:#64748b;font-size:13px">Ref: ${reference}</p>
+            <p>— DoyinTech</p>
+          </div>`,
+          attachments: [{ filename: filenamePdf, content: pdfBase64 }],
         }),
       });
 
@@ -131,10 +150,9 @@ export async function POST(req: NextRequest) {
           {
             error: emailData.message || "Could not send email.",
             downloadAvailable: true,
-            content: html,
-            filename: filenameHtml,
-            contentType: "text/html; charset=utf-8",
-            payload,
+            filename: filenamePdf,
+            contentType: "application/pdf",
+            contentBase64: pdfBase64,
           },
           { status: 502 }
         );
@@ -145,21 +163,30 @@ export async function POST(req: NextRequest) {
         mode: "email",
         email: buyerEmail,
         book: { title: book.title, slug: book.slug },
+        pdfAttached: true,
       });
     }
 
-    return NextResponse.json({
-      ok: true,
-      mode: "download",
-      filename: filenameHtml,
-      contentType: "text/html; charset=utf-8",
-      content: html,
-      textFallback: text,
-      payload,
-      book: { title: book.title, slug: book.slug },
-      email: buyerEmail || null,
-    });
-  } catch {
+    if (mode === "html" || mode === "download") {
+      return NextResponse.json({
+        ok: true,
+        mode: "download",
+        filename: filenameHtml,
+        contentType: "text/html; charset=utf-8",
+        content: html,
+        textFallback: text,
+        pdfFilename: filenamePdf,
+        contentBase64: pdfBase64,
+        pdfContentType: "application/pdf",
+        payload,
+        book: { title: book.title, slug: book.slug },
+        email: buyerEmail || null,
+      });
+    }
+
+    return NextResponse.json({ error: "Unknown mode." }, { status: 400 });
+  } catch (e) {
+    console.error("ebook deliver", e);
     return NextResponse.json({ error: "Delivery failed." }, { status: 500 });
   }
 }
