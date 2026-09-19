@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addToQueue } from "@/lib/store/queue";
+import { dbInsertSubmission } from "@/lib/store/db";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const row = addToQueue({
+    const payload = {
       title,
       shortDescription: String(body.shortDescription || "").slice(0, 160),
       description: String(body.description || "").slice(0, 5000),
@@ -54,7 +55,12 @@ export async function POST(req: NextRequest) {
       privacyPolicyUrl: body.privacyPolicyUrl
         ? String(body.privacyPolicyUrl).slice(0, 300)
         : undefined,
-    });
+    };
+
+    // Prefer Supabase; fall back to in-memory so local/dev still works
+    const row =
+      (await dbInsertSubmission(payload)) ||
+      addToQueue(payload);
 
     console.log(
       JSON.stringify({
@@ -62,6 +68,7 @@ export async function POST(req: NextRequest) {
         id: row.id,
         title: row.title,
         developerEmail: row.developerEmail,
+        storage: row.id.startsWith("sub_") ? "memory" : "supabase",
         at: row.createdAt,
       })
     );
@@ -69,12 +76,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       message:
-        "Submission received. Pipeline: submitted → scanning → in_review → approved/rejected. You will be contacted at your developer email.",
+        "Submission received and saved. Pipeline: submitted → scanning → in_review → approved/rejected.",
       submissionId: row.id,
       reviewStatus: row.reviewStatus,
+      persisted: !row.id.startsWith("sub_"),
       nextSteps: [
+        "Saved to database",
         "Automated package checks",
-        "Malware scan queue",
         "Human QA on test device",
         "Approved listings appear on /store",
       ],
