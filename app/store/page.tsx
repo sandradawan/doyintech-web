@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function StorePage() {
-  const listings = getAllPublishedListings();
+export default async function StorePage() {
+  const listings = await getAllPublishedListings();
 
   return (
     <>
