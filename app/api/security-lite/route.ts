@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import tls from "tls";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -114,6 +115,15 @@ const HEADER_SPECS = [
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = clientIp(req);
+    const rl = rateLimit(`security-lite:${ip}`, 12, 60 * 60 * 1000);
+    if (!rl.ok) {
+      return NextResponse.json(
+        { error: "Too many scans. Try again later." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } },
+      );
+    }
+
     const body = await req.json().catch(() => ({}));
     const mode = String(body.mode || "headers");
     const target = normalizeTarget(String(body.url || ""));
@@ -238,7 +248,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Default path: fetch page with redirects followed for headers/cookies/mixed/csp
     const followed = await fetchFollow(target.toString());
     const headers = followed.headers;
     const html = followed.html || "";
@@ -251,7 +260,6 @@ export async function POST(req: NextRequest) {
         if (spec.key === "content-security-policy" && !val) {
           val = headers?.get("content-security-policy-report-only") || null;
         }
-        // frame-ancestors can substitute xfo
         if (spec.key === "x-frame-options" && !val) {
           const csp = headers?.get("content-security-policy") || "";
           if (/frame-ancestors/i.test(csp)) val = "(via CSP frame-ancestors)";
