@@ -8,15 +8,24 @@ import path from "path";
 type Ch = { title: string; body: string; imageCaption?: string };
 
 function loadChapterMap(): Record<string, Ch[]> {
-  try {
-    const p = path.join(process.cwd(), "public", "ebook-chapters.json");
-    if (fs.existsSync(p)) {
-      return JSON.parse(fs.readFileSync(p, "utf8")) as Record<string, Ch[]>;
+  const map: Record<string, Ch[]> = {};
+  const dir = path.join(process.cwd(), "public");
+  for (const name of [
+    "ebook-chapters.json",
+    "ebook-chapters-a.json",
+    "ebook-chapters-b.json",
+    "ebook-chapters-c.json",
+  ]) {
+    try {
+      const p = path.join(dir, name);
+      if (!fs.existsSync(p)) continue;
+      const data = JSON.parse(fs.readFileSync(p, "utf8")) as Record<string, Ch[]>;
+      Object.assign(map, data);
+    } catch {
+      /* ignore */
     }
-  } catch {
-    /* ignore */
   }
-  return {};
+  return map;
 }
 
 const CHAPTER_MAP = loadChapterMap();
