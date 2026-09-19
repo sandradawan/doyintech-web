@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
-import { EbookCard } from "@/components/ebooks/EbookShop";
+import EbookCatalog from "@/components/ebooks/EbookCatalog";
 import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
 
 export const metadata: Metadata = {
-  title: "Ebooks — Digital marketing, affiliate, SMM, VA & more",
+  title: "Ebooks — Finance, education, fitness, business & more | DoyinTech",
   description:
-    "Buy DoyinTech ebooks: digital marketing, affiliate marketing, social media management, virtual assistant, WhatsApp, and founder guides.",
+    "Full practical ebooks from DoyinTech Press: personal finance, education, fitness, food, culture, marketing, freelancing, and founder systems. Instant PDF after payment.",
 };
 
 export default function EbooksPage() {
@@ -18,18 +18,14 @@ export default function EbooksPage() {
             DoyinTech Press
           </p>
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
-            Ebooks that get used
+            Full ebooks for work and life
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
-            Practical guides for SMEs and freelancers — digital marketing, affiliate marketing,
-            social media management, virtual assistant work, and more. Preview a chapter free.
+            Practical books across finance, education, fitness, food, culture, marketing, and
+            business. Buy once — get a professional PDF and on-site reader after payment.
           </p>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {ALL_EBOOKS.map((book) => (
-              <EbookCard key={book.id} book={book} />
-            ))}
-          </div>
+          <EbookCatalog books={ALL_EBOOKS} />
         </div>
       </main>
       <Footer />
