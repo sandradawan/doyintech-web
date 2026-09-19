@@ -1,6 +1,15 @@
 import { Resend } from "resend";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
+function escapeHtml(input: string) {
+  return input
+    .replaceAll("&", "\u0026amp;")
+    .replaceAll("<", "\u0026lt;")
+    .replaceAll(">", "\u0026gt;")
+    .replaceAll('"', "\u0026quot;")
+    .replaceAll("'", "\u0026#039;");
+}
+
 export async function POST(req: Request) {
   try {
     const ip = clientIp(req);
@@ -58,13 +67,4 @@ export async function POST(req: Request) {
   } catch {
     return Response.json({ error: "Failed to send message" }, { status: 500 });
   }
-}
-
-function escapeHtml(input: string) {
-  return input
-    .replaceAll("&", "&")
-    .replaceAll("<", "<")
-    .replaceAll(">", ">")
-    .replaceAll('"', """)
-    .replaceAll("'", "&#039;");
 }
