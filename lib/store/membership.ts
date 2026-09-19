@@ -1,11 +1,9 @@
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 
-// ---------------------------------------------------------------------------
-// Developer membership registration
-// ---------------------------------------------------------------------------
 export async function dbRegisterDeveloper(input: {
   displayName: string;
   email: string;
+  passwordHash: string;
   phone?: string;
   website?: string;
   bio?: string;
@@ -16,6 +14,7 @@ export async function dbRegisterDeveloper(input: {
   const sb = getSupabaseAdmin();
   if (!sb) return { error: "Database not configured" };
   if (!input.agreedTerms) return { error: "You must accept the developer terms." };
+  if (!input.passwordHash) return { error: "Password is required." };
   const email = input.email.toLowerCase().trim();
   if (!email.includes("@") || !input.displayName.trim()) {
     return { error: "Display name and valid email are required." };
@@ -23,15 +22,12 @@ export async function dbRegisterDeveloper(input: {
 
   const { data: existing } = await sb
     .from("store_developers")
-    .select("id, membership_status")
+    .select("id, membership_status, password_hash")
     .eq("email", email)
     .maybeSingle();
 
   if (existing) {
-    return {
-      id: existing.id,
-      membershipStatus: existing.membership_status || "pending",
-    };
+    return { error: "An account with this email already exists. Please sign in." };
   }
 
   const { data, error } = await sb
@@ -39,6 +35,7 @@ export async function dbRegisterDeveloper(input: {
     .insert({
       display_name: input.displayName.trim().slice(0, 120),
       email,
+      password_hash: input.passwordHash,
       phone: input.phone?.slice(0, 40) || null,
       website: input.website?.slice(0, 300) || null,
       bio: input.bio?.slice(0, 1000) || null,
@@ -53,6 +50,9 @@ export async function dbRegisterDeveloper(input: {
 
   if (error || !data) {
     console.error("dbRegisterDeveloper", error?.message);
+    if (error?.code === "23505") {
+      return { error: "An account with this email already exists. Please sign in." };
+    }
     return { error: error?.message || "Registration failed" };
   }
   return { id: data.id, membershipStatus: data.membership_status };
@@ -115,9 +115,6 @@ export async function dbAttachScreenshots(
   return true;
 }
 
-// ---------------------------------------------------------------------------
-// Login / lookup helpers
-// ---------------------------------------------------------------------------
 export async function dbGetDeveloperByEmail(email: string): Promise<{
   id: string;
   displayName: string;
@@ -125,12 +122,13 @@ export async function dbGetDeveloperByEmail(email: string): Promise<{
   website: string | null;
   membershipStatus: string;
   membershipTier: string;
+  passwordHash: string | null;
 } | null> {
   const sb = getSupabaseAdmin();
   if (!sb) return null;
   const { data, error } = await sb
     .from("store_developers")
-    .select("id, display_name, email, website, membership_status, membership_tier")
+    .select("id, display_name, email, website, membership_status, membership_tier, password_hash")
     .eq("email", email.toLowerCase().trim())
     .maybeSingle();
   if (error || !data) return null;
@@ -141,6 +139,7 @@ export async function dbGetDeveloperByEmail(email: string): Promise<{
     website: data.website,
     membershipStatus: data.membership_status || "pending",
     membershipTier: data.membership_tier || "free",
+    passwordHash: data.password_hash || null,
   };
 }
 

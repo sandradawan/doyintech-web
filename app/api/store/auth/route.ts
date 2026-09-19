@@ -4,17 +4,27 @@ import {
   dbRegisterDeveloper,
 } from "@/lib/store/membership";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import {
+  hashPassword,
+  validatePasswordPolicy,
+  verifyPassword,
+  safeEqual,
+} from "@/lib/store/password";
+import { createSessionToken } from "@/lib/store/session-token";
 
 /**
- * Unified store auth:
- * - action=register → developer application (pending until admin approves)
- * - action=login → admin (email + STORE_ADMIN_KEY) or developer by email
+ * Secure store auth
+ * - Register: email + strong password (scrypt hash in DB)
+ * - Login: email + password; admin uses STORE_ADMIN_KEY as password
+ * - Generic error messages (no user enumeration)
+ * - Rate limited per IP and per email
+ * - HMAC-signed session tokens
  */
 export async function POST(req: NextRequest) {
   try {
     const ip = clientIp(req);
-    const rl = rateLimit(`store-auth:${ip}`, 20, 15 * 60 * 1000);
-    if (!rl.ok) {
+    const rlIp = rateLimit(`store-auth-ip:${ip}`, 15, 15 * 60 * 1000);
+    if (!rlIp.ok) {
       return NextResponse.json(
         { error: "Too many attempts. Try again later." },
         { status: 429 }
@@ -26,16 +36,37 @@ export async function POST(req: NextRequest) {
     const email = String(body.email || "")
       .toLowerCase()
       .trim();
+    const password = String(body.password || "");
 
-    if (!email.includes("@")) {
+    if (!email.includes("@") || email.length > 200) {
       return NextResponse.json({ error: "Valid email required." }, { status: 400 });
     }
 
-    // ── Register developer ──────────────────────────────────
+    const rlEmail = rateLimit(`store-auth-email:${email}`, 10, 15 * 60 * 1000);
+    if (!rlEmail.ok) {
+      return NextResponse.json(
+        { error: "Too many attempts for this account. Try again later." },
+        { status: 429 }
+      );
+    }
+
     if (action === "register") {
+      const policyErr = validatePasswordPolicy(password);
+      if (policyErr) {
+        return NextResponse.json({ error: policyErr }, { status: 400 });
+      }
+      if (password.toLowerCase().includes(email.split("@")[0])) {
+        return NextResponse.json(
+          { error: "Password must not contain your email name." },
+          { status: 400 }
+        );
+      }
+
+      const passwordHash = hashPassword(password);
       const result = await dbRegisterDeveloper({
         displayName: String(body.displayName || "").trim(),
         email,
+        passwordHash,
         phone: body.phone ? String(body.phone).trim() : undefined,
         website: body.website ? String(body.website).trim() : undefined,
         bio: body.bio ? String(body.bio).trim() : undefined,
@@ -48,6 +79,14 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: result.error }, { status: 400 });
       }
 
+      const token = createSessionToken({
+        email,
+        role: "developer",
+        displayName: String(body.displayName || "").trim() || email,
+        developerId: result.id,
+        membershipStatus: result.membershipStatus,
+      });
+
       const session = {
         email,
         role: "developer" as const,
@@ -55,6 +94,7 @@ export async function POST(req: NextRequest) {
         developerId: result.id,
         membershipStatus: result.membershipStatus,
         loggedInAt: new Date().toISOString(),
+        token,
       };
 
       return NextResponse.json({
@@ -68,45 +108,58 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ── Login ─────────────────────────────────────────────────
-    const adminKey = String(body.adminKey || "").trim();
+    if (!password) {
+      return NextResponse.json(
+        { error: "Email and password are required." },
+        { status: 400 }
+      );
+    }
+
     const storeAdminKey = process.env.STORE_ADMIN_KEY || "";
     const adminEmails = (process.env.STORE_ADMIN_EMAILS || process.env.ADMIN_EMAIL || "")
       .toLowerCase()
       .split(/[,\s]+/)
       .filter(Boolean);
 
-    // Admin path: correct key (and optional email allow-list)
-    if (adminKey && storeAdminKey && adminKey === storeAdminKey) {
+    if (storeAdminKey && safeEqual(password, storeAdminKey)) {
       if (adminEmails.length && !adminEmails.includes(email)) {
         return NextResponse.json(
-          { error: "This email is not authorized for admin access." },
-          { status: 403 }
+          { error: "Invalid email or password." },
+          { status: 401 }
         );
       }
-      const session = {
+      const token = createSessionToken({
         email,
-        role: "admin" as const,
+        role: "admin",
         displayName: "Admin",
-        loggedInAt: new Date().toISOString(),
-      };
+      });
       return NextResponse.json({
         ok: true,
         role: "admin",
-        session,
+        session: {
+          email,
+          role: "admin",
+          displayName: "Admin",
+          loggedInAt: new Date().toISOString(),
+          token,
+        },
         message: "Signed in as admin.",
       });
     }
 
-    // Developer path
     const dev = await dbGetDeveloperByEmail(email);
-    if (!dev) {
+    if (!dev || !dev.passwordHash) {
+      hashPassword("dummy-timing-pad-" + email);
       return NextResponse.json(
-        {
-          error:
-            "No developer account found for this email. Register first, or use Admin access if you are staff.",
-        },
-        { status: 404 }
+        { error: "Invalid email or password." },
+        { status: 401 }
+      );
+    }
+
+    if (!verifyPassword(password, dev.passwordHash)) {
+      return NextResponse.json(
+        { error: "Invalid email or password." },
+        { status: 401 }
       );
     }
 
@@ -119,19 +172,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const session = {
+    const token = createSessionToken({
       email: dev.email,
-      role: "developer" as const,
+      role: "developer",
       displayName: dev.displayName,
       developerId: dev.id,
       membershipStatus: dev.membershipStatus,
-      loggedInAt: new Date().toISOString(),
-    };
+    });
 
     return NextResponse.json({
       ok: true,
       role: "developer",
-      session,
+      session: {
+        email: dev.email,
+        role: "developer",
+        displayName: dev.displayName,
+        developerId: dev.id,
+        membershipStatus: dev.membershipStatus,
+        loggedInAt: new Date().toISOString(),
+        token,
+      },
       message:
         dev.membershipStatus === "pending"
           ? "Signed in. Your account is still pending admin approval."
