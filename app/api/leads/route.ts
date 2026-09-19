@@ -9,32 +9,54 @@ type LeadBody = {
   type?: "waitlist" | "purchase" | "maintenance" | "lead-magnet" | "audit" | "chat" | "referral";
   message?: string;
   source?: string;
+  /** Honeypot — bots often fill this */
+  website?: string;
+  company?: string;
 };
 
 function adminOk(req: NextRequest) {
   const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET;
   if (!secret) return false;
+  // Header only — never accept secret in query string (leaks via logs/referrers)
   const header = req.headers.get("x-admin-secret") || "";
-  const q = req.nextUrl.searchParams.get("secret") || "";
-  return header === secret || q === secret;
+  return header === secret;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as LeadBody;
-    const name = (body.name || "").trim();
-    const email = (body.email || "").trim();
-    const phone = (body.phone || "").trim();
-    const product = (body.product || "General").trim();
+
+    // Honeypot: silent success for bots
+    if (body.website || body.company) {
+      return NextResponse.json({ ok: true });
+    }
+
+    const name = (body.name || "").trim().slice(0, 120);
+    const email = (body.email || "").trim().slice(0, 200);
+    const phone = (body.phone || "").trim().slice(0, 40);
+    const product = (body.product || "General").trim().slice(0, 120);
     const type = body.type || "waitlist";
-    const message = (body.message || "").trim();
-    const source = (body.source || "website").trim();
+    const message = (body.message || "").trim().slice(0, 4000);
+    const source = (body.source || "website").trim().slice(0, 80);
 
     if (!name || (!email && !phone)) {
       return NextResponse.json(
         { error: "Name and email or phone are required." },
         { status: 400 }
       );
+    }
+
+    const allowedTypes = [
+      "waitlist",
+      "purchase",
+      "maintenance",
+      "lead-magnet",
+      "audit",
+      "chat",
+      "referral",
+    ];
+    if (!allowedTypes.includes(type)) {
+      return NextResponse.json({ error: "Invalid type" }, { status: 400 });
     }
 
     const row = {
@@ -87,7 +109,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-/** List leads for admin inbox. Requires ADMIN_LEADS_SECRET. */
+/** List leads for admin inbox. Requires ADMIN_LEADS_SECRET header. */
 export async function GET(req: NextRequest) {
   if (!adminOk(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -119,7 +141,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ ok: true, leads: data || [] });
 }
 
-/** Update lead status. Body: { id, status }. Requires ADMIN_LEADS_SECRET. */
+/** Update lead status. Body: { id, status }. Requires ADMIN_LEADS_SECRET header. */
 export async function PATCH(req: NextRequest) {
   if (!adminOk(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
