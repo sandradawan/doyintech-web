@@ -63,9 +63,11 @@ export async function POST(req: NextRequest) {
       iconUrl: body.iconUrl ? String(body.iconUrl).slice(0, 500) : undefined,
     };
 
+    // Prefer Supabase; fall back to in-memory (without extra fields TS rejects)
+    const { screenshots: _shots, iconUrl: _icon, ...queuePayload } = payload;
     const row =
       (await dbInsertSubmission(payload)) ||
-      addToQueue(payload);
+      addToQueue(queuePayload);
 
     console.log(
       JSON.stringify({
