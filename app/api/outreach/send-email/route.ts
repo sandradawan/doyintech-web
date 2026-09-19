@@ -1,28 +1,52 @@
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-export async function POST(req: Request) {
+function adminOk(req: NextRequest) {
+  const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET;
+  if (!secret) return false;
+  const header = req.headers.get("x-admin-secret") || "";
+  return header === secret;
+}
+
+export async function POST(req: NextRequest) {
   try {
+    // Fail closed: do not allow unauthenticated bulk email send
+    if (!adminOk(req)) {
+      return NextResponse.json(
+        {
+          error:
+            "Unauthorized. Outreach email requires x-admin-secret header (same as lead inbox).",
+          code: "UNAUTHORIZED",
+        },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     // Honeypot
-    if (body.website) return Response.json({ ok: true });
+    if (body.website) return NextResponse.json({ ok: true });
 
     const to = String(body.to || "").trim().toLowerCase();
     const subject = String(body.subject || "").trim();
     const message = String(body.message || "").trim();
-    const fromName = String(body.fromName || "Silas · DoyinTech").trim();
+    const fromName = String(body.fromName || "Silas · DoyinTech").trim().slice(0, 80);
 
     if (!to || !to.includes("@") || !subject || !message) {
-      return Response.json({ error: "to, subject, and message are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "to, subject, and message are required" },
+        { status: 400 }
+      );
     }
-    if (message.length > 8000) {
-      return Response.json({ error: "Message too long" }, { status: 400 });
+    if (message.length > 8000 || subject.length > 200) {
+      return NextResponse.json({ error: "Message or subject too long" }, { status: 400 });
     }
 
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
-      return Response.json(
+      return NextResponse.json(
         {
-          error: "Email API not configured. Set RESEND_API_KEY on Vercel, or use WhatsApp / Open in mail app.",
+          error:
+            "Email API not configured. Set RESEND_API_KEY on Vercel, or use WhatsApp / Open in mail app.",
           code: "NO_RESEND",
         },
         { status: 503 }
@@ -43,20 +67,20 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      return Response.json({ error: error.message || "Send failed" }, { status: 502 });
+      return NextResponse.json({ error: error.message || "Send failed" }, { status: 502 });
     }
 
-    return Response.json({ ok: true });
+    return NextResponse.json({ ok: true });
   } catch {
-    return Response.json({ error: "Failed to send email" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
 }
 
 function escapeHtml(input: string) {
   return input
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
+    .replaceAll("&", "&")
+    .replaceAll("<", "<")
+    .replaceAll(">", ">")
+    .replaceAll('"', """)
     .replaceAll("'", "&#039;");
 }
