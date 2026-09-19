@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { BuyDownloadPanel, StoreNav } from "@/components/store/StoreShell";
+import { ReviewsPanel } from "@/components/store/ReviewsPanel";
 import { StoreAppIcon } from "@/components/ui/BrandIcons";
 import { formatNgn } from "@/lib/store/catalog";
 import { getPublishedBySlug } from "@/lib/store/published";
@@ -27,8 +28,8 @@ export default async function StoreDetailPage({ params }: Props) {
       <main className="min-h-screen bg-[#0a0e17] pt-24 pb-24">
         <div className="mx-auto max-w-[980px] px-6">
           <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
-            <Link href="/store" className="text-[14px] text-[#ff8c14] hover:underline">
-              ← Store
+            <Link href="/store" className="text-[14px] text-[#94a3b8] transition hover:text-white">
+              ← Back to store
             </Link>
             <StoreNav />
           </div>
@@ -57,6 +58,28 @@ export default async function StoreDetailPage({ params }: Props) {
                 {item.description}
               </p>
 
+              {item.screenshots && item.screenshots.length > 0 && (
+                <>
+                  <h2 className="mt-10 text-[13px] font-semibold uppercase tracking-wide text-[#86868b]">
+                    Screenshots
+                  </h2>
+                  <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
+                    {item.screenshots.map((url) => (
+                      <a
+                        key={url}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block h-40 w-28 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-black/40"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={url} alt="" className="h-full w-full object-cover" />
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )}
+
               <h2 className="mt-10 text-[13px] font-semibold uppercase tracking-wide text-[#86868b]">
                 Features
               </h2>
@@ -82,6 +105,8 @@ export default async function StoreDetailPage({ params }: Props) {
               </p>
             </div>
           </div>
+
+          <ReviewsPanel slug={item.slug} />
         </div>
       </main>
       <Footer />
