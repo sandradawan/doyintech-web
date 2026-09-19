@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid email is required." }, { status: 400 });
     }
 
-    const item = getPayItem(productId);
+    const item = await getPayItem(productId);
     if (!item) {
       return NextResponse.json({ error: "Invalid product." }, { status: 400 });
     }

@@ -13,7 +13,7 @@ export type PayItem = {
   delivery?: string;
 };
 
-export function getPayItem(id: string): PayItem | undefined {
+export async function getPayItem(id: string): Promise<PayItem | undefined> {
   const service = getServiceOffer(id);
   if (service) {
     return {
@@ -74,9 +74,8 @@ export function getPayItem(id: string): PayItem | undefined {
   }
 
   try {
-    const listing = getAllPublishedListings().find(
-      (l) => l.id === id || l.slug === id
-    );
+    const listings = await getAllPublishedListings();
+    const listing = listings.find((l) => l.id === id || l.slug === id);
     if (listing && listing.priceNgn > 0) {
       return {
         id: listing.slug,
