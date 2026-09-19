@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 type LeadBody = {
   name?: string;
@@ -17,16 +18,23 @@ type LeadBody = {
 function adminOk(req: NextRequest) {
   const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET;
   if (!secret) return false;
-  // Header only — never accept secret in query string (leaks via logs/referrers)
   const header = req.headers.get("x-admin-secret") || "";
   return header === secret;
 }
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = clientIp(req);
+    const rl = rateLimit(`leads:${ip}`, 20, 60 * 60 * 1000);
+    if (!rl.ok) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+      );
+    }
+
     const body = (await req.json()) as LeadBody;
 
-    // Honeypot: silent success for bots
     if (body.website || body.company) {
       return NextResponse.json({ ok: true });
     }
@@ -59,18 +67,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid type" }, { status: 400 });
     }
 
-    const row = {
-      event: "doyintech_lead",
-      type,
-      product,
-      name,
-      email,
-      phone,
-      message,
-      source,
-      at: new Date().toISOString(),
-    };
-    console.log(JSON.stringify(row));
+    console.log(
+      JSON.stringify({
+        event: "doyintech_lead",
+        type,
+        product,
+        name,
+        email,
+        phone,
+        message,
+        source,
+        at: new Date().toISOString(),
+      })
+    );
 
     const sb = getSupabaseAdmin();
     let savedId: string | null = null;
@@ -90,7 +99,8 @@ export async function POST(req: NextRequest) {
         .select("id")
         .single();
       if (!error && data?.id) savedId = data.id;
-      else if (error) console.log(JSON.stringify({ event: "lead_supabase_error", error: error.message }));
+      else if (error)
+        console.log(JSON.stringify({ event: "lead_supabase_error", error: error.message }));
     }
 
     const waText = encodeURIComponent(
@@ -109,7 +119,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-/** List leads for admin inbox. Requires ADMIN_LEADS_SECRET header. */
 export async function GET(req: NextRequest) {
   if (!adminOk(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -141,7 +150,6 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ ok: true, leads: data || [] });
 }
 
-/** Update lead status. Body: { id, status }. Requires ADMIN_LEADS_SECRET header. */
 export async function PATCH(req: NextRequest) {
   if (!adminOk(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
