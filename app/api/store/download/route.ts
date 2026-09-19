@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPublishedBySlug } from "@/lib/store/published";
 import { issueDownloadToken, verifyDownloadToken } from "@/lib/store/tokens";
+import { dbCreateOrder, dbVerifyOrderToken, dbBumpDownloads } from "@/lib/store/db";
+import { randomBytes } from "crypto";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const slug = String(body.slug || "");
-    const email = String(body.email || "").trim();
+    const email = String(body.email || "").trim() || "buyer@doyintech.local";
     const paystackRef = body.reference ? String(body.reference) : "";
-    const listing = getPublishedBySlug(slug);
+    const listing = await getPublishedBySlug(slug);
 
     if (!listing || listing.reviewStatus !== "approved") {
       return NextResponse.json({ error: "Listing not available." }, { status: 404 });
@@ -37,13 +39,34 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const token = issueDownloadToken(slug, email || "buyer@doyintech.local", 120);
+    const ttlMinutes = 120;
+    const expiresAt = new Date(Date.now() + ttlMinutes * 60 * 1000);
+    // Prefer DB-backed token; also keep memory for file route compatibility
+    const token = randomBytes(24).toString("hex");
+    issueDownloadToken(slug, email, ttlMinutes);
+
+    const saved = await dbCreateOrder({
+      listingId: listing.id,
+      listingSlug: slug,
+      buyerEmail: email,
+      amountKobo: listing.amountKobo || listing.priceNgn * 100,
+      paystackReference: paystackRef || undefined,
+      status: "paid",
+      downloadToken: token,
+      expiresAt,
+    });
+
+    // If DB save failed, still issue memory token
+    const finalToken = saved ? token : issueDownloadToken(slug, email, ttlMinutes);
+
+    void dbBumpDownloads(listing.id);
+
     const origin =
       req.headers.get("origin") ||
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://doyintech.vercel.app";
 
-    const downloadUrl = `${origin}/api/store/file?token=${encodeURIComponent(token)}&slug=${encodeURIComponent(slug)}`;
+    const downloadUrl = `${origin}/api/store/file?token=${encodeURIComponent(finalToken)}&slug=${encodeURIComponent(slug)}`;
 
     console.log(
       JSON.stringify({
@@ -51,6 +74,7 @@ export async function POST(req: NextRequest) {
         slug,
         email,
         free: listing.priceNgn === 0,
+        persisted: saved,
         at: new Date().toISOString(),
       })
     );
@@ -59,8 +83,8 @@ export async function POST(req: NextRequest) {
       ok: true,
       message: `Download authorized for ${listing.fileName || listing.title}. Starting…`,
       downloadUrl,
-      token,
-      expiresInMinutes: 120,
+      token: finalToken,
+      expiresInMinutes: ttlMinutes,
       installHint:
         listing.platform === "android"
           ? "Open the APK → Allow install from this source → Install"
@@ -74,6 +98,16 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token") || "";
   const slug = req.nextUrl.searchParams.get("slug") || "";
+
+  const fromDb = await dbVerifyOrderToken(token, slug);
+  if (fromDb.ok) {
+    return NextResponse.json({
+      ok: true,
+      grant: { slug, expiresAt: fromDb.expiresAt, email: fromDb.email },
+      source: "supabase",
+    });
+  }
+
   const result = verifyDownloadToken(token, slug);
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 403 });
@@ -81,5 +115,6 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     ok: true,
     grant: { slug: result.grant.slug, expiresAt: result.grant.expiresAt },
+    source: "memory",
   });
 }
