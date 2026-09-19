@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
-import { dbListOrdersByEmail } from "@/lib/store/db";
+import { dbListOrdersByEmail } from "@/lib/store/orders-reviews";
 import { getPublishedBySlug } from "@/lib/store/published";
 
-/**
- * GET /api/store/orders?email=
- * Returns purchase history for a buyer email (email acts as receipt key).
- */
 export async function GET(req: NextRequest) {
   const ip = clientIp(req);
   const rl = rateLimit(`store-orders:${ip}`, 20, 60 * 60 * 1000);

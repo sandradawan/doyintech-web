@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
-import {
-  dbCreateReview,
-  dbGetBySlug,
-  dbListReviewsBySlug,
-} from "@/lib/store/db";
+import { dbGetBySlug } from "@/lib/store/db";
+import { dbCreateReview, dbListReviewsBySlug } from "@/lib/store/orders-reviews";
 import { notifyOps } from "@/lib/store/notify";
 
 export async function GET(req: NextRequest) {
