@@ -13,13 +13,13 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const item = getPublishedBySlug(slug);
+  const item = await getPublishedBySlug(slug);
   return { title: item ? `${item.title} · DoyinStore` : "Store" };
 }
 
 export default async function StoreDetailPage({ params }: Props) {
   const { slug } = await params;
-  const item = getPublishedBySlug(slug);
+  const item = await getPublishedBySlug(slug);
   if (!item || item.reviewStatus !== "approved") notFound();
 
   return (
