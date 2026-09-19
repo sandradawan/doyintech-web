@@ -55,9 +55,14 @@ export async function POST(req: NextRequest) {
       privacyPolicyUrl: body.privacyPolicyUrl
         ? String(body.privacyPolicyUrl).slice(0, 300)
         : undefined,
+      screenshots: Array.isArray(body.screenshots)
+        ? body.screenshots.map((u: unknown) => String(u).slice(0, 500)).filter(Boolean).slice(0, 8)
+        : typeof body.screenshots === "string" && body.screenshots.trim()
+          ? body.screenshots.split(/[\n,]+/).map((s: string) => s.trim()).filter(Boolean).slice(0, 8)
+          : undefined,
+      iconUrl: body.iconUrl ? String(body.iconUrl).slice(0, 500) : undefined,
     };
 
-    // Prefer Supabase; fall back to in-memory so local/dev still works
     const row =
       (await dbInsertSubmission(payload)) ||
       addToQueue(payload);
