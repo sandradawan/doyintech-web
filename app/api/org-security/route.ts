@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import tls from "tls";
 import dns from "dns/promises";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -106,6 +107,15 @@ async function dnsTxt(name: string): Promise<string[]> {
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = clientIp(req);
+    const rl = rateLimit(`org-security:${ip}`, 8, 60 * 60 * 1000);
+    if (!rl.ok) {
+      return NextResponse.json(
+        { error: "Too many scans. Try again later." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+      );
+    }
+
     const body = await req.json().catch(() => ({}));
     const target = normalizeHost(String(body.domain || body.url || ""));
     if (!target) {
@@ -119,7 +129,6 @@ export async function POST(req: NextRequest) {
       detail: string;
     }[] = [];
 
-    // Reachability
     const siteRes = await fetchSafe(target.url);
     const up = !!(siteRes && siteRes.status > 0 && siteRes.status < 500);
     const status = siteRes?.status ?? null;
@@ -153,7 +162,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // TLS
     const tlsInfo = await checkTls(target.host);
     if (tlsInfo.error) {
       signals.push({
@@ -194,7 +202,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Headers score
     let headerScore = 0;
     const headersPresent: string[] = [];
     if (siteRes) {
@@ -245,7 +252,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Email DNS: SPF + DMARC
     const spfRecords = await dnsTxt(target.host);
     const hasSpf = spfRecords.some((r) => /v=spf1/i.test(r));
     const dmarcRecords = await dnsTxt(`_dmarc.${target.host}`);
@@ -283,7 +289,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Overall status
     let overall: "healthy" | "attention" | "critical" = "healthy";
     if (signals.some((s) => s.level === "critical")) overall = "critical";
     else if (signals.some((s) => s.level === "warn")) overall = "attention";
