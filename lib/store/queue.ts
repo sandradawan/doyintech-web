@@ -15,6 +15,9 @@ export type QueuedSubmission = {
   packageType?: string;
   fileName?: string;
   privacyPolicyUrl?: string;
+  /** Optional screenshot URLs (mirrored from DB when present) */
+  screenshots?: string[];
+  iconUrl?: string;
   reviewStatus: ReviewStatus;
   virusScanStatus: "pending" | "clean" | "flagged" | "failed";
   securityNotes?: string;
