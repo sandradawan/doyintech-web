@@ -14,6 +14,9 @@ export type ReviewStatus =
 
 export type ListingKind = "app" | "digital_product";
 
+export type MembershipStatus = "pending" | "active" | "suspended" | "rejected";
+export type MembershipTier = "free" | "pro" | "partner";
+
 export type StoreListing = {
   id: string;
   slug: string;
@@ -29,14 +32,12 @@ export type StoreListing = {
   amountKobo: number;
   category: string;
   iconEmoji: string;
+  iconUrl?: string;
   version: string;
-  /** Allowed binary types for apps */
   packageType?: "apk" | "exe" | "dmg" | "deb" | "zip" | "other";
   fileName?: string;
   fileSizeMb?: number;
-  /** Open web apps instantly (no binary) */
   launchUrl?: string;
-  /** Security pipeline */
   reviewStatus: ReviewStatus;
   securityNotes?: string;
   virusScanStatus?: "pending" | "clean" | "flagged" | "failed";
@@ -45,9 +46,27 @@ export type StoreListing = {
   ratingAvg: number;
   ratingCount: number;
   features: string[];
+  /** Public screenshot URLs */
   screenshots?: string[];
   createdAt: string;
   publishedAt?: string;
+};
+
+export type DeveloperProfile = {
+  id: string;
+  displayName: string;
+  email: string;
+  phone?: string;
+  website?: string;
+  bio?: string;
+  companyName?: string;
+  country?: string;
+  avatarUrl?: string;
+  membershipStatus: MembershipStatus;
+  membershipTier: MembershipTier;
+  agreedTermsAt?: string;
+  verifiedAt?: string;
+  createdAt: string;
 };
 
 export type DeveloperSubmission = {
@@ -65,6 +84,9 @@ export type DeveloperSubmission = {
   fileName?: string;
   website?: string;
   privacyPolicyUrl?: string;
+  /** Screenshot URLs (uploaded or external) */
+  screenshots?: string[];
+  iconUrl?: string;
 };
 
 export const APP_PACKAGE_HINTS: Record<string, string> = {
