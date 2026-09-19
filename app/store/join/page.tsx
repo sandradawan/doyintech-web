@@ -20,9 +20,12 @@ export default function StoreJoinPage() {
     setStatus("loading");
     setMessage("");
     const fd = new FormData(e.currentTarget);
-    const body = Object.fromEntries(fd.entries());
+    const body: Record<string, string | boolean> = {};
+    fd.forEach((value, key) => {
+      if (typeof value === "string") body[key] = value;
+    });
     if (mode === "developer") {
-      body.agreedTerms = fd.get("agreedTerms") === "on" ? true : false;
+      body.agreedTerms = fd.get("agreedTerms") === "on";
     }
 
     try {
