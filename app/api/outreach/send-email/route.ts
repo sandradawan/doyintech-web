@@ -8,9 +8,17 @@ function adminOk(req: NextRequest) {
   return header === secret;
 }
 
+function escapeHtml(input: string) {
+  return input
+    .replaceAll("&", "\u0026amp;")
+    .replaceAll("<", "\u0026lt;")
+    .replaceAll(">", "\u0026gt;")
+    .replaceAll('"', "\u0026quot;")
+    .replaceAll("'", "\u0026#039;");
+}
+
 export async function POST(req: NextRequest) {
   try {
-    // Fail closed: do not allow unauthenticated bulk email send
     if (!adminOk(req)) {
       return NextResponse.json(
         {
@@ -23,7 +31,6 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    // Honeypot
     if (body.website) return NextResponse.json({ ok: true });
 
     const to = String(body.to || "").trim().toLowerCase();
@@ -74,13 +81,4 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
-}
-
-function escapeHtml(input: string) {
-  return input
-    .replaceAll("&", "&")
-    .replaceAll("<", "<")
-    .replaceAll(">", ">")
-    .replaceAll('"', """)
-    .replaceAll("'", "&#039;");
 }
