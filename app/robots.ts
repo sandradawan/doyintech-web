@@ -5,7 +5,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      disallow: [
+        "/api/",
+        "/admin",
+        "/admin/",
+        "/nurture",
+        "/ops",
+        "/ops/",
+        "/client-portal",
+        "/apps/",
+      ],
     },
     sitemap: "https://doyintech.vercel.app/sitemap.xml",
   };
