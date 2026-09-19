@@ -4,7 +4,8 @@ import { dbListDevelopers, dbSetDeveloperStatus } from "@/lib/store/membership";
 function authorized(req: NextRequest): boolean {
   const key = process.env.STORE_ADMIN_KEY || "";
   if (!key) return false;
-  return (req.headers.get("x-store-admin-key") || "") === key;
+  const header = req.headers.get("x-store-admin-key") || "";
+  return header === key;
 }
 
 export async function GET(req: NextRequest) {
@@ -31,13 +32,11 @@ export async function PATCH(req: NextRequest) {
     if (!id || !allowed.includes(status)) {
       return NextResponse.json({ error: "Invalid id or status" }, { status: 400 });
     }
-    const ok = await dbSetDeveloperStatus(
-      id,
-      status,
-      body.reason ? String(body.reason) : undefined
-    );
-    if (!ok) return NextResponse.json({ error: "Update failed" }, { status: 500 });
-    return NextResponse.json({ ok: true });
+    const ok = await dbSetDeveloperStatus(id, status, body.reason ? String(body.reason) : undefined);
+    if (!ok) {
+      return NextResponse.json({ error: "Update failed" }, { status: 500 });
+    }
+    return NextResponse.json({ ok: true, id, status });
   } catch {
     return NextResponse.json({ error: "Update failed" }, { status: 500 });
   }
