@@ -1,6 +1,7 @@
 import type { StoreListing } from "./types";
 import { STORE_LISTINGS } from "./catalog";
 import { listQueue, type QueuedSubmission } from "./queue";
+import { dbGetBySlug, dbListApproved } from "./db";
 
 function slugify(title: string, id: string): string {
   const base = title
@@ -41,8 +42,8 @@ export function queueToListing(q: QueuedSubmission): StoreListing {
   };
 }
 
-/** Public catalog = seeds + approved queue items (this server instance) */
-export function getAllPublishedListings(): StoreListing[] {
+/** Seeds + memory queue (fallback when DB offline) */
+function memoryPublished(): StoreListing[] {
   const fromQueue = listQueue()
     .filter((q) => q.reviewStatus === "approved")
     .map(queueToListing);
@@ -51,6 +52,25 @@ export function getAllPublishedListings(): StoreListing[] {
   return [...STORE_LISTINGS.filter((l) => l.reviewStatus === "approved"), ...extra];
 }
 
-export function getPublishedBySlug(slug: string): StoreListing | undefined {
-  return getAllPublishedListings().find((l) => l.slug === slug);
+/** Public catalog = Supabase approved + seed listings */
+export async function getAllPublishedListings(): Promise<StoreListing[]> {
+  const fromDb = await dbListApproved();
+  const seeds = STORE_LISTINGS.filter((l) => l.reviewStatus === "approved");
+  if (!fromDb) return memoryPublished();
+
+  const bySlug = new Map<string, StoreListing>();
+  for (const s of seeds) bySlug.set(s.slug, s);
+  for (const d of fromDb) bySlug.set(d.slug, d);
+  return [...bySlug.values()];
+}
+
+export async function getPublishedBySlug(slug: string): Promise<StoreListing | undefined> {
+  const fromDb = await dbGetBySlug(slug);
+  if (fromDb && fromDb.reviewStatus === "approved") return fromDb;
+
+  const seeds = STORE_LISTINGS.find((l) => l.slug === slug && l.reviewStatus === "approved");
+  if (seeds) return seeds;
+
+  const mem = memoryPublished().find((l) => l.slug === slug);
+  return mem;
 }
