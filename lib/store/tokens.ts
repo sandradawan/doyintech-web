@@ -10,8 +10,13 @@ export type DownloadGrant = {
 const g = globalThis as unknown as { __doyinDownloadGrants?: Map<string, DownloadGrant> };
 if (!g.__doyinDownloadGrants) g.__doyinDownloadGrants = new Map();
 
-export function issueDownloadToken(slug: string, email: string, ttlMinutes = 60): string {
-  const token = randomBytes(24).toString("hex");
+export function issueDownloadToken(
+  slug: string,
+  email: string,
+  ttlMinutes = 60,
+  fixedToken?: string
+): string {
+  const token = fixedToken || randomBytes(24).toString("hex");
   const grant: DownloadGrant = {
     token,
     slug,
