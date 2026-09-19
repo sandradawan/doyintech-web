@@ -12,7 +12,8 @@ export async function GET(req: Request) {
   const auth = req.headers.get("authorization");
   const secret = process.env.CRON_SECRET;
 
-  if (secret && auth !== `Bearer ${secret}`) {
+  // Fail closed: require secret in all environments
+  if (!secret || auth !== `Bearer ${secret}`) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
