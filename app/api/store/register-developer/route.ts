@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { dbRegisterDeveloper } from "@/lib/store/db";
+import { dbRegisterDeveloper } from "@/lib/store/membership";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
