@@ -1,1 +1,3 @@
-PLACEHOLDER
+import type { EbookChapter } from "@/lib/ebooks";
+
+export const PART0: Record<string, EbookChapter[]> = {"ebook-affiliate-marketing": [{"title": "1. Affiliate as a real business", "body": "You earn commission promoting products you did not build. Trust is the product. Promote junk once and the audience leaves.\n\nAction: write your ethical promotion rule.\n\nApply \"Affiliate as a real business\" this week: schedule one concrete action and complete it before the weekend."}]};
