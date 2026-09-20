@@ -3,25 +3,34 @@ import { EBOOKS } from "./ebooks";
 import { MORE_EBOOKS } from "./ebooks-more";
 import { WAVE3_EBOOKS } from "./ebooks-wave3";
 import { LIFE_EBOOKS } from "./ebooks-life";
+import { getFullChapters } from "./ebooks/full";
 
 /**
- * Catalog is pure data — no Node fs/path.
- * Full chapter expansions live in each source file / LIFE_EBOOKS.
- * Avoids Vercel client-bundle failures from fs imports.
+ * Catalog merges base metadata with full ~12k-word chapter packs.
+ * No Node fs — safe for Vercel.
  */
+function withFullBook(book: Ebook): Ebook {
+  const chapters = getFullChapters(book.id);
+  if (!chapters?.length) return book;
+  const words = chapters.reduce((n, ch) => n + ch.body.split(/\s+/).length, 0);
+  return {
+    ...book,
+    pagesLabel: `Full book · ~${Math.round(words / 1000)}k words · ${chapters.length} chapters`,
+    chapters,
+  };
+}
+
 export const ALL_EBOOKS: Ebook[] = [
   ...EBOOKS,
   ...MORE_EBOOKS,
   ...WAVE3_EBOOKS,
   ...LIFE_EBOOKS,
-];
+].map(withFullBook);
 
 export function findAnyEbook(idOrSlug: string): Ebook | undefined {
   const key = idOrSlug.trim().toLowerCase();
   return ALL_EBOOKS.find(
-    (e) =>
-      e.slug.toLowerCase() === key ||
-      e.id.toLowerCase() === key
+    (e) => e.slug.toLowerCase() === key || e.id.toLowerCase() === key
   );
 }
 
