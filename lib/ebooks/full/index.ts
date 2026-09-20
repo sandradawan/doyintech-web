@@ -1,53 +1,53 @@
 import type { EbookChapter } from "@/lib/ebooks";
 
-import { EBOOK_WHATSAPP_SME_CHAPTERS } from "./ebook-whatsapp-sme";
-import { EBOOK_FIRST_CLIENTS_CHAPTERS } from "./ebook-first-clients";
-import { EBOOK_SME_SECURITY_CHAPTERS } from "./ebook-sme-security";
-import { EBOOK_FOUNDER_WEBSITE_CHAPTERS } from "./ebook-founder-website";
-import { EBOOK_AI_SME_CHAPTERS } from "./ebook-ai-sme";
-import { EBOOK_ONE_PAGE_MARKETING_CHAPTERS } from "./ebook-one-page-marketing";
-import { EBOOK_CASH_FIRST_CHAPTERS } from "./ebook-cash-first";
-import { EBOOK_FOUNDER_HABITS_CHAPTERS } from "./ebook-founder-habits";
-import { EBOOK_NEGOTIATE_CLOSE_CHAPTERS } from "./ebook-negotiate-close";
-import { EBOOK_DIGITAL_MARKETING_CHAPTERS } from "./ebook-digital-marketing";
-import { EBOOK_AFFILIATE_MARKETING_CHAPTERS } from "./ebook-affiliate-marketing";
-import { EBOOK_SMM_CHAPTERS } from "./ebook-smm";
-import { EBOOK_VIRTUAL_ASSISTANT_CHAPTERS } from "./ebook-virtual-assistant";
-import { EBOOK_IG_TIKTOK_LOCAL_CHAPTERS } from "./ebook-ig-tiktok-local";
-import { EBOOK_PRICE_WEB_NG_CHAPTERS } from "./ebook-price-web-ng";
-import { EBOOK_GBP_CHAPTERS } from "./ebook-gbp";
-import { EBOOK_PERSONAL_FINANCE_NG_CHAPTERS } from "./ebook-personal-finance-ng";
-import { EBOOK_STUDENT_PRODUCTIVITY_CHAPTERS } from "./ebook-student-productivity";
-import { EBOOK_FITNESS_BUSY_CHAPTERS } from "./ebook-fitness-busy";
-import { EBOOK_HOME_FOOD_BUDGET_CHAPTERS } from "./ebook-home-food-budget";
-import { EBOOK_CULTURE_COMMUNITY_CHAPTERS } from "./ebook-culture-community";
-import { EBOOK_WEALTH_HABITS_CHAPTERS } from "./ebook-wealth-habits";
-import { EBOOK_EDUCATION_LIFELONG_CHAPTERS } from "./ebook-education-lifelong";
+import ebook_affiliate_marketing from "./data/ebook-affiliate-marketing.json";
+import ebook_ai_sme from "./data/ebook-ai-sme.json";
+import ebook_cash_first from "./data/ebook-cash-first.json";
+import ebook_culture_community from "./data/ebook-culture-community.json";
+import ebook_digital_marketing from "./data/ebook-digital-marketing.json";
+import ebook_education_lifelong from "./data/ebook-education-lifelong.json";
+import ebook_first_clients from "./data/ebook-first-clients.json";
+import ebook_fitness_busy from "./data/ebook-fitness-busy.json";
+import ebook_founder_habits from "./data/ebook-founder-habits.json";
+import ebook_founder_website from "./data/ebook-founder-website.json";
+import ebook_gbp from "./data/ebook-gbp.json";
+import ebook_home_food_budget from "./data/ebook-home-food-budget.json";
+import ebook_ig_tiktok_local from "./data/ebook-ig-tiktok-local.json";
+import ebook_negotiate_close from "./data/ebook-negotiate-close.json";
+import ebook_one_page_marketing from "./data/ebook-one-page-marketing.json";
+import ebook_personal_finance_ng from "./data/ebook-personal-finance-ng.json";
+import ebook_price_web_ng from "./data/ebook-price-web-ng.json";
+import ebook_sme_security from "./data/ebook-sme-security.json";
+import ebook_smm from "./data/ebook-smm.json";
+import ebook_student_productivity from "./data/ebook-student-productivity.json";
+import ebook_virtual_assistant from "./data/ebook-virtual-assistant.json";
+import ebook_wealth_habits from "./data/ebook-wealth-habits.json";
+import ebook_whatsapp_sme from "./data/ebook-whatsapp-sme.json";
 
 export const FULL_BOOK_CHAPTERS: Record<string, EbookChapter[]> = {
-  "ebook-whatsapp-sme": EBOOK_WHATSAPP_SME_CHAPTERS,
-  "ebook-first-clients": EBOOK_FIRST_CLIENTS_CHAPTERS,
-  "ebook-sme-security": EBOOK_SME_SECURITY_CHAPTERS,
-  "ebook-founder-website": EBOOK_FOUNDER_WEBSITE_CHAPTERS,
-  "ebook-ai-sme": EBOOK_AI_SME_CHAPTERS,
-  "ebook-one-page-marketing": EBOOK_ONE_PAGE_MARKETING_CHAPTERS,
-  "ebook-cash-first": EBOOK_CASH_FIRST_CHAPTERS,
-  "ebook-founder-habits": EBOOK_FOUNDER_HABITS_CHAPTERS,
-  "ebook-negotiate-close": EBOOK_NEGOTIATE_CLOSE_CHAPTERS,
-  "ebook-digital-marketing": EBOOK_DIGITAL_MARKETING_CHAPTERS,
-  "ebook-affiliate-marketing": EBOOK_AFFILIATE_MARKETING_CHAPTERS,
-  "ebook-smm": EBOOK_SMM_CHAPTERS,
-  "ebook-virtual-assistant": EBOOK_VIRTUAL_ASSISTANT_CHAPTERS,
-  "ebook-ig-tiktok-local": EBOOK_IG_TIKTOK_LOCAL_CHAPTERS,
-  "ebook-price-web-ng": EBOOK_PRICE_WEB_NG_CHAPTERS,
-  "ebook-gbp": EBOOK_GBP_CHAPTERS,
-  "ebook-personal-finance-ng": EBOOK_PERSONAL_FINANCE_NG_CHAPTERS,
-  "ebook-student-productivity": EBOOK_STUDENT_PRODUCTIVITY_CHAPTERS,
-  "ebook-fitness-busy": EBOOK_FITNESS_BUSY_CHAPTERS,
-  "ebook-home-food-budget": EBOOK_HOME_FOOD_BUDGET_CHAPTERS,
-  "ebook-culture-community": EBOOK_CULTURE_COMMUNITY_CHAPTERS,
-  "ebook-wealth-habits": EBOOK_WEALTH_HABITS_CHAPTERS,
-  "ebook-education-lifelong": EBOOK_EDUCATION_LIFELONG_CHAPTERS,
+  "ebook-affiliate-marketing": ebook_affiliate_marketing as EbookChapter[],
+  "ebook-ai-sme": ebook_ai_sme as EbookChapter[],
+  "ebook-cash-first": ebook_cash_first as EbookChapter[],
+  "ebook-culture-community": ebook_culture_community as EbookChapter[],
+  "ebook-digital-marketing": ebook_digital_marketing as EbookChapter[],
+  "ebook-education-lifelong": ebook_education_lifelong as EbookChapter[],
+  "ebook-first-clients": ebook_first_clients as EbookChapter[],
+  "ebook-fitness-busy": ebook_fitness_busy as EbookChapter[],
+  "ebook-founder-habits": ebook_founder_habits as EbookChapter[],
+  "ebook-founder-website": ebook_founder_website as EbookChapter[],
+  "ebook-gbp": ebook_gbp as EbookChapter[],
+  "ebook-home-food-budget": ebook_home_food_budget as EbookChapter[],
+  "ebook-ig-tiktok-local": ebook_ig_tiktok_local as EbookChapter[],
+  "ebook-negotiate-close": ebook_negotiate_close as EbookChapter[],
+  "ebook-one-page-marketing": ebook_one_page_marketing as EbookChapter[],
+  "ebook-personal-finance-ng": ebook_personal_finance_ng as EbookChapter[],
+  "ebook-price-web-ng": ebook_price_web_ng as EbookChapter[],
+  "ebook-sme-security": ebook_sme_security as EbookChapter[],
+  "ebook-smm": ebook_smm as EbookChapter[],
+  "ebook-student-productivity": ebook_student_productivity as EbookChapter[],
+  "ebook-virtual-assistant": ebook_virtual_assistant as EbookChapter[],
+  "ebook-wealth-habits": ebook_wealth_habits as EbookChapter[],
+  "ebook-whatsapp-sme": ebook_whatsapp_sme as EbookChapter[],
 };
 
 export function getFullChapters(id: string): EbookChapter[] | undefined {
