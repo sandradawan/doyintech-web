@@ -1,5 +1,6 @@
 import type { Ebook } from "./ebooks";
 
+/** Full life / wealth / education / fitness / food / culture / AI titles */
 export const LIFE_EBOOKS: Ebook[] = [
   {
     id: "ebook-personal-finance-ng",
@@ -15,10 +16,17 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#0d9488",
     accent: "#2dd4bf",
     icon: "N",
-    coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=85",
     badge: "Wealth",
-    blurb: "A practical money system for workers and small business owners: see your cash, build buffers, handle debt, and grow without hype.",
-    benefits: ["7-day expense truth exercise", "Simple pot system for income", "Debt attack order", "Monthly money date checklist"],
+    blurb:
+      "A practical money system for workers and small business owners: see your cash, build buffers, handle debt, and grow without hype.",
+    benefits: [
+      "7-day expense truth exercise",
+      "Simple pot system for income",
+      "Debt attack order",
+      "Monthly money date checklist",
+    ],
     chapters: [],
   },
   {
@@ -35,10 +43,17 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#6366f1",
     accent: "#a5b4fc",
     icon: "Edu",
-    coverImage: "https://images.unsplash.com/photo-14565130808-af05246b553?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-14565130808-af05246b553?auto=format&fit=crop&w=900&q=85",
     badge: "Education",
-    blurb: "Study as a performance skill: environment design, active recall, spaced practice, and a calm exam-week plan.",
-    benefits: ["Phone-free deep study setup", "Active recall methods", "Semester planning backward from exams", "Exam week protocol"],
+    blurb:
+      "Study as a performance skill: environment design, active recall, spaced practice, and a calm exam-week plan.",
+    benefits: [
+      "Phone-free deep study setup",
+      "Active recall methods",
+      "Semester planning backward from exams",
+      "Exam week protocol",
+    ],
     chapters: [],
   },
   {
@@ -55,10 +70,17 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#22c55e",
     accent: "#86efac",
     icon: "Fit",
-    coverImage: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85",
     badge: "Health",
-    blurb: "Minimum effective fitness for founders and professionals: strength patterns, daily walking, food defaults, and a 28-day starter plan.",
-    benefits: ["30-40 min strength templates", "Walking targets that stick", "Food defaults for energy", "28-day plan"],
+    blurb:
+      "Minimum effective fitness for founders and professionals: strength patterns, daily walking, food defaults, and a 28-day starter plan.",
+    benefits: [
+      "30-40 min strength templates",
+      "Walking targets that stick",
+      "Food defaults for energy",
+      "28-day plan",
+    ],
     chapters: [],
   },
   {
@@ -75,10 +97,17 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#ea580c",
     accent: "#fdba74",
     icon: "Food",
-    coverImage: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=900&q=85",
     badge: "Home",
-    blurb: "Plan meals, shop with a list, batch cook, and stop delivery from quietly draining your budget.",
-    benefits: ["Weekly menu framework", "Shopping list rules", "Batch cooking bases", "Delivery budget limits"],
+    blurb:
+      "Plan meals, shop with a list, batch cook, and stop delivery from quietly draining your budget.",
+    benefits: [
+      "Weekly menu framework",
+      "Shopping list rules",
+      "Batch cooking bases",
+      "Delivery budget limits",
+    ],
     chapters: [],
   },
   {
@@ -95,10 +124,17 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#c026d3",
     accent: "#f0abfc",
     icon: "Cul",
-    coverImage: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85",
     badge: "Culture",
-    blurb: "How culture, reputation, and community networks shape opportunity and how to build them deliberately.",
-    benefits: ["Reputation habits", "Boundary scripts with family pressure", "Trust + written deals", "Contribution mindset"],
+    blurb:
+      "How culture, reputation, and community networks shape opportunity and how to build them deliberately.",
+    benefits: [
+      "Reputation habits",
+      "Boundary scripts with family pressure",
+      "Trust + written deals",
+      "Contribution mindset",
+    ],
     chapters: [],
   },
   {
@@ -115,10 +151,17 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#b45309",
     accent: "#fbbf24",
     icon: "W",
-    coverImage: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=900&q=85",
     badge: "Wealth",
-    blurb: "Wealth as behaviour: save rates, skill growth, network quality, risk caps, and quarterly reviews.",
-    benefits: ["Save and skill rates", "Lifestyle lag principle", "Risk management rules", "Quarterly wealth review"],
+    blurb:
+      "Wealth as behaviour: save rates, skill growth, network quality, risk caps, and quarterly reviews.",
+    benefits: [
+      "Save and skill rates",
+      "Lifestyle lag principle",
+      "Risk management rules",
+      "Quarterly wealth review",
+    ],
     chapters: [],
   },
   {
@@ -135,10 +178,71 @@ export const LIFE_EBOOKS: Ebook[] = [
     coverTo: "#0284c7",
     accent: "#7dd3fc",
     icon: "Learn",
-    coverImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=85",
+    coverImage:
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=85",
     badge: "Education",
-    blurb: "A practical system for learning after school: choose skills the market pays for, practise deliberately, and show proof.",
-    benefits: ["Skill selection filter", "Weekly learning blocks", "Portfolio proof", "Yearly learning plan"],
+    blurb:
+      "A practical system for learning after school: choose skills the market pays for, practise deliberately, and show proof.",
+    benefits: [
+      "Skill selection filter",
+      "Weekly learning blocks",
+      "Portfolio proof",
+      "Yearly learning plan",
+    ],
+    chapters: [],
+  },
+  {
+    id: "ebook-prompt-engineering",
+    slug: "prompt-engineering-playbook",
+    title: "Prompt Engineering Playbook",
+    subtitle: "Write clearer prompts — get better AI output for work and business",
+    author: "DoyinTech",
+    priceNgn: 8900,
+    amountKobo: 890000,
+    pagesLabel: "Full book · 12 chapters",
+    category: "AI & Productivity",
+    coverFrom: "#312e81",
+    coverTo: "#7c3aed",
+    accent: "#c4b5fd",
+    icon: "AI",
+    coverImage:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=85",
+    badge: "New",
+    blurb:
+      "A practical system for prompt engineering: structure, examples, iteration, business use cases, and a reusable prompt library — without hype.",
+    benefits: [
+      "Prompt anatomy you can reuse",
+      "Few-shot and stepwise patterns",
+      "Business writing and research prompts",
+      "Eval, safety, and personal library",
+    ],
+    chapters: [],
+  },
+  {
+    id: "ebook-law-of-money-wealth",
+    slug: "law-of-money-and-wealth",
+    title: "The Law of Money and Wealth",
+    subtitle: "Timeless rules for earning, protecting, and growing wealth",
+    author: "DoyinTech",
+    priceNgn: 9500,
+    amountKobo: 950000,
+    pagesLabel: "Full book · 12 chapters",
+    category: "Wealth",
+    coverFrom: "#1c1917",
+    coverTo: "#b45309",
+    accent: "#fbbf24",
+    icon: "Law",
+    coverImage:
+      "https://images.unsplash.com/photo-1611974789855-9c2a0b3637b1?auto=format&fit=crop&w=900&q=85",
+    badge: "New",
+    blurb:
+      "Clear laws of money and wealth: cashflow, downside protection, productive assets, compound growth, debt rules, and a personal wealth operating system.",
+    benefits: [
+      "Earn-protect-own framework",
+      "Debt and liquidity rules",
+      "Lifestyle and identity traps",
+      "Personal wealth OS checklist",
+    ],
     chapters: [],
   },
 ];
