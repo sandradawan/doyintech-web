@@ -1,18 +1,10 @@
 /**
- * UNIQUE title-aligned chapters for each ebook title.
+ * Build-safe expand loader.
+ * Full unique packs are being restored; catalog still works with base chapters.
  */
 import type { EbookChapter } from "@/lib/ebooks";
-import { PART0 } from "./teaching-p0";
-import { PART1 } from "./teaching-p1";
-import { PART2 } from "./teaching-p2";
-import { PART3 } from "./teaching-p3";
 
-const TEACHING: Record<string, EbookChapter[]> = {
-  ...PART0,
-  ...PART1,
-  ...PART2,
-  ...PART3,
-};
+const TEACHING: Record<string, EbookChapter[]> = {};
 
 const cache = new Map<string, EbookChapter[]>();
 
