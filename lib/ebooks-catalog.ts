@@ -5,10 +5,6 @@ import { WAVE3_EBOOKS } from "./ebooks-wave3";
 import { LIFE_EBOOKS } from "./ebooks-life";
 import { getFullChapters } from "./ebooks/full";
 
-/**
- * Catalog merges base metadata with full ~12k-word chapter packs.
- * No Node fs — safe for Vercel.
- */
 function withFullBook(book: Ebook): Ebook {
   const chapters = getFullChapters(book.id);
   if (!chapters?.length) return book;
