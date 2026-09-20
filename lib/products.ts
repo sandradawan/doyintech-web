@@ -19,6 +19,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "independence-week-preorder-kit",
+    name: "Independence Week Pre-Order Kit",
+    description:
+      "WhatsApp scripts, deposit math, 25 Sep–7 Oct capacity calendar, and a Sheets tracker so SMEs take paid pre-orders before 1 October — not unpaid holds.",
+    priceUsd: "$14",
+    priceNgn: "₦10,500",
+    amountKobo: 1050000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "Open / confirm / chase / sold-out scripts",
+      "30–50% deposit math that keeps margin",
+      "Independence Week capacity calendar",
+      "Sheets pre-order tracker CSV",
+      "10 Status captions for 1 Oct + Ember",
+      "Sunday 20-minute restock checklist",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/independence-week-preorder-kit.md",
+    downloadPaths: [
+      "/digital-products/independence-week-preorder-kit.md",
+      "/digital-products/csv/preorders.csv",
+    ],
+    demandNote:
+      "SMEs lose Ember stock to free reservations; paid pre-orders before Independence Day convert.",
+    addedAt: "2026-09-20",
+  },
+  {
     id: "review-referral-harvest-kit",
     name: "Review & Referral Harvest Kit",
     description:
@@ -27,7 +55,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦9,500",
     amountKobo: 950000,
     type: "one-time",
-    badge: "New today",
+    badge: "Social proof",
     features: [
       "Day-1 and Day-3 review scripts",
       "Referral asks + thank-you offer math",
@@ -213,27 +241,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     delivery: "Instant download after Paystack",
     downloadPath: "/digital-products/freelance-contract-wht-pack.md",
     addedAt: "2026-09-17",
-  },
-  {
-    id: "sme-tax-compliance-calendar",
-    name: "SME Tax & Compliance Calendar 2026",
-    description:
-      "Nigeria-focused VAT, PAYE, WHT, pension, and CAC reminder board plus a Sheets tracker and accountant handoff pack.",
-    priceUsd: "$17",
-    priceNgn: "₦13,500",
-    amountKobo: 1350000,
-    type: "one-time",
-    badge: "Compliance",
-    features: [
-      "2026 month-by-month reminder board",
-      "Sheets-ready compliance tracker CSV",
-      "WhatsApp nudges for your bookkeeper",
-      "Monthly accountant handoff checklist",
-      "Penalty-hygiene habits (not legal advice)",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/sme-tax-compliance-calendar.md",
-    addedAt: "2026-09-16",
   },
 ];
 
