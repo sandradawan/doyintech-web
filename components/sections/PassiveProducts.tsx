@@ -132,7 +132,8 @@ export default function PassiveProducts() {
                 <a
                   href={waitlistWhatsAppLink(p.name)}
                   target="_blank"
-                  rel="noopener noreferrer"n                  className="mt-3 text-center text-[13px] text-[#2997ff] hover:underline"
+                  rel="noopener noreferrer"
+                  className="mt-3 text-center text-[13px] text-[#2997ff] hover:underline"
                 >
                   Or WhatsApp waitlist ›
                 </a>
