@@ -19,6 +19,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "ember-dispatch-recovery-kit",
+    name: "Ember Dispatch & Failed-Delivery Recovery Kit",
+    description:
+      "Prepaid vs POD rules, rider briefs, failed-drop WhatsApp scripts, and a Sheets dispatch log so Ember parcels actually arrive — and retries stay profitable.",
+    priceUsd: "$15",
+    priceNgn: "₦11,500",
+    amountKobo: 1150000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "City cut-off + prepaid rules",
+      "One-message rider brief",
+      "Failed-delivery scripts",
+      "COD → prepaid sequence",
+      "Sheets dispatch log CSV",
+      "Sunday 20-minute ops checklist",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/ember-dispatch-recovery-kit.md",
+    downloadPaths: [
+      "/digital-products/ember-dispatch-recovery-kit.md",
+      "/digital-products/csv/dispatch-log.csv",
+    ],
+    demandNote:
+      "Ember profit dies on failed POD drops and silent riders — SMEs need rules before 1 October.",
+    addedAt: "2026-09-21",
+  },
+  {
     id: "independence-week-preorder-kit",
     name: "Independence Week Pre-Order Kit",
     description:
@@ -27,7 +55,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦10,500",
     amountKobo: 1050000,
     type: "one-time",
-    badge: "New today",
+    badge: "Independence",
     features: [
       "Open / confirm / chase / sold-out scripts",
       "30–50% deposit math that keeps margin",
@@ -220,28 +248,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     downloadPath: "/digital-products/ember-months-sales-playbook.md",
     addedAt: "2026-09-18",
   },
-  {
-    id: "freelance-contract-wht-pack",
-    name: "Freelance Contract & WHT Survival Pack",
-    description:
-      "Short service agreement, WHT invoice wording, credit-note chase scripts, change orders, and a milestone tracker for Nigerian freelancers.",
-    priceUsd: "$16",
-    priceNgn: "₦12,500",
-    amountKobo: 1250000,
-    type: "one-time",
-    badge: "Freelance",
-    features: [
-      "Short service agreement (Docs-ready)",
-      "Gross invoice + WHT notes",
-      "WhatsApp credit-note chase scripts",
-      "One-page change order",
-      "Sheets milestone + WHT tracker",
-      "Pause-work rules when paper is late",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/freelance-contract-wht-pack.md",
-    addedAt: "2026-09-17",
-  },
 ];
 
 export const SAAS_PRODUCTS: DigitalProduct[] = [
@@ -272,7 +278,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === id);
+  return DIGITAL_PRODUCTS.find((p) => p.id === p.id ? DIGITAL_PRODUCTS.find((x) => x.id === id) : undefined);
 }
 
 export function productDownloadUrls(product: DigitalProduct): string[] {

@@ -1,0 +1,4 @@
+parcel_id,order_date,customer,phone,city,sku_qty,payment,rider,rider_fee_ngn,window,attempt,status,retry_date,notes
+D-1001-01,2026-10-01,Amaka,0803xxxxxxx,Lagos-Mainland,2x Ankara set,PREPAID,Tunde,2500,12-14,1,DELIVERED,,Photo on file
+D-1001-02,2026-10-01,Chidi,0802xxxxxxx,Lagos-Island,1x Sneakers,50PCT,Kelechi,4000,11-13,1,FAILED-GATE,2026-10-02,Need estate code
+D-1002-01,2026-10-02,Halima,0814xxxxxxx,Abuja,3x Shea 250ml,PREPAID,GIG,6500,park-12pm,1,IN-TRANSIT,,Customer pays last mile
