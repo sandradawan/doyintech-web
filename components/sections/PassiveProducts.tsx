@@ -22,7 +22,7 @@ export default function PassiveProducts() {
             </p>
             <h2 className="apple-headline mt-2">Products clients pay for.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              New today: Independence Week Pre-Order Kit. Paystack for instant download — or WhatsApp if you prefer.
+              New today: Ember Dispatch & Failed-Delivery Recovery Kit. Paystack for instant download — or WhatsApp if you prefer.
             </p>
           </div>
         </ScrollReveal>
@@ -132,8 +132,7 @@ export default function PassiveProducts() {
                 <a
                   href={waitlistWhatsAppLink(p.name)}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 text-center text-[13px] text-[#2997ff] hover:underline"
+                  rel="noopener noreferrer"n                  className="mt-3 text-center text-[13px] text-[#2997ff] hover:underline"
                 >
                   Or WhatsApp waitlist ›
                 </a>
