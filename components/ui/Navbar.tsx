@@ -25,6 +25,8 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Shop",
     items: [
       { name: "Products", href: "/products", desc: "Digital packs & bundles" },
+      { name: "System Protector Kit", href: "/products", desc: "Phone & WhatsApp hardening" },
+      { name: "Follow-up Agent Kit", href: "/products", desc: "Turn quotes into deposits" },
       { name: "Ebooks", href: "/ebooks", desc: "Practical guides" },
       { name: "Components", href: "/components", desc: "Next.js UI kits" },
       { name: "Templates", href: "/templates", desc: "Page templates" },
@@ -34,13 +36,15 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Tools",
     items: [
-      { name: "Free tools", href: "/tools", desc: "Business & security utilities" },
+      { name: "Free tools hub", href: "/tools", desc: "Business & security utilities" },
+      { name: "System Protector score", href: "/tools/system-protector", desc: "Phone & WhatsApp hygiene" },
       { name: "WhatsApp scripts", href: "/tools/whatsapp-scripts", desc: "5 free reply scripts" },
       { name: "DoyinOps", href: "/ops", desc: "SME ops workspace" },
       { name: "Free audit", href: "/free-audit", desc: "3-minute digital audit" },
       { name: "Status pack", href: "/status-pack", desc: "Weekly captions to post" },
-      { name: "Local SEO", href: "/local-seo", desc: "Google Business guide" },
-      { name: "Outreach", href: "/outreach", desc: "Send templates" },
+      { name: "Daily prospecting", href: "/outreach/daily", desc: "20 messages / day tracker" },
+      { name: "Ads creatives", href: "/outreach/ads", desc: "Headlines & follow-ups" },
+      { name: "Apps & MVPs", href: "/apps", desc: "DoyinShield, Agent, plans" },
     ],
   },
   {
