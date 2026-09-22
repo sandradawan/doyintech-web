@@ -18,6 +18,7 @@ import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
 import VideoTestimonials from "@/components/sections/VideoTestimonials";
 import ReferralOffer from "@/components/sections/ReferralOffer";
+import GrowthEngine from "@/components/sections/GrowthEngine";
 import Founder from "@/components/sections/Founder";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
@@ -41,6 +42,7 @@ export default function Home() {
         <PassiveProducts />
         <LeadMagnet />
         <ToolsSection />
+        <GrowthEngine />
         <Process />
         <Projects />
         <TechStack />
