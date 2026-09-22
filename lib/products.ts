@@ -11,7 +11,9 @@ export type DigitalProduct = {
   delivery: string;
   demandNote?: string;
   addedAt?: string;
+  /** Public path under /public for instant post-payment download */
   downloadPath?: string;
+  /** Extra files unlocked with this product (e.g. bundles) */
   downloadPaths?: string[];
 };
 
@@ -155,6 +157,27 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     demandNote:
       "SMEs heading into Ember need proof and warm intros more than more ads.",
     addedAt: "2026-09-19",
+  },
+  {
+    id: "gs-sheets-starter-bundle",
+    name: "Sheets Starter Bundle (All 6 Templates)",
+    description:
+      "All six Etsy-style Google Sheets packs — budget, CRM, content calendar, habits, bookkeeping, and project tracker — plus import-ready CSVs.",
+    priceUsd: "$49",
+    priceNgn: "₦45,000",
+    amountKobo: 4500000,
+    type: "one-time",
+    badge: "Bundle · Best value",
+    features: [
+      "All 6 Sheets setup guides",
+      "Import-ready CSV starters",
+      "Works in Google Sheets & Excel",
+      "Save vs buying separately",
+      "Lifetime download access",
+    ],
+    delivery: "Instant download of all guides + CSVs after Paystack",
+    downloadPath: "/digital-products/gs-sheets-bundle-readme.md",
+    addedAt: "2026-09-18",
   },
 ];
 
