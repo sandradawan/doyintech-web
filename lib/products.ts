@@ -284,7 +284,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === p.id);
+  return DIGITAL_PRODUCTS.find((p) => p.id === id);
 }
 
 export function productDownloadUrls(product: DigitalProduct): string[] {
