@@ -17,19 +17,26 @@ export default function Footer() {
       ],
     },
     {
-      title: "Services",
+      title: "Tools & apps",
       links: [
+        ["/tools", "All free tools"],
+        ["/tools/system-protector", "System Protector score"],
+        ["/apps", "Apps & MVPs"],
+        ["/apps/doyinshield", "DoyinShield"],
+        ["/apps/whatsapp-agent", "WhatsApp Agent MVP"],
+        ["/apps/build-plan-30d", "30-day build plan"],
         ["/ops", "DoyinOps"],
-        ["/hire", "Hire — fixed price"],
-        ["/services", "Services"],
-        ["/pricing", "Packages & pricing"],
+        ["/status-pack", "Status pack"],
+        ["/outreach/daily", "Daily prospecting"],
+        ["/outreach/ads", "Ads creatives"],
         ["/free-audit", "Free website audit"],
-        ["/portfolio", "Portfolio"],
       ],
     },
     {
       title: "Company",
       links: [
+        ["/hire", "Hire — fixed price"],
+        ["/services", "Services"],
         ["/about", "About"],
         ["/contact", "Contact"],
         ["/blog", "Blog"],
@@ -79,7 +86,7 @@ export default function Footer() {
               <h3 className="mb-3 font-semibold text-[#f5f5f7]">{col.title}</h3>
               <ul className="space-y-2">
                 {col.links.map(([href, label]) => (
-                  <li key={href}>
+                  <li key={href + label}>
                     <a href={href} className="text-[#a1a1a6] hover:text-[#f5f5f7] hover:underline">
                       {label}
                     </a>
