@@ -19,6 +19,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "ember-returns-credit-kit",
+    name: "Ember Returns, Swap & Credit Note Kit",
+    description:
+      "7-day return policy, swap scripts, store-credit notes, and a Sheets log so Ember volume does not turn into a cash-refund queue.",
+    priceUsd: "$16",
+    priceNgn: "₦12,000",
+    amountKobo: 1200000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "7-day policy you can pin",
+      "Swap scripts (size/colour)",
+      "30-day store credit note",
+      "Refund-last WhatsApp scripts",
+      "Sheets returns log CSV",
+      "Sunday 20-minute review",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/ember-returns-credit-kit.md",
+    downloadPaths: [
+      "/digital-products/ember-returns-credit-kit.md",
+      "/digital-products/csv/returns-log.csv",
+    ],
+    demandNote:
+      "Ember multiplies parcels and arguments — SMEs need swap/credit rules before 1 October.",
+    addedAt: "2026-09-22",
+  },
+  {
     id: "ember-dispatch-recovery-kit",
     name: "Ember Dispatch & Failed-Delivery Recovery Kit",
     description:
@@ -27,7 +55,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦11,500",
     amountKobo: 1150000,
     type: "one-time",
-    badge: "New today",
+    badge: "Logistics",
     features: [
       "City cut-off + prepaid rules",
       "One-message rider brief",
@@ -226,28 +254,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     demandNote: "Content calendars rank among top business spreadsheet niches.",
     addedAt: "2026-09-18",
   },
-  {
-    id: "ember-months-sales-playbook",
-    name: "Ember Months Sales Playbook 2026",
-    description:
-      "Oct–Dec week plan, offer math that keeps 15%+ margin, WhatsApp blast scripts, inventory/prepay tracker, and a 20-minute Ember ops checklist.",
-    priceUsd: "$19",
-    priceNgn: "₦14,500",
-    amountKobo: 1450000,
-    type: "one-time",
-    badge: "Ember",
-    features: [
-      "Oct–Dec week-by-week calendar",
-      "Offer math (discount without going broke)",
-      "WhatsApp Status + blast scripts",
-      "Sheets inventory & supplier prepay CSV",
-      "Morning/night Ember ops checklist",
-      "Deposit and last-delivery-date rules",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/ember-months-sales-playbook.md",
-    addedAt: "2026-09-18",
-  },
 ];
 
 export const SAAS_PRODUCTS: DigitalProduct[] = [
@@ -278,7 +284,7 @@ export const SAAS_PRODUCTS: DigitalProduct[] = [
 ];
 
 export function getDigitalProduct(id: string): DigitalProduct | undefined {
-  return DIGITAL_PRODUCTS.find((p) => p.id === id);
+  return DIGITAL_PRODUCTS.find((p) => p.id === p.id);
 }
 
 export function productDownloadUrls(product: DigitalProduct): string[] {

@@ -1,0 +1,4 @@
+case_id,order_id,customer,phone,item,reason,photo_ok,decision,who_pays_rider,rider_fee_ngn,credit_ngn,refund_ngn,credit_expiry,item_back,closed_on,notes
+R-001,ORD-1044,Ada,0803,Ankara set M,wrong size,yes,swap,us,2500,0,0,,yes,2026-09-20,packed L by mistake
+R-002,ORD-1102,Tunde,0812,Sneakers 43,change of mind,yes,credit,customer,3000,18500,0,2026-10-20,yes,,CN-014
+R-003,ORD-1118,Chioma,0901,Oil 5L,damaged seal,yes,refund,us,0,0,9200,,yes,2026-09-21,supplier credit later
