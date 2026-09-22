@@ -11,23 +11,45 @@ export type DigitalProduct = {
   delivery: string;
   demandNote?: string;
   addedAt?: string;
-  /** Public path under /public for instant post-payment download */
   downloadPath?: string;
-  /** Extra files unlocked with this product (e.g. bundles) */
   downloadPaths?: string[];
 };
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "sme-system-protector-kit",
+    name: "SME System Protector Kit",
+    description:
+      "Phone + Windows + WhatsApp hardening checklists, staff one-pager, account-compromise playbook, and monthly 15-minute review. Honest system protector — not fake antivirus.",
+    priceUsd: "$16",
+    priceNgn: "₦12,500",
+    amountKobo: 1250000,
+    type: "one-time",
+    badge: "New · Protector",
+    features: [
+      "Android + Windows hardening checklists",
+      "WhatsApp Business security rules for staff",
+      "30-minute compromised-account playbook",
+      "Monthly 15-minute review table",
+      "Links to free System Protector quiz",
+      "Clear scope: hygiene, not virus engine",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/sme-system-protector-kit.md",
+    demandNote:
+      "SMEs need practical device and WhatsApp protection without fake AV claims.",
+    addedAt: "2026-09-22",
+  },
+  {
     id: "whatsapp-followup-agent-kit",
     name: "WhatsApp Follow-up Agent Kit",
     description:
-      "Turn missed quotes into paid jobs: Day-0/2/5/7 follow-up scripts, pipeline stages, AI prompt pack, and Sheets tracker. Built for Nigerian SMEs on WhatsApp.",
+      "Turn missed quotes into paid jobs: Day-0/2/5/7 follow-up scripts, pipeline stages, AI prompt pack, and Sheets tracker.",
     priceUsd: "$19",
     priceNgn: "₦15,000",
     amountKobo: 1500000,
     type: "one-time",
-    badge: "New · AI ops",
+    badge: "AI ops",
     features: [
       "Day-0 / Day-2 / Day-5 / Day-7 follow-up scripts",
       "Quote-sent and deposit-nudge templates",
@@ -42,8 +64,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "/digital-products/whatsapp-followup-agent-kit.md",
       "/digital-products/csv/whatsapp-followup-pipeline.csv",
     ],
-    demandNote:
-      "Highest-demand product shape: AI automation that closes loops on messaging.",
     addedAt: "2026-09-22",
   },
   {
@@ -55,7 +75,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦12,000",
     amountKobo: 1200000,
     type: "one-time",
-    badge: "New today",
+    badge: "Ember",
     features: [
       "7-day policy you can pin",
       "Swap scripts (size/colour)",
@@ -70,15 +90,13 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "/digital-products/ember-returns-credit-kit.md",
       "/digital-products/csv/returns-log.csv",
     ],
-    demandNote:
-      "Ember multiplies parcels and arguments — SMEs need swap/credit rules before 1 October.",
     addedAt: "2026-09-22",
   },
   {
     id: "ember-dispatch-recovery-kit",
     name: "Ember Dispatch & Failed-Delivery Recovery Kit",
     description:
-      "Prepaid vs POD rules, rider briefs, failed-drop WhatsApp scripts, and a Sheets dispatch log so Ember parcels actually arrive — and retries stay profitable.",
+      "Prepaid vs POD rules, rider briefs, failed-drop WhatsApp scripts, and a Sheets dispatch log.",
     priceUsd: "$15",
     priceNgn: "₦11,500",
     amountKobo: 1150000,
@@ -98,43 +116,13 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "/digital-products/ember-dispatch-recovery-kit.md",
       "/digital-products/csv/dispatch-log.csv",
     ],
-    demandNote:
-      "Ember profit dies on failed POD drops and silent riders — SMEs need rules before 1 October.",
     addedAt: "2026-09-21",
-  },
-  {
-    id: "independence-week-preorder-kit",
-    name: "Independence Week Pre-Order Kit",
-    description:
-      "WhatsApp scripts, deposit math, 25 Sep–7 Oct capacity calendar, and a Sheets tracker so SMEs take paid pre-orders before 1 October — not unpaid holds.",
-    priceUsd: "$14",
-    priceNgn: "₦10,500",
-    amountKobo: 1050000,
-    type: "one-time",
-    badge: "Independence",
-    features: [
-      "Open / confirm / chase / sold-out scripts",
-      "30–50% deposit math that keeps margin",
-      "Independence Week capacity calendar",
-      "Sheets pre-order tracker CSV",
-      "10 Status captions for 1 Oct + Ember",
-      "Sunday 20-minute restock checklist",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/independence-week-preorder-kit.md",
-    downloadPaths: [
-      "/digital-products/independence-week-preorder-kit.md",
-      "/digital-products/csv/preorders.csv",
-    ],
-    demandNote:
-      "SMEs lose Ember stock to free reservations; paid pre-orders before Independence Day convert.",
-    addedAt: "2026-09-20",
   },
   {
     id: "review-referral-harvest-kit",
     name: "Review & Referral Harvest Kit",
     description:
-      "WhatsApp scripts to collect real reviews after delivery, a 4-line testimonial template, referral asks that protect margin, and a Sheets tracker for Ember social proof.",
+      "WhatsApp scripts to collect real reviews after delivery, referral asks, and a Sheets tracker.",
     priceUsd: "$12",
     priceNgn: "₦9,500",
     amountKobo: 950000,
@@ -154,39 +142,35 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "/digital-products/review-referral-harvest-kit.md",
       "/digital-products/csv/reviews-referrals.csv",
     ],
-    demandNote:
-      "SMEs heading into Ember need proof and warm intros more than more ads.",
     addedAt: "2026-09-19",
-  },
-  {
-    id: "gs-sheets-starter-bundle",
-    name: "Sheets Starter Bundle (All 6 Templates)",
-    description:
-      "All six Etsy-style Google Sheets packs — budget, CRM, content calendar, habits, bookkeeping, and project tracker — plus import-ready CSVs.",
-    priceUsd: "$49",
-    priceNgn: "₦45,000",
-    amountKobo: 4500000,
-    type: "one-time",
-    badge: "Bundle · Best value",
-    features: [
-      "All 6 Sheets setup guides",
-      "Import-ready CSV starters",
-      "Works in Google Sheets & Excel",
-      "Save vs buying separately",
-      "Lifetime download access",
-    ],
-    delivery: "Instant download of all guides + CSVs after Paystack",
-    downloadPath: "/digital-products/gs-sheets-bundle-readme.md",
-    addedAt: "2026-09-18",
   },
 ];
 
 export const SAAS_PRODUCTS: DigitalProduct[] = [
   {
+    id: "doyinshield-app",
+    name: "DoyinShield — System Protector App",
+    description:
+      "Expo protector coach: security score, WhatsApp safe habits, scam radar, emergency playbooks. Kit available now; app on waitlist.",
+    priceUsd: "From $5/mo",
+    priceNgn: "From ₦3,500/mo",
+    amountKobo: 350000,
+    type: "waitlist",
+    badge: "Waitlist · Shield",
+    features: [
+      "Daily/weekly protector score",
+      "WhatsApp two-step + backup nudges",
+      "Scam red-flag cards",
+      "Emergency account recovery flow",
+      "Unlocks full Kit playbooks",
+    ],
+    delivery: "Waitlist — buy the Kit today",
+  },
+  {
     id: "whatsapp-automation",
     name: "DoyinAgent — WhatsApp Ops Agent",
     description:
-      "AI-assisted WhatsApp ops: suggest replies, log leads, remind follow-ups, draft Status. Kit available now; full agent on waitlist.",
+      "AI-assisted WhatsApp ops: suggest replies, log leads, remind follow-ups, draft Status.",
     priceUsd: "From $29/mo",
     priceNgn: "From ₦20,000/mo",
     amountKobo: 2000000,
