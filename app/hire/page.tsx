@@ -22,7 +22,7 @@ export default function HirePage() {
             Hire us for a website that gets enquiries
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
-            No vague &quot;from&quot; quotes. Start with a single landing page or a full site. Pay the
+            No vague "from" quotes. Start with a single landing page or a full site. Pay the
             deposit online, send your content — we build and launch. Balance before final handoff.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -35,11 +35,33 @@ export default function HirePage() {
               Free 15-min call first
             </a>
             <a
+              href="/free-audit"
+              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black"
+            >
+              Free website audit
+            </a>
+            <a
               href="/pricing"
               className="rounded-full px-5 py-2.5 text-[14px] text-[#a1a1a6] hover:text-white"
             >
               See full pricing ranges →
             </a>
+          </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              { t: "Fixed price", d: "No vague from quotes — totals on this page" },
+              { t: "50% deposit", d: "Paystack online · balance only before handoff" },
+              { t: "WhatsApp-first", d: "Every site pushes chat / booking clearly" },
+            ].map((x) => (
+              <div
+                key={x.t}
+                className="rounded-xl border border-white/10 bg-[#141a28] px-4 py-3"
+              >
+                <p className="text-[13px] font-semibold text-white">{x.t}</p>
+                <p className="mt-1 text-[12px] text-[#a1a1a6]">{x.d}</p>
+              </div>
+            ))}
           </div>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
@@ -107,6 +129,47 @@ export default function HirePage() {
               <li>Structured feedback round (or two on Growth).</li>
               <li>Balance payment → launch + short support window.</li>
             </ol>
+          </div>
+
+          <div className="mt-10 space-y-4">
+            <h2 className="text-[20px] font-semibold text-white">Common questions</h2>
+            {[
+              {
+                q: "What if I am not ready to pay deposit today?",
+                a: "Start with a free website audit or a 15-min call. No pressure — deposit only when you want to book a slot.",
+              },
+              {
+                q: "Do you write the content for me?",
+                a: "You provide business facts, offers, and photos. We structure the page for clarity and conversion. Full copywriting can be quoted separately.",
+              },
+              {
+                q: "Can I pay the balance in instalments?",
+                a: "Balance is due before final handoff / domain. Talk to us on WhatsApp if you need a short staged plan after deposit.",
+              },
+              {
+                q: "Where are you based?",
+                a: "Jos, Nigeria — we work with SMEs nationwide over WhatsApp and Paystack.",
+              },
+            ].map((item) => (
+              <div
+                key={item.q}
+                className="rounded-xl border border-white/10 bg-[#0c1018] px-5 py-4"
+              >
+                <p className="text-[14px] font-semibold text-white">{item.q}</p>
+                <p className="mt-1 text-[13px] text-[#a1a1a6]">{item.a}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <a
+              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%20want%20to%20hire%20you%20for%20a%20website.%20Which%20package%20fits%20me%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-full bg-[#25D366] px-8 py-3.5 text-[15px] font-semibold text-white"
+            >
+              WhatsApp — help me choose a package
+            </a>
           </div>
         </div>
       </main>
