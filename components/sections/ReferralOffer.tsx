@@ -1,6 +1,7 @@
 "use client";
 
 import ScrollReveal from "../animations/ScrollReveal";
+import ViralShare from "@/components/ui/ViralShare";
 
 export default function ReferralOffer() {
   const wa =
@@ -45,6 +46,21 @@ export default function ReferralOffer() {
               >
                 View packages
               </a>
+              <a
+                href="/refer"
+                className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white"
+              >
+                Full rules
+              </a>
+            </div>
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <p className="text-[13px] text-[#a1a1a6]">Forward this offer to a friend:</p>
+              <ViralShare
+                className="mt-2"
+                compact
+                text="DoyinTech pays ₦10,000 credit when you refer a business that pays a website deposit. Fixed-price sites for Nigerian SMEs."
+                url="https://doyintech.vercel.app/refer"
+              />
             </div>
           </div>
         </ScrollReveal>
