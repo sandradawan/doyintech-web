@@ -10,6 +10,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import MobileStickyCta from "@/components/ui/MobileStickyCta";
 import SkipToContent from "@/components/ui/SkipToContent";
 import ExitOffer from "@/components/ui/ExitOffer";
+import EngagementToast from "@/components/ui/EngagementToast";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -114,6 +115,7 @@ export default function RootLayout({
           </PageTransition>
           <MobileStickyCta />
           <ExitOffer />
+          <EngagementToast />
           <ChatBot />
           <WhatsAppButton />
           <CookieConsent />
