@@ -17,6 +17,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "ember-staff-va-sop-kit",
+    name: "Ember Staff & VA WhatsApp SOP Kit",
+    description:
+      "Hire Ember help without losing the chat or the float: roles, day-one onboarding, staff scripts, close checklist, scam escalation, and a shift log.",
+    priceUsd: "$17",
+    priceNgn: "₦13,500",
+    amountKobo: 1350000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "Role matrix: VA, shop, dispatch",
+      "90-minute day-one onboarding",
+      "Price, deposit, and last-price scripts",
+      "15-minute end-of-day close",
+      "Scam / OTP escalation rules",
+      "Sheets shift log CSV",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/ember-staff-va-sop-kit.md",
+    downloadPaths: [
+      "/digital-products/ember-staff-va-sop-kit.md",
+      "/digital-products/csv/staff-shift-log.csv",
+    ],
+    demandNote:
+      "SMEs add seasonal staff before October–December and need SOPs so the phone and cash stay controlled.",
+    addedAt: "2026-09-23",
+  },
+  {
     id: "sme-system-protector-kit",
     name: "SME System Protector Kit",
     description:
