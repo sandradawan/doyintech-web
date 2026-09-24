@@ -1,0 +1,51 @@
+{
+  "lastUpdated": "2026-09-24T13:00:00+01:00",
+  "period": "Last 30 days",
+  "summary": {
+    "totalPosts": 28,
+    "totalViews": 1126,
+    "totalReactions": 137,
+    "totalComments": 2,
+    "engagementRate": 14.13
+  },
+  "yesterday": {
+    "date": "2026-09-23",
+    "posts": 8,
+    "views": 15,
+    "reactions": 0,
+    "comments": 0,
+    "engagementRate": 0
+  },
+  "platforms": {
+    "tiktok": {
+      "name": "TikTok",
+      "handle": "@doyintechfoundation",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "status": "Low distribution – switching to video + trending audio"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "handle": "@doyintechofficial",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "status": "Image posts not getting push – need Reels with audio"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "handle": "DoyinTech",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "status": "Shorts need stronger hooks + consistent posting"
+    }
+  },
+  "notes": [
+    "Most recent posts (23 Sep evening) still showing near-zero metrics due to lag and format (images vs video).",
+    "Strategy shift: daily short video + trending audio + strong hooks.",
+    "All CTAs point to doyintech.vercel.app"
+  ]
+}
