@@ -1,0 +1,3 @@
+booking_id,client,phone,service,event_date,event_time,area,package,quoted_ngn,deposit_ngn,deposit_paid_on,balance_ngn,balance_due,status,notes
+B-001,Adaeze Okeke,0803XXXXXXX,Aso-ebi alteration,2026-12-12,09:00,Lekki Phase 1,2-piece fix,45000,15000,,30000,2026-12-10,inquiry,Waiting deposit
+B-002,Tunde Bakery client,0812XXXXXXX,Wedding cake,2026-11-29,14:00,Ikeja GRA,3-tier buttercream,180000,60000,2026-09-24,120000,2026-11-27,confirmed,Flavour: red velvet

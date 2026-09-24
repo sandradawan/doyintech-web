@@ -22,7 +22,7 @@ export default function PassiveProducts() {
             </p>
             <h2 className="apple-headline mt-2">Products clients pay for.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              New today: Ember Staff & VA WhatsApp SOP Kit. Paystack for instant download — or WhatsApp if you prefer.
+              New today: Party Season Booking & Deposit Kit. Paystack for instant download — or WhatsApp if you prefer.
             </p>
           </div>
         </ScrollReveal>

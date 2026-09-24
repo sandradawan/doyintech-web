@@ -17,6 +17,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "party-season-booking-kit",
+    name: "Party Season Booking & Deposit Kit",
+    description:
+      "Turn Ember “hold this date” chats into paid slots: WhatsApp booking scripts, deposit/no-show policy, slot calendar, Sheets log, and Status captions for tailors, bakers, makeup, and photographers.",
+    priceUsd: "$18",
+    priceNgn: "₦14,000",
+    amountKobo: 1400000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "First-reply + deposit scripts",
+      "Pin-able no-show policy",
+      "Oct–Dec slot capacity table",
+      "Sheets bookings CSV",
+      "Status captions for open dates",
+      "Sunday 20-minute capacity review",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/party-season-booking-kit.md",
+    downloadPaths: [
+      "/digital-products/party-season-booking-kit.md",
+      "/digital-products/csv/bookings.csv",
+    ],
+    demandNote:
+      "Service SMEs lock October–December diaries now; unpaid holds are the #1 Ember leak.",
+    addedAt: "2026-09-24",
+  },
+  {
     id: "ember-staff-va-sop-kit",
     name: "Ember Staff & VA WhatsApp SOP Kit",
     description:
@@ -25,7 +53,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦13,500",
     amountKobo: 1350000,
     type: "one-time",
-    badge: "New today",
+    badge: "Staff SOP",
     features: [
       "Role matrix: VA, shop, dispatch",
       "90-minute day-one onboarding",
