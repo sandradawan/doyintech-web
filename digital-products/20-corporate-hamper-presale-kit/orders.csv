@@ -1,0 +1,3 @@
+company,contact,phone,tier,qty,unit_ngn,deposit_ngn,deposit_date,balance_due,delivery_week,city,status,notes
+Acme Foods Ltd,Tunde HR,0803xxxxxxx,Signature,40,35000,700000,2026-10-10,700000,2026-12-08,Lagos,deposit_paid,cards with first names
+Bright Clinics,Admin desk,0802xxxxxxx,Essential,25,18000,0,,225000,2026-12-15,Abuja,quoted,waiting PO
