@@ -17,6 +17,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "corporate-hamper-presale-kit",
+    name: "Corporate Hamper & Bulk Gift Pre-Sale Kit",
+    description:
+      "Sell office Christmas hampers in October–November: HR outreach scripts, 3-tier menu, 50% deposit quote, Sheets order log, and Status captions — before you spend float on stock.",
+    priceUsd: "$17",
+    priceNgn: "₦13,000",
+    amountKobo: 1300000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "HR / admin first-touch + follow-ups",
+      "3-tier hamper menu you can price",
+      "Pin-able 50% deposit + cut-off rules",
+      "Sheets corporate order log CSV",
+      "10 pre-sale Status captions",
+      "Sunday 20-minute pipeline review",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/corporate-hamper-presale-kit.md",
+    downloadPaths: [
+      "/digital-products/corporate-hamper-presale-kit.md",
+      "/digital-products/csv/hamper-orders.csv",
+    ],
+    demandNote:
+      "Offices lock staff and client gifts in Oct–Nov; unpaid December promises burn SME float.",
+    addedAt: "2026-09-25",
+  },
+  {
     id: "party-season-booking-kit",
     name: "Party Season Booking & Deposit Kit",
     description:
@@ -25,7 +53,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦14,000",
     amountKobo: 1400000,
     type: "one-time",
-    badge: "New today",
+    badge: "Party season",
     features: [
       "First-reply + deposit scripts",
       "Pin-able no-show policy",
