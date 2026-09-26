@@ -1,0 +1,4 @@
+po_id,supplier,sku,qty_ordered,unit_cost_ngn,prepay_pct,amount_sent_ngn,send_date,promised_week,status,qty_received,short_qty,balance_due_ngn,notes
+PO-001,Alaba Gadgets,Power bank 20k,40,4200,50,84000,2026-09-26,2026-10-13,deposit_sent,0,0,84000,Photo before balance
+PO-002,Balogun Fabric,Ankara mix,20,3100,40,24800,2026-09-27,2026-10-06,quoted,0,0,37200,Wait written ready date
+PO-003,Ikeja Beauty,Serum 30ml,60,1800,30,32400,2026-09-28,2026-10-20,in_transit,0,0,75600,Waybill pending
