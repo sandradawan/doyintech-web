@@ -17,6 +17,34 @@ export type DigitalProduct = {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "ember-supplier-prepay-kit",
+    name: "Ember Supplier Prepay & Restock Float Kit",
+    description:
+      "Lock October–December stock without emptying your float: supplier scripts, 30–50% prepay math, arrival calendar, Sheets restock log, and Status “restocking” captions.",
+    priceUsd: "$16",
+    priceNgn: "₦12,500",
+    amountKobo: 1250000,
+    type: "one-time",
+    badge: "New today",
+    features: [
+      "Supplier first-touch + chase scripts",
+      "30/50% prepay worksheet",
+      "Arrival calendar (Oct–Dec weeks)",
+      "Sheets restock + float CSV",
+      "8 restock Status captions",
+      "Sunday 20-minute float review",
+    ],
+    delivery: "Instant download after Paystack",
+    downloadPath: "/digital-products/ember-supplier-prepay-kit.md",
+    downloadPaths: [
+      "/digital-products/ember-supplier-prepay-kit.md",
+      "/digital-products/csv/supplier-restock.csv",
+    ],
+    demandNote:
+      "SMEs prepay suppliers now for Ember goods; poor terms and missing arrival dates freeze working capital.",
+    addedAt: "2026-09-26",
+  },
+  {
     id: "corporate-hamper-presale-kit",
     name: "Corporate Hamper & Bulk Gift Pre-Sale Kit",
     description:
@@ -25,7 +53,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     priceNgn: "₦13,000",
     amountKobo: 1300000,
     type: "one-time",
-    badge: "New today",
+    badge: "Hampers",
     features: [
       "HR / admin first-touch + follow-ups",
       "3-tier hamper menu you can price",
@@ -201,32 +229,6 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
       "/digital-products/csv/dispatch-log.csv",
     ],
     addedAt: "2026-09-21",
-  },
-  {
-    id: "review-referral-harvest-kit",
-    name: "Review & Referral Harvest Kit",
-    description:
-      "WhatsApp scripts to collect real reviews after delivery, referral asks, and a Sheets tracker.",
-    priceUsd: "$12",
-    priceNgn: "₦9,500",
-    amountKobo: 950000,
-    type: "one-time",
-    badge: "Social proof",
-    features: [
-      "Day-1 and Day-3 review scripts",
-      "Referral asks + thank-you offer math",
-      "4-line testimonial + Status wrap",
-      "Sheets harvest tracker CSV",
-      "20-minute Sunday checklist",
-      "Permission-to-post hygiene",
-    ],
-    delivery: "Instant download after Paystack",
-    downloadPath: "/digital-products/review-referral-harvest-kit.md",
-    downloadPaths: [
-      "/digital-products/review-referral-harvest-kit.md",
-      "/digital-products/csv/reviews-referrals.csv",
-    ],
-    addedAt: "2026-09-19",
   },
 ];
 
