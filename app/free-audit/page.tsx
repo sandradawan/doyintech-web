@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import FreeAuditForm from "@/components/tools/FreeAuditForm";
+import EmailCapture from "@/components/tools/EmailCapture";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
@@ -31,8 +32,8 @@ export default function FreeAuditPage() {
               Free 3-minute website audit
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[#a1a1a6]">
-              Drop your URL below. We reply with 2–3 specific problems holding back enquiries — and
-              whether a small fix or a rebuild makes sense. Honest next step, not a hard sell.
+              Drop your URL below. We reply with 2–3 specific problems holding back enquiries —
+              and whether a small fix or a rebuild makes sense. Honest next step, not a hard sell.
             </p>
           </div>
 
@@ -51,32 +52,24 @@ export default function FreeAuditPage() {
             </a>
           </div>
 
-          <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-gradient-to-b from-[#ff8c14]/10 to-[#141a28] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
-              Free download · no payment
-            </p>
-            <h2 className="mt-2 text-[20px] font-semibold text-white">
-              WhatsApp reply scripts (sample pack)
-            </h2>
-            <p className="mt-2 text-[14px] leading-relaxed text-[#a1a1a6]">
-              Instant download: price enquiry, website quote, after-hours, soft close, and review
-              request scripts. Use today on your business line.
-            </p>
-            <a
-              href="/digital-products/free-whatsapp-reply-scripts.md"
-              download="free-whatsapp-reply-scripts.md"
-              className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
-            >
-              Download free scripts
-            </a>
-            <p className="mt-4 text-[13px] text-[#86868b]">
+          <div className="mt-12">
+            <EmailCapture
+              source="free-audit-scripts"
+              product="Free WhatsApp reply scripts"
+              title="WhatsApp reply scripts (sample pack)"
+              subtitle="Enter your email to unlock the free scripts and occasional SME tips. Instant download after submit."
+              ctaLabel="Unlock free scripts"
+              downloadHref="/digital-products/free-whatsapp-reply-scripts.md"
+              downloadLabel="Download scripts again"
+            />
+            <p className="mt-4 text-center text-[13px] text-[#86868b]">
               Ready for the full system?{" "}
               <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
-                SME Launch Bundle
+                Browse kits
               </a>{" "}
-              or the{" "}
-              <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
-                WhatsApp Business Growth Pack
+              or{" "}
+              <a href="/hire" className="font-semibold text-[#ff8c14] hover:underline">
+                hire with deposit
               </a>
               .
             </p>
@@ -92,8 +85,8 @@ export default function FreeAuditPage() {
               ))}
             </ul>
             <p className="mt-5 text-[13px] text-[#86868b]">
-              Self-check first: if you answer "no" to two or more, a focused landing page or
-              rebuild usually pays for itself in enquiries.
+              Self-check first: if you answer &quot;no&quot; to two or more, a focused landing page
+              or rebuild usually pays for itself in enquiries.
             </p>
           </div>
 

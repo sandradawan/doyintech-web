@@ -1,5 +1,6 @@
 import Hero from "@/components/hero/Hero";
 import TrustBar from "@/components/sections/TrustBar";
+import ResultsProof from "@/components/sections/ResultsProof";
 import Packages from "@/components/sections/Packages";
 import PassiveProducts from "@/components/sections/PassiveProducts";
 import Projects from "@/components/sections/Projects";
@@ -11,8 +12,7 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 
 /**
- * Premium conversion homepage — only sections that build trust or make money.
- * Hire / deposit · Digital products · Free audit · Proof · FAQ · Contact
+ * Premium conversion homepage — trust → proof → packages → products → hire paths.
  */
 export default function Home() {
   return (
@@ -20,6 +20,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
+        <ResultsProof />
         <Packages />
         <PassiveProducts />
         <Projects />
