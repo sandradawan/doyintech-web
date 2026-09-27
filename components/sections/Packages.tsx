@@ -87,7 +87,6 @@ export default function Packages() {
           ))}
         </div>
 
-        {/* Maintenance strip */}
         <ScrollReveal direction="up" delay={0.1}>
           <div className="mt-8 flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/10 bg-[#1d1d1f] p-8 sm:flex-row sm:items-center">
             <div>
@@ -120,13 +119,20 @@ export default function Packages() {
           </div>
         </ScrollReveal>
 
-        <p className="mt-6 text-center text-[12px] text-[#a1a1a6]">
-          All prices are starting ranges. Complex scope is quoted after discovery.
-          Prefer a full page?{" "}
-          <a href="/pricing" className="apple-link">
-            See pricing details ›
+        <div className="mt-10 flex flex-col items-center gap-4 text-center">
+          <a
+            href="/hire"
+            className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-8 py-3.5 text-[16px] font-semibold text-black transition hover:brightness-110"
+          >
+            Hire — pay 50% deposit online
           </a>
-        </p>
+          <p className="max-w-md text-[13px] text-[#a1a1a6]">
+            Fixed-price packages. Secure Paystack deposit. Or{" "}
+            <a href="/pricing" className="apple-link">
+              see full pricing ›
+            </a>
+          </p>
+        </div>
       </div>
     </section>
   );
