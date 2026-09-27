@@ -1,33 +1,32 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
-import PassiveProducts from "@/components/sections/PassiveProducts";
-import LeadMagnet from "@/components/sections/LeadMagnet";
-import BookCall from "@/components/sections/BookCall";
+import ProductsCatalog from "@/components/products/ProductsCatalog";
 
 export const metadata: Metadata = {
-  title: "Digital Products — Google Sheets Templates & Packs",
+  title: "Digital Products — SME Kits & Templates | DoyinTech",
   description:
-    "Buy Etsy-style Google Sheets templates from DoyinTech: budget dashboard, client CRM, content calendar, habit tracker, bookkeeping, project tracker — plus freelancer packs. Pay with Paystack.",
+    "Buy instant-download kits: System Protector, WhatsApp Follow-up Agent, Sheets bundles. Paystack checkout for Nigerian SMEs.",
 };
 
 export default function ProductsPage() {
   return (
     <>
-      <main className="bg-black pt-20">
-        <div className="mx-auto max-w-[980px] px-6 pb-4 text-center">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
-            Instant digital products
+      <main className="min-h-screen bg-black pb-16 pt-24">
+        <div className="mx-auto max-w-[720px] px-6 pb-10 text-center">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+            Instant download · Paystack
           </p>
-          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Pay. Download. Use today.</h1>
-          <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Etsy-style <strong className="font-medium text-[#f5f5f7]">Google Sheets templates</strong>{" "}
-            (budget, CRM, content calendar, habits, bookkeeping, projects) plus freelancer packs.
-            Secure Paystack checkout — download right after payment.
+          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
+            Pay. Download. Use today.
+          </h1>
+          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
+            Start with the kits that save money and close deals:{" "}
+            <strong className="font-medium text-white">System Protector</strong> and{" "}
+            <strong className="font-medium text-white">WhatsApp Follow-up Agent</strong>.
+            Then grab Sheets packs if you need them.
           </p>
         </div>
-        <PassiveProducts />
-        <LeadMagnet />
-        <BookCall />
+        <ProductsCatalog />
       </main>
       <Footer />
     </>

@@ -5,9 +5,9 @@ import { SERVICE_OFFERS, serviceWhatsAppLink } from "@/lib/service-offers";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
-  title: "Hire DoyinTech — Fixed-price websites",
+  title: "Hire DoyinTech — Fixed-price websites · 50% deposit",
   description:
-    "Landing page from ₦100,000, local business site ₦250,000, or growth website ₦450,000. Clear fixed prices and 50% Paystack deposit.",
+    "Landing page ₦100,000 · Local business ₦250,000 · Growth ₦450,000. Clear fixed prices. Pay 50% deposit with Paystack.",
 };
 
 export default function HirePage() {
@@ -16,43 +16,44 @@ export default function HirePage() {
       <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
-            Fixed price · 50% deposit
+            Fixed price · Paystack deposit
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
-            Hire us for a website that gets enquiries
+          <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
+            Book your website slot. Pay deposit. We build.
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
-            No vague "from" quotes. Start with a single landing page or a full site. Pay the
-            deposit online, send your content — we build and launch. Balance before final handoff.
+            Three clear packages. No vague “from” quotes. 50% online today — balance before
+            launch. WhatsApp-first sites for Nigerian SMEs.
           </p>
+
           <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="#packages"
+              className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
+            >
+              Choose package & deposit
+            </a>
             <a
               href={discoveryCallLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white"
+              className="rounded-full border border-white/20 px-5 py-3 text-[14px] font-semibold text-white"
             >
-              Free 15-min call first
+              Free 15-min call
             </a>
             <a
               href="/free-audit"
-              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black"
+              className="rounded-full px-5 py-3 text-[14px] text-[#a1a1a6] hover:text-white"
             >
-              Free website audit
-            </a>
-            <a
-              href="/pricing"
-              className="rounded-full px-5 py-2.5 text-[14px] text-[#a1a1a6] hover:text-white"
-            >
-              See full pricing ranges →
+              Free audit first →
             </a>
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
-              { t: "Fixed price", d: "No vague from quotes — totals on this page" },
-              { t: "50% deposit", d: "Paystack online · balance only before handoff" },
-              { t: "WhatsApp-first", d: "Every site pushes chat / booking clearly" },
+              { t: "Fixed total", d: "Price on the card — not “from ₦…”" },
+              { t: "50% deposit", d: "Paystack · rest before handoff" },
+              { t: "WhatsApp-ready", d: "Every site drives chat & booking" },
             ].map((x) => (
               <div
                 key={x.t}
@@ -64,7 +65,7 @@ export default function HirePage() {
             ))}
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div id="packages" className="mt-14 grid scroll-mt-28 gap-6 lg:grid-cols-3">
             {SERVICE_OFFERS.map((offer) => (
               <article
                 key={offer.id}
@@ -114,41 +115,60 @@ export default function HirePage() {
                   rel="noopener noreferrer"
                   className="mt-3 text-center text-[13px] text-[#2997ff] hover:underline"
                 >
-                  Questions before deposit? WhatsApp us
+                  Questions? WhatsApp before deposit
                 </a>
               </article>
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[14px] leading-relaxed text-[#a1a1a6]">
-            <p className="font-semibold text-white">How it works</p>
-            <ol className="mt-3 list-decimal space-y-2 pl-5">
-              <li>Pay 50% deposit (Paystack or WhatsApp transfer).</li>
-              <li>Send logo, colours, text, and photos on WhatsApp.</li>
-              <li>We share a first draft in the timeline above.</li>
-              <li>Structured feedback round (or two on Growth).</li>
-              <li>Balance payment → launch + short support window.</li>
-            </ol>
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[14px] text-[#a1a1a6]">
+              <p className="font-semibold text-white">How it works</p>
+              <ol className="mt-3 list-decimal space-y-2 pl-5">
+                <li>Pick a package → pay 50% deposit.</li>
+                <li>Send logo, text, and photos on WhatsApp.</li>
+                <li>Review draft in the timeline shown.</li>
+                <li>Pay balance → we launch + short support.</li>
+              </ol>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
+              <p className="font-semibold text-white">Not ready to deposit?</p>
+              <p className="mt-2 text-[14px] text-[#a1a1a6]">
+                Free audit or 15-min call — no pressure. Deposit only when you book a slot.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a
+                  href="/free-audit"
+                  className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white"
+                >
+                  Free audit
+                </a>
+                <a
+                  href={discoveryCallLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-[#25D366] px-4 py-2 text-[13px] font-semibold text-white"
+                >
+                  WhatsApp call
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-10 space-y-4">
-            <h2 className="text-[20px] font-semibold text-white">Common questions</h2>
+          <div className="mt-10 space-y-3">
+            <h2 className="text-[18px] font-semibold text-white">FAQ</h2>
             {[
               {
-                q: "What if I am not ready to pay deposit today?",
-                a: "Start with a free website audit or a 15-min call. No pressure — deposit only when you want to book a slot.",
+                q: "Do you write all the content?",
+                a: "You send facts, offers, and photos. We structure for conversion. Full copywriting is extra if needed.",
               },
               {
-                q: "Do you write the content for me?",
-                a: "You provide business facts, offers, and photos. We structure the page for clarity and conversion. Full copywriting can be quoted separately.",
-              },
-              {
-                q: "Can I pay the balance in instalments?",
-                a: "Balance is due before final handoff / domain. Talk to us on WhatsApp if you need a short staged plan after deposit.",
+                q: "Can I pay the balance later in parts?",
+                a: "Balance is due before launch. Message us after deposit if you need a short staged plan.",
               },
               {
                 q: "Where are you based?",
-                a: "Jos, Nigeria — we work with SMEs nationwide over WhatsApp and Paystack.",
+                a: "Jos, Nigeria — clients nationwide via WhatsApp and Paystack.",
               },
             ].map((item) => (
               <div
@@ -161,14 +181,12 @@ export default function HirePage() {
             ))}
           </div>
 
-          <div className="mt-10 text-center">
+          <div className="mt-12 text-center">
             <a
-              href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%20want%20to%20hire%20you%20for%20a%20website.%20Which%20package%20fits%20me%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-[#25D366] px-8 py-3.5 text-[15px] font-semibold text-white"
+              href="#packages"
+              className="inline-flex rounded-full bg-[#ff8c14] px-8 py-3.5 text-[15px] font-semibold text-black"
             >
-              WhatsApp — help me choose a package
+              Back to packages — pay deposit
             </a>
           </div>
         </div>
