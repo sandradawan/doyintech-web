@@ -1,55 +1,31 @@
 import Hero from "@/components/hero/Hero";
-import TodayOffer from "@/components/sections/TodayOffer";
 import TrustBar from "@/components/sections/TrustBar";
-import RevenueStrip from "@/components/sections/RevenueStrip";
-import Stats from "@/components/sections/Stats";
-import ClientLogos from "@/components/sections/ClientLogos";
-import Services from "@/components/sections/Services";
 import Packages from "@/components/sections/Packages";
-import PricingQuizCta from "@/components/sections/PricingQuizCta";
-import Guarantee from "@/components/sections/Guarantee";
-import BookCall from "@/components/sections/BookCall";
 import PassiveProducts from "@/components/sections/PassiveProducts";
-import LeadMagnet from "@/components/sections/LeadMagnet";
-import ToolsSection from "@/components/sections/ToolsSection";
-import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
-import TechStack from "@/components/sections/TechStack";
+import Guarantee from "@/components/sections/Guarantee";
+import LeadMagnet from "@/components/sections/LeadMagnet";
 import Testimonials from "@/components/sections/Testimonials";
-import VideoTestimonials from "@/components/sections/VideoTestimonials";
-import ReferralOffer from "@/components/sections/ReferralOffer";
-import GrowthEngine from "@/components/sections/GrowthEngine";
-import Founder from "@/components/sections/Founder";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 
+/**
+ * Premium conversion homepage — only sections that build trust or make money.
+ * Hire / deposit · Digital products · Free audit · Proof · FAQ · Contact
+ */
 export default function Home() {
   return (
     <>
       <main>
         <Hero />
         <TrustBar />
-        <TodayOffer />
-        <RevenueStrip />
-        <Stats />
-        <ClientLogos />
-        <Services />
         <Packages />
-        <PricingQuizCta />
-        <Guarantee />
-        <BookCall />
         <PassiveProducts />
-        <LeadMagnet />
-        <ToolsSection />
-        <GrowthEngine />
-        <Process />
         <Projects />
-        <TechStack />
+        <Guarantee />
+        <LeadMagnet />
         <Testimonials />
-        <VideoTestimonials />
-        <ReferralOffer />
-        <Founder />
         <FAQ />
         <Contact />
       </main>
