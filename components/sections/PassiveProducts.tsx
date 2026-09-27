@@ -23,8 +23,8 @@ export default function PassiveProducts() {
             </p>
             <h2 className="apple-headline mt-2">Products clients pay for.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              Instant download kits for Nigerian SMEs — follow-ups, security, Ember
-              ops. Paystack checkout or WhatsApp.
+              Instant download kits for Nigerian SMEs — diaspora Ember gifts, follow-ups,
+              security. Paystack checkout or WhatsApp.
             </p>
           </div>
         </ScrollReveal>
