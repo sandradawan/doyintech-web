@@ -1,0 +1,3 @@
+order_id,date,payer_name,payer_country,payer_whatsapp,receiver_name,receiver_phone,area,tier,items,quote_ngn,fx_currency,fx_quoted,paid_ngn,pay_ref,status,deliver_by,proof_sent
+D-001,2026-09-27,Ada,UK,+44...,Bola,+234...,Yaba,B,"rice,oil,wine",55000,GBP,28,0,,quoted,2026-12-10,no
+D-002,2026-09-28,Tunde,US,+1...,Mama,+234...,Ikeja,A,toiletries,25000,USD,16,25000,PSK-xxx,paid,2026-10-05,yes
