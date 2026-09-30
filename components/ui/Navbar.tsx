@@ -36,6 +36,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Tools",
     items: [
+      { name: "SME Solve hub", href: "/solve", desc: "Pipeline, booking, cash, quotes" },
       { name: "Free tools hub", href: "/tools", desc: "Business & security utilities" },
       { name: "System Protector score", href: "/tools/system-protector", desc: "Phone & WhatsApp hygiene" },
       { name: "WhatsApp scripts", href: "/tools/whatsapp-scripts", desc: "5 free reply scripts" },
