@@ -19,6 +19,7 @@ export default function Footer() {
     {
       title: "Tools & apps",
       links: [
+        ["/solve", "SME Solve hub"],
         ["/tools", "All free tools"],
         ["/tools/system-protector", "System Protector score"],
         ["/apps", "Apps & MVPs"],
