@@ -3,27 +3,29 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-const VISIBLE_MS = 10_000;
 const HIDDEN_MS = 20 * 60 * 1000;
 const STORAGE_KEY = "dt-ng-66-next-show";
-/** Place a licensed recording at public/audio/nigeria-anthem.mp3 */
 const ANTHEM_SRC = "/audio/nigeria-anthem.mp3";
+/** Safety: if audio never loads/ends, unlock after this */
+const MAX_WAIT_MS = 5 * 60 * 1000;
 
 /**
- * Full-screen Independence Day splash with founder photo + optional anthem.
- * Locks the site for 10 seconds, then unlocks. Returns after 20 min.
- * Browsers often block autoplay with sound — "Tap for anthem" unlocks audio.
+ * Full-screen Independence splash: founder photo + national anthem.
+ * Auto-plays anthem; stays until the track finishes (or Skip).
+ * Returns again after 20 minutes.
  */
 export default function IndependenceDayAvatar() {
   const [show, setShow] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState(10);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState("Loading anthem…");
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const closedRef = useRef(false);
   const timersRef = useRef<{
-    hide?: ReturnType<typeof setTimeout>;
     show?: ReturnType<typeof setTimeout>;
-    tick?: ReturnType<typeof setInterval>;
+    safety?: ReturnType<typeof setTimeout>;
+    raf?: number;
   }>({});
 
   function lockBody(locked: boolean) {
@@ -46,20 +48,73 @@ export default function IndependenceDayAvatar() {
     setPlaying(false);
   }
 
+  function finishAndHide() {
+    if (closedRef.current) return;
+    closedRef.current = true;
+    if (timersRef.current.safety) clearTimeout(timersRef.current.safety);
+    if (timersRef.current.raf) cancelAnimationFrame(timersRef.current.raf);
+    stopAudio();
+    setShow(false);
+    lockBody(false);
+    try {
+      sessionStorage.setItem(STORAGE_KEY, String(Date.now() + HIDDEN_MS));
+    } catch {
+      /* ignore */
+    }
+    // Schedule next appearance
+    timersRef.current.show = setTimeout(() => {
+      closedRef.current = false;
+      startVisibleCycle();
+    }, HIDDEN_MS);
+  }
+
+  function trackProgress() {
+    const a = audioRef.current;
+    if (!a || !a.duration || !isFinite(a.duration)) {
+      timersRef.current.raf = requestAnimationFrame(trackProgress);
+      return;
+    }
+    const p = Math.min(100, (a.currentTime / a.duration) * 100);
+    setProgress(p);
+    if (!a.paused && !a.ended) {
+      timersRef.current.raf = requestAnimationFrame(trackProgress);
+    }
+  }
+
   async function tryPlayAudio() {
     const a = audioRef.current;
     if (!a) return;
     try {
-      a.volume = 0.45;
+      a.volume = 0.5;
+      if (a.readyState < 2) {
+        a.load();
+      }
       a.currentTime = 0;
       await a.play();
       setPlaying(true);
       setAudioBlocked(false);
+      setStatus("National anthem playing — will open when finished");
+      if (timersRef.current.raf) cancelAnimationFrame(timersRef.current.raf);
+      timersRef.current.raf = requestAnimationFrame(trackProgress);
     } catch {
-      // Autoplay with sound blocked until user gesture
       setAudioBlocked(true);
       setPlaying(false);
+      setStatus("Tap below to play the national anthem");
     }
+  }
+
+  function startVisibleCycle() {
+    closedRef.current = false;
+    setShow(true);
+    setProgress(0);
+    setAudioBlocked(false);
+    setStatus("Starting national anthem…");
+    lockBody(true);
+
+    if (timersRef.current.safety) clearTimeout(timersRef.current.safety);
+    timersRef.current.safety = setTimeout(() => finishAndHide(), MAX_WAIT_MS);
+
+    void tryPlayAudio();
   }
 
   useEffect(() => {
@@ -68,38 +123,22 @@ export default function IndependenceDayAvatar() {
     audio.loop = false;
     audioRef.current = audio;
 
-    function clearTimers() {
-      const t = timersRef.current;
-      if (t.hide) clearTimeout(t.hide);
-      if (t.show) clearTimeout(t.show);
-      if (t.tick) clearInterval(t.tick);
-      timersRef.current = {};
-    }
+    const onEnded = () => {
+      setProgress(100);
+      setStatus("Anthem complete");
+      finishAndHide();
+    };
+    const onError = () => {
+      setStatus("Could not load audio — use Skip to enter");
+      setAudioBlocked(true);
+    };
+    const onLoaded = () => {
+      // duration known
+    };
 
-    function startVisibleCycle() {
-      setShow(true);
-      setSecondsLeft(10);
-      setAudioBlocked(false);
-      lockBody(true);
-      void tryPlayAudio();
-
-      timersRef.current.tick = setInterval(() => {
-        setSecondsLeft((s) => (s > 0 ? s - 1 : 0));
-      }, 1000);
-
-      timersRef.current.hide = setTimeout(() => {
-        if (timersRef.current.tick) clearInterval(timersRef.current.tick);
-        stopAudio();
-        setShow(false);
-        lockBody(false);
-        try {
-          sessionStorage.setItem(STORAGE_KEY, String(Date.now() + HIDDEN_MS));
-        } catch {
-          /* ignore */
-        }
-        timersRef.current.show = setTimeout(() => startVisibleCycle(), HIDDEN_MS);
-      }, VISIBLE_MS);
-    }
+    audio.addEventListener("ended", onEnded);
+    audio.addEventListener("error", onError);
+    audio.addEventListener("loadedmetadata", onLoaded);
 
     let wait = 0;
     try {
@@ -111,11 +150,16 @@ export default function IndependenceDayAvatar() {
 
     timersRef.current.show = setTimeout(
       () => startVisibleCycle(),
-      wait === 0 ? 200 : wait
+      wait === 0 ? 150 : wait
     );
 
     return () => {
-      clearTimers();
+      if (timersRef.current.show) clearTimeout(timersRef.current.show);
+      if (timersRef.current.safety) clearTimeout(timersRef.current.safety);
+      if (timersRef.current.raf) cancelAnimationFrame(timersRef.current.raf);
+      audio.removeEventListener("ended", onEnded);
+      audio.removeEventListener("error", onError);
+      audio.removeEventListener("loadedmetadata", onLoaded);
       stopAudio();
       lockBody(false);
       audioRef.current = null;
@@ -124,14 +168,7 @@ export default function IndependenceDayAvatar() {
   }, []);
 
   function skip() {
-    stopAudio();
-    setShow(false);
-    try {
-      document.body.style.overflow = "";
-      sessionStorage.setItem(STORAGE_KEY, String(Date.now() + HIDDEN_MS));
-    } catch {
-      /* ignore */
-    }
+    finishAndHide();
   }
 
   async function enableSound() {
@@ -191,7 +228,6 @@ export default function IndependenceDayAvatar() {
         </p>
         <p className="text-[13px] text-[#a1a1a6]">Founder & CEO · DoyinTech · Jos</p>
 
-        {/* Audio controls — browsers block silent autoplay */}
         <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
           {audioBlocked && (
             <button
@@ -199,43 +235,31 @@ export default function IndependenceDayAvatar() {
               onClick={enableSound}
               className="rounded-full bg-[#008751] px-5 py-2.5 text-[13px] font-semibold text-white shadow-lg hover:brightness-110"
             >
-              🔊 Tap for national anthem
+              🔊 Tap to play national anthem
             </button>
           )}
           {playing && (
             <span className="rounded-full border border-[#008751]/40 bg-[#008751]/15 px-3 py-1.5 text-[12px] text-[#008751]">
-              ♪ Anthem playing
+              ♪ Playing full anthem
             </span>
-          )}
-          {!audioBlocked && !playing && (
-            <button
-              type="button"
-              onClick={enableSound}
-              className="rounded-full border border-white/20 px-4 py-2 text-[12px] text-white/80 hover:border-white/40"
-            >
-              Play anthem
-            </button>
           )}
         </div>
 
-        <p className="mt-5 text-[13px] text-[#86868b]">
-          Opening the site in{" "}
-          <span className="font-semibold text-[#008751]">{secondsLeft}s</span>
-        </p>
+        <p className="mt-5 max-w-xs text-[13px] text-[#86868b]">{status}</p>
 
-        <div className="mt-3 h-1.5 w-48 overflow-hidden rounded-full bg-white/10">
+        <div className="mt-3 h-1.5 w-56 overflow-hidden rounded-full bg-white/10">
           <div
-            className="h-full rounded-full bg-[#008751] transition-all duration-1000 ease-linear"
-            style={{ width: `${((10 - secondsLeft) / 10) * 100}%` }}
+            className="h-full rounded-full bg-[#008751] transition-[width] duration-200 ease-linear"
+            style={{ width: `${progress}%` }}
           />
         </div>
 
         <button
           type="button"
           onClick={skip}
-          className="mt-6 rounded-full border border-white/20 px-5 py-2 text-[13px] font-medium text-white/80 transition hover:border-white/40 hover:text-white"
+          className="mt-8 rounded-full border border-white/25 bg-white/5 px-6 py-2.5 text-[14px] font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
         >
-          Enter site now
+          Skip — enter site
         </button>
       </div>
     </div>
