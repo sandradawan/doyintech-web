@@ -1,17 +1,23 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   AIRTIME_PRESETS,
   DATA_PLANS,
   NETWORKS,
   type NetworkId,
 } from "@/lib/bills/catalog";
+import { getSupabaseBrowser } from "@/lib/supabase/client";
 
 type Tab = "airtime" | "data" | "rrr";
 const PHONE_KEY = "dt-bills-phone";
 
-export default function BillsWorkspace({ paidRef }: { paidRef?: string | null }) {
+export default function BillsWorkspace() {
+  const router = useRouter();
+  const [ready, setReady] = useState(false);
+  const [token, setToken] = useState("");
+  const [balance, setBalance] = useState(0);
   const [tab, setTab] = useState<Tab>("airtime");
   const [network, setNetwork] = useState<NetworkId>("mtn");
   const [phone, setPhone] = useState("");
@@ -22,10 +28,14 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
   const [success, setSuccess] = useState("");
   const [rrr, setRrr] = useState("");
 
-  const plans = useMemo(
-    () => DATA_PLANS.filter((p) => p.network === network),
-    [network]
-  );
+  const plans = useMemo(() => DATA_PLANS.filter((p) => p.network === network), [network]);
+
+  const refreshBalance = useCallback(async (accessToken: string) => {
+    const bal = await fetch("/api/wallet/balance", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }).then((r) => r.json());
+    if (typeof bal.balance_naira === "number") setBalance(bal.balance_naira);
+  }, []);
 
   useEffect(() => {
     try {
@@ -43,35 +53,22 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
   }, [plans, planCode]);
 
   useEffect(() => {
-    if (!paidRef) return;
-    let cancelled = false;
-    (async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const res = await fetch("/api/bills/fulfill", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ reference: paidRef }),
-        });
-        const data = await res.json();
-        if (cancelled) return;
-        if (!res.ok) setError(data.error || "Could not complete delivery.");
-        else
-          setSuccess(
-            data.message ||
-              `✓ Sent ${data.kind} to ${data.phone}${data.demo ? " (demo — add VTpass keys for live delivery)" : ""}`
-          );
-      } catch {
-        if (!cancelled) setError("Network error. Try again.");
-      } finally {
-        if (!cancelled) setLoading(false);
+    const sb = getSupabaseBrowser();
+    if (!sb) {
+      setError("Auth not configured.");
+      setReady(true);
+      return;
+    }
+    sb.auth.getSession().then(({ data }) => {
+      if (!data.session) {
+        router.replace("/auth/login?next=/bills");
+        return;
       }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [paidRef]);
+      setToken(data.session.access_token);
+      setReady(true);
+      void refreshBalance(data.session.access_token);
+    });
+  }, [router, refreshBalance]);
 
   function savePhone(v: string) {
     setPhone(v);
@@ -83,6 +80,7 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
   }
 
   async function pay() {
+    if (!token) return;
     setLoading(true);
     setError("");
     setSuccess("");
@@ -91,22 +89,30 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
         tab === "airtime"
           ? { kind: "airtime", network, phone, amount }
           : { kind: "data", network, phone, variation_code: planCode };
-      const res = await fetch("/api/bills/initialize", {
+      const res = await fetch("/api/wallet/buy", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(body),
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Could not start payment.");
+        setError(
+          res.status === 402
+            ? (data.error || "Insufficient balance") + " — fund your wallet."
+            : data.error || "Purchase failed"
+        );
         setLoading(false);
         return;
       }
-      window.location.href = data.authorization_url;
+      setSuccess(data.message || "Success");
+      await refreshBalance(token);
     } catch {
-      setError("Network error. Check connection and try again.");
-      setLoading(false);
+      setError("Network error");
     }
+    setLoading(false);
   }
 
   function openRemita() {
@@ -127,16 +133,35 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
   const selectedPlan = plans.find((p) => p.variation_code === planCode);
   const payLabel =
     tab === "airtime"
-      ? `Pay ₦${amount.toLocaleString()} airtime`
+      ? `Buy ₦${amount.toLocaleString()} airtime`
       : selectedPlan
-        ? `Pay ₦${selectedPlan.amount.toLocaleString()} · ${selectedPlan.name}`
-        : "Pay for data";
+        ? `Buy ${selectedPlan.name}`
+        : "Buy data";
 
   const field =
     "w-full rounded-2xl border border-white/10 bg-black/50 px-4 py-3.5 text-[16px] text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/60";
 
+  if (!ready) {
+    return <p className="text-center text-white/60">Checking sign-in…</p>;
+  }
+
   return (
     <div className="space-y-5">
+      <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#141a28] px-4 py-3">
+        <div>
+          <p className="text-[11px] uppercase tracking-wide text-[#86868b]">Wallet</p>
+          <p className="text-lg font-semibold text-white">
+            ₦{balance.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+          </p>
+        </div>
+        <a
+          href="/wallet"
+          className="rounded-full border border-[#ff8c14]/40 px-3 py-1.5 text-xs font-semibold text-[#ff8c14]"
+        >
+          Fund
+        </a>
+      </div>
+
       <div className="grid grid-cols-3 gap-2">
         {(
           [
@@ -155,8 +180,8 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
             }}
             className={`rounded-2xl border px-2 py-3.5 text-center transition ${
               tab === id
-                ? "border-[#ff8c14] bg-[#ff8c14]/15 text-white shadow-[0_0_24px_rgba(255,140,20,0.2)]"
-                : "border-white/10 bg-white/[0.03] text-[#a1a1a6] hover:border-white/20"
+                ? "border-[#ff8c14] bg-[#ff8c14]/15 text-white"
+                : "border-white/10 text-[#a1a1a6]"
             }`}
           >
             <span className="block text-[18px]">{icon}</span>
@@ -172,7 +197,12 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
       )}
       {error && (
         <div className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-[14px] text-red-200">
-          {error}
+          {error}{" "}
+          {error.toLowerCase().includes("balance") && (
+            <a href="/wallet" className="font-semibold underline">
+              Fund wallet
+            </a>
+          )}
         </div>
       )}
 
@@ -273,10 +303,10 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
             onClick={pay}
             className="sticky bottom-4 z-10 w-full rounded-full bg-[#ff8c14] py-4 text-[16px] font-bold text-black shadow-lg disabled:opacity-40"
           >
-            {loading ? "Opening Paystack…" : payLabel}
+            {loading ? "Processing…" : payLabel}
           </button>
           <p className="text-center text-[12px] text-[#86868b]">
-            Secure card / transfer · delivered to the number above
+            Paid from wallet · instant when VTpass is live
           </p>
         </div>
       )}
