@@ -20,6 +20,7 @@ export default function Footer() {
       title: "Tools & apps",
       links: [
         ["/solve", "SME Solve hub"],
+        ["/bills", "Airtime, data & RRR"],
         ["/tools", "All free tools"],
         ["/tools/system-protector", "System Protector score"],
         ["/apps", "Apps & MVPs"],
@@ -58,24 +59,13 @@ export default function Footer() {
             Run DoyinOps free, book a fixed-price website, or buy a pack and use it today.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="/ops/app"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white"
-            >
+            <a href="/ops/app" className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white">
               Open DoyinOps
             </a>
-            <a
-              href="/hire"
-              className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
-            >
+            <a href="/hire" className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black">
               Hire — fixed price
             </a>
-            <a
-              href={discoveryCallLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
-            >
+            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white">
               Book free call
             </a>
           </div>
