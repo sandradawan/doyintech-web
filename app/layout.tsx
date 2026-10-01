@@ -11,6 +11,7 @@ import MobileStickyCta from "@/components/ui/MobileStickyCta";
 import SkipToContent from "@/components/ui/SkipToContent";
 import ExitOffer from "@/components/ui/ExitOffer";
 import EngagementToast from "@/components/ui/EngagementToast";
+import IndependenceDayAvatar from "@/components/ui/IndependenceDayAvatar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -116,6 +117,7 @@ export default function RootLayout({
           <MobileStickyCta />
           <ExitOffer />
           <EngagementToast />
+          <IndependenceDayAvatar />
           <ChatBot />
           <WhatsAppButton />
           <CookieConsent />
