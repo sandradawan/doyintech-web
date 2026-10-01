@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { fulfillPaidProduct } from "@/lib/delivery/fulfill";
+import { creditWallet } from "@/lib/bills/wallet";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
@@ -47,6 +48,25 @@ export async function POST(req: NextRequest) {
 
       const admin = getSupabaseAdmin();
 
+      if (
+        (meta.source === "wallet_fund" || meta.kind === "wallet_fund") &&
+        meta.user_id &&
+        typeof data.amount === "number" &&
+        data.amount > 0
+      ) {
+        try {
+          await creditWallet({
+            userId: String(meta.user_id),
+            amountKobo: data.amount,
+            reference,
+            reason: "wallet_fund",
+            meta: { email, paystack: data.amount },
+          });
+        } catch (e) {
+          console.error("wallet_fund webhook", e);
+        }
+      }
+
       if (meta.source === "doyinops" && meta.invoice_number && admin) {
         const { error } = await admin.from("ops_payment_events").upsert(
           {
@@ -66,7 +86,8 @@ export async function POST(req: NextRequest) {
         email &&
         productId &&
         meta.kind !== "service_deposit" &&
-        meta.source !== "doyinops"
+        meta.source !== "doyinops" &&
+        meta.source !== "wallet_fund"
       ) {
         try {
           await fulfillPaidProduct({
@@ -81,7 +102,11 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      if (admin && (meta.kind === "service_deposit" || productId)) {
+      if (
+        admin &&
+        (meta.kind === "service_deposit" || productId) &&
+        meta.source !== "wallet_fund"
+      ) {
         const { error } = await admin.from("site_leads").insert({
           type: "purchase",
           product: meta.product_name || productId || "Purchase",
