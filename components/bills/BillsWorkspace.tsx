@@ -9,6 +9,7 @@ import {
 } from "@/lib/bills/catalog";
 
 type Tab = "airtime" | "data" | "rrr";
+const PHONE_KEY = "dt-bills-phone";
 
 export default function BillsWorkspace({ paidRef }: { paidRef?: string | null }) {
   const [tab, setTab] = useState<Tab>("airtime");
@@ -16,13 +17,24 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState(500);
   const [planCode, setPlanCode] = useState("");
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [rrr, setRrr] = useState("");
 
-  const plans = useMemo(() => DATA_PLANS.filter((p) => p.network === network), [network]);
+  const plans = useMemo(
+    () => DATA_PLANS.filter((p) => p.network === network),
+    [network]
+  );
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(PHONE_KEY);
+      if (saved) setPhone(saved);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   useEffect(() => {
     if (plans.length && !plans.find((p) => p.variation_code === planCode)) {
@@ -48,10 +60,10 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
         else
           setSuccess(
             data.message ||
-              `Done. ${data.kind} for ${data.phone}${data.demo ? " (demo — add VTpass keys)" : ""}`
+              `✓ Sent ${data.kind} to ${data.phone}${data.demo ? " (demo — add VTpass keys for live delivery)" : ""}`
           );
       } catch {
-        if (!cancelled) setError("Network error while fulfilling order.");
+        if (!cancelled) setError("Network error. Try again.");
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -61,15 +73,24 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
     };
   }, [paidRef]);
 
-  async function payAirtimeOrData() {
+  function savePhone(v: string) {
+    setPhone(v);
+    try {
+      if (v.length >= 10) localStorage.setItem(PHONE_KEY, v);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  async function pay() {
     setLoading(true);
     setError("");
     setSuccess("");
     try {
       const body =
         tab === "airtime"
-          ? { kind: "airtime", network, phone, amount, email }
-          : { kind: "data", network, phone, variation_code: planCode, email };
+          ? { kind: "airtime", network, phone, amount }
+          : { kind: "data", network, phone, variation_code: planCode };
       const res = await fetch("/api/bills/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -83,7 +104,7 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
       }
       window.location.href = data.authorization_url;
     } catch {
-      setError("Network error.");
+      setError("Network error. Check connection and try again.");
       setLoading(false);
     }
   }
@@ -91,30 +112,39 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
   function openRemita() {
     const code = rrr.trim().replace(/\s/g, "");
     if (!code) {
-      setError("Enter your RRR number.");
+      setError("Paste your RRR number.");
       return;
     }
     setError("");
-    const url = `https://login.remita.net/remita/exapp/payment/payment.spa?viewType=invoice&rrr=${encodeURIComponent(code)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-    setSuccess("Remita opened in a new tab. Complete payment there, then keep your receipt.");
+    window.open(
+      `https://login.remita.net/remita/exapp/payment/payment.spa?viewType=invoice&rrr=${encodeURIComponent(code)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setSuccess("Remita opened — finish payment there.");
   }
 
+  const selectedPlan = plans.find((p) => p.variation_code === planCode);
+  const payLabel =
+    tab === "airtime"
+      ? `Pay ₦${amount.toLocaleString()} airtime`
+      : selectedPlan
+        ? `Pay ₦${selectedPlan.amount.toLocaleString()} · ${selectedPlan.name}`
+        : "Pay for data";
+
   const field =
-    "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50";
-  const btn =
-    "inline-flex w-full items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black disabled:opacity-50";
+    "w-full rounded-2xl border border-white/10 bg-black/50 px-4 py-3.5 text-[16px] text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/60";
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
+    <div className="space-y-5">
+      <div className="grid grid-cols-3 gap-2">
         {(
           [
-            ["airtime", "Airtime"],
-            ["data", "Data"],
-            ["rrr", "RRR (Remita)"],
+            ["airtime", "Airtime", "⚡"],
+            ["data", "Data", "📶"],
+            ["rrr", "RRR", "🧾"],
           ] as const
-        ).map(([id, label]) => (
+        ).map(([id, label, icon]) => (
           <button
             key={id}
             type="button"
@@ -123,48 +153,63 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
               setError("");
               setSuccess("");
             }}
-            className={`rounded-full px-4 py-2 text-[13px] font-semibold transition ${
+            className={`rounded-2xl border px-2 py-3.5 text-center transition ${
               tab === id
-                ? "bg-[#ff8c14] text-black"
-                : "border border-white/15 text-[#a1a1a6] hover:text-white"
+                ? "border-[#ff8c14] bg-[#ff8c14]/15 text-white shadow-[0_0_24px_rgba(255,140,20,0.2)]"
+                : "border-white/10 bg-white/[0.03] text-[#a1a1a6] hover:border-white/20"
             }`}
           >
-            {label}
+            <span className="block text-[18px]">{icon}</span>
+            <span className="mt-1 block text-[13px] font-semibold">{label}</span>
           </button>
         ))}
       </div>
 
       {success && (
-        <div className="rounded-xl border border-[#25D366]/40 bg-[#25D366]/10 px-4 py-3 text-[14px] text-[#c8f7d4]">
+        <div className="rounded-2xl border border-[#25D366]/40 bg-[#25D366]/10 px-4 py-3 text-[14px] text-[#c8f7d4]">
           {success}
         </div>
       )}
       {error && (
-        <div className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-[14px] text-red-200">
+        <div className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-[14px] text-red-200">
           {error}
         </div>
       )}
 
       {(tab === "airtime" || tab === "data") && (
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+        <div className="space-y-4">
           <div>
-            <p className="mb-2 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
-              Network
+            <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+              1 · Phone number
             </p>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <input
+              className={field}
+              placeholder="0803 000 0000"
+              value={phone}
+              onChange={(e) => savePhone(e.target.value)}
+              inputMode="tel"
+              autoComplete="tel"
+            />
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+              2 · Network
+            </p>
+            <div className="grid grid-cols-4 gap-2">
               {NETWORKS.map((n) => (
                 <button
                   key={n.id}
                   type="button"
                   onClick={() => setNetwork(n.id)}
-                  className={`rounded-xl border px-3 py-3 text-[14px] font-semibold ${
+                  className={`rounded-xl border py-2.5 text-[13px] font-bold ${
                     network === n.id
-                      ? "border-[#ff8c14] bg-[#ff8c14]/15 text-white"
+                      ? "border-white/40 bg-white/10 text-white"
                       : "border-white/10 text-[#a1a1a6]"
                   }`}
                 >
                   <span
-                    className="mr-2 inline-block h-2 w-2 rounded-full"
+                    className="mx-auto mb-1 block h-2 w-2 rounded-full"
                     style={{ background: n.color }}
                   />
                   {n.label}
@@ -173,108 +218,87 @@ export default function BillsWorkspace({ paidRef }: { paidRef?: string | null })
             </div>
           </div>
 
-          <label className="block text-[13px] text-[#a1a1a6]">
-            Phone number
-            <input
-              className={`${field} mt-1`}
-              placeholder="0803…"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              inputMode="tel"
-            />
-          </label>
-
-          {tab === "airtime" && (
-            <>
-              <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
-                Amount
+          {tab === "airtime" ? (
+            <div>
+              <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+                3 · Amount
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {AIRTIME_PRESETS.map((a) => (
                   <button
                     key={a}
                     type="button"
                     onClick={() => setAmount(a)}
-                    className={`rounded-full px-3 py-1.5 text-[13px] font-semibold ${
+                    className={`rounded-xl border py-3 text-[15px] font-semibold ${
                       amount === a
-                        ? "bg-[#ff8c14] text-black"
-                        : "border border-white/15 text-[#a1a1a6]"
+                        ? "border-[#ff8c14] bg-[#ff8c14] text-black"
+                        : "border-white/10 text-white"
                     }`}
                   >
                     ₦{a.toLocaleString()}
                   </button>
                 ))}
               </div>
-              <input
-                className={field}
-                type="number"
-                min={50}
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-              />
-            </>
-          )}
-
-          {tab === "data" && (
-            <label className="block text-[13px] text-[#a1a1a6]">
-              Data plan
-              <select
-                className={`${field} mt-1`}
-                value={planCode}
-                onChange={(e) => setPlanCode(e.target.value)}
-              >
+            </div>
+          ) : (
+            <div>
+              <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+                3 · Choose plan
+              </p>
+              <div className="space-y-2">
                 {plans.map((p) => (
-                  <option key={p.variation_code} value={p.variation_code}>
-                    {p.name} — ₦{p.amount.toLocaleString()}
-                  </option>
+                  <button
+                    key={p.variation_code}
+                    type="button"
+                    onClick={() => setPlanCode(p.variation_code)}
+                    className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left ${
+                      planCode === p.variation_code
+                        ? "border-[#ff8c14] bg-[#ff8c14]/10"
+                        : "border-white/10"
+                    }`}
+                  >
+                    <span className="text-[14px] font-semibold text-white">{p.name}</span>
+                    <span className="text-[14px] font-bold text-[#ff8c14]">
+                      ₦{p.amount.toLocaleString()}
+                    </span>
+                  </button>
                 ))}
-              </select>
-            </label>
+              </div>
+            </div>
           )}
 
-          <label className="block text-[13px] text-[#a1a1a6]">
-            Email for receipt (optional)
-            <input
-              className={`${field} mt-1`}
-              type="email"
-              placeholder="you@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-
-          <button type="button" className={btn} disabled={loading} onClick={payAirtimeOrData}>
-            {loading ? "Please wait…" : "Pay with Paystack"}
+          <button
+            type="button"
+            disabled={loading || !phone}
+            onClick={pay}
+            className="sticky bottom-4 z-10 w-full rounded-full bg-[#ff8c14] py-4 text-[16px] font-bold text-black shadow-lg disabled:opacity-40"
+          >
+            {loading ? "Opening Paystack…" : payLabel}
           </button>
-          <p className="text-[12px] text-[#86868b]">
-            You pay via Paystack. We deliver airtime/data via VTpass when API keys are configured.
+          <p className="text-center text-[12px] text-[#86868b]">
+            Secure card / transfer · delivered to the number above
           </p>
         </div>
       )}
 
       {tab === "rrr" && (
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-5">
-          <h2 className="text-lg font-semibold text-white">Pay a Remita RRR</h2>
-          <p className="text-[14px] leading-relaxed text-[#a1a1a6]">
-            Enter the RRR from your invoice (school, TSA, agency, or merchant). We open Remita’s
-            official payment page so you can complete the payment securely.
+        <div className="space-y-4">
+          <p className="text-[14px] text-[#a1a1a6]">
+            Paste the RRR from your invoice (school, TSA, or agency).
           </p>
-          <label className="block text-[13px] text-[#a1a1a6]">
-            RRR number
-            <input
-              className={`${field} mt-1`}
-              placeholder="e.g. 2201…"
-              value={rrr}
-              onChange={(e) => setRrr(e.target.value)}
-            />
-          </label>
-          <button type="button" className={btn} onClick={openRemita}>
-            Continue on Remita
+          <input
+            className={field}
+            placeholder="RRR number"
+            value={rrr}
+            onChange={(e) => setRrr(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={openRemita}
+            className="w-full rounded-full bg-[#ff8c14] py-4 text-[16px] font-bold text-black"
+          >
+            Pay on Remita
           </button>
-          <p className="text-[12px] text-[#86868b]">
-            Full in-app RRR needs a Remita merchant account. This uses Remita’s official pay page
-            today — safest and fastest.
-          </p>
         </div>
       )}
     </div>
