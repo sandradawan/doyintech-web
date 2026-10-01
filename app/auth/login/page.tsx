@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
+import { IconWallet, IconShield } from "@/components/bills/BillsIcons";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -31,15 +32,23 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#0a0e17] px-5 pt-16">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#070b12] px-5 pt-16">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,140,20,0.12),_transparent_60%)]" />
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-md space-y-4 rounded-3xl border border-white/10 bg-[#121820] p-6"
+        className="relative w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-white/[0.04] p-7 shadow-[0_8px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl"
       >
-        <h1 className="text-2xl font-semibold text-white">Sign in</h1>
-        <p className="text-sm text-[#86868b]">Access your wallet, top up airtime & data.</p>
+        <div className="text-center">
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#ff8c14]">
+            <IconWallet className="h-7 w-7" />
+          </div>
+          <h1 className="text-2xl font-semibold text-white">Welcome back</h1>
+          <p className="mt-1 text-sm text-white/40">Sign in to your DoyinTech wallet</p>
+        </div>
         {error && (
-          <p className="rounded-xl bg-red-500/10 px-3 py-2 text-sm text-red-200">{error}</p>
+          <p className="rounded-2xl border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-sm text-red-200">
+            {error}
+          </p>
         )}
         <input
           type="email"
@@ -47,7 +56,7 @@ export default function LoginPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]/50"
+          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/50"
         />
         <input
           type="password"
@@ -56,18 +65,22 @@ export default function LoginPage() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]/50"
+          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/50"
         />
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-[#ff8c14] py-3 font-semibold text-black disabled:opacity-50"
+          className="w-full rounded-full bg-gradient-to-r from-[#ff9a2e] to-[#ff8c14] py-3.5 font-semibold text-black shadow-[0_8px_28px_rgba(255,140,20,0.3)] disabled:opacity-50"
         >
           {loading ? "Signing in…" : "Sign in"}
         </button>
-        <p className="text-center text-sm text-[#86868b]">
+        <p className="flex items-center justify-center gap-1.5 text-center text-[11px] text-white/30">
+          <IconShield className="h-3.5 w-3.5" />
+          Secure session · encrypted
+        </p>
+        <p className="text-center text-sm text-white/40">
           No account?{" "}
-          <a href="/auth/signup" className="text-[#ff8c14] hover:underline">
+          <a href="/auth/signup" className="font-semibold text-[#ff8c14] hover:underline">
             Create one
           </a>
         </p>
