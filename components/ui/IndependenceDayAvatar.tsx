@@ -2,28 +2,54 @@
 
 import { useEffect, useState } from "react";
 
-/**
- * Nigeria Independence Day — walking human avatar holding the flag.
- * 1960 → 2026 = 66 years. Moves around the viewport; dismissible.
- */
+const VISIBLE_MS = 10_000;
+const HIDDEN_MS = 20 * 60 * 1000;
+const STORAGE_KEY = "dt-ng-66-next-show";
+
+/** Large static avatar top-left: 10s visible, 20 min hidden, then back. */
 export default function IndependenceDayAvatar() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+    let showTimer: ReturnType<typeof setTimeout> | undefined;
+
+    function startVisibleCycle() {
+      setShow(true);
+      setOpen(true);
+      hideTimer = setTimeout(() => {
+        setShow(false);
+        const again = Date.now() + HIDDEN_MS;
+        try {
+          sessionStorage.setItem(STORAGE_KEY, String(again));
+        } catch {
+          /* ignore */
+        }
+        showTimer = setTimeout(() => startVisibleCycle(), HIDDEN_MS);
+      }, VISIBLE_MS);
+    }
+
+    let wait = 0;
     try {
-      if (sessionStorage.getItem("dt-ng-66-dismissed") === "1") return;
+      const next = Number(sessionStorage.getItem(STORAGE_KEY) || "0");
+      wait = Math.max(0, next - Date.now());
     } catch {
       /* ignore */
     }
-    const t = setTimeout(() => setShow(true), 700);
-    return () => clearTimeout(t);
+
+    showTimer = setTimeout(() => startVisibleCycle(), wait === 0 ? 500 : wait);
+
+    return () => {
+      if (hideTimer) clearTimeout(hideTimer);
+      if (showTimer) clearTimeout(showTimer);
+    };
   }, []);
 
   function dismiss() {
     setShow(false);
     try {
-      sessionStorage.setItem("dt-ng-66-dismissed", "1");
+      sessionStorage.setItem(STORAGE_KEY, String(Date.now() + HIDDEN_MS));
     } catch {
       /* ignore */
     }
@@ -32,209 +58,121 @@ export default function IndependenceDayAvatar() {
   if (!show) return null;
 
   return (
-    <>
-      <div className="pointer-events-none fixed inset-0 z-[997] overflow-hidden">
-        <div className="ng-float pointer-events-auto absolute">
-          <div className="relative flex flex-col items-center">
-            {open && (
-              <div className="mb-1 max-w-[230px] rounded-2xl border border-white/15 bg-[#0f1419]/95 px-3 py-2.5 shadow-2xl backdrop-blur-md">
-                <p className="text-center text-[13px] font-semibold leading-snug text-white">
-                  🇳🇬 Nigeria at <span className="text-[#008751]">66</span>
-                </p>
-                <p className="mt-0.5 text-center text-[12px] leading-snug text-[#c7cdd8]">
-                  Happy Independence Day!
-                </p>
-                <p className="mt-1 text-center text-[10px] text-[#86868b]">
-                  From DoyinTech · Jos
-                </p>
-                <button
-                  type="button"
-                  onClick={dismiss}
-                  className="mt-2 w-full rounded-full bg-[#008751] py-1.5 text-[11px] font-semibold text-white hover:brightness-110"
-                >
-                  Celebrate · close
-                </button>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              className="relative border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-[#008751]"
-              aria-label="Nigeria Independence Day greeting"
-            >
-              <svg
-                width="88"
-                height="120"
-                viewBox="0 0 88 120"
-                className="ng-bob drop-shadow-lg"
-                role="img"
-                aria-label="Person holding Nigeria flag"
+    <div className="pointer-events-none fixed inset-0 z-[997] overflow-hidden">
+      <div className="pointer-events-auto absolute left-3 top-16 sm:left-5 sm:top-20">
+        <div className="relative flex flex-col items-start">
+          {open && (
+            <div className="mb-2 max-w-[260px] rounded-2xl border border-white/15 bg-[#0f1419]/95 px-4 py-3 shadow-2xl backdrop-blur-md">
+              <p className="text-[15px] font-semibold leading-snug text-white">
+                🇳🇬 Nigeria at <span className="text-[#008751]">66</span>
+              </p>
+              <p className="mt-1 text-[13px] leading-snug text-[#c7cdd8]">
+                Happy Independence Day!
+              </p>
+              <p className="mt-1.5 text-[11px] text-[#86868b]">From DoyinTech · Jos</p>
+              <button
+                type="button"
+                onClick={dismiss}
+                className="mt-2.5 w-full rounded-full bg-[#008751] py-2 text-[12px] font-semibold text-white hover:brightness-110"
               >
-                <g className="ng-flag-wave">
-                  <line
-                    x1="62"
-                    y1="22"
-                    x2="62"
-                    y2="58"
-                    stroke="#5c4033"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <rect x="62" y="18" width="8" height="22" fill="#008751" />
-                  <rect x="70" y="18" width="8" height="22" fill="#ffffff" />
-                  <rect x="78" y="18" width="8" height="22" fill="#008751" />
-                  <rect
-                    x="62"
-                    y="18"
-                    width="24"
-                    height="22"
-                    fill="none"
-                    stroke="rgba(0,0,0,0.15)"
-                    strokeWidth="0.5"
-                  />
-                </g>
+                Celebrate · close
+              </button>
+            </div>
+          )}
 
-                <circle cx="36" cy="18" r="11" fill="#c68642" />
-                <path
-                  d="M25 16c0-8 6-13 11-13s11 5 11 13c-3-2-7-2-11-2s-8 0-11 2z"
-                  fill="#1a1a1a"
-                />
-                <circle cx="32" cy="17" r="1.4" fill="#1a1a1a" />
-                <circle cx="40" cy="17" r="1.4" fill="#1a1a1a" />
-                <path
-                  d="M31 22c1.5 2.5 6.5 2.5 8 0"
-                  fill="none"
-                  stroke="#5c3317"
-                  strokeWidth="1.2"
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="relative border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-[#008751]"
+            aria-label="Nigeria Independence Day greeting"
+          >
+            <svg
+              width="160"
+              height="220"
+              viewBox="0 0 120 160"
+              className="drop-shadow-xl"
+              role="img"
+              aria-label="Person holding Nigeria flag"
+            >
+              <g>
+                <line
+                  x1="78"
+                  y1="8"
+                  x2="78"
+                  y2="72"
+                  stroke="#5c4033"
+                  strokeWidth="3.5"
                   strokeLinecap="round"
                 />
-
-                <rect x="33" y="28" width="6" height="5" rx="1" fill="#c68642" />
-
-                <path
-                  d="M22 33c0-1 2-3 14-3s14 2 14 3v22c0 2-2 3-4 3H26c-2 0-4-1-4-3V33z"
-                  fill="#008751"
+                <rect x="78" y="6" width="14" height="42" fill="#008751" />
+                <rect x="92" y="6" width="14" height="42" fill="#ffffff" />
+                <rect x="106" y="6" width="14" height="42" fill="#008751" />
+                <rect
+                  x="78"
+                  y="6"
+                  width="42"
+                  height="42"
+                  fill="none"
+                  stroke="rgba(0,0,0,0.2)"
+                  strokeWidth="0.8"
                 />
-                <rect x="34" y="36" width="4" height="18" rx="1" fill="#ffffff" opacity="0.9" />
-
-                <g className="ng-arm-l">
-                  <path
-                    d="M22 36c-4 4-6 10-5 16"
-                    fill="none"
-                    stroke="#c68642"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="17" cy="52" r="3.2" fill="#c68642" />
-                </g>
-
-                <g>
-                  <path
-                    d="M50 36c6-2 10-6 12-12"
-                    fill="none"
-                    stroke="#c68642"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="62" cy="24" r="3.2" fill="#c68642" />
-                </g>
-
-                <g className="ng-leg-l">
-                  <path
-                    d="M30 58c-1 10-2 18-1 28"
-                    fill="none"
-                    stroke="#1e3a5f"
-                    strokeWidth="7"
-                    strokeLinecap="round"
-                  />
-                  <ellipse cx="30" cy="88" rx="6" ry="3" fill="#1a1a1a" />
-                </g>
-                <g className="ng-leg-r">
-                  <path
-                    d="M42 58c1 10 2 18 1 28"
-                    fill="none"
-                    stroke="#1e3a5f"
-                    strokeWidth="7"
-                    strokeLinecap="round"
-                  />
-                  <ellipse cx="44" cy="88" rx="6" ry="3" fill="#1a1a1a" />
-                </g>
-              </svg>
-            </button>
-          </div>
+              </g>
+              <circle cx="48" cy="28" r="16" fill="#c68642" />
+              <path
+                d="M32 26c0-12 9-19 16-19s16 7 16 19c-4-3-10-3-16-3s-12 0-16 3z"
+                fill="#1a1a1a"
+              />
+              <circle cx="42" cy="27" r="2" fill="#1a1a1a" />
+              <circle cx="54" cy="27" r="2" fill="#1a1a1a" />
+              <path
+                d="M40 34c2.5 3.5 11 3.5 13.5 0"
+                fill="none"
+                stroke="#5c3317"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+              <rect x="44" y="42" width="8" height="8" rx="1.5" fill="#c68642" />
+              <path
+                d="M28 50c0-2 3-5 20-5s20 3 20 5v32c0 3-3 5-6 5H34c-3 0-6-2-6-5V50z"
+                fill="#008751"
+              />
+              <rect x="45" y="54" width="6" height="26" rx="1.5" fill="#ffffff" opacity="0.95" />
+              <path
+                d="M28 54c-6 6-9 14-7 22"
+                fill="none"
+                stroke="#c68642"
+                strokeWidth="7"
+                strokeLinecap="round"
+              />
+              <circle cx="21" cy="77" r="4.5" fill="#c68642" />
+              <path
+                d="M68 54c8-4 12-10 14-18"
+                fill="none"
+                stroke="#c68642"
+                strokeWidth="7"
+                strokeLinecap="round"
+              />
+              <circle cx="78" cy="36" r="4.5" fill="#c68642" />
+              <path
+                d="M40 87c-1 14-2 26-1 40"
+                fill="none"
+                stroke="#1e3a5f"
+                strokeWidth="10"
+                strokeLinecap="round"
+              />
+              <ellipse cx="40" cy="130" rx="9" ry="4.5" fill="#1a1a1a" />
+              <path
+                d="M56 87c1 14 2 26 1 40"
+                fill="none"
+                stroke="#1e3a5f"
+                strokeWidth="10"
+                strokeLinecap="round"
+              />
+              <ellipse cx="58" cy="130" rx="9" ry="4.5" fill="#1a1a1a" />
+            </svg>
+          </button>
         </div>
       </div>
-
-      <style>{`
-        @keyframes ng-wander {
-          0%   { transform: translate(8vw, 68vh); }
-          15%  { transform: translate(55vw, 58vh); }
-          30%  { transform: translate(72vw, 35vh); }
-          45%  { transform: translate(40vw, 16vh); }
-          60%  { transform: translate(12vw, 30vh); }
-          75%  { transform: translate(48vw, 62vh); }
-          90%  { transform: translate(65vw, 72vh); }
-          100% { transform: translate(8vw, 68vh); }
-        }
-        @keyframes ng-bob {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-6px); }
-        }
-        @keyframes ng-walk-l {
-          0%, 100% { transform: rotate(8deg); }
-          50% { transform: rotate(-12deg); }
-        }
-        @keyframes ng-walk-r {
-          0%, 100% { transform: rotate(-8deg); }
-          50% { transform: rotate(12deg); }
-        }
-        @keyframes ng-arm-swing {
-          0%, 100% { transform: rotate(6deg); }
-          50% { transform: rotate(-10deg); }
-        }
-        @keyframes ng-flag {
-          0%, 100% { transform: rotate(-2deg); }
-          50% { transform: rotate(3deg); }
-        }
-        .ng-float {
-          animation: ng-wander 32s ease-in-out infinite;
-          will-change: transform;
-        }
-        .ng-bob {
-          animation: ng-bob 1.1s ease-in-out infinite;
-          transform-origin: center bottom;
-        }
-        .ng-leg-l {
-          transform-origin: 30px 58px;
-          animation: ng-walk-l 0.7s ease-in-out infinite;
-        }
-        .ng-leg-r {
-          transform-origin: 42px 58px;
-          animation: ng-walk-r 0.7s ease-in-out infinite;
-        }
-        .ng-arm-l {
-          transform-origin: 22px 36px;
-          animation: ng-arm-swing 0.7s ease-in-out infinite;
-        }
-        .ng-flag-wave {
-          transform-origin: 62px 24px;
-          animation: ng-flag 1.4s ease-in-out infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .ng-float,
-          .ng-bob,
-          .ng-leg-l,
-          .ng-leg-r,
-          .ng-arm-l,
-          .ng-flag-wave {
-            animation: none !important;
-          }
-          .ng-float {
-            transform: translate(12px, calc(100vh - 160px));
-          }
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
