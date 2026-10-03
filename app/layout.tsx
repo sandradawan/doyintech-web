@@ -12,11 +12,12 @@ import SkipToContent from "@/components/ui/SkipToContent";
 import ExitOffer from "@/components/ui/ExitOffer";
 import EngagementToast from "@/components/ui/EngagementToast";
 import IndependenceDayAvatar from "@/components/ui/IndependenceDayAvatar";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://doyintech.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "DoyinTech — Websites, WhatsApp Systems & Digital Products for Nigerian SMEs",
@@ -39,8 +40,11 @@ export const metadata: Metadata = {
     "business website Nigeria",
     "digital products Nigeria",
   ],
-  authors: [{ name: "Silas Doyin Jonathan", url: "https://doyintech.vercel.app" }],
+  authors: [{ name: "Silas Doyin Jonathan", url: SITE_URL }],
   creator: "DoyinTech",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_NG",
@@ -49,7 +53,7 @@ export const metadata: Metadata = {
       "DoyinTech — Websites that get clients · Fixed price · Nigeria",
     description:
       "Growth sites, WhatsApp systems, and digital products SMEs actually buy. 50% deposit. Paystack. Live in days.",
-    url: "https://doyintech.vercel.app",
+    url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
@@ -69,8 +73,8 @@ const jsonLd = {
   "@type": "Organization",
   name: "DoyinTech",
   legalName: "DOYIN'S TECHNOLOGY",
-  url: "https://doyintech.vercel.app",
-  logo: "https://doyintech.vercel.app/logo.png",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
   email: "doyintechnology@outlook.com",
   telephone: "+2348085343926",
   address: {
