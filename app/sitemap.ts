@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { TOOLS_META } from "@/lib/tools/config";
+import { SITE_URL } from "@/lib/site";
 
-const BASE = "https://doyintech.vercel.app";
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -63,6 +64,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/case-studies/jennyglams",
     "/case-studies/arqademy-cbt",
     "/case-studies/ipvl",
+    "/bills",
+    "/wallet",
   ];
 
   const toolRoutes = TOOLS_META.map((t) => t.href);
