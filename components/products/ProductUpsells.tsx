@@ -178,20 +178,23 @@ export function ServiceSuccessChecklist({
   serviceName,
   reference,
   email,
+  referralCode,
 }: {
   serviceName: string;
   reference: string;
   email?: string;
+  referralCode?: string;
 }) {
+  const refLine = referralCode ? `\nReferral code: ${referralCode}` : "";
   const wa =
     "https://wa.me/2348085343926?text=" +
     encodeURIComponent(
-      `Hi DoyinTech, I paid the deposit for "${serviceName}".\nReference: ${reference}\nEmail: ${email || ""}\n\nI am ready to send logo, text, and photos. Please share the project folder link.`
+      `Hi DoyinTech, I paid the deposit for "${serviceName}".\nReference: ${reference}\nEmail: ${email || ""}${refLine}\n\nI am ready to send logo, text, and photos. Please share the project folder link and confirm next steps.`
     );
 
   const steps = [
-    "Open WhatsApp (button below) so we can create your shared Google Drive folder",
-    "Upload logo (PNG or SVG), brand colours, and exact business name",
+    "Tap WhatsApp below — we create your private Google Drive folder (within 1 business day)",
+    "Upload logo (PNG/SVG), brand colours, and exact business name",
     "Upload page text + 5–15 real photos (phone photos are fine)",
     "Confirm the WhatsApp number that should appear on the site",
     "Reply to our first draft within 3 business days",
@@ -202,8 +205,8 @@ export function ServiceSuccessChecklist({
     <div className="mt-8 space-y-4 text-left">
       <p className="text-[15px] font-medium text-emerald-400">Deposit received — you're booked</p>
       <p className="text-[14px] text-[#a1a1a6]">
-        Next step: send project assets so the timeline starts. We reply on WhatsApp within 1
-        business day and share a private Google Drive folder for logo, photos, and copy.
+        Timeline starts when assets arrive. Message us now so we can open your folder and lock the
+        build schedule.
       </p>
       <ol className="list-decimal space-y-2 pl-5 text-[14px] text-[#c7cdd8]">
         {steps.map((s) => (
@@ -211,11 +214,17 @@ export function ServiceSuccessChecklist({
         ))}
       </ol>
       <div className="rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] text-[#a1a1a6]">
-        <p className="font-semibold text-white">Shared folder</p>
-        <p className="mt-1">
-          After you message us, you get a private Drive link. Drop files there — no email
-          attachments needed.
-        </p>
+        <p className="font-semibold text-white">What you get next</p>
+        <ul className="mt-2 list-disc space-y-1 pl-4">
+          <li>Private Drive folder for logo, photos, and copy</li>
+          <li>WhatsApp updates at each milestone</li>
+          <li>
+            Status checklist anytime at{" "}
+            <a href="/client-portal" className="apple-link">
+              /client-portal
+            </a>
+          </li>
+        </ul>
       </div>
       <a
         href={wa}
@@ -224,6 +233,12 @@ export function ServiceSuccessChecklist({
         className="inline-flex w-full items-center justify-center rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white"
       >
         Open WhatsApp — start project + get folder
+      </a>
+      <a
+        href="/client-portal"
+        className="inline-flex w-full items-center justify-center rounded-full border border-white/20 py-3 text-[14px] font-semibold text-white"
+      >
+        View project portal checklist
       </a>
     </div>
   );
