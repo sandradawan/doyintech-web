@@ -11,7 +11,7 @@ import MobileStickyCta from "@/components/ui/MobileStickyCta";
 import SkipToContent from "@/components/ui/SkipToContent";
 import ExitOffer from "@/components/ui/ExitOffer";
 import EngagementToast from "@/components/ui/EngagementToast";
-import IndependenceDayAvatar from "@/components/ui/IndependenceDayAvatar";
+import WelcomeOctoberBanner from "@/components/ui/WelcomeOctoberBanner";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
@@ -124,7 +124,7 @@ export default function RootLayout({
           <MobileStickyCta />
           <ExitOffer />
           <EngagementToast />
-          <IndependenceDayAvatar />
+          <WelcomeOctoberBanner />
           <ChatBot />
           <WhatsAppButton />
           <CookieConsent />
