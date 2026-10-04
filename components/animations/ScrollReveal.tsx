@@ -20,9 +20,9 @@ export default function ScrollReveal({
   children,
   direction = "up",
   delay = 0,
-  duration = 0.7,
-  distance = 36,
-  scale = 0.96,
+  duration = 0.65,
+  distance = 24,
+  scale = 0.98,
   blur = false,
   className = "",
   once = true,
@@ -32,7 +32,6 @@ export default function ScrollReveal({
   const isInView = useInView(ref, { once, amount });
   const prefersReducedMotion = useReducedMotion();
 
-  // Respect user preference for reduced motion
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
@@ -69,7 +68,7 @@ export default function ScrollReveal({
       filter: "blur(0px)",
       transition: {
         duration,
-        ease: [0.22, 1, 0.36, 1] as const, // Premium easeOutExpo-ish
+        ease: [0.22, 1, 0.36, 1] as const,
         delay,
       },
     },

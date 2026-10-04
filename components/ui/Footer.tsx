@@ -22,15 +22,9 @@ export default function Footer() {
         ["/solve", "SME Solve hub"],
         ["/bills", "Airtime, data & RRR"],
         ["/tools", "All free tools"],
-        ["/tools/system-protector", "System Protector score"],
+        ["/tools/system-protector", "System Protector"],
         ["/apps", "Apps & MVPs"],
-        ["/apps/doyinshield", "DoyinShield"],
-        ["/apps/whatsapp-agent", "WhatsApp Agent MVP"],
-        ["/apps/build-plan-30d", "30-day build plan"],
         ["/ops", "DoyinOps"],
-        ["/status-pack", "Status pack"],
-        ["/outreach/daily", "Daily prospecting"],
-        ["/outreach/ads", "Ads creatives"],
         ["/free-audit", "Free website audit"],
       ],
     },
@@ -48,37 +42,71 @@ export default function Footer() {
     },
   ];
 
+  const socials = [
+    {
+      label: "YouTube",
+      href: "https://www.youtube.com/@doyintechfoundation",
+    },
+    { label: "X", href: "https://x.com/doyintechnology" },
+    { label: "Instagram", href: "https://instagram.com/doyintechofficial" },
+    { label: "TikTok", href: "https://www.tiktok.com/@doyintechfoundation" },
+  ];
+
   return (
-    <footer className="border-t border-white/10 bg-black text-[12px] text-[#a1a1a6]">
-      <div className="mx-auto max-w-[980px] px-6 py-10">
-        <div className="rounded-[28px] bg-[#1d1d1f] px-8 py-12 text-center text-[#f5f5f7] sm:px-12">
-          <h2 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">
-            Sell this month. Build systems next month.
-          </h2>
-          <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
-            Run DoyinOps free, book a fixed-price website, or buy a pack and use it today.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href="/ops/app" className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white">
-              Open DoyinOps
-            </a>
-            <a href="/hire" className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black">
-              Hire — fixed price
-            </a>
-            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white">
-              Book free call
-            </a>
+    <footer className="border-t border-white/[0.08] bg-black text-[13px] text-[#a1a1a6]">
+      <div className="mx-auto max-w-[1020px] px-5 py-12 sm:px-6 sm:py-14">
+        <div className="relative overflow-hidden rounded-[28px] border border-white/[0.1] bg-[rgba(29,29,31,0.65)] px-6 py-12 text-center shadow-[0_8px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-12 sm:py-14">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.12]"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(41,151,255,0.45), transparent 70%)",
+            }}
+          />
+          <div className="relative">
+            <p className="section-eyebrow mb-3">Next step</p>
+            <h2 className="font-display text-[28px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[36px] md:text-[40px]">
+              Sell this month. Build systems next.
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-[15px] leading-relaxed text-[#a1a1a6] sm:text-[17px]">
+              Run DoyinOps free, book a fixed-price website, or buy a pack and use
+              it today.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="/ops/app"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/35 hover:bg-white/[0.08]"
+              >
+                Open DoyinOps
+              </a>
+              <a
+                href="/hire"
+                className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black transition hover:bg-[#ffa03a] hover:shadow-[0_8px_28px_rgba(255,140,20,0.35)]"
+              >
+                Hire — fixed price
+              </a>
+              <a
+                href={discoveryCallLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white transition hover:bg-[#2ee06e] hover:shadow-[0_8px_28px_rgba(37,211,102,0.3)]"
+              >
+                Book free call
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-3">
+        <div className="mt-14 grid gap-10 sm:grid-cols-3">
           {cols.map((col) => (
             <div key={col.title}>
-              <h3 className="mb-3 font-semibold text-[#f5f5f7]">{col.title}</h3>
-              <ul className="space-y-2">
+              <h3 className="mb-4 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#f5f5f7]">
+                {col.title}
+              </h3>
+              <ul className="space-y-2.5">
                 {col.links.map(([href, label]) => (
                   <li key={href + label}>
-                    <a href={href} className="text-[#a1a1a6] hover:text-[#f5f5f7] hover:underline">
+                    <a href={href} className="footer-link text-[13px]">
                       {label}
                     </a>
                   </li>
@@ -88,21 +116,47 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6">
-          <p>
-            WhatsApp{" "}
-            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="apple-link">
-              +234 808 534 3926
-            </a>
-            {" "}·{" "}
-            <a href="mailto:doyintechnology@outlook.com" className="apple-link">
-              doyintechnology@outlook.com
-            </a>
-          </p>
-          <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 text-[12px] sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[#a1a1a6]">Copyright © {year} DoyinTech. All rights reserved.</p>
-            <p className="text-[#a1a1a6]">Jos, Nigeria · doyintech.vercel.app</p>
+        <div className="mt-12 divider-soft" />
+        <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-2">
+            <p className="text-[13px] leading-relaxed">
+              WhatsApp{" "}
+              <a
+                href={discoveryCallLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="apple-link"
+              >
+                +234 808 534 3926
+              </a>
+            </p>
+            <p className="text-[13px]">
+              <a
+                href="mailto:doyintechnology@outlook.com"
+                className="apple-link"
+              >
+                doyintechnology@outlook.com
+              </a>
+            </p>
           </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {socials.map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link text-[13px]"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-2 border-t border-white/[0.08] pt-6 text-[12px] sm:flex-row sm:items-center sm:justify-between">
+          <p>Copyright © {year} DoyinTech. All rights reserved.</p>
+          <p>Jos, Nigeria · www.doyintech.com</p>
         </div>
       </div>
     </footer>
