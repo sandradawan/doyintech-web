@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { leadNotifyTemplate } from "@/lib/email/templates";
 
 type LeadBody = {
   name?: string;
@@ -11,7 +12,6 @@ type LeadBody = {
   message?: string;
   source?: string;
   referral?: string;
-  /** Honeypot — bots often fill this */
   website?: string;
   company?: string;
 };
@@ -117,25 +117,22 @@ export async function POST(req: NextRequest) {
         const to = process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
         const from =
           process.env.CONTACT_FROM_EMAIL || "DoyinTech <onboarding@resend.dev>";
+        const notify = leadNotifyTemplate({
+          type,
+          product,
+          name,
+          email: email || undefined,
+          phone: phone || undefined,
+          source,
+          referral: referral || undefined,
+          message: message || undefined,
+        });
         await resend.emails.send({
           from,
           to: [to],
-          subject: `[Lead] ${type} · ${product} · ${name}`,
-          text: [
-            `Type: ${type}`,
-            `Product: ${product}`,
-            `Name: ${name}`,
-            `Email: ${email || "-"}`,
-            `Phone: ${phone || "-"}`,
-            `Source: ${source}`,
-            referral ? `Referral: ${referral}` : "",
-            "",
-            message || "",
-            "",
-            "Inbox: https://www.doyintech.com/admin/leads",
-          ]
-            .filter(Boolean)
-            .join("\n"),
+          subject: notify.subject,
+          html: notify.html,
+          text: notify.text,
         });
       }
     } catch (e) {
