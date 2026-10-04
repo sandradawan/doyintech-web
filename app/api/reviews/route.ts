@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { reviewNotifyTemplate } from "@/lib/email/templates";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 type Body = {
@@ -44,19 +45,38 @@ export async function POST(req: NextRequest) {
 
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const notify = reviewNotifyTemplate({
+        name,
+        business: business || undefined,
+        rating,
+        body,
+        permission,
+      });
       await resend.emails.send({
         from,
         to: [to],
-        subject: `New review ${rating}/5 — ${name}${business ? ` (${business})` : ""}`,
-        text: [
-          `Name: ${name}`,
-          `Business: ${business || "—"}`,
-          `Rating: ${rating}/5`,
-          `Permission to publish: ${permission ? "yes" : "no"}`,
-          "",
-          body,
-        ].join("\n"),
+        subject: notify.subject,
+        html: notify.html,
+        text: notify.text,
       });
+    }
+
+    try {
+      const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://www.doyintech.com";
+      await fetch(`${origin}/api/leads`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email: "",
+          product: "Site review",
+          type: "lead-magnet",
+          source: "review-form",
+          message: `Rating ${rating}/5. Publish: ${permission ? "yes" : "no"}. ${business ? `Biz: ${business}. ` : ""}${body}`,
+        }),
+      });
+    } catch {
+      /* non-fatal */
     }
 
     return NextResponse.json({ ok: true });
