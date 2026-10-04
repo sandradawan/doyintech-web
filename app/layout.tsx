@@ -12,7 +12,6 @@ import SkipToContent from "@/components/ui/SkipToContent";
 import ExitOffer from "@/components/ui/ExitOffer";
 import EngagementToast from "@/components/ui/EngagementToast";
 import IndependenceDayAvatar from "@/components/ui/IndependenceDayAvatar";
-import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -126,7 +125,6 @@ export default function RootLayout({
           <ChatBot />
           <WhatsAppButton />
           <CookieConsent />
-          <Analytics />
         </ToastProvider>
       </body>
     </html>
