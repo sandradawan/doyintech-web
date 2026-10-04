@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { ServiceSuccessChecklist } from "@/components/products/ProductUpsells";
 import { getServiceOffer } from "@/lib/service-offers";
+import { readReferralCode } from "@/lib/referrals";
 
 function HireSuccessInner() {
   const params = useSearchParams();
@@ -14,6 +15,11 @@ function HireSuccessInner() {
   const [state, setState] = useState<"loading" | "ok" | "fail">("loading");
   const [email, setEmail] = useState("");
   const [resolvedId, setResolvedId] = useState(productId);
+  const [refCode, setRefCode] = useState("");
+
+  useEffect(() => {
+    setRefCode(readReferralCode());
+  }, []);
 
   useEffect(() => {
     if (!reference) {
@@ -30,6 +36,8 @@ function HireSuccessInner() {
           setResolvedId(pid);
 
           const service = getServiceOffer(pid);
+          const code = readReferralCode();
+          setRefCode(code);
           fetch("/api/leads", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -39,7 +47,8 @@ function HireSuccessInner() {
               product: service?.name || pid,
               type: "purchase",
               source: "hire-deposit",
-              message: `Paystack deposit paid. Ref: ${reference}. Amount confirmed.`,
+              message: `Paystack deposit paid. Ref: ${reference}. Amount confirmed.${code ? ` Referral: ${code}.` : ""}`,
+              referral: code || undefined,
             }),
           }).catch(() => {});
         } else {
@@ -73,36 +82,23 @@ function HireSuccessInner() {
               <p className="mt-2 text-[14px] text-[#a1a1a6]">Receipt email: {email}</p>
             )}
             <p className="mt-1 text-[13px] text-[#86868b]">Ref: {reference}</p>
+            {refCode ? (
+              <p className="mt-1 text-[12px] text-[#ff8c14]">Referral code applied: {refCode}</p>
+            ) : null}
 
             <ServiceSuccessChecklist
               serviceName={service.name}
               reference={reference}
               email={email}
+              referralCode={refCode}
             />
 
-            <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-5 text-left">
-              <p className="text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
-                What happens next
-              </p>
-              <ul className="mt-3 space-y-2 text-[14px] text-[#c7cdd8]">
-                <li>· We reply on WhatsApp within 1 business day</li>
-                <li>· Timeline starts after content + logo arrive</li>
-                <li>· Balance due before final handoff / domain connect</li>
-              </ul>
-              <a
-                href="/client-portal"
-                className="mt-4 inline-flex text-[13px] font-semibold text-[#2997ff] hover:underline"
-              >
-                Open client project portal →
-              </a>
-            </div>
-
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-[14px]">
-              <a href="/hire" className="text-[#ff8c14] hover:underline">
-                All packages
+              <a href="/hire" className="text-[#a1a1a6] hover:text-white">
+                Hire packages
               </a>
-              <a href="/case-studies" className="text-[#2997ff] hover:underline">
-                Case studies
+              <a href="/client-portal" className="text-[#2997ff] hover:underline">
+                Project portal
               </a>
               <a href="/" className="text-[#a1a1a6] hover:text-white">
                 Home
