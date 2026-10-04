@@ -1,14 +1,9 @@
 import { Resend } from "resend";
+import {
+  contactNotifyTemplate,
+  contactAutoReplyTemplate,
+} from "@/lib/email/templates";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
-
-function escapeHtml(input: string) {
-  return input
-    .replaceAll("&", "\u0026amp;")
-    .replaceAll("<", "\u0026lt;")
-    .replaceAll(">", "\u0026gt;")
-    .replaceAll('"', "\u0026quot;")
-    .replaceAll("'", "\u0026#039;");
-}
 
 export async function POST(req: Request) {
   try {
@@ -45,23 +40,36 @@ export async function POST(req: Request) {
       process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
     const fromEmail = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
 
+    const notify = contactNotifyTemplate({
+      name,
+      email,
+      service: service || undefined,
+      budget: budget || undefined,
+      message,
+    });
+
     await resend.emails.send({
       from: `DoyinTech Contact <${fromEmail}>`,
       to: toEmail,
       replyTo: email,
-      subject: `New Contact — ${name} (${service || "General"})`,
-      html: `
-        <div style="font-family: Inter, Arial, sans-serif; line-height: 1.6;">
-          <h2>New Contact Message (DoyinTech)</h2>
-          <p><b>Name:</b> ${escapeHtml(name)}</p>
-          <p><b>Email:</b> ${escapeHtml(email)}</p>
-          <p><b>Service:</b> ${escapeHtml(service || "-")}</p>
-          <p><b>Budget:</b> ${escapeHtml(budget || "-")}</p>
-          <hr/>
-          <p style="white-space: pre-wrap;"><b>Message:</b><br/>${escapeHtml(message)}</p>
-        </div>
-      `,
+      subject: notify.subject,
+      html: notify.html,
+      text: notify.text,
     });
+
+    // Customer auto-reply (best effort)
+    try {
+      const auto = contactAutoReplyTemplate({ name });
+      await resend.emails.send({
+        from: `DoyinTech <${fromEmail}>`,
+        to: email,
+        subject: auto.subject,
+        html: auto.html,
+        text: auto.text,
+      });
+    } catch {
+      /* non-fatal */
+    }
 
     return Response.json({ ok: true });
   } catch {
