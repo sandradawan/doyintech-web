@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import Packages from "@/components/sections/Packages";
+import PricingClarity from "@/components/sections/PricingClarity";
 import BookCall from "@/components/sections/BookCall";
 import FAQ from "@/components/sections/FAQ";
 import { discoveryCallLink } from "@/lib/packages";
@@ -8,7 +9,7 @@ import { discoveryCallLink } from "@/lib/packages";
 export const metadata: Metadata = {
   title: "Pricing & Packages",
   description:
-    "Clear DoyinTech packages: starter websites, growth sites, WhatsApp booking systems, web apps/CRM, and monthly care plans. USD and NGN pricing.",
+    "Clear DoyinTech packages: starter websites, growth sites, WhatsApp booking systems, web apps/CRM, and monthly care plans. USD and NGN pricing. What's included and deposit rules.",
 };
 
 export default function PricingPage() {
@@ -21,7 +22,7 @@ export default function PricingPage() {
           </p>
           <h1 className="apple-headline mt-3 text-[#f5f5f7]">Simple packages.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Know what you’re buying. Pay a fixed-price deposit online, or book a free call to
+            Know what you're buying. Pay a fixed-price deposit online, or book a free call to
             confirm scope first.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -36,13 +37,14 @@ export default function PricingPage() {
             >
               Book free discovery call
             </a>
-            <a href="#pricing" className="apple-btn apple-btn-secondary">
-              View all packages
+            <a href="#clarity" className="apple-btn apple-btn-secondary">
+              What's included
             </a>
           </div>
         </div>
 
         <Packages />
+        <PricingClarity />
         <BookCall />
         <FAQ />
       </main>
