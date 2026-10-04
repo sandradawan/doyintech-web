@@ -14,14 +14,16 @@ const BRAND = {
   site: "https://www.doyintech.com",
   wa: "https://wa.me/2348085343926",
   logoText: "DoyinTech",
+  /** Hosted logo — absolute URL required in email clients */
+  logoUrl: "https://www.doyintech.com/logo.png",
 };
 
 function escapeHtml(s: string): string {
   return String(s)
-    .replace(/&/g, "&")
-    .replace(/</g, "<")
-    .replace(/>/g, ">")
-    .replace(/"/g, """);
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 /** Shared shell — works in Gmail, Apple Mail, Outlook (basic). */
@@ -51,13 +53,24 @@ export function emailLayout(opts: {
       <td align="center" style="padding:28px 16px;">
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:${BRAND.card};border-radius:16px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;">
           <tr>
-            <td style="padding:22px 28px;background:${BRAND.black};border-bottom:1px solid rgba(255,140,20,0.35);">
+            <td style="padding:20px 28px;background:${BRAND.black};border-bottom:1px solid rgba(255,140,20,0.35);">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;font-size:18px;font-weight:700;color:${BRAND.white};letter-spacing:-0.02em;">
-                    <span style="color:${BRAND.orange};">◆</span> ${BRAND.logoText}
+                  <td valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;">
+                    <a href="${BRAND.site}" style="text-decoration:none;display:inline-block;">
+                      <img
+                        src="${BRAND.logoUrl}"
+                        alt="${BRAND.logoText}"
+                        width="40"
+                        height="40"
+                        style="display:inline-block;vertical-align:middle;width:40px;height:40px;border-radius:10px;border:0;outline:none;"
+                      />
+                      <span style="display:inline-block;vertical-align:middle;margin-left:12px;font-size:18px;font-weight:700;color:${BRAND.white};letter-spacing:-0.02em;line-height:40px;">
+                        ${BRAND.logoText}
+                      </span>
+                    </a>
                   </td>
-                  <td align="right" style="font-family:Inter,Arial,sans-serif;font-size:11px;font-weight:600;color:${BRAND.orange};text-transform:uppercase;letter-spacing:0.08em;">
+                  <td align="right" valign="middle" style="font-family:Inter,Arial,sans-serif;font-size:11px;font-weight:600;color:${BRAND.orange};text-transform:uppercase;letter-spacing:0.08em;">
                     Official
                   </td>
                 </tr>
@@ -111,7 +124,6 @@ function metaRow(label: string, value: string): string {
   </tr>`;
 }
 
-/** Customer: product / ebook delivery after Paystack */
 export function productDeliveryTemplate(opts: {
   productName: string;
   reference: string;
@@ -164,7 +176,6 @@ export function productDeliveryTemplate(opts: {
   };
 }
 
-/** Ops: new contact form message */
 export function contactNotifyTemplate(opts: {
   name: string;
   email: string;
@@ -202,7 +213,6 @@ export function contactNotifyTemplate(opts: {
   };
 }
 
-/** Ops: lead inbox alert */
 export function leadNotifyTemplate(opts: {
   type: string;
   product: string;
@@ -264,7 +274,6 @@ export function leadNotifyTemplate(opts: {
   };
 }
 
-/** Ops: site review submitted */
 export function reviewNotifyTemplate(opts: {
   name: string;
   business?: string;
@@ -300,7 +309,6 @@ export function reviewNotifyTemplate(opts: {
   };
 }
 
-/** Customer: short thank-you after contact (auto-reply) */
 export function contactAutoReplyTemplate(opts: { name: string }): {
   subject: string;
   html: string;
