@@ -10,6 +10,7 @@ type LeadBody = {
   type?: "waitlist" | "purchase" | "maintenance" | "lead-magnet" | "audit" | "chat" | "referral";
   message?: string;
   source?: string;
+  referral?: string;
   /** Honeypot — bots often fill this */
   website?: string;
   company?: string;
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
     const type = body.type || "waitlist";
     const message = (body.message || "").trim().slice(0, 4000);
     const source = (body.source || "website").trim().slice(0, 80);
+    const referral = (body.referral || "").trim().slice(0, 40);
 
     if (!name || (!email && !phone)) {
       return NextResponse.json(
@@ -77,6 +79,7 @@ export async function POST(req: NextRequest) {
         phone,
         message,
         source,
+        referral: referral || undefined,
         at: new Date().toISOString(),
       })
     );
@@ -93,7 +96,7 @@ export async function POST(req: NextRequest) {
           email: email || null,
           phone: phone || null,
           message: message || null,
-          source,
+          source: referral ? `${source}|ref:${referral}` : source,
           status: "new",
         })
         .select("id")
@@ -107,11 +110,43 @@ export async function POST(req: NextRequest) {
       `New ${type} lead\nProduct: ${product}\nName: ${name}\nEmail: ${email || "-"}\nPhone: ${phone || "-"}\n${message || ""}`
     );
 
+    try {
+      if (process.env.RESEND_API_KEY) {
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const to = process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
+        const from =
+          process.env.CONTACT_FROM_EMAIL || "DoyinTech <onboarding@resend.dev>";
+        await resend.emails.send({
+          from,
+          to: [to],
+          subject: `[Lead] ${type} · ${product} · ${name}`,
+          text: [
+            `Type: ${type}`,
+            `Product: ${product}`,
+            `Name: ${name}`,
+            `Email: ${email || "-"}`,
+            `Phone: ${phone || "-"}`,
+            `Source: ${source}`,
+            referral ? `Referral: ${referral}` : "",
+            "",
+            message || "",
+            "",
+            "Inbox: https://www.doyintech.com/admin/leads",
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        });
+      }
+    } catch (e) {
+      console.log(JSON.stringify({ event: "lead_email_error", error: String(e) }));
+    }
+
     return NextResponse.json({
       ok: true,
       id: savedId,
       message:
-        "Saved. We’ll follow up on WhatsApp/email. You can also message us now.",
+        "Saved. We'll follow up on WhatsApp/email. You can also message us now.",
       whatsapp: `https://wa.me/2348085343926?text=${waText}`,
     });
   } catch {
