@@ -7,10 +7,7 @@ const VISIBLE_MS = 10_000;
 const HIDDEN_MS = 20 * 60 * 1000;
 const STORAGE_KEY = "dt-welcome-oct-next-show";
 
-/**
- * Full-screen October welcome banner.
- * Shows for 10 seconds (with skip), then returns after 20 minutes.
- */
+/** Full-screen October welcome banner (10s + skip, returns after 20 min). */
 export default function WelcomeOctoberBanner() {
   const [show, setShow] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(10);
@@ -92,11 +89,12 @@ export default function WelcomeOctoberBanner() {
       <div className="relative z-10 flex w-full max-w-lg flex-col items-center px-4 sm:max-w-xl sm:px-6">
         <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.55)]">
           <Image
-            src="/welcome-october.jpg"
+            src="https://litter.catbox.moe/ycsfot.jpg"
             alt="DoyinTech — Welcome to October. Clarity of mind. New month, fresh energy."
             width={1080}
             height={1350}
             priority
+            unoptimized
             className="h-auto w-full object-cover"
             sizes="(max-width: 640px) 100vw, 576px"
           />
