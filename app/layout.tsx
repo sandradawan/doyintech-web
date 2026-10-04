@@ -57,6 +57,14 @@ export const metadata: Metadata = {
     description:
       "Growth sites, WhatsApp systems, and digital products SMEs actually buy. 50% deposit. Paystack. Live in days.",
     url: SITE_URL,
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "DoyinTech",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -64,6 +72,7 @@ export const metadata: Metadata = {
     description:
       "Fixed-price websites, WhatsApp systems & digital products for Nigerian SMEs.",
     creator: "@doyintechnology",
+    images: ["/logo.png"],
   },
   robots: {
     index: true,
