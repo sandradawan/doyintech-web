@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import { CASE_STUDIES } from "@/lib/case-studies-data";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
@@ -9,120 +10,76 @@ export const metadata: Metadata = {
     "How DoyinTech ships websites and systems that get enquiries: property platforms, local service brands, gaming lounges, and marketplaces.",
 };
 
-const studies = [
-  {
-    slug: "imperial-villa",
-    name: "Imperial Villa Property",
-    sector: "Property & fintech",
-    outcome: "Unified brand site + client portal + staff tools",
-    metric: "3 products live",
-    tag: "Complex",
-  },
-  {
-    slug: "jennyglams",
-    name: "JennyGlams",
-    sector: "Beauty · Jos",
-    outcome: "Portfolio + WhatsApp booking — DM chaos → one-tap enquire",
-    metric: "Before → after in ~7 days",
-    tag: "Local SME",
-  },
-  {
-    slug: "legacyplay",
-    name: "LegacyPlay",
-    sector: "Gaming lounge",
-    outcome: "Bold site built for station booking & tournaments",
-    metric: "Clear reserve CTA",
-    tag: "Local SME",
-  },
-  {
-    slug: "doyinmart",
-    name: "DoyinMart",
-    sector: "Marketplace",
-    outcome: "African software marketplace with local pricing",
-    metric: "Multi-vendor ready",
-    tag: "Platform",
-  },
-  {
-    slug: "ipvl",
-    name: "IPVL Lobby Dashboard",
-    sector: "Ops dashboard",
-    outcome: "Real-time lobby & staff access for property ops",
-    metric: "Internal system",
-    tag: "SaaS",
-  },
-  {
-    slug: "arqademy-cbt",
-    name: "Arqademy CBT",
-    sector: "Education",
-    outcome: "Computer-based testing experience for learners",
-    metric: "Exam-ready UX",
-    tag: "EdTech",
-  },
-];
-
 export default function CaseStudiesIndex() {
   return (
     <>
       <main className="min-h-screen bg-black pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
-            Proof · not promises
-          </p>
+          <p className="section-eyebrow text-[#ff8c14]">Proof · not promises</p>
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
             Case studies
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
-            Real projects shipped for Nigerian businesses — from single-offer landing pages to multi-portal platforms.
-            Fixed scope, clear handoff, WhatsApp-ready delivery.
+            Real projects shipped for Nigerian businesses — from single-offer landing pages to
+            multi-portal platforms. Fixed scope, clear handoff, WhatsApp-ready delivery.
           </p>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2">
-            {studies.map((s) => (
+            {CASE_STUDIES.map((s) => (
               <Link
                 key={s.slug}
-                href={`/case-studies/${s.slug}`}
-                className="group rounded-2xl border border-white/10 bg-[#1d1d1f] p-6 transition hover:border-[#ff8c14]/40"
+                href={s.href}
+                className="glass-card group flex flex-col p-6 transition hover:border-[#2997ff]/30"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-wide text-[#86868b]">
-                      {s.sector}
-                    </p>
-                    <h2 className="mt-1 text-[20px] font-semibold text-white group-hover:text-[#ff8c14]">
-                      {s.name}
-                    </h2>
-                  </div>
-                  <span className="shrink-0 rounded-full border border-white/10 px-2.5 py-0.5 text-[11px] text-[#a1a1a6]">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
                     {s.tag}
                   </span>
+                  <span className="text-[12px] text-[#a1a1a6]">{s.metric}</span>
                 </div>
-                <p className="mt-3 text-[14px] leading-relaxed text-[#a1a1a6]">{s.outcome}</p>
-                <p className="mt-4 text-[13px] font-semibold text-[#2997ff]">{s.metric} →</p>
+                <h2 className="mt-3 text-[20px] font-semibold text-white group-hover:text-[#2997ff]">
+                  {s.name}
+                </h2>
+                <p className="mt-1 text-[13px] text-[#86868b]">{s.sector}</p>
+                <p className="mt-3 flex-1 text-[14px] leading-relaxed text-[#a1a1a6]">
+                  {s.outcome}
+                </p>
+                <div className="mt-5 grid grid-cols-2 gap-2">
+                  {s.results.map((r) => (
+                    <div
+                      key={r.label}
+                      className="rounded-xl border border-white/[0.08] bg-black/30 px-3 py-2"
+                    >
+                      <p className="text-[13px] font-semibold text-white">{r.value}</p>
+                      <p className="text-[10px] uppercase tracking-wider text-gray-500">
+                        {r.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4 text-[13px] font-medium text-[#2997ff]">Read story →</p>
               </Link>
             ))}
           </div>
 
-          <div className="mt-14 rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-8 text-center">
-            <h2 className="text-[22px] font-semibold text-white">
+          <div className="mt-16 rounded-[28px] border border-white/[0.1] bg-gradient-to-br from-[#0071e3]/15 to-[#1d1d1f] p-8 text-center sm:p-10">
+            <h2 className="text-[24px] font-semibold text-white sm:text-[28px]">
               Want results like these?
             </h2>
-            <p className="mx-auto mt-2 max-w-lg text-[15px] text-[#a1a1a6]">
-              Landing page from ₦100,000 or a full local business site from ₦250,000 — 50% deposit, fixed price.
+            <p className="mx-auto mt-3 max-w-md text-[15px] text-[#a1a1a6]">
+              Fixed-price packages, 50% deposit, clear scope. Book a free discovery call.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="/hire"
-                className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
-              >
-                See fixed-price packages
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a href="/hire" className="apple-btn apple-btn-primary">
+                View packages & deposit
               </a>
               <a
                 href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white"
+                className="rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
               >
-                Book free 15-min call
+                Book free call
               </a>
             </div>
           </div>

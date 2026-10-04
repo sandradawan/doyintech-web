@@ -13,6 +13,8 @@ import ExitOffer from "@/components/ui/ExitOffer";
 import EngagementToast from "@/components/ui/EngagementToast";
 import IndependenceDayAvatar from "@/components/ui/IndependenceDayAvatar";
 import { Analytics } from "@vercel/analytics/next";
+import { Suspense } from "react";
+import ReferralCapture from "@/components/ui/ReferralCapture";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -126,6 +128,9 @@ export default function RootLayout({
           <ChatBot />
           <WhatsAppButton />
           <CookieConsent />
+          <Suspense fallback={null}>
+            <ReferralCapture />
+          </Suspense>
           <Analytics />
         </ToastProvider>
       </body>
