@@ -115,6 +115,9 @@ export function packageWhatsAppLink(packageName: string): string {
 }
 
 export function discoveryCallLink(): string {
+  // Prefer calendar when NEXT_PUBLIC_CALENDAR_URL is set (see lib/booking.ts)
+  const cal = (process.env.NEXT_PUBLIC_CALENDAR_URL || "").trim();
+  if (cal.startsWith("http")) return cal;
   const text =
     "Hi DoyinTech, I'd like to book a free 15-minute discovery call about a project.";
   return `https://wa.me/2348085343926?text=${encodeURIComponent(text)}`;
