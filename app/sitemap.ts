@@ -4,43 +4,50 @@ import { SITE_URL } from "@/lib/site";
 
 const BASE = SITE_URL;
 
+/** Public marketing URLs only — no /admin, /ops, /auth, /api, /wallet. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const staticRoutes = [
     "",
     "/hire",
+    "/pricing",
     "/pricing-quiz",
-    "/refer",
-    "/status-pack",
-    "/client-portal",
-    "/agency-vs-freelancer",
-    "/web-design-jos",
-    "/web-design-abuja",
-    "/ops",
+    "/free-audit",
     "/products",
     "/ebooks",
-    "/components",
-    "/templates",
-    "/free-audit",
-    "/local-seo",
-    "/white-label",
-    "/pricing",
+    "/store",
+    "/bills",
+    "/solve",
+    "/tools",
+    "/tools/system-protector",
     "/services",
     "/services/backend",
     "/services/mobile",
     "/services/ai-automation",
-    "/tools",
-    "/tools/system-protector",
+    "/portfolio",
+    "/case-studies",
+    "/case-studies/imperial-villa",
+    "/case-studies/doyinmart",
+    "/case-studies/legacyplay",
+    "/case-studies/jennyglams",
+    "/case-studies/arqademy-cbt",
+    "/case-studies/ipvl",
+    "/refer",
+    "/reviews",
+    "/status-pack",
+    "/agency-vs-freelancer",
+    "/web-design-jos",
+    "/web-design-abuja",
+    "/local-seo",
+    "/components",
+    "/templates",
+    "/white-label",
     "/apps",
     "/apps/doyinshield",
     "/apps/whatsapp-agent",
     "/apps/build-plan-30d",
     "/outreach",
-    "/outreach/daily",
-    "/outreach/ads",
-    "/portfolio",
-    "/store",
     "/blog",
     "/blog/website-for-salon-nigeria",
     "/blog/whatsapp-booking-system-nigeria",
@@ -57,38 +64,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/company-profile",
     "/privacy",
     "/terms",
-    "/case-studies",
-    "/case-studies/imperial-villa",
-    "/case-studies/doyinmart",
-    "/case-studies/legacyplay",
-    "/case-studies/jennyglams",
-    "/case-studies/arqademy-cbt",
-    "/case-studies/ipvl",
-    "/bills",
-    "/wallet",
   ];
 
   const toolRoutes = TOOLS_META.map((t) => t.href);
   const routes = [...new Set([...staticRoutes, ...toolRoutes])];
 
-  return routes.map((path) => ({
-    url: `${BASE}${path}`,
-    lastModified: now,
-    changeFrequency:
-      path === "" || path === "/blog" || path === "/products" || path === "/ops" || path.startsWith("/tools")
+  return routes.map((path) => {
+    const isHome = path === "";
+    const isMoney =
+      path === "/hire" ||
+      path === "/products" ||
+      path === "/free-audit" ||
+      path === "/bills" ||
+      path === "/pricing";
+    const isTools = path.startsWith("/tools");
+    const isBlog = path.startsWith("/blog");
+    const isLocal = path.startsWith("/web-design-") || path === "/local-seo";
+
+    return {
+      url: `${BASE}${path}`,
+      lastModified: now,
+      changeFrequency: (isHome || isTools || path === "/blog" || path === "/products"
         ? "weekly"
-        : "monthly",
-    priority:
-      path === ""
+        : "monthly") as "weekly" | "monthly",
+      priority: isHome
         ? 1
-        : path === "/hire" || path === "/products" || path === "/ops" || path === "/free-audit"
+        : isMoney
           ? 0.95
-          : path.startsWith("/tools")
+          : isTools
             ? 0.9
-            : path.startsWith("/blog/") || path.startsWith("/web-design-")
+            : isBlog || isLocal
               ? 0.85
-              : path === "/case-studies" || path.startsWith("/case-studies")
+              : path.startsWith("/case-studies")
                 ? 0.75
                 : 0.8,
-  }));
+    };
+  });
 }
