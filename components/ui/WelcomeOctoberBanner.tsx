@@ -89,12 +89,11 @@ export default function WelcomeOctoberBanner() {
       <div className="relative z-10 flex w-full max-w-lg flex-col items-center px-4 sm:max-w-xl sm:px-6">
         <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.55)]">
           <Image
-            src="https://litter.catbox.moe/ycsfot.jpg"
+            src="/welcome-october.png"
             alt="DoyinTech — Welcome to October. Clarity of mind. New month, fresh energy."
             width={1080}
             height={1350}
             priority
-            unoptimized
             className="h-auto w-full object-cover"
             sizes="(max-width: 640px) 100vw, 576px"
           />
