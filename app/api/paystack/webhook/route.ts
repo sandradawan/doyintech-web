@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
       const email = String(data.customer?.email || "").trim().toLowerCase();
       const productId = String(meta.product_id || "").trim();
       const reference = String(data.reference || "");
+      const amountKobo = typeof data.amount === "number" ? data.amount : 0;
+      const amountNgn = Math.round(amountKobo / 100);
 
       console.log(
         JSON.stringify({
@@ -42,6 +44,7 @@ export async function POST(req: NextRequest) {
           product_name: meta.product_name,
           source: meta.source,
           kind: meta.kind,
+          payment_phase: meta.payment_phase,
           at: new Date().toISOString(),
         })
       );
@@ -51,16 +54,15 @@ export async function POST(req: NextRequest) {
       if (
         (meta.source === "wallet_fund" || meta.kind === "wallet_fund") &&
         meta.user_id &&
-        typeof data.amount === "number" &&
-        data.amount > 0
+        amountKobo > 0
       ) {
         try {
           await creditWallet({
             userId: String(meta.user_id),
-            amountKobo: data.amount,
+            amountKobo,
             reference,
             reason: "wallet_fund",
-            meta: { email, paystack: data.amount },
+            meta: { email, paystack: amountKobo },
           });
         } catch (e) {
           console.error("wallet_fund webhook", e);
@@ -82,29 +84,65 @@ export async function POST(req: NextRequest) {
         if (error) console.error("ops_payment_events insert", error.message);
       }
 
-      // Student research projects
+      // Student research projects — deposit (50%) or balance (50%)
       if (admin && meta.kind === "student_project" && meta.request_id) {
         try {
           const requestId = String(meta.request_id).toUpperCase();
-          const { data: proj } = await admin
+          const phase = String(meta.payment_phase || "deposit").toLowerCase();
+
+          const { data: existing } = await admin
             .from("student_projects")
-            .update({
-              status: "paid",
-              stage: "topic_review",
-              paystack_ref: reference || null,
-              updated_at: new Date().toISOString(),
-            })
+            .select(
+              "id, request_id, amount_paid_ngn, deposit_ngn, balance_ngn, amount_ngn, status, stage"
+            )
             .eq("request_id", requestId)
-            .select("id, request_id")
             .maybeSingle();
 
-          if (proj?.id) {
-            await admin.from("student_project_events").insert({
-              project_id: proj.id,
-              request_id: requestId,
-              stage: "topic_review",
-              note: "Payment confirmed via Paystack",
-            });
+          if (existing?.id) {
+            const prevPaid = Number(existing.amount_paid_ngn || 0);
+            const newPaid = prevPaid + amountNgn;
+
+            if (phase === "balance") {
+              await admin
+                .from("student_projects")
+                .update({
+                  status: "fully_paid",
+                  stage: "completed",
+                  amount_paid_ngn: newPaid,
+                  paystack_ref_balance: reference || null,
+                  delivery_unlocked: true,
+                  updated_at: new Date().toISOString(),
+                })
+                .eq("id", existing.id);
+
+              await admin.from("student_project_events").insert({
+                project_id: existing.id,
+                request_id: requestId,
+                stage: "completed",
+                note: `Final 50% paid (₦${amountNgn.toLocaleString()}) — download unlocked`,
+              });
+            } else {
+              // deposit (default)
+              await admin
+                .from("student_projects")
+                .update({
+                  status: "deposit_paid",
+                  stage: "topic_review",
+                  amount_paid_ngn: newPaid,
+                  paystack_ref: reference || null,
+                  paystack_ref_deposit: reference || null,
+                  delivery_unlocked: false,
+                  updated_at: new Date().toISOString(),
+                })
+                .eq("id", existing.id);
+
+              await admin.from("student_project_events").insert({
+                project_id: existing.id,
+                request_id: requestId,
+                stage: "topic_review",
+                note: `50% deposit paid (₦${amountNgn.toLocaleString()}) — work can start`,
+              });
+            }
           }
         } catch (e) {
           console.error("student_project webhook", e);
@@ -124,7 +162,7 @@ export async function POST(req: NextRequest) {
             productId,
             email,
             reference,
-            amountKobo: typeof data.amount === "number" ? data.amount : undefined,
+            amountKobo: amountKobo || undefined,
             customerName: meta.customer_name ? String(meta.customer_name) : undefined,
           });
         } catch (e) {

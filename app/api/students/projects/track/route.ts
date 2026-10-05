@@ -37,6 +37,13 @@ export async function GET(req: NextRequest) {
         topic: "Connect Supabase and run docs/student-projects.sql",
         name: "",
         email: email || "",
+        amount_ngn: 0,
+        deposit_ngn: 0,
+        balance_ngn: 0,
+        amount_paid_ngn: 0,
+        delivery_unlocked: false,
+        delivery_url: null,
+        can_pay_balance: false,
       },
       messages: [],
       events: [],
@@ -46,7 +53,7 @@ export async function GET(req: NextRequest) {
   const { data: project, error } = await sb
     .from("student_projects")
     .select(
-      "request_id, package_id, package_name, amount_ngn, stage, status, name, email, phone, school, level, topic, deadline, created_at, updated_at"
+      "request_id, package_id, package_name, amount_ngn, deposit_ngn, balance_ngn, amount_paid_ngn, stage, status, name, email, phone, school, level, topic, deadline, delivery_url, delivery_unlocked, created_at, updated_at"
     )
     .eq("request_id", id)
     .maybeSingle();
@@ -55,13 +62,26 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Project not found" }, { status: 404 });
   }
 
-  // Light gate: if email provided, must match
   if (email && project.email && email !== String(project.email).toLowerCase()) {
     return NextResponse.json(
       { error: "Email does not match this Request ID" },
       { status: 403 }
     );
   }
+
+  const readyStages = ["first_draft", "revisions", "delivered", "completed"];
+  const canPayBalance =
+    !project.delivery_unlocked &&
+    project.status !== "pending_payment" &&
+    project.status !== "fully_paid" &&
+    project.status !== "completed" &&
+    (project.status === "awaiting_balance" || readyStages.includes(project.stage));
+
+  // Only expose delivery_url when unlocked
+  const deliveryUrl =
+    project.delivery_unlocked && project.delivery_url
+      ? project.delivery_url
+      : null;
 
   const { data: messages } = await sb
     .from("student_project_messages")
@@ -82,6 +102,8 @@ export async function GET(req: NextRequest) {
     project: {
       ...project,
       stage_label: stageLabel(project.stage),
+      delivery_url: deliveryUrl,
+      can_pay_balance: canPayBalance,
     },
     messages: messages || [],
     events: events || [],

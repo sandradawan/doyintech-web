@@ -25,10 +25,10 @@ export async function GET(req: NextRequest) {
   const { data, error } = await sb
     .from("student_projects")
     .select(
-      "id, request_id, package_name, stage, status, name, email, phone, topic, amount_ngn, school, level, deadline, notes, admin_notes, created_at"
+      "id, request_id, package_name, stage, status, name, email, phone, topic, amount_ngn, deposit_ngn, balance_ngn, amount_paid_ngn, delivery_url, delivery_unlocked, school, level, deadline, notes, admin_notes, created_at"
     )
     .order("created_at", { ascending: false })
-    .limit(150);
+    .limit(100);
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -49,7 +49,7 @@ export async function PATCH(req: NextRequest) {
     if (!id) {
       return NextResponse.json({ error: "id required" }, { status: 400 });
     }
-    const patch: Record<string, string> = {
+    const patch: Record<string, unknown> = {
       updated_at: new Date().toISOString(),
     };
     if (body.stage) {
@@ -58,6 +58,14 @@ export async function PATCH(req: NextRequest) {
         return NextResponse.json({ error: "Invalid stage" }, { status: 400 });
       }
       patch.stage = body.stage;
+      // When marked delivered, open balance payment
+      if (body.stage === "delivered") {
+        patch.status = "awaiting_balance";
+      }
+      if (body.stage === "completed") {
+        // completed without full pay should still not unlock — only webhook unlocks
+        // admin can force unlock only via delivery_unlocked + delivery_url
+      }
     }
     if (body.status) {
       patch.status = String(body.status);
@@ -65,12 +73,34 @@ export async function PATCH(req: NextRequest) {
     if (body.admin_notes != null) {
       patch.admin_notes = String(body.admin_notes).slice(0, 4000);
     }
+    if (body.delivery_url != null) {
+      const url = String(body.delivery_url).trim().slice(0, 2000);
+      patch.delivery_url = url || null;
+    }
+    // Force unlock only if already fully paid (safety)
+    if (body.delivery_unlocked === true) {
+      const { data: row } = await sb
+        .from("student_projects")
+        .select("status, delivery_unlocked")
+        .eq("id", id)
+        .maybeSingle();
+      if (
+        row &&
+        (row.status === "fully_paid" ||
+          row.status === "completed" ||
+          row.delivery_unlocked)
+      ) {
+        patch.delivery_unlocked = true;
+      }
+    }
 
     const { data, error } = await sb
       .from("student_projects")
       .update(patch)
       .eq("id", id)
-      .select("id, request_id, stage, status")
+      .select(
+        "id, request_id, stage, status, delivery_url, delivery_unlocked"
+      )
       .single();
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
@@ -81,7 +111,10 @@ export async function PATCH(req: NextRequest) {
         project_id: data.id,
         request_id: data.request_id,
         stage: body.stage,
-        note: "Stage updated by admin",
+        note:
+          body.stage === "delivered"
+            ? "Marked ready — student can pay final 50% to unlock download"
+            : "Stage updated by admin",
       });
     }
 
