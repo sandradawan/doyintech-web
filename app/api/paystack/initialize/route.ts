@@ -40,10 +40,13 @@ export async function POST(req: NextRequest) {
       ? `/hire/success?product=${encodeURIComponent(item.id)}`
       : `/products/success?product=${encodeURIComponent(item.id)}`;
 
+    // Settlement currency is NGN. Site displays USD; card issuer converts.
+    // To charge native USD, enable USD on Paystack Dashboard and set PAYSTACK_CURRENCY=USD.
+    const chargeCurrency = (process.env.PAYSTACK_CURRENCY || "NGN").toUpperCase();
     const payload = {
       email,
       amount: item.amountKobo,
-      currency: "NGN",
+      currency: chargeCurrency === "USD" ? "USD" : "NGN",
       callback_url: `${origin}${callbackPath}`,
       metadata: {
         product_id: item.id,
@@ -51,6 +54,8 @@ export async function POST(req: NextRequest) {
         customer_name: name || undefined,
         delivery: item.delivery,
         kind: isServiceDeposit ? "service_deposit" : "digital",
+        display_currency: "USD",
+        amount_kobo_ngn: item.amountKobo,
       },
     };
 
@@ -77,6 +82,7 @@ export async function POST(req: NextRequest) {
         product: item.id,
         email,
         amount: item.amountKobo,
+        currency: payload.currency,
         reference: data.data?.reference,
         at: new Date().toISOString(),
       })

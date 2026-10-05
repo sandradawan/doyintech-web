@@ -1,11 +1,12 @@
-/** Student research project packages (NGN). */
+/** Student research project packages — priced in NGN, displayed in USD. */
+
+import { formatUsdFromNgn, ngnToKobo, priceLabelFromNgn } from "@/lib/currency";
 
 export type StudentPackage = {
   id: string;
   name: string;
   priceNgn: number;
   amountKobo: number;
-  /** Percent charged at start (50 = half now, half on completion). */
   depositPercent: number;
   blurb: string;
   includes: string[];
@@ -17,7 +18,7 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
     id: "student-proposal",
     name: "Proposal & outline",
     priceNgn: 15_000,
-    amountKobo: 15_000 * 100,
+    amountKobo: ngnToKobo(15_000),
     depositPercent: 50,
     blurb: "Topic refinement, proposal structure, and chapter outline.",
     includes: [
@@ -27,13 +28,13 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
       "Request ID tracking",
       "50% start · 50% before download",
     ],
-    badge: "From ₦15k",
+    badge: "From " + formatUsdFromNgn(15_000),
   },
   {
     id: "student-stats",
     name: "Statistical project",
     priceNgn: 25_000,
-    amountKobo: 25_000 * 100,
+    amountKobo: ngnToKobo(25_000),
     depositPercent: 50,
     blurb: "Questionnaire analysis, tables, and results write-up support.",
     includes: [
@@ -43,13 +44,13 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
       "Revisions via feedback box",
       "50% start · 50% before download",
     ],
-    badge: "₦25k",
+    badge: formatUsdFromNgn(25_000),
   },
   {
     id: "student-full",
     name: "Design & implement (full project)",
     priceNgn: 30_000,
-    amountKobo: 30_000 * 100,
+    amountKobo: ngnToKobo(30_000),
     depositPercent: 50,
     blurb: "End-to-end research project writing with stage tracking.",
     includes: [
@@ -59,7 +60,7 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
       "Formatting & revision rounds",
       "50% start · 50% before download",
     ],
-    badge: "₦30k",
+    badge: formatUsdFromNgn(30_000),
   },
 ];
 
@@ -67,22 +68,28 @@ export function getStudentPackage(id: string): StudentPackage | undefined {
   return STUDENT_PACKAGES.find((p) => p.id === id);
 }
 
-/** Amount due at checkout (deposit). */
 export function depositNgn(pkg: StudentPackage): number {
   return Math.round((pkg.priceNgn * pkg.depositPercent) / 100);
 }
 
-/** Remaining balance after deposit. */
 export function balanceNgn(pkg: StudentPackage): number {
   return pkg.priceNgn - depositNgn(pkg);
 }
 
 export function depositKobo(pkg: StudentPackage): number {
-  return depositNgn(pkg) * 100;
+  return ngnToKobo(depositNgn(pkg));
 }
 
 export function balanceKobo(pkg: StudentPackage): number {
-  return balanceNgn(pkg) * 100;
+  return ngnToKobo(balanceNgn(pkg));
+}
+
+export function packagePriceLabel(pkg: StudentPackage): string {
+  return priceLabelFromNgn(pkg.priceNgn);
+}
+
+export function depositPriceLabel(pkg: StudentPackage): string {
+  return priceLabelFromNgn(depositNgn(pkg));
 }
 
 export const PROJECT_STAGES = [
@@ -102,7 +109,6 @@ export function stageLabel(code: string): string {
   return PROJECT_STAGES.find((s) => s.code === code)?.label || code;
 }
 
-/** Statuses for payment lifecycle */
 export const PROJECT_STATUSES = [
   "pending_payment",
   "deposit_paid",
