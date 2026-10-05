@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 
@@ -32,7 +32,7 @@ export default function AnalyzerPage() {
     setCsvText(await file.text());
   }
 
-  async function runAnalysis(e: React.FormEvent) {
+  async function runAnalysis(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -100,35 +100,73 @@ export default function AnalyzerPage() {
             results narrative you can adapt for your chapter.
           </p>
 
-          <form onSubmit={runAnalysis} className="mt-10 space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <form
+            onSubmit={runAnalysis}
+            className="mt-10 space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+          >
             <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-white/20 bg-black/30 px-4 py-10 text-center transition hover:border-[#ff8c14]/40">
-              <span className="text-[14px] font-semibold text-white">{fileName || "Choose CSV file"}</span>
-              <span className="mt-1 text-[12px] text-[#86868b]">Max ~3MB · header row required</span>
-              <input type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => onFile(e.target.files?.[0] || null)} />
+              <span className="text-[14px] font-semibold text-white">
+                {fileName || "Choose CSV file"}
+              </span>
+              <span className="mt-1 text-[12px] text-[#86868b]">
+                Max ~3MB · header row required
+              </span>
+              <input
+                type="file"
+                accept=".csv,text/csv"
+                className="hidden"
+                onChange={(e) => onFile(e.target.files?.[0] || null)}
+              />
             </label>
             <label className="block text-[13px] text-[#a1a1a6]">
               Or paste CSV
-              <textarea value={csvText} onChange={(e) => setCsvText(e.target.value)} rows={6} className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 font-mono text-[12px] text-white outline-none focus:border-[#ff8c14]/50" />
+              <textarea
+                value={csvText}
+                onChange={(e) => setCsvText(e.target.value)}
+                rows={6}
+                className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 font-mono text-[12px] text-white outline-none focus:border-[#ff8c14]/50"
+              />
             </label>
             {error && <p className="text-[13px] text-red-400">{error}</p>}
-            <button type="submit" disabled={loading || !csvText.trim()} className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
-              {loading ? "Analyzing…" : "Run analysis"}
+            <button
+              type="submit"
+              disabled={loading || !csvText.trim()}
+              className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60"
+            >
+              {loading ? "Analyzing..." : "Run analysis"}
             </button>
           </form>
 
           {result && (
             <div className="mt-10 space-y-8">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[14px] text-[#a1a1a6]">{result.rowCount} rows · {result.columnCount} variables</p>
-                <button type="button" onClick={downloadDraft} className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/5">Download Markdown draft</button>
+                <p className="text-[14px] text-[#a1a1a6]">
+                  {result.rowCount} rows · {result.columnCount} variables
+                </p>
+                <button
+                  type="button"
+                  onClick={downloadDraft}
+                  className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/5"
+                >
+                  Download Markdown draft
+                </button>
               </div>
               <section className="rounded-2xl border border-white/10 bg-black/40 p-6">
-                <h2 className="font-display text-[18px] font-semibold text-white">Narrative draft</h2>
-                <pre className="mt-4 whitespace-pre-wrap font-sans text-[14px] leading-relaxed text-[#e8e8ed]">{result.narrative}</pre>
+                <h2 className="font-display text-[18px] font-semibold text-white">
+                  Narrative draft
+                </h2>
+                <pre className="mt-4 whitespace-pre-wrap font-sans text-[14px] leading-relaxed text-[#e8e8ed]">
+                  {result.narrative}
+                </pre>
               </section>
               <div className="rounded-2xl border border-[#25D366]/25 bg-[#25D366]/10 p-5 text-[14px] text-[#e8e8ed]">
                 Need full statistical project support?{" "}
-                <Link href="/students/projects" className="font-semibold text-[#25D366] hover:underline">Open research portal — from ₦15,000</Link>
+                <Link
+                  href="/students/projects"
+                  className="font-semibold text-[#25D366] hover:underline"
+                >
+                  Open research portal — from NGN 15,000
+                </Link>
               </div>
             </div>
           )}
