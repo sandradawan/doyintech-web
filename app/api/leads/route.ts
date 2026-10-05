@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
       if (process.env.RESEND_API_KEY) {
         const { Resend } = await import("resend");
         const resend = new Resend(process.env.RESEND_API_KEY);
-        const to = process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
+        const to = process.env.CONTACT_TO_EMAIL || "hello@doyintech.com";
         const from =
           process.env.CONTACT_FROM_EMAIL || "DoyinTech <onboarding@resend.dev>";
         const notify = leadNotifyTemplate({
