@@ -23,25 +23,25 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "DoyinTech — Websites, WhatsApp Systems & Digital Products for Nigerian SMEs",
+      "DoyinTech — Websites, Systems & Digital Products for Growing Businesses",
     template: "%s | DoyinTech",
   },
   description:
-    "Fixed-price websites that get enquiries, WhatsApp booking systems, free SME tools, and digital products. 50% deposit · Paystack · Live in days. Based in Jos, Nigeria.",
+    "Fixed-price websites that get enquiries, WhatsApp booking systems, free business tools, and digital products. 50% deposit · Secure Paystack · Live in days. Serving clients worldwide.",
   keywords: [
-    "website design Nigeria",
     "fixed price website",
     "WhatsApp business system",
-    "SME website Jos",
+    "business website design",
     "Paystack website",
-    "landing page Nigeria",
+    "landing page design",
     "backend engineering",
     "API development",
-    "Flutter app Nigeria",
+    "Flutter app development",
     "Laravel developer",
     "DoyinTech",
-    "business website Nigeria",
-    "digital products Nigeria",
+    "digital products",
+    "student research project support",
+    "SME website",
   ],
   authors: [{ name: "Silas Doyin Jonathan", url: SITE_URL }],
   creator: "DoyinTech",
@@ -50,12 +50,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_NG",
+    locale: "en_US",
     siteName: "DoyinTech",
-    title:
-      "DoyinTech — Websites that get clients · Fixed price · Nigeria",
+    title: "DoyinTech — Websites that get clients · Fixed price · Global",
     description:
-      "Growth sites, WhatsApp systems, and digital products SMEs actually buy. 50% deposit. Paystack. Live in days.",
+      "Growth sites, WhatsApp systems, and digital products businesses actually buy. 50% deposit. Paystack. Live in days.",
     url: SITE_URL,
     images: [
       {
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "DoyinTech — Websites that get clients",
     description:
-      "Fixed-price websites, WhatsApp systems & digital products for Nigerian SMEs.",
+      "Fixed-price websites, WhatsApp systems & digital products for businesses worldwide.",
     creator: "@doyintechnology",
     images: ["/logo.png"],
   },
@@ -106,8 +105,8 @@ const jsonLd = {
     "@type": "Person",
     name: "Silas Doyin Jonathan",
   },
-  areaServed: "NG",
-  priceRange: "₦₦",
+  areaServed: ["Worldwide", "NG", "US"],
+  priceRange: "$$",
 };
 
 export default function RootLayout({
