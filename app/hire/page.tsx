@@ -7,7 +7,7 @@ import { discoveryCallLink } from "@/lib/packages";
 export const metadata: Metadata = {
   title: "Hire DoyinTech — Fixed-price websites · 50% deposit",
   description:
-    "Landing page ₦100,000 · Local business ₦250,000 · Growth ₦450,000. Clear fixed prices. Pay 50% deposit with Paystack.",
+    "Landing page from $65 · Business website from $161 · Growth from $290. Clear fixed USD pricing. Pay 50% deposit with Paystack.",
 };
 
 export default function HirePage() {
@@ -16,14 +16,14 @@ export default function HirePage() {
       <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
-            Fixed price · Paystack deposit
+            Fixed price · USD · Paystack deposit
           </p>
           <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
             Book your website slot. Pay deposit. We build.
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
             Three clear packages. No vague “from” quotes. 50% online today — balance before
-            launch. WhatsApp-first sites for Nigerian SMEs.
+            launch. Built for growing businesses worldwide.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -51,7 +51,7 @@ export default function HirePage() {
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
-              { t: "Fixed total", d: "Price on the card — not “from ₦…”" },
+              { t: "Fixed total", d: "USD price on the card — not a vague range" },
               { t: "50% deposit", d: "Paystack · rest before handoff" },
               { t: "WhatsApp-ready", d: "Every site drives chat & booking" },
             ].map((x) => (
@@ -78,9 +78,9 @@ export default function HirePage() {
                 )}
                 <h2 className="text-[22px] font-semibold text-white">{offer.name}</h2>
                 <p className="mt-2 text-[14px] text-[#a1a1a6]">{offer.tagline}</p>
-                <p className="mt-4 text-[28px] font-semibold text-white">{offer.totalNgn}</p>
+                <p className="mt-4 text-[28px] font-semibold text-white">{offer.totalUsd || offer.totalNgn}</p>
                 <p className="text-[13px] text-[#86868b]">
-                  Deposit {offer.depositNgn} · {offer.timeline}
+                  Deposit {offer.depositUsd || offer.depositNgn} · {offer.timeline}
                 </p>
                 <p className="mt-3 text-[13px] text-[#c7cdd8]">Ideal for: {offer.idealFor}</p>
 
@@ -126,7 +126,7 @@ export default function HirePage() {
               <p className="font-semibold text-white">How it works</p>
               <ol className="mt-3 list-decimal space-y-2 pl-5">
                 <li>Pick a package → pay 50% deposit.</li>
-                <li>Send logo, text, and photos on WhatsApp.</li>
+                <li>Send logo, text, and photos.</li>
                 <li>Review draft in the timeline shown.</li>
                 <li>Pay balance → we launch + short support.</li>
               </ol>
@@ -149,7 +149,7 @@ export default function HirePage() {
                   rel="noopener noreferrer"
                   className="rounded-full bg-[#25D366] px-4 py-2 text-[13px] font-semibold text-white"
                 >
-                  WhatsApp call
+                  Book a call
                 </a>
               </div>
             </div>
@@ -168,7 +168,11 @@ export default function HirePage() {
               },
               {
                 q: "Where are you based?",
-                a: "Jos, Nigeria — clients nationwide via WhatsApp and Paystack.",
+                a: "We work remotely with clients worldwide. HQ in Jos, Nigeria — payments via Paystack.",
+              },
+              {
+                q: "Why is checkout in Naira if prices show USD?",
+                a: "USD is the display currency for international visitors. Paystack settles in NGN; your bank converts automatically when you pay with an international card.",
               },
             ].map((item) => (
               <div
