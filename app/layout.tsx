@@ -87,7 +87,7 @@ const jsonLd = {
   legalName: "DOYIN'S TECHNOLOGY",
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
-  email: "doyintechnology@outlook.com",
+  email: "hello@doyintech.com",
   telephone: "+2348085343926",
   address: {
     "@type": "PostalAddress",
