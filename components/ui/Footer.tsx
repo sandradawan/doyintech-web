@@ -132,10 +132,10 @@ export default function Footer() {
             </p>
             <p className="text-[13px]">
               <a
-                href="mailto:doyintechnology@outlook.com"
+                href="mailto:hello@doyintech.com"
                 className="apple-link"
               >
-                doyintechnology@outlook.com
+                hello@doyintech.com
               </a>
             </p>
           </div>
