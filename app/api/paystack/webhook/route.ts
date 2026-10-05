@@ -82,10 +82,40 @@ export async function POST(req: NextRequest) {
         if (error) console.error("ops_payment_events insert", error.message);
       }
 
+      // Student research projects
+      if (admin && meta.kind === "student_project" && meta.request_id) {
+        try {
+          const requestId = String(meta.request_id).toUpperCase();
+          const { data: proj } = await admin
+            .from("student_projects")
+            .update({
+              status: "paid",
+              stage: "topic_review",
+              paystack_ref: reference || null,
+              updated_at: new Date().toISOString(),
+            })
+            .eq("request_id", requestId)
+            .select("id, request_id")
+            .maybeSingle();
+
+          if (proj?.id) {
+            await admin.from("student_project_events").insert({
+              project_id: proj.id,
+              request_id: requestId,
+              stage: "topic_review",
+              note: "Payment confirmed via Paystack",
+            });
+          }
+        } catch (e) {
+          console.error("student_project webhook", e);
+        }
+      }
+
       if (
         email &&
         productId &&
         meta.kind !== "service_deposit" &&
+        meta.kind !== "student_project" &&
         meta.source !== "doyinops" &&
         meta.source !== "wallet_fund"
       ) {
@@ -105,6 +135,7 @@ export async function POST(req: NextRequest) {
       if (
         admin &&
         (meta.kind === "service_deposit" || productId) &&
+        meta.kind !== "student_project" &&
         meta.source !== "wallet_fund"
       ) {
         const { error } = await admin.from("site_leads").insert({
