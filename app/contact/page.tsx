@@ -63,7 +63,7 @@ export default function ContactPage() {
                 className="group block rounded-2xl border border-white/10 bg-black/20 p-6 transition hover:border-primary/60"
               >
                 <p className="text-sm text-gray-400">Email</p>
-                <p className="mt-2 font-semibold text-gray-100">doyintechnology@outlook.com</p>
+                <p className="mt-2 font-semibold text-gray-100">hello@doyintech.com</p>
                 <p className="mt-2 text-sm text-gray-400">Best for project inquiries and quotes.</p>
                 <p className="mt-4 text-sm text-primary">Send an email →</p>
               </a>
