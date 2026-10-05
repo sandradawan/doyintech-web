@@ -16,6 +16,11 @@ type Project = {
   phone?: string | null;
   topic: string;
   amount_ngn: number;
+  deposit_ngn?: number | null;
+  balance_ngn?: number | null;
+  amount_paid_ngn?: number | null;
+  delivery_url?: string | null;
+  delivery_unlocked?: boolean | null;
   school?: string | null;
   level?: string | null;
   deadline?: string | null;
@@ -26,11 +31,13 @@ type Project = {
 
 const STATUSES = [
   "pending_payment",
-  "paid",
+  "deposit_paid",
   "in_progress",
-  "delivered",
+  "awaiting_balance",
+  "fully_paid",
   "completed",
   "cancelled",
+  "paid",
 ] as const;
 
 export default function AdminStudentsPage() {
@@ -43,6 +50,7 @@ export default function AdminStudentsPage() {
   const [q, setQ] = useState("");
   const [updating, setUpdating] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [deliveryDraft, setDeliveryDraft] = useState<Record<string, string>>({});
 
   useEffect(() => {
     try {
@@ -84,7 +92,12 @@ export default function AdminStudentsPage() {
 
   async function patch(
     id: string,
-    body: { stage?: string; status?: string; admin_notes?: string }
+    body: {
+      stage?: string;
+      status?: string;
+      admin_notes?: string;
+      delivery_url?: string;
+    }
   ) {
     setUpdating(id);
     try {
@@ -130,15 +143,17 @@ export default function AdminStudentsPage() {
     const c = {
       total: rows.length,
       pending_payment: 0,
-      paid: 0,
-      in_progress: 0,
-      delivered: 0,
+      deposit_paid: 0,
+      awaiting_balance: 0,
+      fully_paid: 0,
     };
     for (const r of rows) {
       if (r.status === "pending_payment") c.pending_payment++;
-      if (r.status === "paid" || r.status === "in_progress") c.paid++;
-      if (r.status === "in_progress") c.in_progress++;
-      if (r.status === "delivered" || r.status === "completed") c.delivered++;
+      if (r.status === "deposit_paid" || r.status === "in_progress" || r.status === "paid")
+        c.deposit_paid++;
+      if (r.status === "awaiting_balance") c.awaiting_balance++;
+      if (r.status === "fully_paid" || r.status === "completed" || r.delivery_unlocked)
+        c.fully_paid++;
     }
     return c;
   }, [rows]);
@@ -165,7 +180,8 @@ export default function AdminStudentsPage() {
               Student projects
             </h1>
             <p className="mt-1 text-[13px] text-[#a1a1a6]">
-              Track Request IDs, stages, payment status, and follow up.
+              50% deposit → work → mark Delivered → student pays 50% → unlock
+              download.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -187,15 +203,13 @@ export default function AdminStudentsPage() {
           </div>
         </div>
 
-        {error && (
-          <p className="mt-4 text-sm text-red-400">{error}</p>
-        )}
+        {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <MiniKpi label="Total" value={counts.total} />
-          <MiniKpi label="Awaiting pay" value={counts.pending_payment} accent />
-          <MiniKpi label="Active / paid" value={counts.paid} />
-          <MiniKpi label="Delivered+" value={counts.delivered} />
+          <MiniKpi label="Awaiting deposit" value={counts.pending_payment} accent />
+          <MiniKpi label="Deposit paid" value={counts.deposit_paid} />
+          <MiniKpi label="Awaiting balance" value={counts.awaiting_balance} />
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">
@@ -234,13 +248,17 @@ export default function AdminStudentsPage() {
         <div className="mt-6 space-y-3">
           {filtered.length === 0 && !loading && (
             <p className="rounded-2xl border border-white/10 bg-[#141416] px-5 py-8 text-center text-[13px] text-[#86868b]">
-              No projects yet. New submissions appear after payment or form
-              submit.
+              No projects yet.
             </p>
           )}
           {filtered.map((p) => {
             const open = expanded === p.id;
             const wa = waLink(p);
+            const dep =
+              p.deposit_ngn ?? Math.round(Number(p.amount_ngn || 0) / 2);
+            const bal =
+              p.balance_ngn ?? Number(p.amount_ngn || 0) - dep;
+            const paid = Number(p.amount_paid_ngn || 0);
             return (
               <div
                 key={p.id}
@@ -258,20 +276,23 @@ export default function AdminStudentsPage() {
                       <span className="rounded-full border border-[#ff8c14]/30 bg-[#ff8c14]/10 px-2 py-0.5 text-[10px] text-[#ff8c14]">
                         {stageLabel(p.stage)}
                       </span>
+                      {p.delivery_unlocked && (
+                        <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-400">
+                          unlocked
+                        </span>
+                      )}
                     </div>
                     <p className="mt-1 text-[15px] font-medium text-white">
-                      {p.name}{" · "}{p.package_name}
+                      {p.name} · {p.package_name}
                     </p>
                     <p className="mt-0.5 truncate text-[13px] text-[#a1a1a6]">
                       {p.topic}
                     </p>
                     <p className="mt-1 text-[12px] text-[#86868b]">
-                      ₦{Number(p.amount_ngn || 0).toLocaleString()} ·{" "}
-                      {p.email}
-                      {p.phone ? ` · ${p.phone}` : ""} ·{" "}
-                      {p.created_at
-                        ? new Date(p.created_at).toLocaleString()
-                        : ""}
+                      Total ₦{Number(p.amount_ngn || 0).toLocaleString()} · Paid ₦
+                      {paid.toLocaleString()} · Dep ₦{dep.toLocaleString()} · Bal ₦
+                      {bal.toLocaleString()} · {p.email}
+                      {p.phone ? ` · ${p.phone}` : ""}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -287,7 +308,15 @@ export default function AdminStudentsPage() {
                     )}
                     <button
                       type="button"
-                      onClick={() => setExpanded(open ? null : p.id)}
+                      onClick={() => {
+                        setExpanded(open ? null : p.id);
+                        if (!open && p.delivery_url) {
+                          setDeliveryDraft((d) => ({
+                            ...d,
+                            [p.id]: p.delivery_url || "",
+                          }));
+                        }
+                      }}
                       className="rounded-full border border-white/15 px-3 py-1.5 text-[12px] text-[#a1a1a6] hover:text-white"
                     >
                       {open ? "Close" : "Manage"}
@@ -315,6 +344,10 @@ export default function AdminStudentsPage() {
                           </option>
                         ))}
                       </select>
+                      <p className="mt-1 text-[11px] text-[#86868b]">
+                        Set to &quot;Ready — pay balance&quot; when work is done so
+                        student can pay final 50%.
+                      </p>
                     </div>
                     <div>
                       <label className="text-[11px] uppercase tracking-wide text-[#86868b]">
@@ -334,6 +367,43 @@ export default function AdminStudentsPage() {
                           </option>
                         ))}
                       </select>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="text-[11px] uppercase tracking-wide text-[#86868b]">
+                        Delivery URL (Google Drive / Dropbox link)
+                      </label>
+                      <div className="mt-1 flex flex-wrap gap-2">
+                        <input
+                          value={
+                            deliveryDraft[p.id] ?? p.delivery_url ?? ""
+                          }
+                          onChange={(e) =>
+                            setDeliveryDraft((d) => ({
+                              ...d,
+                              [p.id]: e.target.value,
+                            }))
+                          }
+                          placeholder="https://drive.google.com/..."
+                          className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]"
+                        />
+                        <button
+                          type="button"
+                          disabled={updating === p.id}
+                          onClick={() =>
+                            patch(p.id, {
+                              delivery_url:
+                                deliveryDraft[p.id] ?? p.delivery_url ?? "",
+                            })
+                          }
+                          className="rounded-full border border-white/15 px-4 py-2 text-[12px] text-white hover:bg-white/5"
+                        >
+                          Save link
+                        </button>
+                      </div>
+                      <p className="mt-1 text-[11px] text-[#86868b]">
+                        Student only sees this link after final 50% is paid
+                        (auto-unlock via Paystack).
+                      </p>
                     </div>
                     {(p.school || p.level || p.deadline || p.notes) && (
                       <div className="sm:col-span-2 rounded-xl border border-white/5 bg-black/30 px-3 py-2 text-[12px] text-[#a1a1a6]">
