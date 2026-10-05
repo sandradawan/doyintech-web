@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const toEmail =
-      process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
+      process.env.CONTACT_TO_EMAIL || "hello@doyintech.com";
     const fromEmail = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
 
     const notify = contactNotifyTemplate({
