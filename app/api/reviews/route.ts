@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const to = process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
+    const to = process.env.CONTACT_TO_EMAIL || "hello@doyintech.com";
     const from =
       process.env.CONTACT_FROM_EMAIL || "DoyinTech <onboarding@resend.dev>";
 
