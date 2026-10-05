@@ -25,10 +25,10 @@ export async function GET(req: NextRequest) {
   const { data, error } = await sb
     .from("student_projects")
     .select(
-      "id, request_id, package_name, stage, status, name, email, topic, amount_ngn, created_at"
+      "id, request_id, package_name, stage, status, name, email, phone, topic, amount_ngn, school, level, deadline, notes, admin_notes, created_at"
     )
     .order("created_at", { ascending: false })
-    .limit(100);
+    .limit(150);
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -49,7 +49,9 @@ export async function PATCH(req: NextRequest) {
     if (!id) {
       return NextResponse.json({ error: "id required" }, { status: 400 });
     }
-    const patch: Record<string, string> = { updated_at: new Date().toISOString() };
+    const patch: Record<string, string> = {
+      updated_at: new Date().toISOString(),
+    };
     if (body.stage) {
       const ok = PROJECT_STAGES.some((s) => s.code === body.stage);
       if (!ok) {

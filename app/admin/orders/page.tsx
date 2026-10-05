@@ -2,30 +2,29 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type Lead = {
+const SECRET_KEY = "doyin_admin_leads_secret";
+
+type PurchaseLead = {
   id: string;
   created_at: string;
-  type: string;
   product: string;
   name: string;
   email?: string | null;
   phone?: string | null;
+  status: string;
   message?: string | null;
   source?: string | null;
-  status: string;
+  type: string;
 };
 
 const STATUSES = ["new", "contacted", "qualified", "won", "lost"] as const;
-const SECRET_KEY = "doyin_admin_leads_secret";
 
-export default function AdminLeadsPage() {
+export default function AdminOrdersPage() {
   const [secret, setSecret] = useState("");
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [note, setNote] = useState("");
-  const [err, setErr] = useState("");
+  const [rows, setRows] = useState<PurchaseLead[]>([]);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [filterStatus, setFilterStatus] = useState("");
-  const [filterType, setFilterType] = useState("");
   const [q, setQ] = useState("");
   const [updating, setUpdating] = useState<string | null>(null);
 
@@ -38,29 +37,45 @@ export default function AdminLeadsPage() {
     }
   }, []);
 
-  async function load(overrideSecret?: string) {
-    const s = overrideSecret ?? secret;
+  async function load(override?: string) {
+    const s = override ?? secret;
     if (!s) return;
     setLoading(true);
-    setErr("");
+    setError("");
     try {
       sessionStorage.setItem(SECRET_KEY, s);
     } catch {
       /* ignore */
     }
     try {
-      const qs = new URLSearchParams({ limit: "150" });
-      if (filterStatus) qs.set("status", filterStatus);
-      if (filterType) qs.set("type", filterType);
-      const res = await fetch(`/api/leads?${qs}`, {
+      // Reuse leads API filtered client-side for type=purchase + product sales signals
+      const res = await fetch("/api/leads?limit=200", {
         headers: { "x-admin-secret": s },
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed");
-      setLeads(data.leads || []);
-      setNote(data.note || "");
+      const all = (data.leads || []) as PurchaseLead[];
+      const purchases = all.filter(
+        (l) =>
+          l.type === "purchase" ||
+          (l.product || "").toLowerCase().includes("buy") ||
+          (l.message || "").toLowerCase().includes("paid")
+      );
+      setRows(purchases.length ? purchases : all.filter((l) => l.type === "purchase"));
+      // If no purchase-typed rows, still show all leads tagged product-ish
+      if (!purchases.length) {
+        setRows(
+          all.filter(
+            (l) =>
+              l.type === "purchase" ||
+              l.type === "waitlist" ||
+              (l.product && l.product !== "General")
+          )
+        );
+      }
     } catch (e: unknown) {
-      setErr(e instanceof Error ? e.message : "Error");
+      setError(e instanceof Error ? e.message : "Error");
+      setRows([]);
     } finally {
       setLoading(false);
     }
@@ -79,49 +94,47 @@ export default function AdminLeadsPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Update failed");
-      setLeads((prev) =>
-        prev.map((l) => (l.id === id ? { ...l, status } : l))
+      setRows((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, status } : r))
       );
     } catch (e: unknown) {
-      setErr(e instanceof Error ? e.message : "Update error");
+      setError(e instanceof Error ? e.message : "Update error");
     } finally {
       setUpdating(null);
     }
   }
 
+  const filtered = useMemo(() => {
+    let list = rows;
+    if (filterStatus) list = list.filter((r) => r.status === filterStatus);
+    if (q.trim()) {
+      const t = q.trim().toLowerCase();
+      list = list.filter(
+        (r) =>
+          r.name.toLowerCase().includes(t) ||
+          (r.email || "").toLowerCase().includes(t) ||
+          (r.product || "").toLowerCase().includes(t) ||
+          (r.phone || "").includes(t)
+      );
+    }
+    return list;
+  }, [rows, filterStatus, q]);
+
   const counts = useMemo(() => {
-    const c: Record<string, number> = {
-      new: 0,
-      contacted: 0,
-      qualified: 0,
-      won: 0,
-      lost: 0,
-      total: leads.length,
-    };
-    for (const l of leads) {
-      if (l.status in c) c[l.status]++;
+    const c = { total: rows.length, new: 0, won: 0, lost: 0 };
+    for (const r of rows) {
+      if (r.status === "new") c.new++;
+      if (r.status === "won") c.won++;
+      if (r.status === "lost") c.lost++;
     }
     return c;
-  }, [leads]);
+  }, [rows]);
 
-  const filtered = useMemo(() => {
-    if (!q.trim()) return leads;
-    const t = q.trim().toLowerCase();
-    return leads.filter(
-      (l) =>
-        l.name.toLowerCase().includes(t) ||
-        (l.email || "").toLowerCase().includes(t) ||
-        (l.phone || "").includes(t) ||
-        (l.product || "").toLowerCase().includes(t) ||
-        (l.message || "").toLowerCase().includes(t)
-    );
-  }, [leads, q]);
-
-  function waLink(l: Lead) {
-    const phone = (l.phone || "").replace(/\D/g, "");
+  function waLink(r: PurchaseLead) {
+    const phone = (r.phone || "").replace(/\D/g, "");
     if (!phone) return null;
     const text = encodeURIComponent(
-      `Hi ${l.name}, thanks for reaching out to DoyinTech about ${l.product}.`
+      `Hi ${r.name}, following up on your interest in ${r.product} (DoyinTech).`
     );
     const n = phone.startsWith("234") ? phone : phone.replace(/^0/, "234");
     return `https://wa.me/${n}?text=${text}`;
@@ -133,13 +146,14 @@ export default function AdminLeadsPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#ff8c14]">
-              Inbox
+              Revenue
             </p>
             <h1 className="mt-1 font-display text-[26px] font-semibold text-white sm:text-[30px]">
-              Leads
+              Orders & sales
             </h1>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">
-              Site enquiries, audits, chat, hire, referrals — status pipeline.
+            <p className="mt-1 max-w-xl text-[13px] text-[#a1a1a6]">
+              Purchase leads, product interest, and paid signals from the site.
+              Store listing review lives under Store admin.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -161,29 +175,28 @@ export default function AdminLeadsPage() {
           </div>
         </div>
 
-        {err && <p className="mt-4 text-sm text-red-400">{err}</p>}
-        {note && <p className="mt-2 text-sm text-amber-400">{note}</p>}
+        {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
-        <div className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {(["total", "new", "contacted", "qualified", "won", "lost"] as const).map(
-            (k) => (
-              <div
-                key={k}
-                className={`rounded-2xl border px-3 py-3 ${
-                  k === "new"
-                    ? "border-[#ff8c14]/40 bg-[#ff8c14]/10"
-                    : "border-white/10 bg-[#141416]"
-                }`}
-              >
-                <p className="text-[20px] font-semibold text-white">
-                  {counts[k] ?? 0}
-                </p>
-                <p className="text-[10px] uppercase tracking-wide text-[#86868b]">
-                  {k}
-                </p>
-              </div>
-            )
-          )}
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <MiniKpi label="Records" value={counts.total} />
+          <MiniKpi label="New" value={counts.new} accent />
+          <MiniKpi label="Won" value={counts.won} />
+          <MiniKpi label="Lost" value={counts.lost} />
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a
+            href="/store/admin"
+            className="rounded-full border border-white/15 px-4 py-2 text-[12px] text-[#a1a1a6] hover:border-[#ff8c14]/40 hover:text-white"
+          >
+            Store listing admin →
+          </a>
+          <a
+            href="/ops/app"
+            className="rounded-full border border-white/15 px-4 py-2 text-[12px] text-[#a1a1a6] hover:border-[#ff8c14]/40 hover:text-white"
+          >
+            DoyinOps invoices →
+          </a>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">
@@ -191,7 +204,7 @@ export default function AdminLeadsPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search name, email, product…"
-            className="min-w-[180px] flex-1 rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]"
+            className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]"
           />
           <select
             value={filterStatus}
@@ -205,74 +218,48 @@ export default function AdminLeadsPage() {
               </option>
             ))}
           </select>
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            className="rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white"
-          >
-            <option value="">All types</option>
-            <option value="waitlist">waitlist</option>
-            <option value="purchase">purchase</option>
-            <option value="audit">audit</option>
-            <option value="chat">chat</option>
-            <option value="referral">referral</option>
-            <option value="maintenance">maintenance</option>
-            <option value="lead-magnet">lead-magnet</option>
-          </select>
-          <button
-            type="button"
-            onClick={() => load()}
-            className="rounded-xl border border-white/15 px-3 py-2 text-[12px] text-[#a1a1a6] hover:text-white"
-          >
-            Apply
-          </button>
         </div>
 
         <div className="mt-6 space-y-3">
           {filtered.length === 0 && !loading && (
             <p className="rounded-2xl border border-white/10 bg-[#141416] px-5 py-8 text-center text-[13px] text-[#86868b]">
-              No leads match.
+              No purchase / product leads yet.
             </p>
           )}
-          {filtered.map((l) => {
-            const wa = waLink(l);
+          {filtered.map((r) => {
+            const wa = waLink(r);
             return (
               <div
-                key={l.id}
+                key={r.id}
                 className="rounded-2xl border border-white/10 bg-[#141416] p-4 sm:p-5"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="text-[15px] font-medium text-white">
-                        {l.name}
-                      </p>
-                      <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-[#a1a1a6]">
-                        {l.type}
-                      </span>
-                    </div>
+                  <div className="min-w-0">
+                    <p className="text-[15px] font-medium text-white">
+                      {r.name}
+                    </p>
                     <p className="mt-0.5 text-[13px] text-[#a1a1a6]">
-                      {l.product}
-                      {l.source ? ` · ${l.source}` : ""}
+                      {r.product} · {r.type}
+                      {r.source ? ` · ${r.source}` : ""}
                     </p>
                     <p className="mt-1 text-[12px] text-[#86868b]">
-                      {l.email || "—"}
-                      {l.phone ? ` · ${l.phone}` : ""} ·{" "}
-                      {l.created_at
-                        ? new Date(l.created_at).toLocaleString()
+                      {r.email || "—"}
+                      {r.phone ? ` · ${r.phone}` : ""} ·{" "}
+                      {r.created_at
+                        ? new Date(r.created_at).toLocaleString()
                         : ""}
                     </p>
-                    {l.message && (
-                      <p className="mt-2 line-clamp-3 whitespace-pre-wrap text-[12px] text-[#a1a1a6]">
-                        {l.message}
+                    {r.message && (
+                      <p className="mt-2 line-clamp-2 text-[12px] text-[#a1a1a6]">
+                        {r.message}
                       </p>
                     )}
                   </div>
                   <div className="flex flex-col items-end gap-2">
                     <select
-                      value={l.status}
-                      disabled={updating === l.id}
-                      onChange={(e) => setStatus(l.id, e.target.value)}
+                      value={r.status}
+                      disabled={updating === r.id}
+                      onChange={(e) => setStatus(r.id, e.target.value)}
                       className="rounded-xl border border-white/10 bg-black/40 px-3 py-1.5 text-[12px] text-white"
                     >
                       {STATUSES.map((s) => (
@@ -291,14 +278,6 @@ export default function AdminLeadsPage() {
                         WhatsApp
                       </a>
                     )}
-                    {l.email && (
-                      <a
-                        href={`mailto:${l.email}`}
-                        className="text-[12px] text-[#2997ff] hover:underline"
-                      >
-                        Email
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
@@ -307,5 +286,30 @@ export default function AdminLeadsPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+function MiniKpi({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: number;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border px-4 py-3 ${
+        accent
+          ? "border-[#ff8c14]/40 bg-[#ff8c14]/10"
+          : "border-white/10 bg-[#141416]"
+      }`}
+    >
+      <p className="text-[22px] font-semibold text-white">{value}</p>
+      <p className="text-[11px] uppercase tracking-wide text-[#86868b]">
+        {label}
+      </p>
+    </div>
   );
 }

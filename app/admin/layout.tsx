@@ -15,6 +15,7 @@ const NAV = [
   { href: "/admin/analytics", label: "Social analytics" },
   { href: "/store/admin", label: "Store admin" },
   { href: "/ops/app", label: "DoyinOps workspace" },
+  { href: "/outreach", label: "Outreach" },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -42,7 +43,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 </Link>
               ))}
             </nav>
-            <div className="mt-auto space-y-2 border-t border-white/10 pt-4 px-2">
+            <div className="mt-auto space-y-2 border-t border-white/10 px-2 pt-4">
               <Link
                 href="/"
                 className="block text-[12px] text-[#86868b] hover:text-white"
