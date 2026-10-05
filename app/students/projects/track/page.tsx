@@ -16,6 +16,9 @@ type Project = {
   request_id: string;
   package_name: string;
   amount_ngn?: number;
+  deposit_ngn?: number;
+  balance_ngn?: number;
+  amount_paid_ngn?: number;
   stage: string;
   stage_label?: string;
   status: string;
@@ -24,6 +27,9 @@ type Project = {
   email: string;
   school?: string;
   deadline?: string;
+  delivery_url?: string | null;
+  delivery_unlocked?: boolean;
+  can_pay_balance?: boolean;
 };
 
 type Msg = { id?: string; author: string; body: string; created_at: string };
@@ -40,6 +46,7 @@ function TrackInner() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
+  const [paying, setPaying] = useState(false);
   const [okMsg, setOkMsg] = useState("");
 
   useEffect(() => {
@@ -65,12 +72,18 @@ function TrackInner() {
       setProject(data.project);
       setMessages(data.messages || []);
       setEvents(data.events || []);
+      if (sp.get("paid") === "1") {
+        setOkMsg("Deposit payment received (or processing). Refresh if status still shows pending.");
+      }
+      if (sp.get("balance") === "1") {
+        setOkMsg("Final payment received (or processing). Download unlocks when confirmed.");
+      }
     } catch {
       setError("Network error");
     } finally {
       setLoading(false);
     }
-  }, [id, email]);
+  }, [id, email, sp]);
 
   useEffect(() => {
     if (sp.get("id")) load();
@@ -106,6 +119,53 @@ function TrackInner() {
       setSending(false);
     }
   }
+
+  async function payBalance() {
+    if (!project) return;
+    setPaying(true);
+    setError("");
+    setOkMsg("");
+    try {
+      const res = await fetch("/api/students/projects/pay-balance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requestId: project.request_id,
+          email: email || project.email,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Could not start payment");
+        return;
+      }
+      if (data.alreadyPaid) {
+        setOkMsg(data.message || "Already paid");
+        await load();
+        return;
+      }
+      if (data.authorizationUrl) {
+        window.location.href = data.authorizationUrl;
+        return;
+      }
+      if (data.whatsapp) {
+        window.open(data.whatsapp, "_blank");
+      }
+    } catch {
+      setError("Network error");
+    } finally {
+      setPaying(false);
+    }
+  }
+
+  const total = Number(project?.amount_ngn || 0);
+  const deposit = Number(
+    project?.deposit_ngn ?? (total ? Math.round(total / 2) : 0)
+  );
+  const balance = Number(
+    project?.balance_ngn ?? (total ? total - deposit : 0)
+  );
+  const paid = Number(project?.amount_paid_ngn || 0);
 
   return (
     <main className="pb-24 pt-28">
@@ -176,13 +236,93 @@ function TrackInner() {
                   <p className="text-[12px] text-[#86868b]">{project.status}</p>
                 </div>
               </div>
+
+              {/* Payment summary */}
+              <div className="mt-5 grid gap-2 rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] sm:grid-cols-3">
+                <div>
+                  <p className="text-[11px] uppercase text-[#86868b]">Total</p>
+                  <p className="font-semibold text-white">
+                    ₦{total.toLocaleString()}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase text-[#86868b]">
+                    Paid so far
+                  </p>
+                  <p className="font-semibold text-[#25D366]">
+                    ₦{paid.toLocaleString()}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase text-[#86868b]">
+                    Balance due
+                  </p>
+                  <p className="font-semibold text-white">
+                    ₦
+                    {project.delivery_unlocked
+                      ? "0"
+                      : Math.max(0, balance).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+
               <div className="mt-4 grid gap-2 text-[13px] text-[#a1a1a6] sm:grid-cols-2">
                 <p>Name: {project.name}</p>
-                {project.amount_ngn != null && (
-                  <p>Amount: ₦{Number(project.amount_ngn).toLocaleString()}</p>
-                )}
+                <p>
+                  Deposit (50%): ₦{deposit.toLocaleString()} · Final (50%): ₦
+                  {balance.toLocaleString()}
+                </p>
                 {project.school && <p>School: {project.school}</p>}
                 {project.deadline && <p>Deadline: {project.deadline}</p>}
+              </div>
+
+              {/* Download / pay balance */}
+              <div className="mt-5 space-y-3">
+                {project.delivery_unlocked && project.delivery_url ? (
+                  <a
+                    href={project.delivery_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black hover:bg-[#2ee86f]"
+                  >
+                    Download your files
+                  </a>
+                ) : project.delivery_unlocked ? (
+                  <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+                    Payment complete. Your download link will appear here once
+                    we attach the delivery file.
+                  </p>
+                ) : project.can_pay_balance ? (
+                  <div className="rounded-xl border border-[#ff8c14]/40 bg-[#ff8c14]/10 px-4 py-4">
+                    <p className="text-[14px] font-semibold text-white">
+                      Project ready — pay final 50% to unlock download
+                    </p>
+                    <p className="mt-1 text-[13px] text-[#a1a1a6]">
+                      Balance: ₦{balance.toLocaleString()}. Link stays locked
+                      until this payment clears.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={payBalance}
+                      disabled={paying}
+                      className="mt-3 rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black hover:bg-[#ffa03a] disabled:opacity-60"
+                    >
+                      {paying
+                        ? "Opening Paystack…"
+                        : `Pay ₦${balance.toLocaleString()} balance`}
+                    </button>
+                  </div>
+                ) : project.status === "pending_payment" ? (
+                  <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+                    Awaiting 50% deposit (₦{deposit.toLocaleString()}). Complete
+                    payment to start the project.
+                  </p>
+                ) : (
+                  <p className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[13px] text-[#a1a1a6]">
+                    Work in progress. When the draft is ready, you can pay the
+                    final 50% here to unlock download.
+                  </p>
+                )}
               </div>
 
               <div className="mt-6">

@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
-import { STUDENT_PACKAGES } from "@/lib/students/packages";
+import { STUDENT_PACKAGES, depositNgn, balanceNgn } from "@/lib/students/packages";
 
 export default function StudentProjectsPage() {
   const [packageId, setPackageId] = useState(
@@ -20,6 +20,8 @@ export default function StudentProjectsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [requestId, setRequestId] = useState("");
+
+  const selected = STUDENT_PACKAGES.find((p) => p.id === packageId);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -76,41 +78,52 @@ export default function StudentProjectsPage() {
             Research project portal
           </h1>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#a1a1a6]">
-            Tell us your topic, choose a package (₦15,000–₦30,000), pay the start
-            fee, and get a Request ID to track stages and send feedback.
+            Choose a package (₦15,000–₦30,000). Pay <strong className="text-white">50% to start</strong>,
+            we work on your project, then pay the <strong className="text-white">final 50%</strong> to
+            unlock your download link.
           </p>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {STUDENT_PACKAGES.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => setPackageId(p.id)}
-                className={`rounded-2xl border p-5 text-left transition ${
-                  packageId === p.id
-                    ? "border-[#ff8c14] bg-[#ff8c14]/10"
-                    : "border-white/10 bg-white/[0.03] hover:border-white/20"
-                }`}
-              >
-                {p.badge && (
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#ff8c14]">
-                    {p.badge}
-                  </span>
-                )}
-                <p className="mt-1 font-display text-[17px] font-semibold text-white">
-                  {p.name}
-                </p>
-                <p className="mt-1 text-[20px] font-semibold text-[#f5f5f7]">
-                  ₦{p.priceNgn.toLocaleString()}
-                </p>
-                <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
-                  {p.blurb}
-                </p>
-              </button>
-            ))}
+            {STUDENT_PACKAGES.map((p) => {
+              const dep = depositNgn(p);
+              const bal = balanceNgn(p);
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => setPackageId(p.id)}
+                  className={`rounded-2xl border p-5 text-left transition ${
+                    packageId === p.id
+                      ? "border-[#ff8c14] bg-[#ff8c14]/10"
+                      : "border-white/10 bg-white/[0.03] hover:border-white/20"
+                  }`}
+                >
+                  {p.badge && (
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#ff8c14]">
+                      {p.badge}
+                    </span>
+                  )}
+                  <p className="mt-1 font-display text-[17px] font-semibold text-white">
+                    {p.name}
+                  </p>
+                  <p className="mt-1 text-[20px] font-semibold text-[#f5f5f7]">
+                    ₦{p.priceNgn.toLocaleString()}
+                  </p>
+                  <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                    Pay now: ₦{dep.toLocaleString()} · Later: ₦{bal.toLocaleString()}
+                  </p>
+                  <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+                    {p.blurb}
+                  </p>
+                </button>
+              );
+            })}
           </div>
 
-          <form onSubmit={submit} className="mt-10 space-y-5 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <form
+            onSubmit={submit}
+            className="mt-10 space-y-5 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
+          >
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-[13px] text-[#a1a1a6]">
                 Full name *
@@ -194,6 +207,20 @@ export default function StudentProjectsPage() {
               autoComplete="off"
             />
 
+            {selected && (
+              <div className="rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+                <p className="font-semibold text-white">{selected.name}</p>
+                <p className="mt-1">
+                  Total ₦{selected.priceNgn.toLocaleString()} · Pay now (50%) ₦
+                  {depositNgn(selected).toLocaleString()} · Balance later ₦
+                  {balanceNgn(selected).toLocaleString()}
+                </p>
+                <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                  Download link unlocks only after the final 50% is paid.
+                </p>
+              </div>
+            )}
+
             {error && <p className="text-[13px] text-red-400">{error}</p>}
             {requestId && (
               <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
@@ -213,7 +240,11 @@ export default function StudentProjectsPage() {
               disabled={loading}
               className="w-full rounded-full bg-[#ff8c14] px-6 py-3.5 text-[15px] font-semibold text-black transition hover:bg-[#ffa03a] disabled:opacity-60 sm:w-auto"
             >
-              {loading ? "Starting…" : "Pay & get Request ID"}
+              {loading
+                ? "Starting…"
+                : selected
+                  ? `Pay ₦${depositNgn(selected).toLocaleString()} deposit & get Request ID`
+                  : "Pay deposit & get Request ID"}
             </button>
             <p className="text-[12px] text-[#86868b]">
               Academic integrity: deliverables are research support drafts. Follow
