@@ -2,7 +2,7 @@
 
 import { discoveryCallLink } from "@/lib/packages";
 
-const EMAIL = "doyintechnology@outlook.com";
+const EMAIL = "hello@doyintech.com";
 
 export function emailLink(subject = "Project inquiry — DoyinTech") {
   return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`;
