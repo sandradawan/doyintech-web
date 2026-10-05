@@ -64,6 +64,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/company-profile",
     "/privacy",
     "/terms",
+    "/students",
+    "/students/analyzer",
+    "/students/projects",
+    "/students/projects/track",
   ];
 
   const toolRoutes = TOOLS_META.map((t) => t.href);
@@ -76,7 +80,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       path === "/products" ||
       path === "/free-audit" ||
       path === "/bills" ||
-      path === "/pricing";
+      path === "/pricing" ||
+      path.startsWith("/students");
     const isTools = path.startsWith("/tools");
     const isBlog = path.startsWith("/blog");
     const isLocal = path.startsWith("/web-design-") || path === "/local-seo";
