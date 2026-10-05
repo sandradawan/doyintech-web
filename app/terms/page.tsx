@@ -46,8 +46,8 @@ export default function TermsPage() {
               <h2 className="text-xl font-bold text-white mb-3">5. Contact</h2>
               <p>
                 For questions regarding these terms, contact us at{" "}
-                <a href="mailto:doyintechnology@outlook.com" className="text-primary hover:underline">
-                  doyintechnology@outlook.com
+                <a href="mailto:hello@doyintech.com" className="text-primary hover:underline">
+                  hello@doyintech.com
                 </a>
                 .
               </p>
