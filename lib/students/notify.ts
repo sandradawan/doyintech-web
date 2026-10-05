@@ -3,11 +3,14 @@
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.doyintech.com";
 
+/** Verified domain sender — set CONTACT_FROM_EMAIL on Vercel. */
 function fromAddress() {
-  return (
+  const raw = (
     process.env.CONTACT_FROM_EMAIL ||
-    "DoyinTech <onboarding@resend.dev>"
-  );
+    "hello@doyintech.com"
+  ).trim();
+  if (raw.includes("<")) return raw;
+  return `DoyinTech <${raw}>`;
 }
 
 function opsTo() {
@@ -33,15 +36,17 @@ async function sendResend(opts: {
   try {
     const { Resend } = await import("resend");
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from: fromAddress().includes("<")
-        ? fromAddress()
-        : `DoyinTech <${fromAddress()}>`,
+    const { error } = await resend.emails.send({
+      from: fromAddress(),
       to: Array.isArray(opts.to) ? opts.to : [opts.to],
       subject: opts.subject,
       text: opts.text,
-      replyTo: opts.replyTo,
+      replyTo: opts.replyTo || opsTo(),
     });
+    if (error) {
+      console.error("student_email_resend_error", error);
+      return false;
+    }
     return true;
   } catch (e) {
     console.error("student_email_error", e);

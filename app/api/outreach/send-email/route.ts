@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 function adminOk(req: NextRequest) {
-  const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET;
+  const secret =
+    process.env.ADMIN_LEADS_SECRET ||
+    process.env.LEADS_ADMIN_SECRET ||
+    process.env.ADMIN_SECRET;
   if (!secret) return false;
   const header = req.headers.get("x-admin-secret") || "";
   return header === secret;
@@ -36,7 +39,7 @@ export async function POST(req: NextRequest) {
     const to = String(body.to || "").trim().toLowerCase();
     const subject = String(body.subject || "").trim();
     const message = String(body.message || "").trim();
-    const fromName = String(body.fromName || "Silas · DoyinTech").trim().slice(0, 80);
+    const fromName = String(body.fromName || "DoyinTech").trim().slice(0, 80);
 
     if (!to || !to.includes("@") || !subject || !message) {
       return NextResponse.json(
@@ -61,11 +64,19 @@ export async function POST(req: NextRequest) {
     }
 
     const resend = new Resend(apiKey);
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
-    const replyTo = process.env.CONTACT_TO_EMAIL || "doyintechnology@outlook.com";
+    // Verified domain — do not fall back to onboarding@resend.dev
+    const fromEmail = (
+      process.env.CONTACT_FROM_EMAIL || "hello@doyintech.com"
+    ).trim();
+    const replyTo =
+      process.env.CONTACT_TO_EMAIL || "hello@doyintech.com";
+
+    const fromHeader = fromEmail.includes("<")
+      ? fromEmail
+      : `${fromName} <${fromEmail}>`;
 
     const { error } = await resend.emails.send({
-      from: `${fromName} <${fromEmail}>`,
+      from: fromHeader,
       to: [to],
       replyTo,
       subject,
@@ -77,7 +88,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message || "Send failed" }, { status: 502 });
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, from: fromHeader });
   } catch {
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
