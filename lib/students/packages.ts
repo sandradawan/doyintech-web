@@ -5,6 +5,7 @@ export type StudentPackage = {
   name: string;
   priceNgn: number;
   amountKobo: number;
+  /** Percent charged at start (50 = half now, half on completion). */
   depositPercent: number;
   blurb: string;
   includes: string[];
@@ -17,13 +18,14 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
     name: "Proposal & outline",
     priceNgn: 15_000,
     amountKobo: 15_000 * 100,
-    depositPercent: 100,
+    depositPercent: 50,
     blurb: "Topic refinement, proposal structure, and chapter outline.",
     includes: [
       "Topic review & sharpening",
       "Proposal structure",
       "Chapter outline",
       "Request ID tracking",
+      "50% start · 50% before download",
     ],
     badge: "From ₦15k",
   },
@@ -32,13 +34,14 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
     name: "Statistical project",
     priceNgn: 25_000,
     amountKobo: 25_000 * 100,
-    depositPercent: 100,
+    depositPercent: 50,
     blurb: "Questionnaire analysis, tables, and results write-up support.",
     includes: [
       "Data cleaning guidance",
       "Descriptive statistics & tables",
       "Results narrative draft",
       "Revisions via feedback box",
+      "50% start · 50% before download",
     ],
     badge: "₦25k",
   },
@@ -47,13 +50,14 @@ export const STUDENT_PACKAGES: StudentPackage[] = [
     name: "Design & implement (full project)",
     priceNgn: 30_000,
     amountKobo: 30_000 * 100,
-    depositPercent: 100,
+    depositPercent: 50,
     blurb: "End-to-end research project writing with stage tracking.",
     includes: [
       "Full chapter workflow",
       "Methodology & literature support",
       "Results & discussion support",
       "Formatting & revision rounds",
+      "50% start · 50% before download",
     ],
     badge: "₦30k",
   },
@@ -63,6 +67,24 @@ export function getStudentPackage(id: string): StudentPackage | undefined {
   return STUDENT_PACKAGES.find((p) => p.id === id);
 }
 
+/** Amount due at checkout (deposit). */
+export function depositNgn(pkg: StudentPackage): number {
+  return Math.round((pkg.priceNgn * pkg.depositPercent) / 100);
+}
+
+/** Remaining balance after deposit. */
+export function balanceNgn(pkg: StudentPackage): number {
+  return pkg.priceNgn - depositNgn(pkg);
+}
+
+export function depositKobo(pkg: StudentPackage): number {
+  return depositNgn(pkg) * 100;
+}
+
+export function balanceKobo(pkg: StudentPackage): number {
+  return balanceNgn(pkg) * 100;
+}
+
 export const PROJECT_STAGES = [
   { code: "received", label: "Request received" },
   { code: "topic_review", label: "Topic review" },
@@ -70,8 +92,8 @@ export const PROJECT_STAGES = [
   { code: "drafting", label: "Drafting in progress" },
   { code: "first_draft", label: "First draft ready" },
   { code: "revisions", label: "Revisions from your feedback" },
-  { code: "delivered", label: "Delivered" },
-  { code: "completed", label: "Completed" },
+  { code: "delivered", label: "Ready — pay balance to unlock" },
+  { code: "completed", label: "Completed & unlocked" },
 ] as const;
 
 export type ProjectStageCode = (typeof PROJECT_STAGES)[number]["code"];
@@ -79,3 +101,16 @@ export type ProjectStageCode = (typeof PROJECT_STAGES)[number]["code"];
 export function stageLabel(code: string): string {
   return PROJECT_STAGES.find((s) => s.code === code)?.label || code;
 }
+
+/** Statuses for payment lifecycle */
+export const PROJECT_STATUSES = [
+  "pending_payment",
+  "deposit_paid",
+  "in_progress",
+  "awaiting_balance",
+  "fully_paid",
+  "completed",
+  "cancelled",
+] as const;
+
+export type ProjectStatus = (typeof PROJECT_STATUSES)[number];

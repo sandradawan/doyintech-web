@@ -1,4 +1,5 @@
 -- Student research project portal (run in Supabase SQL editor)
+-- Safe to re-run: IF NOT EXISTS + additive columns for 50% deposit flow.
 
 create table if not exists student_projects (
   id uuid primary key default gen_random_uuid(),
@@ -8,6 +9,7 @@ create table if not exists student_projects (
   amount_ngn int not null,
   stage text not null default 'received',
   status text not null default 'pending_payment',
+  -- pending_payment | deposit_paid | in_progress | awaiting_balance | fully_paid | completed | cancelled
   name text not null,
   email text not null,
   phone text,
@@ -21,6 +23,15 @@ create table if not exists student_projects (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- 50% deposit / 50% balance payment columns
+alter table student_projects add column if not exists deposit_ngn int;
+alter table student_projects add column if not exists balance_ngn int;
+alter table student_projects add column if not exists amount_paid_ngn int not null default 0;
+alter table student_projects add column if not exists paystack_ref_deposit text;
+alter table student_projects add column if not exists paystack_ref_balance text;
+alter table student_projects add column if not exists delivery_url text;
+alter table student_projects add column if not exists delivery_unlocked boolean not null default false;
 
 create index if not exists student_projects_request_id_idx on student_projects (request_id);
 create index if not exists student_projects_email_idx on student_projects (email);

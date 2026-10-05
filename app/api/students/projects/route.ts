@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
-import { getStudentPackage } from "@/lib/students/packages";
+import {
+  getStudentPackage,
+  depositNgn,
+  balanceNgn,
+  depositKobo,
+} from "@/lib/students/packages";
 import { generateProjectRequestId } from "@/lib/students/project-id";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
@@ -44,6 +49,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Select a valid package." }, { status: 400 });
     }
 
+    const depNgn = depositNgn(pkg);
+    const balNgn = balanceNgn(pkg);
     const requestId = generateProjectRequestId();
     const sb = getSupabaseAdmin();
     let projectRowId: string | null = null;
@@ -56,8 +63,12 @@ export async function POST(req: NextRequest) {
           package_id: pkg.id,
           package_name: pkg.name,
           amount_ngn: pkg.priceNgn,
+          deposit_ngn: depNgn,
+          balance_ngn: balNgn,
+          amount_paid_ngn: 0,
           stage: "received",
           status: "pending_payment",
+          delivery_unlocked: false,
           name,
           email,
           phone: phone || null,
@@ -75,7 +86,7 @@ export async function POST(req: NextRequest) {
           project_id: data.id,
           request_id: requestId,
           stage: "received",
-          note: "Request created — awaiting payment",
+          note: `Request created — pay 50% deposit (₦${depNgn.toLocaleString()}) to start`,
         });
       } else if (error) {
         console.log(
@@ -84,7 +95,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Notify ops
     try {
       if (process.env.RESEND_API_KEY) {
         const { Resend } = await import("resend");
@@ -98,7 +108,9 @@ export async function POST(req: NextRequest) {
           subject: `[Student project] ${requestId} · ${pkg.name} · ${name}`,
           text: [
             `Request ID: ${requestId}`,
-            `Package: ${pkg.name} (₦${pkg.priceNgn.toLocaleString()})`,
+            `Package: ${pkg.name} (₦${pkg.priceNgn.toLocaleString()} total)`,
+            `Deposit due now (50%): ₦${depNgn.toLocaleString()}`,
+            `Balance on completion (50%): ₦${balNgn.toLocaleString()}`,
             `Name: ${name}`,
             `Email: ${email}`,
             `Phone: ${phone || "-"}`,
@@ -116,17 +128,18 @@ export async function POST(req: NextRequest) {
       console.log(JSON.stringify({ event: "student_project_email_error", error: String(e) }));
     }
 
-    // Paystack initialize
     if (!SECRET) {
       return NextResponse.json({
         ok: true,
         requestId,
         projectId: projectRowId,
+        depositNgn: depNgn,
+        balanceNgn: balNgn,
         payment: null,
         message:
-          "Request saved. Paystack is not configured — complete payment via WhatsApp.",
+          "Request saved. Paystack is not configured — complete deposit via WhatsApp.",
         whatsapp: `https://wa.me/2348085343926?text=${encodeURIComponent(
-          `Student project ${requestId}\nPackage: ${pkg.name}\nTopic: ${topic}\nName: ${name}`
+          `Student project ${requestId}\nPackage: ${pkg.name}\nDeposit 50%: ₦${depNgn.toLocaleString()}\nTopic: ${topic}\nName: ${name}`
         )}`,
       });
     }
@@ -138,11 +151,12 @@ export async function POST(req: NextRequest) {
 
     const payload = {
       email,
-      amount: pkg.amountKobo,
+      amount: depositKobo(pkg),
       currency: "NGN",
       callback_url: `${origin}/students/projects/track?id=${encodeURIComponent(requestId)}&paid=1`,
       metadata: {
         kind: "student_project",
+        payment_phase: "deposit",
         request_id: requestId,
         package_id: pkg.id,
         product_id: pkg.id,
@@ -164,10 +178,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         ok: true,
         requestId,
+        depositNgn: depNgn,
         payment: null,
         error: data.message || "Could not start payment",
         whatsapp: `https://wa.me/2348085343926?text=${encodeURIComponent(
-          `Student project ${requestId} — payment link failed. Package ${pkg.name}`
+          `Student project ${requestId} — deposit payment link failed. Package ${pkg.name}`
         )}`,
       });
     }
@@ -175,7 +190,10 @@ export async function POST(req: NextRequest) {
     if (sb && projectRowId && data.data?.reference) {
       await sb
         .from("student_projects")
-        .update({ paystack_ref: data.data.reference })
+        .update({
+          paystack_ref: data.data.reference,
+          paystack_ref_deposit: data.data.reference,
+        })
         .eq("id", projectRowId);
     }
 
@@ -183,6 +201,9 @@ export async function POST(req: NextRequest) {
       ok: true,
       requestId,
       projectId: projectRowId,
+      depositNgn: depNgn,
+      balanceNgn: balNgn,
+      totalNgn: pkg.priceNgn,
       authorizationUrl: data.data.authorization_url,
       reference: data.data.reference,
     });
