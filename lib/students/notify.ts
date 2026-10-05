@@ -71,6 +71,12 @@ function balanceAmount(p: StudentNotifyProject): number {
   return 0;
 }
 
+function depositAmount(p: StudentNotifyProject): number {
+  if (p.deposit_ngn != null) return Number(p.deposit_ngn);
+  if (p.amount_ngn != null) return Math.round(Number(p.amount_ngn) / 2);
+  return 0;
+}
+
 /** Student: your project is ready — pay final 50% to unlock download. */
 export async function emailStudentBalanceDue(p: StudentNotifyProject) {
   const bal = balanceAmount(p);
@@ -176,12 +182,7 @@ export async function emailOpsBalancePaid(
 
 /** Student: deposit confirmed. */
 export async function emailStudentDepositPaid(p: StudentNotifyProject) {
-  const dep =
-    p.deposit_ngn != null
-      ? Number(p.deposit_ngn)
-      : p.amount_ngn != null
-        ? Math.round(Number(p.amount_ngn) / 2)
-        : 0;
+  const dep = depositAmount(p);
   const subject = `Deposit received — project started · ${p.request_id}`;
   const text = [
     `Hi ${p.name},`,
@@ -202,5 +203,51 @@ export async function emailStudentDepositPaid(p: StudentNotifyProject) {
   ]
     .filter(Boolean)
     .join("\n");
+  return sendResend({ to: p.email, subject, text });
+}
+
+/**
+ * Student: direct Paystack payment link (deposit or balance).
+ * Sent when admin clicks “Send payment link” in CRM.
+ */
+export async function emailStudentPaymentLink(
+  p: StudentNotifyProject,
+  opts: {
+    phase: "deposit" | "balance";
+    amountNgn: number;
+    paystackUrl: string;
+  }
+) {
+  const isDeposit = opts.phase === "deposit";
+  const subject = isDeposit
+    ? `Pay 50% deposit to start — ${p.request_id}`
+    : `Pay final 50% to unlock download — ${p.request_id}`;
+
+  const text = [
+    `Hi ${p.name},`,
+    ``,
+    isDeposit
+      ? `Please complete your 50% deposit so we can start your research project.`
+      : `Your project is ready. Please complete the final 50% payment to unlock your download.`,
+    ``,
+    `Request ID: ${p.request_id}`,
+    `Package: ${p.package_name}`,
+    p.topic ? `Topic: ${p.topic}` : null,
+    `Amount: ₦${opts.amountNgn.toLocaleString()} (${isDeposit ? "deposit" : "final balance"})`,
+    ``,
+    `Pay securely with Paystack (card / transfer / USSD):`,
+    opts.paystackUrl,
+    ``,
+    `Or open your project tracker:`,
+    trackUrl(p.request_id),
+    ``,
+    `If you already paid, you can ignore this email.`,
+    ``,
+    `— DoyinTech`,
+    SITE,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
   return sendResend({ to: p.email, subject, text });
 }

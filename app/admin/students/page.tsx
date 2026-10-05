@@ -44,11 +44,13 @@ export default function AdminStudentsPage() {
   const [secret, setSecret] = useState("");
   const [rows, setRows] = useState<Project[]>([]);
   const [error, setError] = useState("");
+  const [okMsg, setOkMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [filterStatus, setFilterStatus] = useState("");
   const [filterStage, setFilterStage] = useState("");
   const [q, setQ] = useState("");
   const [updating, setUpdating] = useState<string | null>(null);
+  const [sendingLink, setSendingLink] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [deliveryDraft, setDeliveryDraft] = useState<Record<string, string>>({});
 
@@ -100,6 +102,8 @@ export default function AdminStudentsPage() {
     }
   ) {
     setUpdating(id);
+    setError("");
+    setOkMsg("");
     try {
       const res = await fetch("/api/students/projects/admin", {
         method: "PATCH",
@@ -114,11 +118,47 @@ export default function AdminStudentsPage() {
         setError(data.error || "Update failed");
         return;
       }
+      const data = await res.json();
+      if (data.balanceEmailSent) {
+        setOkMsg("Stage updated · balance-due email sent to student");
+      }
       await load();
     } catch {
       setError("Update failed");
     } finally {
       setUpdating(null);
+    }
+  }
+
+  async function sendPaymentLink(id: string) {
+    setSendingLink(id);
+    setError("");
+    setOkMsg("");
+    try {
+      const res = await fetch("/api/students/projects/admin/send-payment-link", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-secret": secret,
+        },
+        body: JSON.stringify({ id }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Could not send payment link");
+        return;
+      }
+      const phaseLabel = data.phase === "deposit" ? "deposit" : "balance";
+      setOkMsg(
+        data.emailed
+          ? `Payment link (${phaseLabel}, ₦${Number(data.amountNgn).toLocaleString()}) emailed to ${data.email}`
+          : `Link created but email may have failed. Copy: ${data.authorizationUrl}`
+      );
+      await load();
+    } catch {
+      setError("Network error sending payment link");
+    } finally {
+      setSendingLink(null);
     }
   }
 
@@ -149,10 +189,18 @@ export default function AdminStudentsPage() {
     };
     for (const r of rows) {
       if (r.status === "pending_payment") c.pending_payment++;
-      if (r.status === "deposit_paid" || r.status === "in_progress" || r.status === "paid")
+      if (
+        r.status === "deposit_paid" ||
+        r.status === "in_progress" ||
+        r.status === "paid"
+      )
         c.deposit_paid++;
       if (r.status === "awaiting_balance") c.awaiting_balance++;
-      if (r.status === "fully_paid" || r.status === "completed" || r.delivery_unlocked)
+      if (
+        r.status === "fully_paid" ||
+        r.status === "completed" ||
+        r.delivery_unlocked
+      )
         c.fully_paid++;
     }
     return c;
@@ -168,6 +216,18 @@ export default function AdminStudentsPage() {
     return `https://wa.me/${n}?text=${text}`;
   }
 
+  function canSendPaymentLink(p: Project) {
+    if (p.delivery_unlocked) return false;
+    if (p.status === "fully_paid" || p.status === "completed") return false;
+    if (p.status === "cancelled") return false;
+    return true;
+  }
+
+  function paymentLinkLabel(p: Project) {
+    if (p.status === "pending_payment") return "Send deposit link";
+    return "Send balance link";
+  }
+
   return (
     <main className="pb-20 pt-8 lg:pt-10">
       <div className="mx-auto max-w-[1100px] px-5 sm:px-8">
@@ -180,7 +240,7 @@ export default function AdminStudentsPage() {
               Student projects
             </h1>
             <p className="mt-1 text-[13px] text-[#a1a1a6]">
-              50% deposit → work → mark Delivered → student pays 50% → unlock
+              50% deposit → work → mark Delivered → send payment link → unlock
               download.
             </p>
           </div>
@@ -204,10 +264,15 @@ export default function AdminStudentsPage() {
         </div>
 
         {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
+        {okMsg && <p className="mt-4 text-sm text-emerald-400">{okMsg}</p>}
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <MiniKpi label="Total" value={counts.total} />
-          <MiniKpi label="Awaiting deposit" value={counts.pending_payment} accent />
+          <MiniKpi
+            label="Awaiting deposit"
+            value={counts.pending_payment}
+            accent
+          />
           <MiniKpi label="Deposit paid" value={counts.deposit_paid} />
           <MiniKpi label="Awaiting balance" value={counts.awaiting_balance} />
         </div>
@@ -256,8 +321,7 @@ export default function AdminStudentsPage() {
             const wa = waLink(p);
             const dep =
               p.deposit_ngn ?? Math.round(Number(p.amount_ngn || 0) / 2);
-            const bal =
-              p.balance_ngn ?? Number(p.amount_ngn || 0) - dep;
+            const bal = p.balance_ngn ?? Number(p.amount_ngn || 0) - dep;
             const paid = Number(p.amount_paid_ngn || 0);
             return (
               <div
@@ -289,9 +353,9 @@ export default function AdminStudentsPage() {
                       {p.topic}
                     </p>
                     <p className="mt-1 text-[12px] text-[#86868b]">
-                      Total ₦{Number(p.amount_ngn || 0).toLocaleString()} · Paid ₦
-                      {paid.toLocaleString()} · Dep ₦{dep.toLocaleString()} · Bal ₦
-                      {bal.toLocaleString()} · {p.email}
+                      Total ₦{Number(p.amount_ngn || 0).toLocaleString()} · Paid
+                      ₦{paid.toLocaleString()} · Dep ₦{dep.toLocaleString()} ·
+                      Bal ₦{bal.toLocaleString()} · {p.email}
                       {p.phone ? ` · ${p.phone}` : ""}
                     </p>
                   </div>
@@ -305,6 +369,18 @@ export default function AdminStudentsPage() {
                       >
                         WhatsApp
                       </a>
+                    )}
+                    {canSendPaymentLink(p) && (
+                      <button
+                        type="button"
+                        disabled={sendingLink === p.id || !secret}
+                        onClick={() => sendPaymentLink(p.id)}
+                        className="rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-3 py-1.5 text-[12px] font-medium text-[#ff8c14] hover:bg-[#ff8c14]/25 disabled:opacity-50"
+                      >
+                        {sendingLink === p.id
+                          ? "Sending…"
+                          : paymentLinkLabel(p)}
+                      </button>
                     )}
                     <button
                       type="button"
@@ -345,8 +421,8 @@ export default function AdminStudentsPage() {
                         ))}
                       </select>
                       <p className="mt-1 text-[11px] text-[#86868b]">
-                        Set to &quot;Ready — pay balance&quot; when work is done so
-                        student can pay final 50%.
+                        Set to &quot;Ready — pay balance&quot; when work is done,
+                        then use <strong>Send balance link</strong>.
                       </p>
                     </div>
                     <div>
@@ -368,6 +444,30 @@ export default function AdminStudentsPage() {
                         ))}
                       </select>
                     </div>
+
+                    {canSendPaymentLink(p) && (
+                      <div className="sm:col-span-2 rounded-xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 px-4 py-3">
+                        <p className="text-[13px] font-medium text-white">
+                          Email Paystack payment link
+                        </p>
+                        <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                          {p.status === "pending_payment"
+                            ? `Sends 50% deposit link (₦${dep.toLocaleString()}) to ${p.email}`
+                            : `Sends final 50% balance link (₦${bal.toLocaleString()}) to ${p.email}`}
+                        </p>
+                        <button
+                          type="button"
+                          disabled={sendingLink === p.id || !secret}
+                          onClick={() => sendPaymentLink(p.id)}
+                          className="mt-3 rounded-full bg-[#ff8c14] px-4 py-2 text-[12px] font-semibold text-black hover:bg-[#ffa03a] disabled:opacity-50"
+                        >
+                          {sendingLink === p.id
+                            ? "Creating & sending…"
+                            : paymentLinkLabel(p)}
+                        </button>
+                      </div>
+                    )}
+
                     <div className="sm:col-span-2">
                       <label className="text-[11px] uppercase tracking-wide text-[#86868b]">
                         Delivery URL (Google Drive / Dropbox link)
@@ -401,8 +501,7 @@ export default function AdminStudentsPage() {
                         </button>
                       </div>
                       <p className="mt-1 text-[11px] text-[#86868b]">
-                        Student only sees this link after final 50% is paid
-                        (auto-unlock via Paystack).
+                        Student only sees this after final 50% is paid.
                       </p>
                     </div>
                     {(p.school || p.level || p.deadline || p.notes) && (
