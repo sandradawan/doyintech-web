@@ -3,6 +3,11 @@ import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { fulfillPaidProduct } from "@/lib/delivery/fulfill";
 import { creditWallet } from "@/lib/bills/wallet";
+import {
+  emailStudentDepositPaid,
+  emailStudentBalancePaid,
+  emailOpsBalancePaid,
+} from "@/lib/students/notify";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
@@ -93,7 +98,7 @@ export async function POST(req: NextRequest) {
           const { data: existing } = await admin
             .from("student_projects")
             .select(
-              "id, request_id, amount_paid_ngn, deposit_ngn, balance_ngn, amount_ngn, status, stage"
+              "id, request_id, name, email, package_name, topic, amount_paid_ngn, deposit_ngn, balance_ngn, amount_ngn, status, stage, delivery_url"
             )
             .eq("request_id", requestId)
             .maybeSingle();
@@ -101,6 +106,17 @@ export async function POST(req: NextRequest) {
           if (existing?.id) {
             const prevPaid = Number(existing.amount_paid_ngn || 0);
             const newPaid = prevPaid + amountNgn;
+            const notifyBase = {
+              request_id: requestId,
+              name: existing.name || meta.customer_name || "Student",
+              email: existing.email || email,
+              package_name: existing.package_name || meta.product_name || "Project",
+              topic: existing.topic || undefined,
+              amount_ngn: existing.amount_ngn,
+              deposit_ngn: existing.deposit_ngn,
+              balance_ngn: existing.balance_ngn,
+              delivery_url: existing.delivery_url,
+            };
 
             if (phase === "balance") {
               await admin
@@ -121,8 +137,14 @@ export async function POST(req: NextRequest) {
                 stage: "completed",
                 note: `Final 50% paid (₦${amountNgn.toLocaleString()}) — download unlocked`,
               });
+
+              // Emails: student + ops
+              if (notifyBase.email) {
+                await emailStudentBalancePaid(notifyBase);
+                await emailOpsBalancePaid(notifyBase, amountNgn);
+              }
             } else {
-              // deposit (default)
+              // deposit
               await admin
                 .from("student_projects")
                 .update({
@@ -142,6 +164,10 @@ export async function POST(req: NextRequest) {
                 stage: "topic_review",
                 note: `50% deposit paid (₦${amountNgn.toLocaleString()}) — work can start`,
               });
+
+              if (notifyBase.email) {
+                await emailStudentDepositPaid(notifyBase);
+              }
             }
           }
         } catch (e) {

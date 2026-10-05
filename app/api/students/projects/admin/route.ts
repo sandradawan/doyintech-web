@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { PROJECT_STAGES } from "@/lib/students/packages";
+import {
+  emailStudentBalanceDue,
+  emailOpsBalanceDue,
+} from "@/lib/students/notify";
 
 function adminOk(req: NextRequest) {
   const secret =
@@ -49,26 +53,46 @@ export async function PATCH(req: NextRequest) {
     if (!id) {
       return NextResponse.json({ error: "id required" }, { status: 400 });
     }
+
+    // Load current row for email + transition detection
+    const { data: before } = await sb
+      .from("student_projects")
+      .select(
+        "id, request_id, name, email, package_name, topic, amount_ngn, deposit_ngn, balance_ngn, stage, status, delivery_url, delivery_unlocked"
+      )
+      .eq("id", id)
+      .maybeSingle();
+
+    if (!before) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
     const patch: Record<string, unknown> = {
       updated_at: new Date().toISOString(),
     };
+    let markingBalanceDue = false;
+
     if (body.stage) {
       const ok = PROJECT_STAGES.some((s) => s.code === body.stage);
       if (!ok) {
         return NextResponse.json({ error: "Invalid stage" }, { status: 400 });
       }
       patch.stage = body.stage;
-      // When marked delivered, open balance payment
       if (body.stage === "delivered") {
         patch.status = "awaiting_balance";
-      }
-      if (body.stage === "completed") {
-        // completed without full pay should still not unlock — only webhook unlocks
-        // admin can force unlock only via delivery_unlocked + delivery_url
+        if (before.stage !== "delivered" && before.status !== "awaiting_balance") {
+          markingBalanceDue = true;
+        }
       }
     }
     if (body.status) {
       patch.status = String(body.status);
+      if (
+        body.status === "awaiting_balance" &&
+        before.status !== "awaiting_balance"
+      ) {
+        markingBalanceDue = true;
+      }
     }
     if (body.admin_notes != null) {
       patch.admin_notes = String(body.admin_notes).slice(0, 4000);
@@ -77,18 +101,11 @@ export async function PATCH(req: NextRequest) {
       const url = String(body.delivery_url).trim().slice(0, 2000);
       patch.delivery_url = url || null;
     }
-    // Force unlock only if already fully paid (safety)
     if (body.delivery_unlocked === true) {
-      const { data: row } = await sb
-        .from("student_projects")
-        .select("status, delivery_unlocked")
-        .eq("id", id)
-        .maybeSingle();
       if (
-        row &&
-        (row.status === "fully_paid" ||
-          row.status === "completed" ||
-          row.delivery_unlocked)
+        before.status === "fully_paid" ||
+        before.status === "completed" ||
+        before.delivery_unlocked
       ) {
         patch.delivery_unlocked = true;
       }
@@ -99,7 +116,7 @@ export async function PATCH(req: NextRequest) {
       .update(patch)
       .eq("id", id)
       .select(
-        "id, request_id, stage, status, delivery_url, delivery_unlocked"
+        "id, request_id, stage, status, delivery_url, delivery_unlocked, name, email, package_name, topic, amount_ngn, deposit_ngn, balance_ngn"
       )
       .single();
     if (error) {
@@ -113,12 +130,41 @@ export async function PATCH(req: NextRequest) {
         stage: body.stage,
         note:
           body.stage === "delivered"
-            ? "Marked ready — student can pay final 50% to unlock download"
+            ? "Marked ready — student emailed to pay final 50%"
             : "Stage updated by admin",
       });
     }
 
-    return NextResponse.json({ ok: true, project: data });
+    // Auto email when project becomes ready for balance payment
+    let emailed = false;
+    if (markingBalanceDue && data?.email) {
+      const payload = {
+        request_id: data.request_id,
+        name: data.name || before.name,
+        email: data.email || before.email,
+        package_name: data.package_name || before.package_name,
+        topic: data.topic || before.topic || undefined,
+        amount_ngn: data.amount_ngn ?? before.amount_ngn,
+        deposit_ngn: data.deposit_ngn ?? before.deposit_ngn,
+        balance_ngn: data.balance_ngn ?? before.balance_ngn,
+      };
+      emailed = await emailStudentBalanceDue(payload);
+      await emailOpsBalanceDue(payload);
+      if (emailed) {
+        await sb.from("student_project_events").insert({
+          project_id: data.id,
+          request_id: data.request_id,
+          stage: data.stage || "delivered",
+          note: `Balance-due email sent to ${payload.email}`,
+        });
+      }
+    }
+
+    return NextResponse.json({
+      ok: true,
+      project: data,
+      balanceEmailSent: emailed,
+    });
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
