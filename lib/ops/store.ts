@@ -1,3 +1,4 @@
+import { formatUsdFromNgn } from "@/lib/currency";
 import type {
   ActivityEvent,
   BusinessProfile,
@@ -43,7 +44,6 @@ function normalize(data: Partial<OpsWorkspace>): OpsWorkspace {
   };
 }
 
-/** Mark sent invoices past dueDate as overdue */
 export function syncOverdueInvoices(ws: OpsWorkspace): OpsWorkspace {
   const today = todayIsoDate();
   let changed = false;
@@ -75,12 +75,9 @@ export function saveWorkspace(ws: OpsWorkspace) {
   localStorage.setItem(KEY, JSON.stringify(ws));
 }
 
+/** Display amounts in USD (Paystack still settles NGN). */
 export function formatNgn(n: number) {
-  return new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-    maximumFractionDigits: 0,
-  }).format(n || 0);
+  return formatUsdFromNgn(n || 0);
 }
 
 export function phoneToWa(phone?: string): string | null {
@@ -283,7 +280,7 @@ export function seedDemoWorkspace(): OpsWorkspace {
     address: "12 Innovation Drive",
     city: "Jos, Nigeria",
     website: "https://doyintech.vercel.app",
-    bankNote: "Transfer to GTBank · Demo Studio · 0123456789",
+    bankNote: "Pay securely online via Paystack",
   };
   let ws: OpsWorkspace = {
     version: 1,
