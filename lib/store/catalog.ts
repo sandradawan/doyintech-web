@@ -1,3 +1,4 @@
+import { formatUsdFromNgn } from "@/lib/currency";
 import type { StoreListing } from "./types";
 
 /**
@@ -10,7 +11,7 @@ export const STORE_LISTINGS: StoreListing[] = [
     slug: "invoice-helper",
     kind: "app",
     title: "Invoice Helper",
-    shortDescription: "Create NGN invoices and print/save PDF in the browser.",
+    shortDescription: "Create invoices and print/save PDF in the browser.",
     description:
       "Free web app for freelancers and SMEs. Build a simple invoice and print or save as PDF.\n\nOpen instantly in your browser — no install required.\n\nSecurity: runs only in your browser; no server-side storage of invoice data.",
     developerName: "DoyinTech",
@@ -28,7 +29,7 @@ export const STORE_LISTINGS: StoreListing[] = [
     downloads: 0,
     ratingAvg: 4.8,
     ratingCount: 12,
-    features: ["NGN formatting", "Print / Save PDF", "No signup"],
+    features: ["Currency formatting", "Print / Save PDF", "No signup"],
     createdAt: "2026-09-14",
     publishedAt: "2026-09-14",
     screenshots: [
@@ -106,7 +107,7 @@ export const STORE_LISTINGS: StoreListing[] = [
     slug: "expense-log",
     kind: "app",
     title: "Expense Log",
-    shortDescription: "Log business expenses by category. Totals in NGN.",
+    shortDescription: "Log business expenses by category. Running totals.",
     description:
       "Simple expense tracker for founders. Categorize spend and see running totals. Stored on-device in the browser.",
     developerName: "DoyinTech",
@@ -191,9 +192,10 @@ export function getListingBySlug(slug: string): StoreListing | undefined {
   return STORE_LISTINGS.find((l) => l.slug === slug);
 }
 
+/** Display helper — shows USD (settlement remains NGN on Paystack). */
 export function formatNgn(n: number): string {
   if (n === 0) return "Free";
-  return `₦${n.toLocaleString("en-NG")}`;
+  return formatUsdFromNgn(n);
 }
 
 export const SECURITY_PIPELINE = [
