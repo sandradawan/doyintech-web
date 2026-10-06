@@ -9,7 +9,7 @@ const slides = [
   {
     title: "Websites that get clients",
     sub: "Pay for results.",
-    desc: "Fixed-price sites with WhatsApp booking — Landing ₦100k · Local business ₦250k. Deposit online today.",
+    desc: "Fixed-price sites with WhatsApp booking — Landing $65 · Local business $161. Deposit online today.",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
   },
   {
@@ -128,7 +128,7 @@ export default function Hero() {
               aria-label={`Show slide ${i + 1}`}
               onClick={() => setCurrent(i)}
               className={`h-2 w-2 rounded-full transition ${
-                i === current ? "bg-white" : "bg-white/30 hover:bg-white/50"
+                i === current ? "bg-white" : "bg-white/30"
               }`}
             />
           ))}
