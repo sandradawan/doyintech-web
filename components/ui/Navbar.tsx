@@ -22,6 +22,19 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    label: "Students",
+    items: [
+      { name: "Student tools hub", href: "/students", desc: "All research tools" },
+      { name: "AI Project Studio", href: "/students/studio", desc: "Outlines & chapter drafts" },
+      { name: "Questionnaire analyzer", href: "/students/analyzer", desc: "CSV → tables + narrative" },
+      { name: "Citation formatter", href: "/students/citations", desc: "APA, MLA, Chicago, Harvard" },
+      { name: "Cover letter AI", href: "/students/cover-letter", desc: "Job-ready drafts" },
+      { name: "Research project portal", href: "/students/projects", desc: "50% deposit · track by ID" },
+      { name: "Track a project", href: "/students/projects/track", desc: "Enter your Request ID" },
+      { name: "CV builder", href: "/tools/cv-builder", desc: "Free resume templates" },
+    ],
+  },
+  {
     label: "Shop",
     items: [
       { name: "Products", href: "/products", desc: "Digital packs & bundles" },
@@ -54,7 +67,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "About", href: "/about", desc: "Team & mission" },
       { name: "Blog", href: "/blog", desc: "Updates & videos" },
-      { name: "Refer & earn", href: "/refer", desc: "₦10k credit per deposit" },
+      { name: "Refer & earn", href: "/refer", desc: "Referral credits" },
       { name: "Company profile", href: "/company-profile", desc: "Legal & registration" },
       { name: "Contact", href: "/contact", desc: "Email or book a call" },
     ],
@@ -208,6 +221,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <a
+              href="/students"
+              className="hidden rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white transition hover:border-[#ff8c14] md:inline-flex"
+            >
+              Students
+            </a>
+            <a
               href="/bills"
               className="inline-flex rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-3 py-1.5 text-xs font-semibold text-[#ff8c14] transition hover:bg-[#ff8c14] hover:text-black"
             >
@@ -314,8 +333,14 @@ export default function Navbar() {
               })}
 
               <a
+                href="/students"
+                className="mt-4 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
+              >
+                Student research tools
+              </a>
+              <a
                 href="/bills"
-                className="mt-4 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
+                className="mt-2 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
               >
                 Top up airtime & data
               </a>
