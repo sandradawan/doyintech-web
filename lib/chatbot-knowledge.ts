@@ -14,81 +14,78 @@ export const INTENTS: ChatIntent[] = [
     id: "greeting",
     keywords: ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"],
     answer:
-      "Hello! I am the DoyinTech assistant. I can help with services, pricing, timelines, portfolio, and how to start a project. What do you need?",
+      "Hello! I am the DoyinTech assistant. I can help with services, pricing, student tools, timelines, portfolio, and how to start a project. What do you need?",
+  },
+  {
+    id: "students",
+    keywords: [
+      "student", "students", "research project", "questionnaire", "analyzer", "thesis",
+      "dissertation", "chapter", "final year", "project studio", "citation", "cover letter",
+    ],
+    answer:
+      "Student tools (worldwide, USD pricing):\n• AI Project Studio — free outlines, chapter scaffolds, abstracts, templates → /students/studio\n• Questionnaire analyzer — CSV → tables + results narrative → /students/analyzer\n• Citation formatter (APA/MLA/Chicago/Harvard) → /students/citations\n• AI cover letter → /students/cover-letter\n• Managed research projects with 50% deposit & Request ID tracking → /students/projects\n\nWhich one do you need?",
   },
   {
     id: "services",
     keywords: ["service", "services", "what do you do", "offer", "build"],
     answer:
-      "DoyinTech builds production software:\n• Backend engineering (Laravel, PHP, Node, MySQL)\n• APIs & system design\n• Flutter mobile apps\n• Web platforms (Next.js)\n• AI automation for business workflows\n\nWhich of these are you interested in?",
+      "DoyinTech builds production software:\n• Backend engineering (Laravel, PHP, Node, MySQL)\n• APIs & system design\n• Flutter mobile apps\n• Web platforms (Next.js)\n• AI automation for business workflows\n• Student research tools & digital products\n\nWhich of these are you interested in?",
   },
   {
     id: "pricing",
-    keywords: [
-      "price",
-      "pricing",
-      "cost",
-      "how much",
-      "budget",
-      "rate",
-      "dollar",
-      "usd",
-      "$",
-    ],
+    keywords: ["price", "pricing", "cost", "how much", "budget", "rate", "dollar", "usd", "$"],
     answer:
-      "Pricing is quoted in USD and depends on scope. Typical ranges:\n• API / module work — from $200\n• Backend MVP — often $500–$1,800+\n• Flutter mobile MVP — often $800–$2,800+\n• AI automation pilot — from $150\n\nShare your idea and we will give a clearer quote. Want me to connect you on WhatsApp?",
+      "Pricing is shown in USD (checkout via Paystack).\n• Student projects — proposal to full project with 50% deposit\n• API / module work — from $200\n• Backend MVP — often $500–$1,800+\n• Flutter mobile MVP — often $800–$2,800+\n• AI automation pilot — from $150\n\nShare your idea for a clearer quote. Want WhatsApp?",
   },
   {
     id: "timeline",
     keywords: ["timeline", "how long", "duration", "when", "deadline", "weeks"],
     answer:
-      "Typical timelines:\n• Discovery — 3–5 days\n• Focused backend/API work — 2–6 weeks\n• Mobile MVP — 4–10 weeks\n\nWe confirm a schedule after a short discovery call.",
+      "Typical timelines:\n• Discovery — 3–5 days\n• Focused backend/API work — 2–6 weeks\n• Mobile MVP — 4–10 weeks\n• Student project stages — tracked live with your Request ID after deposit\n\nWe confirm a schedule after a short discovery call.",
   },
   {
     id: "location",
     keywords: ["where", "location", "jos", "nigeria", "based", "office"],
     answer:
-      "We are based in Jos, Nigeria, and work with clients locally and internationally. Remote delivery is standard. Quotes are available in USD.",
+      "We are based in Jos and work with clients locally and internationally. Remote delivery is standard. Quotes and public prices are shown in USD.",
   },
   {
     id: "contact",
     keywords: ["contact", "email", "phone", "call", "reach", "whatsapp"],
     answer:
-      "You can reach DoyinTech at:\n• WhatsApp / Phone: +234 808 534 3926\n• Email: doyintechnology@outlook.com\n\nI can also open a WhatsApp chat with a summary of this conversation.",
+      "You can reach DoyinTech at:\n• WhatsApp / Phone: +234 808 534 3926\n• Email: hello@doyintech.com\n\nI can also open a WhatsApp chat with a summary of this conversation.",
   },
   {
     id: "portfolio",
     keywords: ["portfolio", "work", "projects", "case study", "clients", "examples"],
     answer:
-      "Selected work includes Imperial Villa (property portals), DoyinMart, LegacyPlay, JennyGlams, and Arqademy CBT. Browse the Portfolio page or ask about a specific industry.",
+      "Selected work includes Imperial Villa, DoyinMart, LegacyPlay, JennyGlams, and Arqademy CBT. Browse Portfolio or ask about a specific industry.",
   },
   {
     id: "tech",
     keywords: ["tech", "stack", "laravel", "flutter", "node", "php", "mysql", "next"],
     answer:
-      "Core stack: Laravel, PHP, Node.js, MySQL/PostgreSQL, Flutter, Next.js, and practical AI automation. We choose tools based on your product and team — not hype.",
+      "Core stack: Laravel, PHP, Node.js, MySQL/PostgreSQL, Flutter, Next.js, and practical AI automation.",
   },
   {
     id: "start",
     keywords: ["start", "begin", "hire", "quote", "proposal", "project"],
     answer:
-      "To start: tell us what you want to build, your timeline, and budget range (USD). You can use the Contact form or continue on WhatsApp for a faster reply. Shall I hand you over to WhatsApp?",
+      "To start: tell us what you want to build, your timeline, and budget range (USD). Use Contact, /hire, or WhatsApp. Students can open /students/studio for free tools first.",
   },
   {
     id: "founder",
     keywords: ["founder", "silas", "who", "owner", "ceo"],
     answer:
-      "DoyinTech is founded by Silas Doyin Jonathan — backend, APIs, Flutter, and automation focused on production-ready systems for real businesses.",
+      "DoyinTech is founded by Silas Doyin Jonathan — backend, APIs, Flutter, and automation focused on production-ready systems.",
   },
 ];
 
 export function matchIntent(message: string): ChatIntent | null {
   const q = message.toLowerCase().trim();
   if (!q) return null;
-
   let best: ChatIntent | null = null;
   let bestScore = 0;
-
   for (const intent of INTENTS) {
     let score = 0;
     for (const kw of intent.keywords) {
@@ -99,14 +96,13 @@ export function matchIntent(message: string): ChatIntent | null {
       best = intent;
     }
   }
-
   return bestScore > 0 ? best : null;
 }
 
 export function defaultReply(): string {
   return (
-    "Thanks for your message. I can help with services, pricing (USD), timelines, portfolio, and contact details.\n\n" +
-    "For a custom project discussion, continue on WhatsApp or leave your name and email and we will follow up.\n\n" +
-    "Type a topic (e.g. pricing, Flutter, Laravel) or say human to talk to the team."
+    "Thanks for your message. I can help with services, pricing (USD), student tools (AI Project Studio, analyzer, citations), timelines, portfolio, and contact.\n\n" +
+    "For a custom project, continue on WhatsApp or leave your name and email.\n\n" +
+    "Type a topic (e.g. students, pricing, Flutter) or say human to talk to the team."
   );
 }
