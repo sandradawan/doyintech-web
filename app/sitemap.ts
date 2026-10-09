@@ -66,6 +66,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
     "/students",
     "/students/analyzer",
+    "/students/studio",
+    "/students/citations",
+    "/students/cover-letter",
     "/students/projects",
     "/students/projects/track",
   ];
