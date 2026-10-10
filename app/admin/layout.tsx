@@ -11,6 +11,7 @@ const NAV = [
   { href: "/admin", label: "Overview", exact: true },
   { href: "/admin/leads", label: "Leads" },
   { href: "/admin/students", label: "Student projects" },
+  { href: "/admin/properties", label: "Properties" },
   { href: "/admin/orders", label: "Orders & sales" },
   { href: "/admin/analytics", label: "Social analytics" },
   { href: "/store/admin", label: "Store admin" },
@@ -44,15 +45,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               ))}
             </nav>
             <div className="mt-auto space-y-2 border-t border-white/10 px-2 pt-4">
-              <Link
-                href="/"
-                className="block text-[12px] text-[#86868b] hover:text-white"
-              >
+              <Link href="/" className="block text-[12px] text-[#86868b] hover:text-white">
                 ← Public site
               </Link>
-              <p className="text-[11px] text-[#555]">
-                Auth: ADMIN_LEADS_SECRET
-              </p>
+              <p className="text-[11px] text-[#555]">Auth: ADMIN_LEADS_SECRET</p>
             </div>
           </div>
         </aside>
@@ -60,9 +56,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="sticky top-0 z-20 border-b border-white/10 bg-[#0a0a0b]/90 backdrop-blur lg:hidden">
             <div className="flex items-center gap-3 overflow-x-auto px-4 py-3">
-              <span className="shrink-0 text-[12px] font-semibold text-[#ff8c14]">
-                CRM
-              </span>
+              <span className="shrink-0 text-[12px] font-semibold text-[#ff8c14]">CRM</span>
               {NAV.map((item) => (
                 <Link
                   key={item.href}
