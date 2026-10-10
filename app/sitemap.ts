@@ -20,6 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/bills",
     "/solve",
     "/ai",
+    "/ai/pitch",
+    "/real-estate",
     "/tools",
     "/tools/system-protector",
     "/services",
@@ -86,6 +88,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       path === "/bills" ||
       path === "/pricing" ||
       path === "/ai" ||
+      path === "/ai/pitch" ||
+      path === "/real-estate" ||
       path.startsWith("/students");
     const isTools = path.startsWith("/tools");
     const isBlog = path.startsWith("/blog");

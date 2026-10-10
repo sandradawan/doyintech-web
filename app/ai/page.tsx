@@ -6,7 +6,7 @@ import AiStudioClient from "@/components/ai/AiStudioClient";
 export const metadata: Metadata = {
   title: "AI Tools — Education, Finance, SME, Real Estate & Sales",
   description:
-    "Free structured AI tools for education, finance, SMEs, real estate, and sales. Optional OpenAI polish when configured. Student research tools included.",
+    "Free structured AI tools for education, finance, SMEs, real estate, and sales. Property search, pitch decks with live screenshots, student research tools.",
 };
 
 const sectors = [
@@ -25,14 +25,14 @@ const sectors = [
   {
     id: "sme",
     title: "SME / Business",
-    body: "Business plan outlines, elevator pitches, SWOT worksheets.",
-    href: "#sme",
+    body: "Business plans, SWOT, and pitch decks with live site snapshots.",
+    href: "/ai/pitch",
   },
   {
     id: "real_estate",
     title: "Real estate",
-    body: "Listing copy, viewing follow-ups, buyer qualification scripts.",
-    href: "#real_estate",
+    body: "Search homes to rent or buy — photos, videos, agent WhatsApp.",
+    href: "/real-estate",
   },
   {
     id: "sales",
@@ -58,35 +58,42 @@ export default function AiHubPage() {
             AI for education, finance, SMEs, real estate & sales
           </h1>
           <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
-            Structured generators that work immediately. When you add an OpenAI API
-            key, optional polish improves tone and clarity — without inventing facts.
+            Structured generators that work immediately. Property search and pitch
+            decks with live URL screenshots are included. Optional OpenAI polish when
+            configured.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {sectors.map((s) => (
-              <a
+              <Link
                 key={s.id}
                 href={s.href}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-[#ff8c14]/40"
               >
                 <p className="text-[14px] font-semibold text-white">{s.title}</p>
                 <p className="mt-1 text-[12px] leading-relaxed text-[#a1a1a6]">{s.body}</p>
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
+              href="/real-estate"
+              className="rounded-full bg-[#25D366] px-5 py-2.5 text-[13px] font-semibold text-white"
+            >
+              Search homes (rent & buy)
+            </Link>
+            <Link
+              href="/ai/pitch"
+              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+            >
+              Pitch deck + screenshot
+            </Link>
+            <Link
               href="/students"
               className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
             >
               Student research tools →
-            </Link>
-            <Link
-              href="/students/studio"
-              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
-            >
-              AI Project Studio
             </Link>
           </div>
 
