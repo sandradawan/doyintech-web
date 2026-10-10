@@ -104,8 +104,7 @@ export default function AdminCrmHome() {
               DoyinTech CRM
             </h1>
             <p className="mt-2 max-w-xl text-[14px] text-[#a1a1a6]">
-              One dashboard for leads, student projects, sales, store, and ops.
-              Unlock with your admin secret.
+              Leads, student projects, properties, sales, store, and ops — one dashboard.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -128,48 +127,25 @@ export default function AdminCrmHome() {
         </div>
 
         {err && <p className="mt-4 text-sm text-red-400">{err}</p>}
-        {data?.note && (
-          <p className="mt-4 text-sm text-amber-400">{data.note}</p>
-        )}
+        {data?.note && <p className="mt-4 text-sm text-amber-400">{data.note}</p>}
 
         {data && (
           <>
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
               <Kpi label="Leads" value={data.leads.total} href="/admin/leads" />
-              <Kpi
-                label="New leads"
-                value={data.leads.new}
-                href="/admin/leads"
-                accent
-              />
-              <Kpi
-                label="Student projects"
-                value={data.students.total}
-                href="/admin/students"
-              />
+              <Kpi label="New leads" value={data.leads.new} href="/admin/leads" accent />
+              <Kpi label="Student projects" value={data.students.total} href="/admin/students" />
               <Kpi
                 label="Awaiting pay"
                 value={data.students.pending_payment}
                 href="/admin/students"
               />
-              <Kpi
-                label="Students paid"
-                value={data.students.paid}
-                href="/admin/students"
-              />
-              <Kpi
-                label="Purchases"
-                value={data.purchases.total}
-                href="/admin/orders"
-              />
+              <Kpi label="Students paid" value={data.students.paid} href="/admin/students" />
+              <Kpi label="Purchases" value={data.purchases.total} href="/admin/orders" />
             </div>
 
             <div className="mt-10 grid gap-6 lg:grid-cols-2">
-              <Section
-                title="Recent leads"
-                href="/admin/leads"
-                empty={!data.leads.recent.length}
-              >
+              <Section title="Recent leads" href="/admin/leads" empty={!data.leads.recent.length}>
                 {data.leads.recent.map((l) => (
                   <Row
                     key={l.id}
@@ -215,13 +191,14 @@ export default function AdminCrmHome() {
               </Section>
 
               <div className="rounded-2xl border border-white/10 bg-[#141416] p-5">
-                <h2 className="text-[15px] font-semibold text-white">
-                  Quick actions
-                </h2>
+                <h2 className="text-[15px] font-semibold text-white">Quick actions</h2>
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   <Action href="/admin/leads" label="Lead inbox" />
                   <Action href="/admin/students" label="Student pipeline" />
+                  <Action href="/admin/properties" label="Property listings" />
                   <Action href="/admin/orders" label="Orders & sales" />
+                  <Action href="/real-estate" label="Public property search" />
+                  <Action href="/real-estate/list" label="Agent list form" />
                   <Action href="/store/admin" label="Store listings" />
                   <Action href="/ops/app" label="DoyinOps workspace" />
                   <Action href="/admin/analytics" label="Social analytics" />
@@ -230,12 +207,10 @@ export default function AdminCrmHome() {
                     label="WhatsApp business"
                     external
                   />
-                  <Action href="/students/projects" label="Student portal (public)" />
                 </div>
                 {(data.errors?.leads || data.errors?.students) && (
                   <p className="mt-4 text-[12px] text-amber-400">
-                    DB notes: {data.errors.leads || ""}{" "}
-                    {data.errors.students || ""}
+                    DB notes: {data.errors.leads || ""} {data.errors.students || ""}
                   </p>
                 )}
               </div>
@@ -274,9 +249,7 @@ function Kpi({
       }`}
     >
       <p className="text-[24px] font-semibold text-white">{value}</p>
-      <p className="mt-1 text-[11px] uppercase tracking-wide text-[#86868b]">
-        {label}
-      </p>
+      <p className="mt-1 text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
     </Link>
   );
 }
@@ -301,11 +274,7 @@ function Section({
         </Link>
       </div>
       <div className="mt-4 space-y-2">
-        {empty ? (
-          <p className="text-[13px] text-[#86868b]">Nothing yet.</p>
-        ) : (
-          children
-        )}
+        {empty ? <p className="text-[13px] text-[#86868b]">Nothing yet.</p> : children}
       </div>
     </div>
   );
@@ -330,9 +299,7 @@ function Row({
         <div className="min-w-0">
           <p className="truncate text-[13px] font-medium text-white">{title}</p>
           <p className="truncate text-[12px] text-[#a1a1a6]">{meta}</p>
-          {sub && (
-            <p className="mt-0.5 truncate text-[11px] text-[#86868b]">{sub}</p>
-          )}
+          {sub && <p className="mt-0.5 truncate text-[11px] text-[#86868b]">{sub}</p>}
         </div>
         <span className="shrink-0 rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-[#a1a1a6]">
           {badge}
