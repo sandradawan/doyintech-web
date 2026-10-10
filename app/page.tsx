@@ -3,6 +3,7 @@ import TrustBar from "@/components/sections/TrustBar";
 import ResultsProof from "@/components/sections/ResultsProof";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
 import Packages from "@/components/sections/Packages";
+import StudentsTeaser from "@/components/sections/StudentsTeaser";
 import PassiveProducts from "@/components/sections/PassiveProducts";
 import Projects from "@/components/sections/Projects";
 import Guarantee from "@/components/sections/Guarantee";
@@ -14,7 +15,7 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 
 /**
- * Premium conversion homepage — trust → proof → packages → products → hire paths.
+ * Premium conversion homepage — trust → proof → packages → students → products → hire paths.
  */
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <ResultsProof />
         <CaseStudiesTeaser />
         <Packages />
+        <StudentsTeaser />
         <PassiveProducts />
         <Projects />
         <Guarantee />

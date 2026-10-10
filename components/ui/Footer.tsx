@@ -7,6 +7,19 @@ export default function Footer() {
 
   const cols = [
     {
+      title: "Students",
+      links: [
+        ["/students", "All student tools"],
+        ["/students/studio", "AI Project Studio"],
+        ["/students/analyzer", "Questionnaire analyzer"],
+        ["/students/citations", "Citation formatter"],
+        ["/students/cover-letter", "Cover letter AI"],
+        ["/students/projects", "Research project portal"],
+        ["/students/projects/track", "Track a project"],
+        ["/tools/cv-builder", "CV builder"],
+      ],
+    },
+    {
       title: "Shop",
       links: [
         ["/products", "Digital products"],
@@ -69,10 +82,15 @@ export default function Footer() {
               Sell this month. Build systems next.
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-[15px] leading-relaxed text-[#a1a1a6] sm:text-[17px]">
-              Run DoyinOps free, book a fixed-price website, or buy a pack and use
-              it today.
+              Run DoyinOps free, book a fixed-price website, open student research tools, or buy a pack and use it today.
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="/students"
+                className="inline-flex items-center justify-center rounded-full border border-[#ff8c14]/40 bg-[#ff8c14]/10 px-6 py-3 text-[14px] font-semibold text-[#ff8c14] transition hover:bg-[#ff8c14]/20"
+              >
+                Student tools
+              </a>
               <a
                 href="/ops/app"
                 className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.04] px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/35 hover:bg-white/[0.08]"
@@ -97,7 +115,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-10 sm:grid-cols-3">
+        <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {cols.map((col) => (
             <div key={col.title}>
               <h3 className="mb-4 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#f5f5f7]">
@@ -131,10 +149,7 @@ export default function Footer() {
               </a>
             </p>
             <p className="text-[13px]">
-              <a
-                href="mailto:hello@doyintech.com"
-                className="apple-link"
-              >
+              <a href="mailto:hello@doyintech.com" className="apple-link">
                 hello@doyintech.com
               </a>
             </p>
