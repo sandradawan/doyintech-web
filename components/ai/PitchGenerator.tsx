@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import LeadGate, { useLeadUnlocked } from "@/components/ai/LeadGate";
 
 type PitchSlide = {
   id: string;
@@ -25,9 +26,12 @@ export default function PitchGenerator() {
   const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);
   const [finalUrl, setFinalUrl] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
+  const { unlocked, setUnlocked } = useLeadUnlocked();
+  const [pendingReveal, setPendingReveal] = useState(false);
 
   const total = slides.length;
   const current = slides[index];
+  const canShowDeck = slides.length > 0 && unlocked;
 
   const go = useCallback(
     (dir: -1 | 1) => {
@@ -66,6 +70,7 @@ export default function PitchGenerator() {
       setMarkdown(data.markdown || "");
       setScreenshotUrl(data.screenshotUrl || null);
       setFinalUrl(data.finalUrl || null);
+      if (!unlocked) setPendingReveal(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -78,12 +83,15 @@ export default function PitchGenerator() {
     void navigator.clipboard.writeText(markdown);
   }
 
+  function printPdf() {
+    window.print();
+  }
+
   return (
     <div className="mt-10 space-y-10">
-      {/* Form */}
       <form
         onSubmit={generate}
-        className="rounded-[28px] border border-white/10 bg-[#141416] p-6 sm:p-8"
+        className="rounded-[28px] border border-white/10 bg-[#141416] p-6 sm:p-8 print:hidden"
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block sm:col-span-1">
@@ -154,22 +162,43 @@ export default function PitchGenerator() {
           >
             {loading ? "Designing deck + capturing site..." : "Generate visual pitch deck"}
           </button>
-          {markdown ? (
-            <button
-              type="button"
-              onClick={copyMd}
-              className="rounded-full border border-white/20 px-5 py-3 text-[14px] font-semibold text-white"
-            >
-              Copy notes
-            </button>
+          {canShowDeck ? (
+            <>
+              <button
+                type="button"
+                onClick={printPdf}
+                className="rounded-full border border-white/20 px-5 py-3 text-[14px] font-semibold text-white"
+              >
+                Print / Save PDF
+              </button>
+              <button
+                type="button"
+                onClick={copyMd}
+                className="rounded-full border border-white/20 px-5 py-3 text-[14px] font-semibold text-white"
+              >
+                Copy notes
+              </button>
+            </>
           ) : null}
         </div>
       </form>
 
-      {/* Deck stage */}
-      {current ? (
-        <div className="space-y-5">
-          <div className="flex items-center justify-between gap-3">
+      {pendingReveal && !unlocked ? (
+        <div className="print:hidden">
+          <LeadGate
+            product="SME Pitch Deck"
+            unlocked={unlocked}
+            onUnlock={() => {
+              setUnlocked(true);
+              setPendingReveal(false);
+            }}
+          />
+        </div>
+      ) : null}
+
+      {canShowDeck && current ? (
+        <div className="space-y-5" id="pitch-deck-print">
+          <div className="flex items-center justify-between gap-3 print:hidden">
             <p className="text-[13px] font-medium text-[#86868b]">
               Slide {index + 1} of {total} · Use arrow keys
             </p>
@@ -195,9 +224,9 @@ export default function PitchGenerator() {
             </div>
           </div>
 
-          {/* 16:9 presentation frame */}
+          {/* On-screen single slide */}
           <div
-            className="relative overflow-hidden rounded-[24px] border border-white/12 shadow-[0_40px_80px_rgba(0,0,0,0.55)]"
+            className="relative overflow-hidden rounded-[24px] border border-white/12 shadow-[0_40px_80px_rgba(0,0,0,0.55)] print:hidden"
             style={{ aspectRatio: "16 / 9" }}
           >
             <SlideCanvas
@@ -207,8 +236,24 @@ export default function PitchGenerator() {
             />
           </div>
 
-          {/* Thumbnails */}
-          <div className="flex gap-3 overflow-x-auto pb-2">
+          {/* Print: all slides stacked */}
+          <div className="hidden print:block">
+            {slides.map((s) => (
+              <div
+                key={s.id}
+                className="relative mb-6 overflow-hidden break-after-page border border-black/10"
+                style={{ aspectRatio: "16 / 9", width: "100%" }}
+              >
+                <SlideCanvas
+                  slide={s}
+                  screenshotUrl={screenshotUrl}
+                  finalUrl={finalUrl}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-3 overflow-x-auto pb-2 print:hidden">
             {slides.map((s, i) => (
               <button
                 key={s.id}
@@ -230,8 +275,8 @@ export default function PitchGenerator() {
             ))}
           </div>
         </div>
-      ) : (
-        <div className="flex aspect-[16/9] items-center justify-center rounded-[24px] border border-dashed border-white/15 bg-[#0c0c0e]">
+      ) : !pendingReveal || unlocked ? (
+        <div className="flex aspect-[16/9] items-center justify-center rounded-[24px] border border-dashed border-white/15 bg-[#0c0c0e] print:hidden">
           <div className="max-w-md px-6 text-center">
             <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">
               Deck preview
@@ -240,12 +285,11 @@ export default function PitchGenerator() {
               Your slides will appear here
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-[#a1a1a6]">
-              Generate to see a full 16:9 pitch with typography, color, and a live
-              product screenshot when your URL is public.
+              Generate a 16:9 pitch with typography, color, and a live product screenshot.
             </p>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -265,10 +309,6 @@ function SlideCanvas({
         <div
           className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-40 blur-3xl"
           style={{ background: "radial-gradient(circle, #ff8c14 0%, transparent 70%)" }}
-        />
-        <div
-          className="pointer-events-none absolute -bottom-24 left-1/4 h-64 w-64 rounded-full opacity-30 blur-3xl"
-          style={{ background: "radial-gradient(circle, #2997ff 0%, transparent 70%)" }}
         />
         <div className="relative">
           <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#ff8c14] sm:text-[13px]">
@@ -316,36 +356,16 @@ function SlideCanvas({
                 {slide.subhead}
               </p>
             ) : null}
-            {slide.bullets?.[0] ? (
-              <p className="mt-4 line-clamp-4 text-[12px] leading-relaxed text-[#86868b] sm:text-[13px]">
-                {slide.bullets[0]}
-              </p>
-            ) : null}
           </div>
           {finalUrl ? (
-            <a
-              href={finalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 truncate text-[12px] font-medium text-[#2997ff] hover:underline"
-            >
+            <p className="mt-4 truncate text-[12px] font-medium text-[#2997ff]">
               {finalUrl.replace(/^https?:\/\//, "")}
-            </a>
-          ) : (
-            <p className="text-[12px] text-[#6b7280]">No URL provided</p>
-          )}
+            </p>
+          ) : null}
         </div>
         <div className="relative flex flex-1 items-center justify-center bg-[#111114] p-4 sm:p-6">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-50"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,140,20,0.12), transparent 70%)",
-            }}
-          />
           {screenshotUrl ? (
             <div className="relative w-full max-w-[92%] overflow-hidden rounded-xl border border-white/15 shadow-2xl">
-              {/* Browser chrome */}
               <div className="flex items-center gap-2 border-b border-white/10 bg-[#1c1c1f] px-3 py-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
@@ -358,15 +378,12 @@ function SlideCanvas({
               <img
                 src={screenshotUrl}
                 alt="Product screenshot"
-                className="aspect-[16/10] w-full object-cover object-top bg-black"
+                className="aspect-[16/10] w-full bg-black object-cover object-top"
               />
             </div>
           ) : (
             <div className="flex h-[70%] w-[90%] flex-col items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/30 px-6 text-center">
               <p className="text-[15px] font-semibold text-white">Screenshot unavailable</p>
-              <p className="mt-2 max-w-xs text-[13px] text-[#86868b]">
-                Paste a public URL and regenerate. Some sites block automated capture.
-              </p>
             </div>
           )}
         </div>
@@ -377,17 +394,11 @@ function SlideCanvas({
   if (slide.kind === "ask") {
     return (
       <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-br from-[#1a1008] via-[#0a0a0c] to-[#0a0a0c] p-8 sm:p-12 lg:p-14">
-        <div
-          className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-30"
-          style={{
-            background: "linear-gradient(135deg, transparent, rgba(255,140,20,0.25))",
-          }}
-        />
         <div className="relative">
           <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#ff8c14]">
             {slide.eyebrow}
           </p>
-          <h2 className="mt-4 max-w-3xl font-display text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[44px] lg:text-[48px]">
+          <h2 className="mt-4 max-w-3xl font-display text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[44px]">
             {slide.headline}
           </h2>
           {slide.subhead ? (
@@ -403,9 +414,7 @@ function SlideCanvas({
               className="rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 px-4 py-4"
             >
               <p className="text-[11px] font-semibold text-[#ff8c14]">Step {i + 1}</p>
-              <p className="mt-2 text-[14px] font-medium leading-snug text-white sm:text-[15px]">
-                {b}
-              </p>
+              <p className="mt-2 text-[14px] font-medium leading-snug text-white">{b}</p>
             </div>
           ))}
         </div>
@@ -413,7 +422,6 @@ function SlideCanvas({
     );
   }
 
-  // problem / solution / why — shared content layout
   const isProblem = slide.kind === "problem";
   return (
     <div className="absolute inset-0 flex bg-[#0a0a0c]">
@@ -427,7 +435,7 @@ function SlideCanvas({
           <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#ff8c14]">
             {slide.eyebrow}
           </p>
-          <h2 className="mt-4 max-w-3xl font-display text-[28px] font-semibold leading-tight tracking-tight text-white sm:text-[40px] lg:text-[44px]">
+          <h2 className="mt-4 max-w-3xl font-display text-[28px] font-semibold leading-tight tracking-tight text-white sm:text-[40px]">
             {slide.headline}
           </h2>
           {slide.subhead ? (
@@ -438,16 +446,11 @@ function SlideCanvas({
         </div>
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           {(slide.bullets || []).map((b, i) => (
-            <div
-              key={b}
-              className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5"
-            >
+            <div key={b} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5">
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-[12px] font-bold text-white">
                 {i + 1}
               </span>
-              <p className="mt-3 text-[14px] font-medium leading-snug text-[#f5f5f7] sm:text-[15px]">
-                {b}
-              </p>
+              <p className="mt-3 text-[14px] font-medium leading-snug text-[#f5f5f7]">{b}</p>
             </div>
           ))}
         </div>

@@ -24,27 +24,32 @@ export default function RealEstatePage() {
             </Link>{" "}
             / Real estate
           </p>
-          <p className="section-eyebrow mt-4">Real estate · Rent & buy</p>
-          <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[42px]">
-            Search homes by location & type
-          </h1>
-          <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
-            Filter by city or area, property type, and rent or buy. Each listing
-            shows photos, walkthrough video when available, price, and the agent&apos;s
-            WhatsApp number.
-          </p>
+          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="section-eyebrow">Real estate · Rent & buy</p>
+              <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[42px]">
+                Search homes by location & type
+              </h1>
+              <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
+                Filter by city or area, property type, and rent or buy. Each listing
+                shows photos, walkthrough video when available, price, and agent WhatsApp.
+              </p>
+            </div>
+            <Link
+              href="/real-estate/list"
+              className="shrink-0 rounded-full bg-[#25D366] px-5 py-2.5 text-[13px] font-semibold text-white"
+            >
+              List your property
+            </Link>
+          </div>
 
           <PropertySearch />
 
           <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-[13px] leading-relaxed text-[#a1a1a6]">
-            <p className="font-semibold text-white">About listing sources</p>
+            <p className="font-semibold text-white">Listing sources</p>
             <p className="mt-2">
-              Properties come from the DoyinTech curated catalog (demo + partner
-              inventory). We do <strong className="text-white">not</strong> scrape
-              Google Maps or Google Search listings — that violates Google&apos;s terms
-              and is unreliable. To grow inventory, agents can list with us, or we can
-              connect a property CRM / portal feed. Optional Google Places can only
-              enrich nearby amenities, not full sale/rent ads.
+              Demo catalog plus agent submissions approved in the DoyinTech CRM
+              (Admin → Properties). We do not scrape Google Maps.
             </p>
           </div>
         </div>
