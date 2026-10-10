@@ -66,7 +66,7 @@ const SECTOR_MODES: Record<Sector, ModeDef[]> = {
       fields: [
         { key: "businessName", label: "Business name", required: true },
         { key: "industry", label: "Industry", placeholder: "Retail / services / tech" },
-        { key: "goal", label: "12-month goal", placeholder: "Hit $X monthly revenue" },
+        { key: "goal", label: "12-month goal", placeholder: "Hit monthly revenue target" },
       ],
     },
     {
@@ -74,7 +74,7 @@ const SECTOR_MODES: Record<Sector, ModeDef[]> = {
       label: "Elevator pitch",
       fields: [
         { key: "businessName", label: "Business name", required: true },
-        { key: "whoFor", label: "Who it’s for", placeholder: "Busy clinic owners" },
+        { key: "whoFor", label: "Who it is for", placeholder: "Busy clinic owners" },
         { key: "problem", label: "Problem", placeholder: "Missed WhatsApp bookings" },
         { key: "outcome", label: "Outcome", placeholder: "More confirmed appointments" },
       ],
@@ -95,9 +95,13 @@ const SECTOR_MODES: Record<Sector, ModeDef[]> = {
       fields: [
         { key: "propertyType", label: "Property type", placeholder: "3-bed flat", required: true },
         { key: "location", label: "Location", required: true },
-        { key: "beds", label: "Beds / size", placeholder: "3 bed · 2 bath" },
-        { key: "features", label: "Features (comma-separated)", placeholder: "POP, prepaid meter, gated" },
-        { key: "price", label: "Price", placeholder: "$85,000 or ₦…” },
+        { key: "beds", label: "Beds / size", placeholder: "3 bed / 2 bath" },
+        {
+          key: "features",
+          label: "Features (comma-separated)",
+          placeholder: "POP, prepaid meter, gated",
+        },
+        { key: "price", label: "Price", placeholder: "85000 USD" },
       ],
     },
     {
@@ -201,7 +205,7 @@ export default function AiStudioClient() {
 
   return (
     <div className="mt-14">
-      <div className="flex flex-wrap gap-2" id={sector}>
+      <div className="flex flex-wrap gap-2">
         {(Object.keys(SECTOR_LABELS) as Sector[]).map((s) => (
           <button
             key={s}
@@ -270,7 +274,7 @@ export default function AiStudioClient() {
             Polish with OpenAI when key is configured
           </label>
 
-          {error && <p className="mt-3 text-[13px] text-red-400">{error}</p>}
+          {error ? <p className="mt-3 text-[13px] text-red-400">{error}</p> : null}
 
           <button
             type="button"
@@ -278,7 +282,7 @@ export default function AiStudioClient() {
             onClick={generate}
             className="mt-5 w-full rounded-full bg-[#ff8c14] py-3 text-[14px] font-semibold text-black disabled:opacity-60"
           >
-            {loading ? "Generating…" : "Generate"}
+            {loading ? "Generating..." : "Generate"}
           </button>
         </div>
 
@@ -286,11 +290,11 @@ export default function AiStudioClient() {
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-[14px] font-semibold text-white">Output</h3>
             <div className="flex items-center gap-2">
-              {llmUsed && (
+              {llmUsed ? (
                 <span className="rounded-full bg-[#2997ff]/20 px-2 py-0.5 text-[11px] text-[#2997ff]">
                   LLM polished
                 </span>
-              )}
+              ) : null}
               <button
                 type="button"
                 onClick={copyOut}
@@ -307,7 +311,7 @@ export default function AiStudioClient() {
         </div>
       </div>
 
-      {sector === "education" && (
+      {sector === "education" ? (
         <p className="mt-6 text-[13px] text-[#a1a1a6]">
           For full research projects (outlines, chapters, analyzer, citations), use the{" "}
           <a href="/students" className="text-[#2997ff] hover:underline">
@@ -315,7 +319,7 @@ export default function AiStudioClient() {
           </a>
           .
         </p>
-      )}
+      ) : null}
     </div>
   );
 }
