@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/store",
     "/bills",
     "/solve",
+    "/ai",
     "/tools",
     "/tools/system-protector",
     "/services",
@@ -84,6 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       path === "/free-audit" ||
       path === "/bills" ||
       path === "/pricing" ||
+      path === "/ai" ||
       path.startsWith("/students");
     const isTools = path.startsWith("/tools");
     const isBlog = path.startsWith("/blog");
