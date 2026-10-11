@@ -1,5 +1,6 @@
 import Hero from "@/components/hero/Hero";
 import TrustBar from "@/components/sections/TrustBar";
+import ClientLogos from "@/components/sections/ClientLogos";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
 import Services from "@/components/sections/Services";
 import WhyChoose from "@/components/sections/WhyChoose";
@@ -17,7 +18,7 @@ import Footer from "@/components/ui/Footer";
  * What do you do? → Can I trust you? → How much? → Let's talk.
  *
  * 1. Hero
- * 2. Trust bar
+ * 2. Trust bar + Client logos
  * 3. Featured Work
  * 4. Services
  * 5. Why DoyinTech
@@ -33,6 +34,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
+        <ClientLogos />
         <CaseStudiesTeaser />
         <Services />
         <WhyChoose />

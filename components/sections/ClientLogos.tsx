@@ -19,7 +19,7 @@ const clients: Client[] = [
   {
     name: "Imperial Villa",
     href: "https://www.imperialvillapropertydevelopment.com",
-    logo: "https://www.imperialvillapropertydevelopment.com/images/log.png",
+    logo: "https://www.imperialvillapropertydevelopment.com/images/logo.png",
     fit: "contain",
   },
   {
@@ -38,18 +38,6 @@ const clients: Client[] = [
     name: "JennyGlams",
     href: "https://jennyglams.vercel.app",
     logo: "https://jennyglams.vercel.app/icon.png",
-    fit: "contain",
-  },
-  {
-    name: "Imperial Villa",
-    href: "https://www.imperialvillapropertydevelopment.com",
-    logo: "https://www.imperialvillapropertydevelopment.com/images/logo.png",
-    fit: "contain",
-  },
-  {
-    name: "DoyinTech",
-    href: "https://doyintech.vercel.app",
-    logo: "/logo.png",
     fit: "contain",
   },
 ];
