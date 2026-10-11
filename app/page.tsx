@@ -1,21 +1,31 @@
 import Hero from "@/components/hero/Hero";
 import TrustBar from "@/components/sections/TrustBar";
-import ResultsProof from "@/components/sections/ResultsProof";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
+import Services from "@/components/sections/Services";
+import WhyChoose from "@/components/sections/WhyChoose";
 import Packages from "@/components/sections/Packages";
-import StudentsTeaser from "@/components/sections/StudentsTeaser";
-import PassiveProducts from "@/components/sections/PassiveProducts";
-import Projects from "@/components/sections/Projects";
-import Guarantee from "@/components/sections/Guarantee";
-import LeadMagnet from "@/components/sections/LeadMagnet";
 import Testimonials from "@/components/sections/Testimonials";
-import BookCall from "@/components/sections/BookCall";
+import Founder from "@/components/sections/Founder";
+import PassiveProducts from "@/components/sections/PassiveProducts";
 import FAQ from "@/components/sections/FAQ";
+import BookCall from "@/components/sections/BookCall";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 
 /**
- * Premium conversion homepage — trust → proof → packages → students → products → hire paths.
+ * 10/10 homepage flow:
+ * What do you do? → Can I trust you? → How much? → Let's talk.
+ *
+ * 1. Hero
+ * 2. Trust bar
+ * 3. Featured Work
+ * 4. Services
+ * 5. Why DoyinTech
+ * 6. Pricing
+ * 7. Testimonials
+ * 8. Founder
+ * 9. Digital Products
+ * 10. FAQ + Final CTA
  */
 export default function Home() {
   return (
@@ -23,17 +33,15 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
-        <ResultsProof />
         <CaseStudiesTeaser />
+        <Services />
+        <WhyChoose />
         <Packages />
-        <StudentsTeaser />
-        <PassiveProducts />
-        <Projects />
-        <Guarantee />
-        <LeadMagnet />
         <Testimonials />
-        <BookCall />
+        <Founder />
+        <PassiveProducts />
         <FAQ />
+        <BookCall />
         <Contact />
       </main>
       <Footer />

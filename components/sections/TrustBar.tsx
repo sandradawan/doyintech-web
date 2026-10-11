@@ -4,20 +4,20 @@ import ScrollReveal from "../animations/ScrollReveal";
 
 const items = [
   {
-    title: "Fixed price",
-    desc: "No vague quotes. See packages before you pay.",
+    title: "Fixed price packages",
+    desc: "See the offer before you pay — no vague quotes.",
   },
   {
-    title: "50% to start",
-    desc: "Deposit online, balance only before handoff.",
+    title: "50% deposit",
+    desc: "Start with half. Balance only before handoff.",
   },
   {
-    title: "Live in days",
-    desc: "Landing pages in ~1 week. Full sites in 2–4.",
+    title: "Real client projects",
+    desc: "Property, marketplaces, local businesses — live.",
   },
   {
-    title: "Paystack ready",
-    desc: "Card, bank, USSD — Naira & digital products.",
+    title: "WhatsApp support",
+    desc: "After launch help and clear communication.",
   },
 ];
 
