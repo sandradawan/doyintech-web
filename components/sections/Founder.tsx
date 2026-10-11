@@ -26,13 +26,13 @@ export default function Founder() {
                 Founder & Lead Engineer · Jos, Nigeria
               </p>
               <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-[#a1a1a6]">
-                African businesses deserve production-grade software — not fragile prototypes.
-                Backend architecture, scalable APIs, Laravel systems, Flutter apps, and practical
-                AI automation.
+                I started DoyinTech after seeing too many SMEs lose money to unclear quotes and
+                unfinished projects. Our goal is simple: build digital tools that help businesses
+                grow — with fixed prices, clear timelines, and real support.
               </p>
               <p className="mt-3 max-w-xl text-[16px] leading-relaxed text-[#a1a1a6]">
-                Every project is built to run in production for years: clean code, strong security,
-                and clear documentation.
+                Backend architecture, scalable APIs, websites, and practical systems built to run
+                in production for years.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href="/contact" className="apple-btn apple-btn-primary">

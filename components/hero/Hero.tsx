@@ -7,28 +7,28 @@ import { discoveryCallLink } from "@/lib/packages";
 
 const slides = [
   {
-    title: "Websites that get clients",
-    sub: "Pay for results.",
-    desc: "Fixed-price sites with WhatsApp booking — Landing $65 · Local business $161. Deposit online today.",
+    title: "Websites & business systems",
+    sub: "That help Nigerian SMEs get more customers.",
+    desc: "Fixed-price websites, WhatsApp booking systems, and custom software. Clear pricing. Clear timelines. No surprises.",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    title: "Student research tools",
-    sub: "From topic to delivery.",
-    desc: "Free AI Project Studio, questionnaire analyzer, citations — plus managed projects with Request ID tracking.",
-    img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=80",
+    title: "Fixed price · 50% deposit",
+    sub: "See the package before you pay.",
+    desc: "Starter, Growth, and custom systems with transparent ranges. Deposit online, balance only before handoff.",
+    img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    title: "Free website audit",
-    sub: "Fill your pipeline.",
-    desc: "3-minute audit: send your URL, get 2–3 fixes, and a clear next step — DIY or hire us.",
+    title: "Real client work",
+    sub: "Property, marketplaces, local businesses.",
+    desc: "Imperial Villa, DoyinMart, LegacyPlay and more — live sites that generate enquiries and bookings.",
     img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    title: "Digital products",
-    sub: "Sell while you sleep.",
-    desc: "Prompt packs, WhatsApp systems, ebooks, and Next.js templates — checkout with Paystack.",
-    img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1600&q=80",
+    title: "Free tools & digital kits",
+    sub: "Start free, scale when ready.",
+    desc: "WhatsApp scripts, audits, invoice helpers, and full SME kits — use today or hire us to implement.",
+    img: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1600&q=80",
   },
 ];
 
@@ -49,7 +49,6 @@ export default function Hero() {
   }, [next, reduce]);
 
   const slide = slides[current];
-  const isStudents = slide.title.includes("Student");
 
   return (
     <section className="relative overflow-hidden bg-black pt-12">
@@ -71,47 +70,27 @@ export default function Hero() {
               {slide.desc}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              {isStudents ? (
-                <>
-                  <a href="/students" className="apple-btn apple-btn-primary">
-                    All student tools
-                  </a>
-                  <a href="/students/studio" className="apple-btn apple-btn-secondary">
-                    AI Project Studio ›
-                  </a>
-                  <a
-                    href="/students/projects"
-                    className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-[15px] font-semibold text-white"
-                  >
-                    Research portal
-                  </a>
-                </>
-              ) : (
-                <>
-                  <a href="/hire" className="apple-btn apple-btn-primary">
-                    Hire — pay deposit
-                  </a>
-                  <a href="/students" className="apple-btn apple-btn-secondary">
-                    Student tools ›
-                  </a>
-                  <a
-                    href="/free-audit"
-                    className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-[15px] font-semibold text-white"
-                  >
-                    Free audit
-                  </a>
-                </>
-              )}
-            </div>
-            <p className="mt-4 text-[13px] text-[#86868b]">
-              Or{" "}
               <a
                 href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#2997ff] hover:underline"
+                className="apple-btn apple-btn-primary"
               >
-                book a free 15-min call
+                Book a free discovery call
+              </a>
+              <a href="/hire" className="apple-btn apple-btn-secondary">
+                View pricing ›
+              </a>
+            </div>
+            <p className="mt-4 text-[13px] text-[#86868b]">
+              Prefer WhatsApp?{" "}
+              <a
+                href="https://wa.me/2348085343926"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#25D366] hover:underline"
+              >
+                Chat with us
               </a>
             </p>
           </motion.div>
@@ -148,7 +127,7 @@ export default function Hero() {
               aria-label={`Show slide ${i + 1}`}
               onClick={() => setCurrent(i)}
               className={`h-2 w-2 rounded-full transition ${
-                i === current ? "bg-white" : "bg-white/30"
+                i === current ? "bg-white" : "bg-white/30 hover:bg-white/50"
               }`}
             />
           ))}
