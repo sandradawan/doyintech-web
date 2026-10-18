@@ -53,9 +53,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (
-      !["paid", "queued", "processing", "failed"].includes(order.status)
-    ) {
+    if (!["paid", "queued", "processing", "failed"].includes(order.status)) {
       return NextResponse.json(
         { error: `Cannot process status: ${order.status}` },
         { status: 400 }
@@ -74,17 +72,31 @@ export async function POST(req: NextRequest) {
       note: "Report generation started",
     });
 
+    const source =
+      order.source_data && typeof order.source_data === "object"
+        ? (order.source_data as { platforms?: { platform?: string; url?: string }[] })
+        : {};
+    const platforms = Array.isArray(source.platforms) ? source.platforms : [];
+
+    let reportType = "multi_platform";
+    if (order.product_id === "platform-basic") reportType = "single_platform";
+    else if (order.product_id === "platform-pro") reportType = "multi_platform";
+    else if (order.product_id === "platform-full") reportType = "full_presence";
+    else if (order.product_id === "biz-profile") reportType = "business_profile";
+    else if (String(order.product_id).startsWith("cv")) reportType = "cv_report";
+    else if (String(order.product_id).startsWith("ig-")) reportType = "single_platform";
+
     const content = await generateReportContent({
       productId: order.product_id,
       productName: order.product_name,
-      reportType: order.product_id.startsWith("ig-")
-        ? "instagram_audit"
-        : order.product_id.startsWith("cv")
-          ? "cv_report"
-          : "business_profile",
+      reportType,
       name: order.name,
       email: order.email,
       profileUrl: order.profile_url,
+      platforms: platforms.map((x) => ({
+        platform: String(x.platform || "other"),
+        url: String(x.url || ""),
+      })),
       businessCategory: order.business_category,
       businessObjective: order.business_objective,
       targetAudience: order.target_audience,
@@ -157,12 +169,7 @@ async function sendReportReadyEmail(opts: {
 }) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    console.log(
-      JSON.stringify({
-        event: "report_email_skipped",
-        orderId: opts.orderId,
-      })
-    );
+    console.log(JSON.stringify({ event: "report_email_skipped", orderId: opts.orderId }));
     return;
   }
   const from =
