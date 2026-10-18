@@ -1,13 +1,46 @@
-/** DoyinTech AI Report Studio — product catalogue (NGN settlement). */
+/** DoyinTech AI Report Studio — multi-platform product catalogue (NGN). */
 
 import { formatUsdFromNgn, ngnToKobo, priceLabelFromNgn } from "@/lib/currency";
+
+export type PlatformId =
+  | "instagram"
+  | "facebook"
+  | "tiktok"
+  | "youtube"
+  | "linkedin"
+  | "whatsapp"
+  | "twitter"
+  | "website"
+  | "other";
+
+export const PLATFORMS: {
+  id: PlatformId;
+  label: string;
+  placeholder: string;
+}[] = [
+  { id: "instagram", label: "Instagram", placeholder: "https://instagram.com/yourbrand" },
+  { id: "facebook", label: "Facebook", placeholder: "https://facebook.com/yourpage" },
+  { id: "tiktok", label: "TikTok", placeholder: "https://tiktok.com/@yourbrand" },
+  { id: "youtube", label: "YouTube", placeholder: "https://youtube.com/@yourchannel" },
+  { id: "linkedin", label: "LinkedIn", placeholder: "https://linkedin.com/in/you or /company/..." },
+  { id: "whatsapp", label: "WhatsApp Business", placeholder: "https://wa.me/234... or Business link" },
+  { id: "twitter", label: "X (Twitter)", placeholder: "https://x.com/yourhandle" },
+  { id: "website", label: "Website", placeholder: "https://yourbusiness.com" },
+  { id: "other", label: "Other", placeholder: "Any other public profile URL" },
+];
 
 export type ReportPackage = {
   id: string;
   name: string;
   priceNgn: number;
   amountKobo: number;
-  reportType: "instagram_audit" | "business_profile" | "cv_report" | "property_report";
+  reportType:
+    | "single_platform"
+    | "multi_platform"
+    | "full_presence"
+    | "business_profile"
+    | "cv_report";
+  maxPlatforms: number;
   blurb: string;
   includes: string[];
   badge?: string;
@@ -16,65 +49,73 @@ export type ReportPackage = {
 
 export const REPORT_PACKAGES: ReportPackage[] = [
   {
-    id: "ig-basic",
-    name: "Basic Instagram Audit",
-    priceNgn: 3_000,
-    amountKobo: ngnToKobo(3_000),
-    reportType: "instagram_audit",
-    blurb: "Profile review and five practical recommendations.",
+    id: "platform-basic",
+    name: "Single Platform Audit",
+    priceNgn: 5_000,
+    amountKobo: ngnToKobo(5_000),
+    reportType: "single_platform",
+    maxPlatforms: 1,
+    blurb:
+      "Deep review of one channel — Instagram, TikTok, YouTube, Facebook, LinkedIn, WhatsApp, or your website.",
     includes: [
-      "Public profile overview",
+      "Any one platform (IG, FB, TikTok, YT, LinkedIn, WA, site…)",
+      "Clarity, branding & conversion review",
       "5 prioritised recommendations",
       "Branded PDF-ready report",
-      "Email delivery",
     ],
     badge: "Start here",
   },
   {
-    id: "ig-pro",
-    name: "Professional Instagram Audit",
-    priceNgn: 10_000,
-    amountKobo: ngnToKobo(10_000),
-    reportType: "instagram_audit",
-    blurb: "Detailed analysis, branding, and content recommendations.",
+    id: "platform-pro",
+    name: "Multi-Platform Audit",
+    priceNgn: 15_000,
+    amountKobo: ngnToKobo(15_000),
+    reportType: "multi_platform",
+    maxPlatforms: 4,
+    blurb:
+      "Compare up to 4 channels. Find gaps, inconsistent branding, and where customers drop off.",
     includes: [
-      "Brand identity assessment",
-      "Bio & conversion review",
-      "Content opportunity analysis",
+      "Up to 4 platforms of your choice",
+      "Cross-channel branding consistency",
+      "Where to put your primary CTA",
+      "Content opportunity map",
       "Prioritised action list",
-      "Branded professional report",
     ],
     badge: "Most popular",
     recommended: true,
   },
   {
-    id: "ig-growth",
-    name: "Growth Strategy Report",
-    priceNgn: 25_000,
-    amountKobo: ngnToKobo(25_000),
-    reportType: "instagram_audit",
-    blurb: "Full audit plus a practical 30-day content action plan.",
+    id: "platform-full",
+    name: "Full Digital Presence Report",
+    priceNgn: 35_000,
+    amountKobo: ngnToKobo(35_000),
+    reportType: "full_presence",
+    maxPlatforms: 9,
+    blurb:
+      "Complete map of your online presence + 30-day multi-channel action plan.",
     includes: [
-      "Everything in Professional",
+      "All major platforms you use",
+      "Website + social alignment",
+      "Channel role recommendations",
       "30-day week-by-week plan",
-      "Content theme suggestions",
-      "Conversion checklist",
-      "Priority ranking",
+      "Conversion & content priorities",
     ],
   },
   {
     id: "biz-profile",
     name: "AI Business Profile Report",
-    priceNgn: 15_000,
-    amountKobo: ngnToKobo(15_000),
+    priceNgn: 20_000,
+    amountKobo: ngnToKobo(20_000),
     reportType: "business_profile",
-    blurb: "Website + social presence + digital readiness for SMEs.",
+    maxPlatforms: 6,
+    blurb:
+      "Website + socials + digital readiness — built for Nigerian SMEs ready to systemise.",
     includes: [
       "Online presence overview",
-      "Branding consistency notes",
+      "Multi-platform consistency",
       "Customer acquisition opportunities",
       "Tool & system recommendations",
-      "Clear next steps",
+      "Clear next steps (including build options)",
     ],
   },
   {
@@ -83,12 +124,13 @@ export const REPORT_PACKAGES: ReportPackage[] = [
     priceNgn: 5_000,
     amountKobo: ngnToKobo(5_000),
     reportType: "cv_report",
-    blurb: "Structured feedback to strengthen your CV for a target role.",
+    maxPlatforms: 2,
+    blurb: "Structured feedback to strengthen your CV (and optional LinkedIn).",
     includes: [
       "Structure & clarity review",
       "Impact wording suggestions",
       "Gaps vs target role",
-      "Rewrite priorities",
+      "Optional LinkedIn alignment notes",
     ],
   },
 ];
@@ -132,4 +174,13 @@ export function reportStatusLabel(status: string): string {
     cancelled: "Cancelled",
   };
   return map[status] || status;
+}
+
+export type PlatformLink = {
+  platform: PlatformId;
+  url: string;
+};
+
+export function platformLabel(id: string): string {
+  return PLATFORMS.find((p) => p.id === id)?.label || id;
 }
