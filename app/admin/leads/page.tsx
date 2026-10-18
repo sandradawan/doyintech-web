@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useAdminSession } from "@/components/admin/useAdminSession";
 
 type Lead = {
   id: string;
@@ -10,302 +11,177 @@ type Lead = {
   name: string;
   email?: string | null;
   phone?: string | null;
-  message?: string | null;
-  source?: string | null;
   status: string;
+  source?: string | null;
+  message?: string | null;
 };
 
 const STATUSES = ["new", "contacted", "qualified", "won", "lost"] as const;
-const SECRET_KEY = "doyin_admin_leads_secret";
 
 export default function AdminLeadsPage() {
-  const [secret, setSecret] = useState("");
+  const session = useAdminSession();
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [note, setNote] = useState("");
+  const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [filterStatus, setFilterStatus] = useState("");
-  const [filterType, setFilterType] = useState("");
+  const [filter, setFilter] = useState<string>("all");
   const [q, setQ] = useState("");
-  const [updating, setUpdating] = useState<string | null>(null);
 
-  useEffect(() => {
-    try {
-      const s = sessionStorage.getItem(SECRET_KEY);
-      if (s) setSecret(s);
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  async function load(overrideSecret?: string) {
-    const s = overrideSecret ?? secret;
-    if (!s) return;
+  const load = useCallback(async () => {
+    if (!session.isAdmin) return;
     setLoading(true);
     setErr("");
     try {
-      sessionStorage.setItem(SECRET_KEY, s);
-    } catch {
-      /* ignore */
-    }
-    try {
-      const qs = new URLSearchParams({ limit: "150" });
-      if (filterStatus) qs.set("status", filterStatus);
-      if (filterType) qs.set("type", filterType);
-      const res = await fetch(`/api/leads?${qs}`, {
-        headers: { "x-admin-secret": s },
+      const res = await fetch("/api/leads", {
+        headers: { ...session.authHeaders() },
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed");
-      setLeads(data.leads || []);
-      setNote(data.note || "");
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Failed to load leads");
+      setLeads(json.leads || json.data || []);
     } catch (e: unknown) {
       setErr(e instanceof Error ? e.message : "Error");
     } finally {
       setLoading(false);
     }
-  }
+  }, [session]);
+
+  useEffect(() => {
+    if (session.isAdmin) void load();
+  }, [session.isAdmin, load]);
 
   async function setStatus(id: string, status: string) {
-    setUpdating(id);
     try {
       const res = await fetch("/api/leads", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "x-admin-secret": secret,
+          ...session.authHeaders(),
         },
         body: JSON.stringify({ id, status }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Update failed");
-      setLeads((prev) =>
-        prev.map((l) => (l.id === id ? { ...l, status } : l))
-      );
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || "Update failed");
+      setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status } : l)));
     } catch (e: unknown) {
-      setErr(e instanceof Error ? e.message : "Update error");
-    } finally {
-      setUpdating(null);
+      setErr(e instanceof Error ? e.message : "Update failed");
     }
   }
-
-  const counts = useMemo(() => {
-    const c: Record<string, number> = {
-      new: 0,
-      contacted: 0,
-      qualified: 0,
-      won: 0,
-      lost: 0,
-      total: leads.length,
-    };
-    for (const l of leads) {
-      if (l.status in c) c[l.status]++;
-    }
-    return c;
-  }, [leads]);
 
   const filtered = useMemo(() => {
-    if (!q.trim()) return leads;
-    const t = q.trim().toLowerCase();
-    return leads.filter(
-      (l) =>
-        l.name.toLowerCase().includes(t) ||
-        (l.email || "").toLowerCase().includes(t) ||
-        (l.phone || "").includes(t) ||
-        (l.product || "").toLowerCase().includes(t) ||
-        (l.message || "").toLowerCase().includes(t)
-    );
-  }, [leads, q]);
-
-  function waLink(l: Lead) {
-    const phone = (l.phone || "").replace(/\D/g, "");
-    if (!phone) return null;
-    const text = encodeURIComponent(
-      `Hi ${l.name}, thanks for reaching out to DoyinTech about ${l.product}.`
-    );
-    const n = phone.startsWith("234") ? phone : phone.replace(/^0/, "234");
-    return `https://wa.me/${n}?text=${text}`;
-  }
+    let rows = leads;
+    if (filter !== "all") rows = rows.filter((l) => l.status === filter);
+    const needle = q.trim().toLowerCase();
+    if (needle) {
+      rows = rows.filter((l) =>
+        [l.name, l.email, l.phone, l.product, l.type, l.message]
+          .filter(Boolean)
+          .some((v) => String(v).toLowerCase().includes(needle))
+      );
+    }
+    return rows;
+  }, [leads, filter, q]);
 
   return (
-    <main className="pb-20 pt-8 lg:pt-10">
-      <div className="mx-auto max-w-[1100px] px-5 sm:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#ff8c14]">
-              Inbox
-            </p>
-            <h1 className="mt-1 font-display text-[26px] font-semibold text-white sm:text-[30px]">
-              Leads
-            </h1>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">
-              Site enquiries, audits, chat, hire, referrals — status pipeline.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <input
-              type="password"
-              value={secret}
-              onChange={(e) => setSecret(e.target.value)}
-              placeholder="Admin secret"
-              className="min-w-[160px] rounded-xl border border-white/15 bg-[#141a28] px-4 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
-            />
-            <button
-              type="button"
-              onClick={() => load()}
-              disabled={loading || !secret}
-              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black disabled:opacity-50"
-            >
-              {loading ? "Loading…" : "Load"}
-            </button>
-          </div>
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">
+            Inbox
+          </p>
+          <h1 className="mt-1 font-display text-[24px] font-semibold text-white">
+            Leads
+          </h1>
+          <p className="mt-1 text-[13px] text-[#86868b]">
+            Loaded with your signed-in admin session (no secret key)
+          </p>
         </div>
-
-        {err && <p className="mt-4 text-sm text-red-400">{err}</p>}
-        {note && <p className="mt-2 text-sm text-amber-400">{note}</p>}
-
-        <div className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {(["total", "new", "contacted", "qualified", "won", "lost"] as const).map(
-            (k) => (
-              <div
-                key={k}
-                className={`rounded-2xl border px-3 py-3 ${
-                  k === "new"
-                    ? "border-[#ff8c14]/40 bg-[#ff8c14]/10"
-                    : "border-white/10 bg-[#141416]"
-                }`}
-              >
-                <p className="text-[20px] font-semibold text-white">
-                  {counts[k] ?? 0}
-                </p>
-                <p className="text-[10px] uppercase tracking-wide text-[#86868b]">
-                  {k}
-                </p>
-              </div>
-            )
-          )}
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search name, email, product…"
-            className="min-w-[180px] flex-1 rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]"
-          />
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white"
-          >
-            <option value="">All statuses</option>
-            {STATUSES.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            className="rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white"
-          >
-            <option value="">All types</option>
-            <option value="waitlist">waitlist</option>
-            <option value="purchase">purchase</option>
-            <option value="audit">audit</option>
-            <option value="chat">chat</option>
-            <option value="referral">referral</option>
-            <option value="maintenance">maintenance</option>
-            <option value="lead-magnet">lead-magnet</option>
-          </select>
-          <button
-            type="button"
-            onClick={() => load()}
-            className="rounded-xl border border-white/15 px-3 py-2 text-[12px] text-[#a1a1a6] hover:text-white"
-          >
-            Apply
-          </button>
-        </div>
-
-        <div className="mt-6 space-y-3">
-          {filtered.length === 0 && !loading && (
-            <p className="rounded-2xl border border-white/10 bg-[#141416] px-5 py-8 text-center text-[13px] text-[#86868b]">
-              No leads match.
-            </p>
-          )}
-          {filtered.map((l) => {
-            const wa = waLink(l);
-            return (
-              <div
-                key={l.id}
-                className="rounded-2xl border border-white/10 bg-[#141416] p-4 sm:p-5"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="text-[15px] font-medium text-white">
-                        {l.name}
-                      </p>
-                      <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-[#a1a1a6]">
-                        {l.type}
-                      </span>
-                    </div>
-                    <p className="mt-0.5 text-[13px] text-[#a1a1a6]">
-                      {l.product}
-                      {l.source ? ` · ${l.source}` : ""}
-                    </p>
-                    <p className="mt-1 text-[12px] text-[#86868b]">
-                      {l.email || "—"}
-                      {l.phone ? ` · ${l.phone}` : ""} ·{" "}
-                      {l.created_at
-                        ? new Date(l.created_at).toLocaleString()
-                        : ""}
-                    </p>
-                    {l.message && (
-                      <p className="mt-2 line-clamp-3 whitespace-pre-wrap text-[12px] text-[#a1a1a6]">
-                        {l.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <select
-                      value={l.status}
-                      disabled={updating === l.id}
-                      onChange={(e) => setStatus(l.id, e.target.value)}
-                      className="rounded-xl border border-white/10 bg-black/40 px-3 py-1.5 text-[12px] text-white"
-                    >
-                      {STATUSES.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                    {wa && (
-                      <a
-                        href={wa}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[12px] text-emerald-400 hover:underline"
-                      >
-                        WhatsApp
-                      </a>
-                    )}
-                    {l.email && (
-                      <a
-                        href={`mailto:${l.email}`}
-                        className="text-[12px] text-[#2997ff] hover:underline"
-                      >
-                        Email
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <button
+          type="button"
+          onClick={() => load()}
+          disabled={loading}
+          className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-white disabled:opacity-50"
+        >
+          {loading ? "Loading…" : "Refresh"}
+        </button>
       </div>
-    </main>
+
+      {err ? (
+        <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">
+          {err}
+        </p>
+      ) : null}
+
+      <div className="flex flex-wrap gap-2">
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search name, email, product…"
+          className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]/50"
+        />
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+        >
+          <option value="all">All statuses</option>
+          {STATUSES.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="overflow-hidden rounded-2xl border border-white/10">
+        <table className="w-full text-left text-[13px]">
+          <thead className="bg-white/[0.04] text-[11px] uppercase tracking-wide text-[#86868b]">
+            <tr>
+              <th className="px-3 py-2.5 font-medium">Lead</th>
+              <th className="hidden px-3 py-2.5 font-medium sm:table-cell">Product</th>
+              <th className="px-3 py-2.5 font-medium">Status</th>
+              <th className="hidden px-3 py-2.5 font-medium md:table-cell">When</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((l) => (
+              <tr key={l.id} className="border-t border-white/5">
+                <td className="px-3 py-3">
+                  <p className="font-medium text-white">{l.name}</p>
+                  <p className="text-[12px] text-[#a1a1a6]">
+                    {l.email || l.phone || "—"}
+                  </p>
+                </td>
+                <td className="hidden px-3 py-3 text-[#a1a1a6] sm:table-cell">
+                  {l.product}
+                  <span className="block text-[11px] text-[#86868b]">{l.type}</span>
+                </td>
+                <td className="px-3 py-3">
+                  <select
+                    value={l.status}
+                    onChange={(e) => setStatus(l.id, e.target.value)}
+                    className="rounded-lg border border-white/10 bg-black/40 px-2 py-1.5 text-[12px] text-white"
+                  >
+                    {STATUSES.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="hidden px-3 py-3 text-[12px] text-[#86868b] md:table-cell">
+                  {l.created_at ? new Date(l.created_at).toLocaleString() : "—"}
+                </td>
+              </tr>
+            ))}
+            {!loading && filtered.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="px-3 py-8 text-center text-[#86868b]">
+                  No leads match.
+                </td>
+              </tr>
+            ) : null}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
