@@ -37,6 +37,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Shop",
     items: [
+      { name: "AI Report Studio", href: "/reports", desc: "Multi-platform audits · PDF" },
       { name: "Products", href: "/products", desc: "Digital packs & bundles" },
       { name: "System Protector Kit", href: "/products", desc: "Phone & WhatsApp hardening" },
       { name: "Follow-up Agent Kit", href: "/products", desc: "Turn quotes into deposits" },
@@ -49,6 +50,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Tools",
     items: [
+      { name: "AI Report Studio", href: "/reports", desc: "IG, TikTok, YT, LinkedIn, web…" },
       { name: "AI Tools hub", href: "/ai", desc: "Education, finance, SME, sales, property" },
       { name: "SME Solve hub", href: "/solve", desc: "Pipeline, booking, cash, quotes" },
       { name: "Bills — airtime & data", href: "/bills", desc: "Top-up + Remita RRR" },
@@ -222,6 +224,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <a
+              href="/reports"
+              className="inline-flex rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-3 py-1.5 text-xs font-semibold text-[#ff8c14] transition hover:bg-[#ff8c14] hover:text-black"
+            >
+              Reports
+            </a>
+            <a
               href="/ai"
               className="hidden rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white transition hover:border-[#ff8c14] md:inline-flex"
             >
@@ -232,12 +240,6 @@ export default function Navbar() {
               className="hidden rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white transition hover:border-[#ff8c14] lg:inline-flex"
             >
               Students
-            </a>
-            <a
-              href="/bills"
-              className="inline-flex rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-3 py-1.5 text-xs font-semibold text-[#ff8c14] transition hover:bg-[#ff8c14] hover:text-black"
-            >
-              Top up
             </a>
             <a
               href="/hire"
@@ -334,8 +336,14 @@ export default function Navbar() {
               })}
 
               <a
+                href="/reports"
+                className="mt-4 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
+              >
+                AI Report Studio
+              </a>
+              <a
                 href="/ai"
-                className="mt-4 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/40 bg-[#ff8c14]/10 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
+                className="mt-2 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
               >
                 AI Tools — all sectors
               </a>
@@ -344,12 +352,6 @@ export default function Navbar() {
                 className="mt-2 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
               >
                 Student research tools
-              </a>
-              <a
-                href="/bills"
-                className="mt-2 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
-              >
-                Top up airtime & data
               </a>
               <a
                 href="/hire"
