@@ -1,10 +1,12 @@
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAID_TOOLS } from "@/lib/tools/paid";
-import { STORE_LISTINGS } from "@/lib/store/catalog";
+import { getAllPublishedListings } from "@/lib/store/published";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getServiceOffer } from "@/lib/service-offers";
+import { getStudentPackage } from "@/lib/students/packages";
+import { resolveAmountKobo } from "@/lib/pricing/overrides";
 
 export type PayItem = {
   id: string;
@@ -13,8 +15,7 @@ export type PayItem = {
   delivery?: string;
 };
 
-/** Sync catalog lookup — safe for payment initialize (no async DB). */
-export function getPayItem(id: string): PayItem | undefined {
+function basePayItem(id: string): PayItem | undefined {
   const service = getServiceOffer(id);
   if (service) {
     return {
@@ -34,6 +35,7 @@ export function getPayItem(id: string): PayItem | undefined {
       delivery: product.delivery,
     };
   }
+
   const tool = PAID_TOOLS.find((t) => t.productId === id);
   if (tool) {
     return {
@@ -50,7 +52,7 @@ export function getPayItem(id: string): PayItem | undefined {
       id: ebook.id,
       name: ebook.title + " (Ebook)",
       amountKobo: ebook.amountKobo,
-      delivery: "Full ebook unlock on site + automatic PDF/MD email",
+      delivery: "Full ebook unlock on site + illustrated PDF",
     };
   }
 
@@ -74,15 +76,51 @@ export function getPayItem(id: string): PayItem | undefined {
     };
   }
 
-  const listing = STORE_LISTINGS.find((l) => l.id === id || l.slug === id);
-  if (listing && listing.priceNgn > 0) {
+  const student = getStudentPackage(id);
+  if (student) {
     return {
-      id: listing.slug,
-      name: listing.title,
-      amountKobo: listing.amountKobo || listing.priceNgn * 100,
-      delivery: "Automatic PDF + Markdown delivery after payment",
+      id: student.id,
+      name: student.name,
+      amountKobo: student.amountKobo,
+      delivery: "Student project payment",
     };
   }
 
+  try {
+    const listing = getAllPublishedListings().find(
+      (l) => l.id === id || l.slug === id
+    );
+    if (listing && listing.priceNgn > 0) {
+      return {
+        id: listing.slug,
+        name: listing.title,
+        amountKobo: listing.amountKobo || listing.priceNgn * 100,
+        delivery: "DoyinStore secure download after payment",
+      };
+    }
+  } catch {
+    /* ignore */
+  }
+
   return undefined;
+}
+
+/** Resolve Paystack item; applies admin pricing overrides when configured. */
+export async function getPayItem(id: string): Promise<PayItem | undefined> {
+  const item = basePayItem(id);
+  if (!item) return undefined;
+  try {
+    const overrideKobo = await resolveAmountKobo(id);
+    if (overrideKobo != null && overrideKobo >= 0) {
+      return { ...item, amountKobo: overrideKobo };
+    }
+  } catch {
+    /* fall through to default */
+  }
+  return item;
+}
+
+/** Sync fallback for non-async call sites (uses code defaults only). */
+export function getPayItemSync(id: string): PayItem | undefined {
+  return basePayItem(id);
 }
