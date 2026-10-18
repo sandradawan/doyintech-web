@@ -4,9 +4,9 @@ import Footer from "@/components/ui/Footer";
 import PitchGenerator from "@/components/ai/PitchGenerator";
 
 export const metadata: Metadata = {
-  title: "SME Pitch Deck Generator — Visual slides",
+  title: "AI Pitch Deck Generator — Animated 16:9 slides",
   description:
-    "Generate a professional 16:9 pitch deck with brand layout, typography, and a live website screenshot of your product URL.",
+    "Generate a cinematic, boardroom-ready pitch deck with animated transitions, professional typography, and a live website screenshot of your product.",
 };
 
 export default function PitchPage() {
@@ -24,13 +24,14 @@ export default function PitchPage() {
             </Link>{" "}
             / Pitch deck
           </p>
-          <p className="section-eyebrow mt-4">SME · Visual pitch</p>
+          <p className="section-eyebrow mt-4">SME · Cinematic pitch</p>
           <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[42px]">
-            Professional pitch slides — not just text
+            Animated pitch decks that explain — and persuade
           </h1>
           <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
-            16:9 presentation layout, strong typography, brand colors, numbered
-            point cards, and a browser-framed live screenshot of your product URL.
+            Seven 16:9 slides with motion transitions, boardroom typography, brand
+            color, numbered insight cards, and a live product screenshot. Built for
+            founders who need clarity that feels premium.
           </p>
           <PitchGenerator />
         </div>
