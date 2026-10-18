@@ -15,7 +15,7 @@ export type PayItem = {
   delivery?: string;
 };
 
-function basePayItem(id: string): PayItem | undefined {
+function basePayItemSync(id: string): PayItem | undefined {
   const service = getServiceOffer(id);
   if (service) {
     return {
@@ -86,29 +86,32 @@ function basePayItem(id: string): PayItem | undefined {
     };
   }
 
-  try {
-    const listing = getAllPublishedListings().find(
-      (l) => l.id === id || l.slug === id
-    );
-    if (listing && listing.priceNgn > 0) {
-      return {
-        id: listing.slug,
-        name: listing.title,
-        amountKobo: listing.amountKobo || listing.priceNgn * 100,
-        delivery: "DoyinStore secure download after payment",
-      };
-    }
-  } catch {
-    /* ignore */
-  }
-
   return undefined;
 }
 
 /** Resolve Paystack item; applies admin pricing overrides when configured. */
 export async function getPayItem(id: string): Promise<PayItem | undefined> {
-  const item = basePayItem(id);
+  let item = basePayItemSync(id);
+
+  if (!item) {
+    try {
+      const listings = await getAllPublishedListings();
+      const listing = listings.find((l) => l.id === id || l.slug === id);
+      if (listing && listing.priceNgn > 0) {
+        item = {
+          id: listing.slug,
+          name: listing.title,
+          amountKobo: listing.amountKobo || listing.priceNgn * 100,
+          delivery: "DoyinStore secure download after payment",
+        };
+      }
+    } catch {
+      /* ignore store lookup errors */
+    }
+  }
+
   if (!item) return undefined;
+
   try {
     const overrideKobo = await resolveAmountKobo(id);
     if (overrideKobo != null && overrideKobo >= 0) {
@@ -120,7 +123,7 @@ export async function getPayItem(id: string): Promise<PayItem | undefined> {
   return item;
 }
 
-/** Sync fallback for non-async call sites (uses code defaults only). */
+/** Sync fallback for non-async call sites (code defaults only, no store/overrides). */
 export function getPayItemSync(id: string): PayItem | undefined {
-  return basePayItem(id);
+  return basePayItemSync(id);
 }
