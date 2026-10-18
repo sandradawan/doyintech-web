@@ -1,18 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { requireAdmin } from "@/lib/admin/auth";
 
-function adminOk(req: NextRequest) {
-  const secret =
-    process.env.ADMIN_LEADS_SECRET ||
-    process.env.LEADS_ADMIN_SECRET ||
-    process.env.ADMIN_SECRET;
-  if (!secret) return false;
-  return (req.headers.get("x-admin-secret") || "") === secret;
+export const runtime = "nodejs";
+
+type LeadRow = {
+  id: string;
+  created_at: string;
+  type: string;
+  product: string;
+  name: string;
+  email?: string | null;
+  phone?: string | null;
+  status: string;
+  source?: string | null;
+};
+
+type ProjectRow = {
+  id: string;
+  request_id: string;
+  package_name: string;
+  stage: string;
+  status: string;
+  name: string;
+  email: string;
+  amount_ngn: number;
+  created_at: string;
+};
+
+function daysAgo(n: number) {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString();
 }
 
 export async function GET(req: NextRequest) {
-  if (!adminOk(req)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const auth = await requireAdmin(req);
+  if (!auth.ok) {
+    return NextResponse.json({ error: auth.error || "Unauthorized" }, { status: 401 });
   }
 
   const sb = getSupabaseAdmin();
@@ -20,78 +45,139 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       configured: false,
-      note: "Supabase not configured. Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY.",
-      leads: { total: 0, new: 0, byStatus: {}, recent: [] },
-      students: { total: 0, pending_payment: 0, paid: 0, byStage: {}, recent: [] },
-      purchases: { total: 0, recent: [] },
+      note: "Supabase service role not configured",
+      stats: null,
     });
   }
 
-  const [leadsRes, studentsRes, purchaseRes] = await Promise.all([
+  const since7 = daysAgo(7);
+  const since30 = daysAgo(30);
+
+  const [leadsRes, projectsRes] = await Promise.all([
     sb
       .from("site_leads")
       .select("id, created_at, type, product, name, email, phone, status, source")
       .order("created_at", { ascending: false })
-      .limit(200),
+      .limit(300),
     sb
       .from("student_projects")
       .select(
-        "id, request_id, package_name, stage, status, name, email, topic, amount_ngn, created_at"
+        "id, request_id, package_name, stage, status, name, email, amount_ngn, created_at"
       )
       .order("created_at", { ascending: false })
-      .limit(100),
-    sb
-      .from("site_leads")
-      .select("id, created_at, product, name, email, status, message")
-      .eq("type", "purchase")
-      .order("created_at", { ascending: false })
-      .limit(50),
+      .limit(200),
   ]);
 
-  const leads = leadsRes.data || [];
-  const students = studentsRes.data || [];
-  const purchases = purchaseRes.data || [];
+  const leads = (leadsRes.data || []) as LeadRow[];
+  const projects = (projectsRes.data || []) as ProjectRow[];
+  const leadsError = leadsRes.error?.message || null;
+  const projectsError = projectsRes.error?.message || null;
 
-  const leadByStatus: Record<string, number> = {};
-  let leadNew = 0;
+  const byStatus: Record<string, number> = {
+    new: 0,
+    contacted: 0,
+    qualified: 0,
+    won: 0,
+    lost: 0,
+  };
+  const byType: Record<string, number> = {};
+  let leads7 = 0;
+  let leads30 = 0;
+
   for (const l of leads) {
-    leadByStatus[l.status] = (leadByStatus[l.status] || 0) + 1;
-    if (l.status === "new") leadNew++;
+    if (l.status in byStatus) byStatus[l.status]++;
+    byType[l.type || "other"] = (byType[l.type || "other"] || 0) + 1;
+    if (l.created_at >= since7) leads7++;
+    if (l.created_at >= since30) leads30++;
   }
 
-  const studentByStage: Record<string, number> = {};
-  let pendingPay = 0;
-  let paid = 0;
-  for (const s of students) {
-    studentByStage[s.stage] = (studentByStage[s.stage] || 0) + 1;
-    if (s.status === "pending_payment") pendingPay++;
-    if (s.status === "paid" || s.status === "in_progress" || s.status === "delivered")
-      paid++;
+  const projectByStatus: Record<string, number> = {};
+  const projectByStage: Record<string, number> = {};
+  let projectValueNgn = 0;
+  let activeProjects = 0;
+
+  for (const p of projects) {
+    projectByStatus[p.status || "unknown"] =
+      (projectByStatus[p.status || "unknown"] || 0) + 1;
+    projectByStage[p.stage || "unknown"] =
+      (projectByStage[p.stage || "unknown"] || 0) + 1;
+    projectValueNgn += Number(p.amount_ngn || 0);
+    if (!["completed", "cancelled"].includes(p.status)) activeProjects++;
   }
+
+  const needsAttention = [
+    ...leads
+      .filter((l) => l.status === "new")
+      .slice(0, 8)
+      .map((l) => ({
+        kind: "lead" as const,
+        id: l.id,
+        title: l.name,
+        subtitle: `${l.product} · ${l.type}`,
+        status: l.status,
+        at: l.created_at,
+        href: "/admin/leads",
+      })),
+    ...projects
+      .filter((p) =>
+        ["pending_payment", "awaiting_balance", "in_progress"].includes(p.status)
+      )
+      .slice(0, 6)
+      .map((p) => ({
+        kind: "project" as const,
+        id: p.id,
+        title: p.name,
+        subtitle: `${p.package_name} · ${p.stage}`,
+        status: p.status,
+        at: p.created_at,
+        href: "/admin/student-projects",
+      })),
+  ]
+    .sort((a, b) => (a.at < b.at ? 1 : -1))
+    .slice(0, 12);
+
+  const recent = [
+    ...leads.slice(0, 10).map((l) => ({
+      kind: "lead" as const,
+      id: l.id,
+      title: l.name,
+      subtitle: `${l.product} · ${l.status}`,
+      at: l.created_at,
+      href: "/admin/leads",
+    })),
+    ...projects.slice(0, 8).map((p) => ({
+      kind: "project" as const,
+      id: p.id,
+      title: p.name,
+      subtitle: `${p.package_name} · ${p.status}`,
+      at: p.created_at,
+      href: "/admin/student-projects",
+    })),
+  ]
+    .sort((a, b) => (a.at < b.at ? 1 : -1))
+    .slice(0, 14);
 
   return NextResponse.json({
     ok: true,
     configured: true,
-    leads: {
-      total: leads.length,
-      new: leadNew,
-      byStatus: leadByStatus,
-      recent: leads.slice(0, 8),
+    generatedAt: new Date().toISOString(),
+    adminEmail: auth.email || null,
+    errors: { leads: leadsError, projects: projectsError },
+    stats: {
+      leadsTotal: leads.length,
+      leadsNew: byStatus.new,
+      leads7,
+      leads30,
+      leadsWon: byStatus.won,
+      leadsByStatus: byStatus,
+      leadsByType: byType,
+      projectsTotal: projects.length,
+      projectsActive: activeProjects,
+      projectValueNgn,
+      projectByStatus,
+      projectByStage,
     },
-    students: {
-      total: students.length,
-      pending_payment: pendingPay,
-      paid,
-      byStage: studentByStage,
-      recent: students.slice(0, 8),
-    },
-    purchases: {
-      total: purchases.length,
-      recent: purchases.slice(0, 8),
-    },
-    errors: {
-      leads: leadsRes.error?.message || null,
-      students: studentsRes.error?.message || null,
-    },
+    needsAttention,
+    recent,
   });
 }
