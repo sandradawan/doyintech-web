@@ -4,7 +4,6 @@ import ReportStudioStrip from "@/components/sections/ReportStudioStrip";
 import ClientLogos from "@/components/sections/ClientLogos";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
 import Services from "@/components/sections/Services";
-import WhyChoose from "@/components/sections/WhyChoose";
 import Packages from "@/components/sections/Packages";
 import Testimonials from "@/components/sections/Testimonials";
 import Founder from "@/components/sections/Founder";
@@ -15,8 +14,7 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 
 /**
- * Homepage flow: What do you do? → Can I trust you? → How much? → Let's talk.
- * Report Studio strip sits high so multi-platform audits are visible fast.
+ * Homepage: Hero → Trust → Report Studio (fast discovery) → work → services → pricing → CTA.
  */
 export default function Home() {
   return (
@@ -28,7 +26,6 @@ export default function Home() {
         <ClientLogos />
         <CaseStudiesTeaser />
         <Services />
-        <WhyChoose />
         <Packages />
         <Testimonials />
         <Founder />
