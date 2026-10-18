@@ -14,9 +14,7 @@ function AdminRedirect({ error }: { error: string | null }) {
     <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-[#05060a] px-6 text-center">
       <div className="h-10 w-10 animate-pulse rounded-2xl bg-[#ff8c14]/20" />
       <p className="text-[15px] text-[#a1a1a6]">{error || "Admin sign-in required"}</p>
-      <Link href="/admin/login" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black">
-        Go to admin login
-      </Link>
+      <Link href="/admin/login" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black">Go to admin login</Link>
     </div>
   );
 }
@@ -31,6 +29,7 @@ const NAV = [
   { href: "/admin/tools", label: "AI & tools", exact: false, icon: "✦" },
   { href: "/admin/content", label: "Content", exact: false, icon: "☰" },
   { href: "/admin/analytics", label: "Analytics", exact: false, icon: "▦" },
+  { href: "/admin/data", label: "Database", exact: false, icon: "▤" },
   { href: "/admin/settings", label: "Settings", exact: false, icon: "◉" },
 ];
 
