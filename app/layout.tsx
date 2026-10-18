@@ -15,6 +15,7 @@ import WelcomeOctoberBanner from "@/components/ui/WelcomeOctoberBanner";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
+import MetaPixel from "@/components/analytics/MetaPixel";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -138,6 +139,7 @@ export default function RootLayout({
           <CookieConsent />
           <Suspense fallback={null}>
             <ReferralCapture />
+            <MetaPixel />
           </Suspense>
           <Analytics />
         </ToastProvider>
