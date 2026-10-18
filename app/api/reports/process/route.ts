@@ -3,6 +3,14 @@ import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { generateReportContent } from "@/lib/reports/generate";
 import { Resend } from "resend";
 
+function escapeHtml(s: string) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -176,15 +184,42 @@ async function sendReportReadyEmail(opts: {
     process.env.DELIVERY_FROM_EMAIL ||
     process.env.RESEND_FROM ||
     "DoyinTech <onboarding@resend.dev>";
-  const safeName = opts.name.replace(/</g, "");
   const resend = new Resend(key);
   try {
     await resend.emails.send({
       from,
       to: opts.to,
-      subject: `Your ${opts.productName} is ready — ${opts.orderId}`,
-      html: `<div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto"><h1>Your report is ready</h1><p>Hi ${safeName},</p><p>Your <strong>${opts.productName}</strong> (${opts.orderId}) is ready.</p><p><a href="${opts.viewUrl}" style="background:#ff8c14;color:#000;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:600">Open report</a></p><p>Use Print → Save as PDF to download.</p><p>— DoyinTech Report Studio</p></div>`,
-      text: `Hi ${opts.name},\n\nYour ${opts.productName} (${opts.orderId}) is ready:\n${opts.viewUrl}\n\n— DoyinTech Report Studio`,
+      subject: `Your ${opts.productName} is ready | ${opts.orderId}`,
+      html: `
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;background:#ffffff;color:#1a1a1a">
+          <div style="background:#0a0a0b;padding:28px 28px 24px;border-radius:12px 12px 0 0">
+            <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#ff8c14">DoyinTech Report Studio</p>
+            <h1 style="margin:12px 0 0;font-size:22px;font-weight:600;color:#ffffff;line-height:1.3">Your report is ready</h1>
+          </div>
+          <div style="padding:28px;border:1px solid #eee;border-top:none;border-radius:0 0 12px 12px">
+            <p style="margin:0 0 12px;font-size:15px;line-height:1.6">Dear ${escapeHtml(opts.name)},</p>
+            <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#333">
+              Your <strong>${escapeHtml(opts.productName)}</strong> has been prepared and is ready to view.
+              Order reference: <code style="background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:13px">${escapeHtml(opts.orderId)}</code>
+            </p>
+            <p style="margin:0 0 24px">
+              <a href="${opts.viewUrl}" style="display:inline-block;background:#ff8c14;color:#000;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:14px">Open your report</a>
+            </p>
+            <p style="margin:0 0 8px;font-size:13px;color:#555;line-height:1.5">
+              To save a PDF: open the report → use your browser’s <strong>Print</strong> → choose <strong>Save as PDF</strong>.
+            </p>
+            <p style="margin:0;font-size:13px;color:#555;line-height:1.5">
+              Keep this link private. It is intended only for you.
+            </p>
+            <hr style="border:none;border-top:1px solid #eee;margin:28px 0" />
+            <p style="margin:0;font-size:12px;color:#888;line-height:1.5">
+              Questions? Reply to this email or WhatsApp +234 808 534 3926.<br/>
+              — The DoyinTech team · Jos, Nigeria
+            </p>
+          </div>
+        </div>
+      `,
+      text: `Dear ${opts.name},\n\nYour ${opts.productName} is ready.\n\nOrder: ${opts.orderId}\nView: ${opts.viewUrl}\n\nTo download a PDF, open the link and use Print → Save as PDF.\n\n— DoyinTech Report Studio\n`,
     });
   } catch (e) {
     console.error("report email", e);
