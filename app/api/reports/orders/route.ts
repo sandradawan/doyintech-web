@@ -33,13 +33,36 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Select a valid report package." }, { status: 400 });
     }
 
-    if (pkg.reportType === "instagram_audit" && !profileUrl) {
+    const rawPlatforms = Array.isArray(body.platforms) ? body.platforms : [];
+    const platforms = rawPlatforms
+      .map((x: { platform?: string; url?: string }) => ({
+        platform: String(x?.platform || "other").trim(),
+        url: String(x?.url || "").trim(),
+      }))
+      .filter((x: { url: string }) => x.url.length > 0)
+      .slice(0, pkg.maxPlatforms || 9);
+
+    if (profileUrl && platforms.length === 0) {
+      platforms.push({ platform: "website", url: profileUrl });
+    }
+
+    if (
+      (pkg.reportType === "single_platform" ||
+        pkg.reportType === "multi_platform" ||
+        pkg.reportType === "full_presence" ||
+        pkg.reportType === "business_profile") &&
+      platforms.length === 0
+    ) {
       return NextResponse.json(
-        { error: "Instagram profile URL is required for this package." },
+        {
+          error:
+            "Add at least one platform link (Instagram, Facebook, TikTok, YouTube, LinkedIn, WhatsApp, website, etc.).",
+        },
         { status: 400 }
       );
     }
 
+    const primaryUrl = platforms[0]?.url || profileUrl || null;
     const orderId = generateReportOrderId();
     const deliveryToken = generateDeliveryToken();
     const sb = getSupabaseAdmin();
@@ -57,11 +80,12 @@ export async function POST(req: NextRequest) {
           name,
           email,
           phone: phone || null,
-          profile_url: profileUrl || null,
+          profile_url: primaryUrl,
           business_category: businessCategory || null,
           business_objective: businessObjective || null,
           target_audience: targetAudience || null,
           notes: notes || null,
+          source_data: { platforms },
           delivery_token: deliveryToken,
         })
         .select("id")
@@ -71,8 +95,7 @@ export async function POST(req: NextRequest) {
         console.error("report_orders insert", error.message);
         return NextResponse.json(
           {
-            error:
-              "Could not create order. Run docs/report-studio.sql in Supabase.",
+            error: "Could not create order. Run docs/report-studio.sql in Supabase.",
             detail: error.message,
           },
           { status: 503 }
@@ -91,7 +114,7 @@ export async function POST(req: NextRequest) {
 
     if (!SECRET) {
       const wa = `https://wa.me/2348085343926?text=${encodeURIComponent(
-        `Hi DoyinTech — I want ${pkg.name} (${orderId}). Email: ${email}. Profile: ${profileUrl || "n/a"}`
+        `Hi DoyinTech — I want ${pkg.name} (${orderId}). Email: ${email}. Platforms: ${platforms.map((p: {url:string}) => p.url).join(", ") || "n/a"}`
       )}`;
       return NextResponse.json({
         orderId,
@@ -116,7 +139,8 @@ export async function POST(req: NextRequest) {
         product_name: pkg.name,
         order_id: orderId,
         customer_name: name,
-        profile_url: profileUrl || undefined,
+        profile_url: primaryUrl || undefined,
+        platforms,
       },
     };
 
