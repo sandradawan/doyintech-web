@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Footer from "@/components/ui/Footer";
 
 type AnalyticsData = {
   lastUpdated: string;
@@ -19,200 +18,118 @@ type AnalyticsData = {
     views: number;
     reactions: number;
     comments: number;
-    engagementRate: number;
   };
-  platforms: {
-    tiktok: PlatformStats;
-    instagram: PlatformStats;
-    youtube: PlatformStats;
-  };
-  notes: string[];
-};
-
-type PlatformStats = {
-  name: string;
-  handle: string;
-  views: number;
-  likes: number;
-  comments: number;
-  shares?: number;
-  status: string;
+  platforms?: Array<{
+    name: string;
+    posts?: number;
+    views?: number;
+    reactions?: number;
+    comments?: number;
+  }>;
+  note?: string;
 };
 
 export default function AdminAnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null);
+  const [err, setErr] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
+    let cancelled = false;
     async function load() {
+      setLoading(true);
+      setErr("");
       try {
         const res = await fetch("/data/social-analytics.json?t=" + Date.now());
-        if (!res.ok) throw new Error("Failed to load analytics data");
+        if (!res.ok) throw new Error("Analytics file not found (public/data/social-analytics.json)");
         const json = await res.json();
-        setData(json);
+        if (!cancelled) setData(json);
       } catch (e: unknown) {
-        setError(e instanceof Error ? e.message : "Error loading data");
+        if (!cancelled) setErr(e instanceof Error ? e.message : "Could not load analytics");
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
-    load();
+    void load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-black pt-24 pb-24">
-        <div className="mx-auto max-w-[960px] px-6">
-          <p className="text-[#a1a1a6]">Loading analytics…</p>
-        </div>
-      </main>
-    );
-  }
-
-  if (error || !data) {
-    return (
-      <main className="min-h-screen bg-black pt-24 pb-24">
-        <div className="mx-auto max-w-[960px] px-6">
-          <p className="text-red-400">{error || "No data available"}</p>
-        </div>
-      </main>
-    );
-  }
-
-  const { summary, yesterday, platforms, notes, lastUpdated, period } = data;
+  const s = data?.summary;
 
   return (
-    <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
-        <div className="mx-auto max-w-[960px] px-6">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h1 className="text-[28px] font-semibold text-white">
-                Social Analytics
-              </h1>
-              <p className="mt-1 text-[14px] text-[#a1a1a6]">
-                Live view of DoyinTech growth across platforms
-              </p>
-            </div>
-            <p className="text-[12px] text-[#86868b]">
-              Updated: {new Date(lastUpdated).toLocaleString("en-NG")}
-            </p>
+    <div className="space-y-6">
+      <div>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Insights</p>
+        <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Social analytics</h1>
+        <p className="mt-1 text-[13px] text-[#86868b]">
+          Snapshot from static export. Meta Pixel / ads metrics appear in Events Manager after Pixel is live.
+        </p>
+      </div>
+
+      {loading ? <p className="text-[13px] text-[#86868b]">Loading…</p> : null}
+      {err ? (
+        <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">{err}</p>
+      ) : null}
+
+      {s ? (
+        <>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <Kpi label="Posts" value={s.totalPosts} />
+            <Kpi label="Views" value={s.totalViews} />
+            <Kpi label="Reactions" value={s.totalReactions} />
+            <Kpi label="Engagement %" value={s.engagementRate} />
           </div>
-
-          {/* Summary Cards */}
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-5">
-            <StatCard label="Posts" value={summary.totalPosts} />
-            <StatCard label="Views" value={summary.totalViews.toLocaleString()} />
-            <StatCard label="Likes" value={summary.totalReactions} />
-            <StatCard label="Comments" value={summary.totalComments} />
-            <StatCard
-              label="Eng. Rate"
-              value={`${summary.engagementRate}%`}
-              highlight
-            />
-          </div>
-
-          {/* Yesterday */}
-          <section className="mt-10">
-            <h2 className="text-[18px] font-semibold text-white">
-              Yesterday ({yesterday.date})
-            </h2>
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <StatCard label="Posts" value={yesterday.posts} small />
-              <StatCard label="Views" value={yesterday.views} small />
-              <StatCard label="Likes" value={yesterday.reactions} small />
-              <StatCard label="Comments" value={yesterday.comments} small />
+          {data?.yesterday ? (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-[12px] uppercase tracking-wide text-[#86868b]">Yesterday · {data.yesterday.date}</p>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <MiniStat label="Posts" value={data.yesterday.posts} />
+                <MiniStat label="Views" value={data.yesterday.views} />
+                <MiniStat label="Reactions" value={data.yesterday.reactions} />
+                <MiniStat label="Comments" value={data.yesterday.comments} />
+              </div>
             </div>
-          </section>
-
-          {/* Platforms */}
-          <section className="mt-10">
-            <h2 className="text-[18px] font-semibold text-white">
-              Platforms
-            </h2>
-            <div className="mt-4 space-y-4">
-              {Object.values(platforms).map((p) => (
-                <div
-                  key={p.name}
-                  className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-5"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <p className="text-[16px] font-semibold text-white">
-                        {p.name}
-                      </p>
-                      <p className="text-[13px] text-[#a1a1a6]">{p.handle}</p>
-                    </div>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-[#a1a1a6]">
-                      {p.status}
-                    </span>
-                  </div>
-                  <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
-                    <MiniStat label="Views" value={p.views} />
-                    <MiniStat label="Likes" value={p.likes} />
-                    <MiniStat label="Comments" value={p.comments} />
-                    {p.shares !== undefined && (
-                      <MiniStat label="Shares" value={p.shares} />
-                    )}
-                  </div>
-                </div>
-              ))}
+          ) : null}
+          {data?.platforms?.length ? (
+            <div className="overflow-x-auto rounded-2xl border border-white/10">
+              <table className="w-full text-left text-[13px]">
+                <thead className="bg-white/[0.04] text-[11px] uppercase text-[#86868b]">
+                  <tr>
+                    <th className="px-3 py-2.5">Platform</th>
+                    <th className="px-3 py-2.5">Posts</th>
+                    <th className="px-3 py-2.5">Views</th>
+                    <th className="px-3 py-2.5">Reactions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.platforms.map((p) => (
+                    <tr key={p.name} className="border-t border-white/5">
+                      <td className="px-3 py-3 text-white">{p.name}</td>
+                      <td className="px-3 py-3 text-[#a1a1a6]">{p.posts ?? "—"}</td>
+                      <td className="px-3 py-3 text-[#a1a1a6]">{p.views ?? "—"}</td>
+                      <td className="px-3 py-3 text-[#a1a1a6]">{p.reactions ?? "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          </section>
-
-          {/* Notes */}
-          <section className="mt-10">
-            <h2 className="text-[18px] font-semibold text-white">Notes</h2>
-            <ul className="mt-3 space-y-2">
-              {notes.map((note, i) => (
-                <li
-                  key={i}
-                  className="rounded-xl border border-white/10 bg-[#141a28] px-4 py-3 text-[13px] text-[#c7cdd8]"
-                >
-                  {note}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <p className="mt-10 text-center text-[12px] text-[#555]">
-            Data period: {period}. Updated daily from Buffer.
-          </p>
-        </div>
-      </main>
-      <Footer />
-    </>
+          ) : null}
+          <p className="text-[12px] text-[#555]">Updated {data?.lastUpdated || "—"} · period {data?.period || "—"}</p>
+        </>
+      ) : null}
+    </div>
   );
 }
 
-function StatCard({
-  label,
-  value,
-  highlight,
-  small,
-}: {
-  label: string;
-  value: string | number;
-  highlight?: boolean;
-  small?: boolean;
-}) {
+function Kpi({ label, value }: { label: string; value: number }) {
   return (
-    <div
-      className={`rounded-2xl border border-white/10 bg-[#1d1d1f] px-4 py-4 text-center ${
-        highlight ? "border-[#ff8c14]/40" : ""
-      }`}
-    >
-      <p
-        className={`font-semibold text-white ${
-          small ? "text-[20px]" : "text-[24px]"
-        }`}
-      >
-        {value}
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
+      <p className="font-display text-[22px] font-semibold text-white">
+        {typeof value === "number" ? value.toLocaleString() : value}
       </p>
-      <p className="mt-1 text-[11px] uppercase tracking-wide text-[#86868b]">
-        {label}
-      </p>
+      <p className="mt-1 text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
     </div>
   );
 }
@@ -221,9 +138,7 @@ function MiniStat({ label, value }: { label: string; value: number }) {
   return (
     <div className="text-center">
       <p className="text-[18px] font-semibold text-white">{value}</p>
-      <p className="text-[10px] uppercase tracking-wide text-[#86868b]">
-        {label}
-      </p>
+      <p className="text-[10px] uppercase tracking-wide text-[#86868b]">{label}</p>
     </div>
   );
 }
