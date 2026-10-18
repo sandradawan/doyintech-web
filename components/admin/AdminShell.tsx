@@ -25,6 +25,7 @@ const NAV = [
   { href: "/admin/student-projects", label: "Students", exact: false, icon: "◇" },
   { href: "/admin/store", label: "Store", exact: false, icon: "▣" },
   { href: "/admin/orders", label: "Orders", exact: false, icon: "⬡" },
+  { href: "/admin/pricing", label: "Pricing", exact: false, icon: "₦" },
   { href: "/admin/ops", label: "Ops", exact: false, icon: "⚙" },
   { href: "/admin/tools", label: "AI & tools", exact: false, icon: "✦" },
   { href: "/admin/content", label: "Content", exact: false, icon: "☰" },
