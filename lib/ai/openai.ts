@@ -40,7 +40,7 @@ export async function polishWithOpenAi(
               "You are a senior professional writer for DoyinTech, serving paying clients and serious SME operators. " +
               "Rewrite the draft into polished, boardroom-ready language: clear, specific, confident, and useful. " +
               "Prefer short paragraphs and crisp bullets. Never invent facts, numbers, legal claims, testimonials, or citations. " +
-              "Preserve markdown structure when present. Do not add fluff or hype.",
+              "Preserve markdown structure when present. Do not add fluff or hype. Make every sentence earn its place.",
           },
           {
             role: "user",
