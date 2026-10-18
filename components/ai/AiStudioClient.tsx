@@ -164,7 +164,7 @@ export default function AiStudioClient() {
     [modes, mode]
   );
   const [values, setValues] = useState<Record<string, string>>({});
-  const [useLlm, setUseLlm] = useState(false);
+  const [useLlm, setUseLlm] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [output, setOutput] = useState("");
@@ -271,7 +271,7 @@ export default function AiStudioClient() {
               onChange={(e) => setUseLlm(e.target.checked)}
               className="rounded border-white/20"
             />
-            Polish with OpenAI when key is configured
+            Always polish for professional boardroom-ready language (OpenAI when configured)
           </label>
 
           {error ? <p className="mt-3 text-[13px] text-red-400">{error}</p> : null}
@@ -282,13 +282,13 @@ export default function AiStudioClient() {
             onClick={generate}
             className="mt-5 w-full rounded-full bg-[#ff8c14] py-3 text-[14px] font-semibold text-black disabled:opacity-60"
           >
-            {loading ? "Generating..." : "Generate"}
+            {loading ? "Generating polished draft…" : "Generate professional output"}
           </button>
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-black/40 p-6">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="text-[14px] font-semibold text-white">Output</h3>
+            <h3 className="text-[14px] font-semibold text-white">Professional output</h3>
             <div className="flex items-center gap-2">
               {llmUsed ? (
                 <span className="rounded-full bg-[#2997ff]/20 px-2 py-0.5 text-[11px] text-[#2997ff]">
@@ -305,8 +305,8 @@ export default function AiStudioClient() {
               </button>
             </div>
           </div>
-          <pre className="mt-4 max-h-[520px] overflow-auto whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-[#d1d5db]">
-            {output || "Your generated draft will appear here."}
+          <pre className="mt-4 max-h-[520px] overflow-auto whitespace-pre-wrap rounded-2xl border border-white/5 bg-black/30 p-4 font-sans text-[14px] leading-relaxed text-[#e8e8ed]">
+            {output || "Your polished professional draft will appear here."}
           </pre>
         </div>
       </div>
@@ -320,6 +320,13 @@ export default function AiStudioClient() {
           .
         </p>
       ) : null}
+
+      <p className="mt-8 text-[13px] text-[#a1a1a6]">
+        Need a full visual pitch?{" "}
+        <a href="/ai/pitch" className="font-semibold text-[#ff8c14] hover:underline">
+          Open the animated pitch deck generator →
+        </a>
+      </p>
     </div>
   );
 }
