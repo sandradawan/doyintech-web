@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import type { PixelAuditReport, AuditStatus } from "@/lib/meta/pixel-audit";
+import type { PixelAuditReport, AuditStatus } from "@/lib/meta/pixel-audit-types";
 
 const STATUS_STYLE: Record<AuditStatus, string> = {
   passed: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
@@ -105,31 +105,6 @@ export default function PixelAuditPage() {
                   <p className="mt-1 text-[13px] opacity-90">{c.detail}</p>
                 </div>
               ))}
-            </div>
-
-            {report.eventsDetected.length ? (
-              <div className="rounded-xl border border-white/10 px-4 py-3">
-                <p className="text-[13px] font-semibold text-white">Events in HTML</p>
-                <p className="mt-1 text-[13px] text-[#a1a1a6]">{report.eventsDetected.join(", ")}</p>
-              </div>
-            ) : null}
-
-            <div className="rounded-xl border border-white/10 px-4 py-3">
-              <p className="text-[13px] font-semibold text-white">Limitations</p>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] text-[#a1a1a6]">
-                {report.limitations.map((l) => (
-                  <li key={l}>{l}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-xl border border-white/10 px-4 py-3">
-              <p className="text-[13px] font-semibold text-white">Recommendations</p>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] text-[#a1a1a6]">
-                {report.recommendations.map((l) => (
-                  <li key={l}>{l}</li>
-                ))}
-              </ul>
             </div>
 
             <div className="rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 p-5">
