@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa6";
+import { trackMetaEvent } from "@/lib/meta/pixel";
 
 export default function WhatsAppButton() {
   const [offset, setOffset] = useState(24);
@@ -9,9 +10,7 @@ export default function WhatsAppButton() {
   useEffect(() => {
     const sync = () => {
       const cookie = document.documentElement.dataset.cookieBanner === "1";
-      const sticky =
-        window.innerWidth < 768 && window.scrollY > 420;
-      // Cookie bar ~56px, mobile sticky ~64px
+      const sticky = window.innerWidth < 768 && window.scrollY > 420;
       let bottom = 24;
       if (cookie) bottom += 64;
       if (sticky) bottom += 62;
@@ -33,6 +32,7 @@ export default function WhatsAppButton() {
   return (
     <a
       href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20discuss%20a%20project."
+      onClick={() => trackMetaEvent("Contact", { content_name: "whatsapp_float" })}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
