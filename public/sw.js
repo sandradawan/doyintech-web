@@ -1,5 +1,5 @@
-/* DoyinTech offline shell — serves Signal Runner when the network is down */
-var CACHE = "doyintech-play-v2";
+/* DoyinTech offline shell v3 — Signal Runner when network is down (not Chrome dinosaur) */
+var CACHE = "doyintech-play-v3";
 var PRECACHE = ["/play", "/logo.png", "/favicon.ico"];
 
 self.addEventListener("install", function (event) {
@@ -59,7 +59,6 @@ self.addEventListener("fetch", function (event) {
 
   var url = new URL(request.url);
 
-  // Navigations: network first, offline → cached /play (never Chrome dinosaur)
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
@@ -68,7 +67,6 @@ self.addEventListener("fetch", function (event) {
             var copy = response.clone();
             caches.open(CACHE).then(function (cache) {
               cache.put(request, copy);
-              // Also store under /play for offline deep links
               if (url.pathname === "/play" || url.pathname.indexOf("/play") === 0) {
                 cache.put("/play", response.clone());
               }
@@ -92,7 +90,6 @@ self.addEventListener("fetch", function (event) {
     return;
   }
 
-  // Same-origin assets used by the game/shell
   if (shouldCacheAsset(url.pathname)) {
     event.respondWith(
       caches.match(request).then(function (cached) {
