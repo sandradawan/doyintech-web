@@ -50,6 +50,10 @@ function CopyBtn({ text }: { text: string }) {
   );
 }
 
+function escAttr(s: string): string {
+  return s.replace(/&/g, "&").replace(/"/g, "&#34;").replace(/</g, "<");
+}
+
 export function WhatsAppLinkGeneratorTool() {
   const [phone, setPhone] = useState("234");
   const [message, setMessage] = useState("");
@@ -217,15 +221,16 @@ export function MetaTagGeneratorTool() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [url, setUrl] = useState("https://www.example.com");
-  const safeDesc = (desc || "Your description").replace(/"/g, """);
   const html =
     "<title>" +
-    (title || "Your page title") +
-    "</title>\n<meta name=\"description\" content=\"" +
-    safeDesc +
-    "\" />\n<link rel=\"canonical\" href=\"" +
-    url +
-    "\" />";
+    escAttr(title || "Your page title") +
+    "</title>\n" +
+    '<meta name="description" content="' +
+    escAttr(desc || "Your description") +
+    '" />\n' +
+    '<link rel="canonical" href="' +
+    escAttr(url) +
+    '" />';
   return (
     <div className={box}>
       <p className="text-sm text-gray-400">
