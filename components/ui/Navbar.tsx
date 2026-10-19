@@ -26,7 +26,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "Student tools hub", href: "/students", desc: "All research tools" },
       { name: "AI Project Studio", href: "/students/studio", desc: "Outlines & chapter drafts" },
-      { name: "Questionnaire analyzer", href: "/students/analyzer", desc: "CSV → tables + narrative" },
+      { name: "Questionnaire analyzer", href: "/students/analyzer", desc: "CSV to tables + narrative" },
       { name: "Citation formatter", href: "/students/citations", desc: "APA, MLA, Chicago, Harvard" },
       { name: "Cover letter AI", href: "/students/cover-letter", desc: "Job-ready drafts" },
       { name: "Research project portal", href: "/students/projects", desc: "50% deposit · track by ID" },
@@ -50,11 +50,13 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Tools",
     items: [
-      { name: "AI Report Studio", href: "/reports", desc: "IG, TikTok, YT, LinkedIn, web…" },
+      { name: "AI Report Studio", href: "/reports", desc: "IG, TikTok, YT, LinkedIn, web" },
       { name: "AI Tools hub", href: "/ai", desc: "Education, finance, SME, sales, property" },
       { name: "SME Solve hub", href: "/solve", desc: "Pipeline, booking, cash, quotes" },
       { name: "Bills — airtime & data", href: "/bills", desc: "Top-up + Remita RRR" },
       { name: "Free tools hub", href: "/tools", desc: "Business & security utilities" },
+      { name: "Signal Runner game", href: "/play", desc: "Play offline when network fails" },
+      { name: "Pomodoro timer", href: "/tools/pomodoro-timer", desc: "Focus streak — come back daily" },
       { name: "System Protector score", href: "/tools/system-protector", desc: "Phone & WhatsApp hygiene" },
       { name: "WhatsApp scripts", href: "/tools/whatsapp-scripts", desc: "5 free reply scripts" },
       { name: "DoyinOps", href: "/ops", desc: "SME ops workspace" },
@@ -224,6 +226,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <a
+              href="/play"
+              className="hidden rounded-full border border-cyan-500/40 px-3 py-1.5 text-xs font-semibold text-cyan-300 transition hover:bg-cyan-500/10 md:inline-flex"
+            >
+              Play
+            </a>
+            <a
               href="/reports"
               className="inline-flex rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-3 py-1.5 text-xs font-semibold text-[#ff8c14] transition hover:bg-[#ff8c14] hover:text-black"
             >
@@ -302,7 +310,7 @@ export default function Navbar() {
                       aria-expanded={expanded}
                     >
                       {group.label}
-                      <span className="text-white/40">{expanded ? "−" : "+"}</span>
+                      <span className="text-white/40">{expanded ? "-" : "+"}</span>
                     </button>
                     <AnimatePresence>
                       {expanded && (
@@ -336,8 +344,14 @@ export default function Navbar() {
               })}
 
               <a
+                href="/play"
+                className="mt-4 inline-flex items-center justify-center rounded-full border border-cyan-500/50 bg-cyan-500/15 px-5 py-3 text-[15px] font-semibold text-cyan-300"
+              >
+                Play Signal Runner
+              </a>
+              <a
                 href="/reports"
-                className="mt-4 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
+                className="mt-2 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
               >
                 AI Report Studio
               </a>
