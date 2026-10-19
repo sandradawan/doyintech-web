@@ -17,6 +17,7 @@ import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import OfflinePlayHint from "@/components/game/OfflinePlayHint";
+import ServiceWorkerRegister from "@/components/game/ServiceWorkerRegister";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -79,6 +80,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: "/manifest.webmanifest",
 };
 
 const jsonLd = {
@@ -123,6 +125,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className={`${inter.variable} bg-black text-[#f5f5f7] antialiased`}>
         <ToastProvider>
@@ -138,6 +141,7 @@ export default function RootLayout({
           <ChatBot />
           <WhatsAppButton />
           <OfflinePlayHint />
+          <ServiceWorkerRegister />
           <CookieConsent />
           <Suspense fallback={null}>
             <ReferralCapture />
