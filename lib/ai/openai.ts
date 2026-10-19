@@ -109,3 +109,44 @@ export async function openAiJson<T = unknown>(
     return null;
   }
 }
+
+/** Free-form text completion (paid AI studio tools). */
+export async function openAiText(
+  system: string,
+  user: string,
+  opts?: { maxTokens?: number; temperature?: number }
+): Promise<string | null> {
+  const key = apiKey();
+  if (!key) return null;
+
+  const model = process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini";
+  try {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        temperature: opts?.temperature ?? 0.5,
+        max_tokens: opts?.maxTokens ?? 2800,
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user },
+        ],
+      }),
+    });
+    if (!res.ok) {
+      console.error("openai text failed", res.status, await res.text().catch(() => ""));
+      return null;
+    }
+    const data = (await res.json()) as {
+      choices?: { message?: { content?: string } }[];
+    };
+    return data.choices?.[0]?.message?.content?.trim() || null;
+  } catch (e) {
+    console.error("openai text error", e);
+    return null;
+  }
+}
