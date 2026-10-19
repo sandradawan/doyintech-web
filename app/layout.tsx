@@ -16,6 +16,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
 import MetaPixel from "@/components/analytics/MetaPixel";
+import OfflinePlayHint from "@/components/game/OfflinePlayHint";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -136,6 +137,7 @@ export default function RootLayout({
           <WelcomeOctoberBanner />
           <ChatBot />
           <WhatsAppButton />
+          <OfflinePlayHint />
           <CookieConsent />
           <Suspense fallback={null}>
             <ReferralCapture />
