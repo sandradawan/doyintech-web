@@ -5,13 +5,14 @@ import ToolsHubClient from "@/components/tools/ToolsHubClient";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 
 export const metadata: Metadata = {
-  title: "Business, Security, Career & Paid Tools",
+  title: "Free Online Tools — Invoice, VAT, WhatsApp Link, Margin, Word Counter",
   description:
-    "DoyinTech tools hub: categorized free tools plus paid PDF Studio. Security, calculators, career, and automation.",
+    "Free business tools: invoice generator, Nigeria VAT calculator, profit margin calculator, WhatsApp link generator, word counter, SEO meta tags, loan EMI, and more. Built for Nigerian SMEs.",
   alternates: { canonical: "/tools" },
   openGraph: {
-    title: "DoyinTech Tools",
-    description: "Categorized tools with pagination — including paid PDF Studio.",
+    title: "DoyinTech Free Online Tools",
+    description:
+      "Invoice, VAT, WhatsApp links, profit margin, word counter, SEO meta tags, and AI tools — free and paid.",
     url: `${TOOLS_CONFIG.siteUrl}/tools`,
   },
 };
@@ -25,22 +26,28 @@ export default function ToolsHubPage() {
             DoyinTech Tools
           </p>
           <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Tools, categorized & paginated
+            Free online tools people actually search for
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-400">
-            Filter by category. Most tools are free. PDF Studio is a paid unlock.
+            Invoice generator, Nigeria VAT calculator, profit margin, WhatsApp link generator,
+            word counter, SEO meta tags, loan EMI, and more — plus AI-powered paid tools.
+            No account required for free tools.
           </p>
 
           <ToolsHubClient />
 
           <section className="mt-16 rounded-3xl border border-white/10 bg-black/30 p-6 md:p-8">
             <h2 className="font-display text-2xl font-bold text-white">
-              Need implementation?
+              Need a website or system built?
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-gray-400">
-              When you need websites, apps, or security hardening,{" "}
+              Tools help you move faster. When you need implementation — sites, apps, or security —{" "}
               <Link href="/contact" className="text-primary hover:underline">
                 talk to DoyinTech
+              </Link>{" "}
+              or{" "}
+              <Link href="/hire" className="text-primary hover:underline">
+                hire us
               </Link>
               .
             </p>
