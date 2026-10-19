@@ -2,9 +2,9 @@ import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { buildDefaultCatalog, type CatalogPriceItem } from "./catalog";
 
 export type PriceOverride = {
-  amountKobo?: number | null;
-  priceNgn?: number | null;
-  displayLabel?: string | null;
+  amountKobo?: number;
+  priceNgn?: number;
+  displayLabel?: string;
 };
 
 export type PricingOverridesMap = Record<string, PriceOverride>;
@@ -21,9 +21,14 @@ export async function loadPricingOverrides(): Promise<PricingOverridesMap> {
       .eq("key", SETTINGS_KEY)
       .maybeSingle();
     if (error || !data?.value) return {};
-    const v = data.value as PricingOverridesMap | { items?: PricingOverridesMap };
-    if (v && typeof v === "object" && "items" in v && v.items) return v.items;
-    return (v as PricingOverridesMap) || {};
+    const v = data.value as PricingOverridesMap | { items?: PricingOverridesMap } | null;
+    if (v && typeof v === "object" && "items" in v && v.items && typeof v.items === "object") {
+      return v.items as PricingOverridesMap;
+    }
+    if (v && typeof v === "object" && !("items" in v)) {
+      return v as PricingOverridesMap;
+    }
+    return {};
   } catch {
     return {};
   }

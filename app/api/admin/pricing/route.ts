@@ -5,6 +5,7 @@ import {
   loadPricingOverrides,
   savePricingOverrides,
   type PricingOverridesMap,
+  type PriceOverride,
 } from "@/lib/pricing/overrides";
 
 export const runtime = "nodejs";
@@ -45,7 +46,7 @@ export async function PATCH(req: NextRequest) {
     if (body.clear === true) {
       delete next[key];
     } else {
-      const entry: { amountKobo?: number; priceNgn?: number; displayLabel?: string } = {
+      const entry: PriceOverride = {
         ...(next[key] || {}),
       };
       if (body.amountKobo != null && body.amountKobo !== "") {
@@ -76,29 +77,6 @@ export async function PATCH(req: NextRequest) {
 
     const catalog = await getEffectiveCatalog();
     return NextResponse.json({ ok: true, catalog, key });
-  } catch {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
-  }
-}
-
-export async function PUT(req: NextRequest) {
-  const auth = await requireAdmin(req);
-  if (!auth.ok) {
-    return NextResponse.json({ error: auth.error || "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const body = await req.json();
-    const items = body.overrides as PricingOverridesMap;
-    if (!items || typeof items !== "object") {
-      return NextResponse.json({ error: "overrides object required" }, { status: 400 });
-    }
-    const saved = await savePricingOverrides(items);
-    if (!saved.ok) {
-      return NextResponse.json({ error: saved.error }, { status: 500 });
-    }
-    const catalog = await getEffectiveCatalog();
-    return NextResponse.json({ ok: true, catalog });
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
