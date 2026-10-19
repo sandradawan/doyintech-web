@@ -159,9 +159,10 @@ export default function SignalRunnerGame() {
 
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;
-    const ctx = canvasEl.getContext("2d");
-    if (!ctx) return;
+    const ctxRaw = canvasEl.getContext("2d");
+    if (!ctxRaw) return;
     const canvas: HTMLCanvasElement = canvasEl;
+    const ctx: CanvasRenderingContext2D = ctxRaw;
 
     const W = canvas.width;
     const H = canvas.height;
