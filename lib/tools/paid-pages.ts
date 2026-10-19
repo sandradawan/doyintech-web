@@ -7,7 +7,6 @@ import {
   SecurityReportTool,
   UptimeMonitorTool,
   SeoAuditTool,
-  AiCopyTool,
   CvPremiumTool,
   QrProTool,
   RentReceiptTool,
@@ -16,6 +15,16 @@ import {
   HostingExportTool,
   InterviewPackTool,
 } from "@/components/tools/PaidToolKit";
+import {
+  AiCopyStudioTool,
+  AiSopWriterTool,
+  AiSocialCalendarTool,
+  AiProductCopyTool,
+  AiJobDescTool,
+  AiMeetingActionsTool,
+  AiFaqPackTool,
+  AiContentRepurposeTool,
+} from "@/components/tools/AiStudioSuite";
 
 export const PAID_PAGE_COMPONENTS: Record<
   string,
@@ -59,7 +68,7 @@ export const PAID_PAGE_COMPONENTS: Record<
   "ai-copy": {
     title: "AI Business Copy Suite",
     subtitle: "Ads, WhatsApp, and email copy packs — unlock full output.",
-    Component: AiCopyTool,
+    Component: AiCopyStudioTool,
   },
   "cv-premium": {
     title: "CV Premium Export",
@@ -95,5 +104,40 @@ export const PAID_PAGE_COMPONENTS: Record<
     title: "Tech Interview Pack",
     subtitle: "Full question bank — pay to unlock and print.",
     Component: InterviewPackTool,
+  },
+  "ai-sop-writer": {
+    title: "AI SOP / Process Writer",
+    subtitle: "Generate practical SOPs with AI — unlock full export.",
+    Component: AiSopWriterTool,
+  },
+  "ai-social-calendar": {
+    title: "AI Social Content Calendar",
+    subtitle: "Plan weeks of posts with AI — unlock full calendar.",
+    Component: AiSocialCalendarTool,
+  },
+  "ai-product-copy": {
+    title: "AI Product Copy Studio",
+    subtitle: "Landing, ads, and WhatsApp copy with AI.",
+    Component: AiProductCopyTool,
+  },
+  "ai-job-desc": {
+    title: "AI Job Description Writer",
+    subtitle: "Hire-ready JDs generated with AI.",
+    Component: AiJobDescTool,
+  },
+  "ai-meeting-actions": {
+    title: "AI Meeting → Actions",
+    subtitle: "Turn messy notes into decisions and owners.",
+    Component: AiMeetingActionsTool,
+  },
+  "ai-faq-pack": {
+    title: "AI FAQ & Objection Pack",
+    subtitle: "Sales FAQs and objection handlers with AI.",
+    Component: AiFaqPackTool,
+  },
+  "ai-content-repurpose": {
+    title: "AI Content Repurposer",
+    subtitle: "One source → posts, Status, email, script.",
+    Component: AiContentRepurposeTool,
   },
 };
