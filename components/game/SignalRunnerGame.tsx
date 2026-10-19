@@ -157,10 +157,11 @@ export default function SignalRunnerGame() {
     setScore(0);
     await startMusic();
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const canvasEl = canvasRef.current;
+    if (!canvasEl) return;
+    const ctx = canvasEl.getContext("2d");
     if (!ctx) return;
+    const canvas: HTMLCanvasElement = canvasEl;
 
     const W = canvas.width;
     const H = canvas.height;
@@ -218,36 +219,36 @@ export default function SignalRunnerGame() {
     canvas.addEventListener("pointerdown", onPointer);
 
     function drawBg() {
-      const g = ctx!.createLinearGradient(0, 0, 0, H);
+      const g = ctx.createLinearGradient(0, 0, 0, H);
       g.addColorStop(0, "#0a0f1a");
       g.addColorStop(0.5, "#0f172a");
       g.addColorStop(1, "#020617");
-      ctx!.fillStyle = g;
-      ctx!.fillRect(0, 0, W, H);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
 
-      ctx!.fillStyle = "rgba(255,255,255,0.35)";
+      ctx.fillStyle = "rgba(255,255,255,0.35)";
       for (let i = 0; i < 40; i++) {
         const sx = (i * 97 + frame * 0.2) % W;
         const sy = (i * 53) % (H * 0.55);
-        ctx!.fillRect(sx, sy, 2, 2);
+        ctx.fillRect(sx, sy, 2, 2);
       }
 
-      ctx!.strokeStyle = "rgba(56,189,248,0.15)";
-      ctx!.lineWidth = 1;
+      ctx.strokeStyle = "rgba(56,189,248,0.15)";
+      ctx.lineWidth = 1;
       const scroll = (frame * speed * 0.5) % 40;
       for (let x = -40; x < W + 40; x += 40) {
-        ctx!.beginPath();
-        ctx!.moveTo(x - scroll, ground);
-        ctx!.lineTo(x - scroll + 20, H);
-        ctx!.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x - scroll, ground);
+        ctx.lineTo(x - scroll + 20, H);
+        ctx.stroke();
       }
-      ctx!.fillStyle = "rgba(15,23,42,0.9)";
-      ctx!.fillRect(0, ground, W, H - ground);
-      ctx!.strokeStyle = "rgba(34,211,238,0.4)";
-      ctx!.beginPath();
-      ctx!.moveTo(0, ground);
-      ctx!.lineTo(W, ground);
-      ctx!.stroke();
+      ctx.fillStyle = "rgba(15,23,42,0.9)";
+      ctx.fillRect(0, ground, W, H - ground);
+      ctx.strokeStyle = "rgba(34,211,238,0.4)";
+      ctx.beginPath();
+      ctx.moveTo(0, ground);
+      ctx.lineTo(W, ground);
+      ctx.stroke();
     }
 
     function loop() {
@@ -329,22 +330,22 @@ export default function SignalRunnerGame() {
       drawBg();
 
       for (const o of obstacles) {
-        ctx!.fillStyle = o.type === "glitch" ? "#f43f5e" : "#a855f7";
-        ctx!.shadowColor = o.type === "glitch" ? "#f43f5e" : "#a855f7";
-        ctx!.shadowBlur = 12;
-        ctx!.fillRect(o.x, o.y, o.w, o.h);
-        ctx!.shadowBlur = 0;
+        ctx.fillStyle = o.type === "glitch" ? "#f43f5e" : "#a855f7";
+        ctx.shadowColor = o.type === "glitch" ? "#f43f5e" : "#a855f7";
+        ctx.shadowBlur = 12;
+        ctx.fillRect(o.x, o.y, o.w, o.h);
+        ctx.shadowBlur = 0;
       }
 
       for (const c of coins) {
         if (c.taken) continue;
-        ctx!.beginPath();
-        ctx!.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-        ctx!.fillStyle = "#22d3ee";
-        ctx!.shadowColor = "#22d3ee";
-        ctx!.shadowBlur = 10;
-        ctx!.fill();
-        ctx!.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#22d3ee";
+        ctx.shadowColor = "#22d3ee";
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.shadowBlur = 0;
       }
 
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -352,24 +353,24 @@ export default function SignalRunnerGame() {
         p.x += p.vx;
         p.y += p.vy;
         p.life--;
-        ctx!.fillStyle = "rgba(34,211,238," + p.life / 20 + ")";
-        ctx!.fillRect(p.x, p.y, 3, 3);
+        ctx.fillStyle = "rgba(34,211,238," + p.life / 20 + ")";
+        ctx.fillRect(p.x, p.y, 3, 3);
         if (p.life <= 0) particles.splice(i, 1);
       }
 
-      ctx!.shadowColor = "#22c55e";
-      ctx!.shadowBlur = 16;
-      ctx!.fillStyle = "#4ade80";
-      ctx!.fillRect(px, playerY, pw, ph);
-      ctx!.shadowBlur = 0;
-      ctx!.fillStyle = "#0f172a";
-      ctx!.fillRect(px + 8, playerY + 10, 6, 6);
-      ctx!.fillRect(px + 18, playerY + 10, 6, 6);
+      ctx.shadowColor = "#22c55e";
+      ctx.shadowBlur = 16;
+      ctx.fillStyle = "#4ade80";
+      ctx.fillRect(px, playerY, pw, ph);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#0f172a";
+      ctx.fillRect(px + 8, playerY + 10, 6, 6);
+      ctx.fillRect(px + 18, playerY + 10, 6, 6);
 
-      ctx!.fillStyle = "rgba(255,255,255,0.9)";
-      ctx!.font = "600 14px system-ui,sans-serif";
-      ctx!.fillText("Packets " + localScore, 16, 28);
-      ctx!.fillText("Best " + Math.max(best, localScore), 16, 48);
+      ctx.fillStyle = "rgba(255,255,255,0.9)";
+      ctx.font = "600 14px system-ui,sans-serif";
+      ctx.fillText("Packets " + localScore, 16, 28);
+      ctx.fillText("Best " + Math.max(best, localScore), 16, 48);
 
       if (alive) {
         rafRef.current = requestAnimationFrame(loop);
@@ -439,9 +440,7 @@ export default function SignalRunnerGame() {
         >
           Music: {musicOn ? "On" : "Off"}
         </button>
-        <span className="text-xs text-gray-500">
-          Optional custom track: public/audio/game-bg.mp3
-        </span>
+        <span className="text-xs text-gray-500">Optional custom track: public/audio/game-bg.mp3</span>
         <Link href="/tools" className="text-xs text-primary hover:underline">
           Back to tools
         </Link>
