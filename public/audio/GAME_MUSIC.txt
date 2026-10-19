@@ -1,0 +1,11 @@
+Signal Runner music
+===================
+Default: procedural ambient loop (Web Audio) — works with no file.
+
+To use your own track:
+1. Export an MP3 (loop-friendly, ~1–3 min, moderate volume).
+2. Upload it to this folder as: public/audio/game-bg.mp3
+3. Redeploy. The game will prefer that file when music is On.
+
+Path must be exactly:
+  public/audio/game-bg.mp3
