@@ -1,123 +1,74 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import EbookDelivery from "@/components/ebooks/EbookDelivery";
-import ProductDelivery from "@/components/products/ProductDelivery";
 import ProductUpsells, {
   ServiceSuccessChecklist,
 } from "@/components/products/ProductUpsells";
-import { getDigitalProduct } from "@/lib/products";
-import { getServiceOffer } from "@/lib/service-offers";
-import { getPaidToolByProductId, setUnlocked } from "@/lib/tools/paid";
-import { getEbook } from "@/lib/ebooks";
-import { findAnyEbook } from "@/lib/ebooks-catalog";
-import { UI_COMPONENTS, getUiComponent, formatCompPrice } from "@/lib/ui-components";
-import { PAGE_TEMPLATES, getPageTemplate } from "@/lib/page-templates";
+import { setUnlocked } from "@/lib/tools/paid";
+import { rememberPurchaseRef } from "@/lib/shop/usePurchaseUnlock";
+
+// Mirrors ProductSummary in lib/payments/purchase.ts (server-only module).
+type ProductSummary = {
+  id: string;
+  kind: "ebook" | "component" | "template" | "tool" | "digital" | "service" | "other";
+  title: string;
+  slug?: string;
+  toolSlug?: string;
+  unlockKey?: string;
+  isBundle?: boolean;
+};
+
+type VerifyResult = {
+  ok: boolean;
+  email?: string;
+  product?: ProductSummary | null;
+  delivery?: {
+    emailed: boolean;
+    downloadLinks: { label: string; url: string }[];
+  } | null;
+};
+
+const COMPONENT_KIT_SLUG = "agency-ui-kit";
 
 function SuccessInner() {
   const params = useSearchParams();
   const reference = params.get("reference") || params.get("trxref") || "";
-  const productId = params.get("product") || "";
-  const product = productId ? getDigitalProduct(productId) : undefined;
-  const paidTool = productId ? getPaidToolByProductId(productId) : undefined;
+  const productParam = params.get("product") || "";
 
-  const [state, setState] = useState<"loading" | "ok" | "fail">("loading");
-  const [detail, setDetail] = useState<any>(null);
-  const [resolvedProductId, setResolvedProductId] = useState(productId);
+  const [state, setState] = useState<"loading" | "ok" | "fail">(reference ? "loading" : "fail");
+  const [detail, setDetail] = useState<VerifyResult | null>(null);
 
   useEffect(() => {
-    if (!reference) {
-      setState("fail");
-      return;
-    }
+    if (!reference) return;
     fetch(`/api/paystack/verify?reference=${encodeURIComponent(reference)}`)
       .then((r) => r.json())
-      .then((data) => {
-        if (data.ok) {
-          setState("ok");
-          setDetail(data);
-          const pid = data.metadata?.product_id || productId;
-          setResolvedProductId(pid);
-          const tool = getPaidToolByProductId(pid);
-          if (tool) setUnlocked(tool.unlockKey);
-
-          const book = findAnyEbook(pid) || getEbook(pid);
-          if (book) {
-            try {
-              sessionStorage.setItem(`ebook_unlocked_${book.slug}`, "1");
-              localStorage.setItem(`ebook_unlocked_${book.slug}`, "1");
-            } catch {
-              /* ignore */
-            }
-          }
-
-          const comp =
-            UI_COMPONENTS.find((c) => c.id === pid || c.slug === pid) || getUiComponent(pid);
-          if (comp) {
-            try {
-              sessionStorage.setItem(`comp_unlocked_${comp.slug}`, "1");
-              localStorage.setItem(`comp_unlocked_${comp.slug}`, "1");
-              if (comp.slug === "agency-ui-kit") {
-                UI_COMPONENTS.forEach((c) => {
-                  localStorage.setItem(`comp_unlocked_${c.slug}`, "1");
-                  sessionStorage.setItem(`comp_unlocked_${c.slug}`, "1");
-                });
-              }
-            } catch {
-              /* ignore */
-            }
-          }
-
-          const tpl =
-            PAGE_TEMPLATES.find((t) => t.id === pid || t.slug === pid) || getPageTemplate(pid);
-          if (tpl) {
-            try {
-              sessionStorage.setItem(`tpl_unlocked_${tpl.slug}`, "1");
-              localStorage.setItem(`tpl_unlocked_${tpl.slug}`, "1");
-              if (tpl.slug === "all-templates-bundle") {
-                PAGE_TEMPLATES.forEach((t) => {
-                  localStorage.setItem(`tpl_unlocked_${t.slug}`, "1");
-                  sessionStorage.setItem(`tpl_unlocked_${t.slug}`, "1");
-                });
-              }
-            } catch {
-              /* ignore */
-            }
-          }
-        } else {
+      .then((data: VerifyResult) => {
+        setDetail(data);
+        if (!data.ok) {
           setState("fail");
-          setDetail(data);
+          return;
+        }
+        setState("ok");
+        rememberPurchaseRef(reference);
+        if (data.product?.kind === "tool" && data.product.unlockKey) {
+          setUnlocked(data.product.unlockKey);
         }
       })
       .catch(() => setState("fail"));
-  }, [reference, productId]);
+  }, [reference]);
 
-  const pid = resolvedProductId;
-  const resolvedEbook = findAnyEbook(pid || "") || getEbook(pid || "");
-  const resolvedComp =
-    UI_COMPONENTS.find((c) => c.id === pid || c.slug === pid) || getUiComponent(pid || "");
-  const resolvedTpl =
-    PAGE_TEMPLATES.find((t) => t.id === pid || t.slug === pid) || getPageTemplate(pid || "");
-  const resolvedProduct = getDigitalProduct(pid || "") || product;
-  const resolvedService = getServiceOffer(pid || "");
-  const kit = getUiComponent("agency-ui-kit");
-  const showKitUpsell = resolvedComp && resolvedComp.slug !== "agency-ui-kit" && kit;
-
-  const toolHref = paidTool ? `/tools/${paidTool.toolSlug}` : null;
-  const title =
-    paidTool?.title ||
-    resolvedEbook?.title ||
-    resolvedComp?.name ||
-    resolvedTpl?.name ||
-    resolvedService?.name ||
-    resolvedProduct?.name ||
-    productId ||
-    "Purchase";
+  const product = detail?.product;
+  const title = product?.title || productParam || "Purchase";
+  const email = detail?.email || "";
+  const links = detail?.delivery?.downloadLinks || [];
+  const refQuery = `reference=${encodeURIComponent(reference)}`;
 
   const wa = encodeURIComponent(
-    `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${detail?.email || ""}`
+    `Hi DoyinTech, I paid for "${title}" via Paystack.\nReference: ${reference}\nEmail: ${email}`
   );
 
   return (
@@ -129,24 +80,24 @@ function SuccessInner() {
 
         {state === "ok" && (
           <>
-            <p className="text-[48px]">✓</p>
+            <p className="text-[48px]" aria-hidden>
+              ✓
+            </p>
             <h1 className="mt-2 text-[32px] font-semibold text-[#f5f5f7]">Payment successful</h1>
             <p className="mt-3 text-[16px] text-[#a1a1a6]">{title} confirmed.</p>
-            {detail?.email && (
-              <p className="mt-2 text-[14px] text-[#a1a1a6]">Email: {detail.email}</p>
-            )}
+            {email && <p className="mt-2 text-[14px] text-[#a1a1a6]">Email: {email}</p>}
             <p className="mt-1 text-[13px] text-[#a1a1a6]">Ref: {reference}</p>
 
-            {detail?.delivery?.downloadLinks?.length > 0 && (
+            {links.length > 0 && (
               <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left">
-                <p className="text-[15px] font-semibold text-white">Your files (automatic delivery)</p>
+                <p className="text-[15px] font-semibold text-white">Your files</p>
                 <p className="mt-1 text-[13px] text-[#94a3b8]">
-                  {detail.delivery.emailed
+                  {detail?.delivery?.emailed
                     ? "Also sent to your email as PDF + Markdown."
-                    : "Download below. Email delivery activates when RESEND_API_KEY is set."}
+                    : "Download below and keep a copy. Links expire in 7 days."}
                 </p>
                 <ul className="mt-4 space-y-2">
-                  {detail.delivery.downloadLinks.map((l: { label: string; url: string }) => (
+                  {links.map((l) => (
                     <li key={l.url}>
                       <a
                         href={l.url}
@@ -160,58 +111,63 @@ function SuccessInner() {
               </div>
             )}
 
-            {resolvedService ? (
+            {product?.kind === "service" ? (
               <ServiceSuccessChecklist
-                serviceName={resolvedService.name}
+                serviceName={product.title}
                 reference={reference}
-                email={detail?.email || ""}
+                email={email}
               />
-            ) : resolvedEbook ? (
+            ) : product?.kind === "ebook" && product.slug ? (
               <EbookDelivery
-                productId={resolvedEbook.id}
+                productId={product.id}
                 reference={reference}
-                defaultEmail={detail?.email || ""}
-                bookTitle={resolvedEbook.title}
-                bookSlug={resolvedEbook.slug}
+                defaultEmail={email}
+                bookTitle={product.title}
+                bookSlug={product.slug}
               />
-            ) : resolvedComp ? (
+            ) : product?.kind === "component" && product.slug ? (
               <div className="mt-8 space-y-3">
-                <p className="text-[15px] text-emerald-400">Component source unlocked.</p>
+                <p className="text-[15px] text-emerald-400">
+                  {product.isBundle ? "All component source unlocked." : "Component source unlocked."}
+                </p>
                 <a
-                  href={`/components/${resolvedComp.slug}?paid=1&reference=${encodeURIComponent(reference)}`}
+                  href={`/components/${product.isBundle ? "" : product.slug}?${refQuery}`}
                   className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
                 >
-                  Open source code
+                  {product.isBundle ? "Browse components" : "Open source code"}
                 </a>
               </div>
-            ) : resolvedTpl ? (
+            ) : product?.kind === "template" && product.slug ? (
               <div className="mt-8 space-y-3">
-                <p className="text-[15px] text-emerald-400">Template unlocked.</p>
+                <p className="text-[15px] text-emerald-400">
+                  {product.isBundle ? "All templates unlocked." : "Template unlocked."}
+                </p>
                 <a
-                  href={`/templates/${resolvedTpl.slug}?paid=1&reference=${encodeURIComponent(reference)}`}
+                  href={`/templates/${product.isBundle ? "" : product.slug}?${refQuery}`}
                   className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
                 >
-                  Open template
+                  {product.isBundle ? "Browse templates" : "Open template"}
                 </a>
               </div>
-            ) : toolHref ? (
+            ) : product?.kind === "tool" && product.toolSlug ? (
               <div className="mt-8 space-y-3">
-                <p className="text-[15px] text-emerald-400">Tool unlocked.</p>
+                <p className="text-[15px] text-emerald-400">Tool unlocked on this device.</p>
                 <a
-                  href={toolHref}
+                  href={`/tools/${product.toolSlug}`}
                   className="inline-flex rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-black"
                 >
-                  Open {paidTool?.title}
+                  Open {product.title}
                 </a>
               </div>
-            ) : resolvedProduct ? (
+            ) : product?.kind === "digital" ? (
               <>
-                <ProductDelivery
-                  product={resolvedProduct}
-                  reference={reference}
-                  email={detail?.email || ""}
-                />
-                <ProductUpsells productId={resolvedProduct.id} />
+                {links.length === 0 && (
+                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+                    Your files are on their way to {email || "your email"}. If nothing arrives in
+                    10 minutes, message us with your reference.
+                  </p>
+                )}
+                <ProductUpsells productId={product.id} />
               </>
             ) : (
               <a
@@ -224,17 +180,17 @@ function SuccessInner() {
               </a>
             )}
 
-            {showKitUpsell && kit && (
+            {product?.kind === "component" && !product.isBundle && (
               <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-5 text-left">
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
-                  Upsell
+                  Save on the rest
                 </p>
                 <h2 className="mt-1 text-[18px] font-semibold text-white">Get the Full UI Kit</h2>
                 <p className="mt-2 text-[13px] text-[#a1a1a6]">
-                  Unlock all components for {formatCompPrice(kit.priceNgn)}.
+                  Every component in one purchase.
                 </p>
                 <a
-                  href={`/components/${kit.slug}`}
+                  href={`/components/${COMPONENT_KIT_SLUG}`}
                   className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
                 >
                   View Full UI Kit
@@ -249,9 +205,9 @@ function SuccessInner() {
               <a href="/products" className="text-[#2997ff] hover:underline">
                 Products
               </a>
-              <a href="/ebooks" className="text-[#2997ff] hover:underline">
+              <Link href="/ebooks" className="text-[#2997ff] hover:underline">
                 Ebooks
-              </a>
+              </Link>
             </div>
           </>
         )}
@@ -259,6 +215,10 @@ function SuccessInner() {
         {state === "fail" && (
           <>
             <h1 className="text-[28px] font-semibold text-[#f5f5f7]">Payment not confirmed</h1>
+            <p className="mt-3 text-[15px] text-[#a1a1a6]">
+              If money left your account, send us the Paystack reference and we will check it
+              manually.
+            </p>
             <a
               href={`https://wa.me/2348085343926?text=${wa}`}
               target="_blank"

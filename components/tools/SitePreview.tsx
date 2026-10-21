@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 /** Ordered real-page snapshot providers (direct image URLs) */
 export function previewCandidates(pageUrl: string): string[] {
@@ -30,12 +30,15 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
   const [failedAll, setFailedAll] = useState(false);
   const [mode, setMode] = useState<"snapshot" | "iframe">("snapshot");
 
-  useEffect(() => {
+  // Reset when the URL changes (adjust state during render instead of in an effect)
+  const [prevUrl, setPrevUrl] = useState(url);
+  if (url !== prevUrl) {
+    setPrevUrl(url);
     setIndex(0);
     setLoaded(false);
     setFailedAll(false);
     setMode("snapshot");
-  }, [url]);
+  }
 
   const src = candidates[Math.min(index, candidates.length - 1)];
 

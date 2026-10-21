@@ -10,7 +10,49 @@ const btn =
   "rounded-xl bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-50";
 const box = "rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-6 space-y-4";
 
-async function runLite(url: string, mode: string) {
+type ChainHop = { url: string; status?: number | null };
+type HeadersResult = {
+  score: number;
+  grade: string;
+  headers?: { key: string; name: string; ok: boolean; value?: string | null }[];
+};
+type SslResult = {
+  https: boolean;
+  tls?: {
+    error?: string;
+    protocol?: unknown;
+    daysRemaining?: unknown;
+    issuer?: unknown;
+    subject?: unknown;
+    validTo?: unknown;
+    authorized?: boolean;
+  } | null;
+  httpRedirectChain?: ChainHop[];
+};
+type ExposedResult = {
+  results?: { path: string; status?: number | null; evidence?: string; risk?: boolean }[];
+};
+type CookieResult = {
+  count: number;
+  cookies?: { raw: string; httpOnly: boolean; secure: boolean; sameSite?: string | null }[];
+};
+type CspResult = {
+  existingCsp?: string | null;
+  generated: string;
+  note?: string;
+  scriptHosts?: string[];
+};
+type RobotsResult = {
+  robotsStatus?: number | null;
+  sitemapStatus?: number | null;
+  sitemapHasLocs?: number;
+  disallows?: string[];
+  robotsText?: string;
+};
+type MixedResult = { httpsPage: boolean; mixedCount: number; samples?: string[] };
+type RedirectResult = { hops: number; finalUrl: string; chain?: ChainHop[] };
+
+async function runLite<T>(url: string, mode: string): Promise<T> {
   const res = await fetch("/api/security-lite", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -60,12 +102,12 @@ function Err({ error }: { error: string | null }) {
 export function SecurityHeadersTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<HeadersResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "headers"));
+      setData(await runLite<HeadersResult>(url, "headers"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -82,7 +124,7 @@ export function SecurityHeadersTool() {
             Score {data.score}/100 · Grade {data.grade}
           </p>
           <ul className="space-y-2">
-            {data.headers?.map((h: any) => (
+            {data.headers?.map((h) => (
               <li
                 key={h.key}
                 className="rounded-xl border border-white/10 bg-black/30 p-3 text-sm"
@@ -111,12 +153,12 @@ export function SecurityHeadersTool() {
 export function SslCheckerTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<SslResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "ssl"));
+      setData(await runLite<SslResult>(url, "ssl"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -155,7 +197,7 @@ export function SslCheckerTool() {
             <div className="mt-3">
               <p className="text-xs uppercase text-gray-500">HTTP redirect probe</p>
               <ul className="mt-1 font-mono text-[11px] text-gray-400">
-                {data.httpRedirectChain.map((c: any, i: number) => (
+                {data.httpRedirectChain.map((c, i) => (
                   <li key={i}>
                     {c.status} → {c.url}
                   </li>
@@ -173,12 +215,12 @@ export function SslCheckerTool() {
 export function ExposedFilesTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<ExposedResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "exposed"));
+      setData(await runLite<ExposedResult>(url, "exposed"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -194,7 +236,7 @@ export function ExposedFilesTool() {
       <Err error={error} />
       {data?.results && (
         <ul className="space-y-2">
-          {data.results.map((r: any) => (
+          {data.results.map((r) => (
             <li
               key={r.path}
               className={`rounded-xl border p-3 text-sm ${
@@ -223,12 +265,12 @@ export function ExposedFilesTool() {
 export function CookieAuditorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<CookieResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "cookies"));
+      setData(await runLite<CookieResult>(url, "cookies"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -249,7 +291,7 @@ export function CookieAuditorTool() {
           {data.cookies?.length === 0 && (
             <p className="text-sm text-gray-500">No Set-Cookie header on this response.</p>
           )}
-          {data.cookies?.map((c: any, i: number) => (
+          {data.cookies?.map((c, i) => (
             <div key={i} className="rounded-xl border border-white/10 bg-black/30 p-3 text-xs">
               <p className="break-all font-mono text-gray-400">{c.raw}</p>
               <p className="mt-2 text-gray-300">
@@ -268,12 +310,12 @@ export function CookieAuditorTool() {
 export function CspGeneratorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<CspResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "csp"));
+      setData(await runLite<CspResult>(url, "csp"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -305,7 +347,7 @@ export function CspGeneratorTool() {
             </pre>
           </div>
           <p className="text-xs text-gray-500">{data.note}</p>
-          {data.scriptHosts?.length > 0 && (
+          {data.scriptHosts && data.scriptHosts.length > 0 && (
             <p className="text-xs text-gray-400">
               Script hosts: {data.scriptHosts.join(", ")}
             </p>
@@ -320,12 +362,12 @@ export function CspGeneratorTool() {
 export function RobotsAuditorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<RobotsResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "robots"));
+      setData(await runLite<RobotsResult>(url, "robots"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -341,7 +383,7 @@ export function RobotsAuditorTool() {
           <p>robots.txt: HTTP {data.robotsStatus ?? "—"}</p>
           <p>sitemap.xml: HTTP {data.sitemapStatus ?? "—"}</p>
           <p>Sitemap URL count: {data.sitemapHasLocs}</p>
-          {data.disallows?.length > 0 && (
+          {data.disallows && data.disallows.length > 0 && (
             <div>
               <p className="text-xs uppercase text-gray-500">Disallow rules</p>
               <ul className="mt-1 font-mono text-[11px] text-gray-400">
@@ -366,12 +408,12 @@ export function RobotsAuditorTool() {
 export function MixedContentTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<MixedResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "mixed"));
+      setData(await runLite<MixedResult>(url, "mixed"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -403,12 +445,12 @@ export function MixedContentTool() {
 export function RedirectInspectorTool() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<RedirectResult | null>(null);
   async function go(url: string) {
     setLoading(true);
     setError(null);
     try {
-      setData(await runLite(url, "redirects"));
+      setData(await runLite<RedirectResult>(url, "redirects"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -426,7 +468,7 @@ export function RedirectInspectorTool() {
             <span className="text-white">{data.finalUrl}</span>
           </p>
           <ol className="list-decimal space-y-1 pl-4 font-mono text-[11px] text-gray-400">
-            {data.chain?.map((c: any, i: number) => (
+            {data.chain?.map((c, i) => (
               <li key={i}>
                 {c.status ?? "—"} · {c.url}
               </li>

@@ -66,10 +66,10 @@ export async function POST(req: Request) {
   }
 
   const email =
-    (body.email || "").trim() || `bills+${phone.slice(-8)}@doyintech.vercel.app`;
+    (body.email || "").trim() || `bills+${phone.slice(-8)}@doyintech.com`;
 
   const reference = `BILL_${body.kind}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://doyintech.vercel.app";
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://www.doyintech.com";
 
   const res = await fetch("https://api.paystack.co/transaction/initialize", {
     method: "POST",

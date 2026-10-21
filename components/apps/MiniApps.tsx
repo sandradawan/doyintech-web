@@ -71,6 +71,7 @@ export function ClientTrackerApp() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem("doyin_client_tracker");
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved rows after hydration (localStorage is client-only)
       if (raw) setRows(JSON.parse(raw));
     } catch {
       /* ignore */
@@ -186,6 +187,7 @@ export function ExpenseLogApp() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem("doyin_expense_log");
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved items after hydration (localStorage is client-only)
       if (raw) setItems(JSON.parse(raw));
     } catch {
       /* ignore */

@@ -22,6 +22,13 @@ export async function GET(req: NextRequest) {
       { status: 400 }
     );
   }
+  // Request IDs are sequential and guessable; the email is the proof of ownership.
+  if (!email.includes("@")) {
+    return NextResponse.json(
+      { error: "Enter the email you used when submitting the project." },
+      { status: 400 }
+    );
+  }
 
   const sb = getSupabaseAdmin();
   if (!sb) {
@@ -62,11 +69,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Project not found" }, { status: 404 });
   }
 
-  if (email && project.email && email !== String(project.email).toLowerCase()) {
-    return NextResponse.json(
-      { error: "Email does not match this Request ID" },
-      { status: 403 }
-    );
+  // Same response as "not found" so the lookup can't be used to confirm which IDs exist.
+  if (!project.email || email !== String(project.email).toLowerCase()) {
+    return NextResponse.json({ error: "Project not found" }, { status: 404 });
   }
 
   const readyStages = ["first_draft", "revisions", "delivered", "completed"];
@@ -149,8 +154,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    if (email && project.email && email !== String(project.email).toLowerCase()) {
-      return NextResponse.json({ error: "Email does not match" }, { status: 403 });
+    if (!project.email || email !== String(project.email).toLowerCase()) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
     await sb.from("student_project_messages").insert({

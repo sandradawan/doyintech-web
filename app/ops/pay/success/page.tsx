@@ -8,7 +8,9 @@ function SuccessBody() {
   const q = useSearchParams();
   const invoice = q.get("invoice") || "";
   const reference = q.get("reference") || q.get("trxref") || "";
-  const [status, setStatus] = useState<"checking" | "paid" | "pending">("checking");
+  const [checkStatus, setStatus] = useState<"checking" | "paid" | "pending">("checking");
+  // Nothing to check without an invoice or reference
+  const status = invoice || reference ? checkStatus : "pending";
 
   useEffect(() => {
     // Persist for OpsApp auto-mark on same browser
@@ -27,10 +29,7 @@ function SuccessBody() {
     const params = new URLSearchParams();
     if (invoice) params.set("invoice", invoice);
     if (reference) params.set("reference", reference);
-    if (!invoice && !reference) {
-      setStatus("pending");
-      return;
-    }
+    if (!invoice && !reference) return;
 
     fetch(`/api/ops/payments/check?${params.toString()}`)
       .then((r) => r.json())

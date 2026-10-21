@@ -25,7 +25,7 @@ export default function SignupPage() {
       return;
     }
     const origin =
-      typeof window !== "undefined" ? window.location.origin : "https://doyintech.vercel.app";
+      typeof window !== "undefined" ? window.location.origin : "https://www.doyintech.com";
     const { data, error: err } = await sb.auth.signUp({
       email,
       password,

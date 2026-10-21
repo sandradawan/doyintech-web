@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useProMembership } from "@/lib/subscriptions/useProMembership";
 import {
   getPaidTool,
   isUnlocked,
@@ -14,12 +16,16 @@ export function usePaidUnlock(toolSlug: string) {
 
   useEffect(() => {
     if (!def) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- unlock flag lives in localStorage; read after hydration so SSR matches
     setUn(isUnlocked(def.unlockKey));
   }, [def]);
 
+  // DoyinTech Pro members (verified server-side) get every paid tool.
+  const pro = useProMembership();
+
   return {
     def,
-    unlocked,
+    unlocked: unlocked || pro,
     unlockLocal: () => {
       if (!def) return;
       setUnlocked(def.unlockKey);
@@ -46,11 +52,11 @@ export default function PaidGate({
     if (!def) return;
     const q = new URLSearchParams(window.location.search);
     const ref = q.get("reference") || q.get("trxref");
-    if (ref && q.get("paid") === "1") {
+    if (ref) {
       fetch(`/api/paystack/verify?reference=${encodeURIComponent(ref)}`)
         .then((r) => r.json())
         .then((data) => {
-          if (data.ok) unlockLocal();
+          if (data.ok && data.product?.id === def.productId) unlockLocal();
         })
         .catch(() => {});
     }
@@ -83,8 +89,8 @@ export default function PaidGate({
         throw new Error(data.error || "Payment failed");
       }
       window.location.href = data.authorization_url;
-    } catch (err: any) {
-      setError(err.message || "Error");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error");
       setLoading(false);
     }
   }
@@ -119,6 +125,16 @@ export default function PaidGate({
             {loading ? "Redirecting…" : `Unlock for ${def.priceNgn}`}
           </button>
         </form>
+        <p className="mt-3 text-center text-xs text-amber-100/80">
+          Use several tools?{" "}
+          <Link href="/pro" className="font-semibold text-amber-200 underline">
+            Get every premium tool with DoyinTech Pro
+          </Link>{" "}
+          ·{" "}
+          <Link href="/account" className="underline">
+            Member sign in
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -72,8 +72,8 @@ export function planHosting(opts: {
   email: boolean;
   ssl: boolean;
 }) {
-  let domainMin = 12_000;
-  let domainMax = 25_000;
+  const domainMin = 12_000;
+  const domainMax = 25_000;
   let hostMin = 15_000;
   let hostMax = 40_000;
   const notes: string[] = ["Domain prices vary by TLD (.com vs .com.ng)"];

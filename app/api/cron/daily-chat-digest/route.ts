@@ -22,7 +22,7 @@ export async function GET(req: Request) {
     `Review any new website chat leads in your email inbox today.\n` +
     `Chat leads also appear when visitors request a human or submit contact details.\n` +
     `WhatsApp: +${WHATSAPP_NUMBER}\n` +
-    `Site: https://doyintech.vercel.app`;
+    `Site: https://www.doyintech.com`;
 
   // Email digest
   try {

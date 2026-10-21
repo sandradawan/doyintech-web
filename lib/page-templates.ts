@@ -433,6 +433,4 @@ export function getPageTemplate(slug: string): PageTemplate | undefined {
   return PAGE_TEMPLATES.find((t) => t.slug === slug || t.id === slug);
 }
 
-export function formatTplPrice(n: number): string {
-  return "₦" + n.toLocaleString("en-NG");
-}
+export { formatTplPrice } from "@/lib/shop/format";

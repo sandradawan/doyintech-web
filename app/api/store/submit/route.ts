@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
     };
 
     // Prefer Supabase; fall back to in-memory (without extra fields TS rejects)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- destructured only to omit them from queuePayload
     const { screenshots: _shots, iconUrl: _icon, ...queuePayload } = payload;
     const row =
       (await dbInsertSubmission(payload)) ||

@@ -2,12 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { listQueue, updateQueueStatus } from "@/lib/store/queue";
 import { dbListQueue, dbUpdateStatus } from "@/lib/store/db";
 import type { ReviewStatus } from "@/lib/store/types";
+import { secretsMatch } from "@/lib/admin/auth";
 
 function authorized(req: NextRequest): boolean {
-  const key = process.env.STORE_ADMIN_KEY || "";
-  if (!key) return false;
-  const header = req.headers.get("x-store-admin-key") || "";
-  return header === key;
+  return secretsMatch(req.headers.get("x-store-admin-key") || "", process.env.STORE_ADMIN_KEY || "");
 }
 
 export async function GET(req: NextRequest) {

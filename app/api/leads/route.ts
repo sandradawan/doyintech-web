@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { leadNotifyTemplate } from "@/lib/email/templates";
+import { secretsMatch } from "@/lib/admin/auth";
 
 type LeadBody = {
   name?: string;
@@ -17,10 +18,8 @@ type LeadBody = {
 };
 
 function adminOk(req: NextRequest) {
-  const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET;
-  if (!secret) return false;
-  const header = req.headers.get("x-admin-secret") || "";
-  return header === secret;
+  const secret = process.env.ADMIN_LEADS_SECRET || process.env.LEADS_ADMIN_SECRET || "";
+  return secretsMatch(req.headers.get("x-admin-secret") || "", secret);
 }
 
 export async function POST(req: NextRequest) {

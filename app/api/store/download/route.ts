@@ -3,13 +3,19 @@ import { getPublishedBySlug } from "@/lib/store/published";
 import { issueDownloadToken, verifyDownloadToken } from "@/lib/store/tokens";
 import { dbCreateOrder, dbVerifyOrderToken, dbBumpDownloads } from "@/lib/store/db";
 import { randomBytes } from "crypto";
+import { verifyPurchase } from "@/lib/payments/purchase";
+import { limitRequest } from "@/lib/rate-limit";
+import { SITE_URL } from "@/lib/site";
 
 export async function POST(req: NextRequest) {
   try {
+    const limited = limitRequest(req, "store-download", 20, 60_000);
+    if (limited) return limited;
+
     const body = await req.json();
     const slug = String(body.slug || "");
-    const email = String(body.email || "").trim() || "buyer@doyintech.local";
-    const paystackRef = body.reference ? String(body.reference) : "";
+    let email = String(body.email || "").trim().toLowerCase() || "buyer@doyintech.local";
+    const paystackRef = body.reference ? String(body.reference).trim() : "";
     const listing = await getPublishedBySlug(slug);
 
     if (!listing || listing.reviewStatus !== "approved") {
@@ -26,17 +32,12 @@ export async function POST(req: NextRequest) {
           { status: 402 }
         );
       }
-      const secret = process.env.PAYSTACK_SECRET_KEY || "";
-      if (secret) {
-        const vr = await fetch(
-          `https://api.paystack.co/transaction/verify/${encodeURIComponent(paystackRef)}`,
-          { headers: { Authorization: `Bearer ${secret}` } }
-        );
-        const vdata = await vr.json();
-        if (!vr.ok || !vdata.status || vdata.data?.status !== "success") {
-          return NextResponse.json({ error: "Payment not verified." }, { status: 402 });
-        }
+      // Must be a full payment for THIS listing (fails closed if Paystack isn't configured).
+      const check = await verifyPurchase(paystackRef);
+      if (!check.ok || (check.productId !== listing.slug && check.productId !== listing.id)) {
+        return NextResponse.json({ error: "Payment not verified for this item." }, { status: 402 });
       }
+      email = check.email || email;
     }
 
     const ttlMinutes = 120;
@@ -57,18 +58,12 @@ export async function POST(req: NextRequest) {
 
     void dbBumpDownloads(listing.id);
 
-    const origin =
-      req.headers.get("origin") ||
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://doyintech.vercel.app";
-
-    const downloadUrl = `${origin}/api/store/file?token=${encodeURIComponent(token)}&slug=${encodeURIComponent(slug)}`;
+    const downloadUrl = `${SITE_URL}/api/store/file?token=${encodeURIComponent(token)}&slug=${encodeURIComponent(slug)}`;
 
     console.log(
       JSON.stringify({
         event: "store_download_grant",
         slug,
-        email,
         free: listing.priceNgn === 0,
         persisted: saved,
         at: new Date().toISOString(),

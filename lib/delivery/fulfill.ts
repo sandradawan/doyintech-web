@@ -8,6 +8,7 @@ import { issueDownloadToken } from "@/lib/store/tokens";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 import { formatEbookDocument } from "@/lib/ebooks/delivery";
+import { SITE_URL } from "@/lib/site";
 
 export type FulfillResult = {
   ok: boolean;
@@ -23,14 +24,10 @@ export async function fulfillPaidProduct(opts: {
   email: string;
   reference: string;
   amountKobo?: number;
-  origin?: string;
   customerName?: string;
 }): Promise<FulfillResult> {
   const email = opts.email.toLowerCase().trim();
-  const origin =
-    opts.origin ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://doyintech.vercel.app";
+  const origin = SITE_URL;
 
   const book = findAnyEbook(opts.productId);
   if (book) {

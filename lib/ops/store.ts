@@ -279,7 +279,7 @@ export function seedDemoWorkspace(): OpsWorkspace {
     phone: "+234 808 000 0000",
     address: "12 Innovation Drive",
     city: "Jos, Nigeria",
-    website: "https://doyintech.vercel.app",
+    website: "https://www.doyintech.com",
     bankNote: "Pay securely online via Paystack",
   };
   let ws: OpsWorkspace = {

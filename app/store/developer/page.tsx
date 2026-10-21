@@ -18,7 +18,7 @@ export default function DeveloperPublishPage() {
     const form = e.currentTarget;
     const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries());
-    delete (payload as any).binary;
+    delete payload.binary;
 
     try {
       if (file) {
@@ -52,9 +52,9 @@ export default function DeveloperPublishPage() {
       form.reset();
       setFile(null);
       setPlatform("android");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus("err");
-      setMessage(err.message || "Error");
+      setMessage((err instanceof Error && err.message) || "Error");
     }
   }
 

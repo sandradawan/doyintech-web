@@ -94,11 +94,10 @@ export default function SecurityScanner() {
   };
   useEffect(() => () => clearTimers(), []);
 
-  const allFindings = result?.findings || [];
-  const findings = useMemo(
-    () => (verifiedOnly ? allFindings.filter((f) => f.verified) : allFindings),
-    [allFindings, verifiedOnly],
-  );
+  const findings = useMemo(() => {
+    const allFindings = result?.findings || [];
+    return verifiedOnly ? allFindings.filter((f) => f.verified) : allFindings;
+  }, [result?.findings, verifiedOnly]);
   const pages = result?.pagesChecked || [];
 
   const score = useMemo(() => {

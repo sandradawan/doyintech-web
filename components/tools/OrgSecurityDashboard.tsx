@@ -69,6 +69,7 @@ export default function OrgSecurityDashboard() {
   useEffect(() => {
     try {
       const d = localStorage.getItem(STORAGE_DOMAINS);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved settings after hydration (localStorage is client-only)
       if (d) setDomains(JSON.parse(d));
       const r = localStorage.getItem(STORAGE_RULES);
       if (r) setRules({ ...defaultRules, ...JSON.parse(r) });

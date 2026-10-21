@@ -22,7 +22,7 @@ export default function PlayPage() {
             Signal Runner
           </h1>
           <p className="mt-3 text-gray-400">
-            Network acting up? Play our game — not Chrome's dinosaur. This page is saved on your
+            Network acting up? Play our game — not Chrome&apos;s dinosaur. This page is saved on your
             device after you open it once online. Music is built-in (or add{" "}
             <code className="text-gray-300">game-bg.mp3</code>). High score stays on this device.
           </p>

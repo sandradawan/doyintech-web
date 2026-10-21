@@ -24,13 +24,13 @@ export default function AdminSettingsPage() {
   const [health, setHealth] = useState<HealthItem[]>([]);
   const [checking, setChecking] = useState(false);
 
-  const loadMe = useCallback(async () => {
+  useEffect(() => {
     if (!session.accessToken) return;
-    const res = await fetch("/api/admin/me", {
+    fetch("/api/admin/me", {
       headers: { Authorization: `Bearer ${session.accessToken}` },
-    });
-    const json = await res.json().catch(() => ({}));
-    setMe(json);
+    })
+      .then((res) => res.json().catch(() => ({})))
+      .then((json: Me) => setMe(json));
   }, [session.accessToken]);
 
   const runHealth = useCallback(async () => {
@@ -75,10 +75,7 @@ export default function AdminSettingsPage() {
   }, [session]);
 
   useEffect(() => {
-    void loadMe();
-  }, [loadMe]);
-
-  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- auto-runs the async health check (sets its loading flag) once admin is known
     if (session.isAdmin) void runHealth();
   }, [session.isAdmin, runHealth]);
 

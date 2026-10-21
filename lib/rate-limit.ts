@@ -52,3 +52,21 @@ export function clientIp(req: Request): string {
   const ip = xf.split(",")[0]?.trim() || real.trim() || "unknown";
   return ip.slice(0, 64);
 }
+
+/** Per-IP limit for an API route. Returns a 429 response when exceeded, else null. */
+export function limitRequest(
+  req: Request,
+  name: string,
+  limit: number,
+  windowMs: number
+): Response | null {
+  const r = rateLimit(`${name}:${clientIp(req)}`, limit, windowMs);
+  if (r.ok) return null;
+  return new Response(JSON.stringify({ error: "Too many requests. Try again shortly." }), {
+    status: 429,
+    headers: {
+      "Content-Type": "application/json",
+      "Retry-After": String(r.retryAfterSec),
+    },
+  });
+}

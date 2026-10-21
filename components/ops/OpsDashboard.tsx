@@ -18,6 +18,7 @@ import OpsWeeklyReport from "@/components/ops/OpsWeeklyReport";
 import OpsContactDrawer from "@/components/ops/OpsContactDrawer";
 import OpsCommandPalette from "@/components/ops/OpsCommandPalette";
 import { exportContactsCsv, exportDealsCsv, exportInvoicesCsv } from "@/lib/ops/csv";
+import { getSupabaseBrowser } from "@/lib/supabase/client";
 
 type Tab = "home" | "agenda" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
 const field = "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
@@ -85,6 +86,8 @@ export default function OpsDashboard() {
     }
     run();
     return () => { cancelled = true; };
+    // Re-check only when the invoice count changes; depending on `ws` would refetch on every edit
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ws?.invoices?.length]);
 
   const stats = useMemo(() => {
@@ -178,8 +181,14 @@ export default function OpsDashboard() {
     if (!email.includes("@")) return alert("Valid client email required.");
     setPayBusy(inv.id);
     try {
+      const { data: sess } = (await getSupabaseBrowser()?.auth.getSession()) || { data: null };
+      const token = sess?.session?.access_token;
       const res = await fetch("/api/ops/invoice-pay", {
-        method: "POST", headers: { "Content-Type": "application/json" },
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ email, amountNgn: inv.amountNgn, invoiceNumber: inv.number, description: inv.description, customerName: c?.name || "" }),
       });
       const dataJson = await res.json();
@@ -187,7 +196,7 @@ export default function OpsDashboard() {
       const url = dataJson.authorization_url as string;
       setWs((w) => {
         if (!w) return w;
-        let next = { ...normalizeWs(w), invoices: w.invoices.map((i) => i.id === inv.id ? { ...i, paymentUrl: url, paymentRef: dataJson.reference } : i) };
+        const next = { ...normalizeWs(w), invoices: w.invoices.map((i) => i.id === inv.id ? { ...i, paymentUrl: url, paymentRef: dataJson.reference } : i) };
         return pushActivity(next, `Pay link created for ${inv.number}`);
       });
       try { await navigator.clipboard.writeText(url); } catch { /* */ }

@@ -203,7 +203,7 @@ export function ServiceSuccessChecklist({
 
   return (
     <div className="mt-8 space-y-4 text-left">
-      <p className="text-[15px] font-medium text-emerald-400">Deposit received — you're booked</p>
+      <p className="text-[15px] font-medium text-emerald-400">Deposit received — you&apos;re booked</p>
       <p className="text-[14px] text-[#a1a1a6]">
         Timeline starts when assets arrive. Message us now so we can open your folder and lock the
         build schedule.

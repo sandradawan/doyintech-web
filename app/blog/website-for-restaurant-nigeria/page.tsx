@@ -21,7 +21,7 @@ export default function RestaurantWebsitePage() {
             Website for a restaurant in Nigeria
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
-            Hungry customers search "restaurant near me" and check Instagram. A simple site with
+            Hungry customers search &quot;restaurant near me&quot; and check Instagram. A simple site with
             menu, hours, location, and WhatsApp closes the gap between discovery and a table or
             order.
           </p>
@@ -29,7 +29,7 @@ export default function RestaurantWebsitePage() {
             <section>
               <h2 className="text-[22px] font-semibold text-white">Must-have pages</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
-                <li>Hero with cuisine + area (e.g. "Grills · Jos")</li>
+                <li>Hero with cuisine + area (e.g. &quot;Grills · Jos&quot;)</li>
                 <li>Menu highlights or full menu PDF link</li>
                 <li>Hours, address, Google Maps embed</li>
                 <li>WhatsApp for reservations / bulk orders</li>

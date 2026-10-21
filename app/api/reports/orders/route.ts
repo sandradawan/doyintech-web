@@ -5,11 +5,16 @@ import {
   generateDeliveryToken,
   generateReportOrderId,
 } from "@/lib/reports/order-id";
+import { limitRequest } from "@/lib/rate-limit";
+import { SITE_URL } from "@/lib/site";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
 export async function POST(req: NextRequest) {
   try {
+    const limited = limitRequest(req, "report-order", 10, 60_000);
+    if (limited) return limited;
+
     const body = await req.json();
     const name = String(body.name || "").trim();
     const email = String(body.email || "").trim().toLowerCase();
@@ -94,10 +99,7 @@ export async function POST(req: NextRequest) {
       if (error) {
         console.error("report_orders insert", error.message);
         return NextResponse.json(
-          {
-            error: "Could not create order. Run docs/report-studio.sql in Supabase.",
-            detail: error.message,
-          },
+          { error: "Could not create order. Please try again or contact us on WhatsApp." },
           { status: 503 }
         );
       }
@@ -123,16 +125,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const origin =
-      req.headers.get("origin") ||
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://doyintech.vercel.app";
-
     const payload = {
       email,
       amount: pkg.amountKobo,
       currency: "NGN",
-      callback_url: `${origin}/reports/success?order=${encodeURIComponent(orderId)}`,
+      callback_url: `${SITE_URL}/reports/success?order=${encodeURIComponent(orderId)}`,
       metadata: {
         kind: "report_studio",
         product_id: pkg.id,
@@ -175,15 +172,23 @@ export async function POST(req: NextRequest) {
       reference,
     });
   } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : "Order failed";
-    console.error("reports/orders", msg);
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("reports/orders", e instanceof Error ? e.message : e);
+    return NextResponse.json({ error: "Order failed" }, { status: 500 });
   }
 }
 
+/**
+ * Order status lookup. Order IDs are guessable, so personal details and the private
+ * report link are only returned to someone who also proves ownership with the order
+ * email or the Paystack reference.
+ */
 export async function GET(req: NextRequest) {
+  const limited = limitRequest(req, "report-lookup", 30, 60_000);
+  if (limited) return limited;
+
   const orderId = req.nextUrl.searchParams.get("orderId")?.trim();
   const email = req.nextUrl.searchParams.get("email")?.trim().toLowerCase();
+  const reference = req.nextUrl.searchParams.get("reference")?.trim();
   if (!orderId) {
     return NextResponse.json({ error: "orderId required" }, { status: 400 });
   }
@@ -196,7 +201,7 @@ export async function GET(req: NextRequest) {
   const { data, error } = await sb
     .from("report_orders")
     .select(
-      "order_id, product_name, price_ngn, status, name, email, profile_url, created_at, delivered_at, delivery_token"
+      "order_id, product_name, price_ngn, status, name, email, profile_url, created_at, delivered_at, delivery_token, paystack_ref"
     )
     .eq("order_id", orderId)
     .limit(1)
@@ -210,20 +215,20 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
-  const canView = data.status === "completed" || data.status === "delivered";
+  const owner =
+    (!!email && data.email === email) ||
+    (!!reference && !!data.paystack_ref && data.paystack_ref === reference);
+  const canView = owner && (data.status === "completed" || data.status === "delivered");
 
   return NextResponse.json({
     orderId: data.order_id,
     productName: data.product_name,
     priceNgn: data.price_ngn,
     status: data.status,
-    name: data.name,
-    profileUrl: data.profile_url,
     createdAt: data.created_at,
     deliveredAt: data.delivered_at,
-    viewUrl:
-      canView && data.delivery_token
-        ? `/reports/view/${data.delivery_token}`
-        : null,
+    ...(owner ? { name: data.name, profileUrl: data.profile_url } : {}),
+    viewUrl: canView && data.delivery_token ? `/reports/view/${data.delivery_token}` : null,
+    needsEmail: !owner,
   });
 }

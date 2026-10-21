@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import { ComponentCard } from "@/components/shop/ComponentShop";
 import { UI_COMPONENTS } from "@/lib/ui-components";
+import { publicComponent } from "@/lib/shop/public";
 
 export const metadata: Metadata = {
   title: "Next.js Components — Buy & download",
@@ -44,14 +46,14 @@ export default function ComponentsShopPage() {
                 Featured this week
               </p>
               <div className="mt-4 max-w-md">
-                <ComponentCard item={featured} />
+                <ComponentCard item={publicComponent(featured)} />
               </div>
             </div>
           )}
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((item) => (
-              <ComponentCard key={item.id} item={item} />
+              <ComponentCard key={item.id} item={publicComponent(item)} />
             ))}
           </div>
 
@@ -61,9 +63,9 @@ export default function ComponentsShopPage() {
               /api/registry
             </a>
             {" "}· Templates{" "}
-            <a href="/templates" className="text-[#ff8c14] hover:underline">
+            <Link href="/templates" className="text-[#ff8c14] hover:underline">
               here
-            </a>
+            </Link>
           </p>
         </div>
       </main>

@@ -57,8 +57,8 @@ function TrackInner() {
               className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
           </label>
           <label className="block text-[13px] text-[#a1a1a6]">
-            Email (optional)
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+            Email used at checkout *
+            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
               className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
           </label>
           {error && <p className="text-red-300 text-[14px]">{error}</p>}

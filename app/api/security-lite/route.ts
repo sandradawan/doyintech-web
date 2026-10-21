@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import tls from "tls";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { assertPublicHost, safeFetch } from "@/lib/net/safe-url";
+import { SITE_URL } from "@/lib/site";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -30,17 +32,18 @@ function normalizeTarget(raw: string): URL | null {
 
 async function fetchSafe(url: string, timeoutMs = 10000): Promise<Response | null> {
   try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), timeoutMs);
-    const res = await fetch(url, {
-      signal: ctrl.signal,
-      redirect: "manual",
-      headers: {
-        "User-Agent": "DoyinTech-SecurityLite/1.0 (+https://doyintech.vercel.app)",
-        Accept: "text/html,application/xhtml+xml,*/*",
+    // Single hop (callers follow redirects themselves); every hop's host is validated.
+    const { res } = await safeFetch(
+      url,
+      {
+        timeoutMs,
+        headers: {
+          "User-Agent": `DoyinTech-SecurityLite/1.0 (+${SITE_URL})`,
+          Accept: "text/html,application/xhtml+xml,*/*",
+        },
       },
-    });
-    clearTimeout(t);
+      0
+    );
     return res;
   } catch {
     return null;
@@ -129,6 +132,14 @@ export async function POST(req: NextRequest) {
     const target = normalizeTarget(String(body.url || ""));
     if (!target) {
       return NextResponse.json({ error: "Invalid or disallowed URL" }, { status: 400 });
+    }
+    try {
+      await assertPublicHost(target.hostname);
+    } catch (e) {
+      return NextResponse.json(
+        { error: e instanceof Error ? e.message : "Disallowed host" },
+        { status: 400 },
+      );
     }
 
     if (mode === "ssl") {

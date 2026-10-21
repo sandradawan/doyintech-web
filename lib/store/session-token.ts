@@ -15,12 +15,14 @@ export type TokenPayload = {
 };
 
 function secret(): string {
-  return (
-    process.env.STORE_SESSION_SECRET ||
-    process.env.STORE_ADMIN_KEY ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    "doyinstore-dev-only-change-me"
-  );
+  // Dedicated secret only: reusing the admin key or Supabase service key for signing
+  // means a leak of one compromises both.
+  const s = process.env.STORE_SESSION_SECRET || "";
+  if (s) return s;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("STORE_SESSION_SECRET must be set");
+  }
+  return "doyinstore-dev-only-change-me";
 }
 
 function b64url(input: string | Buffer): string {

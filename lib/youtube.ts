@@ -7,10 +7,6 @@ export type YoutubeVideo = {
   isShort?: boolean;
 };
 
-// DoyinTech official channel (@doyintechfoundation)
-const CHANNEL_ID =
-  process.env.YOUTUBE_CHANNEL_ID || "UCzZeP2RV2VuS2ymtoaealGQ";
-
 /** Introduction To Web Development playlist */
 const PLAYLIST_ID =
   process.env.YOUTUBE_PLAYLIST_ID || "PLb1kWUJelqlw";
@@ -136,7 +132,7 @@ async function fetchPlaylistFromRss(limit = 10): Promise<YoutubeVideo[]> {
         headers: {
           Accept: "application/atom+xml, application/xml, text/xml, */*",
           "User-Agent":
-            "Mozilla/5.0 (compatible; DoyinTechBot/1.0; +https://doyintech.vercel.app)",
+            "Mozilla/5.0 (compatible; DoyinTechBot/1.0; +https://www.doyintech.com)",
         },
       }
     );
@@ -155,6 +151,15 @@ async function fetchPlaylistFromRss(limit = 10): Promise<YoutubeVideo[]> {
   }
 }
 
+type PlaylistItem = {
+  snippet?: {
+    resourceId?: { videoId?: string };
+    title?: string;
+    publishedAt?: string;
+    thumbnails?: { high?: { url?: string }; medium?: { url?: string } };
+  };
+};
+
 async function fetchPlaylistFromApi(limit = 10): Promise<YoutubeVideo[]> {
   if (!PLAYLIST_ID || !API_KEY) return [];
   try {
@@ -165,7 +170,7 @@ async function fetchPlaylistFromApi(limit = 10): Promise<YoutubeVideo[]> {
     if (!playlistRes.ok) return [];
     const playlistData = await playlistRes.json();
     const items = playlistData?.items || [];
-    return items.map((item: any) => {
+    return items.map((item: PlaylistItem) => {
       const id = item.snippet?.resourceId?.videoId as string;
       const title = (item.snippet?.title as string) || "Untitled";
       const isShort = /#shorts|\bshorts?\b/i.test(title);

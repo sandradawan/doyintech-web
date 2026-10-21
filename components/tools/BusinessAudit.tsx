@@ -34,7 +34,7 @@ export default function BusinessAudit() {
   }
 
   if (done) {
-    const shareText = `I scored ${result.score}/100 (${result.label}) on the DoyinTech Business Audit. Check yours: https://doyintech.vercel.app/tools/business-audit`;
+    const shareText = `I scored ${result.score}/100 (${result.label}) on the DoyinTech Business Audit. Check yours: https://www.doyintech.com/tools/business-audit`;
     return (
       <div className="space-y-6 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">

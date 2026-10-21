@@ -8,6 +8,10 @@ import {
 } from "@/lib/ebooks/delivery";
 import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 
+import { verifyPurchase } from "@/lib/payments/purchase";
+import { limitRequest } from "@/lib/rate-limit";
+import { absoluteUrl } from "@/lib/site";
+
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 const RESEND_KEY = process.env.RESEND_API_KEY || "";
 const FROM_EMAIL =
@@ -15,26 +19,6 @@ const FROM_EMAIL =
   process.env.DELIVERY_FROM_EMAIL ||
   process.env.RESEND_FROM ||
   "DoyinTech <onboarding@resend.dev>";
-
-async function verifyPaystack(reference: string) {
-  const res = await fetch(
-    `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
-    {
-      headers: { Authorization: `Bearer ${SECRET}` },
-      cache: "no-store",
-    }
-  );
-  const data = await res.json();
-  if (!res.ok || !data.status || data.data?.status !== "success") {
-    return null;
-  }
-  return data.data as {
-    reference: string;
-    amount: number;
-    customer?: { email?: string };
-    metadata?: Record<string, string>;
-  };
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,28 +29,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const limited = limitRequest(req, "ebook-deliver", 10, 60_000);
+    if (limited) return limited;
+
     const body = await req.json();
     const reference = String(body.reference || "").trim();
     const mode = String(body.mode || "pdf").toLowerCase();
-    const productHint = String(body.productId || "").trim();
 
     if (!reference) {
       return NextResponse.json({ error: "Missing payment reference." }, { status: 400 });
     }
 
-    const tx = await verifyPaystack(reference);
-    if (!tx) {
+    // The product comes from the verified payment, never from the request body.
+    const check = await verifyPurchase(reference);
+    if (!check.ok) {
       return NextResponse.json(
         { error: "Payment not verified. Complete payment first." },
         { status: 403 }
       );
     }
 
-    const productId =
-      productHint ||
-      String(tx.metadata?.product_id || tx.metadata?.product_name || "");
-
-    const book = findEbookByProductId(productId);
+    const book = findEbookByProductId(check.productId);
     if (!book) {
       return NextResponse.json(
         {
@@ -83,7 +66,8 @@ export async function POST(req: NextRequest) {
     const html = formatEbookHtml(book);
     const text = formatEbookDocument(book);
     const filenameHtml = ebookFilename(book, "html");
-    const buyerEmail = (tx.customer?.email || body.email || "").toLowerCase();
+    // Only ever email the address that paid, so a leaked reference can't send copies elsewhere.
+    const buyerEmail = check.email;
     const payload = ebookPayload(book);
 
     if (mode === "pdf") {
@@ -135,7 +119,7 @@ export async function POST(req: NextRequest) {
             <p>Thanks for purchasing <strong>${book.title}</strong>.</p>
             <p>Your <strong>professional PDF</strong> is attached to this email.</p>
             <p>You can also read online:
-              <a href="https://doyintech.vercel.app/ebooks/${book.slug}?paid=1&reference=${encodeURIComponent(reference)}">Open ebook</a>
+              <a href="${absoluteUrl(`/ebooks/${book.slug}?reference=${encodeURIComponent(reference)}`)}">Open ebook</a>
             </p>
             <p style="color:#64748b;font-size:13px">Ref: ${reference}</p>
             <p>— DoyinTech</p>

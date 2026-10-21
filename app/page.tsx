@@ -12,6 +12,11 @@ import FAQ from "@/components/sections/FAQ";
 import BookCall from "@/components/sections/BookCall";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /**
  * Homepage: Hero → Trust → Report Studio (fast discovery) → work → services → pricing → CTA.

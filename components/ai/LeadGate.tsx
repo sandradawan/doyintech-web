@@ -8,6 +8,7 @@ export function useLeadUnlocked() {
   const [unlocked, setUnlocked] = useState(false);
   useEffect(() => {
     try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- read sessionStorage after hydration (client-only)
       if (sessionStorage.getItem(KEY)) setUnlocked(true);
     } catch {
       /* ignore */

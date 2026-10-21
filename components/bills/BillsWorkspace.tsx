@@ -8,7 +8,7 @@ import {
   NETWORKS,
   type NetworkId,
 } from "@/lib/bills/catalog";
-import { getSupabaseBrowser } from "@/lib/supabase/client";
+import { getSupabaseBrowser, isSupabaseConfigured } from "@/lib/supabase/client";
 import {
   IconBolt,
   IconSignal,
@@ -33,16 +33,19 @@ const field =
 
 export default function BillsWorkspace() {
   const router = useRouter();
-  const [ready, setReady] = useState(false);
+  // Env-only check, identical on server and client, so safe for initial state
+  const [ready, setReady] = useState(() => !isSupabaseConfigured());
   const [token, setToken] = useState("");
   const [balance, setBalance] = useState(0);
   const [tab, setTab] = useState<Tab>("airtime");
   const [network, setNetwork] = useState<NetworkId>("mtn");
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState(500);
-  const [planCode, setPlanCode] = useState("");
+  const [pickedPlanCode, setPlanCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() =>
+    isSupabaseConfigured() ? "" : "Auth not configured."
+  );
   const [success, setSuccess] = useState("");
   const [rrr, setRrr] = useState("");
 
@@ -50,6 +53,12 @@ export default function BillsWorkspace() {
     () => DATA_PLANS.filter((p) => p.network === network),
     [network]
   );
+
+  // Fall back to the network's first plan when the picked one isn't in the current list
+  const planCode =
+    plans.length && !plans.find((p) => p.variation_code === pickedPlanCode)
+      ? plans[0].variation_code
+      : pickedPlanCode;
 
   const refreshBalance = useCallback(async (accessToken: string) => {
     const bal = await fetch("/api/wallet/balance", {
@@ -61,6 +70,7 @@ export default function BillsWorkspace() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(PHONE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved phone after hydration (localStorage is client-only)
       if (saved) setPhone(saved);
     } catch {
       /* ignore */
@@ -68,18 +78,9 @@ export default function BillsWorkspace() {
   }, []);
 
   useEffect(() => {
-    if (plans.length && !plans.find((p) => p.variation_code === planCode)) {
-      setPlanCode(plans[0].variation_code);
-    }
-  }, [plans, planCode]);
-
-  useEffect(() => {
     const sb = getSupabaseBrowser();
-    if (!sb) {
-      setError("Auth not configured.");
-      setReady(true);
-      return;
-    }
+    // Not configured: initial state already shows the error
+    if (!sb) return;
     sb.auth.getSession().then(({ data }) => {
       if (!data.session) {
         router.replace("/auth/login?next=/bills");

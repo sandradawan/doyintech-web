@@ -74,8 +74,8 @@ export default function ContractGenerator() {
         <div className="space-y-5 px-8 py-8 text-sm leading-relaxed text-gray-700">
           <p>
             This Service Agreement is entered into between <strong>{provider || "Provider"}</strong>{" "}
-            ({providerAddress || "Address"}) ("Provider") and <strong>{client || "Client"}</strong>{" "}
-            ({clientAddress || "Address"}) ("Client").
+            ({providerAddress || "Address"}) (&quot;Provider&quot;) and <strong>{client || "Client"}</strong>{" "}
+            ({clientAddress || "Address"}) (&quot;Client&quot;).
           </p>
           <section>
             <h3 className="font-bold text-gray-900">1. Services</h3>

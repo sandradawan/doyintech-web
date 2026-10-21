@@ -12,7 +12,7 @@ export default function ShareBar({ title, path }: Props) {
   const url =
     typeof window !== "undefined"
       ? `${window.location.origin}${path}`
-      : `https://doyintech.vercel.app${path}`;
+      : `https://www.doyintech.com${path}`;
 
   const encoded = encodeURIComponent(url);
   const text = encodeURIComponent(title);

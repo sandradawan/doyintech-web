@@ -45,7 +45,7 @@ export default function CloudSync({ workspace, onPull }: Props) {
     const redirectTo =
       typeof window !== "undefined"
         ? `${window.location.origin}/ops/app`
-        : "https://doyintech.vercel.app/ops/app";
+        : "https://www.doyintech.com/ops/app";
     const { error } = await sb.auth.signInWithOtp({
       email: email.trim(),
       options: { emailRedirectTo: redirectTo },
@@ -77,7 +77,13 @@ export default function CloudSync({ workspace, onPull }: Props) {
     });
     const json = await res.json();
     setBusy(false);
-    setMsg(res.ok ? "Workspace saved to cloud." : json.error || "Save failed");
+    setMsg(
+      res.ok
+        ? "Workspace saved to cloud."
+        : json.code === "PRO_REQUIRED"
+          ? "Cloud sync is part of DoyinTech Pro — upgrade at doyintech.com/pro, then push again."
+          : json.error || "Save failed"
+    );
   }
 
   async function pullCloud() {

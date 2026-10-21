@@ -30,6 +30,7 @@ function useLocalJson<T>(key: string, initial: T) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(key);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved value after hydration (localStorage is client-only)
       if (raw) setValue(JSON.parse(raw) as T);
     } catch {
       /* ignore */
@@ -288,7 +289,7 @@ export function NotePadTool() {
 export function CountdownTimerTool() {
   const [target, setTarget] = useLocalJson("dt_countdown_target", "");
   const [label, setLabel] = useLocalJson("dt_countdown_label", "Launch day");
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
     const id = window.setInterval(() => setNow(Date.now()), 1000);

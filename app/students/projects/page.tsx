@@ -50,6 +50,12 @@ export default function StudentProjectsPage() {
         return;
       }
       if (data.requestId) setRequestId(data.requestId);
+      try {
+        // Lets /students/projects/track open automatically after Paystack redirects back.
+        localStorage.setItem("dt_student_email", email.trim().toLowerCase());
+      } catch {
+        /* storage unavailable */
+      }
       if (data.authorizationUrl) {
         window.location.href = data.authorizationUrl;
         return;

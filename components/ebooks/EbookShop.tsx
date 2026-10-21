@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import type { Ebook } from "@/lib/ebooks";
-import { formatEbookPrice } from "@/lib/ebooks";
+import { useState } from "react";
+import type { Ebook, EbookChapter } from "@/lib/ebooks";
+import type { PublicEbook } from "@/lib/shop/public";
+import { formatEbookPrice } from "@/lib/shop/format";
+import { usePurchaseUnlock } from "@/lib/shop/usePurchaseUnlock";
 import { productWhatsAppLink } from "@/lib/products";
 
 export function EbookCover({
@@ -132,8 +134,8 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
       }
       if (!res.ok) throw new Error(data.error || "Checkout failed");
       window.location.href = data.authorization_url;
-    } catch (e: any) {
-      setErr(e.message || "Could not start payment");
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Could not start payment");
     } finally {
       setLoading(false);
     }
@@ -172,16 +174,16 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
       </button>
       {err && <p className="mt-2 text-sm text-red-400">{err}</p>}
       <p className="mt-3 text-[11px] leading-relaxed text-[#86868b]">
-        After payment: full chapters unlock on this site. Optional PDF via WhatsApp.
+        After payment: full chapters unlock on this site and a PDF is emailed to you.
       </p>
     </div>
   );
 }
 
-export function EbookReader({ book }: { book: Ebook }) {
+function EbookReader({ chapters }: { chapters: EbookChapter[] }) {
   return (
     <article className="space-y-8">
-      {book.chapters.map((ch) => (
+      {chapters.map((ch) => (
         <section key={ch.title} className="rounded-2xl border border-white/10 bg-black/25 p-5">
           <h3 className="text-[16px] font-semibold text-white">{ch.title}</h3>
           <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-[#c7cdd8]">
@@ -193,39 +195,23 @@ export function EbookReader({ book }: { book: Ebook }) {
   );
 }
 
-export function EbookGatedReader({ book }: { book: Ebook }) {
-  const [unlocked, setUnlocked] = useState(false);
+/** `book` must be a publicEbook(): its chapters are the free preview only. */
+export function EbookGatedReader({ book }: { book: PublicEbook }) {
+  const unlock = usePurchaseUnlock<{ chapters: EbookChapter[] }>(book.id);
 
-  useEffect(() => {
-    try {
-      const key = `ebook_unlocked_${book.slug}`;
-      if (sessionStorage.getItem(key) === "1" || localStorage.getItem(key) === "1") {
-        setUnlocked(true);
-      }
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("paid") === "1" || params.get("reference")) {
-        sessionStorage.setItem(key, "1");
-        localStorage.setItem(key, "1");
-        setUnlocked(true);
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [book.slug]);
-
-  if (unlocked) {
+  if (unlock.status === "unlocked") {
     return (
       <div className="space-y-4">
         <p className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
           Full ebook unlocked on this device.
         </p>
-        <EbookReader book={book} />
+        <EbookReader chapters={unlock.content.chapters} />
       </div>
     );
   }
 
   const preview = book.chapters.slice(0, 1);
-  const restCount = book.chapters.length - 1;
+  const restCount = Math.max(0, book.totalChapters - preview.length);
 
   return (
     <div className="space-y-6">

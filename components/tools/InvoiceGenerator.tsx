@@ -132,6 +132,7 @@ export default function InvoiceGenerator() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as { biz?: Biz; payment?: Payment };
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved details after hydration (localStorage is client-only)
         if (parsed.biz) setBiz((b) => ({ ...b, ...parsed.biz }));
         if (parsed.payment) setPayment((p) => ({ ...p, ...parsed.payment }));
       }

@@ -68,7 +68,7 @@ export async function GET(req: NextRequest) {
     `Contact: doyintechnology@outlook.com · WhatsApp +2348085343926`,
     `Ref: TOKEN:${token.slice(0, 12)}…`,
     ``,
-    `DoyinTech · https://doyintech.vercel.app/store`,
+    `DoyinTech · https://www.doyintech.com/store`,
   ].join("\n");
 
   return new NextResponse(body, {

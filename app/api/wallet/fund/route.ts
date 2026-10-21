@@ -35,9 +35,9 @@ export async function POST(req: Request) {
   await ensureProfileWallet(user.id, user.email);
 
   const email =
-    (user.email || "").trim() || `wallet+${user.id.slice(0, 8)}@doyintech.vercel.app`;
+    (user.email || "").trim() || `wallet+${user.id.slice(0, 8)}@doyintech.com`;
   const reference = `WFUND_${user.id.replace(/-/g, "").slice(0, 12)}_${Date.now()}`;
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://doyintech.vercel.app";
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://www.doyintech.com";
 
   const res = await fetch("https://api.paystack.co/transaction/initialize", {
     method: "POST",

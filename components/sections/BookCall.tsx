@@ -27,7 +27,7 @@ export default function BookCall() {
                   Not sure which package fits?
                 </h2>
                 <p className="mt-3 max-w-lg text-[17px] leading-relaxed text-[#a1a1a6]">
-                  Tell us what you're building. We'll map the right offer, timeline,
+                  Tell us what you&apos;re building. We&apos;ll map the right offer, timeline,
                   and investment — in a short call or on WhatsApp.
                 </p>
                 <ul className="mt-5 space-y-2">

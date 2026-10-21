@@ -83,7 +83,7 @@ export function buildEbookPdf(book: Ebook): Buffer {
         })),
         { text: " ", size: 10, gapAfter: 28 },
         { text: "Licensed to the purchaser · Personal use", size: 9, gapAfter: 10 },
-        { text: "doyintech.vercel.app/ebooks", size: 9, gapAfter: 10 },
+        { text: "doyintech.com/ebooks", size: 9, gapAfter: 10 },
       ]),
     ],
   });

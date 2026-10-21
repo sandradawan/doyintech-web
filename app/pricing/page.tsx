@@ -22,7 +22,7 @@ export default function PricingPage() {
           </p>
           <h1 className="apple-headline mt-3 text-[#f5f5f7]">Simple packages.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
-            Know what you're buying. Pay a fixed-price deposit online, or book a free call to
+            Know what you&apos;re buying. Pay a fixed-price deposit online, or book a free call to
             confirm scope first.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -38,7 +38,7 @@ export default function PricingPage() {
               Book free discovery call
             </a>
             <a href="#clarity" className="apple-btn apple-btn-secondary">
-              What's included
+              What&apos;s included
             </a>
           </div>
         </div>

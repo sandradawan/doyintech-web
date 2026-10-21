@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { ServiceSuccessChecklist } from "@/components/products/ProductUpsells";
@@ -12,20 +13,16 @@ function HireSuccessInner() {
   const reference = params.get("reference") || params.get("trxref") || "";
   const productId = params.get("product") || "";
 
-  const [state, setState] = useState<"loading" | "ok" | "fail">("loading");
+  const [verifyState, setState] = useState<"loading" | "ok" | "fail">("loading");
+  // No reference in the URL means there is nothing to verify
+  const state = reference ? verifyState : "fail";
   const [email, setEmail] = useState("");
   const [resolvedId, setResolvedId] = useState(productId);
+  // Referral code is only shown once verified; it is read in the verify callback below
   const [refCode, setRefCode] = useState("");
 
   useEffect(() => {
-    setRefCode(readReferralCode());
-  }, []);
-
-  useEffect(() => {
-    if (!reference) {
-      setState("fail");
-      return;
-    }
+    if (!reference) return;
     fetch(`/api/paystack/verify?reference=${encodeURIComponent(reference)}`)
       .then((r) => r.json())
       .then((data) => {
@@ -93,6 +90,25 @@ function HireSuccessInner() {
               referralCode={refCode}
             />
 
+            <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-5 text-left">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+                After launch
+              </p>
+              <h2 className="mt-1 text-[18px] font-semibold text-white">
+                Keep your new site secure and improving
+              </h2>
+              <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+                Care plans cover security updates, backups, uptime monitoring and monthly
+                changes, from ₦50,000/month. Most clients start one at handover.
+              </p>
+              <Link
+                href="/care-plans"
+                className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+              >
+                See care plans
+              </Link>
+            </div>
+
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-[14px]">
               <a href="/hire" className="text-[#a1a1a6] hover:text-white">
                 Hire packages
@@ -100,9 +116,9 @@ function HireSuccessInner() {
               <a href="/client-portal" className="text-[#2997ff] hover:underline">
                 Project portal
               </a>
-              <a href="/" className="text-[#a1a1a6] hover:text-white">
+              <Link href="/" className="text-[#a1a1a6] hover:text-white">
                 Home
-              </a>
+              </Link>
             </div>
           </>
         )}

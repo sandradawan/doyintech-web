@@ -57,7 +57,7 @@ export default function GamingLoungeWebsitePage() {
             <section>
               <h2 className="text-[22px] font-semibold text-white">Pair with Google Business</h2>
               <p className="mt-3">
-                "Gaming lounge near me" and city searches reward a complete Google Business Profile
+                &quot;Gaming lounge near me&quot; and city searches reward a complete Google Business Profile
                 plus a matching website. Guide:{" "}
                 <Link href="/local-seo" className="text-[#2997ff] hover:underline">
                   Local SEO for Nigerian SMEs

@@ -12,6 +12,7 @@ import {
   getPageTemplate,
   formatTplPrice,
 } from "@/lib/page-templates";
+import { publicTemplate } from "@/lib/shop/public";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,8 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TemplateDetailPage({ params }: Props) {
   const { slug } = await params;
-  const item = getPageTemplate(slug);
-  if (!item) notFound();
+  const found = getPageTemplate(slug);
+  if (!found) notFound();
+  const item = publicTemplate(found);
 
   return (
     <>

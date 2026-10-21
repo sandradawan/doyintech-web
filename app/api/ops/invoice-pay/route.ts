@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin/auth";
+import { SITE_URL } from "@/lib/site";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
@@ -15,6 +17,16 @@ export async function POST(req: NextRequest) {
           code: "NO_KEYS",
         },
         { status: 503 }
+      );
+    }
+
+    // Links are charged to DoyinTech's Paystack account; only admins may mint them,
+    // otherwise anyone could generate DoyinTech-branded payment links (phishing).
+    const auth = await requireAdmin(req);
+    if (!auth.ok) {
+      return NextResponse.json(
+        { error: "Sign in as a DoyinTech admin to create payment links." },
+        { status: 401 }
       );
     }
 
@@ -36,16 +48,12 @@ export async function POST(req: NextRequest) {
     }
 
     const amountKobo = Math.round(amountNgn * 100);
-    const origin =
-      req.headers.get("origin") ||
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://doyintech.vercel.app";
 
     const payload = {
       email,
       amount: amountKobo,
       currency: "NGN",
-      callback_url: `${origin}/ops/pay/success?invoice=${encodeURIComponent(invoiceNumber)}`,
+      callback_url: `${SITE_URL}/ops/pay/success?invoice=${encodeURIComponent(invoiceNumber)}`,
       metadata: {
         source: "doyinops",
         invoice_number: invoiceNumber,
@@ -76,7 +84,6 @@ export async function POST(req: NextRequest) {
       JSON.stringify({
         event: "doyinops_invoice_pay_init",
         invoice: invoiceNumber,
-        email,
         amountNgn,
         reference: data.data?.reference,
         at: new Date().toISOString(),

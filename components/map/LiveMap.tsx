@@ -2,6 +2,8 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
+// Loaded only with the map (About page), not site-wide.
+import "leaflet/dist/leaflet.css";
 
 // Fix marker icon paths (common in Next.js)
 const markerIcon = new L.Icon({

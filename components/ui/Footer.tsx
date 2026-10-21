@@ -1,6 +1,7 @@
 "use client";
 
 import { discoveryCallLink } from "@/lib/packages";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -45,6 +46,9 @@ export default function Footer() {
       title: "Company",
       links: [
         ["/hire", "Hire — fixed price"],
+        ["/care-plans", "Website care plans"],
+        ["/pro", "DoyinTech Pro"],
+        ["/account", "Your account"],
         ["/services", "Services"],
         ["/about", "About"],
         ["/contact", "Contact"],
@@ -135,6 +139,9 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 divider-soft" />
+        <div className="mt-8">
+          <NewsletterSignup />
+        </div>
         <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
             <p className="text-[13px] leading-relaxed">

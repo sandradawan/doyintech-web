@@ -1,5 +1,3 @@
-import { formatUsdFromNgn } from "@/lib/currency";
-
 export type EbookChapter = {
   title: string;
   body: string;
@@ -35,7 +33,4 @@ export function getEbook(slug: string): Ebook | undefined {
   return _EBOOKS.find((e) => e.slug === slug);
 }
 
-/** Public display: USD (Paystack still charges NGN via amountKobo). */
-export function formatEbookPrice(n: number): string {
-  return formatUsdFromNgn(Number(n) || 0);
-}
+export { formatEbookPrice } from "@/lib/shop/format";

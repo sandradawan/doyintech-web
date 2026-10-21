@@ -32,7 +32,6 @@ export default function EbookDelivery({
   bookTitle,
   bookSlug,
 }: Props) {
-  const [email, setEmail] = useState(defaultEmail || "");
   const [loading, setLoading] = useState<"pdf" | "email" | null>(null);
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
@@ -45,7 +44,6 @@ export default function EbookDelivery({
         reference,
         productId,
         mode,
-        email: email.trim(),
       }),
     });
     const data = await res.json();
@@ -81,7 +79,7 @@ export default function EbookDelivery({
             throw new Error(data.error || "Email failed");
           }
         } else {
-          setMsg(`Professional PDF sent to ${data.email || email}. Check inbox and spam.`);
+          setMsg(`Professional PDF sent to ${data.email || defaultEmail}. Check inbox and spam.`);
         }
         return;
       }
@@ -109,16 +107,11 @@ export default function EbookDelivery({
         Professionally formatted PDF — cover, contents, and full chapters. Also unlocked on this site.
       </p>
 
-      <label className="mt-4 block text-[12px] text-[#94a3b8]">
-        Email for delivery
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@email.com"
-          className="mt-1 w-full rounded-xl border border-white/12 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
-        />
-      </label>
+      {defaultEmail && (
+        <p className="mt-4 text-[12px] text-[#94a3b8]">
+          Email delivery goes to the address you paid with: {defaultEmail}
+        </p>
+      )}
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <button
@@ -131,7 +124,7 @@ export default function EbookDelivery({
         </button>
         <button
           type="button"
-          disabled={loading !== null || !email.includes("@")}
+          disabled={loading !== null}
           onClick={() => deliver("email")}
           className="rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5 disabled:opacity-50"
         >
@@ -145,7 +138,7 @@ export default function EbookDelivery({
       <p className="mt-4 text-[12px] text-[#64748b]">
         Online reader:{" "}
         <a
-          href={`/ebooks/${bookSlug}?paid=1&reference=${encodeURIComponent(reference)}`}
+          href={`/ebooks/${bookSlug}?reference=${encodeURIComponent(reference)}`}
           className="text-[#ff8c14] hover:underline"
         >
           Open chapters on site

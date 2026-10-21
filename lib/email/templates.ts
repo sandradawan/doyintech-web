@@ -105,7 +105,7 @@ export function emailLayout(opts: {
 </html>`;
 }
 
-function ctaButton(href: string, label: string, color = BRAND.orange): string {
+export function ctaButton(href: string, label: string, color = BRAND.orange): string {
   return `<table role="presentation" cellspacing="0" cellpadding="0" style="margin:20px 0 8px;">
   <tr>
     <td style="border-radius:999px;background:${color};">

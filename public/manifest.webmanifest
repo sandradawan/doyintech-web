@@ -1,11 +1,12 @@
 {
-  "name": "DoyinTech Signal Runner",
-  "short_name": "Signal Runner",
-  "description": "Play Signal Runner offline when the network drops.",
-  "start_url": "/play",
+  "name": "DoyinTech",
+  "short_name": "DoyinTech",
+  "description": "Websites, business tools and digital products for growing businesses.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#0f172a",
+  "background_color": "#0a0e17",
+  "theme_color": "#0a0e17",
   "icons": [
     {
       "src": "/logo.png",
@@ -13,5 +14,10 @@
       "type": "image/png",
       "purpose": "any"
     }
+  ],
+  "shortcuts": [
+    { "name": "Free tools", "url": "/tools" },
+    { "name": "Your account", "url": "/account" },
+    { "name": "Signal Runner (offline game)", "url": "/play" }
   ]
 }

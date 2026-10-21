@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import tls from "tls";
 import { URL } from "url";
+import { assertPublicHost, safeFetch } from "@/lib/net/safe-url";
+import { limitRequest } from "@/lib/rate-limit";
+import { SITE_URL } from "@/lib/site";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -72,21 +75,17 @@ async function fetchSafe(
   timeoutMs = 10000,
 ): Promise<Response | null> {
   try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), timeoutMs);
-    const res = await fetch(url, {
+    // safeFetch re-validates every redirect hop against private/internal addresses.
+    const { res } = await safeFetch(url, {
       ...init,
-      signal: ctrl.signal,
-      redirect: "follow",
+      timeoutMs,
       headers: {
-        "User-Agent":
-          "DoyinTech-SecurityScan/2.0 (+https://doyintech.vercel.app)",
+        "User-Agent": `DoyinTech-SecurityScan/2.0 (+${SITE_URL})`,
         Accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         ...(init?.headers || {}),
       },
     });
-    clearTimeout(t);
     return res;
   } catch {
     return null;
@@ -271,11 +270,23 @@ function checkTls(hostname: string, port = 443): Promise<TlsInfo> {
 
 export async function POST(req: NextRequest) {
   try {
+    // Each scan fans out to many requests; keep the scanner from being used as a proxy.
+    const limited = limitRequest(req, "security-scan", 6, 60 * 60 * 1000);
+    if (limited) return limited;
+
     const body = await req.json().catch(() => ({}));
     const target = normalizeTarget(String(body.url || ""));
     if (!target) {
       return NextResponse.json(
         { error: "Invalid or disallowed URL (public http/https only)" },
+        { status: 400 },
+      );
+    }
+    try {
+      await assertPublicHost(target.hostname);
+    } catch (e) {
+      return NextResponse.json(
+        { error: e instanceof Error ? e.message : "Disallowed host" },
         { status: 400 },
       );
     }

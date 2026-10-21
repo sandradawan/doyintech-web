@@ -15,6 +15,7 @@ export default function ReferWorkspace() {
 
   useEffect(() => {
     const existing = readReferralCode();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved code after hydration (localStorage is client-only)
     if (existing) setCode(existing);
   }, []);
 

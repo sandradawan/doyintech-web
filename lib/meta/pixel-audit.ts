@@ -3,9 +3,6 @@
  * SSRF defenses: scheme, DNS, IP ranges, redirects, size, timeout.
  */
 
-import dns from "node:dns/promises";
-import { isIP } from "node:net";
-
 export type AuditStatus =
   | "passed"
   | "needs_attention"
@@ -35,77 +32,9 @@ export type PixelAuditReport = {
   scoreNote: string;
 };
 
-const BLOCKED_HOSTS = new Set([
-  "localhost",
-  "metadata.google.internal",
-  "metadata",
-]);
+import { assertSafeUrl } from "@/lib/net/safe-url";
 
-function isPrivateIp(ip: string): boolean {
-  const v = isIP(ip);
-  if (v === 4) {
-    const parts = ip.split(".").map(Number);
-    const [a, b] = parts;
-    if (a === 10) return true;
-    if (a === 127) return true;
-    if (a === 0) return true;
-    if (a === 169 && b === 254) return true;
-    if (a === 172 && b >= 16 && b <= 31) return true;
-    if (a === 192 && b === 168) return true;
-    if (a === 100 && b >= 64 && b <= 127) return true;
-    if (a >= 224) return true;
-    return false;
-  }
-  if (v === 6) {
-    const lower = ip.toLowerCase();
-    if (lower === "::1") return true;
-    if (lower.startsWith("fc") || lower.startsWith("fd")) return true;
-    if (lower.startsWith("fe80")) return true;
-    if (lower.startsWith("::ffff:")) {
-      const mapped = lower.slice(7);
-      if (isIP(mapped) === 4) return isPrivateIp(mapped);
-    }
-    return false;
-  }
-  return true;
-}
-
-export async function assertSafeUrl(raw: string): Promise<URL> {
-  let u: URL;
-  try {
-    u = new URL(raw.trim());
-  } catch {
-    throw new Error("Invalid URL. Use a full address like https://example.com");
-  }
-  if (u.protocol !== "http:" && u.protocol !== "https:") {
-    throw new Error("Only http and https URLs are allowed");
-  }
-  if (u.username || u.password) {
-    throw new Error("URLs with credentials are not allowed");
-  }
-  const host = u.hostname.replace(/^\[|\]$/g, "").toLowerCase();
-  if (BLOCKED_HOSTS.has(host) || host.endsWith(".localhost") || host.endsWith(".local")) {
-    throw new Error("Local or reserved hostnames are not allowed");
-  }
-  if (isIP(host)) {
-    if (isPrivateIp(host)) throw new Error("Private or loopback IP addresses are not allowed");
-  } else {
-    let records: string[] = [];
-    try {
-      const res = await dns.lookup(host, { all: true, verbatim: true });
-      records = res.map((r) => r.address);
-    } catch {
-      throw new Error("Could not resolve the hostname");
-    }
-    if (!records.length) throw new Error("Could not resolve the hostname");
-    for (const ip of records) {
-      if (isPrivateIp(ip)) {
-        throw new Error("Hostname resolves to a private or blocked network address");
-      }
-    }
-  }
-  return u;
-}
+export { assertSafeUrl };
 
 async function fetchSafeHtml(start: URL): Promise<{ html: string; finalUrl: string; status: number }> {
   let current = start;

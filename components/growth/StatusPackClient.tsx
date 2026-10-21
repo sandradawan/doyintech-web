@@ -7,37 +7,37 @@ const week = [
   {
     day: "Mon",
     caption:
-      "Does your website get enquiries — or just visitors? Free 3-minute audit. Send your URL. → https://doyintech.vercel.app/free-audit",
+      "Does your website get enquiries — or just visitors? Free 3-minute audit. Send your URL. → https://www.doyintech.com/free-audit",
   },
   {
     day: "Tue",
     caption:
-      "Landing page that sells ONE offer. ₦100,000 fixed. Deposit ₦50,000 on Paystack. Live in about a week. → https://doyintech.vercel.app/hire",
+      "Landing page that sells ONE offer. ₦100,000 fixed. Deposit ₦50,000 on Paystack. Live in about a week. → https://www.doyintech.com/hire",
   },
   {
     day: "Wed",
     caption:
-      "Salon · clinic · lounge: WhatsApp booking starts with a clear site + one-tap chat. Case studies → https://doyintech.vercel.app/case-studies",
+      "Salon · clinic · lounge: WhatsApp booking starts with a clear site + one-tap chat. Case studies → https://www.doyintech.com/case-studies",
   },
   {
     day: "Thu",
     caption:
-      "Free tools for Nigerian SMEs (security, invoices, WhatsApp scripts). Use free — hire when you need it built. → https://doyintech.vercel.app/tools",
+      "Free tools for Nigerian SMEs (security, invoices, WhatsApp scripts). Use free — hire when you need it built. → https://www.doyintech.com/tools",
   },
   {
     day: "Fri",
     caption:
-      "50% deposit. Balance only before handoff. Fixed price — no vague quotes. Jos-based, serving Nigeria. → https://doyintech.vercel.app/hire",
+      "50% deposit. Balance only before handoff. Fixed price — no vague quotes. Jos-based, serving Nigeria. → https://www.doyintech.com/hire",
   },
   {
     day: "Sat",
     caption:
-      "Digital packs from ₦6,500 — Status calendars, WhatsApp scripts, Sheets. Pay online, download today. → https://doyintech.vercel.app/store",
+      "Digital packs from ₦6,500 — Status calendars, WhatsApp scripts, Sheets. Pay online, download today. → https://www.doyintech.com/store",
   },
   {
     day: "Sun",
     caption:
-      "Refer a business that pays deposit → ₦10k credit on your next DoyinTech package. → https://doyintech.vercel.app/refer",
+      "Refer a business that pays deposit → ₦10k credit on your next DoyinTech package. → https://www.doyintech.com/refer",
   },
 ];
 
@@ -78,7 +78,7 @@ export default function StatusPackClient() {
         <ViralShare
           className="mt-3"
           text="Free weekly WhatsApp Status captions for Nigerian SMEs — audit, fixed-price sites, digital products."
-          url="https://doyintech.vercel.app/status-pack"
+          url="https://www.doyintech.com/status-pack"
           compact
         />
       </div>

@@ -9,6 +9,7 @@ import { reportStatusLabel } from "@/lib/reports/packages";
 function SuccessInner() {
   const params = useSearchParams();
   const orderId = params.get("order") || "";
+  const reference = params.get("reference") || params.get("trxref") || "";
   const [status, setStatus] = useState("");
   const [viewUrl, setViewUrl] = useState<string | null>(null);
   const [productName, setProductName] = useState("");
@@ -16,29 +17,40 @@ function SuccessInner() {
   useEffect(() => {
     if (!orderId) return;
     let cancelled = false;
+    let polls = 0;
+
+    // Server verifies the reference with Paystack and starts generation; the webhook
+    // does the same, so this is only a fast path.
+    if (reference) {
+      fetch("/api/reports/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId, reference }),
+      }).catch(() => {});
+    }
+
     async function poll() {
       try {
-        const res = await fetch(`/api/reports/orders?orderId=${encodeURIComponent(orderId)}`);
+        const q = new URLSearchParams({ orderId });
+        if (reference) q.set("reference", reference);
+        const res = await fetch(`/api/reports/orders?${q}`);
         const data = await res.json();
         if (cancelled || !res.ok) return;
         setStatus(data.status || "");
         setViewUrl(data.viewUrl);
         setProductName(data.productName || "");
-        if (["pending_payment", "paid", "queued", "processing"].includes(data.status)) {
-          if (data.status === "paid" || data.status === "queued") {
-            fetch("/api/reports/process", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ orderId, source: "verify" }),
-            }).catch(() => {});
-          }
+        polls += 1;
+        if (
+          ["pending_payment", "paid", "queued", "processing"].includes(data.status) &&
+          polls < 60
+        ) {
           setTimeout(poll, 4000);
         }
       } catch { /* ignore */ }
     }
     poll();
     return () => { cancelled = true; };
-  }, [orderId]);
+  }, [orderId, reference]);
 
   return (
     <main className="pb-24 pt-28">
@@ -67,7 +79,7 @@ function SuccessInner() {
           )}
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link href={`/reports/track${orderId ? `?order=${orderId}` : ""}`}
+          <Link href={`/reports/track${orderId ? `?order=${encodeURIComponent(orderId)}` : ""}`}
             className="rounded-full border border-white/15 px-5 py-2.5 text-[14px] text-white">
             Track order
           </Link>

@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { UiComponentPack } from "@/lib/ui-components";
-import { formatCompPrice } from "@/lib/ui-components";
+import { formatCompPrice } from "@/lib/shop/format";
+import { usePurchaseUnlock } from "@/lib/shop/usePurchaseUnlock";
 import { productWhatsAppLink } from "@/lib/products";
+import { absoluteUrl } from "@/lib/site";
 import { ComponentLivePreview } from "@/components/shop/LivePreviews";
 
 function buildAiPrompt(item: UiComponentPack): string {
   return `Install the DoyinTech "${item.name}" component in this Next.js + Tailwind project.
 
-Product page: https://doyintech.vercel.app/components/${item.slug}
-Registry: https://doyintech.vercel.app/api/registry?slug=${item.slug}
+Product page: ${absoluteUrl(`/components/${item.slug}`)}
+Registry: ${absoluteUrl(`/api/registry?slug=${item.slug}`)}
 
 Requirements:
 - App Router compatible
@@ -78,8 +80,8 @@ export function ComponentBuyPanel({ item }: { item: UiComponentPack }) {
       }
       if (!res.ok) throw new Error(data.error || "Checkout failed");
       window.location.href = data.authorization_url;
-    } catch (e: any) {
-      setErr(e.message || "Could not start payment");
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Could not start payment");
     } finally {
       setLoading(false);
     }
@@ -130,25 +132,9 @@ export function ComponentBuyPanel({ item }: { item: UiComponentPack }) {
 }
 
 export function ComponentCodeGate({ item }: { item: UiComponentPack }) {
-  const [unlocked, setUnlocked] = useState(false);
+  const unlock = usePurchaseUnlock<{ fullCode: string }>(item.id);
+  const fullCode = unlock.status === "unlocked" ? unlock.content.fullCode : "";
   const [promptCopied, setPromptCopied] = useState(false);
-
-  useEffect(() => {
-    try {
-      const key = `comp_unlocked_${item.slug}`;
-      if (localStorage.getItem(key) === "1" || sessionStorage.getItem(key) === "1") {
-        setUnlocked(true);
-      }
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("paid") === "1" || params.get("reference")) {
-        localStorage.setItem(key, "1");
-        sessionStorage.setItem(key, "1");
-        setUnlocked(true);
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [item.slug]);
 
   function copy(text: string) {
     navigator.clipboard.writeText(text).then(
@@ -168,7 +154,7 @@ export function ComponentCodeGate({ item }: { item: UiComponentPack }) {
   }
 
   function download() {
-    const blob = new Blob([item.fullCode], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([fullCode], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -177,7 +163,11 @@ export function ComponentCodeGate({ item }: { item: UiComponentPack }) {
     URL.revokeObjectURL(url);
   }
 
-  if (!unlocked) {
+  if (unlock.status === "checking") {
+    return <p className="text-[13px] text-[#86868b]">Checking your purchase…</p>;
+  }
+
+  if (unlock.status === "locked") {
     return (
       <div className="space-y-3">
         <div className="flex flex-wrap gap-2">
@@ -206,7 +196,7 @@ export function ComponentCodeGate({ item }: { item: UiComponentPack }) {
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
-          onClick={() => copy(item.fullCode)}
+          onClick={() => copy(fullCode)}
           className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
         >
           Copy code
@@ -227,7 +217,7 @@ export function ComponentCodeGate({ item }: { item: UiComponentPack }) {
         </button>
       </div>
       <pre className="overflow-x-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[12px] leading-relaxed text-[#c7cdd8]">
-        {item.fullCode}
+        {fullCode}
       </pre>
     </div>
   );

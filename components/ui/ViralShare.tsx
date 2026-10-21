@@ -11,7 +11,7 @@ type Props = {
 };
 
 function buildMessage(text: string, url?: string) {
-  const u = url || (typeof window !== "undefined" ? window.location.href : "https://doyintech.vercel.app");
+  const u = url || (typeof window !== "undefined" ? window.location.href : "https://www.doyintech.com");
   return `${text.trim()}\n\n${u}`;
 }
 

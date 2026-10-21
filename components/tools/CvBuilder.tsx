@@ -59,6 +59,7 @@ export default function CvBuilder() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved draft after hydration (localStorage is client-only)
       if (raw) setData({ ...EMPTY, ...JSON.parse(raw) });
     } catch {
       /* ignore */
@@ -502,7 +503,7 @@ export default function CvBuilder() {
           )}
 
           <p className="mt-8 text-[10px] text-gray-400 print:mt-6">
-            Built with DoyinTech Tools · doyintech.vercel.app/tools
+            Built with DoyinTech Tools · doyintech.com/tools
           </p>
         </article>
       </div>

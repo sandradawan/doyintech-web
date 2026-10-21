@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     | "raw"
     | "ebook-pdf";
   const pathParam = req.nextUrl.searchParams.get("path") || "";
-  const productParam = req.nextUrl.searchParams.get("product") || "";
 
   const verified = verifyDeliveryToken(token);
   if (!verified.ok) {
@@ -22,17 +21,9 @@ export async function GET(req: NextRequest) {
   const { grant } = verified;
 
   if (format === "ebook-pdf") {
-    const book = findAnyEbook(productParam || grant.productId);
+    // The signed grant decides which book; the URL's product param is ignored.
+    const book = findAnyEbook(grant.productId);
     if (!book) return new NextResponse("Ebook not found", { status: 404 });
-    if (
-      grant.productId !== book.id &&
-      grant.productId !== book.slug &&
-      productParam &&
-      productParam !== book.id &&
-      productParam !== book.slug
-    ) {
-      return new NextResponse("Token product mismatch", { status: 403 });
-    }
     const pdf = buildEbookPdf(book);
     return new NextResponse(new Uint8Array(pdf), {
       status: 200,

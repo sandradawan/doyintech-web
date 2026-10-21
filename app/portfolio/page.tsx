@@ -63,9 +63,9 @@ const projects = [
     subtitle: "Engineering Agency Brand",
     tags: ["Next.js 16", "Framer Motion", "Three.js", "Tailwind"],
     desc: "The official DoyinTech website — premium dark UI, animated hero, 3D ambient scene, services, portfolio and contact flows. Built for conversion and brand presence.",
-    img: shot("https://doyintech.vercel.app"),
+    img: shot("https://www.doyintech.com"),
     category: "web",
-    liveUrl: "https://doyintech.vercel.app",
+    liveUrl: "https://www.doyintech.com",
   },
   {
     title: "DoyinMart",
@@ -177,6 +177,7 @@ export default function PortfolioPage() {
                 >
                   <div>
                     <div className="relative h-56 overflow-hidden border-b border-white/5 bg-[#0B0E14]">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- screenshot URLs vary; keep plain lazy img as before */}
                       <img
                         src={p.img}
                         alt={`Screenshot of ${p.title}`}

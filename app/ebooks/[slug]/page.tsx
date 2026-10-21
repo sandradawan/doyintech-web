@@ -9,6 +9,7 @@ import {
 } from "@/components/ebooks/EbookShop";
 import { formatEbookPrice } from "@/lib/ebooks";
 import { ALL_EBOOKS, findAnyEbook } from "@/lib/ebooks-catalog";
+import { publicEbook } from "@/lib/shop/public";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,8 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EbookDetailPage({ params }: Props) {
   const { slug } = await params;
-  const book = findAnyEbook(slug);
-  if (!book) notFound();
+  const found = findAnyEbook(slug);
+  if (!found) notFound();
+  const book = publicEbook(found);
 
   return (
     <>

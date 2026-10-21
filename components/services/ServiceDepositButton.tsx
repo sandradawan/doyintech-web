@@ -29,8 +29,8 @@ export default function ServiceDepositButton({ offer }: { offer: ServiceOffer })
       }
       if (!res.ok) throw new Error(data.error || "Checkout failed");
       window.location.href = data.authorization_url;
-    } catch (e: any) {
-      setErr(e.message || "Could not start payment");
+    } catch (e: unknown) {
+      setErr((e instanceof Error && e.message) || "Could not start payment");
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import EbookCatalog from "@/components/ebooks/EbookCatalog";
 import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
+import { publicEbook } from "@/lib/shop/public";
 
 export const metadata: Metadata = {
   title: "Ebooks — Finance, education, fitness, business & more | DoyinTech",
@@ -25,7 +26,7 @@ export default function EbooksPage() {
             business. Buy once — get a professional PDF and on-site reader after payment.
           </p>
 
-          <EbookCatalog books={ALL_EBOOKS} />
+          <EbookCatalog books={ALL_EBOOKS.map(publicEbook)} />
         </div>
       </main>
       <Footer />

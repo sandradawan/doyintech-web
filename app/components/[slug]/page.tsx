@@ -8,6 +8,7 @@ import {
 } from "@/components/shop/ComponentShop";
 import { ComponentLivePreview } from "@/components/shop/LivePreviews";
 import { UI_COMPONENTS, getUiComponent, formatCompPrice } from "@/lib/ui-components";
+import { publicComponent } from "@/lib/shop/public";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -24,8 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ComponentDetailPage({ params }: Props) {
   const { slug } = await params;
-  const item = getUiComponent(slug);
-  if (!item) notFound();
+  const found = getUiComponent(slug);
+  if (!found) notFound();
+  const item = publicComponent(found);
 
   return (
     <>

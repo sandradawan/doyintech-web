@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 export type PaletteAction = {
   id: string;
@@ -20,9 +20,12 @@ export default function OpsCommandPalette({
 }) {
   const [q, setQ] = useState("");
 
-  useEffect(() => {
+  // Clear the query each time the palette opens (adjust state during render)
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (open !== prevOpen) {
+    setPrevOpen(open);
     if (open) setQ("");
-  }, [open]);
+  }
 
   const filtered = useMemo(() => {
     const qq = q.trim().toLowerCase();

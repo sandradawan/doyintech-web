@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Paid product files are read from ./private at runtime (never web-served);
+  // make sure they ship with the serverless functions that deliver them.
+  outputFileTracingIncludes: {
+    "/api/**/*": ["./private/**/*"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "unpkg.com", pathname: "/**" },
@@ -53,8 +58,11 @@ const nextConfig: NextConfig = {
           },
           { key: "X-DNS-Prefetch-Control", value: "on" },
           {
+            // Structural directives only (no script-src): blocks clickjacking, <base> hijacking,
+            // plugin content and cross-site form posts without risking Paystack/Pixel/YouTube.
             key: "Content-Security-Policy",
-            value: "upgrade-insecure-requests",
+            value:
+              "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests",
           },
           {
             key: "Cross-Origin-Opener-Policy",

@@ -30,7 +30,7 @@ export default function WhatsAppBookingPost() {
 
           <div className="mt-10 space-y-6 text-[16px] leading-relaxed text-[#c7cdd8]">
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">Why WhatsApp beats "book online" forms</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-white">Why WhatsApp beats &quot;book online&quot; forms</h2>
               <p>
                 Forms get abandoned on slow data. WhatsApp feels familiar, works offline in the
                 app, and lets staff confirm time, price, and location in the same thread. Clinics,

@@ -51,8 +51,8 @@ export default function PaystackBuyButton({
       }
 
       window.location.href = data.authorization_url;
-    } catch (err: any) {
-      setError(err.message || "Payment failed to start");
+    } catch (err: unknown) {
+      setError((err instanceof Error && err.message) || "Payment failed to start");
       setLoading(false);
     }
   }

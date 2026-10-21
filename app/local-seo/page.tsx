@@ -39,8 +39,8 @@ export default function LocalSeoPage() {
             Google Business + website that gets local enquiries
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
-            Being on Instagram is not enough when someone searches "salon near me" or
-            "clinic in Jos". Pair a simple site with a complete Google Business Profile.
+            Being on Instagram is not enough when someone searches &quot;salon near me&quot; or
+            &quot;clinic in Jos&quot;. Pair a simple site with a complete Google Business Profile.
           </p>
 
           <div className="mt-10 space-y-4">

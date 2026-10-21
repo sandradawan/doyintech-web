@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { discoveryCallLink } from "@/lib/packages";
@@ -50,6 +51,8 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Tools",
     items: [
+      { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
+      { name: "Website care plans", href: "/care-plans", desc: "Monthly maintenance & updates" },
       { name: "AI Report Studio", href: "/reports", desc: "IG, TikTok, YT, LinkedIn, web" },
       { name: "AI Tools hub", href: "/ai", desc: "Education, finance, SME, sales, property" },
       { name: "SME Solve hub", href: "/solve", desc: "Pipeline, booking, cash, quotes" },
@@ -95,11 +98,14 @@ export default function Navbar() {
   const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  // Close menus on navigation (adjust state during render instead of in an effect)
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setMobileMenuOpen(false);
     setOpenDesktop(null);
     setOpenMobileGroup(null);
-  }, [pathname]);
+  }
 
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
@@ -130,7 +136,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-[999]">
       <nav ref={navRef} className="glass-navbar h-12 w-full">
         <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
-          <a
+          <Link
             href="/"
             className="flex shrink-0 items-center gap-2 text-[17px] font-semibold tracking-tight text-[#f5f5f7]"
             aria-label="DoyinTech Home"
@@ -139,7 +145,7 @@ export default function Navbar() {
               <Image src="/logo.png" alt="" fill className="object-contain" sizes="20px" />
             </span>
             <span className="hidden sm:inline">DoyinTech</span>
-          </a>
+          </Link>
 
           <div className="hidden items-center gap-0.5 lg:flex">
             {NAV_GROUPS.map((group) => {

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { PageTemplate } from "@/lib/page-templates";
-import { formatTplPrice } from "@/lib/page-templates";
+import { formatTplPrice } from "@/lib/shop/format";
+import { usePurchaseUnlock } from "@/lib/shop/usePurchaseUnlock";
 import { productWhatsAppLink } from "@/lib/products";
 import { TemplateLivePreview } from "@/components/shop/LivePreviews";
 
@@ -59,8 +60,8 @@ export function TemplateBuyPanel({ item }: { item: PageTemplate }) {
       }
       if (!res.ok) throw new Error(data.error || "Checkout failed");
       window.location.href = data.authorization_url;
-    } catch (e: any) {
-      setErr(e.message || "Could not start payment");
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Could not start payment");
     } finally {
       setLoading(false);
     }
@@ -94,34 +95,19 @@ export function TemplateBuyPanel({ item }: { item: PageTemplate }) {
 }
 
 export function TemplateGuideGate({ item }: { item: PageTemplate }) {
-  const [unlocked, setUnlocked] = useState(false);
-
-  useEffect(() => {
-    try {
-      const key = `tpl_unlocked_${item.slug}`;
-      if (localStorage.getItem(key) === "1" || sessionStorage.getItem(key) === "1") {
-        setUnlocked(true);
-      }
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("paid") === "1" || params.get("reference")) {
-        localStorage.setItem(key, "1");
-        sessionStorage.setItem(key, "1");
-        setUnlocked(true);
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [item.slug]);
+  const unlock = usePurchaseUnlock<{ fullCode: string; fullGuide: string }>(item.id);
+  const fullCode = unlock.status === "unlocked" ? unlock.content.fullCode : "";
+  const fullGuide = unlock.status === "unlocked" ? unlock.content.fullGuide : "";
 
   function copy() {
-    navigator.clipboard.writeText(item.fullCode).then(
+    navigator.clipboard.writeText(fullCode).then(
       () => alert("Copied page.tsx source"),
       () => alert("Copy failed")
     );
   }
 
   function downloadTsx() {
-    const blob = new Blob([item.fullCode], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([fullCode], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -130,7 +116,11 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
     URL.revokeObjectURL(url);
   }
 
-  if (!unlocked) {
+  if (unlock.status === "checking") {
+    return <p className="text-[13px] text-[#86868b]">Checking your purchase…</p>;
+  }
+
+  if (unlock.status === "locked") {
     return (
       <div className="space-y-3">
         <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
@@ -159,8 +149,11 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
           Download .tsx
         </button>
       </div>
+      {fullGuide && (
+        <p className="whitespace-pre-line text-[13px] leading-relaxed text-[#c7cdd8]">{fullGuide}</p>
+      )}
       <pre className="max-h-[480px] overflow-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[11px] leading-relaxed text-[#c7cdd8]">
-        {item.fullCode}
+        {fullCode}
       </pre>
     </div>
   );

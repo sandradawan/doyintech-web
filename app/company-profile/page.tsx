@@ -1,5 +1,4 @@
 import Footer from "@/components/ui/Footer";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
@@ -207,7 +206,7 @@ export default function CompanyProfilePage() {
             <div className="grid sm:grid-cols-2 gap-3 text-sm text-gray-300">
               <p>
                 <span className="text-gray-500">Registered Name:</span>{" "}
-                DOYIN'S TECHNOLOGY
+                DOYIN&apos;S TECHNOLOGY
               </p>
               <p>
                 <span className="text-gray-500">CAC Reg. No:</span> 9380561

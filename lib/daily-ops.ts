@@ -39,7 +39,7 @@ export type DailyOpsReport = {
   errors: string[];
 };
 
-const DEFAULT_BASE = "https://doyintech.vercel.app";
+const DEFAULT_BASE = "https://www.doyintech.com";
 
 export function siteBaseUrl(): string {
   return (

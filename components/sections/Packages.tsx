@@ -108,13 +108,8 @@ export default function Packages() {
                 ))}
               </ul>
             </div>
-            <a
-              href={packageWhatsAppLink(MAINTENANCE.name)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="apple-btn apple-btn-primary shrink-0"
-            >
-              Start care plan
+            <a href="/care-plans" className="apple-btn apple-btn-primary shrink-0">
+              Choose a care plan
             </a>
           </div>
         </ScrollReveal>

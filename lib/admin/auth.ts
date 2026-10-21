@@ -1,3 +1,4 @@
+import { createHash, timingSafeEqual } from "crypto";
 import type { NextRequest } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 
@@ -23,15 +24,21 @@ export function isAdminEmail(email: string | null | undefined): boolean {
   return list.includes(email.trim().toLowerCase());
 }
 
+/** Constant-time string comparison for secrets (avoids timing side channels). */
+export function secretsMatch(provided: string, expected: string): boolean {
+  if (!provided || !expected) return false;
+  const a = createHash("sha256").update(provided).digest();
+  const b = createHash("sha256").update(expected).digest();
+  return timingSafeEqual(a, b);
+}
+
 export function adminSecretOk(req: NextRequest): boolean {
   const secret =
     process.env.ADMIN_LEADS_SECRET ||
     process.env.LEADS_ADMIN_SECRET ||
     process.env.ADMIN_SECRET ||
     "";
-  if (!secret) return false;
-  const header = req.headers.get("x-admin-secret") || "";
-  return header === secret;
+  return secretsMatch(req.headers.get("x-admin-secret") || "", secret);
 }
 
 /**

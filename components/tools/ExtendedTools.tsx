@@ -632,8 +632,8 @@ export function ChatbotScriptTool() {
 
 // ——— QR (uses free API image) ———
 export function QrTool() {
-  const [text, setText] = useState("https://doyintech.vercel.app");
-  const src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(text || "https://doyintech.vercel.app")}`;
+  const [text, setText] = useState("https://www.doyintech.com");
+  const src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(text || "https://www.doyintech.com")}`;
   return (
     <div className={box}>
       <input className={input} value={text} onChange={(e) => setText(e.target.value)} placeholder="URL or text" />

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { getDigitalProduct } from "@/lib/products";
+import { useProMembership } from "@/lib/subscriptions/useProMembership";
 
 const UNLOCK_KEY = "doyintech_pdf_studio_unlocked";
 const PRODUCT_ID = "pdf-studio-unlock";
@@ -10,7 +11,10 @@ type DocType = "letter" | "quote" | "report";
 
 export default function PdfStudio() {
   const product = getDigitalProduct(PRODUCT_ID);
-  const [unlocked, setUnlocked] = useState(false);
+  const [localUnlocked, setUnlocked] = useState(false);
+  // DoyinTech Pro members (verified server-side) get every paid tool.
+  const pro = useProMembership();
+  const unlocked = localUnlocked || pro;
   const [docType, setDocType] = useState<DocType>("letter");
   const [title, setTitle] = useState("Business Letter");
   const [fromName, setFromName] = useState("");
@@ -33,7 +37,7 @@ export default function PdfStudio() {
       fetch(`/api/paystack/verify?reference=${encodeURIComponent(q.get("reference")!)}`)
         .then((r) => r.json())
         .then((data) => {
-          if (data.ok) {
+          if (data.ok && data.product?.id === PRODUCT_ID) {
             localStorage.setItem(UNLOCK_KEY, "1");
             setUnlocked(true);
           }
@@ -95,7 +99,6 @@ export default function PdfStudio() {
     setPaying(true);
     setPayError("");
     try {
-      const origin = window.location.origin;
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,8 +121,8 @@ export default function PdfStudio() {
       // Override callback for tool unlock — Paystack still uses product callback;
       // success page + local verify handles unlock when product is pdf-studio-unlock
       window.location.href = data.authorization_url;
-    } catch (err: any) {
-      setPayError(err.message || "Payment failed");
+    } catch (err: unknown) {
+      setPayError((err instanceof Error && err.message) || "Payment failed");
       setPaying(false);
     }
   }

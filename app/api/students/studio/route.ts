@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const useLlm = Boolean(body.useLlm);
 
     let text = "";
-    let meta: Record<string, string> = { mode };
+    const meta: Record<string, string> = { mode };
 
     if (mode === "outline") {
       const input: OutlineInput = {

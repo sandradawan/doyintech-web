@@ -9,7 +9,7 @@ export const runtime = "nodejs";
  * Primary key is usually `id`; exceptions: site_settings.key, ops_workspaces.user_id
  */
 
-export const TABLE_CONFIG: Record<
+const TABLE_CONFIG: Record<
   string,
   {
     pk: string;

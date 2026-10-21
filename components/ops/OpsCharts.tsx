@@ -163,7 +163,6 @@ function DonutChart({
   const cx = size / 2;
   const cy = size / 2;
   const r = (size - stroke) / 2;
-  let angle = 0;
 
   if (total === 0) {
     return (
@@ -176,14 +175,21 @@ function DonutChart({
     );
   }
 
+  // Start angle of each segment (empty segments take no space)
+  const starts: number[] = [];
+  let angle = 0;
+  for (const seg of segments) {
+    starts.push(angle);
+    if (seg.value > 0) angle += (seg.value / total) * 360;
+  }
+
   return (
     <svg width={size} height={size} className="shrink-0">
       {segments.map((seg, i) => {
         if (seg.value <= 0) return null;
         const sweep = (seg.value / total) * 360;
-        const start = angle;
-        const end = angle + sweep;
-        angle = end;
+        const start = starts[i];
+        const end = start + sweep;
         if (sweep >= 359.9) {
           return (
             <motion.circle
@@ -237,7 +243,6 @@ function PieChart({
   const cx = size / 2;
   const cy = size / 2;
   const r = size / 2 - 4;
-  let angle = 0;
 
   if (total === 0) {
     return (
@@ -257,14 +262,21 @@ function PieChart({
     return `M ${cx} ${cy} L ${start.x} ${start.y} A ${r} ${r} 0 ${large} 0 ${end.x} ${end.y} Z`;
   }
 
+  // Start angle of each slice (empty segments take no space)
+  const starts: number[] = [];
+  let angle = 0;
+  for (const seg of segments) {
+    starts.push(angle);
+    if (seg.value > 0) angle += Math.max((seg.value / total) * 360, 0.5);
+  }
+
   return (
     <svg width={size} height={size} className="shrink-0 drop-shadow-lg">
       {segments.map((seg, i) => {
         if (seg.value <= 0) return null;
         const sweep = (seg.value / total) * 360;
-        const start = angle;
-        const end = angle + Math.max(sweep, 0.5);
-        angle = end;
+        const start = starts[i];
+        const end = start + Math.max(sweep, 0.5);
         return (
           <motion.path
             key={seg.label}

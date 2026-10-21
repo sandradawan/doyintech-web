@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import { TemplateCard } from "@/components/shop/TemplateShop";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
+import { publicTemplate } from "@/lib/shop/public";
 
 export const metadata: Metadata = {
   title: "Next.js Templates — Buy & build",
@@ -38,15 +40,15 @@ export default function TemplatesPage() {
           </div>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {PAGE_TEMPLATES.map((item) => (
+            {PAGE_TEMPLATES.map(publicTemplate).map((item) => (
               <TemplateCard key={item.id} item={item} />
             ))}
           </div>
           <p className="mt-10 text-center text-[14px] text-[#86868b]">
             Need components only?{" "}
-            <a href="/components" className="text-[#ff8c14] hover:underline">
+            <Link href="/components" className="text-[#ff8c14] hover:underline">
               Browse UI components
-            </a>
+            </Link>
           </p>
         </div>
       </main>

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getSupabaseBrowser } from "@/lib/supabase/client";
+import { getSupabaseBrowser, isSupabaseConfigured } from "@/lib/supabase/client";
 import {
   IconWallet,
   IconPlus,
@@ -18,13 +18,16 @@ const glass =
 
 export default function WalletPage() {
   const router = useRouter();
-  const [ready, setReady] = useState(false);
+  // Env-only check, identical on server and client, so safe for initial state
+  const [ready, setReady] = useState(() => !isSupabaseConfigured());
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState(1000);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() =>
+    isSupabaseConfigured() ? "" : "Supabase is not configured."
+  );
   const [orders, setOrders] = useState<
     { id: string; kind: string; phone: string; amount_kobo: number; status: string }[]
   >([]);
@@ -44,11 +47,8 @@ export default function WalletPage() {
 
   useEffect(() => {
     const sb = getSupabaseBrowser();
-    if (!sb) {
-      setError("Supabase is not configured.");
-      setReady(true);
-      return;
-    }
+    // Not configured: initial state already shows the error
+    if (!sb) return;
     sb.auth.getSession().then(({ data }) => {
       if (!data.session) {
         router.replace("/auth/login?next=/wallet");

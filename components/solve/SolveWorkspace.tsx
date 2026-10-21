@@ -21,6 +21,7 @@ function useLocal<T>(key: string, initial: T) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(key);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved value after hydration (localStorage is client-only)
       if (raw) setValue(JSON.parse(raw) as T);
     } catch { /* ignore */ }
   }, [key]);

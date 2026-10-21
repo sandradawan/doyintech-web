@@ -169,19 +169,19 @@ export default function DailyProspecting() {
         <ul className="mt-2 space-y-1">
           <li>
             Hire:{" "}
-            <a className="text-[#2997ff]" href="https://doyintech.vercel.app/hire">
+            <a className="text-[#2997ff]" href="https://www.doyintech.com/hire">
               /hire
             </a>
           </li>
           <li>
             Free audit:{" "}
-            <a className="text-[#2997ff]" href="https://doyintech.vercel.app/free-audit">
+            <a className="text-[#2997ff]" href="https://www.doyintech.com/free-audit">
               /free-audit
             </a>
           </li>
           <li>
             Store:{" "}
-            <a className="text-[#2997ff]" href="https://doyintech.vercel.app/store">
+            <a className="text-[#2997ff]" href="https://www.doyintech.com/store">
               /store
             </a>
           </li>

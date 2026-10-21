@@ -10,8 +10,6 @@ import PageTransition from "@/components/ui/PageTransition";
 import MobileStickyCta from "@/components/ui/MobileStickyCta";
 import SkipToContent from "@/components/ui/SkipToContent";
 import ExitOffer from "@/components/ui/ExitOffer";
-import EngagementToast from "@/components/ui/EngagementToast";
-import WelcomeOctoberBanner from "@/components/ui/WelcomeOctoberBanner";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
@@ -48,9 +46,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Silas Doyin Jonathan", url: SITE_URL }],
   creator: "DoyinTech",
-  alternates: {
-    canonical: "/",
-  },
+  // No site-wide canonical: inherited by every page it told Google they were all the
+  // homepage. Pages set their own via alternates.canonical. Share image: app/opengraph-image.tsx.
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -59,14 +56,6 @@ export const metadata: Metadata = {
     description:
       "Growth sites, WhatsApp systems, and digital products businesses actually buy. 50% deposit. Paystack. Live in days.",
     url: SITE_URL,
-    images: [
-      {
-        url: "/logo.png",
-        width: 512,
-        height: 512,
-        alt: "DoyinTech",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -74,7 +63,6 @@ export const metadata: Metadata = {
     description:
       "Fixed-price websites, WhatsApp systems & digital products for businesses worldwide.",
     creator: "@doyintechnology",
-    images: ["/logo.png"],
   },
   robots: {
     index: true,
@@ -136,8 +124,6 @@ export default function RootLayout({
           </PageTransition>
           <MobileStickyCta />
           <ExitOffer />
-          <EngagementToast />
-          <WelcomeOctoberBanner />
           <ChatBot />
           <WhatsAppButton />
           <OfflinePlayHint />

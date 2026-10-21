@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import tls from "tls";
 import dns from "dns/promises";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { assertPublicHost, safeFetch } from "@/lib/net/safe-url";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -30,17 +31,13 @@ function normalizeHost(raw: string): { host: string; url: string } | null {
 
 async function fetchSafe(url: string, timeoutMs = 10000) {
   try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), timeoutMs);
-    const res = await fetch(url, {
-      signal: ctrl.signal,
-      redirect: "follow",
+    const { res } = await safeFetch(url, {
+      timeoutMs,
       headers: {
         "User-Agent": "DoyinTech-OrgSecurity/1.0",
         Accept: "text/html,*/*",
       },
     });
-    clearTimeout(t);
     return res;
   } catch {
     return null;
@@ -120,6 +117,14 @@ export async function POST(req: NextRequest) {
     const target = normalizeHost(String(body.domain || body.url || ""));
     if (!target) {
       return NextResponse.json({ error: "Invalid domain" }, { status: 400 });
+    }
+    try {
+      await assertPublicHost(target.host);
+    } catch (e) {
+      return NextResponse.json(
+        { error: e instanceof Error ? e.message : "Disallowed host" },
+        { status: 400 }
+      );
     }
 
     const signals: {

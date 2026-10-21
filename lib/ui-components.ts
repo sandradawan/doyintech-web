@@ -512,6 +512,4 @@ export function getUiComponent(slug: string): UiComponentPack | undefined {
   return UI_COMPONENTS.find((c) => c.slug === slug || c.id === slug);
 }
 
-export function formatCompPrice(n: number): string {
-  return "₦" + n.toLocaleString("en-NG");
-}
+export { formatCompPrice } from "@/lib/shop/format";

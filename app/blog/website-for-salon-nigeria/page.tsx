@@ -41,7 +41,7 @@ export default function SalonWebsitePost() {
             <section>
               <h2 className="mb-3 text-[22px] font-semibold text-white">2. WhatsApp-first booking</h2>
               <p>
-                Most Nigerian clients will not fill a long form. Put a big "Book on WhatsApp" CTA
+                Most Nigerian clients will not fill a long form. Put a big &quot;Book on WhatsApp&quot; CTA
                 on every page. Prefill the message with service type so the chat starts warm.
               </p>
             </section>
@@ -53,7 +53,7 @@ export default function SalonWebsitePost() {
               </p>
             </section>
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">4. Fixed price beats "contact for quote"</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-white">4. Fixed price beats &quot;contact for quote&quot;</h2>
               <p>
                 At DoyinTech we productised this: a Landing Page Starter at ₦100,000 (₦50,000
                 deposit) or a Local Business Website at ₦250,000. Live in days, not months. See{" "}
@@ -67,7 +67,7 @@ export default function SalonWebsitePost() {
               <h2 className="mb-3 text-[22px] font-semibold text-white">Quick checklist</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>Loads fast on mobile data</li>
-                <li>Services + starting prices (or "from") visible</li>
+                <li>Services + starting prices (or &quot;from&quot;) visible</li>
                 <li>One-tap WhatsApp on every screen</li>
                 <li>Location / city clear for local search</li>
                 <li>HTTPS and a simple Google Business link</li>

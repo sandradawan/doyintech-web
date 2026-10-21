@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { isValidProjectRequestId } from "@/lib/students/project-id";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { SITE_URL } from "@/lib/site";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 
@@ -98,10 +99,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const origin =
-      req.headers.get("origin") ||
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://www.doyintech.com";
+    const origin = SITE_URL;
 
     const payload = {
       email: project.email,

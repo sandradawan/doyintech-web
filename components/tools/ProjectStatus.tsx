@@ -116,7 +116,7 @@ export default function ProjectStatus() {
     <div className="space-y-6">
       <div className="doc-no-print space-y-4 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
         <p className="text-sm text-gray-400">
-          Update status for a client project, then share the link or print a status sheet. Clients see progress without endless "any update?" messages.
+          Update status for a client project, then share the link or print a status sheet. Clients see progress without endless &quot;any update?&quot; messages.
         </p>
         <div className="grid gap-3 sm:grid-cols-2">
           <input className={field} value={code} onChange={(e) => setCode(e.target.value)} placeholder="Project code" />

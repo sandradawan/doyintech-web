@@ -36,6 +36,7 @@ export function DashboardShell({
       router.replace("/store/auth");
       return;
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only stored session; render the gate on the server and first paint
     setSession(s);
   }, [role, router]);
 

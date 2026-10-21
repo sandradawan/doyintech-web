@@ -3,6 +3,7 @@
 import {
   useCallback,
   useEffect,
+  useRef,
   useState,
   Suspense,
   type FormEvent,
@@ -35,6 +36,8 @@ type Project = {
 type Msg = { id?: string; author: string; body: string; created_at: string };
 type Ev = { stage: string; note?: string; created_at: string };
 
+const STUDENT_EMAIL_KEY = "dt_student_email";
+
 function TrackInner() {
   const sp = useSearchParams();
   const [id, setId] = useState("");
@@ -49,13 +52,25 @@ function TrackInner() {
   const [paying, setPaying] = useState(false);
   const [okMsg, setOkMsg] = useState("");
 
+  const autoLoaded = useRef(false);
+
   useEffect(() => {
     const q = sp.get("id");
     if (q) setId(q.toUpperCase());
+    try {
+      const saved = localStorage.getItem(STUDENT_EMAIL_KEY);
+      if (saved) setEmail(saved);
+    } catch {
+      /* storage unavailable */
+    }
   }, [sp]);
 
   const load = useCallback(async () => {
     if (!id.trim()) return;
+    if (!email.includes("@")) {
+      setError("Enter the email you used when submitting the project.");
+      return;
+    }
     setLoading(true);
     setError("");
     setOkMsg("");
@@ -70,6 +85,11 @@ function TrackInner() {
         return;
       }
       setProject(data.project);
+      try {
+        localStorage.setItem(STUDENT_EMAIL_KEY, email.trim().toLowerCase());
+      } catch {
+        /* storage unavailable */
+      }
       setMessages(data.messages || []);
       setEvents(data.events || []);
       if (sp.get("paid") === "1") {
@@ -85,9 +105,12 @@ function TrackInner() {
     }
   }, [id, email, sp]);
 
+  // Auto-load once when arriving with ?id= and a remembered email (not on every keystroke).
   useEffect(() => {
-    if (sp.get("id")) load();
-  }, [sp, load]);
+    if (autoLoaded.current || !sp.get("id") || !id || !email.includes("@")) return;
+    autoLoaded.current = true;
+    load();
+  }, [sp, id, email, load]);
 
   async function sendFeedback(e: FormEvent) {
     e.preventDefault();
@@ -194,8 +217,9 @@ function TrackInner() {
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email (optional)"
+            placeholder="Email used when submitting"
             type="email"
+            required
             className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
           />
           <button

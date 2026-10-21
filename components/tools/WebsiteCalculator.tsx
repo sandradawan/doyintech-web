@@ -66,7 +66,7 @@ export default function WebsiteCalculator() {
     setStep((s) => Math.min(4, s + 1));
   }
 
-  const shareText = `My DoyinTech website estimate: ${formatNgn(result.min)} – ${formatNgn(result.max)} (${result.packageName}). Try the free calculator: https://doyintech.vercel.app/tools/website-calculator`;
+  const shareText = `My DoyinTech website estimate: ${formatNgn(result.min)} – ${formatNgn(result.max)} (${result.packageName}). Try the free calculator: https://www.doyintech.com/tools/website-calculator`;
 
   return (
     <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">

@@ -3,11 +3,17 @@ import { createHmac, randomBytes, timingSafeEqual } from "crypto";
 const TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 function secret(): string {
-  return (
+  const s =
+    process.env.DELIVERY_TOKEN_SECRET ||
     process.env.STORE_SESSION_SECRET ||
     process.env.PAYSTACK_SECRET_KEY ||
-    "dev-delivery-secret-change-me"
-  );
+    "";
+  if (s) return s;
+  // A hardcoded fallback would let anyone mint download tokens; only allow it in dev.
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("DELIVERY_TOKEN_SECRET (or STORE_SESSION_SECRET) must be set");
+  }
+  return "dev-delivery-secret-change-me";
 }
 
 export type DeliveryGrant = {

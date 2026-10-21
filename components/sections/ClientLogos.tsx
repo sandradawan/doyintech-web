@@ -48,7 +48,7 @@ const clients: Client[] = [
   },
   {
     name: "DoyinTech",
-    href: "https://doyintech.vercel.app",
+    href: "https://www.doyintech.com",
     logo: "/logo.png",
     fit: "contain",
   },

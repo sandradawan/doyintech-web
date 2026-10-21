@@ -30,7 +30,7 @@ export default function PricingClarity() {
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
           <p className="section-eyebrow">Clarity</p>
-          <h2 className="section-title mt-2">What you get — and what you don't</h2>
+          <h2 className="section-title mt-2">What you get — and what you don&apos;t</h2>
           <p className="section-lead mt-3">
             Fewer surprises. Packages are fixed-scope so delivery stays on time and on budget.
           </p>

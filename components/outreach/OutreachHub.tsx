@@ -84,6 +84,7 @@ export default function OutreachHub() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved prospects after hydration (localStorage is client-only)
       if (raw) setProspects(JSON.parse(raw));
     } catch {
       /* ignore */
@@ -183,9 +184,9 @@ export default function OutreachHub() {
     const city = msgCity || "[City]";
     const issue = msgIssue || "[specific issue]";
     if (msgMarket === "UK") {
-      return `Subject: ${biz} — small digital observation\n\nHello ${name},\n\nI was researching ${msgIndustry} businesses in ${city} and found ${biz}.\n\nOne thing stood out: ${issue}. Many UK microbusinesses have a site that works, but still lose leads because booking or mobile experience is weak.\n\nI'm with DoyinTech. We offer a complimentary 3-minute digital audit — two specific points and one practical next step.\n\nHappy to send it over if useful.\n\nKind regards,\nSilas · DoyinTech\nhttps://doyintech.vercel.app\ndoyintechnology@outlook.com`;
+      return `Subject: ${biz} — small digital observation\n\nHello ${name},\n\nI was researching ${msgIndustry} businesses in ${city} and found ${biz}.\n\nOne thing stood out: ${issue}. Many UK microbusinesses have a site that works, but still lose leads because booking or mobile experience is weak.\n\nI'm with DoyinTech. We offer a complimentary 3-minute digital audit — two specific points and one practical next step.\n\nHappy to send it over if useful.\n\nKind regards,\nSilas · DoyinTech\nhttps://www.doyintech.com\ndoyintechnology@outlook.com`;
     }
-    return `Subject: Quick note on ${biz}'s website\n\nHi ${name},\n\nI came across ${biz} while looking at ${city} ${msgIndustry} businesses.\n\nI noticed ${issue}. That often costs enquiries even when the service is excellent.\n\nI run DoyinTech — we help local businesses fix this with modern sites, booking, and simple automation.\n\nI can send a free 3-minute digital audit (two concrete issues + one recommended fix). No obligation.\n\nWorth a look?\n\nSilas · DoyinTech\nhttps://doyintech.vercel.app\ndoyintechnology@outlook.com`;
+    return `Subject: Quick note on ${biz}'s website\n\nHi ${name},\n\nI came across ${biz} while looking at ${city} ${msgIndustry} businesses.\n\nI noticed ${issue}. That often costs enquiries even when the service is excellent.\n\nI run DoyinTech — we help local businesses fix this with modern sites, booking, and simple automation.\n\nI can send a free 3-minute digital audit (two concrete issues + one recommended fix). No obligation.\n\nWorth a look?\n\nSilas · DoyinTech\nhttps://www.doyintech.com\ndoyintechnology@outlook.com`;
   }, [msgMarket, msgBiz, msgCity, msgName, msgIndustry, msgIssue]);
 
   const linkedInNote = useMemo(() => {
@@ -198,7 +199,7 @@ export default function OutreachHub() {
   const follow7 = `Hi ${msgName || "there"} — last note from me. If timing's wrong, no problem. If you'd like the free digital audit for ${msgBiz || "[Business]"}, just reply "audit" and I'll send it.\n\nSilas · DoyinTech`;
 
   const auditText = useMemo(() => {
-    return `DIGITAL AUDIT — ${auditBiz || "[Business Name]"}\nDate: ${today()}\n\n1. Observation: ${audit1 || "[issue 1]"}\n   Impact: ${audit1Impact || "[why it costs enquiries]"}\n\n2. Observation: ${audit2 || "[issue 2]"}\n   Impact: ${audit2Impact || "[why it costs enquiries]"}\n\nRecommended fix: ${auditFix || "[one clear project]"}\n\nNext step: 15-min call or reply with a preferred time.\nDoyinTech · https://doyintech.vercel.app\ndoyintechnology@outlook.com`;
+    return `DIGITAL AUDIT — ${auditBiz || "[Business Name]"}\nDate: ${today()}\n\n1. Observation: ${audit1 || "[issue 1]"}\n   Impact: ${audit1Impact || "[why it costs enquiries]"}\n\n2. Observation: ${audit2 || "[issue 2]"}\n   Impact: ${audit2Impact || "[why it costs enquiries]"}\n\nRecommended fix: ${auditFix || "[one clear project]"}\n\nNext step: 15-min call or reply with a preferred time.\nDoyinTech · https://www.doyintech.com\ndoyintechnology@outlook.com`;
   }, [auditBiz, audit1, audit1Impact, audit2, audit2Impact, auditFix]);
 
   async function copy(text: string) {

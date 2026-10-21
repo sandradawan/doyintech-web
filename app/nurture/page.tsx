@@ -14,7 +14,7 @@ const sequences = [
     steps: [
       {
         day: "Day 0 (same day)",
-        text: `Hi {{name}} — got your audit request for {{url}}.\n\nI'll reply with 2–3 specific fixes within 1 business day.\n\nMeanwhile: if you want a fixed-price landing page (₦100k) or local site (₦250k), see doyintech.vercel.app/hire — 50% deposit locks the slot.`,
+        text: `Hi {{name}} — got your audit request for {{url}}.\n\nI'll reply with 2–3 specific fixes within 1 business day.\n\nMeanwhile: if you want a fixed-price landing page (₦100k) or local site (₦250k), see doyintech.com/hire — 50% deposit locks the slot.`,
       },
       {
         day: "Day 1",
@@ -22,7 +22,7 @@ const sequences = [
       },
       {
         day: "Day 3",
-        text: `Last nudge — happy to close the loop.\n\nIf budget is tight, start with a ₦100k landing page that sells one offer + WhatsApp.\n\nOr use free scripts: doyintech.vercel.app/tools/whatsapp-scripts\n\nReply when you're ready.`,
+        text: `Last nudge — happy to close the loop.\n\nIf budget is tight, start with a ₦100k landing page that sells one offer + WhatsApp.\n\nOr use free scripts: doyintech.com/tools/whatsapp-scripts\n\nReply when you're ready.`,
       },
     ],
   },
@@ -31,11 +31,11 @@ const sequences = [
     steps: [
       {
         day: "Day 0",
-        text: `Hi {{name}} — your scripts are ready to paste into WhatsApp Business.\n\nTip: put a one-tap WhatsApp button on a real site. Strangers trust a link more than a bio alone.\n\nFree audit: doyintech.vercel.app/free-audit`,
+        text: `Hi {{name}} — your scripts are ready to paste into WhatsApp Business.\n\nTip: put a one-tap WhatsApp button on a real site. Strangers trust a link more than a bio alone.\n\nFree audit: doyintech.com/free-audit`,
       },
       {
         day: "Day 2",
-        text: `Did the reply scripts help?\n\nMany salons/clinics next step is a fixed-price site so bookings don't die in DMs.\n\nLanding ₦100k · Local ₦250k · deposit online: doyintech.vercel.app/hire`,
+        text: `Did the reply scripts help?\n\nMany salons/clinics next step is a fixed-price site so bookings don't die in DMs.\n\nLanding ₦100k · Local ₦250k · deposit online: doyintech.com/hire`,
       },
     ],
   },
