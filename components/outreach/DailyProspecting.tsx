@@ -181,8 +181,8 @@ export default function DailyProspecting() {
           </li>
           <li>
             Store:{" "}
-            <a className="text-[#2997ff]" href="https://www.doyintech.com/store">
-              /store
+            <a className="text-[#2997ff]" href="https://www.doyintech.com/products">
+              /products
             </a>
           </li>
           <li>

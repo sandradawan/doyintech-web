@@ -77,7 +77,24 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
+    // Retired features (Oct 2026): send old links and search results somewhere useful.
+    const retired: [string, string][] = [
+      ["/bills", "/tools"],
+      ["/wallet", "/tools"],
+      ["/auth/:path*", "/account"],
+      ["/store", "/products"],
+      ["/store/:path*", "/products"],
+      ["/real-estate", "/"],
+      ["/real-estate/:path*", "/"],
+      ["/apps", "/pro"],
+      ["/apps/:path*", "/pro"],
+      ["/ai", "/tools"],
+      ["/ai/:path*", "/tools"],
+      ["/solve", "/tools"],
+      ["/pricing-quiz", "/pricing"],
+    ];
     return [
+      ...retired.map(([source, destination]) => ({ source, destination, permanent: true })),
       {
         source: "/:path*",
         has: [{ type: "host", value: "doyintech.com" }],

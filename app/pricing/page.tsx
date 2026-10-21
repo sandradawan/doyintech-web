@@ -5,6 +5,7 @@ import PricingClarity from "@/components/sections/PricingClarity";
 import BookCall from "@/components/sections/BookCall";
 import FAQ from "@/components/sections/FAQ";
 import { discoveryCallLink } from "@/lib/packages";
+import { PRIMARY_CTA } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Pricing & Packages",
@@ -26,8 +27,8 @@ export default function PricingPage() {
             confirm scope first.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href="/hire" className="apple-btn apple-btn-primary">
-              Fixed price + deposit
+            <a href={PRIMARY_CTA.href} className="apple-btn apple-btn-primary">
+              {PRIMARY_CTA.label}
             </a>
             <a
               href={discoveryCallLink()}
@@ -35,10 +36,7 @@ export default function PricingPage() {
               rel="noopener noreferrer"
               className="apple-btn apple-btn-secondary"
             >
-              Book free discovery call
-            </a>
-            <a href="#clarity" className="apple-btn apple-btn-secondary">
-              What&apos;s included
+              Book a free 15-min call
             </a>
           </div>
         </div>

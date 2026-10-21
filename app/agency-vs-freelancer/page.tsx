@@ -88,7 +88,7 @@ export default function AgencyVsFreelancerPage() {
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="/hire" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black">Fixed packages</a>
-              <a href="/pricing-quiz" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white">Pricing quiz</a>
+              <a href="/pricing" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white">See pricing</a>
               <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#25D366]">Free call</a>
             </div>
           </div>

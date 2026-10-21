@@ -8,7 +8,6 @@ const SECTIONS = [
     items: [
       { href: "/hire", title: "Hire / packages" },
       { href: "/pricing", title: "Pricing" },
-      { href: "/pricing-quiz", title: "Pricing quiz" },
       { href: "/services", title: "Services" },
       { href: "/contact", title: "Contact" },
       { href: "/support", title: "Support" },
@@ -21,7 +20,6 @@ const SECTIONS = [
       { href: "/ebooks", title: "Ebooks" },
       { href: "/components", title: "UI components" },
       { href: "/templates", title: "Templates" },
-      { href: "/store", title: "App store" },
       { href: "/reports", title: "Report Studio" },
     ],
   },

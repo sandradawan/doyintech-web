@@ -23,7 +23,6 @@ const NAV = [
   { href: "/admin", label: "Overview", exact: true, icon: "◈" },
   { href: "/admin/leads", label: "Leads", exact: false, icon: "◎" },
   { href: "/admin/student-projects", label: "Students", exact: false, icon: "◇" },
-  { href: "/admin/store", label: "Store", exact: false, icon: "▣" },
   { href: "/admin/orders", label: "Orders", exact: false, icon: "⬡" },
   { href: "/admin/pricing", label: "Pricing", exact: false, icon: "₦" },
   { href: "/admin/ops", label: "Ops", exact: false, icon: "⚙" },

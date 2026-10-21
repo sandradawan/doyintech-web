@@ -116,10 +116,10 @@ export default function SystemProtectorQuiz() {
               More security tools
             </Link>
             <Link
-              href="/apps/doyinshield"
+              href="/products"
               className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
             >
-              DoyinShield app plan
+              System Protector Kit
             </Link>
           </div>
           <p className="mt-4 text-[12px] text-[#86868b]">

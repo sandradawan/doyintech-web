@@ -1,16 +1,12 @@
 import Hero from "@/components/hero/Hero";
 import TrustBar from "@/components/sections/TrustBar";
-import ReportStudioStrip from "@/components/sections/ReportStudioStrip";
 import ClientLogos from "@/components/sections/ClientLogos";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
-import Services from "@/components/sections/Services";
 import Packages from "@/components/sections/Packages";
 import Testimonials from "@/components/sections/Testimonials";
-import Founder from "@/components/sections/Founder";
 import PassiveProducts from "@/components/sections/PassiveProducts";
 import FAQ from "@/components/sections/FAQ";
 import BookCall from "@/components/sections/BookCall";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 import type { Metadata } from "next";
 
@@ -19,7 +15,9 @@ export const metadata: Metadata = {
 };
 
 /**
- * Homepage: Hero → Trust → Report Studio (fast discovery) → work → services → pricing → CTA.
+ * Homepage funnel: promise (hero) → proof (logos, case studies) → offer (packages + care plans)
+ * → reassurance (testimonials) → lower-commitment option (kits, Pro) → objections (FAQ) → CTA.
+ * Every primary button leads to /hire (lib/cta.ts).
  */
 export default function Home() {
   return (
@@ -27,17 +25,13 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
-        <ReportStudioStrip />
         <ClientLogos />
         <CaseStudiesTeaser />
-        <Services />
         <Packages />
         <Testimonials />
-        <Founder />
         <PassiveProducts />
         <FAQ />
         <BookCall />
-        <Contact />
       </main>
       <Footer />
     </>

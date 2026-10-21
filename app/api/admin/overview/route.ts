@@ -82,13 +82,13 @@ export async function GET(req: NextRequest) {
   const recent = [
     ...(leads as Array<Record<string, string>>).slice(0, 8).map((l) => ({ kind: "lead", id: l.id, title: l.name, subtitle: `${l.product} · ${l.status}`, at: l.created_at, href: "/admin/leads" })),
     ...(projects as Array<Record<string, string>>).slice(0, 6).map((p) => ({ kind: "project", id: p.id, title: p.name, subtitle: `${p.package_name} · ${p.status}`, at: p.created_at, href: "/admin/student-projects" })),
-    ...(storeOrders as Array<Record<string, string | number>>).slice(0, 6).map((o) => ({ kind: "order", id: String(o.id), title: String(o.product_name || "Store order"), subtitle: String(o.buyer_email || o.status || ""), at: String(o.created_at), href: "/admin/store" })),
+    ...(storeOrders as Array<Record<string, string | number>>).slice(0, 6).map((o) => ({ kind: "order", id: String(o.id), title: String(o.product_name || "Store order"), subtitle: String(o.buyer_email || o.status || ""), at: String(o.created_at), href: "/admin/orders" })),
   ].sort((a, b) => (a.at < b.at ? 1 : -1)).slice(0, 16);
 
   const modules = [
     { id: "leads", title: "Leads & contact", desc: "Inquiries, audits, referrals, chat handoffs", href: "/admin/leads", metric: leads.length, metricLabel: "total" },
     { id: "students", title: "Student projects", desc: "Research pipeline & payments", href: "/admin/student-projects", metric: activeProjects, metricLabel: "active" },
-    { id: "store", title: "DoyinStore", desc: "Listings, developers, app sales", href: "/admin/store", metric: listings.length, metricLabel: "listings" },
+    { id: "store", title: "DoyinStore (retired)", desc: "Historical listings and app sales", href: "/admin/data", metric: listings.length, metricLabel: "listings" },
     { id: "orders", title: "Orders & sales", desc: "Store orders and revenue", href: "/admin/orders", metric: storeOrderCount, metricLabel: "orders" },
     { id: "ops", title: "DoyinOps", desc: "SME workspaces", href: "/admin/ops", metric: workspaces.length, metricLabel: "workspaces" },
     { id: "ai", title: "AI tools", desc: "Pitch, studio, report studio", href: "/admin/tools", metric: null, metricLabel: "open" },

@@ -1,6 +1,5 @@
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAID_TOOLS } from "@/lib/tools/paid";
-import { getAllPublishedListings } from "@/lib/store/published";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
@@ -91,25 +90,7 @@ function basePayItemSync(id: string): PayItem | undefined {
 
 /** Resolve Paystack item; applies admin pricing overrides when configured. */
 export async function getPayItem(id: string): Promise<PayItem | undefined> {
-  let item = basePayItemSync(id);
-
-  if (!item) {
-    try {
-      const listings = await getAllPublishedListings();
-      const listing = listings.find((l) => l.id === id || l.slug === id);
-      if (listing && listing.priceNgn > 0) {
-        item = {
-          id: listing.slug,
-          name: listing.title,
-          amountKobo: listing.amountKobo || listing.priceNgn * 100,
-          delivery: "DoyinStore secure download after payment",
-        };
-      }
-    } catch {
-      /* ignore store lookup errors */
-    }
-  }
-
+  const item = basePayItemSync(id);
   if (!item) return undefined;
 
   try {

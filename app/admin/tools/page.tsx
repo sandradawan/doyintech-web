@@ -4,9 +4,6 @@ import Link from "next/link";
 
 const TOOLS = [
   { href: "/reports", title: "AI Report Studio", desc: "Multi-platform audits & PDF delivery" },
-  { href: "/ai/pitch", title: "AI Pitch Deck", desc: "Animated boardroom slides" },
-  { href: "/ai/studio", title: "AI Studio", desc: "Sector tools + explainer slides" },
-  { href: "/ai", title: "AI hub", desc: "All AI product entry points" },
   { href: "/tools", title: "Free tools hub", desc: "Business & security utilities" },
   { href: "/tools/system-protector", title: "System Protector", desc: "Phone & WhatsApp hygiene score" },
   { href: "/tools/whatsapp-scripts", title: "WhatsApp scripts", desc: "Reply templates" },
@@ -14,9 +11,6 @@ const TOOLS = [
   { href: "/status-pack", title: "Status pack", desc: "Weekly captions" },
   { href: "/outreach", title: "Outreach console", desc: "Prospecting & ads creatives" },
   { href: "/outreach/daily", title: "Daily prospecting", desc: "20 messages / day tracker" },
-  { href: "/bills", title: "Bills / airtime", desc: "Top-up utilities" },
-  { href: "/solve", title: "SME Solve", desc: "Pipeline, booking, cash tools" },
-  { href: "/apps", title: "Apps & MVPs", desc: "Product lineup" },
 ];
 
 export default function AdminToolsPage() {

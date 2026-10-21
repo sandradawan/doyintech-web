@@ -3,8 +3,6 @@ import { issueDeliveryToken } from "./tokens";
 import { resolveProductDelivery, readPublicFile } from "./resolve";
 import { sendProductDeliveryEmail } from "./email";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
-import { dbCreateOrder } from "@/lib/store/db";
-import { issueDownloadToken } from "@/lib/store/tokens";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 import { formatEbookDocument } from "@/lib/ebooks/delivery";
@@ -152,17 +150,6 @@ export async function fulfillPaidProduct(opts: {
   try {
     const admin = getSupabaseAdmin();
     if (admin) {
-      const storeToken = issueDownloadToken(opts.productId, email, 7 * 24 * 60);
-      await dbCreateOrder({
-        listingId: opts.productId,
-        listingSlug: opts.productId,
-        buyerEmail: email,
-        amountKobo: opts.amountKobo || 0,
-        paystackReference: opts.reference,
-        status: "paid",
-        downloadToken: storeToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      });
       await admin.from("site_leads").insert({
         type: "purchase_fulfilled",
         product: productName,

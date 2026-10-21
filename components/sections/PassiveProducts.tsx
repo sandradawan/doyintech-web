@@ -1,17 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import ScrollReveal from "../animations/ScrollReveal";
-import {
-  DIGITAL_PRODUCTS,
-  SAAS_PRODUCTS,
-  productWhatsAppLink,
-  waitlistWhatsAppLink,
-} from "@/lib/products";
-import { packageWhatsAppLink } from "@/lib/packages";
+import { DIGITAL_PRODUCTS } from "@/lib/products";
 import PaystackBuyButton from "@/components/ui/PaystackBuyButton";
 
+/** Homepage shop teaser: three best kits (one buy button each) and the Pro membership. */
 export default function PassiveProducts() {
-  const featured = DIGITAL_PRODUCTS.slice(0, 6);
+  const featured = DIGITAL_PRODUCTS.slice(0, 3);
 
   return (
     <section id="products" className="apple-section apple-section-black">
@@ -19,157 +15,69 @@ export default function PassiveProducts() {
         <ScrollReveal direction="up">
           <div className="text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
-              Digital store
+              Not ready for a website?
             </p>
-            <h2 className="apple-headline mt-2">Products clients pay for.</h2>
+            <h2 className="apple-headline mt-2">Start with a ready-made kit.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              Instant download kits for Nigerian SMEs — diaspora Ember gifts, follow-ups,
-              security. Paystack checkout or WhatsApp.
+              Scripts, trackers and playbooks you can use today. Pay with Paystack, delivered to
+              your email.
             </p>
           </div>
         </ScrollReveal>
 
         <div className="mt-14 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((p, i) => {
-            const isHot =
-              p.badge === "Best seller" ||
-              p.badge === "Most popular" ||
-              p.badge === "New today" ||
-              p.badge === "New · AI ops" ||
-              p.badge === "New · Protector" ||
-              Boolean(p.badge?.startsWith("Bundle"));
-            return (
-              <ScrollReveal key={p.id} direction="up" delay={i * 0.04} className="h-full">
-                <article
-                  className={`flex h-full flex-col overflow-hidden rounded-[22px] border bg-gradient-to-b from-[#2c2c2e] to-[#1d1d1f] shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition hover:border-white/20 ${
-                    isHot
-                      ? "border-[#2997ff]/45 ring-1 ring-[#2997ff]/20"
-                      : "border-white/10"
-                  }`}
-                >
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 min-h-[24px]">
-                      {p.badge ? (
-                        <span
-                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
-                            p.badge.startsWith("Bundle")
-                              ? "bg-[#ff8c14] text-black"
-                              : isHot
-                                ? "bg-[#0071e3] text-white"
-                                : "bg-white/10 text-[#a1a1a6]"
-                          }`}
-                        >
-                          {p.badge}
-                        </span>
-                      ) : null}
-                    </div>
-                    <h3 className="text-[18px] font-semibold leading-snug tracking-tight text-[#f5f5f7]">
-                      {p.name}
-                    </h3>
-                    <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-[#a1a1a6]">
-                      {p.description}
-                    </p>
-                    <div className="mt-5 border-t border-white/10 pt-4">
-                      <p className="text-[28px] font-semibold tracking-tight text-white">
-                        {p.priceNgn}
-                      </p>
-                      <p className="text-[12px] text-[#a1a1a6]">{p.priceUsd} · one-time</p>
-                    </div>
-                    <ul className="mt-4 flex-1 space-y-2">
-                      {p.features.slice(0, 4).map((f) => (
-                        <li
-                          key={f}
-                          className="flex gap-2 text-[13px] leading-snug text-[#f5f5f7]/90"
-                        >
-                          <span className="mt-0.5 shrink-0 text-[#2997ff]">✓</span>
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-4 text-[11px] leading-snug text-[#86868b]">{p.delivery}</p>
-                  </div>
-                  <div className="space-y-2 border-t border-white/10 bg-black/25 px-6 py-4">
-                    <PaystackBuyButton product={p} />
-                    <a
-                      href={productWhatsAppLink(p.name, "digital product")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-full items-center justify-center rounded-full border border-[#25D366]/50 bg-[#25D366]/10 py-3 text-[13px] font-semibold text-[#25D366] transition hover:bg-[#25D366]/20"
-                    >
-                      Order on WhatsApp
-                    </a>
-                  </div>
-                </article>
-              </ScrollReveal>
-            );
-          })}
+          {featured.map((p, i) => (
+            <ScrollReveal key={p.id} direction="up" delay={i * 0.04} className="h-full">
+              <article className="flex h-full flex-col overflow-hidden rounded-[22px] border border-white/10 bg-gradient-to-b from-[#2c2c2e] to-[#1d1d1f] shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition hover:border-white/20">
+                <div className="flex flex-1 flex-col p-6">
+                  {p.badge && (
+                    <span className="mb-3 w-fit rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-semibold text-[#a1a1a6]">
+                      {p.badge}
+                    </span>
+                  )}
+                  <h3 className="text-[18px] font-semibold leading-snug tracking-tight text-[#f5f5f7]">
+                    {p.name}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-[#a1a1a6]">
+                    {p.description}
+                  </p>
+                  <p className="mt-5 border-t border-white/10 pt-4 text-[28px] font-semibold tracking-tight text-white">
+                    {p.priceNgn}
+                  </p>
+                  <p className="text-[12px] text-[#a1a1a6]">{p.priceUsd} · one-time</p>
+                </div>
+                <div className="border-t border-white/10 bg-black/25 px-6 py-4">
+                  <PaystackBuyButton product={p} />
+                </div>
+              </article>
+            </ScrollReveal>
+          ))}
         </div>
 
-        <div className="mt-10 text-center">
-          <a
-            href="/products"
-            className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-7 py-3.5 text-[15px] font-semibold text-black transition hover:brightness-110"
-          >
-            View all products →
-          </a>
-          <p className="mt-3 text-[13px] text-[#86868b]">
-            Full catalog · Paystack instant download
-          </p>
+        <div className="mt-8 text-center">
+          <Link href="/products" className="text-[15px] font-semibold text-[#ff8c14] hover:underline">
+            See all kits and ebooks →
+          </Link>
         </div>
-
-        {SAAS_PRODUCTS.length > 0 && (
-          <>
-            <h3 className="mt-20 text-center text-[13px] font-semibold uppercase tracking-[0.08em] text-[#a1a1a6]">
-              Coming next — monthly subscriptions
-            </h3>
-            <div className="mt-4 grid items-stretch gap-5 md:grid-cols-2">
-              {SAAS_PRODUCTS.slice(0, 2).map((p, i) => (
-                <ScrollReveal key={p.id} direction="up" delay={i * 0.06} className="h-full">
-                  <article className="flex h-full flex-col rounded-[22px] border border-white/10 bg-[#1d1d1f] p-7">
-                    {p.badge && (
-                      <span className="mb-2 w-fit rounded-full bg-[#0071e3]/20 px-2.5 py-0.5 text-[11px] font-semibold text-[#2997ff]">
-                        {p.badge}
-                      </span>
-                    )}
-                    <h4 className="text-[20px] font-semibold text-[#f5f5f7]">{p.name}</h4>
-                    <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[#a1a1a6]">
-                      {p.description}
-                    </p>
-                    <p className="mt-3 text-[20px] font-semibold text-[#f5f5f7]">{p.priceNgn}</p>
-                    <a
-                      href={waitlistWhatsAppLink(p.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-5 inline-flex w-full items-center justify-center rounded-full border border-[#25D366]/50 bg-[#25D366]/10 py-3 text-[13px] font-semibold text-[#25D366]"
-                    >
-                      Join waitlist on WhatsApp
-                    </a>
-                  </article>
-                </ScrollReveal>
-              ))}
-            </div>
-          </>
-        )}
 
         <ScrollReveal direction="up" delay={0.08}>
-          <div className="mt-10 flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/10 bg-[#1d1d1f] p-8 sm:flex-row sm:items-center">
+          <div className="mt-12 flex flex-col items-start justify-between gap-6 rounded-[28px] border border-[#ff8c14]/30 bg-[#1d1d1f] p-8 sm:flex-row sm:items-center">
             <div>
-              <h3 className="text-[22px] font-semibold text-[#f5f5f7]">Monthly Care Plan</h3>
-              <p className="mt-2 max-w-xl text-[15px] text-[#a1a1a6]">
-                Backups, updates, small changes, priority support.
+              <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#ff8c14]">
+                Membership
               </p>
-              <p className="mt-2 text-[18px] font-semibold text-[#f5f5f7]">
-                From ₦50,000 – ₦150,000/mo
+              <h3 className="mt-1 text-[22px] font-semibold text-[#f5f5f7]">DoyinTech Pro</h3>
+              <p className="mt-2 max-w-xl text-[15px] text-[#a1a1a6]">
+                Every premium tool — invoices, contracts, PDFs, CVs, proposals — on all your
+                devices. ₦5,000/month, cancel any time.
               </p>
             </div>
-            <a
-              href={packageWhatsAppLink("Monthly Care Plan")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[15px] font-semibold text-white"
+            <Link
+              href="/pro"
+              className="inline-flex shrink-0 items-center justify-center rounded-full bg-[#ff8c14] px-6 py-3.5 text-[15px] font-semibold text-black"
             >
-              Start on WhatsApp
-            </a>
+              See Pro
+            </Link>
           </div>
         </ScrollReveal>
       </div>

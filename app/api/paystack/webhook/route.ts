@@ -2,7 +2,6 @@ import { NextRequest, NextResponse, after } from "next/server";
 import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { fulfillPaidProduct } from "@/lib/delivery/fulfill";
-import { creditWallet } from "@/lib/bills/wallet";
 import {
   checkTransactionPaysForItsProduct,
   type PaystackTx,
@@ -124,22 +123,6 @@ export async function POST(req: NextRequest) {
     const planCode = String((body.data?.plan as { plan_code?: string } | undefined)?.plan_code || "");
     if (planCode || kind === "subscription") {
       if (planCode && email) await recordRenewal({ email, planCode, reference });
-      return NextResponse.json({ received: true });
-    }
-
-    // Wallet top-up: credits exactly what was paid (ledger dedupes by reference).
-    if ((source === "wallet_fund" || kind === "wallet_fund") && meta.user_id && amountKobo > 0 && isNgn) {
-      try {
-        await creditWallet({
-          userId: String(meta.user_id),
-          amountKobo,
-          reference,
-          reason: "wallet_fund",
-          meta: { email, paystack: amountKobo },
-        });
-      } catch (e) {
-        console.error("wallet_fund webhook", e);
-      }
       return NextResponse.json({ received: true });
     }
 

@@ -1,5 +1,4 @@
 import { DIGITAL_PRODUCTS } from "@/lib/products";
-import { STORE_LISTINGS } from "@/lib/store/catalog";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import path from "path";
 import { readFile } from "fs/promises";
@@ -9,7 +8,7 @@ export type ResolvedDelivery = {
   productId: string;
   productName: string;
   mdPaths: string[];
-  kind: "digital" | "store" | "ebook" | "other";
+  kind: "digital" | "ebook" | "other";
 };
 
 export function resolveProductDelivery(productId: string): ResolvedDelivery | null {
@@ -26,18 +25,6 @@ export function resolveProductDelivery(productId: string): ResolvedDelivery | nu
       productName: digital.name,
       mdPaths: paths.filter((p) => p.endsWith(".md") || p.endsWith(".csv") || p.endsWith(".txt")),
       kind: "digital",
-    };
-  }
-
-  const listing = STORE_LISTINGS.find((l) => l.id === productId || l.slug === productId);
-  if (listing && listing.kind === "digital_product") {
-    const guess = `/digital-products/${listing.slug}.md`;
-    const paths = productFileExists(guess) ? [guess] : [];
-    return {
-      productId: listing.slug,
-      productName: listing.title,
-      mdPaths: paths,
-      kind: "store",
     };
   }
 

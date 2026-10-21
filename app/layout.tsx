@@ -4,12 +4,9 @@ import type { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CookieConsent from "@/components/ui/CookieConsent";
-import ChatBot from "@/components/ui/ChatBot";
 import { ToastProvider } from "@/components/ui/Toast";
 import PageTransition from "@/components/ui/PageTransition";
-import MobileStickyCta from "@/components/ui/MobileStickyCta";
 import SkipToContent from "@/components/ui/SkipToContent";
-import ExitOffer from "@/components/ui/ExitOffer";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
@@ -122,9 +119,6 @@ export default function RootLayout({
           <PageTransition>
             <div id="main-content">{children}</div>
           </PageTransition>
-          <MobileStickyCta />
-          <ExitOffer />
-          <ChatBot />
           <WhatsAppButton />
           <OfflinePlayHint />
           <ServiceWorkerRegister />

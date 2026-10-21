@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/site";
 
 const BASE = SITE_URL;
 
-/** Public marketing URLs only — no /admin, /ops, /auth, /api, /wallet. */
+/** Public marketing URLs only — no /admin, /ops, /api, account or internal tools. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
@@ -14,16 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/care-plans",
     "/pro",
     "/pricing",
-    "/pricing-quiz",
     "/free-audit",
     "/products",
+    "/reports",
     "/ebooks",
-    "/store",
-    "/bills",
-    "/solve",
-    "/ai",
-    "/ai/pitch",
-    "/real-estate",
     "/tools",
     "/tools/system-protector",
     "/services",
@@ -40,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/case-studies/ipvl",
     "/refer",
     "/reviews",
-    "/status-pack",
     "/agency-vs-freelancer",
     "/web-design-jos",
     "/web-design-abuja",
@@ -48,11 +41,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/components",
     "/templates",
     "/white-label",
-    "/apps",
-    "/apps/doyinshield",
-    "/apps/whatsapp-agent",
-    "/apps/build-plan-30d",
-    "/outreach",
     "/blog",
     "/blog/website-for-salon-nigeria",
     "/blog/whatsapp-booking-system-nigeria",
@@ -75,7 +63,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/students/citations",
     "/students/cover-letter",
     "/students/projects",
-    "/students/projects/track",
   ];
 
   const toolRoutes = TOOLS_META.map((t) => t.href);
@@ -83,16 +70,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((path) => {
     const isHome = path === "";
-    const isMoney =
-      path === "/hire" ||
-      path === "/products" ||
-      path === "/free-audit" ||
-      path === "/bills" ||
-      path === "/pricing" ||
-      path === "/ai" ||
-      path === "/ai/pitch" ||
-      path === "/real-estate" ||
-      path.startsWith("/students");
+    const isMoney = [
+      "/hire",
+      "/care-plans",
+      "/pro",
+      "/pricing",
+      "/products",
+      "/ebooks",
+      "/reports",
+      "/free-audit",
+    ].includes(path);
     const isTools = path.startsWith("/tools");
     const isBlog = path.startsWith("/blog");
     const isLocal = path.startsWith("/web-design-") || path === "/local-seo";

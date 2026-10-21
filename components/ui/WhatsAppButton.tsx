@@ -9,21 +9,14 @@ export default function WhatsAppButton() {
 
   useEffect(() => {
     const sync = () => {
+      // Sit above the cookie banner while it's showing.
       const cookie = document.documentElement.dataset.cookieBanner === "1";
-      const sticky = window.innerWidth < 768 && window.scrollY > 420;
-      let bottom = 24;
-      if (cookie) bottom += 64;
-      if (sticky) bottom += 62;
-      setOffset(bottom);
+      setOffset(cookie ? 88 : 24);
     };
     sync();
-    window.addEventListener("scroll", sync, { passive: true });
-    window.addEventListener("resize", sync);
     window.addEventListener("cookie-accepted", sync);
-    const id = window.setInterval(sync, 400);
+    const id = window.setInterval(sync, 1000);
     return () => {
-      window.removeEventListener("scroll", sync);
-      window.removeEventListener("resize", sync);
       window.removeEventListener("cookie-accepted", sync);
       window.clearInterval(id);
     };

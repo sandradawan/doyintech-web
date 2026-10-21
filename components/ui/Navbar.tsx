@@ -5,79 +5,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { discoveryCallLink } from "@/lib/packages";
+import { PRIMARY_CTA } from "@/lib/cta";
 
 type NavLink = { name: string; href: string; desc?: string };
 type NavGroup = { label: string; items: NavLink[] };
 
+/**
+ * Four menus, each link leading somewhere you can buy or start. Company pages, blog and
+ * internal tools live in the footer; the primary CTA sits on the right of the bar.
+ */
 const NAV_GROUPS: NavGroup[] = [
   {
-    label: "Services",
+    label: "Websites",
     items: [
-      { name: "All services", href: "/services", desc: "Web, backend, mobile, AI" },
-      { name: "Hire / packages", href: "/hire", desc: "Fixed-price deposits" },
-      { name: "Pricing quiz", href: "/pricing-quiz", desc: "Which package fits?" },
-      { name: "Portfolio", href: "/portfolio", desc: "Live client work" },
-      { name: "Case studies", href: "/case-studies", desc: "Results & process" },
-      { name: "White-label", href: "/white-label", desc: "Resell our builds" },
-    ],
-  },
-  {
-    label: "Students",
-    items: [
-      { name: "Student tools hub", href: "/students", desc: "All research tools" },
-      { name: "AI Project Studio", href: "/students/studio", desc: "Outlines & chapter drafts" },
-      { name: "Questionnaire analyzer", href: "/students/analyzer", desc: "CSV to tables + narrative" },
-      { name: "Citation formatter", href: "/students/citations", desc: "APA, MLA, Chicago, Harvard" },
-      { name: "Cover letter AI", href: "/students/cover-letter", desc: "Job-ready drafts" },
-      { name: "Research project portal", href: "/students/projects", desc: "50% deposit · track by ID" },
-      { name: "Track a project", href: "/students/projects/track", desc: "Enter your Request ID" },
-      { name: "CV builder", href: "/tools/cv-builder", desc: "Free resume templates" },
+      { name: "Packages & pricing", href: "/hire", desc: "Fixed price · 50% deposit" },
+      { name: "Website care plans", href: "/care-plans", desc: "Monthly security & updates" },
+      { name: "Our work", href: "/case-studies", desc: "Case studies & results" },
+      { name: "Free website audit", href: "/free-audit", desc: "2–3 fixes in your inbox" },
     ],
   },
   {
     label: "Shop",
     items: [
-      { name: "AI Report Studio", href: "/reports", desc: "Multi-platform audits · PDF" },
-      { name: "Products", href: "/products", desc: "Digital packs & bundles" },
-      { name: "System Protector Kit", href: "/products", desc: "Phone & WhatsApp hardening" },
-      { name: "Follow-up Agent Kit", href: "/products", desc: "Turn quotes into deposits" },
+      { name: "Business kits", href: "/products", desc: "Scripts, trackers & playbooks" },
       { name: "Ebooks", href: "/ebooks", desc: "Practical guides" },
-      { name: "Components", href: "/components", desc: "Next.js UI kits" },
-      { name: "Templates", href: "/templates", desc: "Page templates" },
-      { name: "App Store", href: "/store", desc: "Apps & digital goods" },
+      { name: "Report Studio", href: "/reports", desc: "Social & brand presence reports" },
+      { name: "Code: components & templates", href: "/components", desc: "Next.js UI kits" },
     ],
   },
   {
     label: "Tools",
     items: [
       { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
-      { name: "Website care plans", href: "/care-plans", desc: "Monthly maintenance & updates" },
-      { name: "AI Report Studio", href: "/reports", desc: "IG, TikTok, YT, LinkedIn, web" },
-      { name: "AI Tools hub", href: "/ai", desc: "Education, finance, SME, sales, property" },
-      { name: "SME Solve hub", href: "/solve", desc: "Pipeline, booking, cash, quotes" },
-      { name: "Bills — airtime & data", href: "/bills", desc: "Top-up + Remita RRR" },
-      { name: "Free tools hub", href: "/tools", desc: "Business & security utilities" },
-      { name: "Signal Runner game", href: "/play", desc: "Play offline when network fails" },
-      { name: "Pomodoro timer", href: "/tools/pomodoro-timer", desc: "Focus streak — come back daily" },
-      { name: "System Protector score", href: "/tools/system-protector", desc: "Phone & WhatsApp hygiene" },
-      { name: "WhatsApp scripts", href: "/tools/whatsapp-scripts", desc: "5 free reply scripts" },
-      { name: "DoyinOps", href: "/ops", desc: "SME ops workspace" },
-      { name: "Free audit", href: "/free-audit", desc: "3-minute digital audit" },
-      { name: "Status pack", href: "/status-pack", desc: "Weekly captions to post" },
-      { name: "Daily prospecting", href: "/outreach/daily", desc: "20 messages / day tracker" },
-      { name: "Ads creatives", href: "/outreach/ads", desc: "Headlines & follow-ups" },
-      { name: "Apps & MVPs", href: "/apps", desc: "DoyinShield, Agent, plans" },
+      { name: "All tools", href: "/tools", desc: "Free business & website tools" },
+      { name: "DoyinOps", href: "/ops", desc: "Clients, deals & invoices" },
     ],
   },
   {
-    label: "Company",
+    label: "Students",
     items: [
-      { name: "About", href: "/about", desc: "Team & mission" },
-      { name: "Blog", href: "/blog", desc: "Updates & videos" },
-      { name: "Refer & earn", href: "/refer", desc: "Referral credits" },
-      { name: "Company profile", href: "/company-profile", desc: "Legal & registration" },
-      { name: "Contact", href: "/contact", desc: "Email or book a call" },
+      { name: "Student tools", href: "/students", desc: "Outlines, citations, analysis" },
+      { name: "Project support", href: "/students/projects", desc: "Guided research support" },
     ],
   },
 ];
@@ -231,44 +199,18 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <a
-              href="/play"
-              className="hidden rounded-full border border-cyan-500/40 px-3 py-1.5 text-xs font-semibold text-cyan-300 transition hover:bg-cyan-500/10 md:inline-flex"
+            <Link
+              href="/account"
+              className="hidden text-xs font-medium text-[#f5f5f7]/70 transition hover:text-white md:inline"
             >
-              Play
-            </a>
-            <a
-              href="/reports"
-              className="inline-flex rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-3 py-1.5 text-xs font-semibold text-[#ff8c14] transition hover:bg-[#ff8c14] hover:text-black"
+              Sign in
+            </Link>
+            <Link
+              href={PRIMARY_CTA.href}
+              className="inline-flex rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-xs font-semibold text-black transition hover:brightness-110"
             >
-              Reports
-            </a>
-            <a
-              href="/ai"
-              className="hidden rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white transition hover:border-[#ff8c14] md:inline-flex"
-            >
-              AI Tools
-            </a>
-            <a
-              href="/students"
-              className="hidden rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white transition hover:border-[#ff8c14] lg:inline-flex"
-            >
-              Students
-            </a>
-            <a
-              href="/hire"
-              className="hidden rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-xs font-semibold text-black transition hover:brightness-110 sm:inline-flex"
-            >
-              Hire
-            </a>
-            <a
-              href={discoveryCallLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs text-white transition hover:bg-[#0077ed] lg:inline-flex"
-            >
-              Book a call
-            </a>
+              {PRIMARY_CTA.short}
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
@@ -349,44 +291,18 @@ export default function Navbar() {
                 );
               })}
 
-              <a
-                href="/play"
-                className="mt-4 inline-flex items-center justify-center rounded-full border border-cyan-500/50 bg-cyan-500/15 px-5 py-3 text-[15px] font-semibold text-cyan-300"
+              <Link
+                href={PRIMARY_CTA.href}
+                className="mt-4 inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black"
               >
-                Play Signal Runner
-              </a>
-              <a
-                href="/reports"
-                className="mt-2 inline-flex items-center justify-center rounded-full border border-[#ff8c14]/50 bg-[#ff8c14]/15 px-5 py-3 text-[15px] font-semibold text-[#ff8c14]"
-              >
-                AI Report Studio
-              </a>
-              <a
-                href="/ai"
+                {PRIMARY_CTA.label}
+              </Link>
+              <Link
+                href="/account"
                 className="mt-2 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
               >
-                AI Tools — all sectors
-              </a>
-              <a
-                href="/students"
-                className="mt-2 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
-              >
-                Student research tools
-              </a>
-              <a
-                href="/hire"
-                className="mt-2 inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black"
-              >
-                Hire — fixed price deposit
-              </a>
-              <a
-                href={discoveryCallLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-[15px] font-semibold text-white"
-              >
-                Book free call on WhatsApp
-              </a>
+                Sign in
+              </Link>
             </div>
           </motion.div>
         )}

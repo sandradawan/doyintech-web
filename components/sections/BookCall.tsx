@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import ScrollReveal from "../animations/ScrollReveal";
+import { PRIMARY_CTA } from "@/lib/cta";
 import { bookCallLink, hasCalendarBooking, whatsappDiscoveryLink } from "@/lib/booking";
 
 const bullets = [
@@ -21,10 +23,10 @@ export default function BookCall() {
             <div className="grid items-center gap-8 lg:grid-cols-12">
               <div className="lg:col-span-7">
                 <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#2997ff]">
-                  Free discovery call
+                  Ready when you are
                 </p>
                 <h2 className="mt-2 text-[32px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[40px]">
-                  Not sure which package fits?
+                  Get a website that brings you clients.
                 </h2>
                 <p className="mt-3 max-w-lg text-[17px] leading-relaxed text-[#a1a1a6]">
                   Tell us what you&apos;re building. We&apos;ll map the right offer, timeline,
@@ -39,29 +41,19 @@ export default function BookCall() {
                 </ul>
               </div>
               <div className="flex flex-col gap-3 lg:col-span-5 lg:items-end">
+                <Link
+                  href={PRIMARY_CTA.href}
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[#ff8c14] px-6 py-4 text-[16px] font-semibold text-black transition hover:brightness-110 sm:w-auto sm:min-w-[260px]"
+                >
+                  {PRIMARY_CTA.label}
+                </Link>
                 <a
-                  href={primary}
+                  href={calendar ? primary : whatsappDiscoveryLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-full bg-[#25D366] px-6 py-4 text-[16px] font-semibold text-white transition hover:brightness-110 sm:w-auto sm:min-w-[260px]"
-                >
-                  {calendar ? "Book a time on calendar" : "Book on WhatsApp"}
-                </a>
-                {calendar && (
-                  <a
-                    href={whatsappDiscoveryLink()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-[15px] text-[#f5f5f7] transition hover:bg-white/5 sm:w-auto sm:min-w-[260px]"
-                  >
-                    Prefer WhatsApp instead
-                  </a>
-                )}
-                <a
-                  href="/pricing"
                   className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-[15px] text-[#f5f5f7] transition hover:bg-white/5 sm:w-auto sm:min-w-[260px]"
                 >
-                  Compare packages
+                  {calendar ? "Book a free 15-min call" : "Ask on WhatsApp first"}
                 </a>
                 <p className="text-center text-[12px] text-[#a1a1a6] lg:text-right">
                   Or email{" "}

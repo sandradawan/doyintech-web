@@ -31,7 +31,7 @@ export default function WebDesignAbujaPage() {
           </ul>
           <div className="mt-10 flex flex-wrap gap-3">
             <a href="/hire" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">Hire — deposit</a>
-            <a href="/pricing-quiz" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">Pricing quiz</a>
+            <a href="/pricing" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">See pricing</a>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white">WhatsApp</a>
           </div>
           <p className="mt-8 text-[14px] text-[#86868b]">

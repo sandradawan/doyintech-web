@@ -32,7 +32,7 @@ const week = [
   {
     day: "Sat",
     caption:
-      "Digital packs from ₦6,500 — Status calendars, WhatsApp scripts, Sheets. Pay online, download today. → https://www.doyintech.com/store",
+      "Digital packs from ₦6,500 — Status calendars, WhatsApp scripts, Sheets. Pay online, download today. → https://www.doyintech.com/products",
   },
   {
     day: "Sun",

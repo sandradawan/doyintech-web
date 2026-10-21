@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { discoveryCallLink } from "@/lib/packages";
+import Link from "next/link";
+import { PRIMARY_CTA, SECONDARY_CTA } from "@/lib/cta";
 
 const slides = [
   {
@@ -13,22 +14,16 @@ const slides = [
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    title: "Student research tools",
-    sub: "From topic to delivery.",
-    desc: "Free AI Project Studio, questionnaire analyzer, citations — plus managed projects with Request ID tracking.",
-    img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=80",
+    title: "Looked after every month",
+    sub: "Never worry about it.",
+    desc: "Care plans keep your site secure, backed up and improving — from ₦50,000/month.",
+    img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1600&q=80",
   },
   {
     title: "Free website audit",
-    sub: "Fill your pipeline.",
-    desc: "3-minute audit: send your URL, get 2–3 fixes, and a clear next step — DIY or hire us.",
+    sub: "Find the lost enquiries.",
+    desc: "Send your URL and get 2–3 specific fixes — do them yourself or let us handle it.",
     img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    title: "Digital products",
-    sub: "Sell while you sleep.",
-    desc: "Prompt packs, WhatsApp systems, ebooks, and Next.js templates — checkout with Paystack.",
-    img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1600&q=80",
   },
 ];
 
@@ -49,7 +44,6 @@ export default function Hero() {
   }, [next, reduce]);
 
   const slide = slides[current];
-  const isStudents = slide.title.includes("Student");
 
   return (
     <section className="relative overflow-hidden bg-black pt-12">
@@ -71,48 +65,15 @@ export default function Hero() {
               {slide.desc}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              {isStudents ? (
-                <>
-                  <a href="/students" className="apple-btn apple-btn-primary">
-                    All student tools
-                  </a>
-                  <a href="/students/studio" className="apple-btn apple-btn-secondary">
-                    AI Project Studio ›
-                  </a>
-                  <a
-                    href="/students/projects"
-                    className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-[15px] font-semibold text-white"
-                  >
-                    Research portal
-                  </a>
-                </>
-              ) : (
-                <>
-                  <a href="/hire" className="apple-btn apple-btn-primary">
-                    Hire — pay deposit
-                  </a>
-                  <a href="/students" className="apple-btn apple-btn-secondary">
-                    Student tools ›
-                  </a>
-                  <a
-                    href="/free-audit"
-                    className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-[15px] font-semibold text-white"
-                  >
-                    Free audit
-                  </a>
-                </>
-              )}
+              <Link href={PRIMARY_CTA.href} className="apple-btn apple-btn-primary">
+                {PRIMARY_CTA.label}
+              </Link>
+              <Link href={SECONDARY_CTA.href} className="apple-btn apple-btn-secondary">
+                {SECONDARY_CTA.label} ›
+              </Link>
             </div>
             <p className="mt-4 text-[13px] text-[#86868b]">
-              Or{" "}
-              <a
-                href={discoveryCallLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#2997ff] hover:underline"
-              >
-                book a free 15-min call
-              </a>
+              Fixed price · 50% deposit · live in 1–2 weeks
             </p>
           </motion.div>
         </AnimatePresence>
