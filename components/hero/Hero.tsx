@@ -65,7 +65,10 @@ export default function Hero() {
               {slide.desc}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link href={PRIMARY_CTA.href} className="apple-btn apple-btn-primary">
+              <Link
+                href={PRIMARY_CTA.href}
+                className="apple-btn bg-[#ff8c14] text-black hover:brightness-110"
+              >
                 {PRIMARY_CTA.label}
               </Link>
               <Link href={SECONDARY_CTA.href} className="apple-btn apple-btn-secondary">
