@@ -19,6 +19,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Websites",
     items: [
       { name: "Packages & pricing", href: "/hire", desc: "Fixed price · 50% deposit" },
+      { name: "By industry", href: "/websites", desc: "Schools, clinics, churches, hotels…" },
       { name: "What a website costs", href: "/website-cost-nigeria", desc: "2026 price guide + calculator" },
       { name: "Website care plans", href: "/care-plans", desc: "Monthly security & updates" },
       { name: "Our work", href: "/case-studies", desc: "Case studies & results" },

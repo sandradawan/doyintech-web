@@ -12,6 +12,7 @@ export default function Footer() {
       title: "Websites",
       links: [
         ["/hire", "Packages & pricing"],
+        ["/websites", "Websites by industry"],
         ["/website-cost-nigeria", "Website cost in Nigeria"],
         ["/care-plans", "Website care plans"],
         ["/case-studies", "Our work"],

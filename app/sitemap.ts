@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { TOOLS_META } from "@/lib/tools/config";
+import { INDUSTRIES } from "@/lib/industries";
 import { SITE_URL } from "@/lib/site";
 
 const BASE = SITE_URL;
@@ -67,11 +68,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const toolRoutes = TOOLS_META.map((t) => t.href);
-  const routes = [...new Set([...staticRoutes, ...toolRoutes])];
+  const industryRoutes = ["/websites", ...INDUSTRIES.map((i) => `/websites/${i.slug}`)];
+  const routes = [...new Set([...staticRoutes, ...industryRoutes, ...toolRoutes])];
 
   return routes.map((path) => {
     const isHome = path === "";
-    const isMoney = [
+    const isMoney = path.startsWith("/websites/") || [
       "/hire",
       "/website-cost-nigeria",
       "/tools/paye-calculator-nigeria",

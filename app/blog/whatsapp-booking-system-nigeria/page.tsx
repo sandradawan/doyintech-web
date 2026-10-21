@@ -101,6 +101,9 @@ export default function WhatsAppBookingPost() {
               </a>
             </div>
           </div>
+                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+            Ready to build? See our <Link href="/websites/hotels" className="text-[#ff8c14] hover:underline">hotel and shortlet websites with WhatsApp booking</Link>.
+          </p>
         </article>
       </main>
       <Footer />

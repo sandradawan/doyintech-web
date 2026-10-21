@@ -54,6 +54,9 @@ export default function RestaurantWebsitePage() {
             </div>
             <p className="mt-4 text-[13px] text-[#86868b]">Also see <Link href="/local-seo" className="text-[#2997ff]">Google Business + local SEO</Link>.</p>
           </div>
+                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+            Ready to build? See our <Link href="/websites/restaurants" className="text-[#ff8c14] hover:underline">restaurant website design and pricing</Link>.
+          </p>
         </article>
       </main>
       <Footer />

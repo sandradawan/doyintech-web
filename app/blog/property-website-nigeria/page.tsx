@@ -49,6 +49,9 @@ export default function PropertyWebsitePost() {
               Scope a portal
             </a>
           </div>
+                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+            Ready to build? See our <Link href="/websites/real-estate" className="text-[#ff8c14] hover:underline">real estate website design and pricing</Link>.
+          </p>
         </article>
       </main>
       <Footer />

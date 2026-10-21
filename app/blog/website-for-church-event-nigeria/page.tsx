@@ -48,6 +48,9 @@ export default function ChurchEventWebsitePage() {
             <a href="/free-audit" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white">Free audit</a>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#25D366]">WhatsApp</a>
           </div>
+                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+            Ready to build? See our <Link href="/websites/churches" className="text-[#ff8c14] hover:underline">church website design and pricing</Link>.
+          </p>
         </article>
       </main>
       <Footer />
