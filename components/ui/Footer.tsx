@@ -12,6 +12,7 @@ export default function Footer() {
       title: "Websites",
       links: [
         ["/hire", "Packages & pricing"],
+        ["/website-cost-nigeria", "Website cost in Nigeria"],
         ["/care-plans", "Website care plans"],
         ["/case-studies", "Our work"],
         ["/services", "Services"],
@@ -33,6 +34,7 @@ export default function Footer() {
       title: "Tools",
       links: [
         ["/pro", "DoyinTech Pro"],
+        ["/tools/paye-calculator-nigeria", "PAYE calculator 2026"],
         ["/tools", "All tools"],
         ["/ops", "DoyinOps"],
         ["/students", "Student tools"],

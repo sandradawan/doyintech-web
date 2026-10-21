@@ -10,12 +10,15 @@ import {
   type CalculatorInput,
 } from "@/lib/tools/pricing";
 import { trackToolEvent } from "@/lib/tools/analytics";
+import { naira } from "@/lib/tax/paye2026";
 import LeadForm from "./LeadForm";
 import ShareActions from "./ShareActions";
 
 const STEPS = ["Business", "Website", "Features", "Details", "Result"];
 
-export default function WebsiteCalculator() {
+/** currency="NGN" shows naira (for Nigeria-focused pages); default keeps the site's USD display. */
+export default function WebsiteCalculator({ currency = "USD" }: { currency?: "USD" | "NGN" } = {}) {
+  const fmt = currency === "NGN" ? naira : formatNgn;
   const [step, setStep] = useState(0);
   const [businessType, setBusinessType] = useState("Professional service");
   const [websiteTypeId, setWebsiteTypeId] = useState("business");
@@ -66,7 +69,7 @@ export default function WebsiteCalculator() {
     setStep((s) => Math.min(4, s + 1));
   }
 
-  const shareText = `My DoyinTech website estimate: ${formatNgn(result.min)} – ${formatNgn(result.max)} (${result.packageName}). Try the free calculator: https://www.doyintech.com/tools/website-calculator`;
+  const shareText = `My DoyinTech website estimate: ${fmt(result.min)} – ${fmt(result.max)} (${result.packageName}). Try the free calculator: https://www.doyintech.com/tools/website-calculator`;
 
   return (
     <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
@@ -219,7 +222,7 @@ export default function WebsiteCalculator() {
               Estimated Project Range
             </p>
             <h2 className="mt-2 font-display text-3xl font-bold text-white md:text-4xl">
-              {formatNgn(result.min)} – {formatNgn(result.max)}
+              {fmt(result.min)} – {fmt(result.max)}
             </h2>
             <p className="mt-2 text-sm text-gray-400">
               Final pricing depends on project requirements and technical complexity.
@@ -268,8 +271,8 @@ export default function WebsiteCalculator() {
 
           <LeadForm
             tool="Website Price Calculator"
-            resultSummary={`${formatNgn(result.min)}-${formatNgn(result.max)}`}
-            defaultMessage={`Hi DoyinTech, I used the Website Price Calculator. Business: ${businessType}. Estimated range: ${formatNgn(result.min)} – ${formatNgn(result.max)}. I would like to discuss my project.`}
+            resultSummary={`${fmt(result.min)}-${fmt(result.max)}`}
+            defaultMessage={`Hi DoyinTech, I used the Website Price Calculator. Business: ${businessType}. Estimated range: ${fmt(result.min)} – ${fmt(result.max)}. I would like to discuss my project.`}
           />
         </div>
       )}

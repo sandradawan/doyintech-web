@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/hire",
+    "/website-cost-nigeria",
     "/care-plans",
     "/pro",
     "/pricing",
@@ -72,6 +73,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const isHome = path === "";
     const isMoney = [
       "/hire",
+      "/website-cost-nigeria",
+      "/tools/paye-calculator-nigeria",
       "/care-plans",
       "/pro",
       "/pricing",

@@ -11,6 +11,15 @@ export type PaidToolDef = {
 
 export const PAID_TOOLS: PaidToolDef[] = [
   {
+    toolSlug: "paye-calculator-nigeria",
+    productId: "tool-payslip-pdf",
+    title: "Payslip PDF (PAYE 2026)",
+    priceNgn: "₦2,000",
+    amountKobo: 200000,
+    unlockKey: "doyintech_payslip_unlocked",
+    short: "Printable payslips with the 2026 PAYE breakdown",
+  },
+  {
     toolSlug: "pdf-studio",
     productId: "pdf-studio-unlock",
     title: "PDF Studio",

@@ -36,6 +36,7 @@ export type ToolMeta = {
 };
 
 export const TOOLS_META: ToolMeta[] = [
+  { slug: "paye-calculator-nigeria", href: "/tools/paye-calculator-nigeria", title: "PAYE Calculator Nigeria 2026", short: "New tax bands", description: "Monthly PAYE and take-home pay under the Nigeria Tax Act 2025, with rent relief and pension.", icon: "calculator", category: "business", badge: "New 2026" },
   { slug: "invoice-generator", href: "/tools/invoice-generator", title: "Invoice Generator", short: "Free invoice PDF", description: "Create professional invoices with tax and client details.", icon: "invoice", category: "core" },
   { slug: "qr-generator", href: "/tools/qr-generator", title: "QR Code Generator", short: "Free QR codes", description: "Generate QR codes for links, WhatsApp, and text.", icon: "qr", category: "utility" },
   { slug: "password-generator", href: "/tools/password-generator", title: "Password Generator", short: "Strong passwords", description: "Generate strong random passwords in your browser.", icon: "shield", category: "utility" },

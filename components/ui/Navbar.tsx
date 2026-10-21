@@ -19,6 +19,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Websites",
     items: [
       { name: "Packages & pricing", href: "/hire", desc: "Fixed price · 50% deposit" },
+      { name: "What a website costs", href: "/website-cost-nigeria", desc: "2026 price guide + calculator" },
       { name: "Website care plans", href: "/care-plans", desc: "Monthly security & updates" },
       { name: "Our work", href: "/case-studies", desc: "Case studies & results" },
       { name: "Free website audit", href: "/free-audit", desc: "2–3 fixes in your inbox" },
@@ -37,6 +38,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Tools",
     items: [
       { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
+      { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
       { name: "All tools", href: "/tools", desc: "Free business & website tools" },
       { name: "DoyinOps", href: "/ops", desc: "Clients, deals & invoices" },
     ],
