@@ -92,6 +92,9 @@ const nextConfig: NextConfig = {
       ["/ai/:path*", "/tools"],
       ["/solve", "/tools"],
       ["/pricing-quiz", "/pricing"],
+      // Invoice tools consolidated into the search-tuned page (branding is now the paid upgrade).
+      ["/tools/invoice-generator", "/tools/invoice-generator-nigeria"],
+      ["/tools/branded-invoice", "/tools/invoice-generator-nigeria"],
     ];
     return [
       ...retired.map(([source, destination]) => ({ source, destination, permanent: true })),

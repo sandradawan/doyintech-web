@@ -39,7 +39,9 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Tools",
     items: [
       { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
+      { name: "Invoice & receipt generator", href: "/tools/invoice-generator-nigeria", desc: "Free naira invoices as PDF" },
       { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
+      { name: "Small company tax checker", href: "/tools/small-company-tax-checker", desc: "Do you pay 0% company tax?" },
       { name: "All tools", href: "/tools", desc: "Free business & website tools" },
       { name: "DoyinOps", href: "/ops", desc: "Clients, deals & invoices" },
     ],

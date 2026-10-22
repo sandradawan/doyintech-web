@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import PaidGate, { usePaidUnlock } from "@/components/tools/PaidGate";
 import { formatNgn } from "@/lib/tools/extra";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 import LeadForm from "./LeadForm";
@@ -70,17 +72,29 @@ const field =
   "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
 const label = "block text-xs font-medium text-gray-400 mb-1";
 
-export default function InvoiceGenerator() {
-  const [docType, setDocType] = useState<"Invoice" | "Quote" | "Receipt">(
-    "Invoice",
-  );
+type DocType = "Invoice" | "Quote" | "Receipt";
+
+const BRAND_KEY = "doyintech_invoice_brand_v1";
+const DEFAULT_BRAND_COLOR = "#2563eb";
+const MAX_LOGO_BYTES = 400_000;
+
+export default function InvoiceGenerator({
+  initialDocType = "Invoice",
+}: { initialDocType?: DocType } = {}) {
+  const [docType, setDocType] = useState<DocType>(initialDocType);
   const [invoiceNo, setInvoiceNo] = useState(
-    () => `INV-${new Date().getFullYear()}-${String(Date.now()).slice(-5)}`,
+    () =>
+      `${initialDocType === "Receipt" ? "RCT" : "INV"}-${new Date().getFullYear()}-${String(Date.now()).slice(-5)}`,
   );
+  // Branding (logo, colour, no footer credit) is the paid upgrade; Pro members get it too.
+  const { unlocked: branded } = usePaidUnlock("branded-invoice");
+  const [brand, setBrand] = useState<{ logo: string; color: string }>({ logo: "", color: DEFAULT_BRAND_COLOR });
+  const [logoError, setLogoError] = useState("");
+  const accent = branded ? brand.color : DEFAULT_BRAND_COLOR;
   const [issueDate, setIssueDate] = useState(todayISO);
   const [dueDate, setDueDate] = useState(() => addDaysISO(7));
   const [status, setStatus] = useState<"Unpaid" | "Paid" | "Partial" | "Overdue">(
-    "Unpaid",
+    initialDocType === "Receipt" ? "Paid" : "Unpaid",
   );
   const [paidDate, setPaidDate] = useState(todayISO);
 
@@ -148,6 +162,35 @@ export default function InvoiceGenerator() {
       /* ignore */
     }
   }, [biz, payment]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(BRAND_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore saved branding after hydration (localStorage is client-only)
+      if (raw) setBrand((b) => ({ ...b, ...(JSON.parse(raw) as Partial<typeof b>) }));
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  function saveBrand(next: { logo: string; color: string }) {
+    setBrand(next);
+    try {
+      localStorage.setItem(BRAND_KEY, JSON.stringify(next));
+    } catch {
+      setLogoError("Logo is too large to remember on this device; it will still print now.");
+    }
+  }
+
+  function onLogo(file: File | undefined) {
+    setLogoError("");
+    if (!file) return;
+    if (!file.type.startsWith("image/")) return setLogoError("Choose an image file (PNG or JPG).");
+    if (file.size > MAX_LOGO_BYTES) return setLogoError("Logo must be under 400 KB.");
+    const reader = new FileReader();
+    reader.onload = () => saveBrand({ ...brand, logo: String(reader.result || "") });
+    reader.readAsDataURL(file);
+  }
 
   const subtotal = useMemo(
     () =>
@@ -370,6 +413,48 @@ export default function InvoiceGenerator() {
           </div>
         </div>
 
+        <PaidGate
+          toolSlug="branded-invoice"
+          preview={
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <p className="text-sm font-semibold text-white">Make it look like your brand</p>
+              <p className="mt-1 text-sm text-gray-400">
+                Add your logo and brand colour, and remove the &quot;Generated with DoyinTech&quot; line.
+                Included in{" "}
+                <Link href="/pro" className="text-primary hover:underline">
+                  DoyinTech Pro
+                </Link>
+                .
+              </p>
+            </div>
+          }
+        >
+          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4">
+            <p className="text-sm font-semibold text-white">Branding</p>
+            <div className="mt-3 flex flex-wrap items-center gap-4">
+              <label className="text-xs text-gray-400">
+                Logo (PNG/JPG, under 400 KB)
+                <input type="file" accept="image/*" onChange={(e) => onLogo(e.target.files?.[0])} className="mt-1 block text-xs text-gray-300" />
+              </label>
+              <label className="text-xs text-gray-400">
+                Brand colour
+                <input
+                  type="color"
+                  value={brand.color}
+                  onChange={(e) => saveBrand({ ...brand, color: e.target.value })}
+                  className="mt-1 block h-9 w-14 cursor-pointer rounded border border-white/10 bg-transparent"
+                />
+              </label>
+              {brand.logo && (
+                <button type="button" onClick={() => saveBrand({ ...brand, logo: "" })} className="text-xs text-gray-400 underline">
+                  Remove logo
+                </button>
+              )}
+            </div>
+            {logoError && <p className="mt-2 text-xs text-red-400">{logoError}</p>}
+          </div>
+        </PaidGate>
+
         <div className="flex flex-wrap items-center gap-3">
           <button type="button" onClick={handlePrint} className="rounded-xl bg-primary px-6 py-3 text-xs font-bold uppercase tracking-wider text-white">
             Print / Save PDF
@@ -399,10 +484,14 @@ export default function InvoiceGenerator() {
       </div>
 
       <div id="invoice-sheet" className="invoice-sheet overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
-        <div className="border-b-4 border-blue-600 px-6 py-6 sm:px-10">
+        <div className="border-b-4 px-6 py-6 sm:px-10" style={{ borderColor: accent }}>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">{docType}</p>
+              {branded && brand.logo && (
+                // eslint-disable-next-line @next/next/no-img-element -- user-uploaded data URL; next/image can't optimise it
+                <img src={brand.logo} alt={`${biz.name || "Business"} logo`} className="mb-3 max-h-14 max-w-[180px] object-contain" />
+              )}
+              <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: accent }}>{docType}</p>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-gray-900">{biz.name || "Your Business Name"}</h2>
               <div className="mt-2 space-y-0.5 text-sm text-gray-600">
                 {biz.address && <p>{biz.address}</p>}
@@ -440,7 +529,7 @@ export default function InvoiceGenerator() {
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
               {docType === "Receipt" || status === "Paid" ? "Amount paid" : "Amount due"}
             </p>
-            <p className="mt-1 text-3xl font-bold text-blue-700">{formatNgn(total)}</p>
+            <p className="mt-1 text-3xl font-bold" style={{ color: accent }}>{formatNgn(total)}</p>
             <p className="text-xs text-gray-500">Currency: Nigerian Naira (NGN)</p>
             {(docType === "Receipt" || status === "Paid") && (
               <p className="mt-1 text-sm font-medium text-green-700">
@@ -501,9 +590,11 @@ export default function InvoiceGenerator() {
           </div>
         </div>
 
-        <div className="border-t border-gray-100 px-6 py-4 text-center text-[10px] text-gray-400 sm:px-10">
-          Generated with {TOOLS_CONFIG.brand} Invoice Tool · {TOOLS_CONFIG.siteUrl}/tools/invoice-generator
-        </div>
+        {!branded && (
+          <div className="border-t border-gray-100 px-6 py-4 text-center text-[10px] text-gray-400 sm:px-10">
+            Generated with {TOOLS_CONFIG.brand} Invoice Tool · {TOOLS_CONFIG.siteUrl}/tools/invoice-generator-nigeria
+          </div>
+        )}
       </div>
 
       <div className="invoice-no-print">

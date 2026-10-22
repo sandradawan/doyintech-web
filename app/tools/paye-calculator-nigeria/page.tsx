@@ -132,6 +132,13 @@ export default function PayeCalculatorPage() {
                 <li>Rent relief was introduced: 20% of annual rent paid, capped at ₦500,000.</li>
                 <li>The top rate rose to 25%, on taxable income above ₦50 million.</li>
               </ul>
+              <p className="mt-3">
+                Running a business? Check whether it qualifies for 0% company tax with the{" "}
+                <Link href="/tools/small-company-tax-checker" className="text-[#ff8c14] hover:underline">
+                  small company tax checker
+                </Link>
+                .
+              </p>
             </section>
 
             <section>

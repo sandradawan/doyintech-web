@@ -77,34 +77,6 @@ export function WhatsAppBuilderTool() {
   );
 }
 
-/* ——— 2. Branded Invoice ——— */
-export function BrandedInvoiceTool() {
-  const [from, setFrom] = useState("");
-  const [client, setClient] = useState("");
-  const [item, setItem] = useState("Service");
-  const [amount, setAmount] = useState("");
-  const html = `<div style="padding:40px;max-width:640px;margin:auto">
-    <h1>INVOICE</h1>
-    <p><b>From:</b> ${from || "—"}<br/><b>Bill to:</b> ${client || "—"}</p>
-    <table style="width:100%;border-collapse:collapse;margin-top:20px">
-      <tr><td style="border-bottom:1px solid #ddd;padding:8px">${item}</td>
-      <td style="border-bottom:1px solid #ddd;padding:8px;text-align:right">₦${amount || "0"}</td></tr>
-    </table>
-    <p style="font-size:20px;font-weight:700;margin-top:16px">Total: ₦${amount || "0"}</p>
-  </div>`;
-  return (
-    <PaidGate toolSlug="branded-invoice" preview={<p className="text-sm text-gray-500">Invoice preview locked after header…</p>}>
-      <div className="space-y-3">
-        <Field label="Your business" value={from} onChange={(e) => setFrom(e.target.value)} />
-        <Field label="Client" value={client} onChange={(e) => setClient(e.target.value)} />
-        <Field label="Line item" value={item} onChange={(e) => setItem(e.target.value)} />
-        <Field label="Amount (NGN)" value={amount} onChange={(e) => setAmount(e.target.value)} />
-        <ExportBtn onClick={() => printHtml("Invoice", html)} />
-      </div>
-    </PaidGate>
-  );
-}
-
 /* ——— 3. Proposal ——— */
 export function ProposalExportTool() {
   const [client, setClient] = useState("");

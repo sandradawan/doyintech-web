@@ -35,7 +35,10 @@ export default function Footer() {
       title: "Tools",
       links: [
         ["/pro", "DoyinTech Pro"],
+        ["/tools/invoice-generator-nigeria", "Invoice generator"],
+        ["/tools/receipt-generator-nigeria", "Receipt generator"],
         ["/tools/paye-calculator-nigeria", "PAYE calculator 2026"],
+        ["/tools/small-company-tax-checker", "Small company tax checker"],
         ["/tools", "All tools"],
         ["/ops", "DoyinOps"],
         ["/students", "Student tools"],

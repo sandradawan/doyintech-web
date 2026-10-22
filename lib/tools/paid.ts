@@ -40,11 +40,12 @@ export const PAID_TOOLS: PaidToolDef[] = [
   {
     toolSlug: "branded-invoice",
     productId: "tool-branded-invoice",
-    title: "Branded Invoice PDF",
+    // toolSlug kept for existing buyers' unlocks; /tools/branded-invoice redirects to the invoice generator.
+    title: "Branded Invoices & Receipts",
     priceNgn: "₦3,500",
     amountKobo: 350000,
     unlockKey: "doyintech_branded_invoice_unlocked",
-    short: "Logo-ready invoice — pay to export",
+    short: "Your logo and colour on invoices, quotes and receipts",
   },
   {
     toolSlug: "proposal-export",
