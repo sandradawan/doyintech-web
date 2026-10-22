@@ -29,6 +29,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Shop",
     items: [
+      { name: "Free online shop", href: "/stores", desc: "Sell on WhatsApp with one link" },
       { name: "Business kits", href: "/products", desc: "Scripts, trackers & playbooks" },
       { name: "Ebooks", href: "/ebooks", desc: "Practical guides" },
       { name: "Report Studio", href: "/reports", desc: "Social & brand presence reports" },

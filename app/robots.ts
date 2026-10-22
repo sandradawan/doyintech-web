@@ -10,6 +10,7 @@ const DISALLOW = [
   "/nurture",
   "/outreach",
   "/status-pack",
+  "/stores/dashboard",
   "/products/success",
   "/hire/success",
   "/reports/success",

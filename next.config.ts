@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "www.doyintech.com", pathname: "/**" },
       { protocol: "https", hostname: "doyintech.com", pathname: "/**" },
       { protocol: "https", hostname: "image.thum.io", pathname: "/**" },
+      // Storefront product images (Supabase Storage public bucket).
+      { protocol: "https", hostname: "*.supabase.co", pathname: "/storage/v1/object/public/storefront/**" },
     ],
   },
   async headers() {

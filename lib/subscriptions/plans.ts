@@ -3,7 +3,7 @@
  * Prices are the source of truth: Paystack plans are created from these on first checkout
  * (see lib/subscriptions/server.ts), or pinned with PAYSTACK_PLAN_<ID> env vars.
  */
-export type PlanFamily = "pro" | "care";
+export type PlanFamily = "pro" | "care" | "store";
 export type PlanInterval = "monthly" | "annually";
 
 export type SubscriptionPlan = {
@@ -46,6 +46,31 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
       "Pay once a year — two months free",
       "Cancel renewal any time",
     ],
+  },
+  {
+    id: "store-monthly",
+    family: "store",
+    name: "DoyinTech Store",
+    tagline: "Sell online with checkout — no website needed.",
+    amountNgn: 3_500,
+    interval: "monthly",
+    features: [
+      "Unlimited products (free plan: 5)",
+      "Paystack checkout — card, transfer and USSD, paid straight to your bank",
+      "Orders on WhatsApp and in your dashboard",
+      "No “Powered by DoyinTech” badge",
+      "Cancel any time",
+    ],
+  },
+  {
+    id: "store-annual",
+    family: "store",
+    name: "DoyinTech Store — Annual",
+    tagline: "Two months free versus monthly.",
+    amountNgn: 35_000,
+    interval: "annually",
+    badge: "Best value",
+    features: ["Everything in Store monthly", "Pay once a year — two months free"],
   },
   {
     id: "care-essential",

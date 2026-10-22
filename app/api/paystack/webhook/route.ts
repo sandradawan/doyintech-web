@@ -9,6 +9,7 @@ import {
 import { confirmReportPayment, processReportOrder } from "@/lib/reports/fulfill";
 import { planIdForCode, recordRenewal, syncSubscription } from "@/lib/subscriptions/server";
 import { notifyNewSubscription } from "@/lib/subscriptions/notify";
+import { markStorefrontOrderPaid } from "@/lib/storefront/orders";
 import {
   emailStudentDepositPaid,
   emailStudentBalancePaid,
@@ -152,6 +153,12 @@ export async function POST(req: NextRequest) {
       } else {
         console.error("report_studio webhook", orderId, confirmed.error);
       }
+      return NextResponse.json({ received: true });
+    }
+
+    // Storefront customer payments (settled to the seller's subaccount).
+    if (kind === "storefront") {
+      await markStorefrontOrderPaid(data);
       return NextResponse.json({ received: true });
     }
 

@@ -14,6 +14,21 @@ type TableMeta = {
 
 const TABLES: TableMeta[] = [
   {
+    // Approve online payments: set payments_status from pending_review to active (or rejected).
+    id: "storefronts",
+    label: "Seller shops (approve payments)",
+    group: "DoyinTech Store",
+    createFields: [],
+    previewCols: ["name", "slug", "owner_email", "payments_status", "account_name", "created_at"],
+  },
+  {
+    id: "storefront_orders",
+    label: "Shop orders",
+    group: "DoyinTech Store",
+    createFields: [],
+    previewCols: ["reference", "customer_name", "amount_kobo", "status", "created_at"],
+  },
+  {
     id: "site_leads",
     label: "Leads",
     group: "Website",

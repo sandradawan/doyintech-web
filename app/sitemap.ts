@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/website-cost-nigeria",
     "/e-invoicing-nigeria",
     "/care-plans",
+    "/stores",
     "/pro",
     "/pricing",
     "/free-audit",

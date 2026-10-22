@@ -191,6 +191,17 @@ const TABLE_CONFIG: Record<
     writable: ["invoice_number", "reference", "amount_kobo", "email", "paid_at", "metadata"],
     orderBy: "created_at",
   },
+  // DoyinTech Store: admins approve online payments (payments_status pending_review → active).
+  storefronts: {
+    pk: "id",
+    writable: ["payments_status", "is_published", "name", "tagline"],
+    orderBy: "created_at",
+  },
+  storefront_orders: {
+    pk: "id",
+    writable: ["status"],
+    orderBy: "created_at",
+  },
 };
 
 const TABLES = new Set(Object.keys(TABLE_CONFIG));

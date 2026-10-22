@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { FaWhatsapp } from "react-icons/fa6";
 import { trackMetaEvent } from "@/lib/meta/pixel";
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
   const [offset, setOffset] = useState(24);
 
   useEffect(() => {
@@ -21,6 +23,9 @@ export default function WhatsAppButton() {
       window.clearInterval(id);
     };
   }, []);
+
+  // Seller shops (/s/...) have their own WhatsApp contact; ours would misdirect their customers.
+  if (pathname?.startsWith("/s/")) return null;
 
   return (
     <a
