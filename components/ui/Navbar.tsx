@@ -42,6 +42,8 @@ const NAV_GROUPS: NavGroup[] = [
       { name: "Invoice & receipt generator", href: "/tools/invoice-generator-nigeria", desc: "Free naira invoices as PDF" },
       { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
       { name: "Small company tax checker", href: "/tools/small-company-tax-checker", desc: "Do you pay 0% company tax?" },
+      { name: "Freelancer tax calculator", href: "/tools/freelancer-tax-calculator-nigeria", desc: "File by 31 March 2027" },
+      { name: "E-invoicing deadlines", href: "/e-invoicing-nigeria", desc: "Small businesses: July 2027" },
       { name: "All tools", href: "/tools", desc: "Free business & website tools" },
       { name: "DoyinOps", href: "/ops", desc: "Clients, deals & invoices" },
     ],

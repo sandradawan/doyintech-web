@@ -39,6 +39,8 @@ export default function Footer() {
         ["/tools/receipt-generator-nigeria", "Receipt generator"],
         ["/tools/paye-calculator-nigeria", "PAYE calculator 2026"],
         ["/tools/small-company-tax-checker", "Small company tax checker"],
+        ["/tools/freelancer-tax-calculator-nigeria", "Freelancer tax calculator"],
+        ["/e-invoicing-nigeria", "E-invoicing deadlines"],
         ["/tools", "All tools"],
         ["/ops", "DoyinOps"],
         ["/students", "Student tools"],

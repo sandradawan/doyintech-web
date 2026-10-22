@@ -314,6 +314,53 @@ export const INDUSTRIES: Industry[] = [
   },
 ];
 
+INDUSTRIES.push({
+  slug: "political-campaigns",
+  name: "Political campaigns (2027)",
+  seoTitle: "Campaign Website Design Nigeria — 2027 Elections",
+  seoDescription:
+    "Campaign websites for 2027 candidates in Nigeria, any party or office: manifesto, biography, events, volunteer sign-up, WhatsApp updates and media kit. Fixed price, live in weeks.",
+  h1: "Campaign website design for the 2027 elections",
+  intro:
+    "Voters, journalists and supporters will search your name. A fast, credible campaign website puts your record and plans first — and turns visitors into volunteers.",
+  problems: [
+    "Your message is scattered across social posts that disappear from feeds within hours.",
+    "Journalists and supporters can't find an official bio, photos or position statements.",
+    "Volunteers who want to help have no simple way to sign up and get organised.",
+  ],
+  features: [
+    { title: "Biography and track record", why: "The page voters and journalists look for first." },
+    { title: "Manifesto and policy pages", why: "Clear plans people can read, share and quote accurately." },
+    { title: "Events and rally calendar", why: "Supporters know where to show up." },
+    { title: "Volunteer sign-up form", why: "Every offer of help lands in one list you can organise by ward or LGA." },
+    { title: "WhatsApp updates and media kit", why: "Official photos, statements and contacts for the press in one place." },
+    { title: "Volunteer database and bulk messaging", why: "Organise volunteers by location and message them at scale.", addOn: true },
+    { title: "Donation page with records", why: "Collect supporter contributions online with clear records for compliance.", addOn: true },
+  ],
+  packageId: "service-growth-website-deposit",
+  packageReason: "Up to 10 pages covers biography, manifesto, events, media kit and volunteer sign-up, with WhatsApp.",
+  fullBuildTypeId: "membership",
+  fullBuildLabel: "Campaign platform with volunteer database and donations",
+  faqs: [
+    {
+      q: "How much does a campaign website cost?",
+      a: "A campaign website with biography, manifesto, events, media kit and volunteer sign-up fits our Growth Website at a fixed price. Volunteer databases, bulk messaging and online donations are quoted as add-ons.",
+    },
+    {
+      q: "How fast can it go live?",
+      a: "Typically 2–4 weeks after we receive your content and deposit. Starting early matters: you want the site indexed by Google before voters start searching.",
+    },
+    {
+      q: "Do you work with all parties?",
+      a: "Yes. We build for candidates and campaigns of any party, for any office, on the same professional terms, and we don't publish or edit political content on your behalf beyond what you provide.",
+    },
+    {
+      q: "What happens to the site after the election?",
+      a: "Many candidates keep it as an official office or constituency website. We can hand it over, keep it maintained on a care plan, or archive it.",
+    },
+  ],
+});
+
 export function getIndustry(slug: string): Industry | undefined {
   return INDUSTRIES.find((i) => i.slug === slug);
 }
