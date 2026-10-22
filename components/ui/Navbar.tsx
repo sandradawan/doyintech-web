@@ -109,7 +109,7 @@ export default function Navbar() {
   }, []);
 
   // Seller shops (/s/...) carry their own header; ours would look like someone else's shop.
-  if (pathname?.startsWith("/s/")) return null;
+  if (pathname?.startsWith("/s/") || pathname?.startsWith("/pay/")) return null;
 
   return (
     <header className="fixed inset-x-0 top-0 z-[999]">

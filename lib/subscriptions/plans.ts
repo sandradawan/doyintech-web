@@ -56,7 +56,8 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     interval: "monthly",
     features: [
       "Unlimited products (free plan: 5)",
-      "Paystack checkout — card, transfer and USSD, paid straight to your bank",
+      "No fee on online payments (free plan: 1.5% per order)",
+      "Discount codes for sales and loyal customers",
       "Orders on WhatsApp and in your dashboard",
       "No “Powered by DoyinTech” badge",
       "Cancel any time",

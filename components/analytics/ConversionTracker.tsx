@@ -6,7 +6,7 @@ import { ATTR_COOKIE, MONEY_PATHS, type ClientEvent } from "@/lib/analytics/even
 
 /** Seller shops and admin pages aren't our funnel; their clicks would skew the numbers. */
 function ignored(path: string) {
-  return path.startsWith("/s/") || path.startsWith("/admin");
+  return path.startsWith("/s/") || path.startsWith("/pay/") || path.startsWith("/admin");
 }
 
 function hasAnalyticsConsent() {

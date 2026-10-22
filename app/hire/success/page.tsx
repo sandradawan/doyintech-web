@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { ServiceSuccessChecklist } from "@/components/products/ProductUpsells";
-import { getServiceOffer } from "@/lib/service-offers";
+import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
 import { readReferralCode } from "@/lib/referrals";
 
 function HireSuccessInner() {
@@ -41,7 +41,7 @@ function HireSuccessInner() {
             body: JSON.stringify({
               name: data.metadata?.customer_name || data.email || "Deposit customer",
               email: data.email || data.customer?.email || "",
-              product: service?.name || pid,
+              product: service?.name || getServiceAddon(pid)?.name || pid,
               type: "purchase",
               source: "hire-deposit",
               message: `Paystack deposit paid. Ref: ${reference}. Amount confirmed.${code ? ` Referral: ${code}.` : ""}`,
@@ -56,6 +56,7 @@ function HireSuccessInner() {
   }, [reference, productId]);
 
   const service = getServiceOffer(resolvedId);
+  const addon = service ? undefined : getServiceAddon(resolvedId);
 
   return (
     <main className="min-h-screen bg-[#0a0e17] px-6 pb-24 pt-28">
@@ -90,7 +91,21 @@ function HireSuccessInner() {
               referralCode={refCode}
             />
 
-            <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-5 text-left">
+            <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-5 text-left">
+              <h2 className="text-[18px] font-semibold text-white">Add extras to your project</h2>
+              <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+                Google Business Profile setup, WhatsApp Business setup, a logo kit, copywriting or extra pages, at fixed
+                prices. Add them now and we build them in alongside your site.
+              </p>
+              <Link
+                href="/hire#add-ons"
+                className="mt-4 inline-flex rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
+              >
+                See add-ons
+              </Link>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-5 text-left">
               <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
                 After launch
               </p>
@@ -126,13 +141,18 @@ function HireSuccessInner() {
         {state === "ok" && !service && (
           <>
             <p className="text-[48px]">✓</p>
-            <h1 className="mt-2 text-[28px] font-semibold text-white">Payment successful</h1>
+            <h1 className="mt-2 text-[28px] font-semibold text-white">
+              {addon ? `${addon.name}: paid` : "Payment successful"}
+            </h1>
             <p className="mt-3 text-[15px] text-[#a1a1a6]">
-              Ref: {reference}. We will follow up shortly.
+              Ref: {reference}.{" "}
+              {addon ? `${addon.delivery}. Send us your details on WhatsApp to start.` : "We will follow up shortly."}
             </p>
             <a
               href={`https://wa.me/2348085343926?text=${encodeURIComponent(
-                `Hi DoyinTech, I paid a deposit.\nReference: ${reference}`
+                addon
+                  ? `Hi DoyinTech, I paid for ${addon.name}.\nReference: ${reference}`
+                  : `Hi DoyinTech, I paid a deposit.\nReference: ${reference}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"

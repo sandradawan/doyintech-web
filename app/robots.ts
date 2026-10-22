@@ -11,6 +11,7 @@ const DISALLOW = [
   "/outreach",
   "/status-pack",
   "/stores/dashboard",
+  "/pay/",
   "/products/success",
   "/hire/success",
   "/reports/success",

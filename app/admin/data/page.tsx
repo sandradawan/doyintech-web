@@ -29,6 +29,13 @@ const TABLES: TableMeta[] = [
     previewCols: ["reference", "customer_name", "amount_kobo", "status", "created_at"],
   },
   {
+    id: "storefront_payment_requests",
+    label: "Seller payment links",
+    group: "DoyinTech Store",
+    createFields: [],
+    previewCols: ["title", "amount_kobo", "customer_email", "status", "due_date", "created_at"],
+  },
+  {
     id: "site_leads",
     label: "Leads",
     group: "Website",

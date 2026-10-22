@@ -1,10 +1,10 @@
 /** DoyinTech Store: server-only data access, entitlements and Paystack calls. */
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { hasActiveFamily } from "@/lib/subscriptions/server";
-import type { StoreProduct, Storefront } from "@/lib/storefront/shared";
+import { normalizeCode, type Discount, type StoreProduct, type Storefront } from "@/lib/storefront/shared";
 
 const STORE_COLUMNS =
-  "id, slug, name, tagline, whatsapp, is_published, payments_status, bank_name, account_name, account_last4";
+  "id, slug, name, tagline, whatsapp, is_published, payments_status, bank_name, account_name, account_last4, delivery_zones";
 
 export function db() {
   const sb = getSupabaseAdmin();
@@ -47,14 +47,9 @@ export function isPaidStore(ownerEmail: string): Promise<boolean> {
   return hasActiveFamily(ownerEmail, "store");
 }
 
-/** Online checkout needs the paid plan AND an admin-approved Paystack subaccount. */
-export async function canTakePayments(store: {
-  owner_email: string;
-  payments_status: string;
-  paystack_subaccount_code?: string | null;
-}): Promise<boolean> {
-  if (store.payments_status !== "active" || !store.paystack_subaccount_code) return false;
-  return isPaidStore(store.owner_email);
+/** Online checkout needs an admin-approved Paystack subaccount (any plan; free shops pay a fee per order). */
+export function canTakePayments(store: { payments_status: string; paystack_subaccount_code?: string | null }): boolean {
+  return store.payments_status === "active" && !!store.paystack_subaccount_code;
 }
 
 export async function paystack<T = Record<string, unknown>>(
@@ -71,4 +66,36 @@ export async function paystack<T = Record<string, unknown>>(
   });
   const json = (await res.json().catch(() => null)) as { status?: boolean; data?: T; message?: string } | null;
   return { ok: res.ok && !!json?.status, data: json?.data, message: json?.message };
+}
+
+/** A usable discount code for this shop: active, not expired, not used up. */
+export async function findDiscount(storeId: string, rawCode: string): Promise<Discount | null> {
+  const code = normalizeCode(rawCode);
+  if (code.length < 3) return null;
+  const { data } = await db()
+    .from("storefront_discounts")
+    .select("code, percent_off, amount_off_kobo, min_subtotal_kobo, max_uses, uses, expires_at")
+    .eq("store_id", storeId)
+    .eq("code", code)
+    .eq("active", true)
+    .maybeSingle();
+  if (!data) return null;
+  if (data.expires_at && new Date(data.expires_at) < new Date()) return null;
+  if (data.max_uses && data.uses >= data.max_uses) return null;
+  return {
+    code: data.code,
+    percent_off: data.percent_off,
+    amount_off_kobo: data.amount_off_kobo,
+    min_subtotal_kobo: data.min_subtotal_kobo,
+  };
+}
+
+/** Whether the shop has any live discount codes (shows the code box at checkout). */
+export async function hasActiveDiscounts(storeId: string): Promise<boolean> {
+  const { count } = await db()
+    .from("storefront_discounts")
+    .select("id", { count: "exact", head: true })
+    .eq("store_id", storeId)
+    .eq("active", true);
+  return (count || 0) > 0;
 }

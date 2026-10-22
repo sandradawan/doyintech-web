@@ -6,7 +6,10 @@ import Link from "next/link";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
 import SubscribeButton from "@/components/subscriptions/SubscribeButton";
 import { absoluteUrl } from "@/lib/site";
+import { sellerApi } from "@/lib/storefront/sellerApi";
+import { DeliveryPanel, DiscountsPanel, PaymentLinksPanel, type DiscountRow, type PaymentLink } from "@/components/storefront/SellerSalesTools";
 import {
+  FREE_PLAN_FEE_PERCENT,
   formatKobo,
   normalizeSlug,
   type OrderItem,
@@ -22,39 +25,27 @@ type Order = {
   amount_kobo: number;
   status: string;
   created_at: string;
+  delivery_zone?: string | null;
+  delivery_address?: string | null;
+  discount_code?: string | null;
 };
 
 type Me = {
   store: Storefront | null;
   products?: StoreProduct[];
   orders?: Order[];
+  discounts?: DiscountRow[];
+  requests?: PaymentLink[];
   paid: boolean;
   freeLimit: number;
+  feePercent?: number;
 };
 
 const field =
   "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
 const card = "rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6";
 
-async function token(): Promise<string | null> {
-  const { data } = (await getSupabaseBrowser()?.auth.getSession()) || { data: null };
-  return data?.session?.access_token || null;
-}
-
-async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const t = await token();
-  const res = await fetch(path, {
-    ...init,
-    headers: {
-      ...(init.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
-      ...(t ? { Authorization: `Bearer ${t}` } : {}),
-      ...(init.headers || {}),
-    },
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error((data as { error?: string }).error || "Request failed");
-  return data as T;
-}
+const api = sellerApi;
 
 export default function SellerDashboard() {
   const [email, setEmail] = useState<string | null>(null);
@@ -106,7 +97,7 @@ export default function SellerDashboard() {
     {
       done: store.payments_status === "active" || store.payments_status === "pending_review",
       label: "Turn on online payments",
-      hint: me.paid ? "Connect your bank below so customers can pay by card or transfer." : "Part of the Store plan: customers pay, money lands in your bank.",
+      hint: "Connect your bank below so customers can pay by card or transfer, straight to your account.",
     },
   ];
   const stepsLeft = steps.filter((s) => !s.done).length;
@@ -198,7 +189,7 @@ export default function SellerDashboard() {
         <div className={`${card} border-[#ff8c14]/40`}>
           <p className="text-[16px] font-semibold text-white">Upgrade to DoyinTech Store — ₦3,500/month</p>
           <p className="mt-1 text-[14px] text-[#a1a1a6]">
-            Unlimited products, Paystack checkout paid straight to your bank, and no DoyinTech badge.
+            Unlimited products, no {FREE_PLAN_FEE_PERCENT}% fee on online orders, discount codes, and no DoyinTech badge.
           </p>
           <div className="mt-4 grid max-w-md gap-3 sm:grid-cols-2">
             <SubscribeButton planId="store-monthly" label="₦3,500 / month" highlight />
@@ -208,7 +199,15 @@ export default function SellerDashboard() {
       )}
 
       <ProductsPanel products={products} atLimit={atLimit} freeLimit={me.freeLimit} onChange={load} />
-      <PaymentsPanel store={store} paid={me.paid} onChange={load} />
+      <PaymentsPanel store={store} feePercent={me.feePercent ?? 0} onChange={load} />
+      <DeliveryPanel key={JSON.stringify(store.delivery_zones || [])} zones={store.delivery_zones || []} onChange={load} />
+      <DiscountsPanel discounts={me.discounts || []} paid={me.paid} onChange={load} />
+      <PaymentLinksPanel
+        links={me.requests || []}
+        paymentsActive={store.payments_status === "active"}
+        feePercent={me.feePercent ?? 0}
+        onChange={load}
+      />
       <OrdersPanel orders={orders} />
 
       <details className={card}>
@@ -560,7 +559,7 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
   );
 }
 
-function PaymentsPanel({ store, paid, onChange }: { store: Storefront; paid: boolean; onChange: () => void }) {
+function PaymentsPanel({ store, feePercent, onChange }: { store: Storefront; feePercent: number; onChange: () => void }) {
   const [banks, setBanks] = useState<{ name: string; code: string }[]>([]);
   const [bank, setBank] = useState("");
   const [account, setAccount] = useState("");
@@ -617,9 +616,13 @@ function PaymentsPanel({ store, paid, onChange }: { store: Storefront; paid: boo
         </p>
       )}
       {msg && <p className="mt-2 text-[13px] text-emerald-300">{msg}</p>}
-      {!paid ? (
-        <p className="mt-3 text-[13px] text-[#86868b]">Online payments are part of the Store plan.</p>
-      ) : !open ? (
+      <p className="mt-1 text-[12px] text-[#86868b]">
+        {feePercent > 0
+          ? `Free plan: DoyinTech keeps ${feePercent}% of each online payment. On the Store plan there's no fee.`
+          : "Store plan: no DoyinTech fee on online payments."}{" "}
+        Paystack&apos;s own fee is deducted by Paystack.
+      </p>
+      {!open ? (
         <button type="button" onClick={openForm} className="mt-4 rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white">
           {store.payments_status === "off" ? "Connect bank account" : "Change bank account"}
         </button>
@@ -680,12 +683,15 @@ function OrdersPanel({ orders }: { orders: Order[] }) {
                 </span>
               </div>
               <p className="text-[13px] text-[#a1a1a6]">
-                {o.items.map((i) => `${i.qty} × ${i.name}`).join(", ")} ·{" "}
+                {o.items.map((i) => `${i.qty} × ${i.name}`).join(", ")}
+                {o.discount_code ? ` · code ${o.discount_code}` : ""}
+                {o.delivery_zone ? ` · deliver to ${o.delivery_zone}` : ""} ·{" "}
                 <a href={`https://wa.me/${o.customer_phone.replace(/\D/g, "").replace(/^0/, "234")}`} target="_blank" rel="noopener noreferrer" className="text-[#25D366] underline">
                   {o.customer_phone}
                 </a>{" "}
                 · {new Date(o.created_at).toLocaleString("en-NG")}
               </p>
+              {o.delivery_address && <p className="text-[12px] text-[#86868b]">Address / note: {o.delivery_address}</p>}
             </li>
           ))}
         </ul>

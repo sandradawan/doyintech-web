@@ -3,12 +3,12 @@ import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import PlanCard from "@/components/subscriptions/PlanCard";
 import { plansInFamily } from "@/lib/subscriptions/plans";
-import { FREE_PRODUCT_LIMIT } from "@/lib/storefront/shared";
+import { FREE_PLAN_FEE_PERCENT, FREE_PRODUCT_LIMIT } from "@/lib/storefront/shared";
 import { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 
 const TITLE = "Free Online Store for WhatsApp Sellers in Nigeria — DoyinTech Store";
 const DESCRIPTION =
-  "Create a free online shop in minutes: product photos, prices and a shareable link. Customers order on WhatsApp or pay with Paystack straight to your bank. No website needed.";
+  "Create a free online shop in minutes: product photos, prices, delivery fees and a shareable link. Customers order on WhatsApp or pay with Paystack straight to your bank. Send payment links for invoices. No website needed.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -21,17 +21,21 @@ const STEPS = [
   { title: "Create your shop", body: "Pick a name and your link, e.g. doyintech.com/s/your-shop. Free, in two minutes." },
   { title: "Add products", body: "Upload photos, set prices and mark items in or out of stock from your phone." },
   { title: "Share one link", body: "Put it in your WhatsApp status, Instagram bio and TikTok. Customers browse without DMing for prices." },
-  { title: "Get orders", body: "Orders arrive on WhatsApp with items and totals. On the Store plan, customers can pay online too." },
+  { title: "Get orders", body: "Orders arrive on WhatsApp with items, delivery and totals. Connect your bank and customers can pay online too." },
 ];
 
 const FAQS: Faq[] = [
   {
     q: "Is DoyinTech Store really free?",
-    a: `Yes. The free plan includes a shop page with up to ${FREE_PRODUCT_LIMIT} products and WhatsApp ordering, with a small "Powered by DoyinTech" note. Upgrade any time for unlimited products and online payments.`,
+    a: `Yes. The free plan includes a shop page with up to ${FREE_PRODUCT_LIMIT} products and WhatsApp ordering, with a small "Powered by DoyinTech" note. Free shops can take online payments too, for a ${FREE_PLAN_FEE_PERCENT}% fee per payment. Upgrade any time for unlimited products, no fee and discount codes.`,
   },
   {
     q: "How do I receive payments?",
-    a: "On the Store plan you connect your bank account. Customers pay by card, bank transfer or USSD through Paystack and the money settles directly to your account, minus Paystack's standard fees. DoyinTech does not hold your money.",
+    a: `Connect your bank account in your dashboard. Customers pay by card, bank transfer or USSD through Paystack and the money settles directly to your account, minus Paystack's standard fees. On the free plan DoyinTech keeps ${FREE_PLAN_FEE_PERCENT}% of each online payment; on the Store plan there's no DoyinTech fee. DoyinTech never holds your money.`,
+  },
+  {
+    q: "Can I send a payment link for an invoice?",
+    a: "Yes. Create a payment link with the amount and due date and send it on WhatsApp or by email. If you add the customer's email we remind them the day before, on, and three days after the due date, and you're emailed as soon as they pay.",
   },
   {
     q: "Why is there a review before payments go live?",
@@ -92,6 +96,8 @@ export default function StoresPage() {
                   <li>✓ Shop page with your own link</li>
                   <li>✓ Up to {FREE_PRODUCT_LIMIT} products with photos</li>
                   <li>✓ Orders on WhatsApp with item list and total</li>
+                  <li>✓ Delivery fees by area</li>
+                  <li>✓ Online payments and invoice payment links, {FREE_PLAN_FEE_PERCENT}% per payment</li>
                   <li>✓ &quot;Powered by DoyinTech&quot; note</li>
                 </ul>
                 <Link href="/stores/dashboard" className="mt-6 inline-flex justify-center rounded-full border border-white/20 py-3 text-[14px] font-semibold text-white">

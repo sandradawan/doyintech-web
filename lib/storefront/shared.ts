@@ -1,6 +1,9 @@
 /** DoyinTech Store: types and pure helpers shared by server routes and client UI. */
 
 export const FREE_PRODUCT_LIMIT = 5;
+/** Free shops pay this on each online order (taken by Paystack split); the Store plan pays none. */
+export const FREE_PLAN_FEE_PERCENT = 1.5;
+export const MAX_DELIVERY_ZONES = 20;
 export const RESERVED_SLUGS = new Set(["admin", "api", "dashboard", "doyintech", "new", "store", "stores", "www"]);
 
 export type PaymentsStatus = "off" | "pending_review" | "active" | "rejected";
@@ -16,6 +19,16 @@ export type Storefront = {
   bank_name: string | null;
   account_name: string | null;
   account_last4: string | null;
+  delivery_zones: DeliveryZone[];
+};
+
+export type DeliveryZone = { name: string; fee_kobo: number };
+
+export type Discount = {
+  code: string;
+  percent_off: number | null;
+  amount_off_kobo: number | null;
+  min_subtotal_kobo: number;
 };
 
 export type StoreProduct = {
@@ -61,20 +74,63 @@ export function whatsappOrderLink(
   whatsapp: string,
   storeName: string,
   items: { name: string; qty: number; price_kobo: number }[],
-  customer?: { name?: string; phone?: string; note?: string; reference?: string }
+  customer?: {
+    name?: string;
+    phone?: string;
+    note?: string;
+    reference?: string;
+    zone?: DeliveryZone | null;
+    discount?: { code: string; kobo: number } | null;
+  }
 ): string {
   const lines = items.map((i) => `• ${i.qty} × ${i.name} — ${formatKobo(i.qty * i.price_kobo)}`);
-  const total = items.reduce((n, i) => n + i.qty * i.price_kobo, 0);
+  const subtotal = items.reduce((n, i) => n + i.qty * i.price_kobo, 0);
+  const off = customer?.discount?.kobo || 0;
+  const delivery = customer?.zone?.fee_kobo || 0;
   const text = [
     `Hi ${storeName}, I'd like to order:`,
     ...lines,
-    `Total: ${formatKobo(total)}`,
+    off ? `Discount (${customer!.discount!.code}): −${formatKobo(off)}` : "",
+    customer?.zone ? `Delivery to ${customer.zone.name}: ${delivery ? formatKobo(delivery) : "free"}` : "",
+    `Total: ${formatKobo(subtotal - off + delivery)}`,
     customer?.reference ? `Paid online — ref ${customer.reference}` : "",
     customer?.name ? `Name: ${customer.name}` : "",
     customer?.phone ? `Phone: ${customer.phone}` : "",
-    customer?.note ? `Delivery: ${customer.note}` : "",
+    customer?.note ? `Address / note: ${customer.note}` : "",
   ]
     .filter(Boolean)
     .join("\n");
   return `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
+}
+
+/** DoyinTech's cut of an online order: 1.5% on the free plan, nothing on the Store plan. */
+export function platformFeeKobo(amountKobo: number, paidPlan: boolean): number {
+  return paidPlan ? 0 : Math.round((amountKobo * FREE_PLAN_FEE_PERCENT) / 100);
+}
+
+/** Discount in kobo for a subtotal; 0 when the code doesn't apply. Never more than the subtotal. */
+export function discountKobo(subtotalKobo: number, d: Discount | null | undefined): number {
+  if (!d || subtotalKobo < d.min_subtotal_kobo) return 0;
+  const off = d.percent_off ? Math.round((subtotalKobo * d.percent_off) / 100) : d.amount_off_kobo || 0;
+  return Math.min(off, subtotalKobo);
+}
+
+/** Cleans seller-entered delivery areas: names trimmed, fees in kobo, duplicates and junk dropped. */
+export function cleanZones(input: unknown): DeliveryZone[] {
+  if (!Array.isArray(input)) return [];
+  const seen = new Set<string>();
+  const out: DeliveryZone[] = [];
+  for (const z of input) {
+    const name = String((z as DeliveryZone)?.name || "").trim().slice(0, 60);
+    const fee = Math.round(Number((z as DeliveryZone)?.fee_kobo));
+    if (!name || !Number.isFinite(fee) || fee < 0 || fee > 100_000_000 || seen.has(name.toLowerCase())) continue;
+    seen.add(name.toLowerCase());
+    out.push({ name, fee_kobo: fee });
+    if (out.length >= MAX_DELIVERY_ZONES) break;
+  }
+  return out;
+}
+
+export function normalizeCode(input: string): string {
+  return input.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 20);
 }

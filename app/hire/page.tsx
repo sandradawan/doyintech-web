@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import ServiceDepositButton from "@/components/services/ServiceDepositButton";
+import ServiceAddons from "@/components/services/ServiceAddons";
 import { SERVICE_OFFERS, serviceWhatsAppLink } from "@/lib/service-offers";
 import { discoveryCallLink } from "@/lib/packages";
+
+// Add-on prices can be changed in Admin → Pricing; refresh hourly.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Hire DoyinTech — Fixed-price websites · 50% deposit",
@@ -120,6 +124,8 @@ export default function HirePage() {
               </article>
             ))}
           </div>
+
+          <ServiceAddons />
 
           <div className="mt-12 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[14px] text-[#a1a1a6]">

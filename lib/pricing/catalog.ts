@@ -3,7 +3,7 @@
  * Defaults come from code; admin overrides live in site_settings.pricing_overrides.
  */
 import { DIGITAL_PRODUCTS } from "@/lib/products";
-import { SERVICE_OFFERS } from "@/lib/service-offers";
+import { SERVICE_ADDONS, SERVICE_OFFERS } from "@/lib/service-offers";
 import { STUDENT_PACKAGES } from "@/lib/students/packages";
 import { PAID_TOOLS } from "@/lib/tools/paid";
 import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
@@ -45,6 +45,19 @@ export function buildDefaultCatalog(): CatalogPriceItem[] {
       priceNgn: Math.round(s.amountKobo / 100),
       displayLabel: `${s.depositNgn} deposit · total ${s.totalNgn}`,
       note: "Paystack deposit",
+    });
+  }
+
+  for (const a of SERVICE_ADDONS) {
+    items.push({
+      key: `service:${a.id}`,
+      category: "service",
+      id: a.id,
+      name: `Add-on: ${a.name}`,
+      amountKobo: a.amountKobo,
+      priceNgn: Math.round(a.amountKobo / 100),
+      displayLabel: `₦${Math.round(a.amountKobo / 100).toLocaleString("en-NG")}`,
+      note: "Paid in full",
     });
   }
 

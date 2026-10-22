@@ -17,7 +17,14 @@ import {
   FiTrash2,
   FiX,
 } from "react-icons/fi";
-import { formatKobo, normalizeWhatsapp, whatsappOrderLink } from "@/lib/storefront/shared";
+import {
+  discountKobo,
+  formatKobo,
+  normalizeWhatsapp,
+  whatsappOrderLink,
+  type DeliveryZone,
+  type Discount,
+} from "@/lib/storefront/shared";
 
 export type ShopProduct = {
   id: string;
@@ -113,6 +120,8 @@ export default function ShopClient({
   tagline,
   whatsapp,
   canPay,
+  zones,
+  hasCodes,
   products,
 }: {
   slug: string;
@@ -120,6 +129,8 @@ export default function ShopClient({
   tagline: string | null;
   whatsapp: string;
   canPay: boolean;
+  zones: DeliveryZone[];
+  hasCodes: boolean;
   products: ShopProduct[];
 }) {
   const cartKey = `dt_shop_cart_${slug}`;
@@ -137,6 +148,10 @@ export default function ShopClient({
   const [error, setError] = useState("");
   const [order, setOrder] = useState<OrderState | null>(null);
   const [toast, setToast] = useState("");
+  const [zoneName, setZoneName] = useState("");
+  const [codeInput, setCodeInput] = useState("");
+  const [discount, setDiscount] = useState<Discount | null>(null);
+  const [codeMsg, setCodeMsg] = useState("");
   const toastTimer = useRef<number | undefined>(undefined);
 
   // Restore the bag and the customer's details (localStorage is client-only).
@@ -213,8 +228,30 @@ export default function ShopClient({
         .map((p) => ({ product: p, product_id: p.id, name: p.name, qty: cart[p.id], price_kobo: p.price_kobo })),
     [products, cart]
   );
-  const total = lines.reduce((n, l) => n + l.qty * l.price_kobo, 0);
+  const subtotal = lines.reduce((n, l) => n + l.qty * l.price_kobo, 0);
   const count = lines.reduce((n, l) => n + l.qty, 0);
+  const zone = zones.find((z) => z.name === zoneName) || null;
+  const off = discountKobo(subtotal, discount);
+  const total = subtotal - off + (zone?.fee_kobo || 0);
+
+  async function applyCode() {
+    const code = codeInput.trim();
+    if (!code) return;
+    setCodeMsg("");
+    try {
+      const res = await fetch(`/api/storefront/discounts?slug=${encodeURIComponent(slug)}&code=${encodeURIComponent(code)}`);
+      const data = await res.json();
+      if (!res.ok || !data.discount) throw new Error(data.error || "That code isn't valid.");
+      const d = data.discount as Discount;
+      setDiscount(d);
+      setCodeMsg(
+        discountKobo(subtotal, d) ? `${d.code} applied` : `${d.code} needs an order of ${formatKobo(d.min_subtotal_kobo)} or more`
+      );
+    } catch (err) {
+      setDiscount(null);
+      setCodeMsg(err instanceof Error ? err.message : "That code isn't valid.");
+    }
+  }
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -278,6 +315,10 @@ export default function ShopClient({
 
   async function pay(e: FormEvent) {
     e.preventDefault();
+    if (zones.length && !zone) {
+      setError("Choose a delivery area.");
+      return;
+    }
     if (!normalizeWhatsapp(details.phone)) {
       setError("Enter a valid phone number so the shop can reach you.");
       return;
@@ -291,7 +332,9 @@ export default function ShopClient({
         body: JSON.stringify({
           slug,
           items: lines.map((l) => ({ product_id: l.product_id, qty: l.qty })),
-          customer: { name: details.name, phone: details.phone, email: details.email },
+          customer: { name: details.name, phone: details.phone, email: details.email, address: details.note },
+          delivery_zone: zone?.name,
+          discount_code: off ? discount?.code : undefined,
         }),
       });
       const data = await res.json();
@@ -307,6 +350,8 @@ export default function ShopClient({
     name: details.name.trim(),
     phone: details.phone.trim(),
     note: details.note.trim(),
+    zone,
+    discount: off && discount ? { code: discount.code, kobo: off } : null,
   });
   const waChat = `https://wa.me/${whatsapp}?text=${encodeURIComponent(`Hi ${storeName}, I found your shop online.`)}`;
 
@@ -477,7 +522,7 @@ export default function ShopClient({
               <span className="flex items-center gap-2 text-[14px] font-medium">
                 <FiShoppingBag aria-hidden /> {count} item{count === 1 ? "" : "s"}
               </span>
-              <span className="rounded-full bg-white px-4 py-2 text-[14px] font-semibold text-[#111]">View bag · {formatKobo(total)}</span>
+              <span className="rounded-full bg-white px-4 py-2 text-[14px] font-semibold text-[#111]">View bag · {formatKobo(subtotal)}</span>
             </button>
           </motion.div>
         )}
@@ -632,9 +677,11 @@ export default function ShopClient({
                   <div className="shrink-0 border-t border-black/[0.06] bg-white p-4">
                     <div className="flex items-center justify-between text-[15px]">
                       <span className="text-[#555]">Subtotal</span>
-                      <span className="text-[18px] font-semibold tabular-nums">{formatKobo(total)}</span>
+                      <span className="text-[18px] font-semibold tabular-nums">{formatKobo(subtotal)}</span>
                     </div>
-                    <p className="mt-1 text-[12px] text-[#888]">Delivery is arranged with the shop on WhatsApp.</p>
+                    <p className="mt-1 text-[12px] text-[#888]">
+                      {zones.length ? "Delivery fee and any discount are added at checkout." : "Delivery is arranged with the shop on WhatsApp."}
+                    </p>
                     <button type="button" onClick={() => setStep("details")} className="mt-4 w-full rounded-full bg-[#111] py-3.5 text-[15px] font-semibold text-white hover:bg-[#333]">
                       Checkout
                     </button>
@@ -677,6 +724,43 @@ export default function ShopClient({
                       aria-label="Delivery address or note"
                       className={field}
                     />
+                    {zones.length > 0 && (
+                      <select
+                        required
+                        value={zoneName}
+                        onChange={(e) => setZoneName(e.target.value)}
+                        aria-label="Delivery area"
+                        className={field}
+                      >
+                        <option value="">Choose delivery area</option>
+                        {zones.map((z) => (
+                          <option key={z.name} value={z.name}>
+                            {z.name} · {z.fee_kobo ? formatKobo(z.fee_kobo) : "Free"}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                    {hasCodes && (
+                      <div>
+                        <div className="flex gap-2">
+                          <input
+                            value={codeInput}
+                            onChange={(e) => setCodeInput(e.target.value.toUpperCase())}
+                            placeholder="Discount code"
+                            aria-label="Discount code"
+                            className={`${field} uppercase`}
+                          />
+                          <button
+                            type="button"
+                            onClick={applyCode}
+                            className="shrink-0 rounded-xl border border-black/10 bg-white px-4 text-[14px] font-semibold text-[#111] hover:bg-black/[0.03]"
+                          >
+                            Apply
+                          </button>
+                        </div>
+                        {codeMsg && <p className={`mt-1.5 text-[12px] ${off ? "text-emerald-700" : "text-red-600"}`}>{codeMsg}</p>}
+                      </div>
+                    )}
                     <div className="rounded-2xl bg-white p-4 ring-1 ring-black/[0.06]">
                       {lines.map((l) => (
                         <div key={l.product_id} className="flex justify-between gap-3 py-1 text-[13px] text-[#555]">
@@ -686,6 +770,18 @@ export default function ShopClient({
                           <span className="tabular-nums">{formatKobo(l.qty * l.price_kobo)}</span>
                         </div>
                       ))}
+                      {off > 0 && (
+                        <div className="flex justify-between gap-3 py-1 text-[13px] text-emerald-700">
+                          <span>Discount ({discount?.code})</span>
+                          <span className="tabular-nums">−{formatKobo(off)}</span>
+                        </div>
+                      )}
+                      {zone && (
+                        <div className="flex justify-between gap-3 py-1 text-[13px] text-[#555]">
+                          <span>Delivery · {zone.name}</span>
+                          <span className="tabular-nums">{zone.fee_kobo ? formatKobo(zone.fee_kobo) : "Free"}</span>
+                        </div>
+                      )}
                       <div className="mt-2 flex justify-between border-t border-black/[0.06] pt-2 text-[15px] font-semibold">
                         <span>Total</span>
                         <span className="tabular-nums">{formatKobo(total)}</span>

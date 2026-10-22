@@ -230,12 +230,12 @@ export const SEQUENCES: Record<SequenceId, Sequence> = {
       },
       {
         subject: "Let customers pay online, straight to your bank",
-        preheader: "Card and transfer payments, unlimited products, no badge.",
+        preheader: "Card and transfer at checkout, plus payment links for your invoices.",
         paragraphs: [
-          "On the Store plan your customers can pay by card or bank transfer at checkout, and the money settles straight into your bank account through Paystack. You also get unlimited products and no DoyinTech badge.",
-          "It's ₦3,500 a month, or ₦35,000 a year. Cancel any time.",
+          "Connect your bank in your dashboard and customers can pay by card, transfer or USSD at checkout. The money settles straight into your bank account through Paystack. You can also send a payment link with any invoice, and we remind your customer around the due date.",
+          "On the free plan DoyinTech keeps 1.5% of each online payment. The Store plan (₦3,500 a month or ₦35,000 a year) removes that fee and adds unlimited products, discount codes and no badge.",
         ],
-        cta: { label: "Upgrade my shop", path: "/stores/dashboard" },
+        cta: { label: "Connect my bank", path: "/stores/dashboard" },
       },
       {
         subject: "Ready for your own website?",

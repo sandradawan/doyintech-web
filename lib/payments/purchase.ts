@@ -13,7 +13,7 @@ import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getPaidToolByProductId } from "@/lib/tools/paid";
 import { getDigitalProduct } from "@/lib/products";
-import { getServiceOffer } from "@/lib/service-offers";
+import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
 
 export type PaystackTx = {
   reference: string;
@@ -193,7 +193,7 @@ export function describeProduct(productId: string): ProductSummary {
       isBundle: tpl.slug === TEMPLATE_BUNDLE_SLUG,
     };
   }
-  const service = getServiceOffer(productId);
+  const service = getServiceOffer(productId) || getServiceAddon(productId);
   if (service) return { id: service.id, kind: "service", title: service.name };
   const digital = getDigitalProduct(productId);
   if (digital) return { id: digital.id, kind: "digital", title: digital.name };

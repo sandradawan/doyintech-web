@@ -1,12 +1,13 @@
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { secretsMatch } from "@/lib/admin/auth";
+import { sendPaymentReminders } from "@/lib/storefront/requests";
 import { nextSendAt, sendNurtureEmail, sequenceFor } from "@/lib/newsletter/sequence";
 
 export const maxDuration = 60;
 
 const BATCH = 80;
 
-/** Daily: sends each subscriber the next email in their sequence when it's due. */
+/** Daily: next email in each subscriber's sequence, plus payment-link reminders. */
 export async function GET(req: Request) {
   const auth = req.headers.get("authorization") || "";
   const secret = process.env.CRON_SECRET || "";
@@ -46,5 +47,8 @@ export async function GET(req: Request) {
       .eq("id", s.id);
   }
 
-  return Response.json({ ok: true, due: due?.length || 0, sent });
+  // Sellers' payment links: reminders around the due date.
+  const reminders = await sendPaymentReminders();
+
+  return Response.json({ ok: true, due: due?.length || 0, sent, reminders });
 }

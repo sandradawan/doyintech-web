@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ShopClient from "@/components/storefront/ShopClient";
-import { canTakePayments, isPaidStore, publicStore } from "@/lib/storefront/server";
+import { canTakePayments, hasActiveDiscounts, isPaidStore, publicStore } from "@/lib/storefront/server";
 import { absoluteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -36,7 +36,8 @@ export default async function ShopPage({ params }: Props) {
   if (!data) notFound();
   const { store, products } = data;
 
-  const [paid, canPay] = await Promise.all([isPaidStore(store.owner_email), canTakePayments(store)]);
+  const [paid, hasCodes] = await Promise.all([isPaidStore(store.owner_email), hasActiveDiscounts(store.id)]);
+  const canPay = canTakePayments(store);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -67,6 +68,8 @@ export default async function ShopPage({ params }: Props) {
         tagline={store.tagline}
         whatsapp={store.whatsapp}
         canPay={canPay}
+        zones={store.delivery_zones || []}
+        hasCodes={hasCodes}
         products={products.map((p) => ({
           id: p.id,
           name: p.name,

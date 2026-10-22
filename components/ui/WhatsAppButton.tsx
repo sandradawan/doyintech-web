@@ -25,7 +25,7 @@ export default function WhatsAppButton() {
   }, []);
 
   // Seller shops (/s/...) have their own WhatsApp contact; ours would misdirect their customers.
-  if (pathname?.startsWith("/s/")) return null;
+  if (pathname?.startsWith("/s/") || pathname?.startsWith("/pay/")) return null;
 
   return (
     <a

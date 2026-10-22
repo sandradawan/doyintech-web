@@ -113,3 +113,60 @@ export function serviceWhatsAppLink(offer: ServiceOffer): string {
   const text = `Hi DoyinTech, I want the "${offer.name}" package (${offer.totalUsd}). I can pay the ${offer.depositUsd} deposit. Let's confirm scope.`;
   return `https://wa.me/2348085343926?text=${encodeURIComponent(text)}`;
 }
+
+/** Fixed-price extras bought on their own or alongside a package (paid in full, not a deposit). */
+export type ServiceAddon = {
+  id: string;
+  name: string;
+  blurb: string;
+  amountKobo: number;
+  includes: string[];
+  delivery: string;
+};
+
+export const SERVICE_ADDONS: ServiceAddon[] = [
+  {
+    id: "service-addon-google-business",
+    name: "Google Business Profile setup",
+    blurb: "Show up on Google Maps and local search with photos, hours and a WhatsApp link.",
+    amountKobo: 2_500_000,
+    includes: ["Profile created or claimed and verified", "Photos, hours, services and categories", "WhatsApp and website links", "3 starter posts"],
+    delivery: "Done within 5 working days of your details",
+  },
+  {
+    id: "service-addon-whatsapp-business",
+    name: "WhatsApp Business setup",
+    blurb: "A catalogue, greeting, away message and quick replies so you answer faster.",
+    amountKobo: 1_500_000,
+    includes: ["Business profile and catalogue", "Greeting and away messages", "10 quick replies for common questions", "Labels for orders and follow-ups"],
+    delivery: "Done on a 45-minute call",
+  },
+  {
+    id: "service-addon-logo-kit",
+    name: "Logo and brand kit",
+    blurb: "A clean logo with colours and fonts that look right on your site, WhatsApp and Instagram.",
+    amountKobo: 3_500_000,
+    includes: ["Logo in 2 concepts, 1 revision round", "Colour palette and fonts", "Profile images for WhatsApp, Instagram and Facebook", "Files in PNG, SVG and PDF"],
+    delivery: "First concepts in 3–5 working days",
+  },
+  {
+    id: "service-addon-copywriting",
+    name: "Website copywriting (up to 5 pages)",
+    blurb: "We write the words for your pages so they're clear, local and get enquiries.",
+    amountKobo: 3_000_000,
+    includes: ["Short interview about your business", "Headlines, services and calls to action", "SEO titles and descriptions", "1 revision round"],
+    delivery: "Draft in 5 working days",
+  },
+  {
+    id: "service-addon-extra-page",
+    name: "Extra website page",
+    blurb: "Add one more page to any package: a service, gallery, menu or FAQ page.",
+    amountKobo: 1_500_000,
+    includes: ["Designed to match your site", "Mobile-first", "Linked from your menu", "Basic SEO"],
+    delivery: "Added during your build",
+  },
+];
+
+export function getServiceAddon(id: string): ServiceAddon | undefined {
+  return SERVICE_ADDONS.find((a) => a.id === id);
+}

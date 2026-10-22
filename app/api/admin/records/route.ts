@@ -202,6 +202,11 @@ const TABLE_CONFIG: Record<
     writable: ["status"],
     orderBy: "created_at",
   },
+  storefront_payment_requests: {
+    pk: "id",
+    writable: ["status"],
+    orderBy: "created_at",
+  },
 };
 
 const TABLES = new Set(Object.keys(TABLE_CONFIG));

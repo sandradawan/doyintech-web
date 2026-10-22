@@ -10,6 +10,7 @@ import { confirmReportPayment, processReportOrder } from "@/lib/reports/fulfill"
 import { planIdForCode, recordRenewal, syncSubscription } from "@/lib/subscriptions/server";
 import { notifyNewSubscription } from "@/lib/subscriptions/notify";
 import { markStorefrontOrderPaid } from "@/lib/storefront/orders";
+import { markPaymentRequestPaid } from "@/lib/storefront/requests";
 import { recordEvent } from "@/lib/analytics/server";
 import { markConverted } from "@/lib/newsletter/enroll";
 import {
@@ -128,7 +129,7 @@ export async function POST(req: NextRequest) {
     // Conversions. Shop orders are the sellers' sales; our own sales also stop that buyer's sales emails.
     after(async () => {
       const value = isNgn ? amountKobo : null;
-      if (kind === "storefront") {
+      if (kind === "storefront" || kind === "storefront_request") {
         await recordEvent("shop_order_paid", { label: String(meta.store_id || ""), valueKobo: value });
         return;
       }
@@ -176,6 +177,11 @@ export async function POST(req: NextRequest) {
     // Storefront customer payments (settled to the seller's subaccount).
     if (kind === "storefront") {
       await markStorefrontOrderPaid(data);
+      return NextResponse.json({ received: true });
+    }
+    // Sellers' payment links (invoices), also settled to their subaccount.
+    if (kind === "storefront_request") {
+      await markPaymentRequestPaid(data);
       return NextResponse.json({ received: true });
     }
 

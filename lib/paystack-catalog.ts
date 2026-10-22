@@ -3,7 +3,7 @@ import { PAID_TOOLS } from "@/lib/tools/paid";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
-import { getServiceOffer } from "@/lib/service-offers";
+import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
 import { getStudentPackage } from "@/lib/students/packages";
 import { resolveAmountKobo } from "@/lib/pricing/overrides";
 
@@ -15,6 +15,9 @@ export type PayItem = {
 };
 
 function basePayItemSync(id: string): PayItem | undefined {
+  const addon = getServiceAddon(id);
+  if (addon) return { id: addon.id, name: addon.name, amountKobo: addon.amountKobo, delivery: addon.delivery };
+
   const service = getServiceOffer(id);
   if (service) {
     return {

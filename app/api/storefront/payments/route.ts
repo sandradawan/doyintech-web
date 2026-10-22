@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { userFromBearer } from "@/lib/auth/request-user";
-import { db, isPaidStore, paystack, storeForOwner } from "@/lib/storefront/server";
+import { db, paystack, storeForOwner } from "@/lib/storefront/server";
 import { limitRequest } from "@/lib/rate-limit";
 
 type Bank = { name: string; code: string; active?: boolean };
@@ -22,7 +22,8 @@ export async function GET() {
 /**
  * Connects the seller's bank: verifies the account with Paystack, creates a subaccount so
  * customer payments settle directly to the seller, and queues the store for review.
- * Checkout stays off until an admin sets payments_status = 'active'.
+ * Checkout stays off until an admin sets payments_status = 'active'. Any plan may connect:
+ * free shops pay DoyinTech's per-order fee at checkout, Store plan shops pay none.
  */
 export async function POST(req: NextRequest) {
   const limited = limitRequest(req, "storefront-payments", 5, 60 * 60 * 1000);
@@ -31,9 +32,6 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 });
   const store = await storeForOwner(user.id);
   if (!store) return NextResponse.json({ error: "Create your shop first." }, { status: 400 });
-  if (!(await isPaidStore(user.email))) {
-    return NextResponse.json({ error: "Online payments are part of the Store plan.", code: "UPGRADE" }, { status: 402 });
-  }
 
   const body = await req.json().catch(() => ({}));
   const bankCode = String(body.bank_code || "").replace(/[^\w]/g, "");

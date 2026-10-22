@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse, after } from "next/server";
 import { userFromBearer } from "@/lib/auth/request-user";
 import { db, isPaidStore, storeForOwner } from "@/lib/storefront/server";
-import { FREE_PRODUCT_LIMIT, isValidSlug, normalizeSlug, normalizeWhatsapp } from "@/lib/storefront/shared";
+import { FREE_PLAN_FEE_PERCENT, FREE_PRODUCT_LIMIT, isValidSlug, normalizeSlug, normalizeWhatsapp } from "@/lib/storefront/shared";
 import { recordEvent } from "@/lib/analytics/server";
 import { enrollSubscriber } from "@/lib/newsletter/enroll";
 import { limitRequest } from "@/lib/rate-limit";
@@ -17,18 +17,40 @@ export async function GET(req: NextRequest) {
   const paid = await isPaidStore(user.email);
   if (!store) return NextResponse.json({ store: null, paid, freeLimit: FREE_PRODUCT_LIMIT }, { headers: NO_STORE });
 
-  const [{ data: products }, { data: orders }] = await Promise.all([
+  const [{ data: products }, { data: orders }, { data: discounts }, { data: requests }] = await Promise.all([
     db().from("storefront_products").select("*").eq("store_id", store.id).order("sort").order("created_at"),
     db()
       .from("storefront_orders")
-      .select("reference, customer_name, customer_phone, items, amount_kobo, status, created_at, paid_at")
+      .select(
+        "reference, customer_name, customer_phone, items, amount_kobo, status, created_at, paid_at, delivery_zone, delivery_address, discount_code, platform_fee_kobo"
+      )
+      .eq("store_id", store.id)
+      .order("created_at", { ascending: false })
+      .limit(50),
+    db()
+      .from("storefront_discounts")
+      .select("code, percent_off, amount_off_kobo, min_subtotal_kobo, max_uses, uses, expires_at, active")
+      .eq("store_id", store.id)
+      .order("created_at", { ascending: false }),
+    db()
+      .from("storefront_payment_requests")
+      .select("reference, title, amount_kobo, customer_name, customer_email, due_date, status, paid_at, reminders_sent, created_at")
       .eq("store_id", store.id)
       .order("created_at", { ascending: false })
       .limit(50),
   ]);
 
   return NextResponse.json(
-    { store, products: products || [], orders: orders || [], paid, freeLimit: FREE_PRODUCT_LIMIT },
+    {
+      store,
+      products: products || [],
+      orders: orders || [],
+      discounts: discounts || [],
+      requests: requests || [],
+      paid,
+      freeLimit: FREE_PRODUCT_LIMIT,
+      feePercent: paid ? 0 : FREE_PLAN_FEE_PERCENT,
+    },
     { headers: NO_STORE }
   );
 }
