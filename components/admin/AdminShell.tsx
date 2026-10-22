@@ -22,6 +22,7 @@ function AdminRedirect({ error }: { error: string | null }) {
 const NAV = [
   { href: "/admin", label: "Overview", exact: true, icon: "◈" },
   { href: "/admin/leads", label: "Leads", exact: false, icon: "◎" },
+  { href: "/admin/conversions", label: "Conversions", exact: false, icon: "↗" },
   { href: "/admin/student-projects", label: "Students", exact: false, icon: "◇" },
   { href: "/admin/orders", label: "Orders", exact: false, icon: "⬡" },
   { href: "/admin/pricing", label: "Pricing", exact: false, icon: "₦" },

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import PayeCalculator from "@/components/tools/PayeCalculator";
-import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import ToolFollowUp from "@/components/tools/ToolFollowUp";
 import { PAYE_BANDS_2026, computePaye, naira } from "@/lib/tax/paye2026";
 import { absoluteUrl } from "@/lib/site";
 
@@ -95,6 +95,7 @@ export default function PayeCalculatorPage() {
           <div className="mt-8">
             <PayeCalculator />
           </div>
+          <ToolFollowUp source="paye-calculator" />
 
           <article className="mt-16 space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">
             <section>
@@ -183,10 +184,6 @@ export default function PayeCalculatorPage() {
               >
                 See DoyinTech Pro
               </Link>
-            </section>
-
-            <section>
-              <NewsletterSignup source="paye-calculator" />
             </section>
 
             <p className="text-[12px] text-[#86868b]">

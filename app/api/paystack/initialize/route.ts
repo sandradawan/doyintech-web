@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
+import { recordEvent } from "@/lib/analytics/server";
 import { getPayItem } from "@/lib/paystack-catalog";
 import { signQuote } from "@/lib/payments/purchase";
 import { SITE_URL } from "@/lib/site";
@@ -87,6 +88,8 @@ export async function POST(req: NextRequest) {
         at: new Date().toISOString(),
       })
     );
+
+    after(() => recordEvent("checkout_start", { req, label: item.name, valueKobo: item.amountKobo }));
 
     return NextResponse.json({
       ok: true,

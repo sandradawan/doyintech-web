@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { track } from "@/lib/analytics/client";
 import { useProMembership } from "@/lib/subscriptions/useProMembership";
 import {
   getPaidTool,
@@ -143,6 +144,7 @@ export default function PaidGate({
 export function printHtml(title: string, html: string) {
   const w = window.open("", "_blank");
   if (!w) return;
+  track("tool_download", title.slice(0, 60));
   w.document.write(
     `<!DOCTYPE html><html><head><title>${title}</title>
     <style>@media print{body{margin:0}} body{font-family:system-ui,sans-serif;color:#111}</style>

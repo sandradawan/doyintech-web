@@ -1,7 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { userFromBearer } from "@/lib/auth/request-user";
 import { db, isPaidStore, storeForOwner } from "@/lib/storefront/server";
 import { FREE_PRODUCT_LIMIT, isValidSlug, normalizeSlug, normalizeWhatsapp } from "@/lib/storefront/shared";
+import { recordEvent } from "@/lib/analytics/server";
+import { enrollSubscriber } from "@/lib/newsletter/enroll";
 import { limitRequest } from "@/lib/rate-limit";
 
 const NO_STORE = { "Cache-Control": "private, no-store" };
@@ -67,6 +69,13 @@ export async function POST(req: NextRequest) {
     }
     console.error("storefront save", error.message);
     return NextResponse.json({ error: "Could not save your shop." }, { status: 500 });
+  }
+  if (!existing && user.email) {
+    const email = user.email;
+    after(async () => {
+      await recordEvent("shop_created", { req, label: slug });
+      await enrollSubscriber({ email, name: null, source: "store", sequence: "store" });
+    });
   }
   return NextResponse.json({ ok: true, store: data });
 }

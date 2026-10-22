@@ -1,5 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { recordEvent } from "@/lib/analytics/server";
+import { enrollSubscriber } from "@/lib/newsletter/enroll";
+import type { SequenceId } from "@/lib/newsletter/sequence";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { leadNotifyTemplate } from "@/lib/email/templates";
 import { secretsMatch } from "@/lib/admin/auth";
@@ -104,6 +107,20 @@ export async function POST(req: NextRequest) {
       else if (error)
         console.log(JSON.stringify({ event: "lead_supabase_error", error: error.message }));
     }
+
+    // Follow-up: website/audit enquiries get the lead sequence; tool waitlists and freebies the softer ones.
+    const sequenceByType: Partial<Record<string, SequenceId>> = {
+      audit: "lead",
+      maintenance: "lead",
+      chat: "lead",
+      waitlist: "tools",
+      "lead-magnet": "general",
+    };
+    const sequence = sequenceByType[type];
+    after(async () => {
+      await recordEvent("lead", { req, label: type });
+      if (email && sequence) await enrollSubscriber({ email, name, source, referral, sequence });
+    });
 
     const waText = encodeURIComponent(
       `New ${type} lead\nProduct: ${product}\nName: ${name}\nEmail: ${email || "-"}\nPhone: ${phone || "-"}\n${message || ""}`

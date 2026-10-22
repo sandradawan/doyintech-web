@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
 import MetaPixel from "@/components/analytics/MetaPixel";
+import ConversionTracker from "@/components/analytics/ConversionTracker";
 import OfflinePlayHint from "@/components/game/OfflinePlayHint";
 import ServiceWorkerRegister from "@/components/game/ServiceWorkerRegister";
 import { SITE_URL } from "@/lib/site";
@@ -123,6 +124,7 @@ export default function RootLayout({
           <OfflinePlayHint />
           <ServiceWorkerRegister />
           <CookieConsent />
+          <ConversionTracker />
           <Suspense fallback={null}>
             <ReferralCapture />
             <MetaPixel />

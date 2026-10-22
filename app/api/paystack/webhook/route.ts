@@ -10,6 +10,8 @@ import { confirmReportPayment, processReportOrder } from "@/lib/reports/fulfill"
 import { planIdForCode, recordRenewal, syncSubscription } from "@/lib/subscriptions/server";
 import { notifyNewSubscription } from "@/lib/subscriptions/notify";
 import { markStorefrontOrderPaid } from "@/lib/storefront/orders";
+import { recordEvent } from "@/lib/analytics/server";
+import { markConverted } from "@/lib/newsletter/enroll";
 import {
   emailStudentDepositPaid,
   emailStudentBalancePaid,
@@ -122,6 +124,21 @@ export async function POST(req: NextRequest) {
     // Subscription charges (first payment and renewals) carry the plan; access is driven by
     // the subscription row, not the catalog product check below.
     const planCode = String((body.data?.plan as { plan_code?: string } | undefined)?.plan_code || "");
+
+    // Conversions. Shop orders are the sellers' sales; our own sales also stop that buyer's sales emails.
+    after(async () => {
+      const value = isNgn ? amountKobo : null;
+      if (kind === "storefront") {
+        await recordEvent("shop_order_paid", { label: String(meta.store_id || ""), valueKobo: value });
+        return;
+      }
+      const recurring = Boolean(planCode) || kind === "subscription";
+      await recordEvent(recurring ? "subscription_payment" : "payment", {
+        label: String(meta.product_name || productId || kind || "payment"),
+        valueKobo: value,
+      });
+      if (email) await markConverted(email);
+    });
     if (planCode || kind === "subscription") {
       if (planCode && email) await recordRenewal({ email, planCode, reference });
       return NextResponse.json({ received: true });

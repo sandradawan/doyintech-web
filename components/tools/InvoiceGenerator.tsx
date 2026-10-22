@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { track } from "@/lib/analytics/client";
 import Link from "next/link";
 import PaidGate, { usePaidUnlock } from "@/components/tools/PaidGate";
 import { formatNgn } from "@/lib/tools/extra";
@@ -229,6 +230,7 @@ export default function InvoiceGenerator({
   }
 
   function handlePrint() {
+    track("tool_download", docType);
     document.body.classList.add("printing-invoice");
     window.print();
     setTimeout(() => document.body.classList.remove("printing-invoice"), 500);

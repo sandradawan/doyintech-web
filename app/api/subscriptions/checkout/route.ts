@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
+import { recordEvent } from "@/lib/analytics/server";
 import { startSubscriptionCheckout } from "@/lib/subscriptions/server";
 import { userFromBearer } from "@/lib/auth/request-user";
 import { limitRequest } from "@/lib/rate-limit";
@@ -28,5 +29,6 @@ export async function POST(req: NextRequest) {
   if (!result.ok) {
     return NextResponse.json({ error: result.error, code: "CHECKOUT_FAILED" }, { status: 400 });
   }
+  after(() => recordEvent("checkout_start", { req, label: planId }));
   return NextResponse.json({ ok: true, authorization_url: result.authorizationUrl });
 }
