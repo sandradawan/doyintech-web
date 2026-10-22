@@ -108,6 +108,9 @@ export default function Navbar() {
     };
   }, []);
 
+  // Seller shops (/s/...) carry their own header; ours would look like someone else's shop.
+  if (pathname?.startsWith("/s/")) return null;
+
   return (
     <header className="fixed inset-x-0 top-0 z-[999]">
       <nav ref={navRef} className="glass-navbar h-12 w-full">

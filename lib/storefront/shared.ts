@@ -61,7 +61,7 @@ export function whatsappOrderLink(
   whatsapp: string,
   storeName: string,
   items: { name: string; qty: number; price_kobo: number }[],
-  customer?: { name?: string; reference?: string }
+  customer?: { name?: string; phone?: string; note?: string; reference?: string }
 ): string {
   const lines = items.map((i) => `• ${i.qty} × ${i.name} — ${formatKobo(i.qty * i.price_kobo)}`);
   const total = items.reduce((n, i) => n + i.qty * i.price_kobo, 0);
@@ -71,6 +71,8 @@ export function whatsappOrderLink(
     `Total: ${formatKobo(total)}`,
     customer?.reference ? `Paid online — ref ${customer.reference}` : "",
     customer?.name ? `Name: ${customer.name}` : "",
+    customer?.phone ? `Phone: ${customer.phone}` : "",
+    customer?.note ? `Delivery: ${customer.note}` : "",
   ]
     .filter(Boolean)
     .join("\n");

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     store.tagline || `Shop ${products.length} products from ${store.name}. Order on WhatsApp or pay online.`;
   return {
-    title: `${store.name} — Shop online`,
+    title: { absolute: `${store.name} | Shop online` },
     description,
     alternates: { canonical: `/s/${store.slug}` },
     openGraph: {
@@ -59,47 +59,40 @@ export default async function ShopPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0e17] pb-32 pt-24">
+    <main className="min-h-screen bg-[#f7f7f4] pb-28 text-[#111]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="mx-auto max-w-[1000px] px-5">
-        <header className="text-center">
-          <h1 className="text-[30px] font-semibold tracking-tight text-white sm:text-[38px]">{store.name}</h1>
-          {store.tagline && <p className="mx-auto mt-2 max-w-xl text-[16px] text-[#a1a1a6]">{store.tagline}</p>}
-          <a
-            href={`https://wa.me/${store.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex rounded-full border border-[#25D366]/50 bg-[#25D366]/10 px-4 py-2 text-[13px] font-semibold text-[#25D366]"
-          >
-            Chat on WhatsApp
-          </a>
-        </header>
+      <ShopClient
+        slug={store.slug}
+        storeName={store.name}
+        tagline={store.tagline}
+        whatsapp={store.whatsapp}
+        canPay={canPay}
+        products={products.map((p) => ({
+          id: p.id,
+          name: p.name,
+          description: p.description,
+          price_kobo: p.price_kobo,
+          image_url: p.image_url,
+          in_stock: p.in_stock,
+        }))}
+      />
 
-        <ShopClient
-          slug={store.slug}
-          storeName={store.name}
-          whatsapp={store.whatsapp}
-          canPay={canPay}
-          products={products.map((p) => ({
-            id: p.id,
-            name: p.name,
-            description: p.description,
-            price_kobo: p.price_kobo,
-            image_url: p.image_url,
-            in_stock: p.in_stock,
-          }))}
-        />
-
-        {!paid && (
-          <p className="mt-16 text-center text-[12px] text-[#86868b]">
-            Powered by{" "}
-            <Link href="/stores" className="text-[#ff8c14] hover:underline">
-              DoyinTech Store
-            </Link>{" "}
-            — create your own free shop
+      <footer className="mx-auto mt-20 max-w-[1200px] border-t border-black/[0.06] px-4 pt-8 text-[13px] text-[#777] sm:px-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {store.name}
           </p>
-        )}
-      </div>
+          {!paid && (
+            <p>
+              Powered by{" "}
+              <Link href="/stores" className="font-semibold text-[#111] hover:underline">
+                DoyinTech Store
+              </Link>{" "}
+              · Create your own free shop
+            </p>
+          )}
+        </div>
+      </footer>
     </main>
   );
 }

@@ -90,28 +90,52 @@ export default function SellerDashboard() {
 
   const store = me.store;
   const products = me.products || [];
+  const orders = me.orders || [];
   const shopUrl = absoluteUrl(`/s/${store.slug}`);
   const atLimit = !me.paid && products.length >= me.freeLimit;
+  const paidOrders = orders.filter((o) => o.status === "paid");
+  const revenue = paidOrders.reduce((n, o) => n + o.amount_kobo, 0);
+
+  const steps = [
+    { done: products.length > 0, label: "Add your first product", hint: "Use a clear photo and a short description." },
+    {
+      done: products.length > 0 && products.every((p) => p.image_url),
+      label: "Give every product a photo",
+      hint: "Products with photos get far more orders.",
+    },
+    {
+      done: store.payments_status === "active" || store.payments_status === "pending_review",
+      label: "Turn on online payments",
+      hint: me.paid ? "Connect your bank below so customers can pay by card or transfer." : "Part of the Store plan: customers pay, money lands in your bank.",
+    },
+  ];
+  const stepsLeft = steps.filter((s) => !s.done).length;
 
   return (
     <div className="space-y-6">
       <div className={card}>
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-[12px] uppercase tracking-wide text-[#86868b]">Your shop</p>
-            <p className="mt-1 text-[20px] font-semibold text-white">{store.name}</p>
+          <div className="min-w-0">
+            <p className="flex items-center gap-2 text-[12px] uppercase tracking-wide text-[#86868b]">
+              Your shop
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal ${
+                  store.is_published ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-[#a1a1a6]"
+                }`}
+              >
+                {store.is_published ? "Live" : "Hidden"}
+              </span>
+            </p>
+            <p className="mt-1 text-[22px] font-semibold text-white">{store.name}</p>
             <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="mt-1 block break-all text-[14px] text-[#ff8c14] hover:underline">
-              {shopUrl}
+              {shopUrl.replace(/^https?:\/\//, "")}
             </a>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => navigator.clipboard.writeText(shopUrl)}
-              className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white"
-            >
-              Copy link
-            </button>
+            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-black">
+              View shop
+            </a>
+            <CopyButton text={shopUrl} />
             <a
               href={`https://wa.me/?text=${encodeURIComponent(`Shop ${store.name} online: ${shopUrl}`)}`}
               target="_blank"
@@ -122,11 +146,53 @@ export default function SellerDashboard() {
             </a>
           </div>
         </div>
+        <dl className="mt-6 grid grid-cols-3 gap-3">
+          {[
+            ["Products", me.paid ? String(products.length) : `${products.length}/${me.freeLimit}`],
+            ["Paid orders", String(paidOrders.length)],
+            ["Online sales", formatKobo(revenue)],
+          ].map(([label, value]) => (
+            <div key={label} className="rounded-xl bg-black/30 px-3 py-3 sm:px-4">
+              <dt className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</dt>
+              <dd className="mt-1 truncate text-[18px] font-semibold tabular-nums text-white sm:text-[20px]">{value}</dd>
+            </div>
+          ))}
+        </dl>
         <p className="mt-4 text-[13px] text-[#a1a1a6]">
-          Plan: <strong className="text-white">{me.paid ? "Store" : `Free (${products.length}/${me.freeLimit} products)`}</strong>
-          {!store.is_published && " · Hidden from customers"}
+          Plan: <strong className="text-white">{me.paid ? "Store" : "Free"}</strong>
+          {!store.is_published && " · Customers can't see your shop. Turn it on in Shop settings."}
         </p>
       </div>
+
+      {stepsLeft > 0 && (
+        <div className={card}>
+          <p className="text-[16px] font-semibold text-white">Get your shop ready to sell</p>
+          <p className="mt-1 text-[13px] text-[#a1a1a6]">
+            {steps.length - stepsLeft} of {steps.length} done
+          </p>
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div className="h-full rounded-full bg-[#ff8c14] transition-all" style={{ width: `${((steps.length - stepsLeft) / steps.length) * 100}%` }} />
+          </div>
+          <ol className="mt-4 space-y-3">
+            {steps.map((s) => (
+              <li key={s.label} className="flex gap-3">
+                <span
+                  aria-hidden
+                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ${
+                    s.done ? "bg-emerald-500 text-black" : "border border-white/25 text-transparent"
+                  }`}
+                >
+                  ✓
+                </span>
+                <div>
+                  <p className={`text-[14px] font-medium ${s.done ? "text-[#86868b] line-through" : "text-white"}`}>{s.label}</p>
+                  {!s.done && <p className="text-[12px] text-[#86868b]">{s.hint}</p>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
 
       {!me.paid && (
         <div className={`${card} border-[#ff8c14]/40`}>
@@ -143,7 +209,7 @@ export default function SellerDashboard() {
 
       <ProductsPanel products={products} atLimit={atLimit} freeLimit={me.freeLimit} onChange={load} />
       <PaymentsPanel store={store} paid={me.paid} onChange={load} />
-      <OrdersPanel orders={me.orders || []} />
+      <OrdersPanel orders={orders} />
 
       <details className={card}>
         <summary className="cursor-pointer text-[15px] font-semibold text-white">Shop settings</summary>
@@ -152,6 +218,27 @@ export default function SellerDashboard() {
         </div>
       </details>
     </div>
+  );
+}
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1600);
+        } catch {
+          /* clipboard blocked */
+        }
+      }}
+      className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white"
+    >
+      {copied ? "Copied ✓" : "Copy link"}
+    </button>
   );
 }
 
@@ -332,8 +419,16 @@ function ProductsPanel({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[14px] font-semibold text-white">{p.name}</p>
-                <p className="text-[13px] text-[#a1a1a6]">
-                  {formatKobo(p.price_kobo)} · {p.in_stock ? "In stock" : "Out of stock"}
+                <p className="flex items-center gap-2 text-[13px] text-[#a1a1a6]">
+                  {formatKobo(p.price_kobo)}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+                      p.in_stock ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-[#a1a1a6]"
+                    }`}
+                  >
+                    {p.in_stock ? "In stock" : "Sold out"}
+                  </span>
+                  {!p.image_url && <span className="text-[11px] text-[#ff8c14]">No photo</span>}
                 </p>
               </div>
               <div className="flex shrink-0 gap-2 text-[12px]">
@@ -361,11 +456,21 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
   const [description, setDescription] = useState(product?.description || "");
   const [image, setImage] = useState(product?.image_url || "");
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const priceKobo = Math.round(Number(price.replace(/[^\d.]/g, "")) * 100);
 
   async function upload(file: File | undefined) {
     if (!file) return;
-    setBusy(true);
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setError("Use a JPG, PNG or WebP photo.");
+      return;
+    }
+    if (file.size > 1024 * 1024) {
+      setError("That photo is over 1 MB. Take a screenshot of it or resize it, then try again.");
+      return;
+    }
+    setUploading(true);
     setError("");
     try {
       const form = new FormData();
@@ -375,7 +480,7 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
-      setBusy(false);
+      setUploading(false);
     }
   }
 
@@ -405,24 +510,45 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
         </label>
         <label className="block text-[13px] text-[#a1a1a6]">
           Price (₦)
-          <input required inputMode="numeric" value={price} onChange={(e) => setPrice(e.target.value)} className={field} />
+          <input required inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="5000" className={field} />
+          {priceKobo > 0 && <span className="mt-1 block text-[12px] text-[#86868b]">Customers see {formatKobo(priceKobo)}</span>}
         </label>
         <label className="block text-[13px] text-[#a1a1a6] sm:col-span-2">
           Description (optional)
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className={field} />
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={3}
+            placeholder="Size, colour, what's included, delivery time…"
+            className={field}
+          />
         </label>
-        <label className="block text-[13px] text-[#a1a1a6]">
-          Photo (JPG, PNG or WebP, under 1 MB)
-          <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => upload(e.target.files?.[0])} className="mt-1 block text-[13px] text-[#c7cdd8]" />
-        </label>
-        {image && (
-          <div className="relative h-24 w-24 overflow-hidden rounded-lg">
-            <Image src={image} alt="Product photo preview" fill sizes="96px" className="object-cover" />
+        <div className="flex items-center gap-4 sm:col-span-2">
+          <div className="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-dashed border-white/20 bg-black/30 text-[11px] text-[#86868b]">
+            {image ? <Image src={image} alt="Product photo preview" fill sizes="96px" className="object-cover" /> : uploading ? "Uploading…" : "No photo"}
           </div>
-        )}
+          <div className="text-[13px] text-[#a1a1a6]">
+            <label className="inline-flex cursor-pointer rounded-full border border-white/20 px-4 py-2 font-semibold text-white hover:bg-white/5">
+              {uploading ? "Uploading…" : image ? "Change photo" : "Upload photo"}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                disabled={uploading}
+                onChange={(e) => upload(e.target.files?.[0])}
+                className="sr-only"
+              />
+            </label>
+            {image && (
+              <button type="button" onClick={() => setImage("")} className="ml-3 text-[12px] text-[#a1a1a6] underline">
+                Remove
+              </button>
+            )}
+            <p className="mt-2 text-[12px] text-[#86868b]">JPG, PNG or WebP under 1 MB. Square photos look best.</p>
+          </div>
+        </div>
       </div>
       <div className="mt-4 flex gap-3">
-        <button type="submit" disabled={busy} className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60">
+        <button type="submit" disabled={busy || uploading} className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60">
           {busy ? "Saving…" : "Save product"}
         </button>
         <button type="button" onClick={onCancel} className="text-[14px] text-[#a1a1a6] underline">
@@ -545,7 +671,13 @@ function OrdersPanel({ orders }: { orders: Order[] }) {
                 <span className="font-semibold text-white">
                   {o.customer_name} · {formatKobo(o.amount_kobo)}
                 </span>
-                <span className={o.status === "paid" ? "text-emerald-300" : "text-[#86868b]"}>{o.status}</span>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-[11px] font-semibold capitalize ${
+                    o.status === "paid" ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-[#a1a1a6]"
+                  }`}
+                >
+                  {o.status === "pending" ? "Awaiting payment" : o.status}
+                </span>
               </div>
               <p className="text-[13px] text-[#a1a1a6]">
                 {o.items.map((i) => `${i.qty} × ${i.name}`).join(", ")} ·{" "}
