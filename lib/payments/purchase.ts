@@ -14,6 +14,7 @@ import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getPaidToolByProductId } from "@/lib/tools/paid";
 import { getDigitalProduct } from "@/lib/products";
 import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
+import { GIFT_ONLY_REF_RE, captureGiftHold, giftOnlyTransaction } from "@/lib/giftcards/server";
 
 export type PaystackTx = {
   reference: string;
@@ -35,7 +36,10 @@ const TX_CACHE_MS = 10 * 60 * 1000;
 export async function fetchPaystackTransaction(reference: string): Promise<PaystackTx | null> {
   const secret = process.env.PAYSTACK_SECRET_KEY || "";
   const ref = reference.trim();
-  if (!secret || !ref || ref.length > 100) return null;
+  if (!ref || ref.length > 100) return null;
+  // Purchases paid entirely with a DoyinTech gift card have no Paystack transaction.
+  if (GIFT_ONLY_REF_RE.test(ref)) return giftOnlyTransaction(ref, signQuote);
+  if (!secret) return null;
 
   const cached = txCache.get(ref);
   if (cached && Date.now() - cached.at < TX_CACHE_MS) return cached.tx;
@@ -101,6 +105,11 @@ export async function checkTransactionPaysForItsProduct(tx: PaystackTx): Promise
   const expectedKobo = quotedAmount(tx, productId) ?? item.amountKobo;
   if ((tx.currency || "NGN").toUpperCase() !== "NGN" || tx.amount < expectedKobo) {
     return { ok: false, error: "Payment amount does not match the product price.", status: 402 };
+  }
+  // Part-paid with a gift card: the card share must actually be taken from the card.
+  const giftHold = String(tx.metadata?.gift_hold || "");
+  if (giftHold && !(await captureGiftHold(giftHold))) {
+    return { ok: false, error: "The gift card on this payment no longer has enough balance.", status: 402 };
   }
   return { ok: true, productId: item.id, email: txEmail(tx), amountKobo: tx.amount, tx };
 }

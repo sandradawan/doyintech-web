@@ -8,7 +8,12 @@ import PassiveProducts from "@/components/sections/PassiveProducts";
 import FAQ from "@/components/sections/FAQ";
 import BookCall from "@/components/sections/BookCall";
 import Footer from "@/components/ui/Footer";
+import FeaturedShops from "@/components/storefront/FeaturedShops";
+
 import type { Metadata } from "next";
+
+// Featured (sponsored) shops change as sellers buy placement.
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -30,6 +35,7 @@ export default function Home() {
         <Packages />
         <Testimonials />
         <PassiveProducts />
+        <FeaturedShops />
         <FAQ />
         <BookCall />
       </main>

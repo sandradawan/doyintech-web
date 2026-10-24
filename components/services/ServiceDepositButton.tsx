@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import type { ServiceOffer } from "@/lib/service-offers";
 import { serviceWhatsAppLink } from "@/lib/service-offers";
 
@@ -16,11 +17,7 @@ export default function ServiceDepositButton({ offer }: { offer: ServiceOffer })
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: offer.id,
-          email: email.trim(),
-          name: "Service deposit",
-        }),
+        body: JSON.stringify(withGiftCode({ productId: offer.id, email: email.trim(), name: "Service deposit" })),
       });
       const data = await res.json();
       if (res.status === 503 || data.code === "NO_KEYS" || !data.authorization_url) {

@@ -12,6 +12,7 @@ import { Suspense } from "react";
 import ReferralCapture from "@/components/ui/ReferralCapture";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ConversionTracker from "@/components/analytics/ConversionTracker";
+import GiftCardPill from "@/components/giftcards/GiftCardPill";
 import OfflinePlayHint from "@/components/game/OfflinePlayHint";
 import ServiceWorkerRegister from "@/components/game/ServiceWorkerRegister";
 import { SITE_URL } from "@/lib/site";
@@ -125,6 +126,7 @@ export default function RootLayout({
           <ServiceWorkerRegister />
           <CookieConsent />
           <ConversionTracker />
+          <GiftCardPill />
           <Suspense fallback={null}>
             <ReferralCapture />
             <MetaPixel />

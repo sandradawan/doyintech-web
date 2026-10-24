@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import type { DigitalProduct } from "@/lib/products";
 import { productWhatsAppLink } from "@/lib/products";
 
@@ -33,11 +34,7 @@ export default function PaystackBuyButton({
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: product.id,
-          email: email.trim(),
-          name: "",
-        }),
+        body: JSON.stringify(withGiftCode({ productId: product.id, email: email.trim(), name: "" })),
       });
       const data = await res.json();
 

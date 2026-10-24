@@ -17,7 +17,10 @@ export async function GET(req: NextRequest) {
   const paid = await isPaidStore(user.email);
   if (!store) return NextResponse.json({ store: null, paid, freeLimit: FREE_PRODUCT_LIMIT }, { headers: NO_STORE });
 
-  const [{ data: products }, { data: orders }, { data: discounts }, { data: requests }] = await Promise.all([
+  const since = (days: number) => new Date(Date.now() - days * 86_400_000).toISOString();
+  const views = (labels: string[], days: number) =>
+    db().from("site_events").select("id", { count: "exact", head: true }).eq("name", "shop_view").in("label", labels).gte("created_at", since(days));
+  const [{ data: products }, { data: orders }, { data: discounts }, { data: requests }, v7, v30, dir30] = await Promise.all([
     db().from("storefront_products").select("*").eq("store_id", store.id).order("sort").order("created_at"),
     db()
       .from("storefront_orders")
@@ -38,6 +41,9 @@ export async function GET(req: NextRequest) {
       .eq("store_id", store.id)
       .order("created_at", { ascending: false })
       .limit(50),
+    views([store.slug, `${store.slug}:dir`], 7),
+    views([store.slug, `${store.slug}:dir`], 30),
+    views([`${store.slug}:dir`], 30),
   ]);
 
   return NextResponse.json(
@@ -49,6 +55,7 @@ export async function GET(req: NextRequest) {
       requests: requests || [],
       paid,
       freeLimit: FREE_PRODUCT_LIMIT,
+      stats: { views7: v7.count ?? 0, views30: v30.count ?? 0, fromDoyinTech30: dir30.count ?? 0 },
       feePercent: paid ? 0 : FREE_PLAN_FEE_PERCENT,
     },
     { headers: NO_STORE }

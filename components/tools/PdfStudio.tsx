@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import { getDigitalProduct } from "@/lib/products";
 import { useProMembership } from "@/lib/subscriptions/useProMembership";
 
@@ -102,11 +103,7 @@ export default function PdfStudio() {
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: PRODUCT_ID,
-          email: payEmail,
-          name: fromName || "PDF Studio user",
-        }),
+        body: JSON.stringify(withGiftCode({ productId: PRODUCT_ID, email: payEmail, name: fromName || "PDF Studio user" })),
       });
       const data = await res.json();
       if (res.status === 503 || data.code === "NO_KEYS") {

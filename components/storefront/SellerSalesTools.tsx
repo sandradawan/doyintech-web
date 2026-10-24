@@ -39,7 +39,17 @@ const pill = (on: boolean) =>
 const ngn = (kobo: number) => String(kobo / 100);
 
 /** Pay to appear first in the /shops directory with a "Sponsored" label. */
-export function BoostPanel({ store, productCount, onChange }: { store: Storefront; productCount: number; onChange: () => void }) {
+export function BoostPanel({
+  store,
+  productCount,
+  stats,
+  onChange,
+}: {
+  store: Storefront;
+  productCount: number;
+  stats?: { views7: number; views30: number; fromDoyinTech30: number };
+  onChange: () => void;
+}) {
   const [busy, setBusy] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [confirming, setConfirming] = useState(false);
@@ -97,12 +107,17 @@ export function BoostPanel({ store, productCount, onChange }: { store: Storefron
             Sponsored shops appear first on{" "}
             <Link href="/shops" target="_blank" className="text-[#ff8c14] hover:underline">
               doyintech.com/shops
-            </Link>{" "}
-            and at the top of their category, in front of people already looking to buy.
+            </Link>, at the top of their category and in Featured shops on the DoyinTech homepage, in front of people already looking to buy.
           </p>
         </div>
         {active && <span className={pill(true)}>Featured until {featuredUntil!.toLocaleDateString("en-NG", { day: "numeric", month: "short" })}</span>}
       </div>
+      {stats && (
+        <p className="mt-3 text-[13px] text-[#c7cdd8]">
+          Last 30 days: <strong className="text-white">{stats.views30}</strong> shop view{stats.views30 === 1 ? "" : "s"}, of which{" "}
+          <strong className="text-white">{stats.fromDoyinTech30}</strong> came from the DoyinTech directory and homepage.
+        </p>
+      )}
       {confirming && <p className="mt-3 text-[13px] text-[#a1a1a6]">Confirming your payment…</p>}
       {!ready ? (
         <p className="mt-3 text-[13px] text-[#ff8c14]">Make your shop visible and add a product in stock to promote it.</p>

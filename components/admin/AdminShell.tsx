@@ -41,6 +41,8 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/admin/r/subscriptions", label: "Subscriptions" },
       { href: "/admin/r/payment_claims", label: "Payments ledger" },
+      { href: "/admin/r/gift_cards", label: "Gift cards" },
+      { href: "/admin/r/gift_card_holds", label: "Gift card spending" },
       { href: "/admin/conversions", label: "Conversions" },
       { href: "/admin/pricing", label: "Pricing" },
     ],

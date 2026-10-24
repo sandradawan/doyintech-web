@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import type { UiComponentPack } from "@/lib/ui-components";
 import { formatCompPrice } from "@/lib/shop/format";
 import { usePurchaseUnlock } from "@/lib/shop/usePurchaseUnlock";
@@ -67,11 +68,7 @@ export function ComponentBuyPanel({ item }: { item: UiComponentPack }) {
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: item.id,
-          email: email.trim(),
-          name: "Component buyer",
-        }),
+        body: JSON.stringify(withGiftCode({ productId: item.id, email: email.trim(), name: "Component buyer" })),
       });
       const data = await res.json();
       if (res.status === 503 || data.code === "NO_KEYS" || !data.authorization_url) {

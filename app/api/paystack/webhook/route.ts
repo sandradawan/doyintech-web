@@ -12,6 +12,7 @@ import { notifyNewSubscription } from "@/lib/subscriptions/notify";
 import { markStorefrontOrderPaid } from "@/lib/storefront/orders";
 import { markPaymentRequestPaid } from "@/lib/storefront/requests";
 import { markBoostPaid } from "@/lib/storefront/boosts";
+import { activateGiftCard } from "@/lib/giftcards/server";
 import { recordEvent } from "@/lib/analytics/server";
 import { markConverted } from "@/lib/newsletter/enroll";
 import {
@@ -178,6 +179,11 @@ export async function POST(req: NextRequest) {
     // Storefront customer payments (settled to the seller's subaccount).
     if (kind === "storefront") {
       await markStorefrontOrderPaid(data);
+      return NextResponse.json({ received: true });
+    }
+    // Gift card purchases: activate and email the code.
+    if (kind === "gift_card") {
+      await activateGiftCard(data);
       return NextResponse.json({ received: true });
     }
     // Sponsored shop listings (paid to DoyinTech).

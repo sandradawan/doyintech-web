@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 
 /** Email + pay for a fixed-price add-on (full price, via the same Paystack initialize route as deposits). */
 export default function AddonBuyButton({ id, name, price }: { id: string; name: string; price: string }) {
@@ -16,7 +17,7 @@ export default function AddonBuyButton({ id, name, price }: { id: string; name: 
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: id, email: email.trim(), name: "Add-on" }),
+        body: JSON.stringify(withGiftCode({ productId: id, email: email.trim(), name: "Add-on" })),
       });
       const data = await res.json();
       if (!res.ok || !data.authorization_url) throw new Error(data.error || "Could not start payment");

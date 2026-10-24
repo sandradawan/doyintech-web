@@ -159,7 +159,11 @@ export default async function ShopsPage({ searchParams }: Props) {
             <div>
               <h2 className="text-[18px] font-semibold text-white">Sell here</h2>
               <p className="mt-1 text-[14px] text-[#a1a1a6]">
-                Open a free shop in two minutes and get listed. Want more buyers? Feature your shop at the top from ₦2,000 a week.
+                Open a free shop in two minutes and get listed. Want more buyers?{" "}
+                <Link href="/get-featured" className="text-[#ff8c14] hover:underline">
+                  Feature your shop
+                </Link>{" "}
+                at the top from ₦2,000 a week.
               </p>
             </div>
             <Link href="/stores" className="inline-flex justify-center rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">

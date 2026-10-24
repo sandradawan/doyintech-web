@@ -47,6 +47,7 @@ type Me = {
   paid: boolean;
   freeLimit: number;
   feePercent?: number;
+  stats?: { views7: number; views30: number; fromDoyinTech30: number };
 };
 
 const field =
@@ -145,8 +146,9 @@ export default function SellerDashboard() {
             </a>
           </div>
         </div>
-        <dl className="mt-6 grid grid-cols-3 gap-3">
+        <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {[
+            ["Shop views (7 days)", String(me.stats?.views7 ?? 0)],
             ["Products", me.paid ? String(products.length) : `${products.length}/${me.freeLimit}`],
             ["Paid orders", String(paidOrders.length)],
             ["Online sales", formatKobo(revenue)],
@@ -208,7 +210,7 @@ export default function SellerDashboard() {
 
       <ProductsPanel products={products} atLimit={atLimit} freeLimit={me.freeLimit} onChange={load} />
       <PaymentsPanel store={store} feePercent={me.feePercent ?? 0} onChange={load} />
-      <BoostPanel store={store} productCount={products.filter((p) => p.in_stock).length} onChange={load} />
+      <BoostPanel store={store} productCount={products.filter((p) => p.in_stock).length} stats={me.stats} onChange={load} />
       <DeliveryPanel key={JSON.stringify(store.delivery_zones || [])} zones={store.delivery_zones || []} onChange={load} />
       <DiscountsPanel discounts={me.discounts || []} paid={me.paid} onChange={load} />
       <PaymentLinksPanel

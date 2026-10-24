@@ -31,6 +31,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "Browse shops", href: "/shops", desc: "Buy from small businesses" },
       { name: "Free online shop", href: "/stores", desc: "Sell on WhatsApp with one link" },
+      { name: "Gift cards", href: "/gift-cards", desc: "Give tools, templates or a website" },
       { name: "Business kits", href: "/products", desc: "Scripts, trackers & playbooks" },
       { name: "Ebooks", href: "/ebooks", desc: "Practical guides" },
       { name: "Report Studio", href: "/reports", desc: "Social & brand presence reports" },

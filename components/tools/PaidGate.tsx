@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import Link from "next/link";
 import { track } from "@/lib/analytics/client";
 import { useProMembership } from "@/lib/subscriptions/useProMembership";
@@ -73,11 +74,7 @@ export default function PaidGate({
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: def!.productId,
-          email,
-          name: "Tool user",
-        }),
+        body: JSON.stringify(withGiftCode({ productId: def!.productId, email, name: "Tool user" })),
       });
       const data = await res.json();
       if (res.status === 503 || data.code === "NO_KEYS") {

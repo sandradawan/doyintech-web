@@ -26,6 +26,8 @@ export default function Footer() {
       links: [
         ["/shops", "Browse shops"],
         ["/stores", "Free online shop"],
+        ["/get-featured", "Feature your shop"],
+        ["/gift-cards", "Gift cards"],
         ["/products", "Business kits"],
         ["/ebooks", "Ebooks"],
         ["/reports", "Report Studio"],

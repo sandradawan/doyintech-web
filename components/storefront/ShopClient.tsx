@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa6";
+import { track } from "@/lib/analytics/client";
 import {
   FiCheck,
   FiChevronLeft,
@@ -136,6 +137,25 @@ export default function ShopClient({
   const cartKey = `dt_shop_cart_${slug}`;
   const detailsKey = `dt_shop_details_${slug}`;
   const hue = hueFor(slug);
+
+  // One view per visitor per 30 minutes; ":dir" marks visits that came from DoyinTech (directory, homepage).
+  useEffect(() => {
+    try {
+      const key = `dt_view_${slug}`;
+      if (Date.now() - Number(sessionStorage.getItem(key) || 0) < 30 * 60_000) return;
+      sessionStorage.setItem(key, String(Date.now()));
+    } catch {
+      /* storage blocked: still count */
+    }
+    let fromDoyinTech = false;
+    try {
+      const ref = new URL(document.referrer);
+      fromDoyinTech = ref.host === window.location.host && !ref.pathname.startsWith("/s/");
+    } catch {
+      /* no referrer */
+    }
+    track("shop_view", fromDoyinTech ? `${slug}:dir` : slug);
+  }, [slug]);
 
   const [cart, setCart] = useState<Record<string, number>>({});
   const [details, setDetails] = useState<Details>({ name: "", phone: "", email: "", note: "" });

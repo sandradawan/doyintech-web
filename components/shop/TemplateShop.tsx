@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import type { PageTemplate } from "@/lib/page-templates";
 import { formatTplPrice } from "@/lib/shop/format";
 import { usePurchaseUnlock } from "@/lib/shop/usePurchaseUnlock";
@@ -47,11 +48,7 @@ export function TemplateBuyPanel({ item }: { item: PageTemplate }) {
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: item.id,
-          email: email.trim(),
-          name: "Template buyer",
-        }),
+        body: JSON.stringify(withGiftCode({ productId: item.id, email: email.trim(), name: "Template buyer" })),
       });
       const data = await res.json();
       if (res.status === 503 || data.code === "NO_KEYS" || !data.authorization_url) {

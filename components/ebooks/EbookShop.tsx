@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { withGiftCode } from "@/lib/giftcards/client";
 import type { Ebook, EbookChapter } from "@/lib/ebooks";
 import type { PublicEbook } from "@/lib/shop/public";
 import { formatEbookPrice } from "@/lib/shop/format";
@@ -121,11 +122,13 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
       const res = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: book.id,
-          email: email.trim(),
-          name: name.trim() || "Ebook buyer",
-        }),
+        body: JSON.stringify(
+          withGiftCode({
+            productId: book.id,
+            email: email.trim(),
+            name: name.trim() || "Ebook buyer",
+          })
+        ),
       });
       const data = await res.json();
       if (res.status === 503 || data.code === "NO_KEYS" || !data.authorization_url) {

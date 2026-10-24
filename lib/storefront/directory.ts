@@ -76,3 +76,9 @@ export async function listShops(opts: { q?: string; category?: string; city?: st
       return rest;
     });
 }
+
+/** Shops currently paying for placement (for the homepage and /stores). */
+export async function listFeaturedShops(limit = 6): Promise<DirectoryShop[]> {
+  const all = await listShops({});
+  return all.filter((s) => s.sponsored).slice(0, limit);
+}
