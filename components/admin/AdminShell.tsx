@@ -59,6 +59,7 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/admin/r/storefronts", label: "Seller shops" },
       { href: "/admin/r/storefront_orders", label: "Shop orders" },
+      { href: "/admin/r/storefront_boosts", label: "Sponsored listings" },
       { href: "/admin/r/storefront_products", label: "Shop products" },
       { href: "/admin/r/storefront_discounts", label: "Discount codes" },
       { href: "/admin/r/storefront_payment_requests", label: "Payment links" },

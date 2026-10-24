@@ -11,6 +11,7 @@ import { planIdForCode, recordRenewal, syncSubscription } from "@/lib/subscripti
 import { notifyNewSubscription } from "@/lib/subscriptions/notify";
 import { markStorefrontOrderPaid } from "@/lib/storefront/orders";
 import { markPaymentRequestPaid } from "@/lib/storefront/requests";
+import { markBoostPaid } from "@/lib/storefront/boosts";
 import { recordEvent } from "@/lib/analytics/server";
 import { markConverted } from "@/lib/newsletter/enroll";
 import {
@@ -177,6 +178,11 @@ export async function POST(req: NextRequest) {
     // Storefront customer payments (settled to the seller's subaccount).
     if (kind === "storefront") {
       await markStorefrontOrderPaid(data);
+      return NextResponse.json({ received: true });
+    }
+    // Sponsored shop listings (paid to DoyinTech).
+    if (kind === "store_boost") {
+      await markBoostPaid(data);
       return NextResponse.json({ received: true });
     }
     // Sellers' payment links (invoices), also settled to their subaccount.

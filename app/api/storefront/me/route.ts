@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse, after } from "next/server";
 import { userFromBearer } from "@/lib/auth/request-user";
 import { db, isPaidStore, storeForOwner } from "@/lib/storefront/server";
-import { FREE_PLAN_FEE_PERCENT, FREE_PRODUCT_LIMIT, isValidSlug, normalizeSlug, normalizeWhatsapp } from "@/lib/storefront/shared";
+import { FREE_PLAN_FEE_PERCENT, FREE_PRODUCT_LIMIT, STORE_CATEGORIES, isValidSlug, normalizeSlug, normalizeWhatsapp } from "@/lib/storefront/shared";
 import { recordEvent } from "@/lib/analytics/server";
 import { enrollSubscriber } from "@/lib/newsletter/enroll";
 import { limitRequest } from "@/lib/rate-limit";
@@ -66,6 +66,8 @@ export async function POST(req: NextRequest) {
   const name = String(body.name || "").trim().slice(0, 80);
   const slug = normalizeSlug(String(body.slug || name));
   const tagline = String(body.tagline || "").trim().slice(0, 160) || null;
+  const category = (STORE_CATEGORIES as readonly string[]).includes(String(body.category)) ? String(body.category) : null;
+  const city = String(body.city || "").trim().replace(/s+/g, " ").slice(0, 40) || null;
   const whatsapp = normalizeWhatsapp(String(body.whatsapp || ""));
   const isPublished = body.is_published !== false;
 
@@ -76,7 +78,7 @@ export async function POST(req: NextRequest) {
   if (!whatsapp) return NextResponse.json({ error: "Enter a valid WhatsApp number." }, { status: 400 });
 
   const existing = await storeForOwner(user.id);
-  const row = { name, slug, tagline, whatsapp, is_published: isPublished, updated_at: new Date().toISOString() };
+  const row = { name, slug, tagline, whatsapp, category, city, is_published: isPublished, updated_at: new Date().toISOString() };
   const { data, error } = existing
     ? await db().from("storefronts").update(row).eq("id", existing.id).select("id, slug").single()
     : await db()

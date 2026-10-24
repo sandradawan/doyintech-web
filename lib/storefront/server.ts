@@ -4,7 +4,7 @@ import { hasActiveFamily } from "@/lib/subscriptions/server";
 import { normalizeCode, type Discount, type StoreProduct, type Storefront } from "@/lib/storefront/shared";
 
 const STORE_COLUMNS =
-  "id, slug, name, tagline, whatsapp, is_published, payments_status, bank_name, account_name, account_last4, delivery_zones";
+  "id, slug, name, tagline, whatsapp, is_published, payments_status, bank_name, account_name, account_last4, delivery_zones, category, city, featured_until";
 
 export function db() {
   const sb = getSupabaseAdmin();

@@ -630,21 +630,6 @@ export function ChatbotScriptTool() {
   );
 }
 
-// ——— QR (uses free API image) ———
-export function QrTool() {
-  const [text, setText] = useState("https://www.doyintech.com");
-  const src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(text || "https://www.doyintech.com")}`;
-  return (
-    <div className={box}>
-      <input className={input} value={text} onChange={(e) => setText(e.target.value)} placeholder="URL or text" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="QR code" width={220} height={220} className="rounded-xl border border-white/10 bg-white p-2" />
-      <p className="text-xs text-gray-500">Tip: use a WhatsApp link wa.me/234… for contact QR codes.</p>
-      <LeadForm tool="QR Generator" />
-    </div>
-  );
-}
-
 // ——— Password ———
 export function PasswordTool() {
   const [len, setLen] = useState(16);

@@ -24,6 +24,7 @@ export default function Footer() {
     {
       title: "Shop",
       links: [
+        ["/shops", "Browse shops"],
         ["/stores", "Free online shop"],
         ["/products", "Business kits"],
         ["/ebooks", "Ebooks"],

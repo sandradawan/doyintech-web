@@ -4,6 +4,35 @@ export const FREE_PRODUCT_LIMIT = 5;
 /** Free shops pay this on each online order (taken by Paystack split); the Store plan pays none. */
 export const FREE_PLAN_FEE_PERCENT = 1.5;
 export const MAX_DELIVERY_ZONES = 20;
+
+/** Directory categories sellers pick from. */
+export const STORE_CATEGORIES = [
+  "Fashion & clothing",
+  "Beauty & skincare",
+  "Food & drinks",
+  "Cakes & pastries",
+  "Phones & gadgets",
+  "Home & kitchen",
+  "Health & wellness",
+  "Kids & baby",
+  "Hair & wigs",
+  "Shoes & bags",
+  "Jewellery & accessories",
+  "Books & stationery",
+  "Art & crafts",
+  "Services",
+  "Other",
+] as const;
+
+/** Paid "Sponsored" placement at the top of /shops. */
+export const BOOST_PLANS = [
+  { days: 7, amountKobo: 200_000, label: "7 days" },
+  { days: 30, amountKobo: 600_000, label: "30 days" },
+] as const;
+
+export function categorySlug(category: string): string {
+  return category.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
 export const RESERVED_SLUGS = new Set(["admin", "api", "dashboard", "doyintech", "new", "store", "stores", "www"]);
 
 export type PaymentsStatus = "off" | "pending_review" | "active" | "rejected";
@@ -20,6 +49,9 @@ export type Storefront = {
   account_name: string | null;
   account_last4: string | null;
   delivery_zones: DeliveryZone[];
+  category?: string | null;
+  city?: string | null;
+  featured_until?: string | null;
 };
 
 export type DeliveryZone = { name: string; fee_kobo: number };

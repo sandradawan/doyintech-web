@@ -83,7 +83,10 @@ export default async function ShopPage({ params }: Props) {
       <footer className="mx-auto mt-20 max-w-[1200px] border-t border-black/[0.06] px-4 pt-8 text-[13px] text-[#777] sm:px-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {store.name}
+            © {new Date().getFullYear()} {store.name} ·{" "}
+            <Link href="/shops" className="hover:underline">
+              More shops
+            </Link>
           </p>
           {!paid && (
             <p>

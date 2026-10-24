@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { sellerApi } from "@/lib/storefront/sellerApi";
-import { formatKobo, MAX_DELIVERY_ZONES, type DeliveryZone } from "@/lib/storefront/shared";
+import { BOOST_PLANS, formatKobo, MAX_DELIVERY_ZONES, type DeliveryZone, type Storefront } from "@/lib/storefront/shared";
 
 export type DiscountRow = {
   code: string;
@@ -36,6 +37,89 @@ const pill = (on: boolean) =>
   `rounded-full px-2 py-0.5 text-[11px] font-semibold ${on ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-[#a1a1a6]"}`;
 
 const ngn = (kobo: number) => String(kobo / 100);
+
+/** Pay to appear first in the /shops directory with a "Sponsored" label. */
+export function BoostPanel({ store, productCount, onChange }: { store: Storefront; productCount: number; onChange: () => void }) {
+  const [busy, setBusy] = useState<number | null>(null);
+  const [error, setError] = useState("");
+  const [confirming, setConfirming] = useState(false);
+  const featuredUntil = store.featured_until ? new Date(store.featured_until) : null;
+  const active = featuredUntil && featuredUntil > new Date();
+  const ready = store.is_published && productCount > 0;
+
+  // Back from Paystack (?boost=BST_…): confirm, then refresh the dashboard.
+  useEffect(() => {
+    const ref = new URLSearchParams(window.location.search).get("boost");
+    if (!ref) return;
+    let tries = 0;
+    let stop = false;
+    setConfirming(true);
+    async function poll() {
+      try {
+        const data = await sellerApi<{ status: string }>(`/api/storefront/boost?ref=${encodeURIComponent(ref!)}`);
+        if (stop) return;
+        if (data.status === "paid") {
+          setConfirming(false);
+          window.history.replaceState(null, "", window.location.pathname);
+          onChange();
+          return;
+        }
+      } catch {
+        /* retry */
+      }
+      if (!stop && ++tries < 12) setTimeout(poll, 3000);
+      else setConfirming(false);
+    }
+    poll();
+    return () => {
+      stop = true;
+    };
+  }, [onChange]);
+
+  async function buy(days: number) {
+    setBusy(days);
+    setError("");
+    try {
+      const data = await sellerApi<{ authorization_url: string }>("/api/storefront/boost", { method: "POST", body: JSON.stringify({ days }) });
+      window.location.href = data.authorization_url;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not start payment");
+      setBusy(null);
+    }
+  }
+
+  return (
+    <div className={`${card} ${active ? "border-[#ff8c14]/40" : ""}`}>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-[16px] font-semibold text-white">Get featured in the shop directory</p>
+          <p className="mt-1 max-w-xl text-[13px] text-[#a1a1a6]">
+            Sponsored shops appear first on{" "}
+            <Link href="/shops" target="_blank" className="text-[#ff8c14] hover:underline">
+              doyintech.com/shops
+            </Link>{" "}
+            and at the top of their category, in front of people already looking to buy.
+          </p>
+        </div>
+        {active && <span className={pill(true)}>Featured until {featuredUntil!.toLocaleDateString("en-NG", { day: "numeric", month: "short" })}</span>}
+      </div>
+      {confirming && <p className="mt-3 text-[13px] text-[#a1a1a6]">Confirming your payment…</p>}
+      {!ready ? (
+        <p className="mt-3 text-[13px] text-[#ff8c14]">Make your shop visible and add a product in stock to promote it.</p>
+      ) : (
+        <div className="mt-4 flex flex-wrap gap-3">
+          {BOOST_PLANS.map((p) => (
+            <button key={p.days} type="button" disabled={busy !== null} onClick={() => buy(p.days)} className={p.days === 30 ? primary : "rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white disabled:opacity-60"}>
+              {busy === p.days ? "Opening payment…" : `${active ? "Add" : "Feature for"} ${p.label} · ${formatKobo(p.amountKobo)}`}
+            </button>
+          ))}
+        </div>
+      )}
+      {active && <p className="mt-2 text-[12px] text-[#86868b]">Buying more adds days on top of your current featured time.</p>}
+      {error && <p className="mt-2 text-[13px] text-red-400">{error}</p>}
+    </div>
+  );
+}
 
 /** Delivery areas and their fees, chosen by customers at checkout. */
 export function DeliveryPanel({ zones, onChange }: { zones: DeliveryZone[]; onChange: () => void }) {

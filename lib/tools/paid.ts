@@ -11,6 +11,15 @@ export type PaidToolDef = {
 
 export const PAID_TOOLS: PaidToolDef[] = [
   {
+    toolSlug: "branded-qr",
+    productId: "tool-branded-qr",
+    title: "Branded QR Codes",
+    priceNgn: "₦1,500",
+    amountKobo: 150000,
+    unlockKey: "doyintech_branded_qr_unlocked",
+    short: "Your logo in the middle, brand colours and a “Scan to order” frame",
+  },
+  {
     toolSlug: "paye-calculator-nigeria",
     productId: "tool-payslip-pdf",
     title: "Payslip PDF (PAYE 2026)",

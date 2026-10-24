@@ -7,9 +7,17 @@ import { getSupabaseBrowser } from "@/lib/supabase/client";
 import SubscribeButton from "@/components/subscriptions/SubscribeButton";
 import { absoluteUrl } from "@/lib/site";
 import { sellerApi } from "@/lib/storefront/sellerApi";
-import { DeliveryPanel, DiscountsPanel, PaymentLinksPanel, type DiscountRow, type PaymentLink } from "@/components/storefront/SellerSalesTools";
+import {
+  BoostPanel,
+  DeliveryPanel,
+  DiscountsPanel,
+  PaymentLinksPanel,
+  type DiscountRow,
+  type PaymentLink,
+} from "@/components/storefront/SellerSalesTools";
 import {
   FREE_PLAN_FEE_PERCENT,
+  STORE_CATEGORIES,
   formatKobo,
   normalizeSlug,
   type OrderItem,
@@ -200,6 +208,7 @@ export default function SellerDashboard() {
 
       <ProductsPanel products={products} atLimit={atLimit} freeLimit={me.freeLimit} onChange={load} />
       <PaymentsPanel store={store} feePercent={me.feePercent ?? 0} onChange={load} />
+      <BoostPanel store={store} productCount={products.filter((p) => p.in_stock).length} onChange={load} />
       <DeliveryPanel key={JSON.stringify(store.delivery_zones || [])} zones={store.delivery_zones || []} onChange={load} />
       <DiscountsPanel discounts={me.discounts || []} paid={me.paid} onChange={load} />
       <PaymentLinksPanel
@@ -283,6 +292,8 @@ function StoreForm({ store, onSaved }: { store?: Storefront; onSaved: () => void
   const [slugTouched, setSlugTouched] = useState(Boolean(store));
   const [whatsapp, setWhatsapp] = useState(store?.whatsapp || "");
   const [tagline, setTagline] = useState(store?.tagline || "");
+  const [category, setCategory] = useState(store?.category || "");
+  const [city, setCity] = useState(store?.city || "");
   const [published, setPublished] = useState(store?.is_published ?? true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -296,7 +307,7 @@ function StoreForm({ store, onSaved }: { store?: Storefront; onSaved: () => void
     try {
       await api("/api/storefront/me", {
         method: "POST",
-        body: JSON.stringify({ name, slug: effectiveSlug, whatsapp, tagline, is_published: published }),
+        body: JSON.stringify({ name, slug: effectiveSlug, whatsapp, tagline, category, city, is_published: published }),
       });
       onSaved();
     } catch (err) {
@@ -337,6 +348,21 @@ function StoreForm({ store, onSaved }: { store?: Storefront; onSaved: () => void
         <label className="block text-[13px] text-[#a1a1a6]">
           Short description (optional)
           <input value={tagline} onChange={(e) => setTagline(e.target.value)} placeholder="Fresh pastries delivered in Jos" className={field} />
+        </label>
+        <label className="block text-[13px] text-[#a1a1a6]">
+          Category (for the shop directory)
+          <select value={category} onChange={(e) => setCategory(e.target.value)} className={field}>
+            <option value="">Choose a category</option>
+            {STORE_CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block text-[13px] text-[#a1a1a6]">
+          City
+          <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Jos" maxLength={40} className={field} />
         </label>
       </div>
       {store && (

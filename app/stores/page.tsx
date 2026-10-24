@@ -42,6 +42,10 @@ const FAQS: Faq[] = [
     a: "To protect buyers and sellers, we check each shop before switching on online payments — usually within one business day. WhatsApp ordering works immediately.",
   },
   {
+    q: "Will buyers find my shop?",
+    a: "Every shop with products is listed in the DoyinTech shop directory at doyintech.com/shops, by category and city. To appear first with a Sponsored label, feature your shop from ₦2,000 for 7 days or ₦6,000 for 30 days.",
+  },
+  {
     q: "Do I need a website?",
     a: "No. Your shop link works on its own. When you're ready for a full branded website with your own domain, we build that too.",
   },
