@@ -12,7 +12,7 @@ type LeadBody = {
   email?: string;
   phone?: string;
   product?: string;
-  type?: "waitlist" | "purchase" | "maintenance" | "lead-magnet" | "audit" | "chat" | "referral";
+  type?: "waitlist" | "purchase" | "maintenance" | "lead-magnet" | "audit" | "chat" | "referral" | "quote";
   message?: string;
   source?: string;
   referral?: string;
@@ -66,6 +66,7 @@ export async function POST(req: NextRequest) {
       "audit",
       "chat",
       "referral",
+      "quote",
     ];
     if (!allowedTypes.includes(type)) {
       return NextResponse.json({ error: "Invalid type" }, { status: 400 });
@@ -111,6 +112,7 @@ export async function POST(req: NextRequest) {
     // Follow-up: website/audit enquiries get the lead sequence; tool waitlists and freebies the softer ones.
     const sequenceByType: Partial<Record<string, SequenceId>> = {
       audit: "lead",
+      quote: "lead",
       maintenance: "lead",
       chat: "lead",
       waitlist: "tools",

@@ -20,6 +20,8 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: "Packages & pricing", href: "/hire", desc: "Fixed price · 50% deposit" },
       { name: "By industry", href: "/websites", desc: "Schools, clinics, churches, hotels…" },
+      { name: "Systems", href: "/school-management-software-nigeria", desc: "School software, hotel booking, online stores" },
+      { name: "Business setup", href: "/business-name-registration-nigeria", desc: "CAC, Google Maps, business email" },
       { name: "What a website costs", href: "/website-cost-nigeria", desc: "2026 price guide + calculator" },
       { name: "Website care plans", href: "/care-plans", desc: "Monthly security & updates" },
       { name: "Our work", href: "/case-studies", desc: "Case studies & results" },

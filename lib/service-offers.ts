@@ -158,6 +158,22 @@ export const SERVICE_ADDONS: ServiceAddon[] = [
     delivery: "Draft in 5 working days",
   },
   {
+    id: "service-addon-business-name",
+    name: "Business name registration (CAC)",
+    blurb: "We search, reserve and register your business name with the CAC and send you the certificate.",
+    amountKobo: 1_500_000,
+    includes: ["Name availability search and reservation", "Filing on the CAC portal", "Certificate and status report sent to you", "CAC government fee passed on at cost, confirmed before filing"],
+    delivery: "Usually 2–7 working days after you send your details",
+  },
+  {
+    id: "service-addon-business-email",
+    name: "Business email setup",
+    blurb: "Professional addresses like you@yourbusiness.com on Zoho Mail or Google Workspace, working on your phone.",
+    amountKobo: 2_000_000,
+    includes: ["Domain connected and verified (MX, SPF, DKIM, DMARC)", "Up to 5 mailboxes created", "Set up on your phone and laptop", "Domain registered in your name at registrar price"],
+    delivery: "Done within 3 working days",
+  },
+  {
     id: "service-addon-extra-page",
     name: "Extra website page",
     blurb: "Add one more page to any package: a service, gallery, menu or FAQ page.",

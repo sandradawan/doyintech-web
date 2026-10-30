@@ -98,7 +98,7 @@ export const RESOURCES: Resource[] = [
         key: "type",
         label: "Lead type",
         type: "select",
-        options: ["manual", "audit", "purchase", "waitlist", "lead-magnet", "chat", "maintenance", "referral"],
+        options: ["manual", "quote", "audit", "purchase", "waitlist", "lead-magnet", "chat", "maintenance", "referral"],
       },
       { key: "owner", label: "Owner", type: "text" },
       { key: "source", label: "Source", type: "text" },

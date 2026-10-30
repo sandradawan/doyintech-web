@@ -73,7 +73,15 @@ const field =
   "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
 const label = "block text-xs font-medium text-gray-400 mb-1";
 
-type DocType = "Invoice" | "Quote" | "Receipt";
+type DocType = "Invoice" | "Quote" | "Proforma" | "Receipt";
+
+const DOC_LABEL: Record<DocType, string> = {
+  Invoice: "Invoice",
+  Quote: "Quotation",
+  Proforma: "Proforma invoice",
+  Receipt: "Receipt",
+};
+const DOC_PREFIX: Record<DocType, string> = { Invoice: "INV", Quote: "QUO", Proforma: "PRO", Receipt: "RCT" };
 
 const BRAND_KEY = "doyintech_invoice_brand_v1";
 const DEFAULT_BRAND_COLOR = "#2563eb";
@@ -85,7 +93,7 @@ export default function InvoiceGenerator({
   const [docType, setDocType] = useState<DocType>(initialDocType);
   const [invoiceNo, setInvoiceNo] = useState(
     () =>
-      `${initialDocType === "Receipt" ? "RCT" : "INV"}-${new Date().getFullYear()}-${String(Date.now()).slice(-5)}`,
+      `${DOC_PREFIX[initialDocType]}-${new Date().getFullYear()}-${String(Date.now()).slice(-5)}`,
   );
   // Branding (logo, colour, no footer credit) is the paid upgrade; Pro members get it too.
   const { unlocked: branded } = usePaidUnlock("branded-invoice");
@@ -258,7 +266,7 @@ export default function InvoiceGenerator({
     <div className="space-y-6">
       <div className="invoice-no-print space-y-6 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
         <div className="flex flex-wrap gap-2">
-          {(["Invoice", "Quote", "Receipt"] as const).map((t) => (
+          {(["Invoice", "Quote", "Proforma", "Receipt"] as const).map((t) => (
             <button
               key={t}
               type="button"
@@ -269,14 +277,14 @@ export default function InvoiceGenerator({
                   : "border-white/10 text-gray-400"
               }`}
             >
-              {t}
+              {DOC_LABEL[t]}
             </button>
           ))}
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <label className={label}>{docType} number</label>
+            <label className={label}>{DOC_LABEL[docType]} number</label>
             <input
               className={field}
               value={invoiceNo}
@@ -493,7 +501,7 @@ export default function InvoiceGenerator({
                 // eslint-disable-next-line @next/next/no-img-element -- user-uploaded data URL; next/image can't optimise it
                 <img src={brand.logo} alt={`${biz.name || "Business"} logo`} className="mb-3 max-h-14 max-w-[180px] object-contain" />
               )}
-              <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: accent }}>{docType}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: accent }}>{DOC_LABEL[docType]}</p>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-gray-900">{biz.name || "Your Business Name"}</h2>
               <div className="mt-2 space-y-0.5 text-sm text-gray-600">
                 {biz.address && <p>{biz.address}</p>}
@@ -504,9 +512,9 @@ export default function InvoiceGenerator({
               </div>
             </div>
             <div className="text-right text-sm">
-              <p className="text-gray-500">{docType} No. <span className="font-semibold text-gray-900">{invoiceNo}</span></p>
+              <p className="text-gray-500">{DOC_LABEL[docType]} No. <span className="font-semibold text-gray-900">{invoiceNo}</span></p>
               <p className="mt-1 text-gray-500">Date: <span className="text-gray-900">{formatDate(issueDate)}</span></p>
-              <p className="text-gray-500">Due: <span className="text-gray-900">{formatDate(dueDate)}</span></p>
+              <p className="text-gray-500">{docType === "Quote" || docType === "Proforma" ? "Valid until" : "Due"}: <span className="text-gray-900">{formatDate(dueDate)}</span></p>
               <p className="mt-2">
                 <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${status === "Paid" ? "bg-green-100 text-green-800" : status === "Overdue" ? "bg-red-100 text-red-800" : "bg-amber-100 text-amber-800"}`}>
                   {status}
@@ -529,7 +537,7 @@ export default function InvoiceGenerator({
           </div>
           <div className="sm:text-right">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-              {docType === "Receipt" || status === "Paid" ? "Amount paid" : "Amount due"}
+              {docType === "Receipt" || status === "Paid" ? "Amount paid" : docType === "Quote" ? "Quoted total" : "Amount due"}
             </p>
             <p className="mt-1 text-3xl font-bold" style={{ color: accent }}>{formatNgn(total)}</p>
             <p className="text-xs text-gray-500">Currency: Nigerian Naira (NGN)</p>

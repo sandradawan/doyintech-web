@@ -13,6 +13,13 @@ export default function Footer() {
       links: [
         ["/hire", "Packages & pricing"],
         ["/websites", "Websites by industry"],
+        ["/ecommerce-website-nigeria", "Ecommerce websites"],
+        ["/school-management-software-nigeria", "School management software"],
+        ["/hotel-booking-website-nigeria", "Hotel booking websites"],
+        ["/business-name-registration-nigeria", "CAC business name registration"],
+        ["/google-business-profile-setup", "Get on Google Maps"],
+        ["/business-email-domain-nigeria", "Domain and business email"],
+        ["/web-design-lagos", "Web design Lagos"],
         ["/website-cost-nigeria", "Website cost in Nigeria"],
         ["/care-plans", "Website care plans"],
         ["/case-studies", "Our work"],
