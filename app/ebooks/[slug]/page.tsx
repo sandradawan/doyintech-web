@@ -10,6 +10,7 @@ import {
 import { formatEbookPrice } from "@/lib/ebooks";
 import { ALL_EBOOKS, findAnyEbook } from "@/lib/ebooks-catalog";
 import { publicEbook } from "@/lib/shop/public";
+import { absoluteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -21,9 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const book = findAnyEbook(slug);
   if (!book) return { title: "Ebook" };
+  const title = `${book.title} — Ebook (PDF)`;
   return {
-    title: book.title + " · Ebook",
-    description: book.blurb,
+    title,
+    description: book.blurb.slice(0, 300),
+    alternates: { canonical: `/ebooks/${book.slug}` },
+    openGraph: { title, description: book.subtitle, url: `/ebooks/${book.slug}`, images: [book.coverImage] },
   };
 }
 
@@ -32,9 +36,36 @@ export default async function EbookDetailPage({ params }: Props) {
   const found = findAnyEbook(slug);
   if (!found) notFound();
   const book = publicEbook(found);
+  const url = absoluteUrl(`/ebooks/${book.slug}`);
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": ["Book", "Product"],
+      name: book.title,
+      alternativeHeadline: book.subtitle,
+      description: book.blurb,
+      author: { "@type": "Organization", name: book.author },
+      publisher: { "@type": "Organization", name: "DoyinTech Press" },
+      bookFormat: "https://schema.org/EBook",
+      inLanguage: "en-NG",
+      genre: book.category,
+      image: book.coverImage,
+      url,
+      offers: { "@type": "Offer", price: String(book.priceNgn), priceCurrency: "NGN", availability: "https://schema.org/InStock", url },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Ebooks", item: absoluteUrl("/ebooks") },
+        { "@type": "ListItem", position: 2, name: book.title, item: url },
+      ],
+    },
+  ];
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
           <Link href="/ebooks" className="text-[14px] text-[#ff8c14] hover:underline">

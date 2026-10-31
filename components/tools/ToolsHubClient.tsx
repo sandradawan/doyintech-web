@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   TOOLS_META,
   TOOL_CATEGORIES,
   TOOLS_PER_PAGE,
+  TOOL_AUDIENCES,
   type ToolMeta,
 } from "@/lib/tools/config";
 import { ToolIcon, CategoryIcon } from "@/components/ui/BrandIcons";
@@ -16,10 +17,30 @@ export default function ToolsHubClient() {
   const [category, setCategory] = useState<CatId>("all");
   const [page, setPage] = useState(1);
   const [q, setQ] = useState("");
+  const [audience, setAudience] = useState("");
+
+  // Deep links: /tools?for=students opens the student tools.
+  useEffect(() => {
+    const f = new URLSearchParams(window.location.search).get("for") || "";
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read the ?for= filter once on load
+    if (TOOL_AUDIENCES.some((a) => a.id === f)) setAudience(f);
+  }, []);
+
+  function selectAudience(id: string) {
+    const next = audience === id ? "" : id;
+    setAudience(next);
+    setPage(1);
+    const url = new URL(window.location.href);
+    if (next) url.searchParams.set("for", next);
+    else url.searchParams.delete("for");
+    window.history.replaceState(null, "", url);
+  }
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     let list = TOOLS_META;
+    const aud = TOOL_AUDIENCES.find((a) => a.id === audience);
+    if (aud) list = aud.slugs.map((slug) => list.find((t) => t.slug === slug)).filter((t): t is ToolMeta => Boolean(t));
     if (category !== "all") list = list.filter((t) => t.category === category);
     if (query) {
       list = list.filter(
@@ -31,7 +52,7 @@ export default function ToolsHubClient() {
       );
     }
     return list;
-  }, [category, q]);
+  }, [category, q, audience]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / TOOLS_PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -60,15 +81,33 @@ export default function ToolsHubClient() {
             setPage(1);
           }}
           placeholder="Search tools — invoice, VAT, WhatsApp, margin, word counter…"
-          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-gray-500 focus:border-primary/50"
+          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-gray-400 focus:border-primary/50"
         />
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-2">
+      <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4" role="group" aria-label="Tools by who they're for">
+        {TOOL_AUDIENCES.map((a) => (
+          <button
+            key={a.id}
+            type="button"
+            aria-pressed={audience === a.id}
+            onClick={() => selectAudience(a.id)}
+            className={`min-h-12 rounded-2xl border px-4 text-left text-[14px] font-semibold transition ${
+              audience === a.id
+                ? "border-primary bg-primary/15 text-white"
+                : "border-white/10 bg-white/[0.03] text-gray-200 hover:border-white/30"
+            }`}
+          >
+            {a.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
         <button
           type="button"
           onClick={() => selectCategory("all")}
-          className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
+          className={`min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
             category === "all"
               ? "bg-white text-black"
               : "border border-white/15 text-gray-300 hover:border-white/30"
@@ -84,7 +123,7 @@ export default function ToolsHubClient() {
               key={cat.id}
               type="button"
               onClick={() => selectCategory(cat.id)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition ${
+              className={`inline-flex items-center gap-1.5 min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
                 category === cat.id
                   ? "bg-white text-black"
                   : "border border-white/15 text-gray-300 hover:border-white/30"
@@ -97,7 +136,7 @@ export default function ToolsHubClient() {
         })}
       </div>
 
-      <p className="mt-4 text-sm text-gray-500">
+      <p className="mt-4 text-sm text-gray-400">
         Showing {slice.length} of {filtered.length} tools
         {category !== "all" ? " in this category" : ""}
         {q.trim() ? ` matching "${q.trim()}"` : ""} · Page {safePage} of {totalPages}
@@ -135,14 +174,18 @@ export default function ToolsHubClient() {
               {t.title}
             </h2>
             <p className="mt-1 text-sm text-gray-400">{t.short}</p>
-            <p className="mt-2 line-clamp-2 text-xs text-gray-500">{t.description}</p>
+            <p className="mt-2 line-clamp-2 text-xs text-gray-400">{t.description}</p>
           </Link>
         ))}
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-10 text-center text-sm text-gray-500">
-          No tools match your search. Try invoice, VAT, WhatsApp, or margin.
+        <p className="mt-10 text-center text-sm text-gray-400">
+          No tools match{q.trim() ? ` “${q.trim()}”` : ""}{audience || category !== "all" ? " with these filters" : ""}. Try invoice, payslip, CGPA or certificate, or{" "}
+          <button type="button" className="text-primary underline" onClick={() => { setQ(""); setCategory("all"); selectAudience(""); }}>
+            clear all filters
+          </button>
+          .
         </p>
       ) : null}
 
@@ -152,18 +195,18 @@ export default function ToolsHubClient() {
             type="button"
             disabled={safePage <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white disabled:opacity-40"
+            className="min-h-11 rounded-full border border-white/15 px-5 text-[13px] font-semibold text-white disabled:opacity-40"
           >
             Previous
           </button>
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-400">
             {safePage} / {totalPages}
           </span>
           <button
             type="button"
             disabled={safePage >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white disabled:opacity-40"
+            className="min-h-11 rounded-full border border-white/15 px-5 text-[13px] font-semibold text-white disabled:opacity-40"
           >
             Next
           </button>

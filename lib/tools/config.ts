@@ -45,6 +45,15 @@ export const TOOLS_META: ToolMeta[] = [
   { slug: "proforma-invoice-generator-nigeria", href: "/tools/proforma-invoice-generator-nigeria", title: "Proforma Invoice Generator", short: "Advance payment", description: "Proforma invoices for advance payment, approvals and import paperwork. Free PDF.", icon: "invoice", category: "core", badge: "New" },
   { slug: "cgpa-calculator", href: "/tools/cgpa-calculator", title: "CGPA Calculator Nigeria", short: "5.0 and 4.0 scale", description: "GPA, CGPA and degree class for universities and polytechnics, plus the GPA you need.", icon: "calculator", category: "utility", badge: "New" },
   { slug: "letter-generator", href: "/tools/letter-generator", title: "Letter Generator", short: "Formal letters PDF", description: "Job application, resignation, leave and SIWES letters in the Nigerian format.", icon: "text", category: "core", badge: "New" },
+  { slug: "payslip-generator-nigeria", href: "/tools/payslip-generator-nigeria", title: "Payslip Generator", short: "PAYE + pension", description: "Staff payslips with 2026 PAYE, pension, NHF and loan deductions. Free PDF.", icon: "invoice", category: "business", badge: "New" },
+  { slug: "purchase-order-generator", href: "/tools/purchase-order-generator", title: "Purchase Order Generator", short: "Supplier POs", description: "Purchase orders with items, VAT and delivery date for suppliers. Free PDF.", icon: "invoice", category: "core", badge: "New" },
+  { slug: "business-plan-generator", href: "/tools/business-plan-generator", title: "Business Plan Generator", short: "Plan + financials", description: "Business plan for loans and grants with start-up costs, break-even and payback.", icon: "proposal", category: "business", badge: "New" },
+  { slug: "meeting-minutes-generator", href: "/tools/meeting-minutes-generator", title: "Meeting Minutes Generator", short: "Board & team minutes", description: "Formal or simple minutes with resolutions, action items and signature lines.", icon: "text", category: "core", badge: "New" },
+  { slug: "certificate-generator", href: "/tools/certificate-generator", title: "Certificate Generator", short: "Bulk certificates", description: "Completion, participation and award certificates; paste names to print one each.", icon: "check", category: "core", badge: "New" },
+  { slug: "id-card-generator", href: "/tools/id-card-generator", title: "ID Card Generator", short: "Staff & student IDs", description: "Staff, student and member ID cards with photo, eight per A4 sheet.", icon: "cv", category: "core", badge: "New" },
+  { slug: "timesheet-calculator", href: "/tools/timesheet-calculator", title: "Timesheet Calculator", short: "Hours + overtime", description: "Weekly hours worked, overtime and pay, with a printable signed timesheet.", icon: "calculator", category: "business", badge: "New" },
+  { slug: "aggregate-score-calculator", href: "/tools/aggregate-score-calculator", title: "Aggregate Score Calculator", short: "JAMB + Post-UTME", description: "Admission aggregate from JAMB, Post-UTME and O'level grades.", icon: "calculator", category: "utility", badge: "New" },
+  { slug: "study-timetable-planner", href: "/tools/study-timetable-planner", title: "Study Timetable Planner", short: "Reading timetable", description: "Weekly reading timetable weighted by course difficulty and exam dates.", icon: "check", category: "utility", badge: "New" },
   { slug: "qr-generator", href: "/tools/qr-generator", title: "QR Code Generator", short: "WhatsApp, Wi-Fi, logo", description: "QR codes for links, WhatsApp, Wi-Fi and contact cards. PNG and SVG; add your logo.", icon: "qr", category: "core", badge: "Popular" },
   { slug: "password-generator", href: "/tools/password-generator", title: "Password Generator", short: "Strong passwords", description: "Generate strong random passwords in your browser.", icon: "shield", category: "utility" },
   { slug: "pomodoro-timer", href: "/tools/pomodoro-timer", title: "Pomodoro Focus Timer", short: "Focus + streak", description: "Focus sessions with a daily streak saved on this device.", icon: "calculator", category: "utility", badge: "Daily" },
@@ -108,3 +117,27 @@ export const TOOL_CATEGORIES: { id: ToolMeta["category"]; label: string }[] = [
 ];
 
 export const TOOLS_PER_PAGE = 12;
+
+/** Who a tool is for; drives the "For business / students / offices / organisations" filter on /tools (?for=). */
+export const TOOL_AUDIENCES: { id: string; label: string; slugs: string[] }[] = [
+  {
+    id: "business",
+    label: "For business owners",
+    slugs: ["invoice-generator-nigeria", "receipt-generator-nigeria", "quotation-generator-nigeria", "proforma-invoice-generator-nigeria", "purchase-order-generator", "business-plan-generator", "nigeria-vat-calculator", "profit-margin-calculator", "break-even-calculator", "small-company-tax-checker", "freelancer-tax-calculator-nigeria", "business-name-generator", "whatsapp-link-generator", "qr-generator", "roi-calculator", "loan-emi-calculator"],
+  },
+  {
+    id: "students",
+    label: "For students",
+    slugs: ["cgpa-calculator", "aggregate-score-calculator", "study-timetable-planner", "letter-generator", "cv-builder", "cover-letter", "pomodoro-timer", "word-counter", "interview-practice", "skill-gap", "percentage-calculator", "note-pad"],
+  },
+  {
+    id: "office",
+    label: "For offices & HR",
+    slugs: ["payslip-generator-nigeria", "paye-calculator-nigeria", "timesheet-calculator", "meeting-minutes-generator", "letter-generator", "id-card-generator", "offer-letter", "salary-calculator", "meeting-cost-calculator", "email-signature", "pdf-studio", "ai-job-desc", "ai-meeting-actions", "ai-sop-writer"],
+  },
+  {
+    id: "organisations",
+    label: "For schools, churches & NGOs",
+    slugs: ["certificate-generator", "id-card-generator", "meeting-minutes-generator", "dues-receipt", "receipt-generator-nigeria", "business-plan-generator", "qr-generator", "countdown-timer", "random-picker", "email-signature"],
+  },
+];

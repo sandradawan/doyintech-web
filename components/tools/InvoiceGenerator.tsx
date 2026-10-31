@@ -73,15 +73,16 @@ const field =
   "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
 const label = "block text-xs font-medium text-gray-400 mb-1";
 
-type DocType = "Invoice" | "Quote" | "Proforma" | "Receipt";
+type DocType = "Invoice" | "Quote" | "Proforma" | "Receipt" | "PurchaseOrder";
 
 const DOC_LABEL: Record<DocType, string> = {
   Invoice: "Invoice",
   Quote: "Quotation",
   Proforma: "Proforma invoice",
   Receipt: "Receipt",
+  PurchaseOrder: "Purchase order",
 };
-const DOC_PREFIX: Record<DocType, string> = { Invoice: "INV", Quote: "QUO", Proforma: "PRO", Receipt: "RCT" };
+const DOC_PREFIX: Record<DocType, string> = { Invoice: "INV", Quote: "QUO", Proforma: "PRO", Receipt: "RCT", PurchaseOrder: "PO" };
 
 const BRAND_KEY = "doyintech_invoice_brand_v1";
 const DEFAULT_BRAND_COLOR = "#2563eb";
@@ -266,7 +267,7 @@ export default function InvoiceGenerator({
     <div className="space-y-6">
       <div className="invoice-no-print space-y-6 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
         <div className="flex flex-wrap gap-2">
-          {(["Invoice", "Quote", "Proforma", "Receipt"] as const).map((t) => (
+          {(["Invoice", "Quote", "Proforma", "Receipt", "PurchaseOrder"] as const).map((t) => (
             <button
               key={t}
               type="button"
@@ -301,7 +302,7 @@ export default function InvoiceGenerator({
             />
           </div>
           <div>
-            <label className={label}>Due date</label>
+            <label className={label}>{docType === "PurchaseOrder" ? "Delivery date" : docType === "Quote" || docType === "Proforma" ? "Valid until" : "Due date"}</label>
             <input
               type="date"
               className={field}
@@ -342,7 +343,7 @@ export default function InvoiceGenerator({
 
           <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
             <legend className="px-1 text-sm font-semibold text-white">
-              Bill to (client)
+              {docType === "PurchaseOrder" ? "Supplier" : "Bill to (client)"}
             </legend>
             <input className={field} placeholder="Client / company name" value={client.name} onChange={(e) => setClient({ ...client, name: e.target.value })} />
             <input className={field} placeholder="Street address" value={client.address} onChange={(e) => setClient({ ...client, address: e.target.value })} />
@@ -514,7 +515,7 @@ export default function InvoiceGenerator({
             <div className="text-right text-sm">
               <p className="text-gray-500">{DOC_LABEL[docType]} No. <span className="font-semibold text-gray-900">{invoiceNo}</span></p>
               <p className="mt-1 text-gray-500">Date: <span className="text-gray-900">{formatDate(issueDate)}</span></p>
-              <p className="text-gray-500">{docType === "Quote" || docType === "Proforma" ? "Valid until" : "Due"}: <span className="text-gray-900">{formatDate(dueDate)}</span></p>
+              <p className="text-gray-500">{docType === "PurchaseOrder" ? "Deliver by" : docType === "Quote" || docType === "Proforma" ? "Valid until" : "Due"}: <span className="text-gray-900">{formatDate(dueDate)}</span></p>
               <p className="mt-2">
                 <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${status === "Paid" ? "bg-green-100 text-green-800" : status === "Overdue" ? "bg-red-100 text-red-800" : "bg-amber-100 text-amber-800"}`}>
                   {status}
@@ -526,7 +527,7 @@ export default function InvoiceGenerator({
 
         <div className="grid gap-6 px-6 py-6 sm:grid-cols-2 sm:px-10">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Bill to</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">{docType === "PurchaseOrder" ? "Supplier" : "Bill to"}</p>
             <p className="mt-1 text-base font-semibold text-gray-900">{client.name || "Client name"}</p>
             <div className="mt-1 space-y-0.5 text-sm text-gray-600">
               {client.address && <p>{client.address}</p>}
@@ -537,7 +538,7 @@ export default function InvoiceGenerator({
           </div>
           <div className="sm:text-right">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-              {docType === "Receipt" || status === "Paid" ? "Amount paid" : docType === "Quote" ? "Quoted total" : "Amount due"}
+              {docType === "Receipt" || status === "Paid" ? "Amount paid" : docType === "Quote" ? "Quoted total" : docType === "PurchaseOrder" ? "Order total" : "Amount due"}
             </p>
             <p className="mt-1 text-3xl font-bold" style={{ color: accent }}>{formatNgn(total)}</p>
             <p className="text-xs text-gray-500">Currency: Nigerian Naira (NGN)</p>

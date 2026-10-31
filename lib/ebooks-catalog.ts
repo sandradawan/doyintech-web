@@ -3,6 +3,7 @@ import { EBOOKS } from "./ebooks";
 import { MORE_EBOOKS } from "./ebooks-more";
 import { WAVE3_EBOOKS } from "./ebooks-wave3";
 import { LIFE_EBOOKS } from "./ebooks-life";
+import { WAVE4_EBOOKS } from "./ebooks-wave4";
 import { getFullChapters } from "./ebooks/full";
 
 function withFullBook(book: Ebook): Ebook {
@@ -17,6 +18,7 @@ function withFullBook(book: Ebook): Ebook {
 }
 
 export const ALL_EBOOKS: Ebook[] = [
+  ...WAVE4_EBOOKS,
   ...EBOOKS,
   ...MORE_EBOOKS,
   ...WAVE3_EBOOKS,

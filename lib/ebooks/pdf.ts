@@ -3,9 +3,10 @@
  * Cover · table of contents · chapters · page footers.
  */
 import type { Ebook } from "@/lib/ebooks";
+import { pdfSafe } from "@/lib/delivery/pdf-text";
 
 function esc(s: string): string {
-  return s
+  return pdfSafe(s)
     .replace(/\\/g, "\\\\")
     .replace(/\(/g, "\\(")
     .replace(/\)/g, "\\)")

@@ -5,9 +5,10 @@ import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
 import { publicEbook } from "@/lib/shop/public";
 
 export const metadata: Metadata = {
-  title: "Ebooks — Finance, education, fitness, business & more | DoyinTech",
+  title: "Ebooks for Nigerian Business Owners, Workers & Students (PDF) | DoyinTech",
   description:
-    "Full practical ebooks from DoyinTech Press: personal finance, education, fitness, food, culture, marketing, freelancing, and founder systems. Instant PDF after payment.",
+    "Practical ebooks: start and register a business in Nigeria, Excel for office work, bookkeeping, grants and funding, remote jobs, final year projects, marketing and personal finance. Read chapter one free; instant PDF after payment.",
+  alternates: { canonical: "/ebooks" },
 };
 
 export default function EbooksPage() {
@@ -22,8 +23,7 @@ export default function EbooksPage() {
             Full ebooks for work and life
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
-            Practical books across finance, education, fitness, food, culture, marketing, and
-            business. Buy once — get a professional PDF and on-site reader after payment.
+            Practical books for running a business, getting ahead at work and finishing school: registration and tax, Excel, bookkeeping, funding, remote jobs, final year projects, marketing and money. Read the first chapter free, then get the full PDF and on-site reader after payment.
           </p>
 
           <EbookCatalog books={ALL_EBOOKS.map(publicEbook)} />

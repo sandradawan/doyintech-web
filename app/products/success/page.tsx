@@ -202,9 +202,9 @@ function SuccessInner() {
               <a href="/hire" className="text-[#ff8c14] hover:underline">
                 Hire us
               </a>
-              <a href="/products" className="text-[#2997ff] hover:underline">
+              <Link href="/products" className="text-[#2997ff] hover:underline">
                 Products
-              </a>
+              </Link>
               <Link href="/ebooks" className="text-[#2997ff] hover:underline">
                 Ebooks
               </Link>

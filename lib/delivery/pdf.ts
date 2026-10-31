@@ -1,5 +1,7 @@
+import { pdfSafe } from "./pdf-text";
+
 function escapePdfText(s: string): string {
-  return s.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  return pdfSafe(s).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 }
 
 export function textToPdfBuffer(title: string, body: string): Buffer {

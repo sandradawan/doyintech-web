@@ -13,9 +13,271 @@ export type DigitalProduct = {
   addedAt?: string;
   downloadPath?: string;
   downloadPaths?: string[];
+  /** Store shelf; products without one are filed by productCategory(). */
+  category?: ProductCategory;
+  /** Who it's for, shown on the product page. */
+  audience?: string;
+  /** What's inside, file by file, for the product page. */
+  contents?: string[];
 };
 
+export const PRODUCT_CATEGORIES = ["Business", "Office & HR", "Students", "Schools & organisations", "Marketing & sales"] as const;
+export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
+
+export function productCategory(p: DigitalProduct): ProductCategory {
+  if (p.category) return p.category;
+  return /whatsapp|status|review|referral|hamper|party|caption|marketing/i.test(p.id) ? "Marketing & sales" : "Business";
+}
+
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
+  {
+    id: "hr-staff-policy-starter-pack",
+    name: "HR & Staff Policy Starter Pack",
+    description:
+      "Employee handbook, offer, query, warning, confirmation and termination letters, leave policy, appraisal form and staff register: everything to hire and manage staff properly.",
+    priceUsd: "$19",
+    priceNgn: "₦15,000",
+    amountKobo: 1500000,
+    type: "one-time",
+    badge: "New",
+    category: "Office & HR",
+    audience: "Business owners, HR officers and admin managers with 3–50 staff",
+    features: [
+      "Employee handbook template (10 sections)",
+      "6 HR letters ready for your letterhead",
+      "Leave policy and application form",
+      "Performance appraisal form",
+      "Staff file checklist",
+      "Staff register and leave tracker sheets",
+    ],
+    contents: [
+      "HR & Staff Policy guide (PDF + editable Markdown)",
+      "staff-register.csv",
+      "leave-tracker.csv",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/hr-staff-policy-starter-pack.md",
+    downloadPaths: [
+      "/digital-products/hr-staff-policy-starter-pack.md",
+      "/digital-products/csv/staff-register.csv",
+      "/digital-products/csv/leave-tracker.csv",
+    ],
+    demandNote:
+      "Small companies hire without written policies, then struggle with lateness, queries and exits.",
+    addedAt: "2026-10-31",
+  },
+  {
+    id: "sme-payroll-paye-sheet",
+    name: "SME Payroll & PAYE Sheet (2026)",
+    description:
+      "Payroll spreadsheet with 2026 PAYE bands, pension, NHF, rent relief and net pay for every employee, plus the monthly remittance summary and payroll calendar.",
+    priceUsd: "$16",
+    priceNgn: "₦12,500",
+    amountKobo: 1250000,
+    type: "one-time",
+    badge: "2026 tax",
+    category: "Office & HR",
+    audience: "Employers, accountants and HR running payroll for 2–100 staff",
+    features: [
+      "Copy-paste formulas for Sheets and Excel",
+      "PAYE under the Nigeria Tax Act 2025",
+      "Pension, NHF and rent relief built in",
+      "Remittance summary with due dates",
+      "Payroll calendar and controls",
+      "Worked examples checked against our PAYE calculator",
+    ],
+    contents: [
+      "Payroll guide with formulas (PDF + Markdown)",
+      "payroll.csv with three worked sample employees",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/sme-payroll-paye-sheet.md",
+    downloadPaths: [
+      "/digital-products/sme-payroll-paye-sheet.md",
+      "/digital-products/csv/payroll.csv",
+    ],
+    demandNote:
+      "The 2026 tax bands changed PAYE for every employer; most SME payroll sheets still use the old relief.",
+    addedAt: "2026-10-31",
+  },
+  {
+    id: "office-admin-templates-bundle",
+    name: "Office Admin Templates Bundle",
+    description:
+      "Memo, meeting notice, minutes, purchase requisition, petty cash voucher, visitor log, asset register, stores note, vehicle log, handover note and official letter layout.",
+    priceUsd: "$12",
+    priceNgn: "₦9,500",
+    amountKobo: 950000,
+    type: "one-time",
+    badge: "New",
+    category: "Office & HR",
+    audience: "Office managers, admin officers, secretaries and front desk staff",
+    features: [
+      "12 office templates",
+      "Petty cash imprest rules",
+      "Asset register with tagging system",
+      "Visitor log and opening/closing checklist",
+      "Nigerian official letter layout",
+      "3 ready spreadsheets",
+    ],
+    contents: [
+      "Office templates guide (PDF + Markdown)",
+      "asset-register.csv",
+      "petty-cash.csv",
+      "visitor-log.csv",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/office-admin-templates-bundle.md",
+    downloadPaths: [
+      "/digital-products/office-admin-templates-bundle.md",
+      "/digital-products/csv/asset-register.csv",
+      "/digital-products/csv/petty-cash.csv",
+      "/digital-products/csv/visitor-log.csv",
+    ],
+    demandNote:
+      "Admin officers rebuild the same memos, vouchers and registers in every new job.",
+    addedAt: "2026-10-31",
+  },
+  {
+    id: "business-plan-pitch-kit",
+    name: "Business Plan & Pitch Deck Kit",
+    description:
+      "Business plan template with guidance for each section, a 12-month projection sheet, a 10-slide pitch deck outline and the documents checklist funders ask for.",
+    priceUsd: "$15",
+    priceNgn: "₦12,000",
+    amountKobo: 1200000,
+    type: "one-time",
+    badge: "Grants & loans",
+    category: "Business",
+    audience: "Founders applying for loans, grants or investment",
+    features: [
+      "12-section business plan template",
+      "How reviewers read your plan",
+      "12-month projection spreadsheet",
+      "10-slide pitch deck outline",
+      "Funder documents checklist",
+      "Pre-submission checklist",
+    ],
+    contents: [
+      "Business plan and pitch guide (PDF + Markdown)",
+      "12-month-projection.csv",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/business-plan-pitch-kit.md",
+    downloadPaths: [
+      "/digital-products/business-plan-pitch-kit.md",
+      "/digital-products/csv/12-month-projection.csv",
+    ],
+    demandNote:
+      "Grant and loan applications are rejected for vague customers and numbers that don't add up.",
+    addedAt: "2026-10-31",
+  },
+  {
+    id: "school-admin-fees-kit",
+    name: "School Admin & Fees Tracker Kit",
+    description:
+      "Fees tracker with balances and status, fee reminder messages, payment plan agreement, admission form and letter, score sheet with grades and positions, and report card comments.",
+    priceUsd: "$15",
+    priceNgn: "₦12,000",
+    amountKobo: 1200000,
+    type: "one-time",
+    badge: "For schools",
+    category: "Schools & organisations",
+    audience: "Proprietors, head teachers and bursars of private schools",
+    features: [
+      "Fees tracker with balance formulas",
+      "Polite and firm fee reminder messages",
+      "Admission form and letter",
+      "Score sheet with grade and position formulas",
+      "Report card comment bank",
+      "Termly calendar and PTA agenda",
+    ],
+    contents: [
+      "School admin guide (PDF + Markdown)",
+      "fees-tracker.csv",
+      "score-sheet.csv",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/school-admin-fees-kit.md",
+    downloadPaths: [
+      "/digital-products/school-admin-fees-kit.md",
+      "/digital-products/csv/fees-tracker.csv",
+      "/digital-products/csv/score-sheet.csv",
+    ],
+    demandNote:
+      "Unpaid fees are the biggest cash problem for private schools, and many still track them in exercise books.",
+    addedAt: "2026-10-31",
+  },
+  {
+    id: "ngo-church-admin-finance-kit",
+    name: "NGO & Church Admin and Finance Kit",
+    description:
+      "Cash count sheet, payment voucher, donation receipts, annual budget, monthly finance report, grant tracking, membership register, annual report outline and governance policies.",
+    priceUsd: "$13",
+    priceNgn: "₦10,000",
+    amountKobo: 1000000,
+    type: "one-time",
+    badge: "For organisations",
+    category: "Schools & organisations",
+    audience: "Treasurers, secretaries and leaders of churches, mosques, NGOs and associations",
+    features: [
+      "Five money rules that prevent fraud",
+      "Cash count sheet and payment voucher",
+      "Annual budget with quarterly actuals",
+      "One-page monthly finance report",
+      "Annual report outline for AGMs and donors",
+      "Donations log spreadsheet",
+    ],
+    contents: [
+      "Organisation admin and finance guide (PDF + Markdown)",
+      "donations-log.csv",
+      "org-budget.csv",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/ngo-church-admin-finance-kit.md",
+    downloadPaths: [
+      "/digital-products/ngo-church-admin-finance-kit.md",
+      "/digital-products/csv/donations-log.csv",
+      "/digital-products/csv/org-budget.csv",
+    ],
+    demandNote:
+      "Members and donors give more when they can see clear records of where money went.",
+    addedAt: "2026-10-31",
+  },
+  {
+    id: "final-year-project-starter-kit",
+    name: "Final Year Project Starter Kit",
+    description:
+      "Topic formula, proposal template, Chapters 1–5 templates, questionnaire template, APA referencing, formatting checklist, defence questions and a 16-week timeline.",
+    priceUsd: "$7",
+    priceNgn: "₦5,000",
+    amountKobo: 500000,
+    type: "one-time",
+    badge: "Students",
+    category: "Students",
+    audience: "University and polytechnic final year students",
+    features: [
+      "Topic formula with examples",
+      "Proposal and Chapters 1–5 templates",
+      "System design outline for computing projects",
+      "Questionnaire template",
+      "Formatting checklist",
+      "Defence questions panels always ask",
+    ],
+    contents: [
+      "Project guide (PDF + Markdown)",
+      "project-timeline.csv",
+    ],
+    delivery: "Instant download after Paystack: PDF guide + spreadsheets",
+    downloadPath: "/digital-products/final-year-project-starter-kit.md",
+    downloadPaths: [
+      "/digital-products/final-year-project-starter-kit.md",
+      "/digital-products/csv/project-timeline.csv",
+    ],
+    demandNote:
+      "Final year students lose weeks on structure and formatting before they start the actual research.",
+    addedAt: "2026-10-31",
+  },
   {
     id: "diaspora-ember-gift-order-kit",
     name: "Diaspora Ember Gift & Family Order Kit",

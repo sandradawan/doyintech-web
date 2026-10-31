@@ -1,134 +1,164 @@
 import type { MetadataRoute } from "next";
 import { TOOLS_META } from "@/lib/tools/config";
 import { INDUSTRIES } from "@/lib/industries";
+import { CITIES } from "@/lib/cities";
+import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
+import { DIGITAL_PRODUCTS } from "@/lib/products";
+import { PAGE_TEMPLATES } from "@/lib/page-templates";
+import { UI_COMPONENTS } from "@/lib/ui-components";
 import { SITE_URL } from "@/lib/site";
 
-const BASE = SITE_URL;
+/**
+ * Every public, indexable URL, grouped by what it sells. Built from the same data the pages
+ * render from, so new tools, ebooks, products, templates and city pages appear automatically.
+ * Private and transactional routes are excluded here and disallowed in robots.ts.
+ */
 
-/** Public marketing URLs only — no /admin, /ops, /api, account or internal tools. */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+type Freq = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
+type Entry = { path: string; priority: number; freq: Freq; modified?: string; images?: string[] };
 
-  const staticRoutes = [
-    "",
-    "/hire",
-    "/website-cost-nigeria",
-    "/e-invoicing-nigeria",
-    "/care-plans",
-    "/stores",
-    "/shops",
-    "/gift-cards",
-    "/get-featured",
-    "/gift-cards/redeem",
-    "/pro",
-    "/pricing",
-    "/free-audit",
-    "/products",
-    "/reports",
-    "/ebooks",
-    "/tools",
-    "/tools/system-protector",
-    "/services",
-    "/services/backend",
-    "/services/mobile",
-    "/services/ai-automation",
-    "/portfolio",
-    "/case-studies",
-    "/case-studies/imperial-villa",
-    "/case-studies/doyinmart",
-    "/case-studies/legacyplay",
-    "/case-studies/jennyglams",
-    "/case-studies/arqademy-cbt",
-    "/case-studies/ipvl",
-    "/refer",
-    "/reviews",
-    "/agency-vs-freelancer",
-    "/web-design-jos",
-    "/web-design-abuja",
-    "/web-design-lagos",
-    "/web-design-port-harcourt",
-    "/web-design-ibadan",
-    "/web-design-kano",
-    "/web-design-enugu",
-    "/web-design-benin-city",
-    "/business-name-registration-nigeria",
-    "/google-business-profile-setup",
-    "/business-email-domain-nigeria",
-    "/school-management-software-nigeria",
-    "/hotel-booking-website-nigeria",
-    "/ecommerce-website-nigeria",
-    "/local-seo",
-    "/components",
-    "/templates",
-    "/white-label",
-    "/blog",
-    "/blog/website-for-salon-nigeria",
-    "/blog/whatsapp-booking-system-nigeria",
-    "/blog/website-for-clinic-nigeria",
-    "/blog/property-website-nigeria",
-    "/blog/website-for-gaming-lounge-nigeria",
-    "/blog/website-for-restaurant-nigeria",
-    "/blog/website-for-church-event-nigeria",
-    "/blog/why-production-grade-backends-matter",
-    "/blog/laravel-vs-node-when-to-choose",
-    "/blog/practical-ai-automation-for-smes",
-    "/about",
-    "/contact",
-    "/company-profile",
-    "/privacy",
-    "/terms",
-    "/students",
-    "/students/analyzer",
-    "/students/studio",
-    "/students/citations",
-    "/students/cover-letter",
-    "/students/projects",
+const BUILT = new Date();
+
+const page = (path: string, priority: number, freq: Freq = "monthly"): Entry => ({ path, priority, freq });
+
+/** Search-landing pages that bring buyers: services, prices and money pages. */
+const MONEY: Entry[] = [
+  page("", 1, "weekly"),
+  page("/hire", 0.95, "weekly"),
+  page("/pricing", 0.95),
+  page("/website-cost-nigeria", 0.95),
+  page("/products", 0.95, "weekly"),
+  page("/ebooks", 0.95, "weekly"),
+  page("/tools", 0.95, "weekly"),
+  page("/care-plans", 0.9),
+  page("/pro", 0.9),
+  page("/free-audit", 0.9),
+  page("/reports", 0.85),
+  page("/e-invoicing-nigeria", 0.9),
+  page("/business-name-registration-nigeria", 0.9),
+  page("/google-business-profile-setup", 0.9),
+  page("/business-email-domain-nigeria", 0.9),
+  page("/school-management-software-nigeria", 0.9),
+  page("/hotel-booking-website-nigeria", 0.9),
+  page("/ecommerce-website-nigeria", 0.9),
+  page("/stores", 0.85, "weekly"),
+  page("/shops", 0.8, "daily"),
+  page("/gift-cards", 0.8),
+  page("/gift-cards/redeem", 0.5),
+  page("/get-featured", 0.75),
+  page("/services", 0.85),
+  page("/services/backend", 0.8),
+  page("/services/mobile", 0.8),
+  page("/services/ai-automation", 0.8),
+  page("/white-label", 0.7),
+  page("/templates", 0.75),
+  page("/components", 0.7),
+  page("/students", 0.85),
+  page("/students/projects", 0.8),
+  page("/students/analyzer", 0.7),
+  page("/students/studio", 0.7),
+  page("/students/citations", 0.75),
+  page("/students/cover-letter", 0.7),
+  page("/local-seo", 0.8),
+  page("/agency-vs-freelancer", 0.7),
+];
+
+const TRUST: Entry[] = [
+  page("/portfolio", 0.75),
+  page("/case-studies", 0.75),
+  ...["imperial-villa", "doyinmart", "legacyplay", "jennyglams", "arqademy-cbt", "ipvl"].map((s) => page(`/case-studies/${s}`, 0.7)),
+  page("/reviews", 0.7),
+  page("/refer", 0.6),
+  page("/about", 0.7),
+  page("/contact", 0.8),
+  page("/company-profile", 0.6),
+  page("/support", 0.5),
+  page("/privacy", 0.3, "yearly"),
+  page("/terms", 0.3, "yearly"),
+];
+
+const BLOG: Entry[] = [
+  page("/blog", 0.8, "weekly"),
+  ...[
+    "website-for-salon-nigeria",
+    "whatsapp-booking-system-nigeria",
+    "website-for-clinic-nigeria",
+    "property-website-nigeria",
+    "website-for-gaming-lounge-nigeria",
+    "website-for-restaurant-nigeria",
+    "website-for-church-event-nigeria",
+    "why-production-grade-backends-matter",
+    "laravel-vs-node-when-to-choose",
+    "practical-ai-automation-for-smes",
+  ].map((s) => page(`/blog/${s}`, 0.7)),
+];
+
+/** Tool pages that exist outside the hub list (paid exports, security and market utilities). */
+const EXTRA_TOOLS = [
+  "system-protector", "ai-usecase", "breach-hygiene", "chatbot-script", "contract-generator", "contract-export", "cookie-auditor",
+  "csp-generator", "cv-premium", "dependency-risk", "dues-receipt", "exposed-files", "golive-checklist", "hosting-planner",
+  "hosting-export", "interview-pack", "maintenance-picker", "mixed-content", "offer-letter", "org-security", "paper-journal",
+  "position-risk", "project-ideas", "project-status", "proposal-export", "qr-pro", "redirect-inspector", "rent-receipt",
+  "robots-auditor", "security-headers", "security-report", "signal-explainer", "tech-stack", "trade-checklist",
+  "uptime-monitor", "whatsapp-checklist",
+];
+
+/** Tools people search for by name every day get the highest tool priority. */
+const HIGH_DEMAND_TOOLS = new Set([
+  "paye-calculator-nigeria", "invoice-generator-nigeria", "receipt-generator-nigeria", "quotation-generator-nigeria",
+  "proforma-invoice-generator-nigeria", "purchase-order-generator", "payslip-generator-nigeria", "cgpa-calculator",
+  "aggregate-score-calculator", "letter-generator", "certificate-generator", "id-card-generator", "business-plan-generator",
+  "meeting-minutes-generator", "cv-builder", "qr-generator", "nigeria-vat-calculator", "small-company-tax-checker",
+  "freelancer-tax-calculator-nigeria", "timesheet-calculator", "study-timetable-planner",
+]);
+
+function entries(): Entry[] {
+  const tools: Entry[] = [
+    ...TOOLS_META.map((t) => ({ path: t.href, priority: HIGH_DEMAND_TOOLS.has(t.slug) ? 0.9 : 0.75, freq: "monthly" as Freq })),
+    ...EXTRA_TOOLS.map((s) => page(`/tools/${s}`, 0.6)),
   ];
 
-  const toolRoutes = TOOLS_META.map((t) => t.href);
-  const industryRoutes = ["/websites", ...INDUSTRIES.map((i) => `/websites/${i.slug}`)];
-  const routes = [...new Set([...staticRoutes, ...industryRoutes, ...toolRoutes])];
+  const ebooks: Entry[] = ALL_EBOOKS.map((b) => ({
+    path: `/ebooks/${b.slug}`,
+    priority: 0.85,
+    freq: "monthly",
+    images: b.coverImage ? [b.coverImage] : undefined,
+  }));
 
-  return routes.map((path) => {
-    const isHome = path === "";
-    const isMoney = path.startsWith("/websites/") || [
-      "/hire",
-      "/website-cost-nigeria",
-      "/tools/paye-calculator-nigeria",
-      "/tools/invoice-generator-nigeria",
-      "/tools/receipt-generator-nigeria",
-      "/tools/small-company-tax-checker",
-      "/tools/freelancer-tax-calculator-nigeria",
-      "/e-invoicing-nigeria",
-      "/care-plans",
-      "/pro",
-      "/pricing",
-      "/products",
-      "/ebooks",
-      "/reports",
-      "/free-audit",
-    ].includes(path);
-    const isTools = path.startsWith("/tools");
-    const isBlog = path.startsWith("/blog");
-    const isLocal = path.startsWith("/web-design-") || path === "/local-seo";
+  const products: Entry[] = DIGITAL_PRODUCTS.filter((p) => p.type === "one-time").map((p) => ({
+    path: `/products/${p.id}`,
+    priority: 0.85,
+    freq: "monthly",
+    modified: p.addedAt,
+  }));
 
-    return {
-      url: `${BASE}${path}`,
-      lastModified: now,
-      changeFrequency: (isHome || isTools || path === "/blog" || path === "/products"
-        ? "weekly"
-        : "monthly") as "weekly" | "monthly",
-      priority: isHome
-        ? 1
-        : isMoney
-          ? 0.95
-          : isTools
-            ? 0.9
-            : isBlog || isLocal
-              ? 0.85
-              : path.startsWith("/case-studies")
-                ? 0.75
-                : 0.8,
-    };
-  });
+  const local: Entry[] = [
+    page("/web-design-jos", 0.85),
+    page("/web-design-abuja", 0.85),
+    ...CITIES.map((c) => page(`/web-design-${c.slug}`, 0.85)),
+  ];
+
+  const industries: Entry[] = [page("/websites", 0.85), ...INDUSTRIES.map((i) => page(`/websites/${i.slug}`, 0.85))];
+  const templates: Entry[] = PAGE_TEMPLATES.map((t) => page(`/templates/${t.slug}`, 0.6));
+  const components: Entry[] = UI_COMPONENTS.map((c) => page(`/components/${c.slug}`, 0.5));
+
+  return [...MONEY, ...tools, ...ebooks, ...products, ...industries, ...local, ...BLOG, ...TRUST, ...templates, ...components];
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const seen = new Set<string>();
+  const out: MetadataRoute.Sitemap = [];
+  for (const e of entries()) {
+    if (seen.has(e.path)) continue;
+    seen.add(e.path);
+    const modified = e.modified ? new Date(e.modified) : BUILT;
+    out.push({
+      url: `${SITE_URL}${e.path}`,
+      lastModified: Number.isNaN(modified.getTime()) ? BUILT : modified,
+      changeFrequency: e.freq,
+      priority: e.priority,
+      ...(e.images ? { images: e.images } : {}),
+    });
+  }
+  return out;
 }

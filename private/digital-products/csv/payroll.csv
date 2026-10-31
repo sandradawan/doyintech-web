@@ -1,0 +1,4 @@
+Staff ID,Name,Department,Basic,Housing,Transport,Other,Annual rent paid,Pension (Y/N),NHF (Y/N),Gross monthly,Pension 8%,NHF 2.5%,Rent relief (annual),Annual taxable,Annual PAYE,Monthly PAYE,Other deductions,Net pay,Employer pension 10%
+EMP-001,Sample Employee A,Sales,150000,60000,30000,0,0,Y,N,240000,19200,0,0,2649600,277440,23120,0,197680,24000
+EMP-002,Sample Employee B,Admin,90000,36000,24000,0,600000,Y,N,150000,12000,0,120000,1536000,110400,9200,0,128800,15000
+EMP-003,Sample Employee C,Operations,400000,160000,80000,60000,1800000,Y,Y,700000,51200,10000,360000,7305600,1105008,92084,0,546716,64000
