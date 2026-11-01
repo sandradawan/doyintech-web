@@ -46,6 +46,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
       { name: "Business problem solver", href: "/business-solutions", desc: "Power, cash flow, tax dates, procurement" },
       { name: "Get paid online", href: "/get-paid", desc: "Invoice payment links + reminders" },
+      { name: "VAT & GST calculators", href: "/vat-calculator", desc: "Rates for 80+ countries" },
       { name: "Invoice & receipt generator", href: "/tools/invoice-generator-nigeria", desc: "Free naira invoices as PDF" },
       { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
       { name: "Payslip generator", href: "/tools/payslip-generator-nigeria", desc: "PAYE, pension & net pay PDF" },

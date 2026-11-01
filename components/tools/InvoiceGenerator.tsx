@@ -5,7 +5,7 @@ import GetPaidPanel from "@/components/tools/GetPaidPanel";
 import { track } from "@/lib/analytics/client";
 import Link from "next/link";
 import PaidGate, { usePaidUnlock } from "@/components/tools/PaidGate";
-import { formatNgn } from "@/lib/tools/extra";
+import { INVOICE_CURRENCIES, currencyForLocale, formatMoney, currencySymbol } from "@/lib/global/currencies";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 import LeadForm from "./LeadForm";
 
@@ -91,7 +91,11 @@ const MAX_LOGO_BYTES = 400_000;
 
 export default function InvoiceGenerator({
   initialDocType = "Invoice",
-}: { initialDocType?: DocType } = {}) {
+  defaultCurrency = "NGN",
+  detectCurrency = false,
+}: { initialDocType?: DocType; defaultCurrency?: string; detectCurrency?: boolean } = {}) {
+  const [currency, setCurrency] = useState(defaultCurrency);
+  const money = (n: number) => formatMoney(n, currency);
   const [docType, setDocType] = useState<DocType>(initialDocType);
   const [invoiceNo, setInvoiceNo] = useState(
     () =>
@@ -136,6 +140,20 @@ export default function InvoiceGenerator({
   ]);
 
   const [taxPercent, setTaxPercent] = useState(0);
+
+  // ?currency=GBP&tax=20 from the VAT calculators; otherwise the visitor's locale on the global page.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const fromUrl = (q.get("currency") || "").toUpperCase();
+    const tax = Number(q.get("tax"));
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read ?currency / locale once after hydration (client-only)
+    if (INVOICE_CURRENCIES.some((c) => c.code === fromUrl)) setCurrency(fromUrl);
+    else if (detectCurrency) {
+      const guess = currencyForLocale(navigator.language);
+      if (guess) setCurrency(guess);
+    }
+    if (Number.isFinite(tax) && tax > 0 && tax <= 50) setTaxPercent(tax);
+  }, [detectCurrency]);
   const [discount, setDiscount] = useState(0);
   const [notes, setNotes] = useState(
     "Payment is due within the stated due date. Thank you for your business.",
@@ -282,6 +300,14 @@ export default function InvoiceGenerator({
               {DOC_LABEL[t]}
             </button>
           ))}
+          <label className="ml-auto flex items-center gap-2 text-xs text-gray-400">
+            Currency
+            <select className={field + " w-auto py-1.5"} value={currency} onChange={(e) => setCurrency(e.target.value)} aria-label="Invoice currency">
+              {INVOICE_CURRENCIES.map((c) => (
+                <option key={c.code} value={c.code}>{c.code} · {c.name}</option>
+              ))}
+            </select>
+          </label>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -368,9 +394,9 @@ export default function InvoiceGenerator({
               <div key={it.id} className="grid gap-2 rounded-xl border border-white/10 p-3 sm:grid-cols-12">
                 <input className={field + " sm:col-span-5"} placeholder="Description" value={it.description} onChange={(e) => updateItem(it.id, { description: e.target.value })} />
                 <input type="number" min={0} className={field + " sm:col-span-2"} placeholder="Qty" value={it.qty} onChange={(e) => updateItem(it.id, { qty: Number(e.target.value) || 0 })} />
-                <input type="number" min={0} className={field + " sm:col-span-3"} placeholder="Unit price (₦)" value={it.unitPrice} onChange={(e) => updateItem(it.id, { unitPrice: Number(e.target.value) || 0 })} />
+                <input type="number" min={0} className={field + " sm:col-span-3"} placeholder={`Unit price (${currencySymbol(currency)})`} value={it.unitPrice} onChange={(e) => updateItem(it.id, { unitPrice: Number(e.target.value) || 0 })} />
                 <div className="flex items-center justify-between gap-2 sm:col-span-2">
-                  <span className="text-sm text-gray-300">{formatNgn((it.qty || 0) * (it.unitPrice || 0))}</span>
+                  <span className="text-sm text-gray-300">{money((it.qty || 0) * (it.unitPrice || 0))}</span>
                   <button type="button" onClick={() => removeItem(it.id)} className="text-xs text-red-400 hover:underline">Remove</button>
                 </div>
               </div>
@@ -384,12 +410,12 @@ export default function InvoiceGenerator({
             <input type="number" min={0} className={field} value={taxPercent} onChange={(e) => setTaxPercent(Number(e.target.value) || 0)} />
           </div>
           <div>
-            <label className={label}>Discount (₦)</label>
+            <label className={label}>Discount ({currencySymbol(currency)})</label>
             <input type="number" min={0} className={field} value={discount} onChange={(e) => setDiscount(Number(e.target.value) || 0)} />
           </div>
           <div className="flex flex-col justify-end rounded-xl border border-primary/30 bg-primary/10 px-3 py-2">
             <span className="text-[11px] uppercase text-gray-400">Total</span>
-            <span className="text-lg font-bold text-white">{formatNgn(total)}</span>
+            <span className="text-lg font-bold text-white">{money(total)}</span>
           </div>
         </div>
 
@@ -494,7 +520,7 @@ export default function InvoiceGenerator({
           <p className="text-xs text-gray-500">Only the document sheet prints — not the website chrome.</p>
         </div>
 
-        {(docType === "Invoice" || docType === "Proforma") && status !== "Paid" && (
+        {(docType === "Invoice" || docType === "Proforma") && status !== "Paid" && currency === "NGN" && (
           <GetPaidPanel
             docNumber={invoiceNo}
             amountNgn={total}
@@ -553,8 +579,8 @@ export default function InvoiceGenerator({
             <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
               {docType === "Receipt" || status === "Paid" ? "Amount paid" : docType === "Quote" ? "Quoted total" : docType === "PurchaseOrder" ? "Order total" : "Amount due"}
             </p>
-            <p className="mt-1 text-3xl font-bold" style={{ color: accent }}>{formatNgn(total)}</p>
-            <p className="text-xs text-gray-500">Currency: Nigerian Naira (NGN)</p>
+            <p className="mt-1 text-3xl font-bold" style={{ color: accent }}>{money(total)}</p>
+            <p className="text-xs text-gray-500">Currency: {INVOICE_CURRENCIES.find((c) => c.code === currency)?.name ?? currency} ({currency})</p>
             {(docType === "Receipt" || status === "Paid") && (
               <p className="mt-1 text-sm font-medium text-green-700">
                 Payment received{paidDate ? ` on ${formatDate(paidDate)}` : ""}
@@ -578,18 +604,18 @@ export default function InvoiceGenerator({
                 <tr key={it.id} className="border-b border-gray-100">
                   <td className="py-3 pr-2 text-gray-800">{it.description || "—"}</td>
                   <td className="py-3 px-2 text-right text-gray-700">{it.qty || 0}</td>
-                  <td className="py-3 px-2 text-right text-gray-700">{formatNgn(it.unitPrice || 0)}</td>
-                  <td className="py-3 pl-2 text-right font-medium text-gray-900">{formatNgn((it.qty || 0) * (it.unitPrice || 0))}</td>
+                  <td className="py-3 px-2 text-right text-gray-700">{money(it.unitPrice || 0)}</td>
+                  <td className="py-3 pl-2 text-right font-medium text-gray-900">{money((it.qty || 0) * (it.unitPrice || 0))}</td>
                 </tr>
               ))}
             </tbody>
           </table>
           <div className="mt-4 flex justify-end">
             <div className="w-full max-w-xs space-y-1.5 text-sm">
-              <div className="flex justify-between text-gray-600"><span>Subtotal</span><span>{formatNgn(subtotal)}</span></div>
-              {taxPercent > 0 && <div className="flex justify-between text-gray-600"><span>Tax ({taxPercent}%)</span><span>{formatNgn(taxAmount)}</span></div>}
-              {discount > 0 && <div className="flex justify-between text-gray-600"><span>Discount</span><span>-{formatNgn(discount)}</span></div>}
-              <div className="flex justify-between border-t border-gray-200 pt-2 text-base font-bold text-gray-900"><span>Total</span><span>{formatNgn(total)}</span></div>
+              <div className="flex justify-between text-gray-600"><span>Subtotal</span><span>{money(subtotal)}</span></div>
+              {taxPercent > 0 && <div className="flex justify-between text-gray-600"><span>Tax ({taxPercent}%)</span><span>{money(taxAmount)}</span></div>}
+              {discount > 0 && <div className="flex justify-between text-gray-600"><span>Discount</span><span>-{money(discount)}</span></div>}
+              <div className="flex justify-between border-t border-gray-200 pt-2 text-base font-bold text-gray-900"><span>Total</span><span>{money(total)}</span></div>
             </div>
           </div>
         </div>

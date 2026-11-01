@@ -7,6 +7,7 @@ import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { SITE_URL } from "@/lib/site";
+import { VAT_COUNTRIES, VAT_EXISTING_PAGES } from "@/lib/global/vat-rates";
 
 /**
  * Every public, indexable URL, grouped by what it sells. Built from the same data the pages
@@ -136,6 +137,12 @@ function entries(): Entry[] {
     modified: p.addedAt,
   }));
 
+  const worldwide: Entry[] = [
+    page("/vat-calculator", 0.9),
+    page("/tools/invoice-generator", 0.9),
+    ...VAT_COUNTRIES.filter((v) => !VAT_EXISTING_PAGES[v.slug]).map((v) => page(`/vat-calculator/${v.slug}`, 0.8)),
+  ];
+
   const local: Entry[] = [
     page("/web-design-jos", 0.85),
     page("/web-design-abuja", 0.85),
@@ -146,7 +153,7 @@ function entries(): Entry[] {
   const templates: Entry[] = PAGE_TEMPLATES.map((t) => page(`/templates/${t.slug}`, 0.6));
   const components: Entry[] = UI_COMPONENTS.map((c) => page(`/components/${c.slug}`, 0.5));
 
-  return [...MONEY, ...tools, ...ebooks, ...products, ...industries, ...local, ...BLOG, ...TRUST, ...templates, ...components];
+  return [...MONEY, ...tools, ...worldwide, ...ebooks, ...products, ...industries, ...local, ...BLOG, ...TRUST, ...templates, ...components];
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

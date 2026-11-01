@@ -49,6 +49,8 @@ export default function Footer() {
         ["/business-solutions", "Business problem solver"],
         ["/get-paid", "Get paid online"],
         ["/tools/invoice-generator-nigeria", "Invoice generator"],
+        ["/tools/invoice-generator", "Invoice generator (any currency)"],
+        ["/vat-calculator", "VAT & GST calculators"],
         ["/tools/receipt-generator-nigeria", "Receipt generator"],
         ["/tools/paye-calculator-nigeria", "PAYE calculator 2026"],
         ["/tools/payslip-generator-nigeria", "Payslip generator"],
