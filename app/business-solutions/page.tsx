@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 
 type Problem = {
   id: string;
+  tag: string; // short label for the jump links
   problem: string;
   who: string;
   pain: string;
@@ -28,6 +29,7 @@ type Problem = {
 const PROBLEMS: Problem[] = [
   {
     id: "power",
+    tag: "Power & fuel",
     problem: "Fuel and power eat the profit",
     who: "Shops, offices, schools, clinics, hotels",
     pain: "Generators run for hours every day, and the bill moves every time the pump price does.",
@@ -36,6 +38,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "cash",
+    tag: "Cash flow",
     problem: "Profitable on paper, out of cash in the bank",
     who: "Every business, NGOs, contractors",
     pain: "Customers pay late while salaries, rent and suppliers are due on fixed dates.",
@@ -45,6 +48,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "imports",
+    tag: "Import costs",
     problem: "Imports cost far more than the supplier invoice",
     who: "Importers, distributors, retailers",
     pain: "Duty, levies, VAT, clearing and haulage arrive after you have already set your prices.",
@@ -53,6 +57,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "staff",
+    tag: "Staff costs",
     problem: "Staff cost more than the salary",
     who: "Employers, HR, start-ups",
     pain: "Pension, NSITF, ITF, 13th month, HMO and hiring costs are left out of the budget.",
@@ -62,6 +67,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "compliance",
+    tag: "Tax deadlines",
     problem: "Missed tax and CAC deadlines",
     who: "Companies, business names, NGOs, employers",
     pain: "Penalties, interest and no tax clearance certificate when you need it for a contract or loan.",
@@ -70,6 +76,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "procurement",
+    tag: "Procurement",
     problem: "Procurement that is slow and hard to defend",
     who: "Ministries, agencies, local governments, companies, NGOs",
     pain: "Bids scored by hand on paper, inconsistent methods, and reports that invite complaints.",
@@ -78,6 +85,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "paperwork",
+    tag: "Paperwork",
     problem: "Hours lost to paperwork",
     who: "Offices, schools, churches, associations",
     pain: "Minutes, letters, certificates and ID cards typed from scratch every time.",
@@ -87,6 +95,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "funding",
+    tag: "Funding",
     problem: "Can't get a loan or grant",
     who: "SMEs, founders, cooperatives",
     pain: "Lenders and grant panels reject plans without clear numbers.",
@@ -96,6 +105,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: "customers",
+    tag: "Customers",
     problem: "Customers can't find you online",
     who: "Every business that sells locally",
     pain: "Buyers search Google and WhatsApp first; without a site and profile you lose them to competitors.",
@@ -138,7 +148,7 @@ export default function BusinessSolutionsPage() {
         <nav aria-label="Jump to a problem" className="mx-auto mt-8 flex max-w-[980px] flex-wrap justify-center gap-2 px-6">
           {PROBLEMS.map((p) => (
             <a key={p.id} href={`#${p.id}`} className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] font-semibold text-[#c7cdd8] hover:border-[#ff8c14] hover:text-white">
-              {p.problem.split(" ").slice(0, 3).join(" ")}
+              {p.tag}
             </a>
           ))}
         </nav>

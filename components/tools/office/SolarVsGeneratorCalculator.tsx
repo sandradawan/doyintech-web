@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { printHtml } from "@/components/tools/PaidGate";
 import { solarVsGenerator } from "@/lib/tools/bottleneck-calcs";
-import { Field, esc, ngn, num, panel, primaryBtn, useSavedState } from "./kit";
+import { Field, esc, num, panel, primaryBtn, useSavedState } from "./kit";
 
 const APPLIANCES: { name: string; watts: number }[] = [
   { name: "LED bulbs ×10", watts: 100 },
@@ -134,7 +134,7 @@ export default function SolarVsGeneratorCalculator() {
           </div>
           <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-[14px]">
             <div><dt className="text-[#a1a1a6]">Pays for itself in</dt><dd className="text-[20px] font-semibold text-[#ff8c14]">{payback}</dd></div>
-            <div><dt className="text-[#a1a1a6]">5-year saving</dt><dd className={`text-[20px] font-semibold ${r.fiveYearSaving >= 0 ? "text-[#3ddc97]" : "text-[#ff6b6b]"}`}>{ngn(r.fiveYearSaving).replace(/\.00$/, "")}</dd></div>
+            <div><dt className="text-[#a1a1a6]">5-year saving</dt><dd className={`text-[20px] font-semibold ${r.fiveYearSaving >= 0 ? "text-[#3ddc97]" : "text-[#ff6b6b]"}`}>{(r.fiveYearSaving < 0 ? "-" : "") + naira0(Math.abs(r.fiveYearSaving))}</dd></div>
             <div className="col-span-2"><dt className="text-[#a1a1a6]">CO₂ avoided</dt><dd className="text-white">{r.co2TonnesYearly.toFixed(1)} tonnes a year</dd></div>
           </dl>
         </div>
