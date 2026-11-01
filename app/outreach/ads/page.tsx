@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import AdsCreatives from "@/components/outreach/AdsCreatives";
 
 export const metadata: Metadata = {
-  title: "Ads & Status creatives | DoyinTech",
+  title: "Ads & Status creatives",
   description: "Copy-ready WhatsApp Status, Meta, and follow-up scripts for DoyinTech offers.",
   robots: { index: false, follow: false },
 };

@@ -44,10 +44,13 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Tools",
     items: [
       { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
+      { name: "Business problem solver", href: "/business-solutions", desc: "Power, cash flow, tax dates, procurement" },
       { name: "Invoice & receipt generator", href: "/tools/invoice-generator-nigeria", desc: "Free naira invoices as PDF" },
       { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
       { name: "Payslip generator", href: "/tools/payslip-generator-nigeria", desc: "PAYE, pension & net pay PDF" },
       { name: "Office & HR tools", href: "/tools?for=office", desc: "Minutes, ID cards, timesheets" },
+      { name: "Solar vs generator", href: "/tools/solar-vs-generator-calculator", desc: "Fuel cost, payback & savings" },
+      { name: "Compliance calendar", href: "/tools/compliance-calendar-nigeria", desc: "PAYE, VAT, CAC deadlines" },
       { name: "Small company tax checker", href: "/tools/small-company-tax-checker", desc: "Do you pay 0% company tax?" },
       { name: "E-invoicing deadlines", href: "/e-invoicing-nigeria", desc: "Small businesses: July 2027" },
       { name: "All tools", href: "/tools", desc: "Free business & website tools" },

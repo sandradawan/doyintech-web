@@ -1,5 +1,6 @@
 /** Search-landing copy for the office, business and student document tools (one entry per /tools/<slug> page). */
 import type { Faq } from "@/components/tools/SeoToolPage";
+import { BOTTLENECK_PAGES } from "./bottleneck-pages";
 
 export type OfficeToolPage = {
   slug: string;
@@ -192,7 +193,7 @@ const PAGES: OfficeToolPage[] = [
 ];
 
 export function getOfficeToolPage(slug: string): OfficeToolPage {
-  const p = PAGES.find((x) => x.slug === slug);
+  const p = PAGES.find((x) => x.slug === slug) ?? BOTTLENECK_PAGES.find((x) => x.slug === slug);
   if (!p) throw new Error(`Unknown office tool page ${slug}`);
   return p;
 }

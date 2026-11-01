@@ -37,6 +37,12 @@ export type ToolMeta = {
 
 export const TOOLS_META: ToolMeta[] = [
   { slug: "paye-calculator-nigeria", href: "/tools/paye-calculator-nigeria", title: "PAYE Calculator Nigeria 2026", short: "New tax bands", description: "Monthly PAYE and take-home pay under the Nigeria Tax Act 2025, with rent relief and pension.", icon: "calculator", category: "business", badge: "New 2026" },
+  { slug: "solar-vs-generator-calculator", href: "/tools/solar-vs-generator-calculator", title: "Solar vs Generator Calculator", short: "Cut fuel costs", description: "Your monthly generator cost, the solar system to replace it, payback and 5-year savings.", icon: "calculator", category: "business", badge: "New" },
+  { slug: "cash-flow-forecast", href: "/tools/cash-flow-forecast", title: "13-Week Cash Flow Forecast", short: "See cash gaps early", description: "Weekly cash in, cash out and closing balance for 13 weeks; spot the week cash runs out.", icon: "calculator", category: "business", badge: "New" },
+  { slug: "import-duty-calculator-nigeria", href: "/tools/import-duty-calculator-nigeria", title: "Import Duty Calculator Nigeria", short: "Landed cost", description: "Customs duty, surcharge, ETLS, CISS, VAT and landed cost per unit for your imports.", icon: "calculator", category: "business", badge: "New" },
+  { slug: "employee-cost-calculator-nigeria", href: "/tools/employee-cost-calculator-nigeria", title: "True Cost of an Employee", short: "Pension, NSITF, ITF", description: "Full yearly cost of a hire: salary, 13th month, pension, NSITF, ITF, HMO and group life.", icon: "calculator", category: "business", badge: "New" },
+  { slug: "compliance-calendar-nigeria", href: "/tools/compliance-calendar-nigeria", title: "Compliance Calendar Nigeria", short: "PAYE, VAT, CAC dates", description: "Your PAYE, pension, VAT, WHT, CIT, ITF and CAC deadlines for 12 months; add to Google Calendar.", icon: "check", category: "business", badge: "New" },
+  { slug: "bid-evaluation-tool", href: "/tools/bid-evaluation-tool", title: "Bid Evaluation Tool", short: "Tender scoring", description: "Score tenders with weighted criteria, pass mark and QCBS; download a signed evaluation report.", icon: "check", category: "business", badge: "New" },
   { slug: "invoice-generator-nigeria", href: "/tools/invoice-generator-nigeria", title: "Invoice Generator", short: "Free invoice PDF", description: "Naira invoices with VAT, bank details and due date. Free PDF; branded upgrade.", icon: "invoice", category: "core", badge: "Popular" },
   { slug: "receipt-generator-nigeria", href: "/tools/receipt-generator-nigeria", title: "Receipt Generator", short: "Payment receipts", description: "Payment receipts in naira for sales, services, rent and fees. Free PDF.", icon: "invoice", category: "core" },
   { slug: "freelancer-tax-calculator-nigeria", href: "/tools/freelancer-tax-calculator-nigeria", title: "Freelancer Tax Calculator", short: "2027 filing", description: "Income tax on freelance and self-employed income, with the 31 March deadline countdown.", icon: "calculator", category: "business", badge: "New 2026" },
@@ -123,7 +129,7 @@ export const TOOL_AUDIENCES: { id: string; label: string; slugs: string[] }[] = 
   {
     id: "business",
     label: "For business owners",
-    slugs: ["invoice-generator-nigeria", "receipt-generator-nigeria", "quotation-generator-nigeria", "proforma-invoice-generator-nigeria", "purchase-order-generator", "business-plan-generator", "nigeria-vat-calculator", "profit-margin-calculator", "break-even-calculator", "small-company-tax-checker", "freelancer-tax-calculator-nigeria", "business-name-generator", "whatsapp-link-generator", "qr-generator", "roi-calculator", "loan-emi-calculator"],
+    slugs: ["cash-flow-forecast", "solar-vs-generator-calculator", "import-duty-calculator-nigeria", "employee-cost-calculator-nigeria", "compliance-calendar-nigeria", "invoice-generator-nigeria", "receipt-generator-nigeria", "quotation-generator-nigeria", "proforma-invoice-generator-nigeria", "purchase-order-generator", "business-plan-generator", "nigeria-vat-calculator", "profit-margin-calculator", "break-even-calculator", "small-company-tax-checker", "freelancer-tax-calculator-nigeria", "business-name-generator", "whatsapp-link-generator", "qr-generator", "roi-calculator", "loan-emi-calculator"],
   },
   {
     id: "students",
@@ -133,11 +139,16 @@ export const TOOL_AUDIENCES: { id: string; label: string; slugs: string[] }[] = 
   {
     id: "office",
     label: "For offices & HR",
-    slugs: ["payslip-generator-nigeria", "paye-calculator-nigeria", "timesheet-calculator", "meeting-minutes-generator", "letter-generator", "id-card-generator", "offer-letter", "salary-calculator", "meeting-cost-calculator", "email-signature", "pdf-studio", "ai-job-desc", "ai-meeting-actions", "ai-sop-writer"],
+    slugs: ["payslip-generator-nigeria", "paye-calculator-nigeria", "employee-cost-calculator-nigeria", "compliance-calendar-nigeria", "timesheet-calculator", "meeting-minutes-generator", "letter-generator", "id-card-generator", "offer-letter", "salary-calculator", "meeting-cost-calculator", "email-signature", "pdf-studio", "ai-job-desc", "ai-meeting-actions", "ai-sop-writer"],
   },
   {
     id: "organisations",
     label: "For schools, churches & NGOs",
-    slugs: ["certificate-generator", "id-card-generator", "meeting-minutes-generator", "dues-receipt", "receipt-generator-nigeria", "business-plan-generator", "qr-generator", "countdown-timer", "random-picker", "email-signature"],
+    slugs: ["certificate-generator", "id-card-generator", "meeting-minutes-generator", "bid-evaluation-tool", "cash-flow-forecast", "solar-vs-generator-calculator", "dues-receipt", "receipt-generator-nigeria", "business-plan-generator", "qr-generator", "countdown-timer", "random-picker", "email-signature"],
+  },
+  {
+    id: "government",
+    label: "For government & procurement",
+    slugs: ["bid-evaluation-tool", "compliance-calendar-nigeria", "meeting-minutes-generator", "purchase-order-generator", "solar-vs-generator-calculator", "cash-flow-forecast", "employee-cost-calculator-nigeria", "letter-generator", "certificate-generator", "id-card-generator", "payslip-generator-nigeria"],
   },
 ];

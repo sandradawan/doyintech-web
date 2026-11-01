@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
-  title: "Web Design Jos · Plateau — Fixed-price SME websites | DoyinTech",
+  title: "Web Design Jos · Plateau — Fixed-price SME websites",
   description:
     "Website design in Jos, Plateau State. Fixed-price landing pages and local business sites with WhatsApp booking. Based in Jos, serving Nigeria.",
 };

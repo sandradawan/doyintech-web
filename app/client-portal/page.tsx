@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 
 export const metadata: Metadata = {
-  title: "Client project portal | DoyinTech",
+  title: "Client project portal",
   description:
     "After deposit: checklist, shared folder, draft feedback, and balance before handoff.",
 };

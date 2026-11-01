@@ -5,7 +5,7 @@ import EmailCapture from "@/components/tools/EmailCapture";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
-  title: "Free 3-Minute Website Audit | DoyinTech",
+  title: "Free 3-Minute Website Audit",
   description:
     "Free website audit for Nigerian SMEs. Send your URL — get 2–3 specific fixes. Plus free WhatsApp reply scripts.",
 };

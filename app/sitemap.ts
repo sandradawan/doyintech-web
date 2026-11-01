@@ -30,6 +30,7 @@ const MONEY: Entry[] = [
   page("/products", 0.95, "weekly"),
   page("/ebooks", 0.95, "weekly"),
   page("/tools", 0.95, "weekly"),
+  page("/business-solutions", 0.95, "weekly"),
   page("/care-plans", 0.9),
   page("/pro", 0.9),
   page("/free-audit", 0.9),
@@ -110,6 +111,8 @@ const HIGH_DEMAND_TOOLS = new Set([
   "aggregate-score-calculator", "letter-generator", "certificate-generator", "id-card-generator", "business-plan-generator",
   "meeting-minutes-generator", "cv-builder", "qr-generator", "nigeria-vat-calculator", "small-company-tax-checker",
   "freelancer-tax-calculator-nigeria", "timesheet-calculator", "study-timetable-planner",
+  "solar-vs-generator-calculator", "import-duty-calculator-nigeria", "cash-flow-forecast", "employee-cost-calculator-nigeria",
+  "bid-evaluation-tool", "compliance-calendar-nigeria",
 ]);
 
 function entries(): Entry[] {

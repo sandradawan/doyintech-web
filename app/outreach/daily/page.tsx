@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import DailyProspecting from "@/components/outreach/DailyProspecting";
 
 export const metadata: Metadata = {
-  title: "Daily prospecting — 20 messages | DoyinTech",
+  title: "Daily prospecting — 20 messages",
   description:
     "Internal playbook: send 20 personalized WhatsApp messages per day using proven DoyinTech scripts.",
   robots: { index: false, follow: false },

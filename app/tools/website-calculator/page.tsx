@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Free website price calculator for Nigeria. Estimate development cost in Naira for business sites, e-commerce, portals and custom web apps.",
   alternates: { canonical: "/tools/website-calculator" },
   openGraph: {
-    title: "Website Cost Calculator Nigeria | DoyinTech",
+    title: "Website Cost Calculator Nigeria",
     description:
       "Estimate website development cost in Naira. Not a formal quote — a planning range for your project.",
     url: `${TOOLS_CONFIG.siteUrl}/tools/website-calculator`,

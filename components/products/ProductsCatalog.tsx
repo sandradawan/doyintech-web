@@ -23,7 +23,7 @@ export default function ProductsCatalog() {
   // Deep link: /products?c=students
   useEffect(() => {
     const c = new URLSearchParams(window.location.search).get("c");
-    const match = PRODUCT_CATEGORIES.find((x) => SLUG(x) === c);
+    const match = c ? PRODUCT_CATEGORIES.find((x) => SLUG(x) === SLUG(c)) : undefined;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- read the ?c= filter once on load
     if (match) setFilter(match);
   }, []);

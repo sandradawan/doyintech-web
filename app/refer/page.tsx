@@ -5,7 +5,7 @@ import ReferWorkspace from "@/components/refer/ReferWorkspace";
 import ReferralCapture from "@/components/ui/ReferralCapture";
 
 export const metadata: Metadata = {
-  title: "Refer a business · ₦10,000 credit | DoyinTech",
+  title: "Refer a business · ₦10,000 credit",
   description:
     "Introduce a business that pays a website deposit — earn ₦10,000 credit toward your next DoyinTech package or product. Get a shareable referral link.",
 };

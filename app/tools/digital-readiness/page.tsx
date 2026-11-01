@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Free digital transformation readiness checker for businesses. Score presence, payments, marketing, operations, and security.",
   alternates: { canonical: "/tools/digital-readiness" },
   openGraph: {
-    title: "Digital Readiness Checker | DoyinTech",
+    title: "Digital Readiness Checker",
     description: "How digitally ready is your business? Free assessment with quick wins.",
     url: `${TOOLS_CONFIG.siteUrl}/tools/digital-readiness`,
   },

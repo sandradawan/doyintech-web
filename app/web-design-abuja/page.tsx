@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import { discoveryCallLink } from "@/lib/packages";
 
 export const metadata: Metadata = {
-  title: "Web Design Abuja — Fixed-price SME websites | DoyinTech",
+  title: "Web Design Abuja — Fixed-price SME websites",
   description:
     "Website design for Abuja SMEs. Fixed-price landing pages and local business sites with WhatsApp. Remote delivery from DoyinTech.",
 };

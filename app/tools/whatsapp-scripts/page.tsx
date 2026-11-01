@@ -3,7 +3,7 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import WhatsAppScriptsGenerator from "@/components/tools/WhatsAppScriptsGenerator";
 
 export const metadata: Metadata = {
-  title: "Free WhatsApp Reply Scripts Generator | DoyinTech",
+  title: "Free WhatsApp Reply Scripts Generator",
   description:
     "Generate 5 ready WhatsApp Business reply scripts for Nigerian SMEs — price enquiry, after-hours, booking, soft close, review request. Free.",
   alternates: { canonical: "/tools/whatsapp-scripts" },

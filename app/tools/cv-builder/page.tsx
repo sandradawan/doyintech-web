@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Free professional CV builder for students, developers, and job seekers. Live preview, templates, and print-ready download.",
   alternates: { canonical: "/tools/cv-builder" },
   openGraph: {
-    title: "CV & Portfolio Builder | DoyinTech",
+    title: "CV & Portfolio Builder",
     description: "Create a clean professional CV with live preview. Free to use.",
     url: `${TOOLS_CONFIG.siteUrl}/tools/cv-builder`,
   },

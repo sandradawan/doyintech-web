@@ -5,7 +5,7 @@ import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
 import { publicEbook } from "@/lib/shop/public";
 
 export const metadata: Metadata = {
-  title: "Ebooks for Nigerian Business Owners, Workers & Students (PDF) | DoyinTech",
+  title: "Ebooks for Nigerian Business Owners, Workers & Students (PDF)",
   description:
     "Practical ebooks: start and register a business in Nigeria, Excel for office work, bookkeeping, grants and funding, remote jobs, final year projects, marketing and personal finance. Read chapter one free; instant PDF after payment.",
   alternates: { canonical: "/ebooks" },
