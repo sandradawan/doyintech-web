@@ -6,70 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { PRIMARY_CTA } from "@/lib/cta";
-
-type NavLink = { name: string; href: string; desc?: string };
-type NavGroup = { label: string; items: NavLink[] };
+import { NAV_GROUPS, type NavGroup } from "@/lib/site-nav";
 
 /**
- * Four menus, each link leading somewhere you can buy or start. Company pages, blog and
- * internal tools live in the footer; the primary CTA sits on the right of the bar.
+ * Four mega menus built from lib/site-nav (shared with the footer). Company pages, blog and
+ * legal live in the footer; the primary CTA sits on the right of the bar.
  */
-const NAV_GROUPS: NavGroup[] = [
-  {
-    label: "Websites",
-    items: [
-      { name: "Packages & pricing", href: "/hire", desc: "Fixed price · 50% deposit" },
-      { name: "By industry", href: "/websites", desc: "Schools, clinics, churches, hotels…" },
-      { name: "Systems", href: "/school-management-software-nigeria", desc: "School software, hotel booking, online stores" },
-      { name: "Business setup", href: "/business-name-registration-nigeria", desc: "CAC, Google Maps, business email" },
-      { name: "What a website costs", href: "/website-cost-nigeria", desc: "2026 price guide + calculator" },
-      { name: "Website care plans", href: "/care-plans", desc: "Monthly security & updates" },
-      { name: "Our work", href: "/case-studies", desc: "Case studies & results" },
-      { name: "Free website audit", href: "/free-audit", desc: "2–3 fixes in your inbox" },
-    ],
-  },
-  {
-    label: "Shop",
-    items: [
-      { name: "Browse shops", href: "/shops", desc: "Buy from small businesses" },
-      { name: "Free online shop", href: "/stores", desc: "Sell on WhatsApp with one link" },
-      { name: "Gift cards", href: "/gift-cards", desc: "Give tools, templates or a website" },
-      { name: "Templates & kits", href: "/products", desc: "HR, payroll, office, school & project packs" },
-      { name: "Ebooks", href: "/ebooks", desc: "Business, Excel, bookkeeping, careers" },
-      { name: "Report Studio", href: "/reports", desc: "Social & brand presence reports" },
-      { name: "Code: components & templates", href: "/components", desc: "Next.js UI kits" },
-    ],
-  },
-  {
-    label: "Tools",
-    items: [
-      { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
-      { name: "Business problem solver", href: "/business-solutions", desc: "Power, cash flow, tax dates, procurement" },
-      { name: "Get paid online", href: "/get-paid", desc: "Invoice payment links + reminders" },
-      { name: "VAT & GST calculators", href: "/vat-calculator", desc: "Rates for 80+ countries" },
-      { name: "Invoice & receipt generator", href: "/tools/invoice-generator-nigeria", desc: "Free naira invoices as PDF" },
-      { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
-      { name: "Payslip generator", href: "/tools/payslip-generator-nigeria", desc: "PAYE, pension & net pay PDF" },
-      { name: "Office & HR tools", href: "/tools?for=office", desc: "Minutes, ID cards, timesheets" },
-      { name: "Solar vs generator", href: "/tools/solar-vs-generator-calculator", desc: "Fuel cost, payback & savings" },
-      { name: "Compliance calendar", href: "/tools/compliance-calendar-nigeria", desc: "PAYE, VAT, CAC deadlines" },
-      { name: "Small company tax checker", href: "/tools/small-company-tax-checker", desc: "Do you pay 0% company tax?" },
-      { name: "E-invoicing deadlines", href: "/e-invoicing-nigeria", desc: "Small businesses: July 2027" },
-      { name: "All tools", href: "/tools", desc: "Free business & website tools" },
-      { name: "DoyinOps", href: "/ops", desc: "Clients, deals & invoices" },
-    ],
-  },
-  {
-    label: "Students",
-    items: [
-      { name: "Student tools", href: "/students", desc: "Outlines, citations, analysis" },
-      { name: "CGPA calculator", href: "/tools/cgpa-calculator", desc: "5.0 and 4.0 scale" },
-      { name: "JAMB aggregate calculator", href: "/tools/aggregate-score-calculator", desc: "JAMB + Post-UTME score" },
-      { name: "Final year project kit", href: "/products/final-year-project-starter-kit", desc: "Chapters 1–5 templates" },
-      { name: "Project support", href: "/students/projects", desc: "Guided research support" },
-    ],
-  },
-];
 
 function linkActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -77,7 +19,7 @@ function linkActive(pathname: string, href: string) {
 }
 
 function groupActive(pathname: string, group: NavGroup) {
-  return group.items.some((item) => linkActive(pathname, item.href));
+  return group.sections.some((s) => s.links.some((item) => linkActive(pathname, item.href)));
 }
 
 export default function Navbar() {
@@ -146,17 +88,18 @@ export default function Navbar() {
               return (
                 <div
                   key={group.label}
-                  className="relative"
+                  className="flex h-12 items-center"
                   onMouseEnter={() => setOpenDesktop(group.label)}
                   onMouseLeave={() => setOpenDesktop((v) => (v === group.label ? null : v))}
                 >
                   <button
                     type="button"
-                    onClick={() =>
-                      setOpenDesktop((v) => (v === group.label ? null : group.label))
+                    // Hover already opened it, so a mouse click keeps it open; keyboard (detail 0) toggles.
+                    onClick={(e) =>
+                      setOpenDesktop((v) => (v === group.label && e.detail === 0 ? null : group.label))
                     }
                     aria-expanded={isOpen}
-                    className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-[12px] font-medium transition ${
+                    className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-[13px] font-medium transition ${
                       active || isOpen ? "text-white" : "text-[#f5f5f7]/80 hover:text-white"
                     }`}
                   >
@@ -181,38 +124,52 @@ export default function Navbar() {
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 6 }}
+                        initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 4 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-2"
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.16 }}
+                        className="fixed inset-x-0 top-12 z-50 border-b border-white/10 bg-[#0c0c0e] shadow-[0_24px_60px_rgba(0,0,0,0.55)]"
                       >
-                        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#121214]/95 p-2 shadow-2xl backdrop-blur-xl">
-                          {group.items.map((item) => {
-                            const on = linkActive(pathname, item.href);
-                            return (
-                              <a
-                                key={item.href + item.name}
-                                href={item.href}
-                                className={`block rounded-xl px-3 py-2.5 transition hover:bg-white/5 ${
-                                  on ? "bg-white/[0.06]" : ""
-                                }`}
-                              >
-                                <span
-                                  className={`block text-[13px] font-medium ${
-                                    on ? "text-[#ff8c14]" : "text-white"
-                                  }`}
-                                >
-                                  {item.name}
-                                </span>
-                                {item.desc && (
-                                  <span className="mt-0.5 block text-[11px] text-white/40">
-                                    {item.desc}
-                                  </span>
-                                )}
-                              </a>
-                            );
-                          })}
+                        <div className="mx-auto flex max-w-[1200px] gap-10 px-6 py-8">
+                          <div className="w-56 shrink-0 border-r border-white/[0.08] pr-8">
+                            <p className="t-eyebrow">{group.label}</p>
+                            <p className="mt-3 text-[14px] leading-relaxed text-white/60">{group.intro}</p>
+                            <a href={group.href} className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold text-[#ff8c14] hover:underline">
+                              {group.cta} <span aria-hidden>→</span>
+                            </a>
+                          </div>
+                          <div
+                            className="grid flex-1 gap-8"
+                            style={{ gridTemplateColumns: `repeat(${group.sections.length}, minmax(0, 1fr))` }}
+                          >
+                            {group.sections.map((section) => (
+                              <div key={section.title}>
+                                <p className="mb-3 px-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-white/40">
+                                  {section.title}
+                                </p>
+                                <ul className="space-y-0.5">
+                                  {section.links.map((item) => {
+                                    const on = linkActive(pathname, item.href);
+                                    return (
+                                      <li key={item.href + item.name}>
+                                        <a
+                                          href={item.href}
+                                          className={`block rounded-lg px-3 py-2 transition hover:bg-white/[0.06] ${on ? "bg-white/[0.06]" : ""}`}
+                                        >
+                                          <span className={`block text-[14px] font-medium ${on ? "text-[#ff8c14]" : "text-white"}`}>
+                                            {item.name}
+                                          </span>
+                                          {item.desc && (
+                                            <span className="mt-0.5 block text-[12px] leading-snug text-white/45">{item.desc}</span>
+                                          )}
+                                        </a>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </motion.div>
                     )}
@@ -225,13 +182,13 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/account"
-              className="hidden text-xs font-medium text-[#f5f5f7]/70 transition hover:text-white md:inline"
+              className="hidden text-[13px] font-medium text-[#f5f5f7]/75 transition hover:text-white md:inline"
             >
               Sign in
             </Link>
             <Link
               href={PRIMARY_CTA.href}
-              className="inline-flex rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-xs font-semibold text-black transition hover:brightness-110"
+              className="inline-flex rounded-full bg-[#ff8c14] px-4 py-1.5 text-[13px] font-semibold text-black transition hover:brightness-110"
             >
               {PRIMARY_CTA.short}
             </Link>
@@ -292,21 +249,26 @@ export default function Navbar() {
                           exit={{ height: 0, opacity: 0 }}
                           className="overflow-hidden"
                         >
-                          <div className="space-y-0.5 pb-3 pl-2">
-                            {group.items.map((item) => (
-                              <a
-                                key={item.href + item.name}
-                                href={item.href}
-                                className="block rounded-lg px-3 py-2.5 text-[15px] text-white/80 hover:bg-white/5 hover:text-white"
-                              >
-                                {item.name}
-                                {item.desc && (
-                                  <span className="mt-0.5 block text-[12px] font-normal text-white/35">
-                                    {item.desc}
-                                  </span>
-                                )}
-                              </a>
+                          <div className="space-y-4 pb-4 pl-2">
+                            {group.sections.map((section) => (
+                              <div key={section.title}>
+                                <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/35">
+                                  {section.title}
+                                </p>
+                                {section.links.map((item) => (
+                                  <a
+                                    key={item.href + item.name}
+                                    href={item.href}
+                                    className="block rounded-lg px-3 py-2.5 text-[15px] text-white/85 hover:bg-white/5 hover:text-white"
+                                  >
+                                    {item.name}
+                                  </a>
+                                ))}
+                              </div>
                             ))}
+                            <a href={group.href} className="block px-3 text-[14px] font-semibold text-[#ff8c14]">
+                              {group.cta} →
+                            </a>
                           </div>
                         </motion.div>
                       )}

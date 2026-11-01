@@ -1,162 +1,135 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
+import { PRIMARY_CTA } from "@/lib/cta";
+import { COMPANY_SECTION, LEGAL_LINKS, NAV_GROUPS, type NavSection } from "@/lib/site-nav";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+
+type Column = { label: string; sections: NavSection[] };
+
+// Same structure as the navbar menus, plus company pages; each column is a dropdown on phones.
+const COLUMNS: Column[] = [
+  ...NAV_GROUPS.map((g) => ({ label: g.label, sections: g.sections })),
+  { label: COMPANY_SECTION.title, sections: [{ ...COMPANY_SECTION, title: "" }] },
+];
+
+const SOCIALS = [
+  { label: "YouTube", href: "https://www.youtube.com/@doyintechfoundation" },
+  { label: "X", href: "https://x.com/doyintechnology" },
+  { label: "Instagram", href: "https://instagram.com/doyintechofficial" },
+  { label: "TikTok", href: "https://www.tiktok.com/@doyintechfoundation" },
+];
+
+function FooterColumn({ col }: { col: Column }) {
+  const [open, setOpen] = useState(false);
+  const id = `footer-${col.label.toLowerCase()}`;
+  return (
+    <div className="border-b border-white/[0.08] lg:border-0">
+      <h2 className="lg:mb-5">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls={id}
+          className="flex min-h-12 w-full items-center justify-between text-left text-[13px] font-semibold uppercase tracking-[0.1em] text-[#f5f5f7] lg:pointer-events-none lg:min-h-0"
+        >
+          {col.label}
+          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden className={`text-white/50 transition lg:hidden ${open ? "rotate-180" : ""}`}>
+            <path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </h2>
+      <div id={id} className={`${open ? "block" : "hidden"} space-y-6 pb-6 lg:block lg:pb-0`}>
+        {col.sections.map((s) => (
+          <div key={s.title || col.label}>
+            {s.title && <p className="mb-2.5 text-[12px] font-medium text-white/40">{s.title}</p>}
+            <ul className="space-y-2">
+              {s.links.map((l) => (
+                <li key={l.href + l.name}>
+                  <a href={l.href} className="footer-link py-1.5 text-[15px] leading-snug lg:py-0 lg:text-[14px]">
+                    {l.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  // Mirrors the navbar menus, plus company/legal pages that don't need top-level space.
-  const cols = [
-    {
-      title: "Websites",
-      links: [
-        ["/hire", "Packages & pricing"],
-        ["/websites", "Websites by industry"],
-        ["/ecommerce-website-nigeria", "Ecommerce websites"],
-        ["/school-management-software-nigeria", "School management software"],
-        ["/hotel-booking-website-nigeria", "Hotel booking websites"],
-        ["/business-name-registration-nigeria", "CAC business name registration"],
-        ["/google-business-profile-setup", "Get on Google Maps"],
-        ["/business-email-domain-nigeria", "Domain and business email"],
-        ["/web-design-lagos", "Web design Lagos"],
-        ["/website-cost-nigeria", "Website cost in Nigeria"],
-        ["/care-plans", "Website care plans"],
-        ["/case-studies", "Our work"],
-        ["/services", "Services"],
-        ["/white-label", "White-label for agencies"],
-        ["/free-audit", "Free website audit"],
-      ],
-    },
-    {
-      title: "Shop",
-      links: [
-        ["/shops", "Browse shops"],
-        ["/stores", "Free online shop"],
-        ["/get-featured", "Feature your shop"],
-        ["/gift-cards", "Gift cards"],
-        ["/products", "Templates & kits"],
-        ["/ebooks", "Ebooks"],
-        ["/reports", "Report Studio"],
-        ["/components", "UI components"],
-        ["/templates", "Page templates"],
-      ],
-    },
-    {
-      title: "Tools",
-      links: [
-        ["/pro", "DoyinTech Pro"],
-        ["/business-solutions", "Business problem solver"],
-        ["/get-paid", "Get paid online"],
-        ["/tools/invoice-generator-nigeria", "Invoice generator"],
-        ["/tools/invoice-generator", "Invoice generator (any currency)"],
-        ["/vat-calculator", "VAT & GST calculators"],
-        ["/tools/receipt-generator-nigeria", "Receipt generator"],
-        ["/tools/paye-calculator-nigeria", "PAYE calculator 2026"],
-        ["/tools/payslip-generator-nigeria", "Payslip generator"],
-        ["/tools/business-plan-generator", "Business plan generator"],
-        ["/tools/cash-flow-forecast", "Cash flow forecast"],
-        ["/tools/solar-vs-generator-calculator", "Solar vs generator"],
-        ["/tools/import-duty-calculator-nigeria", "Import duty calculator"],
-        ["/tools/compliance-calendar-nigeria", "Compliance calendar"],
-        ["/tools/bid-evaluation-tool", "Bid evaluation tool"],
-        ["/tools/certificate-generator", "Certificate generator"],
-        ["/tools/small-company-tax-checker", "Small company tax checker"],
-        ["/e-invoicing-nigeria", "E-invoicing deadlines"],
-        ["/tools", "All tools"],
-        ["/ops", "DoyinOps"],
-        ["/students", "Student tools"],
-        ["/tools/cgpa-calculator", "CGPA calculator"],
-        ["/students/projects", "Student project support"],
-        ["/account", "Your account"],
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        ["/about", "About"],
-        ["/contact", "Contact"],
-        ["/blog", "Blog"],
-        ["/refer", "Refer & earn"],
-        ["/privacy", "Privacy"],
-        ["/terms", "Terms"],
-      ],
-    },
-  ];
-
-  const socials = [
-    {
-      label: "YouTube",
-      href: "https://www.youtube.com/@doyintechfoundation",
-    },
-    { label: "X", href: "https://x.com/doyintechnology" },
-    { label: "Instagram", href: "https://instagram.com/doyintechofficial" },
-    { label: "TikTok", href: "https://www.tiktok.com/@doyintechfoundation" },
-  ];
-
   return (
-    <footer className="border-t border-white/[0.08] bg-black text-[13px] text-[#a1a1a6]">
-      <div className="mx-auto max-w-[1020px] px-5 py-12 sm:px-6 sm:py-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {cols.map((col) => (
-            <div key={col.title}>
-              <h3 className="mb-4 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#f5f5f7]">
-                {col.title}
-              </h3>
-              <ul className="space-y-2.5">
-                {col.links.map(([href, label]) => (
-                  <li key={href + label}>
-                    <a href={href} className="footer-link text-[13px]">
-                      {label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+    <footer className="border-t border-white/[0.08] bg-[#050507] text-[14px] text-[#a1a1a6]">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-6">
+        {/* Brand, contact and newsletter */}
+        <div className="grid gap-10 py-12 sm:py-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <div>
+            <Link href="/" className="inline-flex items-center gap-2.5 text-[20px] font-semibold tracking-tight text-white">
+              <span className="relative h-7 w-7 overflow-hidden">
+                <Image src="/logo.png" alt="" fill className="object-contain" sizes="28px" />
+              </span>
+              DoyinTech
+            </Link>
+            <p className="mt-4 max-w-md text-[15px] leading-relaxed">
+              Fixed-price websites, online shops and free business tools for small businesses in Nigeria and around the world.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href={PRIMARY_CTA.href} className="apple-btn bg-[#ff8c14] text-black hover:brightness-110">
+                {PRIMARY_CTA.label}
+              </Link>
+              <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="apple-btn apple-btn-secondary">
+                Chat on WhatsApp
+              </a>
             </div>
+            <dl className="mt-6 grid gap-1.5 text-[14px] sm:grid-cols-2">
+              <div>
+                <dt className="sr-only">WhatsApp</dt>
+                <dd>
+                  <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="footer-link">+234 808 534 3926</a>
+                </dd>
+              </div>
+              <div>
+                <dt className="sr-only">Email</dt>
+                <dd>
+                  <a href="mailto:hello@doyintech.com" className="footer-link">hello@doyintech.com</a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div className="lg:pt-1">
+            <NewsletterSignup />
+          </div>
+        </div>
+
+        {/* Link sections */}
+        <nav aria-label="Footer" className="grid border-t border-white/[0.08] pt-2 lg:grid-cols-5 lg:gap-8 lg:py-12">
+          {COLUMNS.map((col) => (
+            <FooterColumn key={col.label} col={col} />
           ))}
-        </div>
+        </nav>
 
-        <div className="mt-12 divider-soft" />
-        <div className="mt-8">
-          <NewsletterSignup />
-        </div>
-        <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-2">
-            <p className="text-[13px] leading-relaxed">
-              WhatsApp{" "}
-              <a
-                href={discoveryCallLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="apple-link"
-              >
-                +234 808 534 3926
-              </a>
-            </p>
-            <p className="text-[13px]">
-              <a href="mailto:hello@doyintech.com" className="apple-link">
-                hello@doyintech.com
-              </a>
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            {socials.map((s) => (
-              <a
-                key={s.href}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link text-[13px]"
-              >
-                {s.label}
-              </a>
+        {/* Legal bar */}
+        <div className="flex flex-col gap-4 border-t border-white/[0.08] py-6 text-[13px] md:flex-row md:items-center md:justify-between">
+          <p>© {year} DoyinTech · Jos, Nigeria</p>
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {LEGAL_LINKS.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} className="footer-link">{l.name}</a>
+              </li>
             ))}
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-col gap-2 border-t border-white/[0.08] pt-6 text-[12px] sm:flex-row sm:items-center sm:justify-between">
-          <p>Copyright © {year} DoyinTech. All rights reserved.</p>
-          <p>Jos, Nigeria · www.doyintech.com</p>
+            {SOCIALS.map((s) => (
+              <li key={s.href}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="footer-link">{s.label}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>
