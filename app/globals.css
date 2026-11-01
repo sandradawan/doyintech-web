@@ -587,3 +587,29 @@ body {
     animation: none;
   }
 }
+
+/* Hero primary button: a light sweep every few seconds draws the eye. */
+@keyframes hero-shine {
+  0%,
+  60% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-20deg);
+  }
+}
+.hero-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: hero-shine 3.2s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta::after {
+    animation: none;
+    display: none;
+  }
+}

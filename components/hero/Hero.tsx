@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
 import { PRIMARY_CTA } from "@/lib/cta";
 
 type Slide = {
@@ -55,6 +55,11 @@ const SLIDES: Slide[] = [
 
 const INTERVAL = 7000;
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+const rise: Variants = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } };
+const wordUp: Variants = { hidden: { y: "110%" }, show: { y: "0%", transition: { duration: 0.7, ease: EASE } } };
+const pop: Variants = { hidden: { opacity: 0, scale: 0.92, y: 10 }, show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: EASE } } };
+
 export default function Hero() {
   const reduce = useReducedMotion();
   const [current, setCurrent] = useState(0);
@@ -89,11 +94,11 @@ export default function Hero() {
           className="absolute inset-0 -z-20"
         >
           <div className="hero-push absolute inset-0">
-            <Image src={slide.img} alt="" fill priority={current === 0} sizes="100vw" className="object-cover" />
+            <Image src={slide.img} alt="" fill priority={current === 0} sizes="100vw" className="object-cover opacity-45 saturate-[0.85]" />
           </div>
           {slide.video && !reduce && (
             <video
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover opacity-45"
               src={slide.video}
               poster={slide.img}
               autoPlay
@@ -106,7 +111,7 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
       {/* Legibility: dark left side for the text, fade into the page below */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.62)_45%,rgba(0,0,0,0.2)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.75)_0%,rgba(0,0,0,0.45)_50%,rgba(0,0,0,0.1)_100%)]" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-black to-transparent" />
 
       {/* Copy */}
@@ -114,31 +119,55 @@ export default function Hero() {
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
-            initial={reduce ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[640px] py-16"
+            initial={reduce ? false : "hidden"}
+            animate="show"
+            exit={reduce ? undefined : "exit"}
+            variants={{ show: { transition: { staggerChildren: 0.09 } }, exit: { opacity: 0, y: -12, transition: { duration: 0.3 } } }}
+            className="max-w-[660px] py-16"
             aria-live={playing ? "off" : "polite"}
           >
-            <p className="t-eyebrow">{slide.eyebrow}</p>
-            <h1 className="t-display mt-4 text-white">{slide.title}</h1>
-            <p className="t-lead mt-5 max-w-[540px]">{slide.desc}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href={slide.cta.href} className="apple-btn bg-[#ff8c14] px-6 font-semibold text-black hover:brightness-110">
-                {slide.cta.label}
-              </Link>
-              {slide.cta.href !== PRIMARY_CTA.href ? (
-                <Link href={PRIMARY_CTA.href} className="apple-btn apple-btn-secondary">
-                  {PRIMARY_CTA.label}
+            <motion.p variants={rise} className="t-eyebrow">{slide.eyebrow}</motion.p>
+            {/* Each word slides up out of its own mask */}
+            <motion.h1
+              variants={{ show: { transition: { staggerChildren: 0.06 } } }}
+              className="t-display mt-4 font-bold text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
+            >
+              {slide.title.split(" ").map((word, i) => (
+                <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+                  <motion.span variants={wordUp} className="inline-block">
+                    {word}
+                    {" "}
+                  </motion.span>
+                </span>
+              ))}
+            </motion.h1>
+            <motion.p variants={rise} className="t-lead mt-5 max-w-[560px] font-medium text-white/85">
+              {slide.desc}
+            </motion.p>
+            <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">
+              <motion.span variants={pop} className="inline-flex">
+                <Link
+                  href={slide.cta.href}
+                  className="hero-cta apple-btn relative overflow-hidden bg-[#ff8c14] px-6 font-semibold text-black shadow-[0_8px_30px_rgba(255,140,20,0.35)] transition hover:-translate-y-0.5 hover:brightness-110"
+                >
+                  {slide.cta.label}
                 </Link>
-              ) : (
-                <Link href="/case-studies" className="apple-btn apple-btn-secondary">
-                  See our work
-                </Link>
-              )}
-            </div>
-            <p className="mt-5 text-[13px] text-white/55">Fixed price · 50% deposit · live in 1–2 weeks</p>
+              </motion.span>
+              <motion.span variants={pop} className="inline-flex">
+                {slide.cta.href !== PRIMARY_CTA.href ? (
+                  <Link href={PRIMARY_CTA.href} className="apple-btn apple-btn-secondary transition hover:-translate-y-0.5">
+                    {PRIMARY_CTA.label}
+                  </Link>
+                ) : (
+                  <Link href="/case-studies" className="apple-btn apple-btn-secondary transition hover:-translate-y-0.5">
+                    See our work
+                  </Link>
+                )}
+              </motion.span>
+            </motion.div>
+            <motion.p variants={rise} className="mt-5 text-[13px] text-white/60">
+              Fixed price · 50% deposit · live in 1–2 weeks
+            </motion.p>
           </motion.div>
         </AnimatePresence>
       </div>
