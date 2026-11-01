@@ -47,6 +47,7 @@ export default function Footer() {
       links: [
         ["/pro", "DoyinTech Pro"],
         ["/business-solutions", "Business problem solver"],
+        ["/get-paid", "Get paid online"],
         ["/tools/invoice-generator-nigeria", "Invoice generator"],
         ["/tools/receipt-generator-nigeria", "Receipt generator"],
         ["/tools/paye-calculator-nigeria", "PAYE calculator 2026"],

@@ -31,6 +31,7 @@ const MONEY: Entry[] = [
   page("/ebooks", 0.95, "weekly"),
   page("/tools", 0.95, "weekly"),
   page("/business-solutions", 0.95, "weekly"),
+  page("/get-paid", 0.95),
   page("/care-plans", 0.9),
   page("/pro", 0.9),
   page("/free-audit", 0.9),
@@ -160,7 +161,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: Number.isNaN(modified.getTime()) ? BUILT : modified,
       changeFrequency: e.freq,
       priority: e.priority,
-      ...(e.images ? { images: e.images } : {}),
+      // Next writes image URLs into the XML unescaped, and a bare "&" (Unsplash query strings) breaks the whole sitemap.
+      ...(e.images ? { images: e.images.map((src) => src.replace(/&(?!amp;)/g, "&amp;")) } : {}),
     });
   }
   return out;

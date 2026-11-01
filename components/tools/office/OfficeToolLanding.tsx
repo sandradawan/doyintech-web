@@ -3,6 +3,7 @@ import Link from "next/link";
 import SeoToolPage, { faqJsonLd } from "@/components/tools/SeoToolPage";
 import { getOfficeToolPage } from "@/lib/tools/office-pages";
 import { absoluteUrl } from "@/lib/site";
+import CloudSaveBar from "./CloudSaveBar";
 
 export function officeToolMetadata(slug: string): Metadata {
   const p = getOfficeToolPage(slug);
@@ -35,7 +36,12 @@ export default function OfficeToolLanding({ slug, tool }: { slug: string; tool: 
       h1={p.h1}
       intro={p.intro}
       jsonLd={jsonLd}
-      tool={tool}
+      tool={
+        <>
+          {tool}
+          <CloudSaveBar />
+        </>
+      }
       faqs={p.faqs}
       newsletterSource={slug}
       upsell={

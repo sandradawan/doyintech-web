@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
 import { getPlan } from "@/lib/subscriptions/plans";
+import SavedTools from "@/components/account/SavedTools";
 
 type Membership = {
   planId: string;
@@ -213,6 +214,7 @@ function AccountInner() {
                 </div>
               ))
             )}
+            <SavedTools />
           </div>
         )}
 

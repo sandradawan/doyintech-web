@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import GetPaidPanel from "@/components/tools/GetPaidPanel";
 import { track } from "@/lib/analytics/client";
 import Link from "next/link";
 import PaidGate, { usePaidUnlock } from "@/components/tools/PaidGate";
@@ -492,6 +493,18 @@ export default function InvoiceGenerator({
           )}
           <p className="text-xs text-gray-500">Only the document sheet prints — not the website chrome.</p>
         </div>
+
+        {(docType === "Invoice" || docType === "Proforma") && status !== "Paid" && (
+          <GetPaidPanel
+            docNumber={invoiceNo}
+            amountNgn={total}
+            customerName={client.name}
+            customerEmail={client.email}
+            customerPhone={client.phone}
+            dueDate={dueDate}
+            businessName={biz.name}
+          />
+        )}
       </div>
 
       <div id="invoice-sheet" className="invoice-sheet overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">

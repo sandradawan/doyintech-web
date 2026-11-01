@@ -8,6 +8,8 @@ export const CLIENT_EVENTS = [
   "cta_click",
   "tool_download",
   "shop_view",
+  "get_paid_open",
+  "get_paid_link_created",
 ] as const;
 
 /** Events recorded by server routes (never accepted from the browser). */
@@ -32,6 +34,8 @@ export const EVENT_LABELS: Record<EventName, string> = {
   cta_click: "Clicks to money pages",
   tool_download: "Tool PDFs saved",
   shop_view: "Seller shop views",
+  get_paid_open: "Get-paid panel opened",
+  get_paid_link_created: "Invoice payment links created",
   lead: "Leads (forms)",
   newsletter_signup: "Email sign-ups",
   checkout_start: "Checkouts started",

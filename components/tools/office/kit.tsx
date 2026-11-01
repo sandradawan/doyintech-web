@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { pullTool, pushTool, toolSlug } from "@/lib/tools/cloud-save";
 
 /** Shared form styling and helpers for the office, business and student document tools. */
 
@@ -37,28 +38,69 @@ export function longDate(iso: string) {
   return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 }
 
-/** useState that restores from and saves to localStorage on this device only. */
+/**
+ * useState that restores from and saves to localStorage, and when the visitor is signed in,
+ * syncs with their account (newest copy wins, so work started on one device continues on another).
+ */
 export function useSavedState<T>(key: string, initial: T) {
   const [value, setValue] = useState<T>(initial);
-  const loaded = useRef(false);
+  const [hydrated, setHydrated] = useState(false);
+  const lastSaved = useRef<string | null>(null); // JSON last written to (or read from) this device
+  const cloudJson = useRef<string | null>(null); // JSON known to match the account copy
+  const initialJson = useRef(JSON.stringify(initial));
+  const tool = toolSlug(key);
+
   useEffect(() => {
+    let cancelled = false;
+    let localT = 0;
     try {
       const raw = localStorage.getItem(key);
-      if (raw) setValue({ ...initial, ...JSON.parse(raw) });
+      if (raw) {
+        const restored = { ...initial, ...JSON.parse(raw) } as T;
+        lastSaved.current = JSON.stringify(restored);
+        setValue(restored);
+      }
+      localT = Number(localStorage.getItem(`${key}:t`)) || 0;
     } catch {
       /* ignore */
     }
-    loaded.current = true;
+    setHydrated(true);
+    pullTool(tool).then((cloud) => {
+      if (cancelled || !cloud) return;
+      if (cloud.payload && cloud.updatedAt >= localT) {
+        const merged = { ...initial, ...cloud.payload } as T;
+        cloudJson.current = JSON.stringify(merged);
+        setValue(merged);
+      } else if (lastSaved.current) {
+        // This device has newer (or never-uploaded) work: send it to the account.
+        cloudJson.current = lastSaved.current;
+        pushTool(tool, JSON.parse(lastSaved.current), 0);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- load once per key
   }, [key]);
+
   useEffect(() => {
-    if (!loaded.current) return;
+    if (!hydrated) return;
+    const json = JSON.stringify(value);
+    if (json === lastSaved.current) return;
+    if (lastSaved.current === null && json === initialJson.current) return; // untouched defaults
+    lastSaved.current = json;
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(key, json);
+      localStorage.setItem(`${key}:t`, String(Date.now()));
     } catch {
       /* storage full or blocked */
     }
-  }, [key, value]);
+    if (json !== cloudJson.current) {
+      cloudJson.current = json;
+      pushTool(tool, value);
+    }
+  }, [key, tool, value, hydrated]);
+
   return [value, setValue] as const;
 }
 

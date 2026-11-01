@@ -43,7 +43,7 @@ const PROBLEMS: Problem[] = [
     who: "Every business, NGOs, contractors",
     pain: "Customers pay late while salaries, rent and suppliers are due on fixed dates.",
     fix: "Forecast 13 weeks ahead, see the week cash runs out, and invoice and chase faster.",
-    tools: [["13-week cash flow forecast", "/tools/cash-flow-forecast"], ["Invoice generator", "/tools/invoice-generator-nigeria"], ["Receipt generator", "/tools/receipt-generator-nigeria"]],
+    tools: [["13-week cash flow forecast", "/tools/cash-flow-forecast"], ["Invoice payment links", "/get-paid"], ["Invoice generator", "/tools/invoice-generator-nigeria"], ["Receipt generator", "/tools/receipt-generator-nigeria"]],
     more: ["Bookkeeping ebook", "/ebooks/bookkeeping-for-small-businesses-nigeria"],
   },
   {
