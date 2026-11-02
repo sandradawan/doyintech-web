@@ -127,6 +127,7 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         title: "Workspace",
         links: [
+          { name: "Daily Money Quiz", href: "/daily-quiz", desc: "5 questions a day, keep your streak" },
           { name: "All free tools", href: "/tools", desc: "Business & website tools" },
           { name: "Office & HR tools", href: "/tools?for=office", desc: "Minutes, ID cards, timesheets" },
           { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },

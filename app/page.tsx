@@ -1,5 +1,6 @@
 import Hero from "@/components/hero/Hero";
 import TrustBar from "@/components/sections/TrustBar";
+import TodayStrip from "@/components/daily/TodayStrip";
 import ClientLogos from "@/components/sections/ClientLogos";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
 import Packages from "@/components/sections/Packages";
@@ -30,6 +31,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
+        <TodayStrip />
         <ClientLogos />
         <CaseStudiesTeaser />
         <Packages />
