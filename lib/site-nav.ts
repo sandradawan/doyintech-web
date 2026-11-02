@@ -100,6 +100,7 @@ export const NAV_GROUPS: NavGroup[] = [
         links: [
           { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
           { name: "Salary calculators", href: "/salary-calculator", desc: "Take-home pay: UK, US, India, more" },
+          { name: "Hourly to salary", href: "/tools/hourly-to-salary-calculator" },
           { name: "Payslip generator", href: "/tools/payslip-generator-nigeria" },
           { name: "Small company tax checker", href: "/tools/small-company-tax-checker" },
           { name: "Compliance calendar", href: "/tools/compliance-calendar-nigeria", desc: "PAYE, VAT, CAC deadlines" },
@@ -110,6 +111,7 @@ export const NAV_GROUPS: NavGroup[] = [
         title: "Plan & run",
         links: [
           { name: "Business problem solver", href: "/business-solutions", desc: "Power, cash flow, procurement" },
+          { name: "Freelance rate calculator", href: "/tools/freelance-rate-calculator", desc: "What to charge per hour or day" },
           { name: "Cash flow forecast", href: "/tools/cash-flow-forecast" },
           { name: "Solar vs generator", href: "/tools/solar-vs-generator-calculator" },
           { name: "Import duty calculator", href: "/tools/import-duty-calculator-nigeria" },
