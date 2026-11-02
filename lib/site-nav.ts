@@ -93,6 +93,7 @@ export const NAV_GROUPS: NavGroup[] = [
           { name: "Receipt generator", href: "/tools/receipt-generator-nigeria" },
           { name: "VAT & GST calculators", href: "/vat-calculator", desc: "Rates for 90+ countries" },
           { name: "Get paid online", href: "/get-paid", desc: "Payment links on invoices" },
+          { name: "Late payment interest", href: "/tools/late-payment-interest-calculator", desc: "Interest on overdue invoices" },
         ],
       },
       {
@@ -112,6 +113,7 @@ export const NAV_GROUPS: NavGroup[] = [
         links: [
           { name: "Business problem solver", href: "/business-solutions", desc: "Power, cash flow, procurement" },
           { name: "Freelance rate calculator", href: "/tools/freelance-rate-calculator", desc: "What to charge per hour or day" },
+          { name: "Discount calculator", href: "/tools/discount-calculator" },
           { name: "Cash flow forecast", href: "/tools/cash-flow-forecast" },
           { name: "Solar vs generator", href: "/tools/solar-vs-generator-calculator" },
           { name: "Import duty calculator", href: "/tools/import-duty-calculator-nigeria" },
