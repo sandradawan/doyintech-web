@@ -121,6 +121,64 @@ function kenya(g: number): SalaryResult {
   ]);
 }
 
+/** Canada 2026, Ontario resident: CPP/CPP2, EI, federal and Ontario tax (CRA T4127, January 2026). */
+export function canadaOntario(g: number): SalaryResult {
+  const ympe = 74600;
+  const cpp = pos(Math.min(g, ympe) - 3500) * 0.0595;
+  const cppBase = (cpp * 4.95) / 5.95; // the base part is a tax credit; the enhanced part is a deduction
+  const cpp2 = pos(Math.min(g, 85000) - ympe) * 0.04;
+  const ei = Math.min(g, 68900) * 0.0163;
+  const taxable = pos(g - (cpp - cppBase) - cpp2);
+
+  const bpaf = taxable <= 181440 ? 16452 : taxable >= 258482 ? 14829 : 16452 - ((taxable - 181440) * 1623) / 77042;
+  const fedCredits = 0.14 * (bpaf + Math.min(g, 1501) + cppBase + ei);
+  const federal = pos(bandTax(taxable, [[58523, 0.14], [117045, 0.205], [181440, 0.26], [258482, 0.29], [Infinity, 0.33]]) - fedCredits);
+
+  const onBasic = pos(bandTax(taxable, [[53891, 0.0505], [107785, 0.0915], [150000, 0.1116], [220000, 0.1216], [Infinity, 0.1316]]) - 0.0505 * (12989 + cppBase + ei));
+  const surtax = pos(onBasic - 5818) * 0.2 + pos(onBasic - 7446) * 0.36;
+  const withSurtax = onBasic + surtax;
+  const reduction = Math.min(withSurtax, pos(2 * 300 - withSurtax));
+  const healthPremium =
+    taxable <= 20000 ? 0
+    : taxable <= 36000 ? Math.min(300, (taxable - 20000) * 0.06)
+    : taxable <= 48000 ? Math.min(450, 300 + (taxable - 36000) * 0.06)
+    : taxable <= 72000 ? Math.min(600, 450 + (taxable - 48000) * 0.25)
+    : taxable <= 200000 ? Math.min(750, 600 + (taxable - 72000) * 0.25)
+    : Math.min(900, 750 + (taxable - 200000) * 0.25);
+
+  return result(g, [
+    { label: "Federal income tax", amount: federal },
+    { label: "Ontario income tax", amount: withSurtax - reduction + healthPremium },
+    { label: "CPP and CPP2", amount: cpp + cpp2 },
+    { label: "EI (1.63%)", amount: ei },
+  ]);
+}
+
+/** South Africa 2026/27 (1 March 2026 – 28 February 2027), under 65: PAYE after the primary rebate, plus UIF. */
+function southAfrica(g: number): SalaryResult {
+  const tax = pos(
+    bandTax(g, [[245100, 0.18], [383100, 0.26], [530200, 0.31], [695800, 0.36], [887000, 0.39], [1878600, 0.41], [Infinity, 0.45]]) - 17820,
+  );
+  const uif = Math.min(g / 12, 17712) * 0.01 * 12;
+  return result(g, [
+    { label: "Income tax (PAYE)", amount: tax },
+    { label: "UIF (1%)", amount: uif },
+  ]);
+}
+
+/** Ireland 2026, single PAYE employee: income tax after credits, USC, and Class A PRSI at 4.35% (from 1 October 2026). */
+function ireland(g: number): SalaryResult {
+  const tax = pos(bandTax(g, [[44000, 0.2], [Infinity, 0.4]]) - 4000);
+  const usc = g <= 13000 ? 0 : bandTax(g, [[12012, 0.005], [28700, 0.02], [70044, 0.03], [Infinity, 0.08]]);
+  const weekly = g / 52;
+  const prsiWeek = weekly <= 352 ? 0 : pos(weekly * 0.0435 - (weekly <= 424 ? 12 - (weekly - 352) / 6 : 0));
+  return result(g, [
+    { label: "Income tax (after €4,000 credits)", amount: tax },
+    { label: "USC", amount: usc },
+    { label: "PRSI (4.35%)", amount: prsiWeek * 52 },
+  ]);
+}
+
 export const SALARY_COUNTRIES: SalaryCountry[] = [
   {
     slug: "united-kingdom",
@@ -187,6 +245,45 @@ export const SALARY_COUNTRIES: SalaryCountry[] = [
     covers: "PAYE after personal relief, NSSF at 6% (pensionable pay up to KSh 108,000 a month), SHIF at 2.75% and the 1.5% Affordable Housing Levy, all deducted before PAYE",
     excludes: "insurance relief, mortgage interest and pension contributions above NSSF",
     calc: kenya,
+  },
+  {
+    slug: "canada",
+    country: "Canada (Ontario)",
+    short: "Canada",
+    currency: "CAD",
+    locale: "en-CA",
+    taxYear: "2026",
+    authority: "the CRA",
+    example: 70000,
+    covers: "federal income tax at the 2026 rates (14% lowest rate), Ontario income tax with surtax, the low-income reduction and Ontario Health Premium, CPP and CPP2, and EI",
+    excludes: "other provinces and Quebec, RRSP and union dues, and benefits or credits you claim on your return",
+    calc: canadaOntario,
+  },
+  {
+    slug: "south-africa",
+    country: "South Africa",
+    short: "South Africa",
+    currency: "ZAR",
+    locale: "en-ZA",
+    taxYear: "2026/27",
+    authority: "SARS",
+    example: 400000,
+    covers: "income tax at the 2026/27 SARS rates less the R17,820 primary rebate (under 65) and UIF at 1% up to R177.12 a month",
+    excludes: "the age rebates for 65 and over, retirement fund contributions and the medical tax credit",
+    calc: southAfrica,
+  },
+  {
+    slug: "ireland",
+    country: "Ireland",
+    short: "Ireland",
+    currency: "EUR",
+    locale: "en-IE",
+    taxYear: "2026",
+    authority: "Revenue",
+    example: 50000,
+    covers: "income tax for a single person (20% up to €44,000, 40% above, less the €2,000 personal and €2,000 employee credits), USC, and Class A PRSI at 4.35% with the low-pay PRSI credit",
+    excludes: "married or one-parent bands and credits, pension contributions and other tax credits",
+    calc: ireland,
   },
 ];
 

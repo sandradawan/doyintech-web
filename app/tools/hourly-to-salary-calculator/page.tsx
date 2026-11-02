@@ -36,7 +36,7 @@ export default function Page() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">What will you take home?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">See income tax and contributions for the UK, US, India, Australia, Kenya and Nigeria.</p>
+          <p className="mt-2 text-[14px] text-[#a1a1a6]">See income tax and contributions for the UK, US, Canada, Ireland, India, Australia, South Africa, Kenya and Nigeria.</p>
           <Link href="/salary-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Salary after tax</Link>
         </>
       }
