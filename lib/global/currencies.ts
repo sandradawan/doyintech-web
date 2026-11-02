@@ -116,3 +116,11 @@ export function currencySymbol(code: string): string {
     return code;
   }
 }
+
+/** Currencies whose everyday prices run into the thousands; the sample invoice line uses a bigger number. */
+const LARGE_UNIT = new Set(["NGN", "KES", "TZS", "UGX", "RWF", "ETB", "XOF", "XAF", "INR", "PKR", "BDT", "LKR", "NPR", "JPY", "KRW", "IDR", "VND", "PYG", "CLP", "COP", "ARS", "HUF", "ISK", "CRC", "DZD"]);
+
+/** A believable price for the example line on a new invoice. */
+export function samplePrice(code: string): number {
+  return LARGE_UNIT.has(code) ? 150000 : 1500;
+}

@@ -72,7 +72,7 @@ export default function FreelancerTaxCalculatorPage() {
             , or get branded invoices, contracts and proposals with DoyinTech Pro.
           </p>
           <Link href="/hire" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
-            Get a fixed-price website
+            Get a website
           </Link>
         </>
       }

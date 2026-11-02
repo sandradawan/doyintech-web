@@ -5,7 +5,7 @@ import GetPaidPanel from "@/components/tools/GetPaidPanel";
 import { track } from "@/lib/analytics/client";
 import Link from "next/link";
 import PaidGate, { usePaidUnlock } from "@/components/tools/PaidGate";
-import { INVOICE_CURRENCIES, currencyForLocale, formatMoney, currencySymbol } from "@/lib/global/currencies";
+import { INVOICE_CURRENCIES, currencyForLocale, formatMoney, currencySymbol, samplePrice } from "@/lib/global/currencies";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 import LeadForm from "./LeadForm";
 
@@ -89,6 +89,14 @@ const BRAND_KEY = "doyintech_invoice_brand_v1";
 const DEFAULT_BRAND_COLOR = "#2563eb";
 const MAX_LOGO_BYTES = 400_000;
 
+/** The untouched example line takes a price that suits the new currency. */
+function rescaleSample(items: LineItem[], from: string, to: string): LineItem[] {
+  const [only] = items;
+  return items.length === 1 && only.description === "Web development services" && only.qty === 1 && only.unitPrice === samplePrice(from)
+    ? [{ ...only, unitPrice: samplePrice(to) }]
+    : items;
+}
+
 export default function InvoiceGenerator({
   initialDocType = "Invoice",
   defaultCurrency = "NGN",
@@ -135,25 +143,35 @@ export default function InvoiceGenerator({
       id: uid(),
       description: "Web development services",
       qty: 1,
-      unitPrice: 150000,
+      unitPrice: samplePrice(defaultCurrency),
     },
   ]);
 
   const [taxPercent, setTaxPercent] = useState(0);
+
+  // Switching currency rescales the example line while it is untouched, so it never shows £150,000.
+  const changeCurrency = (code: string) => {
+    setItems((prev) => rescaleSample(prev, currency, code));
+    setCurrency(code);
+  };
 
   // ?currency=GBP&tax=20 from the VAT calculators; otherwise the visitor's locale on the global page.
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const fromUrl = (q.get("currency") || "").toUpperCase();
     const tax = Number(q.get("tax"));
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- read ?currency / locale once after hydration (client-only)
-    if (INVOICE_CURRENCIES.some((c) => c.code === fromUrl)) setCurrency(fromUrl);
-    else if (detectCurrency) {
-      const guess = currencyForLocale(navigator.language);
-      if (guess) setCurrency(guess);
+    const code = INVOICE_CURRENCIES.some((c) => c.code === fromUrl)
+      ? fromUrl
+      : detectCurrency
+        ? currencyForLocale(navigator.language)
+        : null;
+    if (code) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- read ?currency / locale once after hydration (client-only)
+      setItems((prev) => rescaleSample(prev, defaultCurrency, code));
+      setCurrency(code);
     }
     if (Number.isFinite(tax) && tax > 0 && tax <= 50) setTaxPercent(tax);
-  }, [detectCurrency]);
+  }, [detectCurrency, defaultCurrency]);
   const [discount, setDiscount] = useState(0);
   const [notes, setNotes] = useState(
     "Payment is due within the stated due date. Thank you for your business.",
@@ -302,7 +320,7 @@ export default function InvoiceGenerator({
           ))}
           <label className="ml-auto flex items-center gap-2 text-xs text-gray-400">
             Currency
-            <select className={field + " w-auto py-1.5"} value={currency} onChange={(e) => setCurrency(e.target.value)} aria-label="Invoice currency">
+            <select className={field + " w-auto py-1.5"} value={currency} onChange={(e) => changeCurrency(e.target.value)} aria-label="Invoice currency">
               {INVOICE_CURRENCIES.map((c) => (
                 <option key={c.code} value={c.code}>{c.code} · {c.name}</option>
               ))}

@@ -4,7 +4,7 @@
  */
 export const PRIMARY_CTA = {
   href: "/hire",
-  label: "Get a fixed-price website",
+  label: "Get a website",
   short: "Get a website",
 } as const;
 
