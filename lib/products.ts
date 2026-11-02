@@ -31,6 +31,31 @@ export function productCategory(p: DigitalProduct): ProductCategory {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "quiz-night-host-pack",
+    name: "Quiz Night Host Pack (139 Questions)",
+    description:
+      "Run a fun quiz for a church social, school event, office party or family gathering: 139 questions in 8 themed rounds, multiple-choice options, answers with fun facts, a host script, scorecard and answer sheets.",
+    priceUsd: "$3",
+    priceNgn: "₦2,000",
+    amountKobo: 200000,
+    type: "one-time",
+    badge: "New",
+    category: "Schools & organisations",
+    audience: "Churches, schools, youth groups, offices and families hosting a quiz",
+    features: [
+      "139 questions in 8 rounds: Nigeria, Africa & world, science, animals, food, sport, languages, history",
+      "Easy, medium and hard questions marked, so all ages can play",
+      "Answer key with a fun fact for every question",
+      "Word-for-word host script, tie-breaker and timing guide",
+      "Printable scorecard and team answer sheets",
+    ],
+    contents: ["Quiz Night Host Pack (PDF + editable Markdown)"],
+    delivery: "Instant download after Paystack: printable PDF",
+    downloadPath: "/digital-products/quiz-night-host-pack.md",
+    demandNote: "Event planners, teachers and youth leaders need ready quiz questions for socials and end-of-year parties.",
+    addedAt: "2026-11-02",
+  },
+  {
     id: "primary-maths-practice-workbook",
     name: "Primary Maths Practice Workbook (Ages 5–11)",
     description:

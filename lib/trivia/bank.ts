@@ -1,0 +1,172 @@
+/**
+ * Family trivia: general-knowledge questions for all ages, with a short fact after each answer.
+ * Difficulty 1 suits children, 2 most adults, 3 quiz fans. The first option is always the answer;
+ * the game shuffles them.
+ */
+
+export const CATEGORIES = ["Nigeria", "Africa & world", "Science", "Animals & nature", "Food", "Sport", "Words & languages", "History"] as const;
+export type Category = (typeof CATEGORIES)[number];
+export type Difficulty = 1 | 2 | 3;
+
+export type Trivia = { cat: Category; d: Difficulty; q: string; options: [string, string, string, string]; fact: string };
+
+type Row = [Category, Difficulty, string, string, string, string, string, string];
+
+const ROWS: Row[] = [
+  // Nigeria
+  ["Nigeria", 1, "What is the capital of Nigeria?", "Abuja", "Lagos", "Kano", "Ibadan", "Abuja replaced Lagos as the capital in 1991. Lagos is still the biggest city."],
+  ["Nigeria", 1, "In which year did Nigeria become independent?", "1960", "1963", "1970", "1956", "Independence came on 1 October 1960. Nigeria became a republic in 1963."],
+  ["Nigeria", 1, "What colours are on the Nigerian flag?", "Green and white", "Green and yellow", "Red and white", "Green and black", "Green for the land and white for peace. It was designed by Michael Taiwo Akinkunmi."],
+  ["Nigeria", 2, "Which is the longest river in Nigeria?", "River Niger", "River Benue", "Ogun River", "Kaduna River", "The Niger flows through Nigeria to the Atlantic. The Benue is its largest tributary."],
+  ["Nigeria", 2, "The Niger and Benue rivers meet at which town?", "Lokoja", "Onitsha", "Makurdi", "Jebba", "Lokoja, the capital of Kogi State, sits where the two great rivers join."],
+  ["Nigeria", 1, "What is Nigeria's currency?", "Naira", "Cedi", "Shilling", "Rand", "One naira is made up of 100 kobo."],
+  ["Nigeria", 1, "How many states does Nigeria have?", "36", "30", "37", "24", "36 states plus the Federal Capital Territory, Abuja."],
+  ["Nigeria", 1, "Which is the largest city in Nigeria by population?", "Lagos", "Kano", "Abuja", "Port Harcourt", "Lagos is one of the largest cities in Africa."],
+  ["Nigeria", 2, "Who wrote the novel 'Things Fall Apart'?", "Chinua Achebe", "Wole Soyinka", "Chimamanda Ngozi Adichie", "Ben Okri", "Published in 1958, it is one of the most widely read African novels ever."],
+  ["Nigeria", 2, "Who was the first African to win the Nobel Prize in Literature?", "Wole Soyinka", "Chinua Achebe", "Naguib Mahfouz", "Nadine Gordimer", "Wole Soyinka won it in 1986."],
+  ["Nigeria", 3, "Zuma Rock stands near which city?", "Abuja", "Jos", "Enugu", "Calabar", "The huge rock is just outside Abuja, in Niger State, and appears on the ₦100 note."],
+  ["Nigeria", 2, "Olumo Rock is a famous landmark in which city?", "Abeokuta", "Ibadan", "Ilorin", "Benin City", "Olumo Rock once gave the Egba people shelter in times of war."],
+  ["Nigeria", 3, "Obudu Mountain Resort is in which state?", "Cross River", "Plateau", "Taraba", "Ekiti", "It sits on the Obudu Plateau, high enough to be cool all year."],
+  ["Nigeria", 3, "Yankari Game Reserve is in which state?", "Bauchi", "Kwara", "Kaduna", "Niger", "Yankari is famous for elephants and the warm Wikki Springs."],
+  ["Nigeria", 1, "Nollywood is the film industry of which country?", "Nigeria", "Ghana", "India", "Kenya", "Nollywood makes more films each year than almost any other industry in the world."],
+  ["Nigeria", 1, "Which language is mainly spoken in south-west Nigeria?", "Yoruba", "Hausa", "Igbo", "Efik", "Hausa is widely spoken in the north and Igbo in the south-east."],
+  ["Nigeria", 1, "Nigeria has the largest population on which continent?", "Africa", "Asia", "Europe", "South America", "Over 200 million people live in Nigeria."],
+  ["Nigeria", 2, "Nigeria's coast is on which body of water?", "Gulf of Guinea", "Red Sea", "Mediterranean Sea", "Indian Ocean", "The Gulf of Guinea is part of the Atlantic Ocean."],
+  ["Nigeria", 2, "Which of these countries does NOT share a border with Nigeria?", "Ghana", "Benin", "Niger", "Cameroon", "Nigeria borders Benin, Niger, Chad and Cameroon. Ghana is further west."],
+  ["Nigeria", 3, "What is the highest point in Nigeria?", "Chappal Waddi", "Zuma Rock", "Olumo Rock", "Obudu Plateau", "Chappal Waddi, in Taraba State, is about 2,400 metres high."],
+  ["Nigeria", 3, "Kainji Dam is built on which river?", "River Niger", "River Benue", "Cross River", "Ogun River", "Kainji is one of Nigeria's main hydroelectric power stations."],
+  ["Nigeria", 2, "Since 2024, Nigeria's national anthem has been…", "Nigeria, We Hail Thee", "Arise, O Compatriots", "We Are One", "Stand Up, Nigeria", "Nigeria brought back its 1960 anthem in 2024, replacing 'Arise, O Compatriots', used since 1978."],
+  ["Nigeria", 3, "What is Nigeria's national motto?", "Unity and Faith, Peace and Progress", "One Nation, One Destiny", "Freedom and Justice", "Strength in Diversity", "The motto appears on the coat of arms."],
+  ["Nigeria", 1, "In Nigerian fashion, what is 'Ankara'?", "A colourful printed fabric", "A type of shoe", "A hat", "A dance", "Ankara is wax-print cotton, used for everything from dresses to bags. Ankara is also the capital of Turkey!"],
+  ["Nigeria", 1, "What is the Harmattan?", "A dry, dusty wind from the Sahara", "A rainy season", "A festival", "A river", "The Harmattan usually blows from about November to March, bringing cool mornings and hazy skies."],
+  ["Nigeria", 3, "In which year did Abuja officially become Nigeria's capital?", "1991", "1976", "1960", "1999", "The move was planned from 1976 and completed in December 1991."],
+
+  // Africa & world
+  ["Africa & world", 1, "Which is the largest continent?", "Asia", "Africa", "Europe", "North America", "Asia covers about 30% of Earth's land."],
+  ["Africa & world", 1, "Which river is usually called the longest in the world?", "Nile", "Amazon", "Niger", "Congo", "The Nile flows about 6,650 km. Some scientists argue the Amazon is slightly longer."],
+  ["Africa & world", 1, "Which is the largest ocean?", "Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "The Pacific is bigger than all the land on Earth put together."],
+  ["Africa & world", 1, "What is the largest desert in Africa?", "Sahara", "Kalahari", "Namib", "Gobi", "The Sahara is the largest hot desert in the world, about the size of the USA."],
+  ["Africa & world", 1, "What is the capital of Ghana?", "Accra", "Kumasi", "Lomé", "Tamale", "Accra sits on Ghana's Atlantic coast."],
+  ["Africa & world", 1, "What is the capital of Kenya?", "Nairobi", "Mombasa", "Kampala", "Dar es Salaam", "Nairobi has a national park with lions inside the city limits."],
+  ["Africa & world", 3, "How many capital cities does South Africa have?", "3", "1", "2", "4", "Pretoria, Cape Town and Bloemfontein each host a different branch of government."],
+  ["Africa & world", 2, "Mount Kilimanjaro is in which country?", "Tanzania", "Kenya", "Uganda", "Ethiopia", "At about 5,895 metres, it is Africa's highest mountain."],
+  ["Africa & world", 2, "Victoria Falls lies between Zambia and which country?", "Zimbabwe", "Botswana", "Malawi", "Mozambique", "Locally it is called Mosi-oa-Tunya, 'the smoke that thunders'."],
+  ["Africa & world", 1, "How many continents are there?", "7", "5", "6", "8", "Africa, Antarctica, Asia, Australia (Oceania), Europe, North America and South America."],
+  ["Africa & world", 1, "What is the capital of Egypt?", "Cairo", "Alexandria", "Giza", "Khartoum", "Cairo sits on the River Nile."],
+  ["Africa & world", 2, "Which country has the largest population in the world?", "India", "China", "USA", "Indonesia", "India passed China in 2023, with over 1.4 billion people."],
+  ["Africa & world", 1, "What is the capital of Japan?", "Tokyo", "Kyoto", "Osaka", "Seoul", "Tokyo is one of the largest cities on Earth."],
+  ["Africa & world", 2, "What is the capital of Canada?", "Ottawa", "Toronto", "Vancouver", "Montreal", "Toronto is bigger, but Ottawa is the capital."],
+  ["Africa & world", 2, "What is the capital of Australia?", "Canberra", "Sydney", "Melbourne", "Perth", "Canberra was built as a compromise between Sydney and Melbourne."],
+  ["Africa & world", 2, "What is the smallest country in the world?", "Vatican City", "Monaco", "Malta", "San Marino", "Vatican City covers less than half a square kilometre, inside Rome."],
+  ["Africa & world", 1, "Which country is shaped like a boot?", "Italy", "Spain", "Greece", "Portugal", "Italy's 'boot' even has a heel and a toe."],
+  ["Africa & world", 1, "In which city is the Eiffel Tower?", "Paris", "London", "Rome", "Berlin", "It was built for a world fair in 1889."],
+  ["Africa & world", 2, "The equator passes through which of these countries?", "Kenya", "Nigeria", "Egypt", "South Africa", "It also crosses Gabon, Congo, DR Congo, Uganda and Somalia."],
+  ["Africa & world", 1, "What is the currency of Ghana?", "Cedi", "Naira", "Rand", "Dalasi", "The word cedi comes from the Akan word for cowrie shell."],
+  ["Africa & world", 3, "Which is Africa's largest country by area?", "Algeria", "Nigeria", "DR Congo", "Sudan", "Algeria became the largest after South Sudan split from Sudan in 2011."],
+  ["Africa & world", 2, "Which ocean lies to the east of Africa?", "Indian Ocean", "Atlantic Ocean", "Pacific Ocean", "Southern Ocean", "The Atlantic is on Africa's west."],
+  ["Africa & world", 1, "What is the highest mountain in the world?", "Mount Everest", "Kilimanjaro", "K2", "Mont Blanc", "Everest is about 8,849 metres tall, on the border of Nepal and China."],
+  ["Africa & world", 1, "What is the capital of the United States?", "Washington, D.C.", "New York", "Los Angeles", "Chicago", "D.C. stands for District of Columbia."],
+
+  // Science
+  ["Science", 1, "Which planet is closest to the Sun?", "Mercury", "Venus", "Earth", "Mars", "A year on Mercury is just 88 Earth days."],
+  ["Science", 1, "Which planet is called the Red Planet?", "Mars", "Jupiter", "Venus", "Saturn", "Rusty iron in its soil makes Mars look red."],
+  ["Science", 1, "What is the largest planet in our solar system?", "Jupiter", "Saturn", "Earth", "Neptune", "More than 1,000 Earths could fit inside Jupiter."],
+  ["Science", 1, "At what temperature does water boil at sea level?", "100 °C", "50 °C", "0 °C", "212 °C", "That is 212 °F. On a high mountain, water boils at a lower temperature."],
+  ["Science", 1, "What is the chemical formula for water?", "H₂O", "CO₂", "O₂", "NaCl", "Two hydrogen atoms and one oxygen atom."],
+  ["Science", 1, "Which gas do plants take in from the air?", "Carbon dioxide", "Oxygen", "Nitrogen", "Helium", "Plants use carbon dioxide and sunlight to make food, and give out oxygen."],
+  ["Science", 2, "What is the largest organ of the human body?", "Skin", "Liver", "Brain", "Heart", "An adult's skin weighs around 4 kg."],
+  ["Science", 2, "How many bones are in an adult human body?", "206", "106", "306", "250", "Babies are born with nearly 300; some join together as they grow."],
+  ["Science", 2, "What is the hardest natural material?", "Diamond", "Gold", "Iron", "Granite", "Diamond is pure carbon, the same element as pencil graphite."],
+  ["Science", 1, "How many legs does an insect have?", "6", "8", "4", "10", "Spiders have 8, so they are not insects."],
+  ["Science", 3, "About how fast does light travel?", "300,000 km per second", "300 km per second", "3,000 km per hour", "30,000 km per second", "Sunlight takes about 8 minutes to reach Earth."],
+  ["Science", 1, "How long does Earth take to go around the Sun?", "About 365 days", "About 30 days", "About 24 hours", "About 100 days", "The extra quarter day is why we have leap years."],
+  ["Science", 2, "Your skin makes which vitamin from sunlight?", "Vitamin D", "Vitamin C", "Vitamin A", "Vitamin B12", "Vitamin D helps keep bones strong."],
+  ["Science", 2, "What is the centre of an atom called?", "Nucleus", "Electron", "Shell", "Molecule", "The nucleus holds protons and neutrons; electrons move around it."],
+  ["Science", 1, "At what temperature does water freeze?", "0 °C", "10 °C", "-10 °C", "32 °C", "That is 32 °F."],
+  ["Science", 1, "What force pulls things down to the ground?", "Gravity", "Magnetism", "Friction", "Wind", "Gravity also keeps the Moon going around Earth."],
+  ["Science", 2, "Which blood cells fight infections?", "White blood cells", "Red blood cells", "Platelets", "Plasma", "Red cells carry oxygen; platelets help blood clot."],
+  ["Science", 2, "Who developed the theory of relativity?", "Albert Einstein", "Isaac Newton", "Charles Darwin", "Galileo Galilei", "His famous equation is E = mc²."],
+  ["Science", 1, "Which insect spreads malaria?", "Mosquito", "Housefly", "Bee", "Ant", "Only female Anopheles mosquitoes spread it. Sleeping under a treated net helps."],
+  ["Science", 1, "Which planet is famous for its rings?", "Saturn", "Mars", "Mercury", "Venus", "Jupiter, Uranus and Neptune have faint rings too."],
+  ["Science", 3, "Sound travels fastest through…", "Solids, like steel", "Air", "Empty space", "Steam", "Sound cannot travel through empty space at all."],
+  ["Science", 1, "What do bees make?", "Honey", "Milk", "Silk", "Wax only", "Bees also make beeswax, and they pollinate many of our crops."],
+
+  // Animals & nature
+  ["Animals & nature", 1, "What is the largest land animal?", "African elephant", "Hippopotamus", "Giraffe", "Rhinoceros", "Adult males can weigh over 6 tonnes."],
+  ["Animals & nature", 1, "What is the tallest animal?", "Giraffe", "Elephant", "Camel", "Ostrich", "A giraffe's neck has just 7 bones, the same as ours."],
+  ["Animals & nature", 1, "What is the fastest land animal?", "Cheetah", "Lion", "Horse", "Antelope", "Cheetahs can sprint at over 100 km/h for short bursts."],
+  ["Animals & nature", 2, "What is the largest animal that has ever lived?", "Blue whale", "African elephant", "Megalodon shark", "Dinosaur (T. rex)", "A blue whale's heart is about the size of a small car."],
+  ["Animals & nature", 3, "How many hearts does an octopus have?", "3", "1", "2", "8", "It also has blue blood."],
+  ["Animals & nature", 1, "What is a baby frog called?", "Tadpole", "Cub", "Kid", "Foal", "Tadpoles live in water and breathe through gills."],
+  ["Animals & nature", 2, "What is a group of lions called?", "A pride", "A pack", "A herd", "A flock", "Lionesses do most of the hunting for the pride."],
+  ["Animals & nature", 3, "Which is the fastest bird when diving?", "Peregrine falcon", "Ostrich", "Eagle", "Swift", "It can dive at over 300 km/h, faster than any other animal."],
+  ["Animals & nature", 1, "Which mammal can truly fly?", "Bat", "Flying squirrel", "Penguin", "Ostrich", "Flying squirrels only glide."],
+  ["Animals & nature", 1, "What do pandas mainly eat?", "Bamboo", "Fish", "Meat", "Grass", "A panda can eat over 12 kg of bamboo a day."],
+  ["Animals & nature", 1, "How many legs does a spider have?", "8", "6", "10", "4", "Most spiders also have 8 eyes."],
+  ["Animals & nature", 2, "What does a camel store in its hump?", "Fat", "Water", "Milk", "Air", "The fat is used for energy when food is scarce."],
+  ["Animals & nature", 1, "What is the largest bird in the world?", "Ostrich", "Eagle", "Peacock", "Vulture", "Ostriches cannot fly but can run at about 70 km/h."],
+  ["Animals & nature", 2, "Which tree is famous for its huge, fat trunk in the African savannah?", "Baobab", "Palm", "Iroko", "Mango", "Some baobabs are over 1,000 years old and store water in their trunks."],
+  ["Animals & nature", 2, "Where do most penguins live?", "In the Southern Hemisphere", "In the Arctic", "In the Sahara", "In Northern Europe", "There are no wild penguins at the North Pole."],
+  ["Animals & nature", 2, "What is a baby goat called?", "A kid", "A calf", "A lamb", "A pup", "That is where the word 'kid' for a child comes from."],
+  ["Animals & nature", 1, "Which animal is black and white striped and lives in Africa?", "Zebra", "Tiger", "Panda", "Skunk", "No two zebras have exactly the same stripes."],
+
+  // Food
+  ["Food", 1, "Garri is made from which crop?", "Cassava", "Yam", "Maize", "Rice", "Cassava is grated, pressed and fried to make garri."],
+  ["Food", 1, "What is suya?", "Spicy grilled meat on skewers", "A fried bean cake", "A rice dish", "A drink", "The spice mix, yaji, is made with ground peanuts and pepper."],
+  ["Food", 1, "Akara is made from which ingredient?", "Beans", "Yam", "Plantain", "Rice", "Peeled beans are blended, seasoned and deep-fried."],
+  ["Food", 2, "Egusi soup is made with ground…", "Melon seeds", "Groundnuts", "Cashews", "Sesame", "Egusi seeds come from a type of melon."],
+  ["Food", 2, "Zobo drink is made from which plant?", "Hibiscus (roselle) flowers", "Ginger roots", "Tea leaves", "Baobab fruit", "In other countries it is called bissap or sorrel."],
+  ["Food", 1, "Which fruit is dried to make raisins?", "Grapes", "Plums", "Dates", "Mangoes", "Dried plums are prunes."],
+  ["Food", 1, "Sushi comes from which country?", "Japan", "China", "Thailand", "Korea", "Sushi is about the vinegared rice, not just the raw fish."],
+  ["Food", 1, "Pizza first became famous in which country?", "Italy", "USA", "France", "Greece", "The modern pizza comes from Naples."],
+  ["Food", 1, "What is another name for a peanut?", "Groundnut", "Cashew", "Walnut", "Tiger nut", "Peanuts grow underground, which is why they are called groundnuts."],
+  ["Food", 1, "Plantain is closely related to which fruit?", "Banana", "Mango", "Pawpaw", "Pineapple", "Plantain is usually cooked: boiled, roasted (boli) or fried (dodo)."],
+  ["Food", 3, "Ofada rice is traditionally grown in which state?", "Ogun", "Kano", "Ebonyi", "Niger", "It is often served with spicy 'ayamase' green pepper stew."],
+  ["Food", 2, "Tuwo shinkafa is made from what?", "Rice", "Yam", "Cassava", "Beans", "'Shinkafa' means rice in Hausa."],
+  ["Food", 1, "Chocolate is made from which beans?", "Cocoa beans", "Coffee beans", "Soya beans", "Kidney beans", "West Africa grows most of the world's cocoa."],
+  ["Food", 3, "Which country produces the most cocoa in the world?", "Côte d'Ivoire", "Ghana", "Nigeria", "Brazil", "Côte d'Ivoire grows around 40% of the world's cocoa."],
+  ["Food", 2, "What is kilishi?", "Thin, spicy dried meat", "A rice cake", "A soup", "A fruit drink", "It is a northern Nigerian snack, like a spicy jerky."],
+  ["Food", 1, "What is the main ingredient of guacamole?", "Avocado", "Tomato", "Pepper", "Cucumber", "Guacamole comes from Mexico."],
+
+  // Sport
+  ["Sport", 1, "How many players does each football team have on the pitch?", "11", "10", "9", "12", "That includes the goalkeeper."],
+  ["Sport", 1, "What is the nickname of Nigeria's men's football team?", "Super Eagles", "Black Stars", "Indomitable Lions", "Bafana Bafana", "The Black Stars are Ghana, the Indomitable Lions Cameroon."],
+  ["Sport", 3, "In which year did Nigeria win Olympic gold in men's football?", "1996", "2000", "1992", "2008", "The 'Dream Team' won in Atlanta, beating Brazil and Argentina."],
+  ["Sport", 1, "How many players per team are on a basketball court?", "5", "6", "7", "11", "Basketball was invented in 1891 by James Naismith."],
+  ["Sport", 1, "How many rings are on the Olympic flag?", "5", "4", "6", "7", "They stand for the five inhabited parts of the world taking part."],
+  ["Sport", 2, "About how long is a marathon?", "42 km", "21 km", "10 km", "100 km", "Exactly 42.195 km. Half that is a half marathon."],
+  ["Sport", 2, "In tennis, what does 'love' mean?", "Zero", "A tie", "A winning shot", "A serve", "So 'fifteen-love' means 15–0."],
+  ["Sport", 1, "Which sport uses a shuttlecock?", "Badminton", "Tennis", "Squash", "Volleyball", "A shuttlecock can fly at over 400 km/h off a smash."],
+  ["Sport", 2, "What is the nickname of Nigeria's women's football team?", "Super Falcons", "Super Eagles", "Golden Eaglets", "Flying Eagles", "The Super Falcons are the most successful team in African women's football."],
+  ["Sport", 1, "How often are the Summer Olympic Games held?", "Every 4 years", "Every year", "Every 2 years", "Every 5 years", "The Winter Olympics are also every 4 years, two years apart from the Summer Games."],
+  ["Sport", 1, "In which game do you say 'checkmate'?", "Chess", "Ludo", "Draughts", "Scrabble", "'Checkmate' comes from Persian words meaning 'the king is helpless'."],
+  ["Sport", 1, "How long is a normal football match?", "90 minutes", "60 minutes", "80 minutes", "120 minutes", "Two halves of 45 minutes, plus added time."],
+
+  // Words & languages
+  ["Words & languages", 1, "What is the opposite of 'ancient'?", "Modern", "Old", "Broken", "Large", "Ancient means very old."],
+  ["Words & languages", 1, "What is the plural of 'child'?", "Children", "Childs", "Childes", "Childrens", "Other unusual plurals: mouse/mice, foot/feet, tooth/teeth."],
+  ["Words & languages", 1, "Which word means the same as 'happy'?", "Joyful", "Angry", "Tired", "Quiet", "Words with the same meaning are called synonyms."],
+  ["Words & languages", 1, "How many letters are in the English alphabet?", "26", "24", "28", "30", "5 vowels (a, e, i, o, u) and 21 consonants."],
+  ["Words & languages", 2, "What do you call a word that reads the same backwards, like 'level'?", "Palindrome", "Synonym", "Acronym", "Homophone", "Other palindromes: 'racecar', 'madam' and 'noon'."],
+  ["Words & languages", 1, "'Bonjour' means 'hello' in which language?", "French", "Spanish", "Italian", "Portuguese", "French is an official language in many African countries, including Benin and Cameroon."],
+  ["Words & languages", 1, "Who wrote 'Romeo and Juliet'?", "William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain", "Shakespeare wrote it in the 1590s."],
+  ["Words & languages", 2, "In Hausa, what does 'Sannu' mean?", "Hello", "Thank you", "Goodbye", "Sorry", "'Na gode' means thank you in Hausa."],
+  ["Words & languages", 2, "In Yoruba, what does 'E se' mean?", "Thank you", "Good morning", "Welcome", "Please", "'E kaaro' means good morning in Yoruba."],
+  ["Words & languages", 2, "In Igbo, what does 'Daalu' mean?", "Thank you", "Hello", "Come here", "Well done", "'Nnoo' means welcome in Igbo."],
+  ["Words & languages", 2, "Who wrote the novel 'Purple Hibiscus'?", "Chimamanda Ngozi Adichie", "Chinua Achebe", "Buchi Emecheta", "Wole Soyinka", "It was her first novel, published in 2003."],
+  ["Words & languages", 2, "What does the abbreviation 'e.g.' mean?", "For example", "That is", "And so on", "Note well", "It comes from the Latin 'exempli gratia'."],
+
+  // History
+  ["History", 1, "Who was the first person to walk on the Moon?", "Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Louis Armstrong", "It happened on 20 July 1969. Yuri Gagarin was the first person in space, in 1961."],
+  ["History", 2, "Which of the Seven Wonders of the Ancient World is still standing?", "The Great Pyramid of Giza", "The Colossus of Rhodes", "The Hanging Gardens of Babylon", "The Lighthouse of Alexandria", "It is around 4,500 years old."],
+  ["History", 1, "Nelson Mandela became president of which country?", "South Africa", "Kenya", "Zimbabwe", "Namibia", "He became president in 1994 after 27 years in prison."],
+  ["History", 3, "Which ancient Nigerian culture is famous for its terracotta sculptures?", "Nok", "Ife", "Igbo-Ukwu", "Oyo", "Nok sculptures are over 2,000 years old."],
+  ["History", 2, "The famous Benin Bronzes come from which present-day country?", "Nigeria", "Benin Republic", "Ghana", "Togo", "They were made in the Kingdom of Benin, around today's Benin City in Edo State."],
+  ["History", 2, "Who is credited with inventing the telephone?", "Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Isaac Newton", "He made the first phone call in 1876."],
+  ["History", 1, "Which famous ship sank in 1912 after hitting an iceberg?", "Titanic", "Mayflower", "Santa Maria", "Victory", "It was on its first voyage, from England to New York."],
+  ["History", 3, "Who was the first woman to fly solo across the Atlantic Ocean?", "Amelia Earhart", "Marie Curie", "Rosa Parks", "Bessie Coleman", "She made the flight in 1932."],
+  ["History", 2, "In which year did Ghana become independent?", "1957", "1960", "1963", "1950", "Ghana was the first sub-Saharan African colony to win independence."],
+  ["History", 3, "The Organisation of African Unity, founded in 1963, is now called…", "The African Union", "ECOWAS", "The Commonwealth", "The United Nations", "It became the African Union in 2002."],
+];
+
+export const TRIVIA: Trivia[] = ROWS.map(([cat, d, q, a, w1, w2, w3, fact]) => ({ cat, d, q, options: [a, w1, w2, w3], fact }));

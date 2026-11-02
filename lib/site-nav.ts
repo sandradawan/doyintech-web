@@ -160,17 +160,26 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "Kids",
+    label: "Play",
     href: "/kids",
-    intro: "Free learning games and daily puzzles for ages 5–13, plus printable packs for parents.",
+    intro: "Free games and daily puzzles for the whole family: kids, teens and adults.",
     cta: "Open the Kids zone",
     sections: [
       {
-        title: "Play & learn",
+        title: "Kids (ages 5–13)",
         links: [
           { name: "Daily challenge", href: "/kids/daily-challenge", desc: "New maths and word puzzles daily" },
           { name: "Times tables race", href: "/kids/times-tables", desc: "60-second multiplication game" },
           { name: "Memory match", href: "/kids/memory-game", desc: "Find the pairs" },
+        ],
+      },
+      {
+        title: "For everyone",
+        links: [
+          { name: "Daily trivia", href: "/trivia", desc: "10 questions a day, beat the clock" },
+          { name: "Family quiz night", href: "/trivia/family-quiz-night", desc: "Pass-the-phone game for 2–6" },
+          { name: "Daily Money Quiz", href: "/daily-quiz", desc: "5 questions on money and business" },
+          { name: "Quiz Night Host Pack", href: "/products/quiz-night-host-pack", desc: "Printable rounds for events" },
         ],
       },
       {
