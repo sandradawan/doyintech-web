@@ -116,6 +116,7 @@ const HIGH_DEMAND_TOOLS = new Set([
   "freelancer-tax-calculator-nigeria", "timesheet-calculator", "study-timetable-planner",
   "solar-vs-generator-calculator", "import-duty-calculator-nigeria", "cash-flow-forecast", "employee-cost-calculator-nigeria",
   "bid-evaluation-tool", "compliance-calendar-nigeria", "hourly-to-salary-calculator", "freelance-rate-calculator", "discount-calculator", "late-payment-interest-calculator",
+  "profit-margin-calculator", "break-even-calculator", "loan-emi-calculator",
 ]);
 
 function entries(): Entry[] {

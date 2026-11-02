@@ -100,43 +100,6 @@ export function WhatsAppLinkGeneratorTool() {
   );
 }
 
-export function ProfitMarginCalculatorTool() {
-  const [cost, setCost] = useState("1000");
-  const [sell, setSell] = useState("1500");
-  const c = Math.max(0, Number(cost) || 0);
-  const s = Math.max(0, Number(sell) || 0);
-  const profit = s - c;
-  const margin = s > 0 ? (profit / s) * 100 : 0;
-  const markup = c > 0 ? (profit / c) * 100 : 0;
-  return (
-    <div className={box}>
-      <p className="text-sm text-gray-400">
-        Calculate profit, margin %, and markup % from cost and selling price.
-      </p>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Cost price" value={cost} onChange={(e) => setCost(e.target.value)} inputMode="decimal" />
-        <Field label="Selling price" value={sell} onChange={(e) => setSell(e.target.value)} inputMode="decimal" />
-      </div>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <p className="text-xs text-gray-500">Profit</p>
-          <p className="mt-1 text-xl font-semibold text-white">
-            {profit.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-          </p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <p className="text-xs text-gray-500">Margin %</p>
-          <p className="mt-1 text-xl font-semibold text-emerald-300">{margin.toFixed(2)}%</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <p className="text-xs text-gray-500">Markup %</p>
-          <p className="mt-1 text-xl font-semibold text-sky-300">{markup.toFixed(2)}%</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function NigeriaVatCalculatorTool() {
   const [amount, setAmount] = useState("100000");
   const [mode, setMode] = useState<"exclusive" | "inclusive">("exclusive");
@@ -252,86 +215,6 @@ export function MetaTagGeneratorTool() {
       </div>
       <pre className="overflow-auto rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-gray-300">{html}</pre>
       <CopyBtn text={html} />
-    </div>
-  );
-}
-
-export function LoanEmiCalculatorTool() {
-  const [principal, setPrincipal] = useState("500000");
-  const [rate, setRate] = useState("18");
-  const [months, setMonths] = useState("24");
-  const p = Math.max(0, Number(principal) || 0);
-  const annual = Math.max(0, Number(rate) || 0) / 100;
-  const n = Math.max(1, Math.round(Number(months) || 1));
-  const r = annual / 12;
-  const emi =
-    r === 0 ? p / n : (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-  const total = emi * n;
-  const interest = total - p;
-  const fmt = (x: number) =>
-    "NGN " + x.toLocaleString("en-NG", { maximumFractionDigits: 0 });
-  return (
-    <div className={box}>
-      <p className="text-sm text-gray-400">Estimate monthly loan repayment (EMI).</p>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <Field label="Loan amount (NGN)" value={principal} onChange={(e) => setPrincipal(e.target.value)} inputMode="decimal" />
-        <Field label="Annual rate %" value={rate} onChange={(e) => setRate(e.target.value)} inputMode="decimal" />
-        <Field label="Tenure (months)" value={months} onChange={(e) => setMonths(e.target.value)} inputMode="numeric" />
-      </div>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <p className="text-xs text-gray-500">Monthly EMI</p>
-          <p className="mt-1 text-xl font-semibold text-white">{fmt(emi)}</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <p className="text-xs text-gray-500">Total interest</p>
-          <p className="mt-1 text-xl font-semibold text-amber-200">{fmt(interest)}</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <p className="text-xs text-gray-500">Total payable</p>
-          <p className="mt-1 text-xl font-semibold text-emerald-300">{fmt(total)}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function BreakEvenCalculatorTool() {
-  const [fixed, setFixed] = useState("200000");
-  const [price, setPrice] = useState("5000");
-  const [variable, setVariable] = useState("2000");
-  const f = Math.max(0, Number(fixed) || 0);
-  const pr = Math.max(0, Number(price) || 0);
-  const v = Math.max(0, Number(variable) || 0);
-  const contribution = pr - v;
-  const units = contribution > 0 ? Math.ceil(f / contribution) : 0;
-  const revenue = units * pr;
-  return (
-    <div className={box}>
-      <p className="text-sm text-gray-400">How many units to cover fixed costs?</p>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <Field label="Fixed costs (NGN/month)" value={fixed} onChange={(e) => setFixed(e.target.value)} inputMode="decimal" />
-        <Field label="Price per unit (NGN)" value={price} onChange={(e) => setPrice(e.target.value)} inputMode="decimal" />
-        <Field label="Variable cost / unit (NGN)" value={variable} onChange={(e) => setVariable(e.target.value)} inputMode="decimal" />
-      </div>
-      {contribution <= 0 ? (
-        <p className="text-sm text-red-300">Price must be higher than variable cost per unit.</p>
-      ) : (
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-            <p className="text-xs text-gray-500">Contribution / unit</p>
-            <p className="mt-1 text-xl font-semibold text-white">NGN {contribution.toLocaleString()}</p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-            <p className="text-xs text-gray-500">Break-even units</p>
-            <p className="mt-1 text-xl font-semibold text-amber-200">{units.toLocaleString()}</p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-            <p className="text-xs text-gray-500">Break-even revenue</p>
-            <p className="mt-1 text-xl font-semibold text-emerald-300">NGN {revenue.toLocaleString()}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

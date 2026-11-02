@@ -32,3 +32,48 @@ export function ukCompensation(amount: number) {
   if (amount <= 0) return 0;
   return amount < 1000 ? 40 : amount < 10000 ? 70 : 100;
 }
+
+/** Profit, margin (share of price) and markup (share of cost) from cost and selling price. */
+export function marginFromPrices(cost: number, price: number) {
+  const profit = price - cost;
+  return { profit, margin: price > 0 ? (profit / price) * 100 : 0, markup: cost > 0 ? (profit / cost) * 100 : 0 };
+}
+
+/** Selling price that gives a target margin; 0 when the margin is 100% or more. */
+export function priceForMargin(cost: number, marginPercent: number) {
+  return marginPercent < 100 ? cost / (1 - marginPercent / 100) : 0;
+}
+
+/** Selling price from a markup on cost. */
+export function priceForMarkup(cost: number, markupPercent: number) {
+  return cost * (1 + markupPercent / 100);
+}
+
+/** Units and revenue needed to cover fixed costs (plus an optional profit target). */
+export function breakEven(fixed: number, price: number, variable: number, targetProfit = 0) {
+  const contribution = price - variable;
+  if (contribution <= 0) return null;
+  const units = Math.ceil((Math.max(fixed, 0) + Math.max(targetProfit, 0)) / contribution);
+  return { contribution, contributionRatio: price > 0 ? (contribution / price) * 100 : 0, units, revenue: units * price };
+}
+
+/** Fixed monthly repayment on an amortising loan, with the yearly breakdown. */
+export function loanSchedule(principal: number, annualRatePercent: number, months: number) {
+  const p = Math.max(principal, 0);
+  const n = Math.max(1, Math.round(months));
+  const r = Math.max(annualRatePercent, 0) / 100 / 12;
+  const payment = r === 0 ? p / n : (p * r) / (1 - Math.pow(1 + r, -n));
+  const years: { year: number; principal: number; interest: number; balance: number }[] = [];
+  let balance = p;
+  for (let m = 1; m <= n; m++) {
+    const interest = balance * r;
+    const paid = Math.min(payment - interest, balance);
+    balance -= paid;
+    if (m % 12 === 1) years.push({ year: years.length + 1, principal: 0, interest: 0, balance: 0 });
+    const y = years[years.length - 1];
+    y.principal += paid;
+    y.interest += interest;
+    y.balance = Math.max(balance, 0);
+  }
+  return { payment, total: payment * n, interest: payment * n - p, years };
+}

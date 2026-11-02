@@ -113,6 +113,9 @@ export const NAV_GROUPS: NavGroup[] = [
         links: [
           { name: "Business problem solver", href: "/business-solutions", desc: "Power, cash flow, procurement" },
           { name: "Freelance rate calculator", href: "/tools/freelance-rate-calculator", desc: "What to charge per hour or day" },
+          { name: "Profit margin calculator", href: "/tools/profit-margin-calculator", desc: "Margin, markup and pricing" },
+          { name: "Break-even calculator", href: "/tools/break-even-calculator" },
+          { name: "Loan repayment calculator", href: "/tools/loan-emi-calculator" },
           { name: "Discount calculator", href: "/tools/discount-calculator" },
           { name: "Cash flow forecast", href: "/tools/cash-flow-forecast" },
           { name: "Solar vs generator", href: "/tools/solar-vs-generator-calculator" },
