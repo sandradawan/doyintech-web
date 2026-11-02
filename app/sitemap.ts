@@ -8,6 +8,7 @@ import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { SITE_URL } from "@/lib/site";
 import { VAT_COUNTRIES, VAT_EXISTING_PAGES } from "@/lib/global/vat-rates";
+import { SALARY_COUNTRIES } from "@/lib/global/salary";
 
 /**
  * Every public, indexable URL, grouped by what it sells. Built from the same data the pages
@@ -140,6 +141,8 @@ function entries(): Entry[] {
   const worldwide: Entry[] = [
     page("/vat-calculator", 0.9),
     page("/tools/invoice-generator", 0.9),
+    page("/salary-calculator", 0.9),
+    ...SALARY_COUNTRIES.map((c) => page(`/salary-calculator/${c.slug}`, 0.85)),
     ...VAT_COUNTRIES.filter((v) => !VAT_EXISTING_PAGES[v.slug]).map((v) => page(`/vat-calculator/${v.slug}`, 0.8)),
   ];
 

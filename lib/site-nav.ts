@@ -99,6 +99,7 @@ export const NAV_GROUPS: NavGroup[] = [
         title: "Tax & payroll",
         links: [
           { name: "PAYE calculator 2026", href: "/tools/paye-calculator-nigeria", desc: "New tax bands & take-home pay" },
+          { name: "Salary calculators", href: "/salary-calculator", desc: "Take-home pay: UK, US, India, more" },
           { name: "Payslip generator", href: "/tools/payslip-generator-nigeria" },
           { name: "Small company tax checker", href: "/tools/small-company-tax-checker" },
           { name: "Compliance calendar", href: "/tools/compliance-calendar-nigeria", desc: "PAYE, VAT, CAC deadlines" },
