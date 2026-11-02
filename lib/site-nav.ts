@@ -158,6 +158,30 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  {
+    label: "Kids",
+    href: "/kids",
+    intro: "Free learning games and daily puzzles for ages 5–13, plus printable packs for parents.",
+    cta: "Open the Kids zone",
+    sections: [
+      {
+        title: "Play & learn",
+        links: [
+          { name: "Daily challenge", href: "/kids/daily-challenge", desc: "New maths and word puzzles daily" },
+          { name: "Times tables race", href: "/kids/times-tables", desc: "60-second multiplication game" },
+          { name: "Memory match", href: "/kids/memory-game", desc: "Find the pairs" },
+        ],
+      },
+      {
+        title: "For parents",
+        links: [
+          { name: "Printable maths worksheets", href: "/kids/maths-worksheets", desc: "Free, with answers" },
+          { name: "Maths practice workbook", href: "/products/primary-maths-practice-workbook", desc: "40 sheets, ages 5–11" },
+          { name: "Routine & reward chart pack", href: "/products/kids-routine-reward-holiday-pack", desc: "Charts and holiday plan" },
+        ],
+      },
+    ],
+  },
 ];
 
 /** Footer-only section: company, help and legal pages that don't need menu space. */

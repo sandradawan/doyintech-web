@@ -131,7 +131,11 @@ export default async function ProductPage({ params }: Props) {
                 <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] text-[#c7cdd8]">
                   <li>Enter your email and pay by card, transfer or USSD through Paystack.</li>
                   <li>Download links appear straight away and are emailed to you with the PDF attached.</li>
-                  <li>Open the spreadsheets in Excel or Google Sheets and adapt the templates to your organisation.</li>
+                  <li>
+                    {p.downloadPaths?.some((f) => f.endsWith(".csv"))
+                      ? "Open the spreadsheets in Excel or Google Sheets and adapt the templates to your organisation."
+                      : "Print the pages you need, or edit the Markdown copy to make it your own."}
+                  </li>
                 </ol>
               </section>
             </div>

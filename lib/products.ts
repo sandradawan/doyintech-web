@@ -21,7 +21,7 @@ export type DigitalProduct = {
   contents?: string[];
 };
 
-export const PRODUCT_CATEGORIES = ["Business", "Office & HR", "Students", "Schools & organisations", "Marketing & sales"] as const;
+export const PRODUCT_CATEGORIES = ["Business", "Office & HR", "Students", "Schools & organisations", "Marketing & sales", "Kids & parents"] as const;
 export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
 
 export function productCategory(p: DigitalProduct): ProductCategory {
@@ -30,6 +30,58 @@ export function productCategory(p: DigitalProduct): ProductCategory {
 }
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
+  {
+    id: "primary-maths-practice-workbook",
+    name: "Primary Maths Practice Workbook (Ages 5–11)",
+    description:
+      "40 printable maths worksheets that build up step by step, from number bonds to times tables, division, fractions, money in naira and word problems, with a full answer key and progress tracker.",
+    priceUsd: "$5",
+    priceNgn: "₦3,500",
+    amountKobo: 350000,
+    type: "one-time",
+    badge: "New",
+    category: "Kids & parents",
+    audience: "Parents, home tutors and primary school teachers",
+    features: [
+      "40 graded worksheets (20 questions each, 10 for word problems)",
+      "Number bonds, adding, taking away, times tables and division",
+      "Fractions of amounts and money in naira",
+      "Word problems with everyday Nigerian names and items",
+      "Full answer key for quick marking",
+      "Progress tracker and how-to-use guide for parents",
+    ],
+    contents: ["Primary Maths Practice Workbook (PDF + editable Markdown)"],
+    delivery: "Instant download after Paystack: printable PDF",
+    downloadPath: "/digital-products/primary-maths-practice-workbook.md",
+    demandNote: "Parents want structured practice at home, especially in the holidays and before entrance exams.",
+    addedAt: "2026-11-02",
+  },
+  {
+    id: "kids-routine-reward-holiday-pack",
+    name: "Kids Routine, Reward Chart & Holiday Fun Pack",
+    description:
+      "Morning and evening routine charts, chores by age, a star reward chart, screen time agreement, reading log, a four-week holiday plan, 50 rainy-day ideas and a pocket money tracker.",
+    priceUsd: "$4",
+    priceNgn: "₦2,500",
+    amountKobo: 250000,
+    type: "one-time",
+    badge: "New",
+    category: "Kids & parents",
+    audience: "Parents of children aged 4–12",
+    features: [
+      "Morning and after-school routine charts",
+      "Chores by age (4 to 12) and a weekly chore chart",
+      "Star reward chart with ideas that work",
+      "Screen time and online safety agreement to sign together",
+      "Reading log and four-week holiday plan",
+      "50 rainy-day boredom busters and a pocket money tracker",
+    ],
+    contents: ["Routine, reward and holiday pack (PDF + editable Markdown)"],
+    delivery: "Instant download after Paystack: printable PDF",
+    downloadPath: "/digital-products/kids-routine-reward-holiday-pack.md",
+    demandNote: "Busy parents look for ready-made charts every school term and holiday.",
+    addedAt: "2026-11-02",
+  },
   {
     id: "hr-staff-policy-starter-pack",
     name: "HR & Staff Policy Starter Pack",

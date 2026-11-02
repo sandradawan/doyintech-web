@@ -13,6 +13,10 @@ const MAP: Record<string, string> = {
   "…": "...",
   "×": "x",
   "÷": "/",
+  "−": "-",
+  "½": "1/2",
+  "¼": "1/4",
+  "¾": "3/4",
   "≥": ">=",
   "≤": "<=",
   "•": "-",
@@ -25,9 +29,11 @@ const MAP: Record<string, string> = {
   " ": " ",
 };
 
+const MAPPED = new RegExp(`[${Object.keys(MAP).join("")}]`, "g");
+
 export function pdfSafe(s: string): string {
   return s
-    .replace(/[₦—–‘’“”…×÷≥≤•·→☐✓€£ ]/g, (c) => MAP[c] ?? "")
+    .replace(MAPPED, (c) => MAP[c] ?? "")
     .normalize("NFKD")
     .replace(/[^\x20-\x7e\n\t]/g, "");
 }

@@ -109,7 +109,7 @@ export default function Footer() {
         </div>
 
         {/* Link sections */}
-        <nav aria-label="Footer" className="grid border-t border-white/[0.08] pt-2 lg:grid-cols-5 lg:gap-8 lg:py-12">
+        <nav aria-label="Footer" className="grid border-t border-white/[0.08] pt-2 lg:grid-cols-6 lg:gap-6 lg:py-12">
           {COLUMNS.map((col) => (
             <FooterColumn key={col.label} col={col} />
           ))}

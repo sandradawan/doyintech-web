@@ -145,6 +145,8 @@ function entries(): Entry[] {
     page("/salary-calculator", 0.9),
     ...SALARY_COUNTRIES.map((c) => page(`/salary-calculator/${c.slug}`, 0.85)),
     ...VAT_COUNTRIES.filter((v) => !VAT_EXISTING_PAGES[v.slug]).map((v) => page(`/vat-calculator/${v.slug}`, 0.8)),
+    page("/kids", 0.85),
+    ...["daily-challenge", "times-tables", "memory-game", "maths-worksheets"].map((s) => page(`/kids/${s}`, 0.8)),
   ];
 
   const local: Entry[] = [
