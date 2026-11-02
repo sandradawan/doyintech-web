@@ -38,7 +38,7 @@ export default function TriviaShell({ h1, intro, game, faqs, path, appName, chil
             <section className="rounded-3xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
               <p className="t-eyebrow">Hosting a quiz?</p>
               <h2 className="mt-2 text-[22px] font-semibold text-white">Quiz Night Host Pack</h2>
-              <p className="mt-2">Over 130 questions in ready-made rounds, answer sheets, a scorecard and a host script. Perfect for church socials, school events, office parties and family gatherings.</p>
+              <p className="mt-2">230 questions in ready-made rounds, answer sheets, a scorecard and a host script. Perfect for church socials, school events, office parties and family gatherings.</p>
               <Link href="/products/quiz-night-host-pack" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get the pack · ₦2,000</Link>
             </section>
             <section>

@@ -32,9 +32,9 @@ export function productCategory(p: DigitalProduct): ProductCategory {
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
     id: "quiz-night-host-pack",
-    name: "Quiz Night Host Pack (139 Questions)",
+    name: "Quiz Night Host Pack (230 Questions)",
     description:
-      "Run a fun quiz for a church social, school event, office party or family gathering: 139 questions in 8 themed rounds, multiple-choice options, answers with fun facts, a host script, scorecard and answer sheets.",
+      "Run a fun quiz for a church social, school event, office party or family gathering: 230 questions in 8 themed rounds, multiple-choice options, answers with fun facts, a host script, scorecard and answer sheets.",
     priceUsd: "$3",
     priceNgn: "₦2,000",
     amountKobo: 200000,
@@ -43,7 +43,7 @@ export const DIGITAL_PRODUCTS: DigitalProduct[] = [
     category: "Schools & organisations",
     audience: "Churches, schools, youth groups, offices and families hosting a quiz",
     features: [
-      "139 questions in 8 rounds: Nigeria, Africa & world, science, animals, food, sport, languages, history",
+      "230 questions in 8 rounds: Nigeria, Africa & world, science, animals, food, sport, languages, history",
       "Easy, medium and hard questions marked, so all ages can play",
       "Answer key with a fun fact for every question",
       "Word-for-word host script, tie-breaker and timing guide",
