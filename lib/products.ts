@@ -31,6 +31,31 @@ export function productCategory(p: DigitalProduct): ProductCategory {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "podcast-starter-kit",
+    name: "Podcast Starter Kit",
+    description:
+      "Plan, record and publish your first podcast episodes with the phone you already own: show planner, episode scripts, guest messages, a publishing guide, launch checklist and ways to earn from your show.",
+    priceUsd: "$5",
+    priceNgn: "₦3,000",
+    amountKobo: 300000,
+    type: "one-time",
+    badge: "New",
+    category: "Marketing & sales",
+    audience: "Business owners, coaches, churches, students and creators starting a podcast",
+    features: [
+      "Show planner, one-line pitch and ten-episode test",
+      "Phone-first equipment guide and tips for quiet recording",
+      "Solo and interview scripts, guest invite and recording consent",
+      "Step-by-step publishing guide and launch checklist",
+      "Six ways to earn, a sponsor message and a 30-day plan",
+    ],
+    contents: ["Podcast Starter Kit (PDF + editable Markdown)"],
+    delivery: "Instant download after Paystack: printable PDF",
+    downloadPath: "/digital-products/podcast-starter-kit.md",
+    demandNote: "Business owners and creators want a podcast but don't know where to begin or what to buy.",
+    addedAt: "2026-11-06",
+  },
+  {
     id: "quiz-night-host-pack",
     name: "Quiz Night Host Pack (230 Questions)",
     description:

@@ -8,7 +8,7 @@ import { loadTrivia, triviaStreak } from "@/lib/trivia/game";
 
 type State = { quizDone: boolean; quizStreak: number; kidsDone: boolean; kidsStreak: number; triviaDone: boolean; triviaStreak: number };
 
-/** Homepage "Today" row: daily trivia, money quiz and kids challenge, with the visitor's streaks once known. */
+/** Homepage "Today" row: daily trivia, podcasts, money quiz and kids challenge, with the visitor's streaks once known. */
 export default function TodayStrip() {
   const [s, setS] = useState<State | null>(null);
   useEffect(() => {
@@ -27,6 +27,14 @@ export default function TodayStrip() {
       text: s?.triviaDone ? "Done today. Play family quiz night." : "10 questions on Nigeria and the world. Beat the clock.",
       streak: s?.triviaStreak ?? 0,
       cta: s?.triviaDone ? "Family quiz night" : "Play today's trivia",
+    },
+    {
+      href: "/listen",
+      icon: "🎧",
+      title: "Listen",
+      text: "Today's podcast pick, plus African stories for kids.",
+      streak: 0,
+      cta: "Play today's pick",
     },
     {
       href: "/daily-quiz",
@@ -50,7 +58,7 @@ export default function TodayStrip() {
     <section aria-labelledby="today-heading" className="bg-black py-10">
       <div className="mx-auto max-w-6xl px-6">
         <h2 id="today-heading" className="t-eyebrow">Today on DoyinTech</h2>
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
           {cards.map((c) => (
             <Link key={c.href} href={c.href} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-[#141a28] p-5 transition hover:border-[#ff8c14]">
               <span className="text-[40px]" aria-hidden>{c.icon}</span>

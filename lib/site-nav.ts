@@ -162,7 +162,7 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Play",
     href: "/kids",
-    intro: "Free games and daily puzzles for the whole family: kids, teens and adults.",
+    intro: "Free games, daily puzzles and podcasts for the whole family: kids, teens and adults.",
     cta: "Open the Kids zone",
     sections: [
       {
@@ -176,6 +176,7 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         title: "For everyone",
         links: [
+          { name: "Listen to podcasts", href: "/listen", desc: "Business, tech, ideas and kids' stories" },
           { name: "Daily trivia", href: "/trivia", desc: "10 questions a day, beat the clock" },
           { name: "Family quiz night", href: "/trivia/family-quiz-night", desc: "Pass-the-phone game for 2–6" },
           { name: "Daily Money Quiz", href: "/daily-quiz", desc: "5 questions on money and business" },
