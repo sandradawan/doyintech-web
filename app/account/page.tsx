@@ -45,6 +45,14 @@ function AccountInner() {
     const session = data.session;
     setEmail(session?.user.email || null);
     if (session) {
+      // Sign-in links always land here; go back to the page that asked for the sign-in.
+      try {
+        const back = localStorage.getItem("dt-after-login");
+        localStorage.removeItem("dt-after-login");
+        if (back && /^\/(?!\/)/.test(back)) return window.location.replace(back);
+      } catch {
+        /* stay on the account page */
+      }
       const res = await fetch("/api/subscriptions/me", {
         headers: { Authorization: `Bearer ${session.access_token}` },
       });

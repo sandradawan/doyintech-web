@@ -176,6 +176,7 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         title: "For everyone",
         links: [
+          { name: "Community", href: "/community", desc: "Ask questions, share what you know" },
           { name: "Listen to podcasts", href: "/listen", desc: "Business, tech, ideas and kids' stories" },
           { name: "Daily trivia", href: "/trivia", desc: "10 questions a day, beat the clock" },
           { name: "Family quiz night", href: "/trivia/family-quiz-night", desc: "Pass-the-phone game for 2–6" },

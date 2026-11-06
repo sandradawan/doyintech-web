@@ -149,6 +149,7 @@ function entries(): Entry[] {
     page("/kids", 0.85),
     page("/trivia", 0.85),
     page("/trivia/family-quiz-night", 0.8),
+    page("/community", 0.8),
     page("/listen", 0.85),
     ...SHOWS.map((s) => page(`/listen/${s.slug}`, 0.6)),
     ...["daily-challenge", "times-tables", "memory-game", "maths-worksheets"].map((s) => page(`/kids/${s}`, 0.8)),

@@ -43,7 +43,14 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">5. Contact</h2>
+              <h2 className="text-xl font-bold text-white mb-3">5. Community</h2>
+              <p>
+                You must be 18 or over to post in the DoyinTech Community. You are responsible for what you post and must follow the community rules. By posting, you allow us to show your post on this website. We check posts before publishing and may refuse or remove any post. Posts are members&apos; own opinions, not advice from DoyinTech.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-white mb-3">6. Contact</h2>
               <p>
                 For questions regarding these terms, contact us at{" "}
                 <a href="mailto:hello@doyintech.com" className="text-primary hover:underline">

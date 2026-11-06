@@ -43,7 +43,14 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">5. Contact Us</h2>
+              <h2 className="text-xl font-bold text-white mb-3">5. Community Posts</h2>
+              <p>
+                If you post in the DoyinTech Community, your display name and post are public once approved. Your email address is not shown to other members: we use it for sign-in and to tell you when your post goes live or gets a reply. To have a post removed, contact us.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-white mb-3">6. Contact Us</h2>
               <p>
                 For any privacy-related questions, please email us at{" "}
                 <a href="mailto:hello@doyintech.com" className="text-primary hover:underline">

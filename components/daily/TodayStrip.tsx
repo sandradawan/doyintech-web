@@ -73,6 +73,7 @@ export default function TodayStrip() {
             </Link>
           ))}
         </div>
+        <Link href="/community" className="mt-4 inline-flex min-h-11 items-center text-[15px] font-semibold text-[#ff8c14] hover:underline">Got a question? Ask the community →</Link>
       </div>
     </section>
   );
