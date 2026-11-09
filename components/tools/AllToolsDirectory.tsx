@@ -15,7 +15,7 @@ const GROUPS: { category: ToolMeta["category"]; heading: string }[] = [
 /** Plain links to every tool, in the page's HTML, so visitors and Google can reach all of them. */
 export default function AllToolsDirectory() {
   return (
-    <section aria-labelledby="all-tools-heading" className="mt-16">
+    <section aria-labelledby="all-tools-heading" className="section-light band">
       <h2 id="all-tools-heading" className="font-display text-2xl font-bold text-white">All {TOOLS_META.length} tools</h2>
       <div className="mt-6 grid gap-8 md:grid-cols-2">
         {GROUPS.map(({ category, heading }) => {

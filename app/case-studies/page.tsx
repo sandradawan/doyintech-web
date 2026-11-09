@@ -24,7 +24,7 @@ export default function CaseStudiesIndex() {
             multi-portal platforms. Fixed scope, clear handoff, WhatsApp-ready delivery.
           </p>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+          <div className="section-light band section-mint grid gap-5 sm:grid-cols-2">
             {CASE_STUDIES.map((s) => (
               <Link
                 key={s.slug}

@@ -116,7 +116,7 @@ export default async function BlogPage() {
             backends, and AI automation — plus lessons from our YouTube playlist.
           </p>
 
-          <div className="mt-12 space-y-4">
+          <div className="section-light band space-y-4">
             {posts.map((post) => (
               <Link
                 key={post.slug}

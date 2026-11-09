@@ -23,7 +23,7 @@ export default function ServicesPage() {
             </div>
           </ScrollReveal>
 
-          <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="section-light band section-mint grid grid-cols-1 gap-5 md:grid-cols-2">
             {SERVICES.map((s, i) => (
               <ScrollReveal key={s.slug} direction="up" delay={i * 0.03} className="h-full">
                 <a

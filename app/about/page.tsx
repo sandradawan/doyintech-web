@@ -110,7 +110,7 @@ export default function AboutPage() {
         </section>
 
         {/* Vision / Mission (standard, professional) */}
-        <section className="mt-10">
+        <section className="section-light band">
           <div className="grid md:grid-cols-2 gap-6">
             <StandardCard
               title="Our Vision"

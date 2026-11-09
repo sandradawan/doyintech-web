@@ -58,7 +58,7 @@ export default function CarePlansPage() {
             </Link>
           </p>
 
-          <section className="mt-16 grid gap-5 md:grid-cols-3">
+          <section className="section-light band grid gap-5 md:grid-cols-3">
             {WHY.map((w) => (
               <div key={w.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
                 <h2 className="text-[16px] font-semibold text-white">{w.title}</h2>

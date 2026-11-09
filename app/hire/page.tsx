@@ -161,7 +161,7 @@ export default function HirePage() {
             </div>
           </div>
 
-          <div className="mt-10 space-y-3">
+          <div className="section-light band space-y-3">
             <h2 className="text-[18px] font-semibold text-white">FAQ</h2>
             {[
               {

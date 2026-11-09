@@ -27,7 +27,7 @@ export default function WebsitesHubPage() {
             what it costs and how long it takes.
           </p>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="section-light band grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {INDUSTRIES.map((i) => (
               <li key={i.slug}>
                 <Link

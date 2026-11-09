@@ -704,7 +704,7 @@ section.bg-brand-deep,
   --color-brand-ink: #0a3d2e;
   --color-brand-soft: #1d4f40;
   --color-brand-muted: #3f6457;
-  --color-brand-subtle: #557a6d;
+  --color-brand-subtle: #486c5f;
   --color-brand-link: #964000;
   --apple-blue: #964000;
   --glass-border: rgba(10, 61, 46, 0.12);
@@ -753,4 +753,50 @@ section.bg-brand-deep,
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   backdrop-filter: blur(16px) saturate(150%);
+}
+
+/* White bands on inner pages */
+/* A full-width white strip around one block, without changing the page's container. */
+.band {
+  --band-bg: #ffffff;
+  margin-block: 4rem;
+  padding-block: 4rem;
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+.band::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--band-bg);
+  z-index: -1;
+}
+.band.section-mint {
+  --band-bg: #eef6f2;
+}
+.section-light {
+  --color-brand-deep: #ffffff;
+  --color-brand-deepest: #f3f8f5;
+  --color-brand-raised: #e6f1ec;
+}
+.section-light :is([class*="bg-black/20"], [class*="bg-black/25"], [class*="bg-black/30"], [class*="bg-black/40"], [class*="bg-black/50"]) {
+  background-color: rgba(10, 61, 46, 0.05);
+}
+.section-light :is(input, select, textarea) {
+  background-color: #ffffff;
+  color: #0a3d2e;
+  border-color: rgba(10, 61, 46, 0.25);
+}
+.section-light .bg-white {
+  color: #ffffff;
+}
+.section-light :is(.text-gray-100, .text-gray-200) {
+  color: var(--color-brand-ink);
+}
+.section-light :is(.text-gray-300, .text-gray-400, .text-gray-500) {
+  color: var(--color-brand-muted);
 }

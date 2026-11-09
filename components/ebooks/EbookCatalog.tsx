@@ -74,7 +74,7 @@ export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
         ))}
       </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="section-light band grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filtered.map((book) => (
           <EbookCard key={book.id} book={book} />
         ))}
