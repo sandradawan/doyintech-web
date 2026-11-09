@@ -94,11 +94,11 @@ export default function Hero() {
           className="absolute inset-0 -z-20"
         >
           <div className="hero-push absolute inset-0">
-            <Image src={slide.img} alt="" fill priority={current === 0} sizes="100vw" className="object-cover opacity-45 saturate-[0.85]" />
+            <Image src={slide.img} alt="" fill priority={current === 0} sizes="100vw" className="object-cover opacity-95" />
           </div>
           {slide.video && !reduce && (
             <video
-              className="absolute inset-0 h-full w-full object-cover opacity-45"
+              className="absolute inset-0 h-full w-full object-cover opacity-95"
               src={slide.video}
               poster={slide.img}
               autoPlay
@@ -111,8 +111,8 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
       {/* Legibility: dark left side for the text, fade into the page below */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(6,41,31,0.92)_0%,rgba(6,41,31,0.62)_50%,rgba(6,41,31,0.22)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-brand-deep to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(6,41,31,0.45)_0%,rgba(6,41,31,0.3)_100%)] sm:bg-[linear-gradient(90deg,rgba(6,41,31,0.6)_0%,rgba(6,41,31,0.25)_55%,rgba(6,41,31,0.05)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#06291f]/90 to-transparent" />
 
       {/* Copy */}
       <div className="mx-auto flex w-full max-w-[1200px] flex-1 items-center px-5 sm:px-6">
@@ -123,7 +123,7 @@ export default function Hero() {
             animate="show"
             exit={reduce ? undefined : "exit"}
             variants={{ show: { transition: { staggerChildren: 0.09 } }, exit: { opacity: 0, y: -12, transition: { duration: 0.3 } } }}
-            className="max-w-[660px] py-16"
+            className="glass-hero my-12 max-w-[680px] rounded-[28px] p-6 sm:p-9"
             aria-live={playing ? "off" : "polite"}
           >
             <motion.p variants={rise} className="t-eyebrow">{slide.eyebrow}</motion.p>

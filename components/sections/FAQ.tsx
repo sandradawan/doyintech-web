@@ -43,7 +43,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="apple-section apple-section-black">
+    <section className="apple-section section-light">
       <div className="mx-auto max-w-[680px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">

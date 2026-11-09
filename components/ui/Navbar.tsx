@@ -128,7 +128,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.16 }}
-                        className="fixed inset-x-0 top-12 z-50 border-b border-white/10 bg-brand-deep shadow-[0_24px_60px_rgba(0,0,0,0.55)]"
+                        className="fixed inset-x-0 top-12 z-50 glass-menu"
                       >
                         <div className="mx-auto flex max-w-[1200px] gap-10 px-6 py-8">
                           <div className="w-56 shrink-0 border-r border-white/[0.08] pr-8">
@@ -223,7 +223,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            className="max-h-[calc(100vh-3rem)] overflow-y-auto border-b border-white/10 bg-brand-surface px-4 py-4 lg:hidden"
+            className="max-h-[calc(100vh-3rem)] glass-menu overflow-y-auto px-4 py-4 lg:hidden"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
               {NAV_GROUPS.map((group) => {

@@ -42,7 +42,7 @@ export function EbookCard({ book }: { book: PublicEbook }) {
   return (
     <Link
       href={`/ebooks/${book.slug}`}
-      className="group flex h-full flex-col rounded-[22px] border border-white/10 bg-gradient-to-b from-brand-raised to-brand-deep p-5 transition hover:border-[#ff8c14]/40"
+      className="group flex h-full flex-col glass rounded-[22px] p-5 transition hover:border-[#ff8c14]/50"
     >
       <div className="flex justify-center py-3">
         <div className="transition duration-300 group-hover:-translate-y-1">

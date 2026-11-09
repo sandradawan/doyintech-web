@@ -6,10 +6,10 @@
   --color-brand-deep: #06291f;
   --color-brand-surface: #0b3a2c;
   --color-brand-raised: #114a39;
-  --color-brand-ink: #f6faf8;
-  --color-brand-soft: #dce9e3;
-  --color-brand-muted: #b5cdc2;
-  --color-brand-subtle: #93b4a6;
+  --color-brand-ink: #ffffff;
+  --color-brand-soft: #e4f0ea;
+  --color-brand-muted: #bdd4c9;
+  --color-brand-subtle: #9cbcae;
   --color-brand-link: #ffa64d;
 }
 
@@ -23,10 +23,10 @@
   --apple-blue-solid: #ff8c14;
   --apple-accent: #ff8c14;
   --apple-hairline: rgba(255, 255, 255, 0.12);
-  --apple-nav: rgba(4, 31, 23, 0.88);
-  --glass-bg: rgba(11, 58, 44, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-highlight: rgba(255, 255, 255, 0.06);
+  --apple-nav: rgba(4, 31, 23, 0.84);
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -625,4 +625,132 @@ body {
     animation: none;
     display: none;
   }
+}
+
+/* Brand finish */
+/* Smooth page background: soft green and orange light behind everything, so glass has depth. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(58rem 38rem at 10% -8%, rgba(46, 160, 120, 0.3), transparent 62%),
+    radial-gradient(46rem 34rem at 96% 18%, rgba(255, 140, 20, 0.11), transparent 62%),
+    radial-gradient(60rem 42rem at 50% 112%, rgba(30, 128, 96, 0.32), transparent 62%),
+    linear-gradient(180deg, #07352a 0%, #052219 100%);
+}
+main.bg-brand-deep,
+section.bg-brand-deep,
+.apple-section-black {
+  background-color: transparent;
+}
+
+/* Headings and body copy follow the theme, so they also work on white sections. */
+.apple-headline,
+.section-title {
+  color: var(--color-brand-ink);
+}
+.apple-subhead,
+.section-lead,
+.section-eyebrow {
+  color: var(--color-brand-muted);
+}
+
+/* Glass: frosted panels with a light edge. Real blur only where content passes behind. */
+.glass,
+.apple-card,
+.glass-card,
+.pro-card {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.05) 48%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 40px -18px rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  color: var(--color-brand-ink);
+}
+.glass-strong {
+  background: linear-gradient(155deg, rgba(10, 61, 46, 0.78) 0%, rgba(6, 41, 31, 0.72) 100%);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+}
+.apple-card:hover,
+.glass-card:hover,
+.pro-card:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 24px 54px -18px rgba(0, 0, 0, 0.6);
+}
+/* Everyday cards: the same frosted look without blur, so long pages stay fast on phones. */
+.bg-brand-surface {
+  background-color: rgba(16, 74, 57, 0.86);
+  background-image: linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0) 100%);
+}
+.bg-brand-surface:is([class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-[2"]):not([class*="shadow"]) {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 14px 34px -18px rgba(0, 0, 0, 0.5);
+}
+.glass-navbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04), 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+}
+
+/* White sections: the same components, recoloured through the theme tokens. */
+.section-light {
+  background: #ffffff;
+  color: #0a3d2e;
+  --color-white: #0a3d2e;
+  --color-brand-ink: #0a3d2e;
+  --color-brand-soft: #1d4f40;
+  --color-brand-muted: #3f6457;
+  --color-brand-subtle: #557a6d;
+  --color-brand-link: #964000;
+  --apple-blue: #964000;
+  --glass-border: rgba(10, 61, 46, 0.12);
+}
+.section-light.section-mint {
+  background: #eef6f2;
+}
+.section-light :is(.apple-card, .glass-card, .pro-card, .glass) {
+  background: #ffffff;
+  border-color: rgba(10, 61, 46, 0.12);
+  box-shadow: 0 1px 2px rgba(10, 61, 46, 0.06), 0 18px 40px -20px rgba(10, 61, 46, 0.3);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.section-light :is(.apple-card, .glass-card, .pro-card):hover {
+  border-color: rgba(10, 61, 46, 0.28);
+  box-shadow: 0 1px 2px rgba(10, 61, 46, 0.08), 0 24px 50px -20px rgba(10, 61, 46, 0.38);
+}
+.section-light .bg-brand-surface {
+  background-color: #eef6f2;
+  background-image: none;
+  box-shadow: none;
+}
+.section-light.section-mint .bg-brand-surface {
+  background-color: #ffffff;
+}
+.section-light .apple-btn-secondary {
+  border-color: rgba(150, 64, 0, 0.5);
+}
+.section-light .apple-link:hover {
+  color: #7a3400;
+}
+.section-light :is(.text-\[\#ff8c14\], .text-\[\#ffb366\]) {
+  color: #964000;
+}
+/* Menus sit inside the blurred top bar, so they carry their own near-solid glass tint. */
+.glass-menu {
+  background: linear-gradient(160deg, rgba(14, 72, 55, 0.98) 0%, rgba(5, 34, 26, 0.98) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 60px -20px rgba(0, 0, 0, 0.65);
+}
+/* Hero copy panel: lighter glass, so the picture stays visible around and through it. */
+.glass-hero {
+  background: linear-gradient(155deg, rgba(10, 61, 46, 0.64) 0%, rgba(6, 41, 31, 0.56) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
 }

@@ -54,7 +54,7 @@ export default function CookieConsent() {
           transition={{ duration: 0.25 }}
           className="fixed inset-x-0 bottom-0 z-[110] p-3 sm:p-4 pointer-events-none"
         >
-          <div className="pointer-events-auto mx-auto max-w-xl rounded-2xl border border-white/12 bg-brand-surface/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:max-w-2xl">
+          <div className="pointer-events-auto mx-auto max-w-xl glass-strong rounded-2xl px-4 py-3 sm:max-w-2xl">
             <p className="text-[12px] leading-snug text-brand-ink sm:text-[13px]">
               We use essential cookies for the site to work. With your OK, we also use analytics and
               advertising cookies (including Meta Pixel) to measure campaigns and improve the site.{" "}

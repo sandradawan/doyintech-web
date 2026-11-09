@@ -10,7 +10,7 @@ import {
 
 export default function Packages() {
   return (
-    <section id="pricing" className="apple-section apple-section-black">
+    <section id="pricing" className="apple-section section-light">
       <div className="mx-auto max-w-[1100px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">
