@@ -5,8 +5,9 @@
 import type { EbookChapter } from "@/lib/ebooks";
 import { WRITTEN_1 } from "./written-1";
 import { WRITTEN_2 } from "./written-2";
+import { WRITTEN_3 } from "./written-3";
 
-const BOOKS: Record<string, EbookChapter[]> = { ...WRITTEN_1, ...WRITTEN_2 };
+const BOOKS: Record<string, EbookChapter[]> = { ...WRITTEN_1, ...WRITTEN_2, ...WRITTEN_3 };
 
 export function getFullChapters(bookId: string): EbookChapter[] | undefined {
   return BOOKS[bookId];
