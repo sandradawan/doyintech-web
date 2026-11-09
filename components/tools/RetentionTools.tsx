@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 const box = "rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8 space-y-4";
 const input =
   "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
-const labelCls = "block text-xs text-gray-500 mb-1";
+const labelCls = "block text-xs text-brand-subtle mb-1";
 const btn =
   "rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50";
 const btnGhost =
@@ -101,14 +101,14 @@ export function PomodoroTimerTool() {
 
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Focus timer with a daily streak saved on this device. Come back tomorrow to keep it going.
       </p>
       <div className="flex flex-wrap gap-3 text-sm">
         <span className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-primary">
           Streak: {streak.count} day{streak.count === 1 ? "" : "s"}
         </span>
-        <span className="rounded-full border border-white/15 px-3 py-1 text-gray-300">
+        <span className="rounded-full border border-white/15 px-3 py-1 text-brand-soft">
           {mode === "work" ? "Focus session" : "Break"}
         </span>
       </div>
@@ -177,7 +177,7 @@ export function DailyChecklistTool() {
 
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Your checklist for {today}. Saved in this browser — open the site anytime to continue.
       </p>
       <p className="text-sm text-emerald-300">
@@ -202,7 +202,7 @@ export function DailyChecklistTool() {
             className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 px-3 py-2"
           >
             <input type="checkbox" checked={i.done} onChange={() => toggle(i.id)} className="h-4 w-4" />
-            <span className={"flex-1 text-sm " + (i.done ? "text-gray-500 line-through" : "text-white")}>
+            <span className={"flex-1 text-sm " + (i.done ? "text-brand-subtle line-through" : "text-white")}>
               {i.text}
             </span>
             <button type="button" className="text-xs text-red-300" onClick={() => remove(i.id)}>
@@ -211,7 +211,7 @@ export function DailyChecklistTool() {
           </li>
         ))}
         {todayItems.length === 0 ? (
-          <p className="text-sm text-gray-500">No tasks yet. Add one above.</p>
+          <p className="text-sm text-brand-subtle">No tasks yet. Add one above.</p>
         ) : null}
       </ul>
     </div>
@@ -247,7 +247,7 @@ export function BusinessNameGeneratorTool() {
 
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Generate brandable name ideas from a keyword. Refresh for new sets anytime.
       </p>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -272,7 +272,7 @@ export function NotePadTool() {
   const [notes, setNotes] = useLocalJson("dt_notepad", "");
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Quick notes saved only in this browser. Handy for client calls and ideas — comes back when you return.
       </p>
       <textarea
@@ -281,7 +281,7 @@ export function NotePadTool() {
         onChange={(e) => setNotes(e.target.value)}
         placeholder="Type notes here…"
       />
-      <p className="text-xs text-gray-500">{notes.length} characters · auto-saved</p>
+      <p className="text-xs text-brand-subtle">{notes.length} characters · auto-saved</p>
     </div>
   );
 }
@@ -310,7 +310,7 @@ export function CountdownTimerTool() {
 
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Set a deadline (product launch, payment, exam). Saved here so you can check progress anytime.
       </p>
       <Field label="Event name" value={label} onChange={(e) => setLabel(e.target.value)} />
@@ -330,12 +330,12 @@ export function CountdownTimerTool() {
           ].map(([k, v]) => (
             <div key={String(k)} className="rounded-xl border border-white/10 bg-black/30 p-3">
               <p className="font-display text-2xl font-bold text-white">{v}</p>
-              <p className="text-xs text-gray-500">{k}</p>
+              <p className="text-xs text-brand-subtle">{k}</p>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-500">Pick a date to start the countdown.</p>
+        <p className="text-sm text-brand-subtle">Pick a date to start the countdown.</p>
       )}
       {remaining?.done ? <p className="text-sm text-emerald-300">{label} is here!</p> : null}
     </div>
@@ -352,7 +352,7 @@ export function MeetingCostCalculatorTool() {
   const cost = (p * r * m) / 60;
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         See the real Naira cost of a meeting from headcount, hourly rate, and duration.
       </p>
       <div className="grid gap-3 sm:grid-cols-3">
@@ -361,7 +361,7 @@ export function MeetingCostCalculatorTool() {
         <Field label="Minutes" value={mins} onChange={(e) => setMins(e.target.value)} inputMode="numeric" />
       </div>
       <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-        <p className="text-xs text-gray-500">Estimated cost</p>
+        <p className="text-xs text-brand-subtle">Estimated cost</p>
         <p className="mt-1 font-display text-3xl font-bold text-emerald-300">
           NGN {cost.toLocaleString(undefined, { maximumFractionDigits: 0 })}
         </p>
@@ -387,7 +387,7 @@ export function SavingsGoalTrackerTool() {
 
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Track a savings target on this device. Update deposits whenever you visit.
       </p>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -397,7 +397,7 @@ export function SavingsGoalTrackerTool() {
       <div className="h-3 overflow-hidden rounded-full bg-white/10">
         <div className="h-full rounded-full bg-primary transition-all" style={{ width: pct + "%" }} />
       </div>
-      <p className="text-sm text-gray-300">
+      <p className="text-sm text-brand-soft">
         {pct.toFixed(1)}% · NGN {s.toLocaleString()} / {g.toLocaleString()}
       </p>
       <div className="flex gap-2">
@@ -431,7 +431,7 @@ export function RandomPickerTool() {
 
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Stuck choosing? List options (one per line) and spin. Great for prioritising work.
       </p>
       <textarea className={input + " min-h-[140px]"} value={raw} onChange={(e) => setRaw(e.target.value)} />

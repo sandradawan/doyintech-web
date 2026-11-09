@@ -12,7 +12,7 @@ export const metadata: Metadata = { alternates: { canonical: "/tools/system-prot
 export default function SystemProtectorPage() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="px-6">
           <SystemProtectorQuiz />
         </div>

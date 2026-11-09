@@ -68,7 +68,7 @@ export default function ComplianceCalendar() {
   }
 
   const check = (k: "hasStaff" | "vat" | "wht", text: string) => (
-    <label className="flex min-h-11 items-center gap-3 text-[14px] text-[#e8eaed]">
+    <label className="flex min-h-11 items-center gap-3 text-[14px] text-brand-soft">
       <input type="checkbox" className="h-5 w-5 accent-[#ff8c14]" checked={s[k]} onChange={(e) => setS({ ...s, [k]: e.target.checked })} />
       {text}
     </label>
@@ -79,7 +79,7 @@ export default function ComplianceCalendar() {
       <div className={`${panel} lg:sticky lg:top-28 lg:self-start`}>
         <Field name="Organisation name (optional)" value={s.org} onChange={(v) => setS({ ...s, org: v })} />
         <div>
-          <p className="mb-2 text-[12px] font-medium text-[#a1a1a6]">What are you registered as?</p>
+          <p className="mb-2 text-[12px] font-medium text-brand-muted">What are you registered as?</p>
           <Chips label="Registration type" options={KINDS} value={s.kind} onChange={(v) => setS({ ...s, kind: v })} />
         </div>
         <div>
@@ -90,7 +90,7 @@ export default function ComplianceCalendar() {
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {s.kind === "company" && (
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">
+            <label className="block text-[12px] font-medium text-brand-muted">
               Accounting year ends in
               <select className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white" value={s.yearEnd} onChange={(e) => setS({ ...s, yearEnd: e.target.value })}>
                 {MONTHS.map((m, i) => <option key={m} value={String(i + 1)}>{m}</option>)}
@@ -106,29 +106,29 @@ export default function ComplianceCalendar() {
           <button type="button" onClick={downloadIcs} className={primaryBtn} disabled={!items.length}>Add all to Google / Outlook calendar (.ics)</button>
           <button type="button" onClick={print} className={ghostBtn} disabled={!items.length}>Print checklist</button>
         </div>
-        <p className="text-[12px] text-[#8b919c]">The calendar file sets a reminder 3 days before each deadline. In Google Calendar: Settings → Import.</p>
+        <p className="text-[12px] text-brand-subtle">The calendar file sets a reminder 3 days before each deadline. In Google Calendar: Settings → Import.</p>
         {!today ? (
-          <p className="text-[14px] text-[#a1a1a6]">Loading your deadlines…</p>
+          <p className="text-[14px] text-brand-muted">Loading your deadlines…</p>
         ) : items.length === 0 ? (
-          <p className="rounded-xl border border-white/10 p-4 text-[14px] text-[#a1a1a6]">No recurring deadlines for these answers. Tick the boxes that apply to you.</p>
+          <p className="rounded-xl border border-white/10 p-4 text-[14px] text-brand-muted">No recurring deadlines for these answers. Tick the boxes that apply to you.</p>
         ) : (
           <ol className="space-y-2">
             {items.map((d, i) => {
               const left = daysLeft(d.date);
               return (
-                <li key={i} className={`rounded-xl border p-4 ${left <= 14 ? "border-[#ff8c14]/50 bg-[#ff8c14]/5" : "border-white/10 bg-[#141a28]"}`}>
+                <li key={i} className={`rounded-xl border p-4 ${left <= 14 ? "border-[#ff8c14]/50 bg-[#ff8c14]/5" : "border-white/10 bg-brand-surface"}`}>
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <p className="text-[15px] font-semibold text-white">{d.title}</p>
-                    <p className={`text-[13px] font-semibold ${left <= 14 ? "text-[#ff8c14]" : "text-[#a1a1a6]"}`}>{longDate(d.date)} · {left <= 0 ? "today" : `${left} day${left === 1 ? "" : "s"}`}</p>
+                    <p className={`text-[13px] font-semibold ${left <= 14 ? "text-[#ff8c14]" : "text-brand-muted"}`}>{longDate(d.date)} · {left <= 0 ? "today" : `${left} day${left === 1 ? "" : "s"}`}</p>
                   </div>
-                  <p className="mt-1 text-[13px] text-[#c7cdd8]">{d.agency}</p>
-                  <p className="mt-1 text-[13px] text-[#a1a1a6]">{d.note}</p>
+                  <p className="mt-1 text-[13px] text-brand-soft">{d.agency}</p>
+                  <p className="mt-1 text-[13px] text-brand-muted">{d.note}</p>
                 </li>
               );
             })}
           </ol>
         )}
-        <p className="text-[12px] text-[#8b919c]">If a date falls on a weekend or public holiday, file by the working day before. Rules change; confirm with your accountant or the agency.</p>
+        <p className="text-[12px] text-brand-subtle">If a date falls on a weekend or public holiday, file by the working day before. Rules change; confirm with your accountant or the agency.</p>
       </div>
     </div>
   );

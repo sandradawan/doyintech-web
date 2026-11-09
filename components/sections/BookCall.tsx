@@ -19,23 +19,23 @@ export default function BookCall() {
     <section className="apple-section apple-section-black py-16">
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
-          <div className="overflow-hidden rounded-[28px] border border-white/[0.08] bg-gradient-to-br from-[#0071e3]/25 via-[#1d1d1f] to-black p-8 sm:p-12">
+          <div className="overflow-hidden rounded-[28px] border border-white/[0.08] bg-gradient-to-br from-[#ff8c14]/25 via-brand-surface to-black p-8 sm:p-12">
             <div className="grid items-center gap-8 lg:grid-cols-12">
               <div className="lg:col-span-7">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#2997ff]">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
                   Ready when you are
                 </p>
-                <h2 className="mt-2 text-[32px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[40px]">
+                <h2 className="mt-2 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
                   Get a website that brings you clients.
                 </h2>
-                <p className="mt-3 max-w-lg text-[17px] leading-relaxed text-[#a1a1a6]">
+                <p className="mt-3 max-w-lg text-[17px] leading-relaxed text-brand-muted">
                   Tell us what you&apos;re building. We&apos;ll map the right offer, timeline,
                   and investment — in a short call or on WhatsApp.
                 </p>
                 <ul className="mt-5 space-y-2">
                   {bullets.map((b) => (
-                    <li key={b} className="flex items-center gap-2 text-[15px] text-[#f5f5f7]">
-                      <span className="text-[#2997ff]">✓</span> {b}
+                    <li key={b} className="flex items-center gap-2 text-[15px] text-brand-ink">
+                      <span className="text-brand-link">✓</span> {b}
                     </li>
                   ))}
                 </ul>
@@ -51,11 +51,11 @@ export default function BookCall() {
                   href={calendar ? primary : whatsappDiscoveryLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-[15px] text-[#f5f5f7] transition hover:bg-white/5 sm:w-auto sm:min-w-[260px]"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-[15px] text-brand-ink transition hover:bg-white/5 sm:w-auto sm:min-w-[260px]"
                 >
                   {calendar ? "Book a free 15-min call" : "Ask on WhatsApp first"}
                 </a>
-                <p className="text-center text-[12px] text-[#a1a1a6] lg:text-right">
+                <p className="text-center text-[12px] text-brand-muted lg:text-right">
                   Or email{" "}
                   <a href="mailto:doyintechnology@outlook.com" className="apple-link">
                     doyintechnology@outlook.com

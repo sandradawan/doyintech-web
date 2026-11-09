@@ -32,7 +32,7 @@ export default function Testimonials() {
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#2997ff]">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
               Social proof
             </p>
             <h2 className="apple-headline mt-2">Results clients talk about.</h2>
@@ -46,15 +46,15 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <ScrollReveal key={t.name} direction="up" delay={i * 0.08}>
               <figure className="apple-card flex h-full flex-col p-8">
-                <span className="mb-4 inline-flex w-fit rounded-full bg-[#2997ff]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#2997ff]">
+                <span className="mb-4 inline-flex w-fit rounded-full bg-brand-link/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand-link">
                   {t.result}
                 </span>
-                <blockquote className="flex-1 text-[16px] leading-relaxed text-[#f5f5f7]">
+                <blockquote className="flex-1 text-[16px] leading-relaxed text-brand-ink">
                   “{t.quote}”
                 </blockquote>
                 <figcaption className="mt-6 border-t border-white/10 pt-5">
-                  <p className="text-[14px] font-semibold text-[#f5f5f7]">{t.name}</p>
-                  <p className="text-[13px] text-[#a1a1a6]">{t.role}</p>
+                  <p className="text-[14px] font-semibold text-brand-ink">{t.name}</p>
+                  <p className="text-[13px] text-brand-muted">{t.role}</p>
                 </figcaption>
               </figure>
             </ScrollReveal>

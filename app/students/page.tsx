@@ -30,8 +30,8 @@ const writeTools: Tool[] = [
   {
     href: "/students/citations",
     eyebrow: "Free",
-    eyebrowClass: "text-[#2997ff]",
-    borderHover: "hover:border-[#2997ff]/40",
+    eyebrowClass: "text-brand-link",
+    borderHover: "hover:border-brand-link/40",
     title: "Citation formatter",
     body: "Format book, journal, website, and thesis references in APA, MLA, Chicago, or Harvard.",
   },
@@ -52,15 +52,15 @@ const careerTools: Tool[] = [
   {
     href: "/students/cover-letter",
     eyebrow: "Free",
-    eyebrowClass: "text-[#2997ff]",
-    borderHover: "hover:border-[#2997ff]/40",
+    eyebrowClass: "text-brand-link",
+    borderHover: "hover:border-brand-link/40",
     title: "AI cover letter",
     body: "Job-ready drafts for internships and graduate roles. Choose professional, confident, or warm tone.",
   },
   {
     href: "/tools/cv-builder",
     eyebrow: "Free tool",
-    eyebrowClass: "text-[#a1a1a6]",
+    eyebrowClass: "text-brand-muted",
     borderHover: "hover:border-white/30",
     title: "CV & portfolio builder",
     body: "Live preview templates for students and job seekers. Print-ready download.",
@@ -79,7 +79,7 @@ const managedTools: Tool[] = [
   {
     href: "/students/projects/track",
     eyebrow: "Track",
-    eyebrowClass: "text-[#a1a1a6]",
+    eyebrowClass: "text-brand-muted",
     borderHover: "hover:border-white/30",
     title: "Track your project",
     body: "Enter your Request ID (and email if needed) to see stage, feedback, and payment status.",
@@ -99,7 +99,7 @@ function ToolGrid({ items }: { items: Tool[] }) {
             {t.eyebrow}
           </p>
           <h3 className="mt-2 font-display text-[20px] font-semibold text-white">{t.title}</h3>
-          <p className="mt-2 text-[14px] leading-relaxed text-[#a1a1a6]">{t.body}</p>
+          <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{t.body}</p>
         </Link>
       ))}
     </div>
@@ -111,17 +111,17 @@ export default function StudentsHubPage() {
     <>
       <main className="pb-24 pt-28">
         <div className="mx-auto max-w-[1020px] px-5 sm:px-6">
-          <p className="text-[13px] text-[#a1a1a6]">
-            <Link href="/" className="text-[#2997ff] hover:underline">
+          <p className="text-[13px] text-brand-muted">
+            <Link href="/" className="text-brand-link hover:underline">
               Home
             </Link>{" "}
             / Students
           </p>
           <p className="section-eyebrow mt-4">Students · Worldwide</p>
-          <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[42px]">
+          <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[42px]">
             All student tools in one place
           </h1>
-          <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-brand-muted">
             Free writing and data tools for research projects, plus managed full-project
             support ({formatUsdFromNgn(15_000)}–{formatUsdFromNgn(30_000)}) with Request ID
             tracking. Prices shown in USD.
@@ -167,7 +167,7 @@ export default function StudentsHubPage() {
               >
                 Hire full project support
               </Link>
-              <Link href="/" className="rounded-full border border-white/10 px-5 py-2.5 text-[13px] font-semibold text-[#a1a1a6] hover:text-white">
+              <Link href="/" className="rounded-full border border-white/10 px-5 py-2.5 text-[13px] font-semibold text-brand-muted hover:text-white">
                 ← Back to home
               </Link>
             </div>
@@ -176,25 +176,25 @@ export default function StudentsHubPage() {
           {/* Organized sections */}
           <section className="mt-14">
             <h2 className="font-display text-[18px] font-semibold text-white">Write & research</h2>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">Outlines, chapters, abstracts, references</p>
+            <p className="mt-1 text-[13px] text-brand-muted">Outlines, chapters, abstracts, references</p>
             <ToolGrid items={writeTools} />
           </section>
 
           <section className="mt-12">
             <h2 className="font-display text-[18px] font-semibold text-white">Data & analysis</h2>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">Questionnaire results for Chapter 4</p>
+            <p className="mt-1 text-[13px] text-brand-muted">Questionnaire results for Chapter 4</p>
             <ToolGrid items={dataTools} />
           </section>
 
           <section className="mt-12">
             <h2 className="font-display text-[18px] font-semibold text-white">Career</h2>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">Applications after graduation or NYSC</p>
+            <p className="mt-1 text-[13px] text-brand-muted">Applications after graduation or NYSC</p>
             <ToolGrid items={careerTools} />
           </section>
 
           <section className="mt-12">
             <h2 className="font-display text-[18px] font-semibold text-white">Managed research support</h2>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">
+            <p className="mt-1 text-[13px] text-brand-muted">
               Human-assisted projects with stage tracking and 50% deposit
             </p>
             <ToolGrid items={managedTools} />

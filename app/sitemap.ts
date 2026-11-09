@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: e.freq,
       priority: e.priority,
       // Next writes image URLs into the XML unescaped, and a bare "&" (Unsplash query strings) breaks the whole sitemap.
-      ...(e.images ? { images: e.images.map((src) => src.replace(/&(?!amp;)/g, "&amp;")) } : {}),
+      ...(e.images ? { images: e.images.map((src) => (src.startsWith("/") ? `${SITE_URL}${src}` : src).replace(/&(?!amp;)/g, "&amp;")) } : {}),
     });
   }
   const posts = await listPosts(500).catch(() => null);

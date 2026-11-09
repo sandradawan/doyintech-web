@@ -85,11 +85,11 @@ export default function SolarVsGeneratorCalculator() {
       <div className={panel}>
         <div>
           <h2 className="text-[15px] font-semibold text-white">1. What do you power?</h2>
-          <p className="mt-1 text-[13px] text-[#a1a1a6]">Type your running load in watts, or tap appliances to add them.</p>
+          <p className="mt-1 text-[13px] text-brand-muted">Type your running load in watts, or tap appliances to add them.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {APPLIANCES.map((a) => (
-              <button key={a.name} type="button" onClick={() => addLoad(a.watts)} className="min-h-10 rounded-full border border-white/15 px-3 text-[12px] font-medium text-[#c7cdd8] hover:border-[#ff8c14]">
-                + {a.name} <span className="text-[#8b919c]">{a.watts}W</span>
+              <button key={a.name} type="button" onClick={() => addLoad(a.watts)} className="min-h-10 rounded-full border border-white/15 px-3 text-[12px] font-medium text-brand-soft hover:border-[#ff8c14]">
+                + {a.name} <span className="text-brand-subtle">{a.watts}W</span>
               </button>
             ))}
           </div>
@@ -97,7 +97,7 @@ export default function SolarVsGeneratorCalculator() {
             <Field name="Running load (watts)" type="number" value={s.load} onChange={set("load")} />
             <Field name="Generator hours per day" type="number" value={s.hours} onChange={set("hours")} />
           </div>
-          <button type="button" onClick={() => setS({ ...s, load: "0" })} className="mt-2 text-[12px] text-[#a1a1a6] underline">Reset load to 0</button>
+          <button type="button" onClick={() => setS({ ...s, load: "0" })} className="mt-2 text-[12px] text-brand-muted underline">Reset load to 0</button>
         </div>
         <div>
           <h2 className="text-[15px] font-semibold text-white">2. Your generator</h2>
@@ -123,23 +123,23 @@ export default function SolarVsGeneratorCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
-          <p className="text-[13px] text-[#a1a1a6]">Your generator costs you</p>
-          <p className="text-[30px] font-semibold text-white">{naira0(r.genMonthly)}<span className="text-[15px] text-[#a1a1a6]"> / month</span></p>
-          <p className="text-[13px] text-[#a1a1a6]">{naira0(r.genYearly)} a year in fuel and repairs</p>
+        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+          <p className="text-[13px] text-brand-muted">Your generator costs you</p>
+          <p className="text-[30px] font-semibold text-white">{naira0(r.genMonthly)}<span className="text-[15px] text-brand-muted"> / month</span></p>
+          <p className="text-[13px] text-brand-muted">{naira0(r.genYearly)} a year in fuel and repairs</p>
           <div className="mt-4 border-t border-white/10 pt-4">
-            <p className="text-[13px] text-[#a1a1a6]">Solar to replace it</p>
+            <p className="text-[13px] text-brand-muted">Solar to replace it</p>
             <p className="text-[15px] text-white">{r.panelWatts.toLocaleString()} W panels · {r.batteryKwh} kWh battery · {r.inverterKva} kVA inverter</p>
             <p className="mt-1 text-[22px] font-semibold text-white">{naira0(r.solarCost)}</p>
           </div>
           <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-[14px]">
-            <div><dt className="text-[#a1a1a6]">Pays for itself in</dt><dd className="text-[20px] font-semibold text-[#ff8c14]">{payback}</dd></div>
-            <div><dt className="text-[#a1a1a6]">5-year saving</dt><dd className={`text-[20px] font-semibold ${r.fiveYearSaving >= 0 ? "text-[#3ddc97]" : "text-[#ff6b6b]"}`}>{(r.fiveYearSaving < 0 ? "-" : "") + naira0(Math.abs(r.fiveYearSaving))}</dd></div>
-            <div className="col-span-2"><dt className="text-[#a1a1a6]">CO₂ avoided</dt><dd className="text-white">{r.co2TonnesYearly.toFixed(1)} tonnes a year</dd></div>
+            <div><dt className="text-brand-muted">Pays for itself in</dt><dd className="text-[20px] font-semibold text-[#ff8c14]">{payback}</dd></div>
+            <div><dt className="text-brand-muted">5-year saving</dt><dd className={`text-[20px] font-semibold ${r.fiveYearSaving >= 0 ? "text-[#3ddc97]" : "text-[#ff6b6b]"}`}>{(r.fiveYearSaving < 0 ? "-" : "") + naira0(Math.abs(r.fiveYearSaving))}</dd></div>
+            <div className="col-span-2"><dt className="text-brand-muted">CO₂ avoided</dt><dd className="text-white">{r.co2TonnesYearly.toFixed(1)} tonnes a year</dd></div>
           </dl>
         </div>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download comparison PDF</button>
-        <p className="text-[12px] text-[#8b919c]">Prices change weekly. Use your own fuel price and an installer&apos;s quote for a decision.</p>
+        <p className="text-[12px] text-brand-subtle">Prices change weekly. Use your own fuel price and an installer&apos;s quote for a decision.</p>
       </div>
     </div>
   );

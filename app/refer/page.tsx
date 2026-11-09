@@ -24,14 +24,14 @@ export default function ReferPage() {
       <Suspense fallback={null}>
         <ReferralCapture />
       </Suspense>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <div className="text-center">
             <p className="section-eyebrow text-[#ff8c14]">Refer & earn</p>
             <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
               Refer a business → ₦10,000 credit
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[#a1a1a6]">
+            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-brand-muted">
               Know a salon, clinic, property agent, coach, or shop that needs a real website?
               Share your link. When they pay a deposit, you get ₦10k credit on your next order.
             </p>
@@ -41,20 +41,20 @@ export default function ReferPage() {
             <ReferWorkspace />
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
+          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[18px] font-semibold text-white">How it works</h2>
-            <ol className="mt-4 space-y-3 text-[15px] text-[#c7cdd8]">
+            <ol className="mt-4 space-y-3 text-[15px] text-brand-soft">
               <li>1. Generate your referral link and share it.</li>
               <li>2. They book a call or pay a deposit on Hire.</li>
               <li>3. Deposit clears → your ₦10,000 credit is locked in.</li>
             </ol>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
+          <div className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[18px] font-semibold text-white">Rules (plain English)</h2>
             <ul className="mt-4 space-y-2">
               {rules.map((r) => (
-                <li key={r} className="flex gap-2 text-[14px] text-[#c7cdd8]">
+                <li key={r} className="flex gap-2 text-[14px] text-brand-soft">
                   <span className="text-[#ff8c14]">•</span> {r}
                 </li>
               ))}
@@ -65,12 +65,12 @@ export default function ReferPage() {
             <a href="/hire" className="glass-card p-5 transition hover:border-[#ff8c14]/40">
               <p className="text-[13px] font-semibold text-[#ff8c14]">Packages</p>
               <p className="mt-1 text-[16px] font-semibold text-white">Fixed-price hire</p>
-              <p className="mt-1 text-[13px] text-[#86868b]">Deposits that unlock your credit</p>
+              <p className="mt-1 text-[13px] text-brand-subtle">Deposits that unlock your credit</p>
             </a>
             <a href="/case-studies" className="glass-card p-5 transition hover:border-[#ff8c14]/40">
               <p className="text-[13px] font-semibold text-[#ff8c14]">Proof</p>
               <p className="mt-1 text-[16px] font-semibold text-white">Case studies</p>
-              <p className="mt-1 text-[13px] text-[#86868b]">Share real results with referrals</p>
+              <p className="mt-1 text-[13px] text-brand-subtle">Share real results with referrals</p>
             </a>
           </div>
         </div>

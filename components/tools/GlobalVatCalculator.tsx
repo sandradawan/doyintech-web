@@ -32,27 +32,27 @@ export default function GlobalVatCalculator({ tax, currency, locale, presets, de
   const invoiceHref = `/tools/invoice-generator?currency=${currency}&tax=${encodeURIComponent(rate)}`;
 
   const btn = (on: boolean) =>
-    `min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-[#c7cdd8] hover:border-white/35"}`;
+    `min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/35"}`;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5">
         <div role="radiogroup" aria-label="Calculation" className="flex flex-wrap gap-2">
           <button type="button" role="radio" aria-checked={mode === "add"} onClick={() => setMode("add")} className={btn(mode === "add")}>Add {tax} to a price</button>
           <button type="button" role="radio" aria-checked={mode === "remove"} onClick={() => setMode("remove")} className={btn(mode === "remove")}>Remove {tax} from a price</button>
         </div>
-        <label className="block text-[12px] font-medium text-[#a1a1a6]">
+        <label className="block text-[12px] font-medium text-brand-muted">
           {mode === "add" ? `Price before ${tax} (${currency})` : `Price including ${tax} (${currency})`}
           <input inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-3 text-[20px] font-semibold text-white outline-none focus:border-[#ff8c14]" />
         </label>
         <div>
-          <p className="mb-2 text-[12px] font-medium text-[#a1a1a6]">{tax} rate</p>
+          <p className="mb-2 text-[12px] font-medium text-brand-muted">{tax} rate</p>
           <div role="radiogroup" aria-label={`${tax} rate`} className="flex flex-wrap gap-2">
             {presets.map((p) => (
               <button key={p.label} type="button" role="radio" aria-checked={rate === String(p.rate)} onClick={() => setRate(String(p.rate))} className={btn(rate === String(p.rate))}>{p.label}</button>
             ))}
           </div>
-          <label className="mt-3 block max-w-[200px] text-[12px] font-medium text-[#a1a1a6]">
+          <label className="mt-3 block max-w-[200px] text-[12px] font-medium text-brand-muted">
             Or any rate (%)
             <input inputMode="decimal" value={rate} onChange={(e) => setRate(e.target.value)} className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]" />
           </label>
@@ -60,10 +60,10 @@ export default function GlobalVatCalculator({ tax, currency, locale, presets, de
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <dl className="rounded-2xl border border-white/10 bg-[#141a28] p-5 text-[15px]">
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-[#a1a1a6]">Net (excl. {tax})</dt><dd className="text-white">{fmt.format(r.net)}</dd></div>
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-[#a1a1a6]">{tax} at {rate || 0}%</dt><dd className="text-white">{fmt.format(r.tax)}</dd></div>
-          <div className="mt-2 flex justify-between gap-3 border-t border-white/10 pt-3"><dt className="text-[#a1a1a6]">Gross (incl. {tax})</dt><dd className="text-[26px] font-semibold text-[#ff8c14]">{fmt.format(r.gross)}</dd></div>
+        <dl className="rounded-2xl border border-white/10 bg-brand-surface p-5 text-[15px]">
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Net (excl. {tax})</dt><dd className="text-white">{fmt.format(r.net)}</dd></div>
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">{tax} at {rate || 0}%</dt><dd className="text-white">{fmt.format(r.tax)}</dd></div>
+          <div className="mt-2 flex justify-between gap-3 border-t border-white/10 pt-3"><dt className="text-brand-muted">Gross (incl. {tax})</dt><dd className="text-[26px] font-semibold text-[#ff8c14]">{fmt.format(r.gross)}</dd></div>
         </dl>
         <div className="flex flex-wrap gap-2">
           <button

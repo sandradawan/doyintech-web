@@ -39,7 +39,7 @@ function extractSubject(body: string): { subject: string; body: string } {
 }
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/35 outline-none focus:border-[#ff8c14]/60";
+  "w-full rounded-xl border border-white/10 bg-brand-deep px-3 py-2.5 text-sm text-white placeholder:text-white/35 outline-none focus:border-[#ff8c14]/60";
 
 export default function OutreachConsole() {
   const [channel, setChannel] = useState<"whatsapp" | "email">("whatsapp");
@@ -202,7 +202,7 @@ export default function OutreachConsole() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-[#0c1220] p-5">
+        <div className="space-y-4 rounded-2xl border border-white/10 bg-brand-deep p-5">
           <div>
             <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">Channel</label>
             <div className="flex gap-2">
@@ -331,7 +331,7 @@ export default function OutreachConsole() {
           )}
         </div>
 
-        <div className="space-y-3 rounded-2xl border border-white/10 bg-[#0c1220] p-5">
+        <div className="space-y-3 rounded-2xl border border-white/10 bg-brand-deep p-5">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-white">Preview</h2>
             {channel === "email" && (

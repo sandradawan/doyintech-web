@@ -22,11 +22,11 @@ export default function ContactPage() {
       <main className="pb-24 pt-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="max-w-3xl">
-            <p className="text-sm text-gray-400">Contact</p>
+            <p className="text-sm text-brand-muted">Contact</p>
             <h1 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-5xl">
               Let’s talk about your project.
             </h1>
-            <p className="mt-5 leading-relaxed text-gray-400">
+            <p className="mt-5 leading-relaxed text-brand-muted">
               No long forms. Email us or book a call — we’ll reply with clear next steps.
             </p>
           </div>
@@ -45,7 +45,7 @@ export default function ContactPage() {
                 <h2 className="mt-2 font-display text-xl font-bold text-white">
                   Book a discovery call
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-gray-300">
+                <p className="mt-2 text-sm leading-relaxed text-brand-soft">
                   Share your goals on WhatsApp. We’ll outline scope and timeline — no obligation.
                 </p>
                 <a
@@ -62,9 +62,9 @@ export default function ContactPage() {
                 href={emailLink()}
                 className="group block rounded-2xl border border-white/10 bg-black/20 p-6 transition hover:border-primary/60"
               >
-                <p className="text-sm text-gray-400">Email</p>
+                <p className="text-sm text-brand-muted">Email</p>
                 <p className="mt-2 font-semibold text-gray-100">hello@doyintech.com</p>
-                <p className="mt-2 text-sm text-gray-400">Best for project inquiries and quotes.</p>
+                <p className="mt-2 text-sm text-brand-muted">Best for project inquiries and quotes.</p>
                 <p className="mt-4 text-sm text-primary">Send an email →</p>
               </a>
 
@@ -72,9 +72,9 @@ export default function ContactPage() {
                 href="tel:+2348085343926"
                 className="group block rounded-2xl border border-white/10 bg-black/20 p-6 transition hover:border-primary/60"
               >
-                <p className="text-sm text-gray-400">Phone</p>
+                <p className="text-sm text-brand-muted">Phone</p>
                 <p className="mt-2 font-semibold text-gray-100">08085343926</p>
-                <p className="mt-2 text-sm text-gray-400">Call for urgent requests.</p>
+                <p className="mt-2 text-sm text-brand-muted">Call for urgent requests.</p>
                 <p className="mt-4 text-sm text-primary">Call now →</p>
               </a>
 
@@ -98,7 +98,7 @@ export default function ContactPage() {
                     </span>
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-400">
+                <p className="text-sm leading-relaxed text-brand-muted">
                   Prefer a quick chat? Book a call or email — typically replies within business hours.
                 </p>
               </div>
@@ -107,7 +107,7 @@ export default function ContactPage() {
             <motion.div variants={item} className="lg:col-span-7">
               <div className="rounded-2xl border border-white/10 bg-black/20 p-6 md:p-8">
                 <h2 className="font-display text-2xl font-bold">Get in touch</h2>
-                <p className="mt-2 text-gray-400">
+                <p className="mt-2 text-brand-muted">
                   Choose one path. No form to fill.
                 </p>
                 <div className="mt-8">
@@ -118,7 +118,7 @@ export default function ContactPage() {
                 </div>
                 <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-4">
                   <p className="text-sm font-medium text-gray-200">What happens next?</p>
-                  <ul className="mt-2 space-y-2 text-sm text-gray-400">
+                  <ul className="mt-2 space-y-2 text-sm text-brand-muted">
                     <li>• We review your request</li>
                     <li>• We propose approach + timeline</li>
                     <li>• We start with a clear scope</li>

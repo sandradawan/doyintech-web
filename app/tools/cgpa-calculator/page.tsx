@@ -63,7 +63,7 @@ export default function CgpaCalculatorPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Final year project coming up?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             Get guided support with topic selection, chapter structure, data analysis and formatting from our{" "}
             <Link href="/students/projects" className="text-[#ff8c14] hover:underline">
               student project team

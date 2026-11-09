@@ -31,7 +31,7 @@ export default function CarePlansPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Website care plans
@@ -39,7 +39,7 @@ export default function CarePlansPage() {
           <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">
             Your website, looked after every month.
           </h1>
-          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
             Security, backups, uptime monitoring and real improvements, on a simple monthly plan
             billed through Paystack. Cancel any time from your account.
           </p>
@@ -50,7 +50,7 @@ export default function CarePlansPage() {
             ))}
           </div>
 
-          <p className="mt-6 text-center text-[13px] text-[#86868b]">
+          <p className="mt-6 text-center text-[13px] text-brand-subtle">
             Unused hours don&apos;t roll over. Bigger projects are quoted separately at a fixed
             price.{" "}
             <Link href="/free-audit" className="text-[#ff8c14] hover:underline">
@@ -62,14 +62,14 @@ export default function CarePlansPage() {
             {WHY.map((w) => (
               <div key={w.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
                 <h2 className="text-[16px] font-semibold text-white">{w.title}</h2>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#a1a1a6]">{w.body}</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{w.body}</p>
               </div>
             ))}
           </section>
 
-          <section className="mt-16 rounded-2xl border border-white/10 bg-[#141a28] p-6 sm:p-8">
+          <section className="mt-16 rounded-2xl border border-white/10 bg-brand-surface p-6 sm:p-8">
             <h2 className="text-[20px] font-semibold text-white">What happens after you subscribe</h2>
-            <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] leading-relaxed text-[#c7cdd8]">
+            <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] leading-relaxed text-brand-soft">
               <li>You get an email receipt from Paystack and a welcome message from us.</li>
               <li>
                 Within one business day we confirm your site details and access over WhatsApp or

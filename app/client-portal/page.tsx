@@ -39,13 +39,13 @@ export default function ClientPortalPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[640px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             After deposit
           </p>
           <h1 className="mt-2 text-[32px] font-semibold text-white">Project portal</h1>
-          <p className="mt-3 text-[16px] text-[#a1a1a6]">
+          <p className="mt-3 text-[16px] text-brand-muted">
             Simple path from payment to launch. Message us with your Paystack reference if you need
             your folder link again.
           </p>
@@ -54,17 +54,17 @@ export default function ClientPortalPage() {
             {steps.map((s) => (
               <div
                 key={s.t}
-                className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-5"
+                className="rounded-2xl border border-white/10 bg-brand-surface p-5"
               >
                 <h2 className="text-[16px] font-semibold text-white">{s.t}</h2>
-                <p className="mt-2 text-[14px] text-[#a1a1a6]">{s.d}</p>
+                <p className="mt-2 text-[14px] text-brand-muted">{s.d}</p>
               </div>
             ))}
           </div>
 
           <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
             <h2 className="text-[18px] font-semibold text-white">Need your folder or status?</h2>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               WhatsApp is the live channel for every project. Include your name and payment
               reference.
             </p>
@@ -72,13 +72,13 @@ export default function ClientPortalPage() {
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white"
+              className="mt-4 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black"
             >
               Open project WhatsApp
             </a>
           </div>
 
-          <p className="mt-8 text-center text-[13px] text-[#86868b]">
+          <p className="mt-8 text-center text-[13px] text-brand-subtle">
             Not a client yet?{" "}
             <a href="/hire" className="text-[#ff8c14] hover:underline">
               Fixed-price packages

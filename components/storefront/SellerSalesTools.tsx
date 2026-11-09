@@ -31,10 +31,10 @@ export type PaymentLink = {
 
 const field =
   "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
-const card = "rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6";
+const card = "rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6";
 const primary = "rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60";
 const pill = (on: boolean) =>
-  `rounded-full px-2 py-0.5 text-[11px] font-semibold ${on ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-[#a1a1a6]"}`;
+  `rounded-full px-2 py-0.5 text-[11px] font-semibold ${on ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-brand-muted"}`;
 
 const ngn = (kobo: number) => String(kobo / 100);
 
@@ -103,7 +103,7 @@ export function BoostPanel({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-[16px] font-semibold text-white">Get featured in the shop directory</p>
-          <p className="mt-1 max-w-xl text-[13px] text-[#a1a1a6]">
+          <p className="mt-1 max-w-xl text-[13px] text-brand-muted">
             Sponsored shops appear first on{" "}
             <Link href="/shops" target="_blank" className="text-[#ff8c14] hover:underline">
               doyintech.com/shops
@@ -113,12 +113,12 @@ export function BoostPanel({
         {active && <span className={pill(true)}>Featured until {featuredUntil!.toLocaleDateString("en-NG", { day: "numeric", month: "short" })}</span>}
       </div>
       {stats && (
-        <p className="mt-3 text-[13px] text-[#c7cdd8]">
+        <p className="mt-3 text-[13px] text-brand-soft">
           Last 30 days: <strong className="text-white">{stats.views30}</strong> shop view{stats.views30 === 1 ? "" : "s"}, of which{" "}
           <strong className="text-white">{stats.fromDoyinTech30}</strong> came from the DoyinTech directory and homepage.
         </p>
       )}
-      {confirming && <p className="mt-3 text-[13px] text-[#a1a1a6]">Confirming your payment…</p>}
+      {confirming && <p className="mt-3 text-[13px] text-brand-muted">Confirming your payment…</p>}
       {!ready ? (
         <p className="mt-3 text-[13px] text-[#ff8c14]">Make your shop visible and add a product in stock to promote it.</p>
       ) : (
@@ -130,7 +130,7 @@ export function BoostPanel({
           ))}
         </div>
       )}
-      {active && <p className="mt-2 text-[12px] text-[#86868b]">Buying more adds days on top of your current featured time.</p>}
+      {active && <p className="mt-2 text-[12px] text-brand-subtle">Buying more adds days on top of your current featured time.</p>}
       {error && <p className="mt-2 text-[13px] text-red-400">{error}</p>}
     </div>
   );
@@ -162,7 +162,7 @@ export function DeliveryPanel({ zones, onChange }: { zones: DeliveryZone[]; onCh
   return (
     <div className={card}>
       <p className="text-[16px] font-semibold text-white">Delivery areas</p>
-      <p className="mt-1 text-[13px] text-[#a1a1a6]">
+      <p className="mt-1 text-[13px] text-brand-muted">
         Customers pick an area at checkout and the fee is added to their total. Leave empty to arrange delivery on WhatsApp.
       </p>
       <ul className="mt-4 space-y-2">
@@ -207,7 +207,7 @@ export function DeliveryPanel({ zones, onChange }: { zones: DeliveryZone[]; onCh
         <button type="button" onClick={save} disabled={busy} className={primary}>
           {busy ? "Saving…" : "Save delivery areas"}
         </button>
-        {msg && <span className="text-[13px] text-[#a1a1a6]">{msg}</span>}
+        {msg && <span className="text-[13px] text-brand-muted">{msg}</span>}
       </div>
     </div>
   );
@@ -266,35 +266,35 @@ export function DiscountsPanel({ discounts, paid, onChange }: { discounts: Disco
   return (
     <div className={card}>
       <p className="text-[16px] font-semibold text-white">Discount codes</p>
-      <p className="mt-1 text-[13px] text-[#a1a1a6]">Run a sale or reward loyal customers. Codes work for online payments and WhatsApp orders.</p>
+      <p className="mt-1 text-[13px] text-brand-muted">Run a sale or reward loyal customers. Codes work for online payments and WhatsApp orders.</p>
       {!paid ? (
         <p className="mt-3 text-[13px] text-[#ff8c14]">Discount codes are part of the Store plan. Upgrade above to create them.</p>
       ) : (
         <form onSubmit={create} className="mt-4 grid gap-3 sm:grid-cols-3">
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Code
             <input required value={code} onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))} placeholder="SALE10" maxLength={20} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Type
             <select value={kind} onChange={(e) => setKind(e.target.value as typeof kind)} className={field}>
               <option value="percent">% off</option>
               <option value="amount">₦ off</option>
             </select>
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             {kind === "percent" ? "Percent (1–90)" : "Naira off"}
             <input required inputMode="decimal" value={value} onChange={(e) => setValue(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Minimum order ₦ (optional)
             <input inputMode="decimal" value={min} onChange={(e) => setMin(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Max uses (optional)
             <input inputMode="numeric" value={maxUses} onChange={(e) => setMaxUses(e.target.value.replace(/\D/g, ""))} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Ends on (optional)
             <input type="date" value={expires} onChange={(e) => setExpires(e.target.value)} className={field} />
           </label>
@@ -314,7 +314,7 @@ export function DiscountsPanel({ discounts, paid, onChange }: { discounts: Disco
                 <p className="font-mono font-semibold text-white">
                   {d.code} <span className={pill(d.active)}>{d.active ? "On" : "Off"}</span>
                 </p>
-                <p className="text-[12px] text-[#a1a1a6]">
+                <p className="text-[12px] text-brand-muted">
                   {d.percent_off ? `${d.percent_off}% off` : `${formatKobo(d.amount_off_kobo || 0)} off`}
                   {d.min_subtotal_kobo ? ` · orders over ${formatKobo(d.min_subtotal_kobo)}` : ""} · used {d.uses}
                   {d.max_uses ? `/${d.max_uses}` : ""}
@@ -322,7 +322,7 @@ export function DiscountsPanel({ discounts, paid, onChange }: { discounts: Disco
                 </p>
               </div>
               <div className="flex gap-3 text-[12px]">
-                <button type="button" onClick={() => toggle(d)} className="text-[#a1a1a6] underline">
+                <button type="button" onClick={() => toggle(d)} className="text-brand-muted underline">
                   {d.active ? "Turn off" : "Turn on"}
                 </button>
                 <button type="button" onClick={() => remove(d)} className="text-red-400 underline">
@@ -421,7 +421,7 @@ export function PaymentLinksPanel({
           </button>
         )}
       </div>
-      <p className="mt-1 text-[13px] text-[#a1a1a6]">
+      <p className="mt-1 text-[13px] text-brand-muted">
         Send a &ldquo;Pay now&rdquo; link with any invoice. Customers pay by card, transfer or USSD and the money settles to your bank.
         If you add their email, we send the link and remind them the day before, on, and 3 days after the due date.
         {feePercent > 0 && ` Free plan fee: ${feePercent}% per payment.`}
@@ -443,7 +443,7 @@ export function PaymentLinksPanel({
               href={`https://wa.me/?text=${encodeURIComponent(`Here's the payment link for your invoice: ${created.url}`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-[#25D366] px-4 py-2 font-semibold text-white"
+              className="rounded-full bg-[#25D366] px-4 py-2 font-semibold text-black"
             >
               Send on WhatsApp
             </a>
@@ -453,27 +453,27 @@ export function PaymentLinksPanel({
 
       {open && (
         <form onSubmit={create} className="mt-4 grid gap-3 rounded-xl border border-white/10 bg-black/20 p-4 sm:grid-cols-2">
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             What it&apos;s for
             <input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Invoice INV-0042" className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Amount (₦)
             <input required inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="25000" className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Customer name (optional)
             <input value={customer} onChange={(e) => setCustomer(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Customer email (for the link and reminders)
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Due date (optional)
             <input type="date" value={due} onChange={(e) => setDue(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Note (optional)
             <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Website design, 50% deposit" className={field} />
           </label>
@@ -481,7 +481,7 @@ export function PaymentLinksPanel({
             <button type="submit" disabled={busy} className={primary}>
               {busy ? "Creating…" : email ? "Create and email link" : "Create link"}
             </button>
-            <button type="button" onClick={() => setOpen(false)} className="text-[14px] text-[#a1a1a6] underline">
+            <button type="button" onClick={() => setOpen(false)} className="text-[14px] text-brand-muted underline">
               Cancel
             </button>
           </div>
@@ -498,7 +498,7 @@ export function PaymentLinksPanel({
                   {l.title} · {formatKobo(l.amount_kobo)}{" "}
                   <span className={pill(l.status === "paid")}>{l.status === "open" ? "Unpaid" : l.status}</span>
                 </p>
-                <p className="text-[12px] text-[#a1a1a6]">
+                <p className="text-[12px] text-brand-muted">
                   {l.customer_name || l.customer_email || "No customer details"}
                   {l.due_date ? ` · due ${new Date(`${l.due_date}T12:00:00Z`).toLocaleDateString("en-NG")}` : ""}
                   {l.reminders_sent ? ` · ${l.reminders_sent} reminder${l.reminders_sent > 1 ? "s" : ""} sent` : ""}

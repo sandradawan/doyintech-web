@@ -6,7 +6,7 @@ import { GIFT_DESIGNS, GIFT_MAX_KOBO, GIFT_MIN_KOBO, GIFT_PRESETS_KOBO, naira } 
 
 const field =
   "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
-const label = "block text-[13px] text-[#a1a1a6]";
+const label = "block text-[13px] text-brand-muted";
 
 /** Choose amount, design and recipient, then pay with Paystack. */
 export default function GiftCardBuyForm() {
@@ -59,7 +59,7 @@ export default function GiftCardBuyForm() {
 
   return (
     <form onSubmit={buy} className="grid gap-8 lg:grid-cols-[1fr_400px]">
-      <div className="space-y-6 rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6">
+      <div className="space-y-6 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
         <fieldset>
           <legend className="text-[15px] font-semibold text-white">1. Amount</legend>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -72,7 +72,7 @@ export default function GiftCardBuyForm() {
                   setCustom("");
                 }}
                 className={`rounded-xl border py-3 text-[15px] font-semibold transition ${
-                  !custom && amountKobo === k ? "border-[#ff8c14] bg-[#ff8c14]/10 text-white" : "border-white/15 text-[#c7cdd8] hover:border-white/30"
+                  !custom && amountKobo === k ? "border-[#ff8c14] bg-[#ff8c14]/10 text-white" : "border-white/15 text-brand-soft hover:border-white/30"
                 }`}
               >
                 {naira(k)}
@@ -95,7 +95,7 @@ export default function GiftCardBuyForm() {
                 onClick={() => setDesign(d.id)}
                 aria-pressed={design === d.id}
                 className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] ${
-                  design === d.id ? "border-white text-white" : "border-white/15 text-[#c7cdd8]"
+                  design === d.id ? "border-white text-white" : "border-white/15 text-brand-soft"
                 }`}
               >
                 <span className="h-4 w-4 rounded-full" style={{ background: `linear-gradient(135deg, ${d.from}, ${d.to})` }} />
@@ -116,7 +116,7 @@ export default function GiftCardBuyForm() {
                 key={String(l)}
                 type="button"
                 onClick={() => setForSomeone(v as boolean)}
-                className={`rounded-full px-4 py-2 text-[13px] font-semibold ${forSomeone === v ? "bg-white text-black" : "border border-white/15 text-[#c7cdd8]"}`}
+                className={`rounded-full px-4 py-2 text-[13px] font-semibold ${forSomeone === v ? "bg-white text-black" : "border border-white/15 text-brand-soft"}`}
               >
                 {l as string}
               </button>
@@ -165,7 +165,7 @@ export default function GiftCardBuyForm() {
           {busy ? "Opening secure payment…" : `Pay ${amountOk ? naira(amount) : ""} with Paystack`}
         </button>
         {error && <p className="text-[13px] text-red-400">{error}</p>}
-        <p className="text-[12px] leading-relaxed text-[#86868b]">
+        <p className="text-[12px] leading-relaxed text-brand-subtle">
           The code arrives by email as soon as you pay{forSomeone && recipientEmail ? ", and we send it to them too" : ""}. Valid for 3 years on
           anything at doyintech.com. Not exchangeable for cash.
         </p>

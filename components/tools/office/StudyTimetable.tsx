@@ -119,7 +119,7 @@ export default function StudyTimetable() {
             </label>
             <Field name="Start time" type="time" value={s.start} onChange={(v) => setS({ ...s, start: v })} />
           </div>
-          <ul className="space-y-1 text-[13px] text-[#c7cdd8]">
+          <ul className="space-y-1 text-[13px] text-brand-soft">
             {t.perCourse.map((c) => (
               <li key={c.code} className="flex justify-between"><span>{c.code}</span><span>{c.slots} sessions / week</span></li>
             ))}
@@ -127,17 +127,17 @@ export default function StudyTimetable() {
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#141a28] p-4">
+      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-brand-surface p-4">
         <div className="grid min-w-[720px] grid-cols-7 gap-2">
           {t.grid.map((d) => (
             <div key={d.day}>
               <p className="mb-2 text-center text-[13px] font-semibold text-white">{d.day}</p>
               <div className="space-y-1.5">
-                {d.slots.length === 0 && <p className="rounded-lg border border-dashed border-white/10 p-2 text-center text-[11px] text-[#a1a1a6]">Rest</p>}
+                {d.slots.length === 0 && <p className="rounded-lg border border-dashed border-white/10 p-2 text-center text-[11px] text-brand-muted">Rest</p>}
                 {d.slots.map((x, k) => (
                   <div key={k} className="rounded-lg bg-black/40 p-2">
                     <p className="text-[12px] font-semibold text-white">{x.code}</p>
-                    <p className="text-[11px] text-[#a1a1a6]">{x.time}</p>
+                    <p className="text-[11px] text-brand-muted">{x.time}</p>
                   </div>
                 ))}
               </div>

@@ -63,7 +63,7 @@ export default function InvoiceGeneratorNigeriaPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Sending invoices every week?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             DoyinTech Pro gives you branded invoices, receipts, payslips, contracts and every
             premium tool for ₦5,000/month. Or let clients pay you online —{" "}
             <Link href="/hire" className="text-[#ff8c14] hover:underline">

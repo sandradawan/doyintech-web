@@ -61,13 +61,13 @@ export default function ToolFollowUp({ source }: { source: string }) {
     <form
       onSubmit={submit}
       className={`mt-6 rounded-2xl border p-5 transition sm:p-6 ${
-        nudge ? "border-[#ff8c14]/60 bg-[#ff8c14]/10 shadow-[0_0_0_4px_rgba(255,140,20,0.12)]" : "border-white/10 bg-[#141a28]"
+        nudge ? "border-[#ff8c14]/60 bg-[#ff8c14]/10 shadow-[0_0_0_4px_rgba(255,140,20,0.12)]" : "border-white/10 bg-brand-surface"
       }`}
     >
       <p className="text-[15px] font-semibold text-white">
         {nudge ? "Got your document? Keep this tool for next time" : "Keep these free tools handy"}
       </p>
-      <p className="mt-1 text-[13px] text-[#a1a1a6]">
+      <p className="mt-1 text-[13px] text-brand-muted">
         We&apos;ll email you the links, plus a few short tips on getting paid faster and the e-invoicing changes coming for small businesses. Unsubscribe any time.
       </p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">

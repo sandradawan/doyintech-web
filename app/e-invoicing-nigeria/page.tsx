@@ -51,7 +51,7 @@ export default function EInvoicingNigeriaPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Selling online?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             A website with Paystack checkout records every sale cleanly — the foundation for
             automatic e-invoicing. Until then, issue proper numbered invoices with the free{" "}
             <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">
@@ -82,7 +82,7 @@ export default function EInvoicingNigeriaPage() {
           </tbody>
         </table>
       </section>
-      <p className="text-[12px] text-[#86868b]">
+      <p className="text-[12px] text-brand-subtle">
         Based on the NRS public notice of February 2026 as summarised by{" "}
         <a className="underline" href="https://kpmg.com/us/en/taxnewsflash/news/2026/02/nigeria-phased-rollout-e-invoicing-electronic-fiscal-system.html" rel="noopener noreferrer" target="_blank">KPMG</a> and{" "}
         <a className="underline" href="https://nairametrics.com/2026/02/17/nrs-launches-phased-e-invoicing-fiscal-monitoring-system/" rel="noopener noreferrer" target="_blank">Nairametrics</a>. Timelines are official guidance and may change; confirm with the NRS. Reviewed October 2026.

@@ -23,34 +23,34 @@ export default function MarginCalculator() {
   const money = (n: number) => formatMoney(n, currency);
 
   const btn = (on: boolean) =>
-    `min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-[#c7cdd8] hover:border-white/35"}`;
+    `min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/35"}`;
   const modes: [Mode, string][] = [["price", "I know my price"], ["margin", "Price for a margin"], ["markup", "Price for a markup"]];
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5">
         <div role="radiogroup" aria-label="Calculation" className="flex flex-wrap gap-2">
           {modes.map(([m, label]) => (
             <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)} className={btn(mode === m)}>{label}</button>
           ))}
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-[12px] font-medium text-[#a1a1a6]">Cost per item<input inputMode="decimal" value={cost} onChange={(e) => setCost(e.target.value)} className={field + " py-3 text-[20px] font-semibold"} /></label>
+          <label className="block text-[12px] font-medium text-brand-muted">Cost per item<input inputMode="decimal" value={cost} onChange={(e) => setCost(e.target.value)} className={field + " py-3 text-[20px] font-semibold"} /></label>
           <CurrencySelect value={currency} onChange={setCurrency} />
           {mode === "price" ? (
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Selling price<input inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} className={field} /></label>
+            <label className="block text-[12px] font-medium text-brand-muted">Selling price<input inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} className={field} /></label>
           ) : (
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Target {mode} (%)<input inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} className={field} /></label>
+            <label className="block text-[12px] font-medium text-brand-muted">Target {mode} (%)<input inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} className={field} /></label>
           )}
         </div>
         {mode === "margin" && num(target) >= 100 && <p className="text-[13px] text-red-300">A margin must be below 100%.</p>}
       </div>
 
-      <dl className="rounded-2xl border border-white/10 bg-[#141a28] p-5 text-[15px] lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="flex justify-between gap-3 py-1.5"><dt className="text-[#a1a1a6]">Selling price</dt><dd className="text-white">{money(sell)}</dd></div>
-        <div className="flex justify-between gap-3 py-1.5"><dt className="text-[#a1a1a6]">Profit per item</dt><dd className={r.profit < 0 ? "text-red-300" : "text-white"}>{money(r.profit)}</dd></div>
-        <div className="flex justify-between gap-3 py-1.5"><dt className="text-[#a1a1a6]">Markup (on cost)</dt><dd className="text-white">{r.markup.toFixed(1)}%</dd></div>
-        <div className="mt-2 flex justify-between gap-3 border-t border-white/10 pt-3"><dt className="text-[#a1a1a6]">Profit margin</dt><dd className="text-[28px] font-semibold text-[#ff8c14]">{r.margin.toFixed(1)}%</dd></div>
+      <dl className="rounded-2xl border border-white/10 bg-brand-surface p-5 text-[15px] lg:sticky lg:top-28 lg:self-start" aria-live="polite">
+        <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Selling price</dt><dd className="text-white">{money(sell)}</dd></div>
+        <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Profit per item</dt><dd className={r.profit < 0 ? "text-red-300" : "text-white"}>{money(r.profit)}</dd></div>
+        <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Markup (on cost)</dt><dd className="text-white">{r.markup.toFixed(1)}%</dd></div>
+        <div className="mt-2 flex justify-between gap-3 border-t border-white/10 pt-3"><dt className="text-brand-muted">Profit margin</dt><dd className="text-[28px] font-semibold text-[#ff8c14]">{r.margin.toFixed(1)}%</dd></div>
       </dl>
     </div>
   );

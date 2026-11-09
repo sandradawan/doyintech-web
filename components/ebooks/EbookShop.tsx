@@ -19,62 +19,21 @@ export function EbookCover({
 }) {
   const dims =
     size === "lg"
-      ? { wrap: "h-[340px] w-[230px]", title: "text-[17px]", sub: "text-[11px]" }
+      ? { wrap: "h-[345px] w-[230px]", sizes: "230px" }
       : size === "sm"
-        ? { wrap: "h-[170px] w-[115px]", title: "text-[11px]", sub: "text-[9px]" }
-        : { wrap: "h-[240px] w-[160px]", title: "text-[13px]", sub: "text-[10px]" };
+        ? { wrap: "h-[174px] w-[116px]", sizes: "116px" }
+        : { wrap: "h-[252px] w-[168px]", sizes: "168px" };
 
   return (
-    <div className={`${dims.wrap} relative`} style={{ perspective: "900px" }}>
-      <div
-        className="absolute inset-y-2 -right-1.5 w-2 rounded-r-sm bg-gradient-to-b from-neutral-200 via-neutral-100 to-neutral-300 shadow-inner"
-        aria-hidden
+    <div className={`${dims.wrap} relative overflow-hidden rounded-[3px] shadow-[0_6px_18px_rgba(0,0,0,0.45)] ring-1 ring-white/10`}>
+      <Image
+        src={book.coverImage}
+        alt={`${book.title} ebook cover`}
+        fill
+        className="object-cover"
+        sizes={dims.sizes}
+        priority={size === "lg"}
       />
-      <div
-        className="absolute inset-y-3 -right-2.5 w-1.5 rounded-r-sm bg-gradient-to-b from-neutral-300 via-neutral-200 to-neutral-400 opacity-80"
-        aria-hidden
-      />
-
-      <div className="relative h-full w-full overflow-hidden rounded-r-md rounded-l-[3px] shadow-[4px_8px_24px_rgba(0,0,0,0.55)] ring-1 ring-black/40">
-        <Image
-          src={book.coverImage}
-          alt={`${book.title} ebook cover`}
-          fill
-          className="object-cover"
-          sizes="230px"
-          priority={size === "lg"}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/25" />
-        <div className="absolute inset-y-0 left-0 w-[6px] bg-gradient-to-r from-black/50 to-transparent" />
-
-        <div className="relative flex h-full flex-col justify-between p-3.5 sm:p-4">
-          <div className="flex items-start justify-between gap-2">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/75">
-              DoyinTech Press
-            </p>
-            {book.badge && size !== "sm" && (
-              <span className="rounded bg-white/15 px-1.5 py-0.5 text-[8px] font-semibold text-white/90 backdrop-blur-sm">
-                {book.badge}
-              </span>
-            )}
-          </div>
-
-          <div>
-            <p className="mb-1.5 text-xl drop-shadow-lg sm:text-2xl">{book.icon}</p>
-            <h3 className={`${dims.title} font-bold leading-snug text-white drop-shadow-md`}>
-              {book.title}
-            </h3>
-            <p className={`${dims.sub} mt-1.5 line-clamp-2 leading-snug text-white/80`}>
-              {book.subtitle}
-            </p>
-            <div
-              className="mt-2.5 h-[3px] w-9 rounded-full"
-              style={{ backgroundColor: book.accent }}
-            />
-            <p className="mt-2 text-[9px] font-medium tracking-wide text-white/65">{book.author}</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -83,26 +42,26 @@ export function EbookCard({ book }: { book: PublicEbook }) {
   return (
     <Link
       href={`/ebooks/${book.slug}`}
-      className="group flex h-full flex-col rounded-[22px] border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-5 transition hover:border-[#ff8c14]/40"
+      className="group flex h-full flex-col rounded-[22px] border border-white/10 bg-gradient-to-b from-brand-raised to-brand-deep p-5 transition hover:border-[#ff8c14]/40"
     >
       <div className="flex justify-center py-3">
-        <div className="transition duration-300 group-hover:-translate-y-1.5 group-hover:rotate-[-2deg]">
+        <div className="transition duration-300 group-hover:-translate-y-1">
           <EbookCover book={book} size="md" />
         </div>
       </div>
       <div className="mt-2 flex flex-1 flex-col">
-        <p className="text-[11px] font-medium uppercase tracking-wide text-[#86868b]">
+        <p className="text-[11px] font-medium uppercase tracking-wide text-brand-subtle">
           {book.category}
         </p>
         <h3 className="mt-1 text-[17px] font-semibold text-white group-hover:text-[#ff8c14]">
           {book.title}
         </h3>
-        <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{book.subtitle}</p>
-        <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
+        <p className="mt-1 line-clamp-2 text-[13px] text-brand-muted">{book.subtitle}</p>
+        <div className="mt-4 flex flex-col gap-1 border-t border-white/10 pt-3">
           <span className="text-[16px] font-semibold text-white">
             {book.onSale ? formatEbookPrice(book.priceNgn) : "Coming soon"}
           </span>
-          <span className="text-[11px] text-[#86868b]">{book.pagesLabel}</span>
+          <span className="text-[11px] text-brand-subtle">{book.pagesLabel}</span>
         </div>
       </div>
     </Link>
@@ -146,18 +105,18 @@ export function EbookBuyPanel({ book }: { book: PublicEbook }) {
 
   if (!book.onSale) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
         <p className="text-[18px] font-semibold text-white">Coming soon</p>
-        <p className="mt-2 text-[14px] leading-relaxed text-[#c7cdd8]">We are finishing this book and it isn&apos;t on sale yet. Please check back shortly.</p>
+        <p className="mt-2 text-[14px] leading-relaxed text-brand-soft">We are finishing this book and it isn&apos;t on sale yet. Please check back shortly.</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+    <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
       <p className="text-[28px] font-semibold text-white">{formatEbookPrice(book.priceNgn)}</p>
-      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Instant access after payment</p>
-      <label className="mt-4 block text-[12px] text-[#a1a1a6]">
+      <p className="mt-1 text-[12px] text-brand-muted">One-time · Instant access after payment</p>
+      <label className="mt-4 block text-[12px] text-brand-muted">
         Email for delivery
         <input
           type="email"
@@ -168,7 +127,7 @@ export function EbookBuyPanel({ book }: { book: PublicEbook }) {
           placeholder="you@email.com"
         />
       </label>
-      <label className="mt-3 block text-[12px] text-[#a1a1a6]">
+      <label className="mt-3 block text-[12px] text-brand-muted">
         Name (optional)
         <input
           value={name}
@@ -185,7 +144,7 @@ export function EbookBuyPanel({ book }: { book: PublicEbook }) {
         {loading ? "Redirecting…" : `Buy ebook · ${formatEbookPrice(book.priceNgn)}`}
       </button>
       {err && <p className="mt-2 text-sm text-red-400">{err}</p>}
-      <p className="mt-3 text-[11px] leading-relaxed text-[#86868b]">
+      <p className="mt-3 text-[11px] leading-relaxed text-brand-subtle">
         After payment: full chapters unlock on this site and a PDF is emailed to you.
       </p>
     </div>
@@ -198,7 +157,7 @@ function EbookReader({ chapters }: { chapters: EbookChapter[] }) {
       {chapters.map((ch) => (
         <section key={ch.title} className="rounded-2xl border border-white/10 bg-black/25 p-5">
           <h3 className="text-[16px] font-semibold text-white">{ch.title}</h3>
-          <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-[#c7cdd8]">
+          <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-brand-soft">
             {ch.body}
           </div>
         </section>
@@ -235,14 +194,14 @@ export function EbookGatedReader({ book }: { book: PublicEbook }) {
             Free preview
           </p>
           <h3 className="mt-1 text-[16px] font-semibold text-white">{ch.title}</h3>
-          <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-[#c7cdd8]">
+          <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-brand-soft">
             {ch.body}
           </div>
         </section>
       ))}
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-center">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-center">
         <p className="text-[15px] font-semibold text-white">+ {restCount} more chapters locked</p>
-        <p className="mt-2 text-[13px] text-[#a1a1a6]">Buy to unlock the full guide on this page.</p>
+        <p className="mt-2 text-[13px] text-brand-muted">Buy to unlock the full guide on this page.</p>
         <p className="mt-4 text-[20px] font-semibold text-[#ff8c14]">
           {formatEbookPrice(book.priceNgn)}
         </p>

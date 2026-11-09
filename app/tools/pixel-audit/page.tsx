@@ -8,7 +8,7 @@ const STATUS_STYLE: Record<AuditStatus, string> = {
   passed: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
   needs_attention: "border-amber-500/30 bg-amber-500/10 text-amber-100",
   warning: "border-orange-500/30 bg-orange-500/10 text-orange-100",
-  not_detected: "border-white/10 bg-white/5 text-[#a1a1a6]",
+  not_detected: "border-white/10 bg-white/5 text-brand-muted",
   unable_to_verify: "border-sky-500/30 bg-sky-500/10 text-sky-100",
 };
 
@@ -39,7 +39,7 @@ export default function PixelAuditPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#05060a] pb-24 pt-24 text-[#f5f5f7]">
+    <main className="min-h-screen bg-brand-deepest pb-24 pt-24 text-brand-ink">
       <div className="mx-auto max-w-3xl px-6">
         <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[#ff8c14]">
           DoyinTech Pixel Audit
@@ -47,18 +47,18 @@ export default function PixelAuditPage() {
         <h1 className="mt-2 font-display text-[32px] font-semibold tracking-tight sm:text-[40px]">
           Meta Pixel website audit
         </h1>
-        <p className="mt-3 text-[15px] leading-relaxed text-[#a1a1a6]">
+        <p className="mt-3 text-[15px] leading-relaxed text-brand-muted">
           Submit a public website URL for a technical scan of detectable Meta Pixel installation
           issues. This is not official Meta certification — use Events Manager to confirm delivery.
         </p>
 
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-          <label className="block text-[12px] uppercase tracking-wide text-[#86868b]">Website URL</label>
+          <label className="block text-[12px] uppercase tracking-wide text-brand-subtle">Website URL</label>
           <input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://example.com"
-            className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#2997ff]/50"
+            className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
           />
           <button
             type="button"
@@ -75,10 +75,10 @@ export default function PixelAuditPage() {
 
         {report ? (
           <div className="mt-10 space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-[#121214] p-5">
+            <div className="rounded-2xl border border-white/10 bg-brand-deep p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="text-[12px] text-[#86868b]">Report</p>
+                  <p className="text-[12px] text-brand-subtle">Report</p>
                   <p className="mt-1 break-all text-[14px] text-white">{report.finalUrl}</p>
                   <p className="mt-1 text-[12px] text-[#555]">{new Date(report.auditedAt).toLocaleString()}</p>
                 </div>
@@ -87,8 +87,8 @@ export default function PixelAuditPage() {
                   <p className="font-display text-[28px] font-semibold text-white">{report.score}</p>
                 </div>
               </div>
-              <p className="mt-3 text-[12px] text-[#86868b]">{report.scoreNote}</p>
-              <p className="mt-2 text-[13px] text-[#a1a1a6]">
+              <p className="mt-3 text-[12px] text-brand-subtle">{report.scoreNote}</p>
+              <p className="mt-2 text-[13px] text-brand-muted">
                 Pixel detected:{" "}
                 <strong className="text-white">{report.pixelDetected ? "Yes" : "No"}</strong>
                 {report.pixelIds.length ? ` · IDs: ${report.pixelIds.join(", ")}` : ""}
@@ -109,7 +109,7 @@ export default function PixelAuditPage() {
 
             <div className="rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 p-5">
               <p className="text-[15px] font-semibold text-white">Need help installing or fixing Meta Pixel?</p>
-              <p className="mt-2 text-[13px] text-[#e8e8ed]">
+              <p className="mt-2 text-[13px] text-brand-soft">
                 Contact DoyinTech — WhatsApp +2348085343926 or doyintechnology@outlook.com
               </p>
               <div className="mt-4 flex flex-wrap gap-3">

@@ -92,7 +92,7 @@ export default function AdminSettingsPage() {
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">System</p>
           <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Settings</h1>
-          <p className="mt-1 text-[13px] text-[#86868b]">
+          <p className="mt-1 text-[13px] text-brand-subtle">
             Admin access is email/password + ADMIN_EMAILS. Use health check below to verify every module API.
           </p>
         </div>
@@ -109,7 +109,7 @@ export default function AdminSettingsPage() {
       <div className="grid gap-3 sm:grid-cols-2">
         {checks.map((c) => (
           <div key={c.label} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
-            <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{c.label}</p>
+            <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{c.label}</p>
             <p className="mt-2 text-[15px] font-medium text-white">{c.value}</p>
           </div>
         ))}
@@ -137,37 +137,37 @@ export default function AdminSettingsPage() {
             </li>
           ))}
           {!health.length && !checking ? (
-            <li className="px-4 py-6 text-[#86868b]">Sign in as admin to run checks.</li>
+            <li className="px-4 py-6 text-brand-subtle">Sign in as admin to run checks.</li>
           ) : null}
         </ul>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[#121214] p-5 text-[13px] leading-relaxed text-[#a1a1a6]">
+      <div className="rounded-2xl border border-white/10 bg-brand-deep p-5 text-[13px] leading-relaxed text-brand-muted">
         <p className="font-semibold text-white">Required Vercel env</p>
         <ul className="mt-3 list-disc space-y-1 pl-5">
           <li>
-            <code className="text-[#e8e8ed]">ADMIN_EMAILS</code> — your admin email(s), comma-separated
+            <code className="text-brand-soft">ADMIN_EMAILS</code> — your admin email(s), comma-separated
           </li>
           <li>
-            <code className="text-[#e8e8ed]">NEXT_PUBLIC_SUPABASE_URL</code> /{" "}
-            <code className="text-[#e8e8ed]">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>
+            <code className="text-brand-soft">NEXT_PUBLIC_SUPABASE_URL</code> /{" "}
+            <code className="text-brand-soft">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>
           </li>
           <li>
-            <code className="text-[#e8e8ed]">SUPABASE_SERVICE_ROLE_KEY</code> — server data access
+            <code className="text-brand-soft">SUPABASE_SERVICE_ROLE_KEY</code> — server data access
           </li>
         </ul>
         <p className="mt-4 font-semibold text-white">Supabase Auth user</p>
         <p className="mt-2">
           Create a user in Supabase Auth with the same email as ADMIN_EMAILS, then sign in at{" "}
-          <a href="/admin/login" className="text-[#2997ff] hover:underline">
+          <a href="/admin/login" className="text-brand-link hover:underline">
             /admin/login
           </a>
           .
         </p>
         <p className="mt-4 font-semibold text-white">Optional tables</p>
         <p className="mt-2">
-          Pricing overrides need <code className="text-[#e8e8ed]">site_settings</code> (
-          <code className="text-[#e8e8ed]">docs/site-settings.sql</code>). Leads / store / students need their
+          Pricing overrides need <code className="text-brand-soft">site_settings</code> (
+          <code className="text-brand-soft">docs/site-settings.sql</code>). Leads / store / students need their
           existing tables.
         </p>
       </div>

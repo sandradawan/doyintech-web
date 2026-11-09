@@ -21,10 +21,10 @@ export default function PlayPage() {
           <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
             Signal Runner
           </h1>
-          <p className="mt-3 text-gray-400">
+          <p className="mt-3 text-brand-muted">
             Network acting up? Play our game — not Chrome&apos;s dinosaur. This page is saved on your
             device after you open it once online. Music is built-in (or add{" "}
-            <code className="text-gray-300">game-bg.mp3</code>). High score stays on this device.
+            <code className="text-brand-soft">game-bg.mp3</code>). High score stays on this device.
           </p>
           <p className="mt-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-3 py-2 text-xs text-cyan-100">
             Offline tip: visit this page while connected, wait a few seconds, then you can open{" "}
@@ -35,7 +35,7 @@ export default function PlayPage() {
           </div>
           <section className="mt-12 rounded-3xl border border-white/10 bg-black/30 p-6">
             <h2 className="font-display text-xl font-bold text-white">Come back tools</h2>
-            <p className="mt-2 text-sm text-gray-400">
+            <p className="mt-2 text-sm text-brand-muted">
               Bookmark free tools that save on this device — focus timer, checklist, savings goal,
               and more.
             </p>

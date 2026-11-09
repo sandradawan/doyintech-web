@@ -14,7 +14,7 @@ export default async function ReportViewPage({ params }: Props) {
   const sb = getSupabaseAdmin();
   if (!sb) {
     return (
-      <main className="mx-auto max-w-lg px-6 py-24 text-center text-[#a1a1a6]">
+      <main className="mx-auto max-w-lg px-6 py-24 text-center text-brand-muted">
         Report service is temporarily unavailable.
       </main>
     );
@@ -36,7 +36,7 @@ export default async function ReportViewPage({ params }: Props) {
     return (
       <main className="mx-auto max-w-lg px-6 py-24 text-center">
         <h1 className="text-xl font-semibold text-white">Report not ready</h1>
-        <p className="mt-3 text-[15px] text-[#a1a1a6]">
+        <p className="mt-3 text-[15px] text-brand-muted">
           Status: {data.status}. Check back shortly or track order{" "}
           <code className="text-white">{data.order_id}</code>.
         </p>

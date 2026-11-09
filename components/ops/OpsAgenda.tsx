@@ -138,7 +138,7 @@ export default function OpsAgenda({
                   return (
                     <li
                       key={item.id}
-                      className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0c1220] px-4 py-3"
+                      className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-brand-deep px-4 py-3"
                     >
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
@@ -156,7 +156,7 @@ export default function OpsAgenda({
                             href={wa}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="rounded-lg bg-[#25D366] px-3 py-1.5 text-[11px] font-semibold text-white"
+                            className="rounded-lg bg-[#25D366] px-3 py-1.5 text-[11px] font-semibold text-black"
                           >
                             WhatsApp
                           </a>

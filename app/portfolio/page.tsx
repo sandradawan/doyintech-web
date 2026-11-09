@@ -118,7 +118,7 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <main className="pt-32 pb-24 bg-[#0B0E14] relative overflow-hidden">
+      <main className="pt-32 pb-24 bg-brand-deep relative overflow-hidden">
         <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
@@ -132,7 +132,7 @@ export default function PortfolioPage() {
                 <h1 className="mt-3 font-display text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
                   Selected Work
                 </h1>
-                <p className="mt-5 text-gray-400 max-w-xl leading-relaxed">
+                <p className="mt-5 text-brand-muted max-w-xl leading-relaxed">
                   Real products and platforms built and shipped. Live screenshots + case studies where available.
                 </p>
               </div>
@@ -145,7 +145,7 @@ export default function PortfolioPage() {
                     className={`relative px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition duration-300 ${
                       activeTab === cat.id
                         ? "text-white"
-                        : "text-gray-400 hover:text-white"
+                        : "text-brand-muted hover:text-white"
                     }`}
                   >
                     {activeTab === cat.id && (
@@ -176,7 +176,7 @@ export default function PortfolioPage() {
                   className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-black/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
                 >
                   <div>
-                    <div className="relative h-56 overflow-hidden border-b border-white/5 bg-[#0B0E14]">
+                    <div className="relative h-56 overflow-hidden border-b border-white/5 bg-brand-deep">
                       {/* eslint-disable-next-line @next/next/no-img-element -- screenshot URLs vary; keep plain lazy img as before */}
                       <img
                         src={p.img}
@@ -184,8 +184,8 @@ export default function PortfolioPage() {
                         className="w-full h-full object-cover object-top opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-black/20 to-transparent" />
-                      <span className="absolute top-4 right-4 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-gray-300 backdrop-blur-md">
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-deep via-black/20 to-transparent" />
+                      <span className="absolute top-4 right-4 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-brand-soft backdrop-blur-md">
                         {p.category}
                       </span>
                     </div>
@@ -195,7 +195,7 @@ export default function PortfolioPage() {
                         {p.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[9px] font-mono px-2 py-0.5 rounded border border-white/5 bg-white/5 text-gray-300"
+                            className="text-[9px] font-mono px-2 py-0.5 rounded border border-white/5 bg-white/5 text-brand-soft"
                           >
                             {tag}
                           </span>
@@ -209,7 +209,7 @@ export default function PortfolioPage() {
                         {p.subtitle}
                       </p>
 
-                      <p className="mt-3 text-sm text-gray-400 leading-relaxed">
+                      <p className="mt-3 text-sm text-brand-muted leading-relaxed">
                         {p.desc}
                       </p>
                     </div>
@@ -228,7 +228,7 @@ export default function PortfolioPage() {
                       {p.caseStudyUrl && (
                         <a
                           href={p.caseStudyUrl}
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-gray-300 text-xs font-semibold hover:border-primary hover:text-white transition duration-300"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-brand-soft text-xs font-semibold hover:border-primary hover:text-white transition duration-300"
                         >
                           View Case Study
                         </a>

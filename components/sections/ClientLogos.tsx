@@ -57,7 +57,7 @@ const clients: Client[] = [
 function LogoChip({ client, prefix }: { client: Client; prefix: string }) {
   const inner = (
     <span className="mx-6 flex shrink-0 items-center gap-3 sm:mx-10">
-      <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/5 sm:h-11 sm:w-11">
+      <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-black/10 bg-white sm:h-11 sm:w-11">
         <Image
           src={client.logo}
           alt=""
@@ -71,7 +71,7 @@ function LogoChip({ client, prefix }: { client: Client; prefix: string }) {
           unoptimized={client.logo.startsWith("http")}
         />
       </span>
-      <span className="text-[15px] font-semibold tracking-tight text-[#f5f5f7]/85 sm:text-[17px]">
+      <span className="text-[15px] font-semibold tracking-tight text-[#0a3d2e] sm:text-[17px]">
         {client.name}
       </span>
     </span>
@@ -107,13 +107,13 @@ function Row({ prefix }: { prefix: string }) {
 
 export default function ClientLogos() {
   return (
-    <section className="bg-black py-14">
-      <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-[#a1a1a6]">
+    <section className="bg-white py-14">
+      <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-[#0a3d2e]">
         Trusted by growing businesses
       </p>
       <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black to-transparent sm:w-24" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black to-transparent sm:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />
         <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
           <div className="flex items-center">
             <Row prefix="a" />

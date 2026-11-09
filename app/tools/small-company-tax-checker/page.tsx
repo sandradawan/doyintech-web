@@ -63,7 +63,7 @@ export default function SmallCompanyTaxCheckerPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Growing past the small-company limit?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             Clean records make tax time painless. DoyinTech Pro gives you branded invoices,
             receipts, payslips and contracts for ₦5,000/month, and{" "}
             <Link href="/hire" className="text-[#ff8c14] hover:underline">
@@ -100,13 +100,13 @@ export default function SmallCompanyTaxCheckerPage() {
             </tr>
           </tbody>
         </table>
-        <p className="mt-3 text-[13px] text-[#86868b]">
+        <p className="mt-3 text-[13px] text-brand-subtle">
           VAT remains 7.5% on VATable supplies. Whether you must register for and charge VAT
           depends on your turnover — confirm current thresholds with the Nigeria Revenue Service.
         </p>
       </section>
 
-      <p className="text-[12px] text-[#86868b]">
+      <p className="text-[12px] text-brand-subtle">
         Planning estimate, not tax advice. Based on the Nigeria Tax Act 2025 as summarised by{" "}
         <a className="underline" href="https://www.ey.com/en_gl/technical/tax-alerts/nigeria-tax-act-2025-has-been-signed-highlights" rel="noopener noreferrer" target="_blank">EY</a> and{" "}
         <a className="underline" href="https://www.pwc.com/ng/en/publications/the-nigerian-tax-reform-acts.html" rel="noopener noreferrer" target="_blank">PwC Nigeria</a>. Rules last reviewed October 2026.

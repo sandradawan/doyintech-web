@@ -42,7 +42,7 @@ export default function PricingClarity() {
               <h3 className="text-[17px] font-semibold text-[#25D366]">Included</h3>
               <ul className="mt-4 space-y-3">
                 {included.map((item) => (
-                  <li key={item} className="flex gap-2 text-[14px] text-[#c7cdd8]">
+                  <li key={item} className="flex gap-2 text-[14px] text-brand-soft">
                     <span className="text-[#25D366]">✓</span>
                     {item}
                   </li>
@@ -55,7 +55,7 @@ export default function PricingClarity() {
               <h3 className="text-[17px] font-semibold text-[#ff8c14]">Not included by default</h3>
               <ul className="mt-4 space-y-3">
                 {notIncluded.map((item) => (
-                  <li key={item} className="flex gap-2 text-[14px] text-[#c7cdd8]">
+                  <li key={item} className="flex gap-2 text-[14px] text-brand-soft">
                     <span className="text-[#ff8c14]">–</span>
                     {item}
                   </li>
@@ -70,7 +70,7 @@ export default function PricingClarity() {
             <ScrollReveal key={s.t} direction="up" delay={0.05 * i}>
               <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5">
                 <p className="text-[15px] font-semibold text-white">{s.t}</p>
-                <p className="mt-1 text-[13px] text-[#a1a1a6]">{s.d}</p>
+                <p className="mt-1 text-[13px] text-brand-muted">{s.d}</p>
               </div>
             </ScrollReveal>
           ))}

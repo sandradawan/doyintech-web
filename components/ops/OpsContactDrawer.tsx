@@ -32,7 +32,7 @@ export default function OpsContactDrawer({
   return (
     <div className="fixed inset-0 z-[60] flex justify-end">
       <button type="button" className="absolute inset-0 bg-black/60" onClick={onClose} aria-label="Close drawer" />
-      <aside className="relative z-10 flex h-full w-full max-w-md flex-col border-l border-white/10 bg-[#0a0f1a] shadow-2xl">
+      <aside className="relative z-10 flex h-full w-full max-w-md flex-col border-l border-white/10 bg-brand-deep shadow-2xl">
         <div className="flex items-start justify-between gap-3 border-b border-white/[0.06] px-5 py-4">
           <div>
             <p className="text-[11px] uppercase tracking-wide text-[#ff8c14]/80">Client 360</p>
@@ -61,7 +61,7 @@ export default function OpsContactDrawer({
 
         <div className="flex gap-2 border-b border-white/[0.06] px-4 py-3">
           {wa && (
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-white">
+            <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-black">
               WhatsApp
             </a>
           )}

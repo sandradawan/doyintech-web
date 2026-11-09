@@ -18,8 +18,8 @@ export default function ReportButton({ kind, id }: { kind: "post" | "reply"; id:
     setError(data?.error || "We couldn't send your report. Please try again.");
   }
 
-  if (done) return <p role="status" className="mt-1 text-[13px] text-[#a1a1a6]">Thanks. We&apos;ll take a look.</p>;
-  if (!open) return <button type="button" onClick={() => setOpen(true)} className="mt-1 min-h-11 text-[13px] text-[#a1a1a6] underline">Report</button>;
+  if (done) return <p role="status" className="mt-1 text-[13px] text-brand-muted">Thanks. We&apos;ll take a look.</p>;
+  if (!open) return <button type="button" onClick={() => setOpen(true)} className="mt-1 min-h-11 text-[13px] text-brand-muted underline">Report</button>;
 
   return (
     <form onSubmit={submit} className="mt-2 max-w-md">

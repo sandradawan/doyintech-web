@@ -38,10 +38,10 @@ export default function CaseStudiesTeaser() {
                 <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
                   {c.tag} · {c.sector}
                 </span>
-                <h3 className="mt-2 text-[18px] font-semibold text-white group-hover:text-[#2997ff]">
+                <h3 className="mt-2 text-[18px] font-semibold text-white group-hover:text-brand-link">
                   {c.name}
                 </h3>
-                <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[#a1a1a6]">
+                <p className="mt-2 flex-1 text-[14px] leading-relaxed text-brand-muted">
                   {c.outcome}
                 </p>
                 <div className="mt-4 grid grid-cols-2 gap-2">
@@ -51,7 +51,7 @@ export default function CaseStudiesTeaser() {
                       className="rounded-xl border border-white/[0.08] bg-black/30 px-3 py-2"
                     >
                       <p className="text-[13px] font-semibold text-white">{r.value}</p>
-                      <p className="text-[10px] uppercase tracking-wider text-gray-500">
+                      <p className="text-[10px] uppercase tracking-wider text-brand-subtle">
                         {r.label}
                       </p>
                     </div>

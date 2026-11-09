@@ -47,7 +47,7 @@ export default function OfficeToolLanding({ slug, tool }: { slug: string; tool: 
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">{p.upsell.heading}</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">{p.upsell.body}</p>
+          <p className="mt-2 text-[14px] text-brand-muted">{p.upsell.body}</p>
           <Link href={p.upsell.href} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">
             {p.upsell.cta}
           </Link>

@@ -46,17 +46,17 @@ function TrackInner() {
   return (
     <main className="pb-24 pt-28">
       <div className="mx-auto max-w-[520px] px-5">
-        <p className="text-[13px] text-[#a1a1a6]">
-          <Link href="/reports" className="text-[#2997ff] hover:underline">Report Studio</Link> / Track
+        <p className="text-[13px] text-brand-muted">
+          <Link href="/reports" className="text-brand-link hover:underline">Report Studio</Link> / Track
         </p>
         <h1 className="mt-3 font-display text-[28px] font-semibold text-white">Track your report</h1>
         <form onSubmit={lookup} className="mt-8 space-y-4">
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Order ID *
             <input required value={orderId} onChange={(e) => setOrderId(e.target.value)}
               className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Email used at checkout *
             <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
               className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
@@ -69,9 +69,9 @@ function TrackInner() {
         </form>
         {result && (
           <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <p className="text-[12px] text-[#86868b]">{result.orderId}</p>
+            <p className="text-[12px] text-brand-subtle">{result.orderId}</p>
             <p className="mt-1 text-[18px] font-semibold text-white">{result.productName}</p>
-            <p className="mt-1 text-[14px] text-[#a1a1a6]">
+            <p className="mt-1 text-[14px] text-brand-muted">
               {formatNgn(result.priceNgn)} · {reportStatusLabel(result.status)}
             </p>
             {result.viewUrl ? (
@@ -79,7 +79,7 @@ function TrackInner() {
                 Open report
               </a>
             ) : (
-              <p className="mt-4 text-[13px] text-[#a1a1a6]">Report not ready yet. If you paid, wait a minute and refresh.</p>
+              <p className="mt-4 text-[13px] text-brand-muted">Report not ready yet. If you paid, wait a minute and refresh.</p>
             )}
           </div>
         )}
@@ -91,7 +91,7 @@ function TrackInner() {
 export default function ReportTrackPage() {
   return (
     <>
-      <Suspense fallback={<main className="pt-28 text-center text-[#a1a1a6]">Loading…</main>}>
+      <Suspense fallback={<main className="pt-28 text-center text-brand-muted">Loading…</main>}>
         <TrackInner />
       </Suspense>
       <Footer />

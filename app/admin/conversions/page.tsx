@@ -66,7 +66,7 @@ export default function AdminConversionsPage() {
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Growth</p>
           <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Conversions</h1>
-          <p className="mt-1 text-[13px] text-[#86868b]">Which pages and sources bring enquiries and sales, and how the follow-up emails are doing.</p>
+          <p className="mt-1 text-[13px] text-brand-subtle">Which pages and sources bring enquiries and sales, and how the follow-up emails are doing.</p>
         </div>
         <div className="flex gap-1 rounded-full border border-white/10 p-1">
           {[7, 30, 90].map((d) => (
@@ -74,7 +74,7 @@ export default function AdminConversionsPage() {
               key={d}
               type="button"
               onClick={() => setDays(d)}
-              className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${days === d ? "bg-white text-black" : "text-[#a1a1a6] hover:text-white"}`}
+              className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${days === d ? "bg-white text-black" : "text-brand-muted hover:text-white"}`}
             >
               {d} days
             </button>
@@ -82,7 +82,7 @@ export default function AdminConversionsPage() {
         </div>
       </div>
 
-      {loading && <p className="text-[13px] text-[#86868b]">Loading…</p>}
+      {loading && <p className="text-[13px] text-brand-subtle">Loading…</p>}
       {err && <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">{err}</p>}
 
       {data && (
@@ -109,7 +109,7 @@ export default function AdminConversionsPage() {
                       <span className="h-full bg-white/5" />
                     ) : (
                       <>
-                        <span className="bg-[#2997ff]" style={{ flex: d.leads }} />
+                        <span className="bg-brand-link" style={{ flex: d.leads }} />
                         <span className="bg-[#25D366]" style={{ flex: d.whatsapp }} />
                         <span className="bg-[#ff8c14]" style={{ flex: d.payments }} />
                       </>
@@ -118,7 +118,7 @@ export default function AdminConversionsPage() {
                 );
               })}
             </div>
-            <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-[#a1a1a6]">
+            <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-brand-muted">
               <Legend color="#2997ff" label="Leads" />
               <Legend color="#25D366" label="WhatsApp clicks" />
               <Legend color="#ff8c14" label="Payments" />
@@ -129,7 +129,7 @@ export default function AdminConversionsPage() {
             <ul className="space-y-2">
               {FUNNEL.map((n) => (
                 <li key={n} className="grid grid-cols-[170px_1fr_60px] items-center gap-3 text-[13px]">
-                  <span className="text-[#c7cdd8]">{EVENT_LABELS[n]}</span>
+                  <span className="text-brand-soft">{EVENT_LABELS[n]}</span>
                   <span className="h-2.5 overflow-hidden rounded-full bg-white/5">
                     <span className="block h-full rounded-full bg-[#ff8c14]" style={{ width: `${((t[n] || 0) / funnelPeak) * 100}%` }} />
                   </span>
@@ -148,10 +148,10 @@ export default function AdminConversionsPage() {
 
           <Panel title="Follow-up emails">
             {Object.keys(data.sequences).length === 0 ? (
-              <p className="text-[13px] text-[#86868b]">No subscribers yet.</p>
+              <p className="text-[13px] text-brand-subtle">No subscribers yet.</p>
             ) : (
               <table className="w-full text-left text-[13px]">
-                <thead className="text-[11px] uppercase tracking-wide text-[#86868b]">
+                <thead className="text-[11px] uppercase tracking-wide text-brand-subtle">
                   <tr>
                     <th className="py-2 font-medium">Sequence</th>
                     <th className="py-2 text-right font-medium">Receiving</th>
@@ -167,7 +167,7 @@ export default function AdminConversionsPage() {
                       <td className="py-2 text-right tabular-nums">{s.active}</td>
                       <td className="py-2 text-right tabular-nums">{s.finished}</td>
                       <td className="py-2 text-right tabular-nums text-emerald-300">{s.converted}</td>
-                      <td className="py-2 text-right tabular-nums text-[#86868b]">{s.unsubscribed}</td>
+                      <td className="py-2 text-right tabular-nums text-brand-subtle">{s.unsubscribed}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -175,7 +175,7 @@ export default function AdminConversionsPage() {
             )}
           </Panel>
 
-          {data.truncated && <p className="text-[12px] text-[#86868b]">Showing the most recent 20,000 events in this period.</p>}
+          {data.truncated && <p className="text-[12px] text-brand-subtle">Showing the most recent 20,000 events in this period.</p>}
         </>
       )}
     </div>
@@ -186,7 +186,7 @@ function Kpi({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
       <p className="font-display text-[22px] font-semibold text-white">{typeof value === "number" ? value.toLocaleString() : value}</p>
-      <p className="mt-1 text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
+      <p className="mt-1 text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
     </div>
   );
 }
@@ -212,12 +212,12 @@ function TopList({ title, rows, empty }: { title: string; rows: Top; empty: stri
   return (
     <Panel title={title}>
       {rows.length === 0 ? (
-        <p className="text-[13px] text-[#86868b]">{empty}</p>
+        <p className="text-[13px] text-brand-subtle">{empty}</p>
       ) : (
         <ul className="space-y-1.5 text-[13px]">
           {rows.map((r) => (
             <li key={r.key} className="flex justify-between gap-3">
-              <span className="truncate text-[#c7cdd8]">{r.key}</span>
+              <span className="truncate text-brand-soft">{r.key}</span>
               <span className="tabular-nums text-white">{r.count}</span>
             </li>
           ))}

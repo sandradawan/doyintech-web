@@ -47,7 +47,7 @@ export default function PayeCalculator() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
         <div className="flex gap-2" role="tablist" aria-label="Salary period">
           {(["monthly", "annual"] as const).map((p) => (
             <button
@@ -66,11 +66,11 @@ export default function PayeCalculator() {
         </div>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Gross {period} pay (₦)
             <input inputMode="numeric" value={gross} onChange={(e) => setGross(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Annual rent you pay (₦)
             <input inputMode="numeric" value={rent} onChange={(e) => setRent(e.target.value)} className={field} />
           </label>
@@ -96,11 +96,11 @@ export default function PayeCalculator() {
 
         {showAdvanced && (
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Basic + housing + transport, % of gross
               <input inputMode="numeric" value={basicShare} onChange={(e) => setBasicShare(e.target.value)} className={field} />
             </label>
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Health insurance (NHIS), annual ₦
               <input inputMode="numeric" value={nhis} onChange={(e) => setNhis(e.target.value)} className={field} />
             </label>
@@ -144,7 +144,7 @@ export default function PayeCalculator() {
         preview={
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
             <p className="text-[15px] font-semibold text-white">Need a payslip for staff or a loan application?</p>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">
+            <p className="mt-1 text-[13px] text-brand-muted">
               Generate a clean, printable payslip with this exact 2026 PAYE breakdown. Included in{" "}
               <Link href="/pro" className="text-[#ff8c14] hover:underline">
                 DoyinTech Pro
@@ -219,7 +219,7 @@ function PayslipForm({ result }: { result: ReturnType<typeof computePaye> }) {
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className={`rounded-2xl border p-5 ${highlight ? "border-[#ff8c14]/40 bg-[#ff8c14]/10" : "border-white/10 bg-white/[0.03]"}`}>
-      <p className="text-[12px] uppercase tracking-wide text-[#86868b]">{label}</p>
+      <p className="text-[12px] uppercase tracking-wide text-brand-subtle">{label}</p>
       <p className="mt-1 text-[26px] font-semibold text-white">{value}</p>
     </div>
   );
@@ -228,8 +228,8 @@ function Stat({ label, value, highlight }: { label: string; value: string; highl
 function Row({ label, value, strong, muted }: { label: string; value: string; strong?: boolean; muted?: boolean }) {
   return (
     <tr className={strong ? "bg-white/[0.04]" : ""}>
-      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-[#86868b]" : "text-[#c7cdd8]"} ${strong ? "font-semibold text-white" : ""}`}>{label}</td>
-      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-white" : muted ? "text-[#86868b]" : "text-[#c7cdd8]"}`}>{value}</td>
+      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-brand-subtle" : "text-brand-soft"} ${strong ? "font-semibold text-white" : ""}`}>{label}</td>
+      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-white" : muted ? "text-brand-subtle" : "text-brand-soft"}`}>{value}</td>
     </tr>
   );
 }

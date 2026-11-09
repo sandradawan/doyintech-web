@@ -16,8 +16,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "linear-gradient(135deg, #0a0e17 0%, #141a28 60%, #2a1a08 100%)",
-          color: "#f5f5f7",
+          background: "#06291f",
+          color: "#ffffff",
           fontFamily: "sans-serif",
         }}
       >
@@ -44,7 +44,7 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.05, maxWidth: 980 }}>
             Websites that get clients.
           </div>
-          <div style={{ fontSize: 32, color: "#a1a1a6", maxWidth: 980 }}>
+          <div style={{ fontSize: 32, color: "#b5cdc2", maxWidth: 980 }}>
             Fixed-price sites, WhatsApp systems, care plans and digital tools for growing businesses.
           </div>
         </div>

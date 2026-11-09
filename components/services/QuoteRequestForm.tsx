@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { readReferralCode } from "@/lib/referrals";
 
 const field = "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
-const label = "block text-[13px] text-[#a1a1a6]";
+const label = "block text-[13px] text-brand-muted";
 
 /** Scoping request for custom systems. Creates a "quote" lead (pipeline + lead email sequence). */
 export default function QuoteRequestForm({ product, prompts }: { product: string; prompts: string[] }) {
@@ -51,7 +51,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
     return (
       <div role="status" className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6">
         <p className="text-[17px] font-semibold text-white">Request received</p>
-        <p className="mt-1 text-[14px] text-[#c7cdd8]">
+        <p className="mt-1 text-[14px] text-brand-soft">
           We&apos;ll reply within one business day, usually on WhatsApp, to book a free 15-minute scoping call. You&apos;ll get a fixed price before
           paying anything.
         </p>
@@ -60,7 +60,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
   }
 
   return (
-    <form onSubmit={submit} className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6">
+    <form onSubmit={submit} className="space-y-4 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
       <p className="text-[17px] font-semibold text-white">Get a fixed-price quote</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={label}>
@@ -81,7 +81,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
         </label>
       </div>
       <fieldset>
-        <legend className="text-[13px] text-[#a1a1a6]">What do you need? (tick any)</legend>
+        <legend className="text-[13px] text-brand-muted">What do you need? (tick any)</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {prompts.map((p) => {
             const on = needs.includes(p);
@@ -91,7 +91,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
                 type="button"
                 aria-pressed={on}
                 onClick={() => setNeeds((n) => (on ? n.filter((x) => x !== p) : [...n, p]))}
-                className={`rounded-full px-3 py-1.5 text-[13px] ${on ? "bg-[#ff8c14] font-semibold text-black" : "border border-white/15 text-[#c7cdd8]"}`}
+                className={`rounded-full px-3 py-1.5 text-[13px] ${on ? "bg-[#ff8c14] font-semibold text-black" : "border border-white/15 text-brand-soft"}`}
               >
                 {p}
               </button>
@@ -108,7 +108,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
         {state === "busy" ? "Sending…" : "Request my quote"}
       </button>
       {error && <p className="text-[13px] text-red-400">{error}</p>}
-      <p className="text-[12px] text-[#86868b]">Need both email and WhatsApp? Add your number so we can reply faster.</p>
+      <p className="text-[12px] text-brand-subtle">Need both email and WhatsApp? Add your number so we can reply faster.</p>
     </form>
   );
 }

@@ -22,7 +22,7 @@ export default function ArqademyCbtCaseStudy() {
           <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white leading-tight">
             Arqademy CBT — Computer-Based Testing
           </h1>
-          <p className="mt-4 text-xl text-gray-400">
+          <p className="mt-4 text-xl text-brand-muted">
             A digital exam platform built for practice tests, assessments and scalable learning workflows.
           </p>
 
@@ -30,14 +30,14 @@ export default function ArqademyCbtCaseStudy() {
             {["CBT", "Education", "Exam Platform", "SaaS"].map((t) => (
               <span
                 key={t}
-                className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-gray-300"
+                className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-brand-soft"
               >
                 {t}
               </span>
             ))}
           </div>
 
-          <div className="mt-12 space-y-10 text-gray-300 leading-relaxed">
+          <div className="mt-12 space-y-10 text-brand-soft leading-relaxed">
             <section>
               <h2 className="text-2xl font-bold text-white mb-3">The Challenge</h2>
               <p>

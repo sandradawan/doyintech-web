@@ -8,14 +8,14 @@ import { SERVICES } from "@/lib/services";
 export default function ServicesPage() {
   return (
     <>
-      <main className="bg-black pb-20 pt-20">
+      <main className="bg-brand-deep pb-20 pt-20">
         <div className="mx-auto max-w-[980px] px-6">
           <ScrollReveal direction="up">
             <div className="text-center">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-brand-muted">
                 Services
               </p>
-              <h1 className="apple-headline mt-3 text-[#f5f5f7]">What we build.</h1>
+              <h1 className="apple-headline mt-3 text-brand-ink">What we build.</h1>
               <p className="apple-subhead mx-auto mt-4 max-w-2xl">
                 From websites and mobile apps to backends, AI, networking, and security —
                 production systems with clear communication.
@@ -47,16 +47,16 @@ export default function ServicesPage() {
                       {s.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] text-[#a1a1a6]"
+                          className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] text-brand-muted"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <h2 className="text-[22px] font-semibold tracking-tight text-[#f5f5f7]">
+                    <h2 className="text-[22px] font-semibold tracking-tight text-brand-ink">
                       {s.title}
                     </h2>
-                    <p className="mt-2 flex-1 text-[15px] leading-relaxed text-[#a1a1a6]">
+                    <p className="mt-2 flex-1 text-[15px] leading-relaxed text-brand-muted">
                       {s.desc}
                     </p>
                     <span className="apple-link mt-5 text-[14px]">Learn more ›</span>
@@ -67,11 +67,11 @@ export default function ServicesPage() {
           </div>
 
           <ScrollReveal direction="up" delay={0.05}>
-            <div className="mt-16 rounded-[28px] bg-[#1d1d1f] px-8 py-14 text-center sm:px-12">
-              <h2 className="text-[32px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[40px]">
+            <div className="mt-16 rounded-[28px] bg-brand-surface px-8 py-14 text-center sm:px-12">
+              <h2 className="text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
                 Not sure where to start?
               </h2>
-              <p className="mx-auto mt-3 max-w-lg text-[17px] text-[#a1a1a6]">
+              <p className="mx-auto mt-3 max-w-lg text-[17px] text-brand-muted">
                 Book a short discovery call. We’ll map goals to stack, timeline, and budget.
               </p>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">

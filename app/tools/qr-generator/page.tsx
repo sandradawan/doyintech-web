@@ -63,7 +63,7 @@ export default function QrGeneratorPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Point your QR code at a shop that takes orders</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             A QR code on your counter, packaging or flyer works best when it opens somewhere customers can buy. Open a{" "}
             <Link href="/stores" className="text-[#ff8c14] hover:underline">
               free DoyinTech shop

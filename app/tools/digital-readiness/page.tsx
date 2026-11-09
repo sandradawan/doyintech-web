@@ -28,7 +28,7 @@ export default function DigitalReadinessPage() {
           <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
             How Digitally Ready Is Your Business?
           </h1>
-          <p className="mt-3 text-gray-400">
+          <p className="mt-3 text-brand-muted">
             A structured digital transformation assessment across six categories.
           </p>
           <div className="mt-8">

@@ -47,12 +47,12 @@ export default function BusinessAudit() {
               {result.label}
             </h2>
             {meta.name && (
-              <p className="mt-2 text-sm text-gray-400">
+              <p className="mt-2 text-sm text-brand-muted">
                 {meta.name}
                 {meta.industry ? ` · ${meta.industry}` : ""}
               </p>
             )}
-            <p className="mt-3 text-sm text-gray-400">
+            <p className="mt-3 text-sm text-brand-muted">
               Scores are based on your answers only — this tool does not crawl or
               verify your website automatically.
             </p>
@@ -123,7 +123,7 @@ export default function BusinessAudit() {
         </div>
       )}
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-brand-subtle">
         Step {page + 1} of {pages}
       </p>
       <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -137,7 +137,7 @@ export default function BusinessAudit() {
         {slice.map((q) => (
           <div key={q.id}>
             <p className="text-sm font-medium text-white">{q.label}</p>
-            <p className="text-[11px] text-gray-500">{q.category}</p>
+            <p className="text-[11px] text-brand-subtle">{q.category}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {(["yes", "partial", "no", "unsure"] as AuditAnswer[]).map((a) => (
                 <button
@@ -147,7 +147,7 @@ export default function BusinessAudit() {
                   className={`rounded-full border px-3 py-1.5 text-xs capitalize ${
                     answers[q.id] === a
                       ? "border-primary bg-primary/20 text-white"
-                      : "border-white/10 text-gray-400"
+                      : "border-white/10 text-brand-muted"
                   }`}
                 >
                   {a}
@@ -163,7 +163,7 @@ export default function BusinessAudit() {
           type="button"
           disabled={page === 0}
           onClick={() => setPage((p) => p - 1)}
-          className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-gray-300 disabled:opacity-40"
+          className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-soft disabled:opacity-40"
         >
           Back
         </button>
@@ -202,9 +202,9 @@ function ListCard({
     <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
       <p className="text-sm font-semibold text-white">{title}</p>
       {items.length === 0 ? (
-        <p className="mt-2 text-sm text-gray-500">None highlighted</p>
+        <p className="mt-2 text-sm text-brand-subtle">None highlighted</p>
       ) : (
-        <ul className="mt-2 space-y-1.5 text-sm text-gray-300">
+        <ul className="mt-2 space-y-1.5 text-sm text-brand-soft">
           {items.map((i) => (
             <li key={i} className="flex gap-2">
               <span

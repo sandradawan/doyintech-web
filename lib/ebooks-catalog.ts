@@ -22,7 +22,13 @@ function withFullBook(book: Ebook): Ebook {
   const chapters = getFullChapters(book.id) ?? withExtraChapters(book.id, book.chapters);
   const words = ebookWords({ chapters });
   const size = words >= 1000 ? `about ${(Math.round(words / 100) * 100).toLocaleString("en-NG")} words` : "being finished";
-  return { ...book, chapters, pagesLabel: `${chapters.length} chapters · ${size}` };
+  return {
+    ...book,
+    chapters,
+    pagesLabel: `${chapters.length} chapters · ${size}`,
+    // Drawn by scripts/make_ebook_covers.py in the brand colours.
+    coverImage: `/ebooks/covers/${book.slug}.jpg`,
+  };
 }
 
 export const ALL_EBOOKS: Ebook[] = [

@@ -29,14 +29,14 @@ export default function ShareBar({ title, path }: Props) {
 
   return (
     <div className="flex flex-wrap items-center gap-3 border-t border-white/10 pt-6 mt-10">
-      <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+      <span className="text-xs font-semibold uppercase tracking-wider text-brand-subtle">
         Share
       </span>
       <a
         href={`https://twitter.com/intent/tweet?url=${encoded}&text=${text}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-gray-300 hover:border-primary hover:text-white transition"
+        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-brand-soft hover:border-primary hover:text-white transition"
       >
         X / Twitter
       </a>
@@ -44,7 +44,7 @@ export default function ShareBar({ title, path }: Props) {
         href={`https://wa.me/?text=${text}%20${encoded}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-gray-300 hover:border-primary hover:text-white transition"
+        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-brand-soft hover:border-primary hover:text-white transition"
       >
         WhatsApp
       </a>
@@ -52,14 +52,14 @@ export default function ShareBar({ title, path }: Props) {
         href={`https://www.linkedin.com/sharing/share-offsite/?url=${encoded}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-gray-300 hover:border-primary hover:text-white transition"
+        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-brand-soft hover:border-primary hover:text-white transition"
       >
         LinkedIn
       </a>
       <button
         type="button"
         onClick={copyLink}
-        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-gray-300 hover:border-primary hover:text-white transition"
+        className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-brand-soft hover:border-primary hover:text-white transition"
       >
         {copied ? "Copied" : "Copy link"}
       </button>

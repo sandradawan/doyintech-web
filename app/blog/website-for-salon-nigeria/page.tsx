@@ -13,9 +13,9 @@ export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-
 export default function SalonWebsitePost() {
   return (
     <>
-      <main className="bg-black pb-24 pt-28">
+      <main className="bg-brand-deep pb-24 pt-28">
         <article className="mx-auto max-w-[680px] px-6">
-          <Link href="/blog" className="text-sm text-[#2997ff] hover:underline">
+          <Link href="/blog" className="text-sm text-brand-link hover:underline">
             ← Blog
           </Link>
           <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
@@ -24,13 +24,13 @@ export default function SalonWebsitePost() {
           <h1 className="mt-3 text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[40px]">
             Website for a salon in Nigeria — what actually gets bookings
           </h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
             Instagram is great for discovery. A website is where serious clients decide to book.
             Here is what works for salons, makeup artists, and beauty brands in Nigeria — without
             spending months or millions.
           </p>
 
-          <div className="mt-10 space-y-6 text-[16px] leading-relaxed text-[#c7cdd8]">
+          <div className="mt-10 space-y-6 text-[16px] leading-relaxed text-brand-soft">
             <section>
               <h2 className="mb-3 text-[22px] font-semibold text-white">1. One clear offer above the fold</h2>
               <p>
@@ -58,7 +58,7 @@ export default function SalonWebsitePost() {
               <p>
                 At DoyinTech we productised this: a Landing Page Starter at ₦100,000 (₦50,000
                 deposit) or a Local Business Website at ₦250,000. Live in days, not months. See{" "}
-                <Link href="/case-studies/jennyglams" className="text-[#2997ff] hover:underline">
+                <Link href="/case-studies/jennyglams" className="text-brand-link hover:underline">
                   how we did it for JennyGlams in Jos
                 </Link>
                 .
@@ -80,7 +80,7 @@ export default function SalonWebsitePost() {
             <p className="text-[15px] font-semibold text-white">
               Ready for a site that gets enquiries?
             </p>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               Fixed price. 50% deposit. Paystack. Or start with a free 3-minute audit.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
@@ -100,7 +100,7 @@ export default function SalonWebsitePost() {
                 href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#2997ff]"
+                className="rounded-full px-5 py-2.5 text-sm font-semibold text-brand-link"
               >
                 WhatsApp us
               </a>

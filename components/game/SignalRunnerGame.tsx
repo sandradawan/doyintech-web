@@ -391,7 +391,7 @@ export default function SignalRunnerGame() {
           You appear offline — this game still runs in your browser. Keep playing until the network returns.
         </div>
       ) : (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-brand-muted">
           When the network is slow or drops, stay here and play. Fully local — no server needed after load.
         </p>
       )}
@@ -409,12 +409,12 @@ export default function SignalRunnerGame() {
             <p className="font-display text-2xl font-bold text-white md:text-3xl">
               {gameOver ? "Signal lost" : "Signal Runner"}
             </p>
-            <p className="mt-2 max-w-md text-sm text-gray-300">
+            <p className="mt-2 max-w-md text-sm text-brand-soft">
               {gameOver
                 ? "You collected " + score + " packets. Tap to reconnect and try again."
                 : "Tap or press Space to jump. Dodge lag spikes and glitches. Collect cyan packets."}
             </p>
-            {gameOver ? <p className="mt-1 text-xs text-gray-400">Best: {best}</p> : null}
+            {gameOver ? <p className="mt-1 text-xs text-brand-muted">Best: {best}</p> : null}
             <button
               type="button"
               onClick={() => void startGame()}
@@ -441,7 +441,7 @@ export default function SignalRunnerGame() {
         >
           Music: {musicOn ? "On" : "Off"}
         </button>
-        <span className="text-xs text-gray-500">Optional custom track: public/audio/game-bg.mp3</span>
+        <span className="text-xs text-brand-subtle">Optional custom track: public/audio/game-bg.mp3</span>
         <Link href="/tools" className="text-xs text-primary hover:underline">
           Back to tools
         </Link>

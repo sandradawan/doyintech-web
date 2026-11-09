@@ -62,14 +62,14 @@ export default function QuizNight() {
 
   const toggleCat = (c: Category) => setCats((cs) => (cs.includes(c) ? (cs.length > 1 ? cs.filter((x) => x !== c) : cs) : [...cs, c]));
   const ranking = players.map((n, k) => ({ n, k, s: scores[k] ?? 0, r: rights[k] ?? 0 })).sort((a, b) => b.s - a.s);
-  const btn = (on: boolean) => `min-h-11 rounded-full px-4 text-[14px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-[#c7cdd8] hover:border-white/35"}`;
+  const btn = (on: boolean) => `min-h-11 rounded-full px-4 text-[14px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/35"}`;
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-[#1b2340] to-[#141a28] p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       {phase === "setup" && (
         <>
           <div>
-            <p className="text-[16px] font-semibold text-white">Who is playing? <span className="text-[13px] font-normal text-[#a1a1a6]">(2–6 players or teams)</span></p>
+            <p className="text-[16px] font-semibold text-white">Who is playing? <span className="text-[13px] font-normal text-brand-muted">(2–6 players or teams)</span></p>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               {names.map((n, k) => (
                 <div key={k} className="flex items-center gap-2">
@@ -120,8 +120,8 @@ export default function QuizNight() {
 
       {phase === "handoff" && (
         <div className="py-8 text-center">
-          <p className="text-[15px] text-[#a1a1a6]">Question {i + 1} of {qs.length}</p>
-          <p className="mt-2 text-[18px] text-[#c7cdd8]">Pass the phone to</p>
+          <p className="text-[15px] text-brand-muted">Question {i + 1} of {qs.length}</p>
+          <p className="mt-2 text-[18px] text-brand-soft">Pass the phone to</p>
           <p className={`mx-auto mt-3 inline-block rounded-2xl px-6 py-3 text-[32px] font-black text-black ${COLORS[turn]}`}>{players[turn]}</p>
           <div><button type="button" onClick={() => setPhase("question")} className="mt-6 min-h-14 rounded-full bg-white px-8 text-[18px] font-black text-black">I&apos;m ready</button></div>
         </div>
@@ -139,11 +139,11 @@ export default function QuizNight() {
             {ranking.map((p, pos) => (
               <li key={p.k} className="flex items-center justify-between gap-3 rounded-2xl bg-black/30 px-4 py-3">
                 <span className="flex items-center gap-3 text-[17px] font-semibold text-white">
-                  <span className="w-6 text-center text-[#a1a1a6]">{pos + 1}</span>
+                  <span className="w-6 text-center text-brand-muted">{pos + 1}</span>
                   <span className={`h-4 w-4 rounded-full ${COLORS[p.k]}`} aria-hidden />
                   {p.n}
                 </span>
-                <span className="text-[15px] text-[#c7cdd8]">{p.s} pts · {p.r}/{qs.length / players.length} right</span>
+                <span className="text-[15px] text-brand-soft">{p.s} pts · {p.r}/{qs.length / players.length} right</span>
               </li>
             ))}
           </ol>
@@ -151,7 +151,7 @@ export default function QuizNight() {
             <button type="button" onClick={start} className="min-h-12 rounded-full bg-[#ff8c14] px-6 text-[15px] font-bold text-black">Rematch (new questions)</button>
             <button type="button" onClick={() => setPhase("setup")} className="min-h-12 rounded-full border border-white/15 px-6 text-[15px] font-semibold text-white">Change players</button>
           </div>
-          <p className="mt-6 text-[14px] text-[#a1a1a6]">
+          <p className="mt-6 text-[14px] text-brand-muted">
             Hosting a bigger quiz at church, school or the office? Get the <Link href="/products/quiz-night-host-pack" className="text-[#ff8c14] underline">printable Quiz Night Host Pack</Link>.
           </p>
         </div>

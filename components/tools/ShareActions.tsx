@@ -35,7 +35,7 @@ export default function ShareActions({
       <button
         type="button"
         onClick={copy}
-        className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-gray-300 hover:border-primary/40 hover:text-white"
+        className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-brand-soft hover:border-primary/40 hover:text-white"
       >
         {copied ? "Copied" : "Copy result"}
       </button>
@@ -51,7 +51,7 @@ export default function ShareActions({
       <button
         type="button"
         onClick={printPage}
-        className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-gray-300 hover:border-primary/40 hover:text-white"
+        className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-brand-soft hover:border-primary/40 hover:text-white"
       >
         Download / Print
       </button>
@@ -59,7 +59,7 @@ export default function ShareActions({
         <button
           type="button"
           onClick={onRestart}
-          className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-gray-300 hover:border-primary/40 hover:text-white"
+          className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-brand-soft hover:border-primary/40 hover:text-white"
         >
           Start again
         </button>

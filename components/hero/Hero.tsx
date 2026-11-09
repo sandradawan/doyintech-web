@@ -80,7 +80,7 @@ export default function Hero() {
     <section
       aria-roledescription="carousel"
       aria-label="DoyinTech highlights"
-      className={`relative isolate flex min-h-[640px] w-full flex-col overflow-hidden bg-black pt-12 sm:min-h-[700px] lg:h-[min(92vh,880px)] ${playing ? "" : "hero-paused"}`}
+      className={`relative isolate flex min-h-[640px] w-full flex-col overflow-hidden bg-brand-deep pt-12 sm:min-h-[700px] lg:h-[min(92vh,880px)] ${playing ? "" : "hero-paused"}`}
       style={{ ["--hero-interval" as string]: `${INTERVAL}ms` }}
     >
       {/* Media */}
@@ -111,8 +111,8 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
       {/* Legibility: dark left side for the text, fade into the page below */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,0.75)_0%,rgba(0,0,0,0.45)_50%,rgba(0,0,0,0.1)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-black to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(6,41,31,0.92)_0%,rgba(6,41,31,0.62)_50%,rgba(6,41,31,0.22)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-brand-deep to-transparent" />
 
       {/* Copy */}
       <div className="mx-auto flex w-full max-w-[1200px] flex-1 items-center px-5 sm:px-6">

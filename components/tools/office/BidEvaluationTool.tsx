@@ -91,7 +91,7 @@ export default function BidEvaluationTool() {
           <Field name="Evaluation date" type="date" value={s.date} onChange={(v) => setS({ ...s, date: v })} />
         </div>
         <div>
-          <p className="mb-2 text-[12px] font-medium text-[#a1a1a6]">Selection method</p>
+          <p className="mb-2 text-[12px] font-medium text-brand-muted">Selection method</p>
           <Chips label="Selection method" options={METHODS} value={s.method} onChange={(v) => setS({ ...s, method: v })} />
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -105,7 +105,7 @@ export default function BidEvaluationTool() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-[13px]">
             <thead>
-              <tr className="text-left text-[#a1a1a6]">
+              <tr className="text-left text-brand-muted">
                 <th className="py-2 font-medium">Criterion</th>
                 <th className="w-20 font-medium">Max</th>
                 {bids.map((b, j) => (
@@ -128,7 +128,7 @@ export default function BidEvaluationTool() {
                 </tr>
               ))}
               <tr className="border-t border-white/10">
-                <td colSpan={2} className="py-2 text-[#a1a1a6]">Bid price (₦)</td>
+                <td colSpan={2} className="py-2 text-brand-muted">Bid price (₦)</td>
                 {bids.map((b, j) => (
                   <td key={j} className="pr-2"><input aria-label={`${b.name} bid price`} type="number" inputMode="decimal" className={field} value={b.price} onChange={(e) => setBids(bids.map((x, i) => (i === j ? { ...x, price: e.target.value } : x)))} /></td>
                 ))}
@@ -144,11 +144,11 @@ export default function BidEvaluationTool() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5" aria-live="polite">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5" aria-live="polite">
         <h2 className="text-[15px] font-semibold text-white">Result</h2>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[560px] text-right text-[13px]">
-            <thead><tr className="text-[#a1a1a6]"><th className="py-1.5 text-left font-medium">Bidder</th><th className="font-medium">Price</th><th className="font-medium">Technical %</th><th className="font-medium">Financial %</th><th className="font-medium">{s.method === "qcbs" ? "Combined" : "Score"}</th><th className="font-medium">Rank</th></tr></thead>
+            <thead><tr className="text-brand-muted"><th className="py-1.5 text-left font-medium">Bidder</th><th className="font-medium">Price</th><th className="font-medium">Technical %</th><th className="font-medium">Financial %</th><th className="font-medium">{s.method === "qcbs" ? "Combined" : "Score"}</th><th className="font-medium">Rank</th></tr></thead>
             <tbody>
               {rows.map((r) => (
                 <tr key={r.name} className={`border-t border-white/5 ${r.rank === 1 ? "text-[#ff8c14]" : "text-white"}`}>
@@ -168,7 +168,7 @@ export default function BidEvaluationTool() {
         </p>
         <div className="mt-4"><Area name="Committee members (one per line, for signatures)" rows={3} value={s.committee} onChange={(v) => setS({ ...s, committee: v })} /></div>
         <button type="button" onClick={print} className={`${primaryBtn} mt-4 w-full sm:w-auto`}>Download evaluation report PDF</button>
-        <p className="mt-2 text-[12px] text-[#8b919c]">Bid data stays on this device. Follow your procurement law and the bidding document&apos;s stated criteria.</p>
+        <p className="mt-2 text-[12px] text-brand-subtle">Bid data stays on this device. Follow your procurement law and the bidding document&apos;s stated criteria.</p>
       </div>
     </div>
   );

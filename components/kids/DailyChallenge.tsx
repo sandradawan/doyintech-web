@@ -65,10 +65,10 @@ export default function DailyChallenge() {
   const played = progress?.today.scores ?? {};
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-[#1b2340] to-[#141a28] p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <StreakBar progress={progress} />
-        <span className="text-[13px] text-[#a1a1a6]">Puzzles for {new Date(day + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</span>
+        <span className="text-[13px] text-brand-muted">Puzzles for {new Date(day + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</span>
       </div>
 
       {!task && (
@@ -82,7 +82,7 @@ export default function DailyChallenge() {
                   <span className="text-[40px]" aria-hidden>{icon}</span>
                   <span>
                     <span className="block text-[18px] font-bold text-white">{name}</span>
-                    <span className="block text-[14px] text-[#a1a1a6]">{best !== undefined ? `Done today: ${best} right ✓ Play again` : desc}</span>
+                    <span className="block text-[14px] text-brand-muted">{best !== undefined ? `Done today: ${best} right ✓ Play again` : desc}</span>
                   </span>
                 </button>
               );
@@ -93,7 +93,7 @@ export default function DailyChallenge() {
 
       {task && !done && (
         <div className="text-center">
-          <p className="text-[14px] text-[#a1a1a6]">Question {i + 1} of {items.length} · Score {score}</p>
+          <p className="text-[14px] text-brand-muted">Question {i + 1} of {items.length} · Score {score}</p>
           <div className="mx-auto mt-2 h-2 max-w-sm overflow-hidden rounded-full bg-white/10"><div className="h-full bg-[#ff8c14] transition-all" style={{ width: `${(i / items.length) * 100}%` }} /></div>
           {items[i].clue && <p className="mt-5 text-[15px] text-sky-300">Clue: {items[i].clue}</p>}
           <p className="mt-3 text-[44px] font-black tracking-wider text-white sm:text-[56px]">{items[i].prompt}</p>
@@ -125,7 +125,7 @@ export default function DailyChallenge() {
           <p className="text-[56px]" aria-hidden>{score === items.length ? "🏆" : score >= items.length / 2 ? "🎉" : "💪"}</p>
           <p className="text-[28px] font-black text-white">{score} out of {items.length}</p>
           <p className="mt-1 text-[22px]" aria-label={`${Math.round((score / items.length) * 3)} stars`}>{"⭐".repeat(Math.round((score / items.length) * 3)) || "Keep practising!"}</p>
-          <p className="mt-3 text-[15px] text-[#c7cdd8]">New puzzles every day. Come back tomorrow to keep your streak going!</p>
+          <p className="mt-3 text-[15px] text-brand-soft">New puzzles every day. Come back tomorrow to keep your streak going!</p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <button type="button" onClick={() => start(task === "maths" ? "words" : "maths")} className="min-h-12 rounded-full bg-[#ff8c14] px-5 text-[15px] font-bold text-black">
               Try the {task === "maths" ? "word scramble" : "maths challenge"}

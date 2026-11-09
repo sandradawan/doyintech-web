@@ -38,7 +38,7 @@ export default function ReviewForm() {
     return (
       <div className="glass-card p-8 text-center">
         <p className="text-[18px] font-semibold text-white">Thank you</p>
-        <p className="mt-2 text-[15px] text-[#a1a1a6]">
+        <p className="mt-2 text-[15px] text-brand-muted">
           Your review was received. We may feature it on the site with your permission.
         </p>
       </div>
@@ -49,28 +49,28 @@ export default function ReviewForm() {
     <form onSubmit={submit} className="glass-card space-y-4 p-6 sm:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-[12px] font-medium text-[#a1a1a6]">Your name</span>
+          <span className="text-[12px] font-medium text-brand-muted">Your name</span>
           <input
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#2997ff]/50"
+            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
             placeholder="Ada O."
           />
         </label>
         <label className="block">
-          <span className="text-[12px] font-medium text-[#a1a1a6]">Business (optional)</span>
+          <span className="text-[12px] font-medium text-brand-muted">Business (optional)</span>
           <input
             value={business}
             onChange={(e) => setBusiness(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#2997ff]/50"
+            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
             placeholder="Ada Beauty Studio"
           />
         </label>
       </div>
 
       <div>
-        <span className="text-[12px] font-medium text-[#a1a1a6]">Rating</span>
+        <span className="text-[12px] font-medium text-brand-muted">Rating</span>
         <div className="mt-2 flex gap-2">
           {[1, 2, 3, 4, 5].map((n) => (
             <button
@@ -80,7 +80,7 @@ export default function ReviewForm() {
               className={`h-10 w-10 rounded-full text-[15px] font-semibold transition ${
                 n <= rating
                   ? "bg-[#ff8c14] text-black"
-                  : "border border-white/15 text-[#a1a1a6]"
+                  : "border border-white/15 text-brand-muted"
               }`}
             >
               {n}
@@ -90,19 +90,19 @@ export default function ReviewForm() {
       </div>
 
       <label className="block">
-        <span className="text-[12px] font-medium text-[#a1a1a6]">Your experience</span>
+        <span className="text-[12px] font-medium text-brand-muted">Your experience</span>
         <textarea
           required
           rows={4}
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#2997ff]/50"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
           placeholder="What did we build? What changed for your business?"
           minLength={20}
         />
       </label>
 
-      <label className="flex items-start gap-3 text-[13px] text-[#a1a1a6]">
+      <label className="flex items-start gap-3 text-[13px] text-brand-muted">
         <input
           type="checkbox"
           checked={permission}

@@ -105,11 +105,11 @@ export default function Overview() {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        <Card title="Today" action={<Link href="/admin/r/crm_activities?f_done=false&f_kind=task" className="text-[12px] text-[#8ab4ff] hover:underline">All tasks</Link>}>
+        <Card title="Today" action={<Link href="/admin/r/crm_activities?f_done=false&f_kind=task" className="text-[12px] text-brand-link hover:underline">All tasks</Link>}>
           {!data ? (
-            <p className="px-4 py-6 text-[13px] text-[#86868b]">Loading…</p>
+            <p className="px-4 py-6 text-[13px] text-brand-subtle">Loading…</p>
           ) : (data.leads?.followUps.length || 0) + (data.tasks?.length || 0) === 0 ? (
-            <p className="px-4 py-6 text-[13px] text-[#86868b]">Nothing due. Set a follow-up date on a lead or add a task to see it here.</p>
+            <p className="px-4 py-6 text-[13px] text-brand-subtle">Nothing due. Set a follow-up date on a lead or add a task to see it here.</p>
           ) : (
             <ul className="divide-y divide-white/[0.05]">
               {data.tasks?.map((t) => (
@@ -121,7 +121,7 @@ export default function Overview() {
                     <Badge value="task" tone={new Date(t.due_at) < new Date() ? "red" : "orange"} />
                     <span className="min-w-0 flex-1">
                       <span className="line-clamp-2 text-[13px] text-white">{t.body}</span>
-                      <span className="text-[11px] text-[#86868b]">Due {formatDate(t.due_at, true)}</span>
+                      <span className="text-[11px] text-brand-subtle">Due {formatDate(t.due_at, true)}</span>
                     </span>
                   </Link>
                 </li>
@@ -135,7 +135,7 @@ export default function Overview() {
                         {l.name}
                         {l.company ? ` · ${l.company}` : ""}
                       </span>
-                      <span className="text-[11px] text-[#86868b]">
+                      <span className="text-[11px] text-brand-subtle">
                         {l.status} · due {formatDate(l.next_follow_up)}
                         {l.value_ngn ? ` · ${naira(Number(l.value_ngn))}` : ""}
                       </span>
@@ -147,34 +147,34 @@ export default function Overview() {
           )}
         </Card>
 
-        <Card title="Pipeline by stage" action={<Link href="/admin/pipeline" className="text-[12px] text-[#8ab4ff] hover:underline">Board</Link>}>
+        <Card title="Pipeline by stage" action={<Link href="/admin/pipeline" className="text-[12px] text-brand-link hover:underline">Board</Link>}>
           <ul className="space-y-2.5 px-4 py-4">
             {data?.pipeline?.stages.map((s) => (
               <li key={s.stage} className="grid grid-cols-[92px_1fr_auto] items-center gap-3 text-[12px]">
-                <span className="capitalize text-[#c7c7cc]">{s.stage}</span>
+                <span className="capitalize text-brand-soft">{s.stage}</span>
                 <span className="h-2 overflow-hidden rounded-full bg-white/[0.05]">
                   <span className="block h-full rounded-full bg-[#ff8c14]" style={{ width: `${(s.count / maxStage) * 100}%` }} />
                 </span>
                 <span className="tabular-nums text-white">
                   {s.count}
-                  {s.value ? <span className="text-[#86868b]"> · {naira(s.value)}</span> : null}
+                  {s.value ? <span className="text-brand-subtle"> · {naira(s.value)}</span> : null}
                 </span>
               </li>
             ))}
-            {!data?.pipeline && <li className="text-[13px] text-[#86868b]">No pipeline data yet.</li>}
+            {!data?.pipeline && <li className="text-[13px] text-brand-subtle">No pipeline data yet.</li>}
           </ul>
         </Card>
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <Card title="Newest leads" action={<Link href="/admin/r/site_leads" className="text-[12px] text-[#8ab4ff] hover:underline">All leads</Link>}>
+        <Card title="Newest leads" action={<Link href="/admin/r/site_leads" className="text-[12px] text-brand-link hover:underline">All leads</Link>}>
           <ul className="divide-y divide-white/[0.05]">
             {data?.leads?.recent.map((l) => (
               <li key={l.id}>
                 <Link href={`/admin/r/site_leads?open=${l.id}`} className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-white/[0.03]">
                   <span className="min-w-0">
                     <span className="block truncate text-[13px] font-medium text-white">{l.name}</span>
-                    <span className="block truncate text-[11px] text-[#86868b]">
+                    <span className="block truncate text-[11px] text-brand-subtle">
                       {l.product || "General"} · {relativeTime(l.created_at)}
                     </span>
                   </span>
@@ -182,23 +182,23 @@ export default function Overview() {
                 </Link>
               </li>
             ))}
-            {data?.leads?.recent.length === 0 && <li className="px-4 py-6 text-[13px] text-[#86868b]">No leads yet.</li>}
+            {data?.leads?.recent.length === 0 && <li className="px-4 py-6 text-[13px] text-brand-subtle">No leads yet.</li>}
           </ul>
         </Card>
-        <Card title="Recent admin changes" action={<Link href="/admin/r/admin_audit_log" className="text-[12px] text-[#8ab4ff] hover:underline">Audit log</Link>}>
+        <Card title="Recent admin changes" action={<Link href="/admin/r/admin_audit_log" className="text-[12px] text-brand-link hover:underline">Audit log</Link>}>
           <ul className="divide-y divide-white/[0.05]">
             {data?.audit?.map((a, i) => (
               <li key={i} className="flex items-center gap-3 px-4 py-3 text-[12px]">
                 <Badge value={a.action} />
-                <span className="min-w-0 flex-1 truncate text-[#c7c7cc]">
-                  {a.resource.replace(/_/g, " ")} <span className="text-[#6e6e73]">{a.record_id?.slice(0, 8)}</span>
+                <span className="min-w-0 flex-1 truncate text-brand-soft">
+                  {a.resource.replace(/_/g, " ")} <span className="text-brand-subtle">{a.record_id?.slice(0, 8)}</span>
                 </span>
-                <span className="shrink-0 text-[#86868b]">
+                <span className="shrink-0 text-brand-subtle">
                   {a.actor.split("@")[0]} · {relativeTime(a.created_at)}
                 </span>
               </li>
             ))}
-            {(!data?.audit || data.audit.length === 0) && <li className="px-4 py-6 text-[13px] text-[#86868b]">No changes recorded yet.</li>}
+            {(!data?.audit || data.audit.length === 0) && <li className="px-4 py-6 text-[13px] text-brand-subtle">No changes recorded yet.</li>}
           </ul>
         </Card>
       </div>
@@ -209,9 +209,9 @@ export default function Overview() {
 function Kpi({ label, value, sub, href, alert }: { label: string; value: string; sub?: string; href: string; alert?: boolean }) {
   return (
     <Link href={href} className={`${panel} block px-4 py-4 transition hover:border-white/20 ${alert ? "!border-[#ff8c14]/40" : ""}`}>
-      <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
+      <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
       <p className="mt-1.5 text-[22px] font-semibold tabular-nums tracking-tight text-white">{value}</p>
-      {sub && <p className={`mt-0.5 text-[11px] ${alert ? "text-[#ffb366]" : sub.startsWith("▼") ? "text-red-300" : sub.startsWith("▲") ? "text-emerald-300" : "text-[#86868b]"}`}>{sub}</p>}
+      {sub && <p className={`mt-0.5 text-[11px] ${alert ? "text-[#ffb366]" : sub.startsWith("▼") ? "text-red-300" : sub.startsWith("▲") ? "text-emerald-300" : "text-brand-subtle"}`}>{sub}</p>}
     </Link>
   );
 }

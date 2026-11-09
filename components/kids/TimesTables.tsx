@@ -71,7 +71,7 @@ export default function TimesTables() {
   const tables: (number | "mix")[] = ["mix", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-[#1b2340] to-[#141a28] p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       <StreakBar progress={progress} />
 
       {phase === "pick" && (
@@ -84,7 +84,7 @@ export default function TimesTables() {
                 type="button"
                 aria-pressed={table === t}
                 onClick={() => setTable(t)}
-                className={`min-h-14 rounded-2xl text-[20px] font-bold transition ${table === t ? "bg-[#ff8c14] text-black" : "border border-white/15 bg-white/5 text-white hover:border-white/35"}`}
+                className={`min-h-14 rounded-2xl text-[20px] font-bold transition ${table === t ? "bg-[#ff8c14] text-black" : "border border-white/15 bg-white/5 text-black hover:border-white/35"}`}
               >
                 {t === "mix" ? "Mix" : `${t}×`}
               </button>
@@ -121,7 +121,7 @@ export default function TimesTables() {
         <div className="text-center">
           <p className="text-[56px]" aria-hidden>{newBest ? "🏆" : "🎉"}</p>
           <p className="text-[28px] font-black text-white">{score} right in 60 seconds</p>
-          <p className="mt-1 text-[16px] text-[#c7cdd8]">{newBest ? "That is a new best score!" : `Your best for ${table === "mix" ? "mixed tables" : `the ${table} times table`}: ${best ?? score}`}</p>
+          <p className="mt-1 text-[16px] text-brand-soft">{newBest ? "That is a new best score!" : `Your best for ${table === "mix" ? "mixed tables" : `the ${table} times table`}: ${best ?? score}`}</p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <button type="button" onClick={start} className="min-h-12 rounded-full bg-[#ff8c14] px-6 text-[15px] font-bold text-black">Play again</button>
             <button type="button" onClick={() => setPhase("pick")} className="min-h-12 rounded-full border border-white/15 px-6 text-[15px] font-semibold text-white">Change table</button>

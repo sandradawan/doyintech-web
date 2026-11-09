@@ -21,11 +21,11 @@ export default function MobileServicePage() {
           <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white">
             Flutter Mobile Development
           </h1>
-          <p className="mt-4 text-xl text-gray-400">
+          <p className="mt-4 text-xl text-brand-muted">
             Clean, performant Android and iOS apps built with Flutter.
           </p>
 
-          <div className="mt-12 space-y-10 text-gray-300 leading-relaxed">
+          <div className="mt-12 space-y-10 text-brand-soft leading-relaxed">
             <p>
               One codebase, two platforms. We build mobile applications that feel
               native, stay maintainable, and connect cleanly to your backend
@@ -71,7 +71,7 @@ export default function MobileServicePage() {
               <div className="space-y-4 text-sm">
                 <div>
                   <p className="font-semibold text-white">Do you build the backend too?</p>
-                  <p className="text-gray-400 mt-1">
+                  <p className="text-brand-muted mt-1">
                     Yes — many clients ship Flutter + Laravel/Node as one package.
                   </p>
                 </div>

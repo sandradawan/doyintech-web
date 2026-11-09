@@ -13,7 +13,7 @@ const KINDS: { id: Kind; label: string }[] = [
 ];
 
 const field = "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]";
-const label = "block text-[12px] text-[#a1a1a6]";
+const label = "block text-[12px] text-brand-muted";
 const STORAGE = "doyintech_letter_sender_v1";
 
 const longDate = (iso: string) =>
@@ -165,7 +165,7 @@ export default function LetterGenerator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5">
         <div className="flex flex-wrap gap-2">
           {KINDS.map((k) => (
             <button
@@ -175,7 +175,7 @@ export default function LetterGenerator() {
                 setKind(k.id);
                 setEdited(null);
               }}
-              className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold ${kind === k.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-[#c7cdd8]"}`}
+              className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold ${kind === k.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft"}`}
             >
               {k.label}
             </button>
@@ -265,11 +265,11 @@ export default function LetterGenerator() {
             Print / Save PDF
           </button>
           {edited !== null && (
-            <button type="button" onClick={() => setEdited(null)} className="text-[13px] text-[#a1a1a6] underline">
+            <button type="button" onClick={() => setEdited(null)} className="text-[13px] text-brand-muted underline">
               Reset wording
             </button>
           )}
-          <p className="text-[12px] text-[#86868b]">Click into the letter to edit the wording. Nothing is sent to our servers.</p>
+          <p className="text-[12px] text-brand-subtle">Click into the letter to edit the wording. Nothing is sent to our servers.</p>
         </div>
       </div>
     </div>

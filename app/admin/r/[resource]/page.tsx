@@ -15,7 +15,7 @@ export default async function ResourcePage({ params }: Props) {
   const r = getResource((await params).resource);
   if (!r) notFound();
   return (
-    <Suspense fallback={<p className="text-[13px] text-[#86868b]">Loading…</p>}>
+    <Suspense fallback={<p className="text-[13px] text-brand-subtle">Loading…</p>}>
       <ResourceManager key={r.id} resource={r} />
     </Suspense>
   );

@@ -193,16 +193,16 @@ function TrackInner() {
   return (
     <main className="pb-24 pt-28">
       <div className="mx-auto max-w-[720px] px-5 sm:px-6">
-        <p className="text-[13px] text-[#a1a1a6]">
-          <Link href="/students" className="text-[#2997ff] hover:underline">
+        <p className="text-[13px] text-brand-muted">
+          <Link href="/students" className="text-brand-link hover:underline">
             Students
           </Link>{" "}
           / Track project
         </p>
-        <h1 className="mt-3 font-display text-[28px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[34px]">
+        <h1 className="mt-3 font-display text-[28px] font-semibold tracking-tight text-brand-ink sm:text-[34px]">
           Track your research project
         </h1>
-        <p className="mt-2 text-[14px] text-[#a1a1a6]">
+        <p className="mt-2 text-[14px] text-brand-muted">
           Enter your Request ID (DT-PRJ-YYYY-NNNN). Optional email helps confirm
           ownership.
         </p>
@@ -248,29 +248,29 @@ function TrackInner() {
                   <h2 className="mt-1 font-display text-[20px] font-semibold text-white">
                     {project.package_name}
                   </h2>
-                  <p className="mt-1 text-[14px] text-[#a1a1a6]">
+                  <p className="mt-1 text-[14px] text-brand-muted">
                     {project.topic}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[12px] text-[#a1a1a6]">Stage</p>
+                  <p className="text-[12px] text-brand-muted">Stage</p>
                   <p className="text-[16px] font-semibold text-white">
                     {project.stage_label || project.stage}
                   </p>
-                  <p className="text-[12px] text-[#86868b]">{project.status}</p>
+                  <p className="text-[12px] text-brand-subtle">{project.status}</p>
                 </div>
               </div>
 
               {/* Payment summary */}
               <div className="mt-5 grid gap-2 rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] sm:grid-cols-3">
                 <div>
-                  <p className="text-[11px] uppercase text-[#86868b]">Total</p>
+                  <p className="text-[11px] uppercase text-brand-subtle">Total</p>
                   <p className="font-semibold text-white">
                     ₦{total.toLocaleString()}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase text-[#86868b]">
+                  <p className="text-[11px] uppercase text-brand-subtle">
                     Paid so far
                   </p>
                   <p className="font-semibold text-[#25D366]">
@@ -278,7 +278,7 @@ function TrackInner() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase text-[#86868b]">
+                  <p className="text-[11px] uppercase text-brand-subtle">
                     Balance due
                   </p>
                   <p className="font-semibold text-white">
@@ -290,7 +290,7 @@ function TrackInner() {
                 </div>
               </div>
 
-              <div className="mt-4 grid gap-2 text-[13px] text-[#a1a1a6] sm:grid-cols-2">
+              <div className="mt-4 grid gap-2 text-[13px] text-brand-muted sm:grid-cols-2">
                 <p>Name: {project.name}</p>
                 <p>
                   Deposit (50%): ₦{deposit.toLocaleString()} · Final (50%): ₦
@@ -312,7 +312,7 @@ function TrackInner() {
                     Download your files
                   </a>
                 ) : project.delivery_unlocked ? (
-                  <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+                  <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-brand-soft">
                     Payment complete. Your download link will appear here once
                     we attach the delivery file.
                   </p>
@@ -321,7 +321,7 @@ function TrackInner() {
                     <p className="text-[14px] font-semibold text-white">
                       Project ready — pay final 50% to unlock download
                     </p>
-                    <p className="mt-1 text-[13px] text-[#a1a1a6]">
+                    <p className="mt-1 text-[13px] text-brand-muted">
                       Balance: ₦{balance.toLocaleString()}. Link stays locked
                       until this payment clears.
                     </p>
@@ -337,12 +337,12 @@ function TrackInner() {
                     </button>
                   </div>
                 ) : project.status === "pending_payment" ? (
-                  <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+                  <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-[13px] text-brand-soft">
                     Awaiting 50% deposit (₦{deposit.toLocaleString()}). Complete
                     payment to start the project.
                   </p>
                 ) : (
-                  <p className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[13px] text-[#a1a1a6]">
+                  <p className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[13px] text-brand-muted">
                     Work in progress. When the draft is ready, you can pay the
                     final 50% here to unlock download.
                   </p>
@@ -350,7 +350,7 @@ function TrackInner() {
               </div>
 
               <div className="mt-6">
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-[#a1a1a6]">
+                <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-muted">
                   Pipeline
                 </p>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -367,7 +367,7 @@ function TrackInner() {
                             ? "bg-[#ff8c14] text-black"
                             : past
                               ? "bg-white/10 text-white"
-                              : "bg-white/5 text-[#86868b]"
+                              : "bg-white/5 text-brand-subtle"
                         }`}
                       >
                         {s.label}
@@ -380,10 +380,10 @@ function TrackInner() {
 
             {events.length > 0 && (
               <div>
-                <h3 className="text-[13px] font-semibold uppercase tracking-wider text-[#a1a1a6]">
+                <h3 className="text-[13px] font-semibold uppercase tracking-wider text-brand-muted">
                   Timeline
                 </h3>
-                <ul className="mt-3 space-y-2 text-[13px] text-[#a1a1a6]">
+                <ul className="mt-3 space-y-2 text-[13px] text-brand-muted">
                   {events.map((ev, i) => (
                     <li key={i}>
                       {new Date(ev.created_at).toLocaleString()} — {ev.stage}
@@ -395,23 +395,23 @@ function TrackInner() {
             )}
 
             <div>
-              <h3 className="text-[13px] font-semibold uppercase tracking-wider text-[#a1a1a6]">
+              <h3 className="text-[13px] font-semibold uppercase tracking-wider text-brand-muted">
                 Feedback & corrections
               </h3>
               <div className="mt-3 space-y-3">
                 {messages.length === 0 && (
-                  <p className="text-[13px] text-[#86868b]">No messages yet.</p>
+                  <p className="text-[13px] text-brand-subtle">No messages yet.</p>
                 )}
                 {messages.map((m, i) => (
                   <div
                     key={m.id || i}
                     className={`rounded-xl border px-4 py-3 text-[13px] ${
                       m.author === "student"
-                        ? "border-white/10 bg-white/[0.04] text-[#e8e8ed]"
-                        : "border-[#2997ff]/20 bg-[#2997ff]/10 text-[#e8e8ed]"
+                        ? "border-white/10 bg-white/[0.04] text-brand-soft"
+                        : "border-brand-link/20 bg-brand-link/10 text-brand-soft"
                     }`}
                   >
-                    <p className="text-[11px] font-semibold uppercase text-[#a1a1a6]">
+                    <p className="text-[11px] font-semibold uppercase text-brand-muted">
                       {m.author} · {new Date(m.created_at).toLocaleString()}
                     </p>
                     <p className="mt-1 whitespace-pre-wrap">{m.body}</p>
@@ -448,7 +448,7 @@ export default function TrackPage() {
     <>
       <Suspense
         fallback={
-          <main className="px-5 pb-24 pt-28 text-[#a1a1a6]">Loading…</main>
+          <main className="px-5 pb-24 pt-28 text-brand-muted">Loading…</main>
         }
       >
         <TrackInner />

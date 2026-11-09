@@ -66,7 +66,7 @@ export default function EmailCapture({
     return (
       <div className="rounded-2xl border border-[#25D366]/40 bg-[#25D366]/10 p-6 text-center">
         <p className="text-[16px] font-semibold text-white">You’re in.</p>
-        <p className="mt-2 text-[14px] text-[#a1a1a6]">
+        <p className="mt-2 text-[14px] text-brand-muted">
           {downloadHref
             ? "Your download should open in a new tab. Check spam if the email tip doesn’t land."
             : "We’ll send practical SME tips — kits and website offers only when useful."}
@@ -84,7 +84,7 @@ export default function EmailCapture({
           <a href="/products" className="text-[#ff8c14] hover:underline">
             Browse kits
           </a>
-          <a href="/hire" className="text-[#2997ff] hover:underline">
+          <a href="/hire" className="text-brand-link hover:underline">
             Hire / deposit
           </a>
         </div>
@@ -95,16 +95,16 @@ export default function EmailCapture({
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-2xl border border-white/10 bg-[#141a28] p-6"
+      className="rounded-2xl border border-white/10 bg-brand-surface p-6"
     >
       <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
         Free · email list
       </p>
       <h3 className="mt-2 text-[18px] font-semibold text-white">{title}</h3>
-      <p className="mt-1 text-[13px] text-[#a1a1a6]">{subtitle}</p>
+      <p className="mt-1 text-[13px] text-brand-muted">{subtitle}</p>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <label className="block text-[12px] font-medium text-[#f5f5f7]">
+        <label className="block text-[12px] font-medium text-brand-ink">
           Name (optional)
           <input
             type="text"
@@ -114,7 +114,7 @@ export default function EmailCapture({
             className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
           />
         </label>
-        <label className="block text-[12px] font-medium text-[#f5f5f7]">
+        <label className="block text-[12px] font-medium text-brand-ink">
           Email *
           <input
             type="email"
@@ -145,7 +145,7 @@ export default function EmailCapture({
       >
         {status === "loading" ? "Saving…" : ctaLabel}
       </button>
-      <p className="mt-2 text-center text-[11px] text-[#86868b]">
+      <p className="mt-2 text-center text-[11px] text-brand-subtle">
         Stored securely for follow-up tips and product offers.{" "}
         <a href="/privacy" className="underline">
           Privacy

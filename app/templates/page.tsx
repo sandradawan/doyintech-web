@@ -14,7 +14,7 @@ export const metadata: Metadata = { alternates: { canonical: "/templates" },
 export default function TemplatesPage() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Page templates
@@ -22,13 +22,13 @@ export default function TemplatesPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
             Next.js templates
           </h1>
-          <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-brand-muted">
             Full landing and multi-page kits. Preview the outline free. Pay once, unlock the build
             guide and structure — or hire us to ship a live site from the same patterns.
           </p>
 
           <div className="mt-8 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 p-5 sm:flex sm:items-center sm:justify-between sm:gap-4">
-            <p className="text-[14px] text-[#e8eaed]">
+            <p className="text-[14px] text-brand-soft">
               Prefer a done-for-you site? Fixed-price packages with deposit — not DIY.
             </p>
             <a
@@ -44,7 +44,7 @@ export default function TemplatesPage() {
               <TemplateCard key={item.id} item={item} />
             ))}
           </div>
-          <p className="mt-10 text-center text-[14px] text-[#86868b]">
+          <p className="mt-10 text-center text-[14px] text-brand-subtle">
             Need components only?{" "}
             <Link href="/components" className="text-[#ff8c14] hover:underline">
               Browse UI components

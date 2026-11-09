@@ -25,7 +25,7 @@ export function Panel({
   actionLabel?: string;
 }) {
   return (
-    <section className="rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
+    <section className="rounded-xl border border-white/[0.06] bg-brand-deep p-5">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-sm font-semibold text-white">{title}</h2>
         {action && actionLabel && (

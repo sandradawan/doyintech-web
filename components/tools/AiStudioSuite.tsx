@@ -8,8 +8,8 @@ function Field(
 ) {
   const { label, className, ...rest } = props;
   return (
-    <label className="block text-sm text-gray-300">
-      <span className="mb-1 block text-xs text-gray-500">{label}</span>
+    <label className="block text-sm text-brand-soft">
+      <span className="mb-1 block text-xs text-brand-subtle">{label}</span>
       <input
         {...rest}
         className={`w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none ${className || ""}`}
@@ -23,8 +23,8 @@ function Area(
 ) {
   const { label, ...rest } = props;
   return (
-    <label className="block text-sm text-gray-300">
-      <span className="mb-1 block text-xs text-gray-500">{label}</span>
+    <label className="block text-sm text-brand-soft">
+      <span className="mb-1 block text-xs text-brand-subtle">{label}</span>
       <textarea
         {...rest}
         className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
@@ -67,13 +67,13 @@ function StudioShell({
     <PaidGate
       toolSlug={toolSlug}
       preview={
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-brand-subtle">
           Preview locked. Unlock to generate full AI documents.
         </p>
       }
     >
       <div className="space-y-4">
-        <p className="text-xs text-[#86868b]">
+        <p className="text-xs text-brand-subtle">
           DoyinTech AI Studio · uses OpenAI when OPENAI_API_KEY is set
         </p>
         {children}
@@ -92,7 +92,7 @@ function StudioShell({
         ) : null}
         {result ? (
           <div className="space-y-3">
-            <p className="text-xs text-[#86868b]">
+            <p className="text-xs text-brand-subtle">
               {llm ? "AI-enhanced output" : "Template draft (set OPENAI_API_KEY for full AI)"}
             </p>
             <pre className="max-h-[480px] overflow-auto whitespace-pre-wrap rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200">

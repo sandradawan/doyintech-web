@@ -74,7 +74,7 @@ export default function EInvoicingReadiness() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
         <p className="text-[14px] font-semibold text-white">Your annual turnover</p>
         <div className="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Annual turnover">
           {PHASES.map((p) => (
@@ -95,7 +95,7 @@ export default function EInvoicingReadiness() {
 
         <div className="mt-5 rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-4" role="status">
           <p className="text-[17px] font-semibold text-white">{current.title}</p>
-          <ul className="mt-2 space-y-1 text-[14px] text-[#c7cdd8]">
+          <ul className="mt-2 space-y-1 text-[14px] text-brand-soft">
             {current.timeline.map((t) => (
               <li key={t}>• {t}</li>
             ))}
@@ -105,7 +105,7 @@ export default function EInvoicingReadiness() {
 
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
         <p className="text-[16px] font-semibold text-white">Get e-invoicing ready without the stress</p>
-        <p className="mt-1 text-[14px] text-[#a1a1a6]">
+        <p className="mt-1 text-[14px] text-brand-muted">
           We&apos;ll review how you invoice today, set up an e-invoice-ready billing process on your
           website or POS through an NRS-accredited provider, and remind you before your
           deadlines.
@@ -129,7 +129,7 @@ export default function EInvoicingReadiness() {
               >
                 {state === "busy" ? "Sending…" : "Help me get ready"}
               </button>
-              <p className="mt-2 text-[12px] text-[#86868b]">Email or WhatsApp number required.</p>
+              <p className="mt-2 text-[12px] text-brand-subtle">Email or WhatsApp number required.</p>
               {state === "error" && <p className="mt-2 text-[13px] text-red-400">{error}</p>}
             </div>
           </form>

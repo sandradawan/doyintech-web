@@ -11,7 +11,7 @@ type Props = {
 };
 
 const field =
-  "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
+  "w-full rounded-lg border border-white/10 bg-brand-deep px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
 const btnP =
   "rounded-lg bg-[#ff8c14] px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
 const btnG =
@@ -147,7 +147,7 @@ export default function CloudSync({ workspace, onPull }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-[#0c1220] p-6">
+    <div className="rounded-xl border border-white/[0.06] bg-brand-deep p-6">
       <h2 className="text-sm font-semibold text-white">Cloud sync</h2>
       <p className="mt-1 text-[13px] text-white/45">
         Sign in with email, then push/pull your workspace across devices.

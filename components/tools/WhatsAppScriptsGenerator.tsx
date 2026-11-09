@@ -95,7 +95,7 @@ export default function WhatsAppScriptsGenerator() {
       <div className="space-y-6">
         <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4">
           <p className="text-[14px] font-semibold text-emerald-300">Your 5 scripts are ready</p>
-          <p className="mt-1 text-[13px] text-[#a1a1a6]">
+          <p className="mt-1 text-[13px] text-brand-muted">
             Copy into WhatsApp Business → Settings → Away / greeting messages, or save as Quick
             replies.
           </p>
@@ -104,7 +104,7 @@ export default function WhatsAppScriptsGenerator() {
         {scripts.map((s) => (
           <div
             key={s.title}
-            className="rounded-2xl border border-white/10 bg-[#141a28] p-5"
+            className="rounded-2xl border border-white/10 bg-brand-surface p-5"
           >
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-[15px] font-semibold text-white">{s.title}</h3>
@@ -116,7 +116,7 @@ export default function WhatsAppScriptsGenerator() {
                 {copied === s.title ? "Copied" : "Copy"}
               </button>
             </div>
-            <pre className="mt-3 whitespace-pre-wrap text-[13px] leading-relaxed text-[#c7cdd8]">
+            <pre className="mt-3 whitespace-pre-wrap text-[13px] leading-relaxed text-brand-soft">
               {s.text}
             </pre>
           </div>
@@ -129,7 +129,7 @@ export default function WhatsAppScriptsGenerator() {
           <h3 className="mt-2 text-[20px] font-semibold text-white">
             Put these scripts on a real website
           </h3>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             Scripts help. A fixed-price site with one-tap WhatsApp turns strangers into booked
             clients. Landing page ₦100k · Local business site ₦250k.
           </p>
@@ -148,7 +148,7 @@ export default function WhatsAppScriptsGenerator() {
             </a>
             <a
               href="/products"
-              className="rounded-full px-5 py-2.5 text-[13px] font-semibold text-[#2997ff]"
+              className="rounded-full px-5 py-2.5 text-[13px] font-semibold text-brand-link"
             >
               Full WhatsApp growth pack →
             </a>
@@ -158,7 +158,7 @@ export default function WhatsAppScriptsGenerator() {
         <button
           type="button"
           onClick={() => setStep("form")}
-          className="text-[13px] text-[#86868b] hover:text-white"
+          className="text-[13px] text-brand-subtle hover:text-white"
         >
           ← Generate for another business
         </button>
@@ -167,8 +167,8 @@ export default function WhatsAppScriptsGenerator() {
   }
 
   return (
-    <form onSubmit={onGenerate} className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
-      <label className="block text-[13px] font-medium text-[#f5f5f7]">
+    <form onSubmit={onGenerate} className="rounded-2xl border border-white/10 bg-brand-surface p-6">
+      <label className="block text-[13px] font-medium text-brand-ink">
         Business type
         <select
           value={biz}
@@ -183,7 +183,7 @@ export default function WhatsAppScriptsGenerator() {
         </select>
       </label>
 
-      <label className="mt-4 block text-[13px] font-medium text-[#f5f5f7]">
+      <label className="mt-4 block text-[13px] font-medium text-brand-ink">
         Business name (used in scripts)
         <input
           type="text"
@@ -194,7 +194,7 @@ export default function WhatsAppScriptsGenerator() {
         />
       </label>
 
-      <label className="mt-4 block text-[13px] font-medium text-[#f5f5f7]">
+      <label className="mt-4 block text-[13px] font-medium text-brand-ink">
         WhatsApp number (so we can send tips)
         <input
           type="tel"
@@ -208,11 +208,11 @@ export default function WhatsAppScriptsGenerator() {
       <button
         type="submit"
         disabled={sending}
-        className="mt-6 flex w-full items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
+        className="mt-6 flex w-full items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-black transition hover:brightness-110 disabled:opacity-60"
       >
         {sending ? "Generating…" : "Get my 5 free scripts"}
       </button>
-      <p className="mt-3 text-center text-[12px] text-[#86868b]">
+      <p className="mt-3 text-center text-[12px] text-brand-subtle">
         Free. Instant. Optional WhatsApp for follow-up tips — no spam list.
       </p>
     </form>

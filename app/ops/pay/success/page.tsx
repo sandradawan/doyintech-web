@@ -38,7 +38,7 @@ function SuccessBody() {
   }, [invoice, reference]);
 
   return (
-    <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0c1220] p-8 text-center">
+    <div className="w-full max-w-md rounded-2xl border border-white/10 bg-brand-deep p-8 text-center">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 text-2xl text-emerald-400">
         ✓
       </div>
@@ -75,7 +75,7 @@ function SuccessBody() {
 
 export default function OpsPaySuccessPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#070b12] px-6">
+    <main className="flex min-h-screen items-center justify-center bg-brand-deepest px-6">
       <Suspense fallback={<p className="text-white/50">Loading…</p>}>
         <SuccessBody />
       </Suspense>

@@ -52,7 +52,7 @@ export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
           placeholder="Search ebooks…"
           className="w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-[#64748b] focus:border-[#ff8c14] sm:max-w-xs"
         />
-        <p className="text-[13px] text-[#86868b]">
+        <p className="text-[13px] text-brand-subtle">
           {filtered.length} book{filtered.length === 1 ? "" : "s"}
         </p>
       </div>
@@ -66,7 +66,7 @@ export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
             className={
               category === c
                 ? "rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-[12px] font-semibold text-black"
-                : "rounded-full border border-white/12 bg-white/[0.03] px-3.5 py-1.5 text-[12px] font-medium text-[#c7cdd8] hover:border-white/25"
+                : "rounded-full border border-white/12 bg-white/[0.03] px-3.5 py-1.5 text-[12px] font-medium text-brand-soft hover:border-white/25"
             }
           >
             {c}
@@ -81,7 +81,7 @@ export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-16 text-center text-[15px] text-[#86868b]">
+        <p className="mt-16 text-center text-[15px] text-brand-subtle">
           No ebooks match. Try another category or clear search.
         </p>
       )}

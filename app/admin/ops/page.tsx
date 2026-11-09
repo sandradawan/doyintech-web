@@ -35,7 +35,7 @@ export default function AdminOpsPage() {
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Workspace</p>
           <h1 className="mt-1 font-display text-[24px] font-semibold text-white">DoyinOps</h1>
-          <p className="mt-1 text-[13px] text-[#86868b]">SME ops workspaces on the platform</p>
+          <p className="mt-1 text-[13px] text-brand-subtle">SME ops workspaces on the platform</p>
         </div>
         <div className="flex gap-2">
           <Link href="/ops/app" className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-white">Open Ops app</Link>
@@ -47,10 +47,10 @@ export default function AdminOpsPage() {
         {workspaces.map((w) => (
           <div key={String(w.id)} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
             <p className="font-medium text-white">{String(w.name || w.id)}</p>
-            <p className="text-[12px] text-[#86868b]">{String(w.created_at || "")}</p>
+            <p className="text-[12px] text-brand-subtle">{String(w.created_at || "")}</p>
           </div>
         ))}
-        {!loading && !workspaces.length ? <p className="text-[13px] text-[#86868b]">No workspaces yet.</p> : null}
+        {!loading && !workspaces.length ? <p className="text-[13px] text-brand-subtle">No workspaces yet.</p> : null}
       </div>
     </div>
   );

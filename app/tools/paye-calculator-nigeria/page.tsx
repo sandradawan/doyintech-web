@@ -79,7 +79,7 @@ export default function PayeCalculatorPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-6">
           <Link href="/tools" className="text-[14px] text-[#ff8c14] hover:underline">
             ← All tools
@@ -87,18 +87,18 @@ export default function PayeCalculatorPage() {
           <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
             PAYE Calculator Nigeria 2026
           </h1>
-          <p className="mt-3 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 text-[17px] leading-relaxed text-brand-muted">
             Work out your monthly PAYE tax and take-home pay under the new Nigeria Tax Act 2025 —
             including the ₦800,000 tax-free band, rent relief and pension.
           </p>
-          <p className="mt-2 text-[12px] text-[#86868b]">Rules last reviewed {LAST_REVIEWED}.</p>
+          <p className="mt-2 text-[12px] text-brand-subtle">Rules last reviewed {LAST_REVIEWED}.</p>
 
           <div className="mt-8">
             <PayeCalculator />
           </div>
           <ToolFollowUp source="paye-calculator" />
 
-          <article className="mt-16 space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <article className="mt-16 space-y-10 text-[15px] leading-relaxed text-brand-soft">
             <section>
               <h2 className="text-[22px] font-semibold text-white">2026 PAYE tax bands in Nigeria</h2>
               <p className="mt-3">
@@ -170,9 +170,9 @@ export default function PayeCalculatorPage() {
               </dl>
             </section>
 
-            <section className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
+            <section className="rounded-2xl border border-white/10 bg-brand-surface p-6">
               <h2 className="text-[18px] font-semibold text-white">Run payroll for a team?</h2>
-              <p className="mt-2 text-[14px] text-[#a1a1a6]">
+              <p className="mt-2 text-[14px] text-brand-muted">
                 DoyinTech Pro includes payslips, invoices, contracts and every premium tool for
                 ₦5,000/month. Need payroll built into your own website or HR system?{" "}
                 <Link href="/hire" className="text-[#ff8c14] hover:underline">
@@ -187,7 +187,7 @@ export default function PayeCalculatorPage() {
               </Link>
             </section>
 
-            <p className="text-[12px] text-[#86868b]">
+            <p className="text-[12px] text-brand-subtle">
               This calculator gives an estimate for planning. It is not tax advice; your employer
               or state Internal Revenue Service applies the final figures. Based on the Nigeria Tax
               Act 2025 as summarised by{" "}

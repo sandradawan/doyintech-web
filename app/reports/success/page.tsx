@@ -58,13 +58,13 @@ function SuccessInner() {
         <p className="text-[12px] font-semibold uppercase tracking-wider text-[#ff8c14]">Report Studio</p>
         <h1 className="mt-3 font-display text-[28px] font-semibold text-white">Payment received</h1>
         {orderId && (
-          <p className="mt-3 text-[15px] text-[#a1a1a6]">
+          <p className="mt-3 text-[15px] text-brand-muted">
             Order <code className="text-white">{orderId}</code>
             {productName ? ` · ${productName}` : ""}
           </p>
         )}
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left">
-          <p className="text-[13px] text-[#86868b]">Status</p>
+          <p className="text-[13px] text-brand-subtle">Status</p>
           <p className="mt-1 text-[17px] font-semibold text-white">
             {reportStatusLabel(status || "pending_payment")}
           </p>
@@ -73,7 +73,7 @@ function SuccessInner() {
               Open your report
             </a>
           ) : (
-            <p className="mt-4 text-[14px] text-[#a1a1a6]">
+            <p className="mt-4 text-[14px] text-brand-muted">
               Generation usually finishes within a minute. We also email the secure link.
             </p>
           )}
@@ -95,7 +95,7 @@ function SuccessInner() {
 export default function ReportSuccessPage() {
   return (
     <>
-      <Suspense fallback={<main className="pt-28 text-center text-[#a1a1a6]">Loading…</main>}>
+      <Suspense fallback={<main className="pt-28 text-center text-brand-muted">Loading…</main>}>
         <SuccessInner />
       </Suspense>
       <Footer />

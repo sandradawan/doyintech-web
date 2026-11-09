@@ -27,7 +27,7 @@ export default function ComponentsShopPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Code marketplace · {UI_COMPONENTS.length} packs
@@ -35,7 +35,7 @@ export default function ComponentsShopPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
             Next.js components
           </h1>
-          <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-brand-muted">
             Live demos. Copy AI prompts for Cursor and Claude. Pay once for full source. Impulse
             prices from ₦2,000.
           </p>
@@ -57,7 +57,7 @@ export default function ComponentsShopPage() {
             ))}
           </div>
 
-          <p className="mt-10 text-center text-[14px] text-[#86868b]">
+          <p className="mt-10 text-center text-[14px] text-brand-subtle">
             Agents:{" "}
             <a href="/api/registry" className="text-[#ff8c14] hover:underline">
               /api/registry

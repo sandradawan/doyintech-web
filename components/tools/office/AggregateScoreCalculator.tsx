@@ -75,16 +75,16 @@ export default function AggregateScoreCalculator() {
         )}
       </div>
 
-      <div className="rounded-2xl border border-[#ff8c14]/40 bg-gradient-to-b from-[#1d1d1f] to-[#141a28] p-6 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
+      <div className="rounded-2xl border border-[#ff8c14]/40 bg-gradient-to-b from-brand-surface to-brand-surface p-6 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
         <p className="text-[13px] font-semibold uppercase tracking-wide text-[#ff8c14]">Your aggregate</p>
-        <p className="mt-2 text-[52px] font-semibold leading-none text-white">{r.score.toFixed(2)}<span className="text-[22px] text-[#a1a1a6]">/100</span></p>
-        <p className="mt-2 text-[14px] text-[#e8eaed]">{band}</p>
+        <p className="mt-2 text-[52px] font-semibold leading-none text-white">{r.score.toFixed(2)}<span className="text-[22px] text-brand-muted">/100</span></p>
+        <p className="mt-2 text-[14px] text-brand-soft">{band}</p>
         <dl className="mt-5 space-y-2 text-[14px]">
-          <div className="flex justify-between"><dt className="text-[#a1a1a6]">JAMB ({r.weights.jamb}%)</dt><dd className="text-white">{r.parts.jamb.toFixed(2)}</dd></div>
-          <div className="flex justify-between"><dt className="text-[#a1a1a6]">Post-UTME ({r.weights.putme}%)</dt><dd className="text-white">{r.parts.putme.toFixed(2)}</dd></div>
-          {r.weights.olevel > 0 && <div className="flex justify-between"><dt className="text-[#a1a1a6]">O&apos;level ({r.weights.olevel}%)</dt><dd className="text-white">{r.parts.olevel.toFixed(2)}</dd></div>}
+          <div className="flex justify-between"><dt className="text-brand-muted">JAMB ({r.weights.jamb}%)</dt><dd className="text-white">{r.parts.jamb.toFixed(2)}</dd></div>
+          <div className="flex justify-between"><dt className="text-brand-muted">Post-UTME ({r.weights.putme}%)</dt><dd className="text-white">{r.parts.putme.toFixed(2)}</dd></div>
+          {r.weights.olevel > 0 && <div className="flex justify-between"><dt className="text-brand-muted">O&apos;level ({r.weights.olevel}%)</dt><dd className="text-white">{r.parts.olevel.toFixed(2)}</dd></div>}
         </dl>
-        <p className="mt-5 text-[12px] leading-relaxed text-[#a1a1a6]">Each school publishes its own formula and cut-off marks. Check your institution&apos;s admission brochure and choose Custom weights if it differs.</p>
+        <p className="mt-5 text-[12px] leading-relaxed text-brand-muted">Each school publishes its own formula and cut-off marks. Check your institution&apos;s admission brochure and choose Custom weights if it differs.</p>
       </div>
     </div>
   );

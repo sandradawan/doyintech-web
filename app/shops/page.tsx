@@ -56,13 +56,13 @@ export default async function ShopsPage({ searchParams }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
           <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">DoyinTech Shops</p>
           <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
             {cat ? `${cat} shops` : "Shop from small businesses"}
           </h1>
-          <p className="mt-3 max-w-2xl text-[17px] text-[#a1a1a6]">{DESCRIPTION}</p>
+          <p className="mt-3 max-w-2xl text-[17px] text-brand-muted">{DESCRIPTION}</p>
 
           <form action="/shops" className="mt-8 flex flex-col gap-2 sm:flex-row">
             {category && <input type="hidden" name="category" value={category} />}
@@ -88,7 +88,7 @@ export default async function ShopsPage({ searchParams }: Props) {
           <nav aria-label="Categories" className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
             <Link
               href={href({ category: "" })}
-              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${!cat ? "bg-white text-black" : "border border-white/15 text-[#c7cdd8] hover:border-white/30"}`}
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${!cat ? "bg-white text-black" : "border border-white/15 text-brand-soft hover:border-white/30"}`}
             >
               All
             </Link>
@@ -96,7 +96,7 @@ export default async function ShopsPage({ searchParams }: Props) {
               <Link
                 key={c}
                 href={href({ category: categorySlug(c) })}
-                className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${cat === c ? "bg-white text-black" : "border border-white/15 text-[#c7cdd8] hover:border-white/30"}`}
+                className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${cat === c ? "bg-white text-black" : "border border-white/15 text-brand-soft hover:border-white/30"}`}
               >
                 {c}
               </Link>
@@ -106,7 +106,7 @@ export default async function ShopsPage({ searchParams }: Props) {
           {shops.length === 0 ? (
             <div className="mt-12 rounded-2xl border border-dashed border-white/15 px-6 py-14 text-center">
               <p className="text-[17px] font-semibold text-white">No shops match yet</p>
-              <p className="mt-2 text-[14px] text-[#a1a1a6]">
+              <p className="mt-2 text-[14px] text-brand-muted">
                 {q || city || cat ? "Try another search or category." : "Shops appear here once they add products."}
               </p>
               <Link href="/stores" className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
@@ -119,7 +119,7 @@ export default async function ShopsPage({ searchParams }: Props) {
                 <li key={s.id}>
                   <Link
                     href={`/s/${s.slug}`}
-                    className={`group block overflow-hidden rounded-2xl border bg-[#141a28] transition hover:-translate-y-0.5 hover:border-white/25 ${
+                    className={`group block overflow-hidden rounded-2xl border bg-brand-surface transition hover:-translate-y-0.5 hover:border-white/25 ${
                       s.sponsored ? "border-[#ff8c14]/40" : "border-white/10"
                     }`}
                   >
@@ -143,8 +143,8 @@ export default async function ShopsPage({ searchParams }: Props) {
                           </span>
                         )}
                       </div>
-                      {s.tagline && <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{s.tagline}</p>}
-                      <p className="mt-3 text-[12px] text-[#86868b]">
+                      {s.tagline && <p className="mt-1 line-clamp-2 text-[13px] text-brand-muted">{s.tagline}</p>}
+                      <p className="mt-3 text-[12px] text-brand-subtle">
                         {[s.category, s.city, `${s.productCount} product${s.productCount === 1 ? "" : "s"}`].filter(Boolean).join(" · ")}
                         {s.fromKobo !== null && <span className="text-white"> · from {formatKobo(s.fromKobo)}</span>}
                       </p>
@@ -155,10 +155,10 @@ export default async function ShopsPage({ searchParams }: Props) {
             </ul>
           )}
 
-          <section className="mt-16 grid gap-4 rounded-2xl border border-white/10 bg-[#141a28] p-6 sm:grid-cols-[1fr_auto] sm:items-center">
+          <section className="mt-16 grid gap-4 rounded-2xl border border-white/10 bg-brand-surface p-6 sm:grid-cols-[1fr_auto] sm:items-center">
             <div>
               <h2 className="text-[18px] font-semibold text-white">Sell here</h2>
-              <p className="mt-1 text-[14px] text-[#a1a1a6]">
+              <p className="mt-1 text-[14px] text-brand-muted">
                 Open a free shop in two minutes and get listed. Want more buyers?{" "}
                 <Link href="/get-featured" className="text-[#ff8c14] hover:underline">
                   Feature your shop
@@ -170,7 +170,7 @@ export default async function ShopsPage({ searchParams }: Props) {
               Open a free shop
             </Link>
           </section>
-          <p className="mt-6 text-[12px] text-[#6e6e73]">
+          <p className="mt-6 text-[12px] text-brand-subtle">
             Shops are run by independent sellers. Sponsored shops paid to be shown first. Payments go directly to each seller.
           </p>
         </div>

@@ -33,26 +33,26 @@ export default function GetPaidPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
-      <main className="min-h-screen bg-black pb-16 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-16 pt-24">
         <header className="mx-auto max-w-[760px] px-6 text-center">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#3ddc97]">Payment links · Paystack · reminders</p>
           <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">Send an invoice. Get paid the same day.</h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#c7cdd8]">
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-soft">
             Every invoice gets a Pay now link your customer can pay by card, transfer or USSD. The money goes to your bank, and we chase late payers for you.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link href="/tools/invoice-generator-nigeria" className="inline-flex min-h-11 items-center rounded-full bg-[#3ddc97] px-6 text-[15px] font-semibold text-black">Make an invoice</Link>
             <Link href="/stores/dashboard" className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-6 text-[15px] font-semibold text-white">Connect your bank</Link>
           </div>
-          <p className="mt-3 text-[13px] text-[#8b919c]">Free to start · {FREE_PLAN_FEE_PERCENT}% per payment · 0% on the Store plan</p>
+          <p className="mt-3 text-[13px] text-brand-subtle">Free to start · {FREE_PLAN_FEE_PERCENT}% per payment · 0% on the Store plan</p>
         </header>
 
         <ol className="mx-auto mt-14 grid max-w-[1000px] gap-4 px-6 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map(([h, body], i) => (
-            <li key={h} className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+            <li key={h} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
               <p className="text-[13px] font-semibold text-[#3ddc97]">Step {i + 1}</p>
               <h2 className="mt-1 text-[17px] font-semibold text-white">{h}</h2>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#c7cdd8]">{body}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-brand-soft">{body}</p>
             </li>
           ))}
         </ol>
@@ -66,7 +66,7 @@ export default function GetPaidPage() {
             ].map(([h, b]) => (
               <div key={h} className="rounded-2xl border border-white/10 p-5">
                 <h2 className="text-[16px] font-semibold text-white">{h}</h2>
-                <p className="mt-2 text-[14px] text-[#c7cdd8]">{b}</p>
+                <p className="mt-2 text-[14px] text-brand-soft">{b}</p>
               </div>
             ))}
           </div>
@@ -78,11 +78,11 @@ export default function GetPaidPage() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
-                <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
               </div>
             ))}
           </dl>
-          <p className="mt-8 text-[14px] text-[#a1a1a6]">
+          <p className="mt-8 text-[14px] text-brand-muted">
             Planning cash for the next three months? Try the free <Link href="/tools/cash-flow-forecast" className="text-white underline underline-offset-2">13-week cash flow forecast</Link>.
           </p>
         </section>

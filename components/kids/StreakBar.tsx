@@ -20,7 +20,7 @@ export default function StreakBar({ progress }: { progress?: Progress | null }) 
       <span className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-yellow-400/15 px-3 text-yellow-200">
         <span aria-hidden>⭐</span> {p?.stars ?? 0} stars
       </span>
-      {p?.streak && p.streak.best > 1 && <span className="text-[13px] font-normal text-[#a1a1a6]">Best streak: {p.streak.best}</span>}
+      {p?.streak && p.streak.best > 1 && <span className="text-[13px] font-normal text-brand-muted">Best streak: {p.streak.best}</span>}
     </div>
   );
 }

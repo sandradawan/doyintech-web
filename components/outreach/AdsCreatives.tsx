@@ -131,9 +131,9 @@ export default function AdsCreatives() {
       <h1 className="mt-2 text-[30px] font-semibold text-white sm:text-[36px]">
         Ads & Status creatives
       </h1>
-      <p className="mt-3 text-[15px] text-[#a1a1a6]">
+      <p className="mt-3 text-[15px] text-brand-muted">
         Copy → paste on Status, Meta, or Instagram. Pair with{" "}
-        <a href="/outreach/daily" className="text-[#2997ff] hover:underline">
+        <a href="/outreach/daily" className="text-brand-link hover:underline">
           daily prospecting
         </a>
         .
@@ -142,15 +142,15 @@ export default function AdsCreatives() {
       <h2 className="mt-10 text-[18px] font-semibold text-white">Creatives</h2>
       <div className="mt-4 space-y-4">
         {CREATIVES.map((c) => (
-          <div key={c.id} className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+          <div key={c.id} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="text-[14px] font-semibold text-white">{c.title}</p>
-                <p className="text-[11px] text-[#86868b]">{c.channel}</p>
+                <p className="text-[11px] text-brand-subtle">{c.channel}</p>
               </div>
               <CopyBtn id={c.id} body={c.body} active={copied === c.id} onCopy={onCopy} />
             </div>
-            <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-[#e8eaed]">
+            <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-brand-soft">
               {c.body}
             </pre>
           </div>
@@ -158,20 +158,20 @@ export default function AdsCreatives() {
       </div>
 
       <h2 className="mt-12 text-[18px] font-semibold text-white">Follow-up sequences</h2>
-      <p className="mt-1 text-[13px] text-[#a1a1a6]">
+      <p className="mt-1 text-[13px] text-brand-muted">
         For people who said interested, later, or went quiet. Personalize [Name] / [Business].
       </p>
       <div className="mt-4 space-y-4">
         {FOLLOWUPS.map((c) => (
-          <div key={c.id} className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-5">
+          <div key={c.id} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="text-[14px] font-semibold text-white">{c.title}</p>
-                <p className="text-[11px] text-[#86868b]">{c.channel}</p>
+                <p className="text-[11px] text-brand-subtle">{c.channel}</p>
               </div>
               <CopyBtn id={c.id} body={c.body} active={copied === c.id} onCopy={onCopy} />
             </div>
-            <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-[#e8eaed]">
+            <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-brand-soft">
               {c.body}
             </pre>
           </div>

@@ -151,10 +151,10 @@ export default function ProductUpsells({ productId }: { productId: string }) {
         <a
           key={u.title}
           href={u.href}
-          className="block rounded-xl border border-white/10 bg-[#141a28] p-4 transition hover:border-[#ff8c14]/40"
+          className="block rounded-xl border border-white/10 bg-brand-surface p-4 transition hover:border-[#ff8c14]/40"
         >
           <p className="text-[15px] font-semibold text-white">{u.title}</p>
-          <p className="mt-1 text-[13px] text-[#a1a1a6]">{u.body}</p>
+          <p className="mt-1 text-[13px] text-brand-muted">{u.body}</p>
           <p className="mt-2 text-[13px] font-semibold text-[#ff8c14]">{u.cta} →</p>
         </a>
       ))}
@@ -164,7 +164,7 @@ export default function ProductUpsells({ productId }: { productId: string }) {
           className="block rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-4"
         >
           <p className="text-[15px] font-semibold text-white">Need it built for you?</p>
-          <p className="mt-1 text-[13px] text-[#a1a1a6]">
+          <p className="mt-1 text-[13px] text-brand-muted">
             Fixed-price websites with 50% deposit on /hire
           </p>
         </a>
@@ -204,16 +204,16 @@ export function ServiceSuccessChecklist({
   return (
     <div className="mt-8 space-y-4 text-left">
       <p className="text-[15px] font-medium text-emerald-400">Deposit received — you&apos;re booked</p>
-      <p className="text-[14px] text-[#a1a1a6]">
+      <p className="text-[14px] text-brand-muted">
         Timeline starts when assets arrive. Message us now so we can open your folder and lock the
         build schedule.
       </p>
-      <ol className="list-decimal space-y-2 pl-5 text-[14px] text-[#c7cdd8]">
+      <ol className="list-decimal space-y-2 pl-5 text-[14px] text-brand-soft">
         {steps.map((s) => (
           <li key={s}>{s}</li>
         ))}
       </ol>
-      <div className="rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] text-[#a1a1a6]">
+      <div className="rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] text-brand-muted">
         <p className="font-semibold text-white">What you get next</p>
         <ul className="mt-2 list-disc space-y-1 pl-4">
           <li>Private Drive folder for logo, photos, and copy</li>
@@ -230,7 +230,7 @@ export function ServiceSuccessChecklist({
         href={wa}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex w-full items-center justify-center rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white"
+        className="inline-flex w-full items-center justify-center rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-black"
       >
         Open WhatsApp — start project + get folder
       </a>

@@ -31,7 +31,7 @@ const pillars = [
 export default function OpsLandingPage() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             DoyinTech product · DoyinOps
@@ -39,7 +39,7 @@ export default function OpsLandingPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
             Run your pipeline and money in one place
           </h1>
-          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
             DoyinOps is the SME operations layer from DoyinTech — built for businesses that live on
             WhatsApp and still lose leads and unpaid invoices. Start free in the browser today.
           </p>
@@ -61,7 +61,7 @@ export default function OpsLandingPage() {
               href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%20want%20DoyinOps%20for%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+              className="rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-black"
             >
               WhatsApp us
             </a>
@@ -71,21 +71,21 @@ export default function OpsLandingPage() {
             {pillars.map((p) => (
               <article
                 key={p.title}
-                className="rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-5"
+                className="rounded-2xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-deep p-5"
               >
                 <h2 className="text-[17px] font-semibold text-white">{p.title}</h2>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#a1a1a6]">{p.body}</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{p.body}</p>
               </article>
             ))}
           </div>
 
           <div className="mt-12 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
+            <div className="rounded-2xl border border-white/10 bg-brand-surface p-6">
               <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-400">
                 Free forever (browser)
               </p>
               <h2 className="mt-2 text-[20px] font-semibold text-white">Local workspace</h2>
-              <ul className="mt-3 space-y-1 text-[14px] text-[#a1a1a6]">
+              <ul className="mt-3 space-y-1 text-[14px] text-brand-muted">
                 <li>✓ Contacts, pipeline, invoices, tasks</li>
                 <li>✓ Data stays on this device (localStorage)</li>
                 <li>✓ Print / PDF invoices</li>
@@ -103,7 +103,7 @@ export default function OpsLandingPage() {
                 Coming · paid cloud
               </p>
               <h2 className="mt-2 text-[20px] font-semibold text-white">Team + sync tier</h2>
-              <ul className="mt-3 space-y-1 text-[14px] text-[#c7cdd8]">
+              <ul className="mt-3 space-y-1 text-[14px] text-brand-soft">
                 <li>→ Cloud accounts + multi-device sync</li>
                 <li>→ Team seats for staff</li>
                 <li>→ Paystack payment links on invoices</li>

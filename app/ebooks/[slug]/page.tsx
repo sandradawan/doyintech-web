@@ -78,7 +78,7 @@ export default async function EbookDetailPage({ params }: Props) {
       bookFormat: "https://schema.org/EBook",
       inLanguage: "en-NG",
       genre: book.category,
-      image: book.coverImage,
+      image: absoluteUrl(book.coverImage),
       url,
       offers: { "@type": "Offer", price: String(book.priceNgn), priceCurrency: "NGN", availability: book.onSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url },
     },
@@ -95,7 +95,7 @@ export default async function EbookDetailPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
           <Link href="/ebooks" className="text-[14px] text-[#ff8c14] hover:underline">
             ← All ebooks
@@ -114,12 +114,12 @@ export default async function EbookDetailPage({ params }: Props) {
               <h1 className="mt-3 text-[30px] font-semibold tracking-tight text-white sm:text-[36px]">
                 {book.title}
               </h1>
-              <p className="mt-2 text-[16px] text-[#a1a1a6]">{book.subtitle}</p>
-              <p className="mt-3 text-[13px] text-[#86868b]">
+              <p className="mt-2 text-[16px] text-brand-muted">{book.subtitle}</p>
+              <p className="mt-3 text-[13px] text-brand-subtle">
                 {book.author} · {book.pagesLabel} · {book.category}
                 {book.onSale && <> · {formatEbookPrice(book.priceNgn)}</>}
               </p>
-              <p className="mt-6 text-[15px] leading-relaxed text-[#c7cdd8]">{book.blurb}</p>
+              <p className="mt-6 text-[15px] leading-relaxed text-brand-soft">{book.blurb}</p>
               <ul className="mt-6 space-y-2">
                 {book.benefits.map((b) => (
                   <li key={b} className="flex gap-2 text-[14px] text-white">
@@ -135,12 +135,12 @@ export default async function EbookDetailPage({ params }: Props) {
               {found.chapters.length > 0 && (
                 <section aria-labelledby="contents-heading" className="mb-10">
                   <h2 id="contents-heading" className="text-[22px] font-semibold text-white">What&apos;s inside</h2>
-                  <ol className="mt-3 space-y-1.5 text-[15px] text-[#c7cdd8]">
+                  <ol className="mt-3 space-y-1.5 text-[15px] text-brand-soft">
                     {found.chapters.map((ch) => <li key={ch.title}>{ch.title}</li>)}
                   </ol>
                 </section>
               )}
-              <h2 className="text-[13px] font-semibold uppercase tracking-wide text-[#86868b]">
+              <h2 className="text-[13px] font-semibold uppercase tracking-wide text-brand-subtle">
                 Read a sample
               </h2>
               <div className="mt-4">

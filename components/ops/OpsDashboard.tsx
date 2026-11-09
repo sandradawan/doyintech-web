@@ -21,7 +21,7 @@ import { exportContactsCsv, exportDealsCsv, exportInvoicesCsv } from "@/lib/ops/
 import { getSupabaseBrowser } from "@/lib/supabase/client";
 
 type Tab = "home" | "agenda" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
-const field = "w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
+const field = "w-full rounded-lg border border-white/10 bg-brand-deep px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
 const btnP = "rounded-lg bg-[#ff8c14] px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
 const btnG = "rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 hover:bg-white/10";
 const NAV: { id: Tab; label: string }[] = [
@@ -230,7 +230,7 @@ export default function OpsDashboard() {
         ]}
       />
       {menu && <button type="button" className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setMenu(false)} aria-label="Close" />}
-      <aside className={`fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-white/[0.06] bg-[#0a0f1a] pt-12 transition-transform lg:static lg:translate-x-0 lg:pt-0 ${menu ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-white/[0.06] bg-brand-deep pt-12 transition-transform lg:static lg:translate-x-0 lg:pt-0 ${menu ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-4">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#ff8c14] text-sm font-bold text-black">D</div>
           <div className="min-w-0"><p className="text-sm font-semibold text-white">DoyinOps</p><p className="truncate text-[11px] text-white/40">{data.orgName}</p></div>
@@ -250,7 +250,7 @@ export default function OpsDashboard() {
         </div>
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-12 z-30 flex items-center justify-between gap-3 border-b border-white/[0.06] bg-[#070b12]/95 px-4 py-3 backdrop-blur lg:top-0 lg:px-8">
+        <header className="sticky top-12 z-30 flex items-center justify-between gap-3 border-b border-white/[0.06] bg-brand-deepest/95 px-4 py-3 backdrop-blur lg:top-0 lg:px-8">
           <div className="flex items-center gap-3">
             <button type="button" className="rounded-lg border border-white/10 p-2 lg:hidden" onClick={() => setMenu(true)} aria-label="Menu">☰</button>
             <h1 className="text-lg font-semibold text-white">{NAV.find((n) => n.id === tab)?.label}</h1>
@@ -261,10 +261,10 @@ export default function OpsDashboard() {
                 value={globalQ}
                 onChange={(e) => setGlobalQ(e.target.value)}
                 placeholder="Search everything…"
-                className="w-full rounded-lg border border-white/10 bg-[#0c1220] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60"
+                className="w-full rounded-lg border border-white/10 bg-brand-deep px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60"
               />
               {globalQ.trim() && globalHits.length > 0 && (
-                <ul className="absolute right-0 z-50 mt-1 max-h-72 w-80 overflow-y-auto rounded-xl border border-white/10 bg-[#0c1220] py-1 shadow-xl">
+                <ul className="absolute right-0 z-50 mt-1 max-h-72 w-80 overflow-y-auto rounded-xl border border-white/10 bg-brand-deep py-1 shadow-xl">
                   {globalHits.map((h) => (
                     <li key={h.type + h.id}>
                       <button
@@ -310,7 +310,7 @@ export default function OpsDashboard() {
                       return (
                         <li key={d.id} className="flex justify-between gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2">
                           <div><p className="text-sm text-white">{d.title}</p><p className="text-[11px] text-white/45">{nameOf(d.contactId)} · {d.nextFollowUp}</p></div>
-                          {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="self-center rounded-md bg-[#25D366] px-2 py-1 text-[11px] font-semibold text-white">WA</a>}
+                          {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="self-center rounded-md bg-[#25D366] px-2 py-1 text-[11px] font-semibold text-black">WA</a>}
                         </li>
                       );
                     })}</ul>
@@ -368,7 +368,7 @@ export default function OpsDashboard() {
                 if (!c.name) return;
                 setWs((w) => w ? { ...normalizeWs(w), contacts: [c, ...w.contacts] } : w);
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
+              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
                 <h2 className="text-sm font-semibold text-white">New contact</h2>
                 <input name="name" required placeholder="Name *" className={field} />
                 <input name="business" placeholder="Business" className={field} />
@@ -385,7 +385,7 @@ export default function OpsDashboard() {
                   {contacts.map((c: Contact) => {
                     const wa = whatsappHref(c.phone, `Hi ${c.name},`);
                     return (
-                      <div key={c.id} className="rounded-xl border border-white/[0.06] bg-[#0c1220] p-4">
+                      <div key={c.id} className="rounded-xl border border-white/[0.06] bg-brand-deep p-4">
                         <button type="button" className="w-full text-left" onClick={() => setSelectedContact(c)}>
                           <p className="font-semibold text-white">{c.name}</p>
                           <p className="text-[12px] text-white/45">{[c.business, c.phone, c.email].filter(Boolean).join(" · ")}</p>
@@ -413,7 +413,7 @@ export default function OpsDashboard() {
                 const d = newDeal({ contactId, title: String(fd.get("title") || "").trim() || "New deal", stage: "lead", valueNgn: Number(fd.get("valueNgn") || 0) || 0, nextFollowUp: String(fd.get("nextFollowUp") || "") || undefined });
                 setWs((w) => w ? { ...normalizeWs(w), deals: [d, ...w.deals] } : w);
                 e.currentTarget.reset();
-              }} className="grid gap-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5 sm:grid-cols-4">
+              }} className="grid gap-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5 sm:grid-cols-4">
                 <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Contact *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
                 <input name="title" placeholder="Title" className={field} />
                 <input name="valueNgn" type="number" placeholder="NGN" className={field} />
@@ -424,14 +424,14 @@ export default function OpsDashboard() {
                 {DEAL_STAGES.filter((s) => s.id !== "lost").map((stage) => {
                   const list = data.deals.filter((d) => d.stage === stage.id);
                   return (
-                    <div key={stage.id} className="w-[240px] shrink-0 rounded-xl border border-white/[0.06] bg-[#0c1220]">
+                    <div key={stage.id} className="w-[240px] shrink-0 rounded-xl border border-white/[0.06] bg-brand-deep">
                       <p className="border-b border-white/[0.06] px-3 py-2 text-[11px] font-semibold uppercase text-[#ff8c14]">{stage.label} ({list.length})</p>
                       <ul className="max-h-[420px] space-y-2 overflow-y-auto p-2">
                         {list.map((d: Deal) => (
-                          <li key={d.id} className="rounded-lg border border-white/[0.06] bg-[#070b12] p-3">
+                          <li key={d.id} className="rounded-lg border border-white/[0.06] bg-brand-deepest p-3">
                             <p className="text-sm text-white">{d.title}</p>
                             <p className="text-[11px] text-white/45">{nameOf(d.contactId)} · {formatNgn(d.valueNgn)}</p>
-                            <select value={d.stage} onChange={(e) => setWs((w) => w ? { ...normalizeWs(w), deals: w.deals.map((x) => x.id === d.id ? { ...x, stage: e.target.value as DealStage, updatedAt: new Date().toISOString() } : x) } : w)} className="mt-2 w-full rounded border border-white/10 bg-[#0c1220] px-2 py-1 text-xs text-white">
+                            <select value={d.stage} onChange={(e) => setWs((w) => w ? { ...normalizeWs(w), deals: w.deals.map((x) => x.id === d.id ? { ...x, stage: e.target.value as DealStage, updatedAt: new Date().toISOString() } : x) } : w)} className="mt-2 w-full rounded border border-white/10 bg-brand-deep px-2 py-1 text-xs text-white">
                               {DEAL_STAGES.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
                             </select>
                           </li>
@@ -454,7 +454,7 @@ export default function OpsDashboard() {
                 const qt = newQuote({ contactId, amountNgn: Number(fd.get("amountNgn") || 0) || 0, description: String(fd.get("description") || "").trim() || "Project quote", status: "sent", validUntil: String(fd.get("validUntil") || todayIsoDate()) }, (data.quotes || []).length + 1);
                 setWs((w) => { if (!w) return w; return pushActivity({ ...normalizeWs(w), quotes: [qt, ...(w.quotes || [])] }, `Quote ${qt.number} created`); });
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
+              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
                 <h2 className="text-sm font-semibold text-white">New quote</h2>
                 <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Client *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
                 <input name="amountNgn" type="number" required placeholder="Amount" className={field} />
@@ -467,14 +467,14 @@ export default function OpsDashboard() {
                   const c = byId(qt.contactId);
                   const wa = whatsappHref(c?.phone, quoteMessage(data.orgName, qt, c?.name || "there"));
                   return (
-                    <div key={qt.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-4">
+                    <div key={qt.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-brand-deep p-4">
                       <div>
                         <p className="font-semibold text-white">{qt.number} <StatusPill status={qt.status} /></p>
                         <p className="text-[13px] text-white/50">{nameOf(qt.contactId)} · {formatNgn(qt.amountNgn)}</p>
                         <p className="text-[13px] text-white/70">{qt.description}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {wa && qt.status !== "converted" && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-white">Send WA</a>}
+                        {wa && qt.status !== "converted" && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-black">Send WA</a>}
                         {qt.status !== "converted" && (
                           <button type="button" className={btnG} onClick={() => setWs((w) => {
                             if (!w) return w;
@@ -504,7 +504,7 @@ export default function OpsDashboard() {
                 const inv = newInvoice({ contactId, amountNgn: Number(fd.get("amountNgn") || 0) || 0, status: "sent", description: String(fd.get("description") || "").trim() || "Services", dueDate: String(fd.get("dueDate") || todayIsoDate()) }, data.invoices.length + 1);
                 setWs((w) => w ? pushActivity({ ...normalizeWs(w), invoices: [inv, ...w.invoices] }, `Invoice ${inv.number} created`) : w);
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
+              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
                 <h2 className="text-sm font-semibold text-white">New invoice</h2>
                 <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Client *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
                 <input name="amountNgn" type="number" required placeholder="Amount" className={field} />
@@ -518,7 +518,7 @@ export default function OpsDashboard() {
                   const remindBody = invoiceReminderMessage(data.orgName, inv, c?.name || "there") + (inv.paymentUrl ? `\n\nPay online: ${inv.paymentUrl}` : "");
                   const wa = whatsappHref(c?.phone, remindBody);
                   return (
-                    <div key={inv.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-4">
+                    <div key={inv.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-brand-deep p-4">
                       <div>
                         <p className="font-semibold text-white">{inv.number} <StatusPill status={inv.status} /></p>
                         <p className="text-[13px] text-white/50">{nameOf(inv.contactId)} · {formatNgn(inv.amountNgn)}</p>
@@ -529,7 +529,7 @@ export default function OpsDashboard() {
                         <button type="button" onClick={() => setPrintInv(inv)} className={btnG}>Print</button>
                         {inv.status !== "paid" && <button type="button" disabled={payBusy === inv.id} onClick={() => createPayLink(inv)} className="rounded-lg bg-[#0a5cbf] px-3 py-2 text-xs font-semibold text-white disabled:opacity-50">{payBusy === inv.id ? "…" : "Pay link"}</button>}
                         {inv.status !== "paid" && <button type="button" className="rounded-lg bg-emerald-500/15 px-3 py-2 text-xs font-semibold text-emerald-400" onClick={() => setWs((w) => w ? { ...normalizeWs(w), invoices: w.invoices.map((i) => i.id === inv.id ? { ...i, status: "paid" as const, paidAt: new Date().toISOString() } : i) } : w)}>Paid</button>}
-                        {wa && inv.status !== "paid" && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-white">Remind</a>}
+                        {wa && inv.status !== "paid" && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-black">Remind</a>}
                       </div>
                     </div>
                   );
@@ -549,7 +549,7 @@ export default function OpsDashboard() {
                 const t = newTask({ title, dueDate: String(fd.get("dueDate") || "") || undefined, contactId: String(fd.get("contactId") || "") || undefined });
                 setWs((w) => w ? { ...normalizeWs(w), tasks: [t, ...(w.tasks || [])] } : w);
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-5">
+              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
                 <h2 className="text-sm font-semibold text-white">New task</h2>
                 <input name="title" required placeholder="Task *" className={field} />
                 <input name="dueDate" type="date" className={field} />
@@ -558,7 +558,7 @@ export default function OpsDashboard() {
               </form>
               <ul className="space-y-2">
                 {data.tasks.map((t: Task) => (
-                  <li key={t.id} className={`flex justify-between rounded-xl border border-white/[0.06] px-4 py-3 ${t.done ? "opacity-50" : "bg-[#0c1220]"}`}>
+                  <li key={t.id} className={`flex justify-between rounded-xl border border-white/[0.06] px-4 py-3 ${t.done ? "opacity-50" : "bg-brand-deep"}`}>
                     <label className="flex gap-3 text-sm text-white">
                       <input type="checkbox" checked={t.done} onChange={() => setWs((w) => w ? { ...normalizeWs(w), tasks: (w.tasks || []).map((x) => x.id === t.id ? { ...x, done: !x.done } : x) } : w)} />
                       <span className={t.done ? "line-through" : ""}>{t.title}</span>
@@ -586,7 +586,7 @@ export default function OpsDashboard() {
                 };
                 const orgName = String(fd.get("orgName") || "").trim() || data.orgName;
                 setWs((w) => w ? { ...normalizeWs(w), orgName, profile } : w);
-              }} className="space-y-3 rounded-xl border border-white/[0.06] bg-[#0c1220] p-6">
+              }} className="space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-6">
                 <h2 className="text-sm font-semibold text-white">Business profile</h2>
                 <input name="orgName" defaultValue={data.orgName} placeholder="Workspace name" className={field} />
                 <input name="legalName" defaultValue={data.profile.legalName || ""} placeholder="Legal name" className={field} />

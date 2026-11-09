@@ -118,7 +118,7 @@ export default function PipelineBoard() {
       />
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search leads…" aria-label="Search leads" className={`${inputCls} max-w-sm`} />
-        <span className="text-[13px] text-[#86868b]">
+        <span className="text-[13px] text-brand-subtle">
           Open pipeline <strong className="text-white">{naira(openValue)}</strong>
         </span>
         {loading && <Spinner />}
@@ -145,7 +145,7 @@ export default function PipelineBoard() {
                   const lead = LEAD_STAGES.flatMap((s) => cols[s]?.rows || []).find((l) => l.id === id);
                   if (lead) void move(lead, stage);
                 }}
-                className={`flex min-h-[420px] flex-col rounded-2xl border bg-[#0b0d13] transition ${
+                className={`flex min-h-[420px] flex-col rounded-2xl border bg-brand-deep transition ${
                   dragOver === stage ? "border-[#ff8c14]/60 bg-[#ff8c14]/[0.04]" : "border-white/[0.07]"
                 }`}
               >
@@ -153,9 +153,9 @@ export default function PipelineBoard() {
                   <div className="flex items-center gap-2">
                     <span className={`h-2 w-2 rounded-full ${STAGE_ACCENT[stage]}`} />
                     <h2 className="text-[13px] font-semibold text-white">{STAGE_LABEL[stage]}</h2>
-                    <span className="ml-auto rounded-full bg-white/[0.06] px-2 py-0.5 text-[11px] text-[#a1a1a6]">{col.total}</span>
+                    <span className="ml-auto rounded-full bg-white/[0.06] px-2 py-0.5 text-[11px] text-brand-muted">{col.total}</span>
                   </div>
-                  {value > 0 && <p className="mt-1 text-[11px] text-[#86868b]">{naira(value)}</p>}
+                  {value > 0 && <p className="mt-1 text-[11px] text-brand-subtle">{naira(value)}</p>}
                 </header>
                 <div className="flex-1 space-y-2 p-2">
                   {col.rows.map((l) => {
@@ -166,14 +166,14 @@ export default function PipelineBoard() {
                         draggable
                         onDragStart={(e) => e.dataTransfer.setData("text/lead", l.id)}
                         onClick={() => setDrawer({ record: l })}
-                        className="cursor-pointer rounded-xl border border-white/[0.07] bg-[#11141c] p-3 transition hover:border-white/20"
+                        className="cursor-pointer rounded-xl border border-white/[0.07] bg-brand-surface p-3 transition hover:border-white/20"
                       >
                         <p className="truncate text-[13px] font-semibold text-white">{l.name}</p>
-                        {(l.company || l.product) && <p className="truncate text-[12px] text-[#a1a1a6]">{l.company || l.product}</p>}
+                        {(l.company || l.product) && <p className="truncate text-[12px] text-brand-muted">{l.company || l.product}</p>}
                         <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]">
                           {l.value_ngn ? <span className="font-semibold text-[#ffb366]">{naira(Number(l.value_ngn))}</span> : null}
                           {l.next_follow_up && (
-                            <span className={overdue ? "font-semibold text-red-300" : "text-[#86868b]"}>
+                            <span className={overdue ? "font-semibold text-red-300" : "text-brand-subtle"}>
                               {overdue ? "Follow up " : "Next "}
                               {formatDate(l.next_follow_up)}
                             </span>
@@ -184,7 +184,7 @@ export default function PipelineBoard() {
                           value=""
                           onClick={(e) => e.stopPropagation()}
                           onChange={(e) => e.target.value && void move(l, e.target.value)}
-                          className="mt-2 w-full rounded-md border border-white/10 bg-black/30 px-2 py-1 text-[11px] text-[#a1a1a6] outline-none"
+                          className="mt-2 w-full rounded-md border border-white/10 bg-black/30 px-2 py-1 text-[11px] text-brand-muted outline-none"
                         >
                           <option value="">Move to…</option>
                           {LEAD_STAGES.filter((s) => s !== stage).map((s) => (
@@ -197,7 +197,7 @@ export default function PipelineBoard() {
                     );
                   })}
                   {col.total > col.rows.length && (
-                    <p className="px-1 text-center text-[11px] text-[#6e6e73]">+{col.total - col.rows.length} more. Use search or the Leads table.</p>
+                    <p className="px-1 text-center text-[11px] text-brand-subtle">+{col.total - col.rows.length} more. Use search or the Leads table.</p>
                   )}
                 </div>
               </section>

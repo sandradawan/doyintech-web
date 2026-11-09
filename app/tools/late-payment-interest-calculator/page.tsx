@@ -37,7 +37,7 @@ export default function Page() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Send invoices that get paid</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">Make a professional invoice in any currency and state your late payment terms on it.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">Make a professional invoice in any currency and state your late payment terms on it.</p>
           <Link href="/tools/invoice-generator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Free invoice generator</Link>
         </>
       }
@@ -45,7 +45,7 @@ export default function Page() {
       <section>
         <h2 className="text-[22px] font-semibold text-white">UK fixed compensation</h2>
         <table className="mt-4 w-full text-left text-[15px]">
-          <thead><tr className="border-b border-white/10 text-[#a1a1a6]"><th className="py-2 font-medium">Amount owed</th><th className="py-2 font-medium">Compensation</th></tr></thead>
+          <thead><tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Amount owed</th><th className="py-2 font-medium">Compensation</th></tr></thead>
           <tbody>
             <tr className="border-b border-white/5"><td className="py-2 text-white">Under £1,000</td><td className="py-2">£40</td></tr>
             <tr className="border-b border-white/5"><td className="py-2 text-white">£1,000 to £9,999.99</td><td className="py-2">£70</td></tr>

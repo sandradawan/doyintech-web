@@ -63,7 +63,7 @@ export default function FreelancerTaxCalculatorPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Look established to clients</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             A portfolio website with your services and a way to pay you online wins better
             clients than a WhatsApp number alone.{" "}
             <Link href="/hire" className="text-[#ff8c14] hover:underline">
@@ -98,7 +98,7 @@ export default function FreelancerTaxCalculatorPage() {
           .
         </p>
       </section>
-      <p className="text-[12px] text-[#86868b]">
+      <p className="text-[12px] text-brand-subtle">
         Planning estimate, not tax advice. Rules reviewed October 2026 from the Nigeria Tax Act
         2025 and reporting by{" "}
         <a className="underline" href="https://techpoint.africa/insight/freelancers-and-remote-workers-nigerias-tax-laws/" rel="noopener noreferrer" target="_blank">Techpoint</a> and{" "}

@@ -13,9 +13,9 @@ export const metadata: Metadata = { alternates: { canonical: "/blog/whatsapp-boo
 export default function WhatsAppBookingPost() {
   return (
     <>
-      <main className="bg-black pb-24 pt-28">
+      <main className="bg-brand-deep pb-24 pt-28">
         <article className="mx-auto max-w-[680px] px-6">
-          <Link href="/blog" className="text-sm text-[#2997ff] hover:underline">
+          <Link href="/blog" className="text-sm text-brand-link hover:underline">
             ← Blog
           </Link>
           <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
@@ -24,12 +24,12 @@ export default function WhatsAppBookingPost() {
           <h1 className="mt-3 text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[40px]">
             WhatsApp booking system for Nigerian SMEs
           </h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
             Your customers already live on WhatsApp. The job of your website is not to replace it —
             it is to hand them into a clear booking chat in one tap.
           </p>
 
-          <div className="mt-10 space-y-6 text-[16px] leading-relaxed text-[#c7cdd8]">
+          <div className="mt-10 space-y-6 text-[16px] leading-relaxed text-brand-soft">
             <section>
               <h2 className="mb-3 text-[22px] font-semibold text-white">Why WhatsApp beats &quot;book online&quot; forms</h2>
               <p>
@@ -53,7 +53,7 @@ export default function WhatsAppBookingPost() {
                 For LegacyPlay (PlayStation lounge), we built a bold site with clear station
                 pricing and WhatsApp reservation — so walk-ins and online visitors use the same
                 path.{" "}
-                <Link href="/case-studies/legacyplay" className="text-[#2997ff] hover:underline">
+                <Link href="/case-studies/legacyplay" className="text-brand-link hover:underline">
                   Read the case study
                 </Link>
                 .
@@ -64,7 +64,7 @@ export default function WhatsAppBookingPost() {
               <p>
                 Landing page from ₦100,000 · Local business site ₦250,000 · WhatsApp + booking
                 system packages also available. 50% deposit via Paystack. See{" "}
-                <Link href="/hire" className="text-[#2997ff] hover:underline">
+                <Link href="/hire" className="text-brand-link hover:underline">
                   hire packages
                 </Link>
                 .
@@ -76,7 +76,7 @@ export default function WhatsAppBookingPost() {
             <p className="text-[15px] font-semibold text-white">
               Want a booking path that staff can run?
             </p>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               Free audit of your current site, or book a 15-minute discovery call.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
@@ -96,13 +96,13 @@ export default function WhatsAppBookingPost() {
                 href={discoveryCallLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#2997ff]"
+                className="rounded-full px-5 py-2.5 text-sm font-semibold text-brand-link"
               >
                 WhatsApp us
               </a>
             </div>
           </div>
-                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+                  <p className="mt-8 text-[14px] text-brand-muted">
             Ready to build? See our <Link href="/websites/hotels" className="text-[#ff8c14] hover:underline">hotel and shortlet websites with WhatsApp booking</Link>.
           </p>
           <BlogPostExtras slug="whatsapp-booking-system-nigeria" title={"WhatsApp Booking System for Nigerian Small Businesses"} description={"How to combine a simple website with WhatsApp so customers book stations, appointments, and services without friction. Fixed-price options from DoyinTech."} published="2026-09-18" />

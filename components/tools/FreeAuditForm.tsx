@@ -54,9 +54,9 @@ export default function FreeAuditForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-left shadow-xl"
+      className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-left shadow-xl"
     >
-      <label className="block text-[13px] font-medium text-[#f5f5f7]">
+      <label className="block text-[13px] font-medium text-brand-ink">
         Website URL
         <input
           type="url"
@@ -68,7 +68,7 @@ export default function FreeAuditForm() {
       </label>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <label className="block text-[13px] font-medium text-[#f5f5f7]">
+        <label className="block text-[13px] font-medium text-brand-ink">
           Business type
           <input
             type="text"
@@ -78,7 +78,7 @@ export default function FreeAuditForm() {
             className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
           />
         </label>
-        <label className="block text-[13px] font-medium text-[#f5f5f7]">
+        <label className="block text-[13px] font-medium text-brand-ink">
           Your name
           <input
             type="text"
@@ -90,9 +90,9 @@ export default function FreeAuditForm() {
         </label>
       </div>
 
-      <label className="block text-[13px] font-medium text-[#f5f5f7] mt-4">
+      <label className="block text-[13px] font-medium text-brand-ink mt-4">
         Email{" "}
-        <span className="font-normal text-[#86868b]">
+        <span className="font-normal text-brand-subtle">
           (so we can send the audit notes if WhatsApp is busy)
         </span>
         <input
@@ -104,7 +104,7 @@ export default function FreeAuditForm() {
         />
       </label>
 
-      <label className="mt-4 block text-[13px] font-medium text-[#f5f5f7]">
+      <label className="mt-4 block text-[13px] font-medium text-brand-ink">
         Main goal
         <select
           value={goal}
@@ -124,11 +124,11 @@ export default function FreeAuditForm() {
       <button
         type="submit"
         disabled={sending}
-        className="mt-6 flex w-full items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
+        className="mt-6 flex w-full items-center justify-center rounded-full bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-black transition hover:brightness-110 disabled:opacity-60"
       >
         {sending ? "Opening WhatsApp…" : "Send my URL on WhatsApp"}
       </button>
-      <p className="mt-3 text-center text-[12px] text-[#86868b]">
+      <p className="mt-3 text-center text-[12px] text-brand-subtle">
         Opens WhatsApp with your details. Email is optional but helps us follow up with fixes.
       </p>
     </form>

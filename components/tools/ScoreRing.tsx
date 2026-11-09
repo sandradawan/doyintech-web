@@ -49,7 +49,7 @@ export default function ScoreRing({
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="font-display text-3xl font-bold text-white">{clamped}</span>
-        <span className="text-[10px] uppercase tracking-wider text-gray-400">
+        <span className="text-[10px] uppercase tracking-wider text-brand-muted">
           {label || "/ 100"}
         </span>
       </div>

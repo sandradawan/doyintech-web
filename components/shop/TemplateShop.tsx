@@ -13,11 +13,11 @@ export function TemplateCard({ item }: { item: PageTemplate }) {
   return (
     <Link
       href={`/templates/${item.slug}`}
-      className="group flex h-full flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-4 transition hover:border-[#ff8c14]/40"
+      className="group flex h-full flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-deep p-4 transition hover:border-[#ff8c14]/40"
     >
       <TemplateLivePreview slug={item.slug} />
       <div className="mt-3 flex items-start justify-between gap-2">
-        <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{item.category}</p>
+        <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{item.category}</p>
         {item.badge && (
           <span className="rounded-full bg-[#ff8c14]/15 px-2 py-0.5 text-[10px] font-semibold text-[#ff8c14]">
             {item.badge}
@@ -27,7 +27,7 @@ export function TemplateCard({ item }: { item: PageTemplate }) {
       <h3 className="mt-1 text-[17px] font-semibold text-white group-hover:text-[#ff8c14]">
         {item.name}
       </h3>
-      <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{item.tagline}</p>
+      <p className="mt-1 line-clamp-2 text-[13px] text-brand-muted">{item.tagline}</p>
       <div className="mt-auto mt-4 flex items-center justify-between border-t border-white/10 pt-3">
         <span className="text-[16px] font-semibold text-white">{formatTplPrice(item.priceNgn)}</span>
         <span className="text-[12px] text-[#ff8c14]">Watch + buy →</span>
@@ -65,10 +65,10 @@ export function TemplateBuyPanel({ item }: { item: PageTemplate }) {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+    <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
       <p className="text-[28px] font-semibold text-white">{formatTplPrice(item.priceNgn)}</p>
-      <p className="mt-1 text-[12px] text-[#a1a1a6]">One-time · Full page.tsx source unlock</p>
-      <label className="mt-4 block text-[12px] text-[#a1a1a6]">
+      <p className="mt-1 text-[12px] text-brand-muted">One-time · Full page.tsx source unlock</p>
+      <label className="mt-4 block text-[12px] text-brand-muted">
         Email
         <input
           type="email"
@@ -114,19 +114,19 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
   }
 
   if (unlock.status === "checking") {
-    return <p className="text-[13px] text-[#86868b]">Checking your purchase…</p>;
+    return <p className="text-[13px] text-brand-subtle">Checking your purchase…</p>;
   }
 
   if (unlock.status === "locked") {
     return (
       <div className="space-y-3">
-        <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+        <p className="text-[12px] font-semibold uppercase tracking-wide text-brand-subtle">
           Template outline (preview)
         </p>
-        <pre className="overflow-x-auto whitespace-pre-wrap rounded-xl border border-white/10 bg-black/50 p-4 text-[12px] leading-relaxed text-[#a1a1a6]">
+        <pre className="overflow-x-auto whitespace-pre-wrap rounded-xl border border-white/10 bg-black/50 p-4 text-[12px] leading-relaxed text-brand-muted">
           {item.previewOutline}
         </pre>
-        <p className="text-[13px] text-[#86868b]">
+        <p className="text-[13px] text-brand-subtle">
           Full Next.js page.tsx source unlocks after payment.
         </p>
       </div>
@@ -147,9 +147,9 @@ export function TemplateGuideGate({ item }: { item: PageTemplate }) {
         </button>
       </div>
       {fullGuide && (
-        <p className="whitespace-pre-line text-[13px] leading-relaxed text-[#c7cdd8]">{fullGuide}</p>
+        <p className="whitespace-pre-line text-[13px] leading-relaxed text-brand-soft">{fullGuide}</p>
       )}
-      <pre className="max-h-[480px] overflow-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[11px] leading-relaxed text-[#c7cdd8]">
+      <pre className="max-h-[480px] overflow-auto rounded-xl border border-white/10 bg-black/50 p-4 text-[11px] leading-relaxed text-brand-soft">
         {fullCode}
       </pre>
     </div>

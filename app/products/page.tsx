@@ -31,11 +31,11 @@ export default function ProductsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-black pb-16 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-16 pt-24">
         <div className="mx-auto max-w-[760px] px-6 pb-10 text-center">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">Instant download · Paystack · NGN</p>
           <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">Templates and kits that do the paperwork for you</h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
             Ready-to-use packs for business owners, offices and HR, schools, churches, NGOs and students. Each one is a guide plus spreadsheets you can open in Excel or Google Sheets the minute you pay.
           </p>
         </div>

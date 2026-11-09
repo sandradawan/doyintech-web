@@ -113,7 +113,7 @@ export default function RootLayout({
         />
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
-      <body className={`${inter.variable} bg-black text-[#f5f5f7] antialiased`}>
+      <body className={`${inter.variable} bg-brand-deep text-brand-ink antialiased`}>
         <ToastProvider>
           <SkipToContent />
           <Navbar />

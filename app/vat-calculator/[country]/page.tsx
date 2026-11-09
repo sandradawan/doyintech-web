@@ -83,7 +83,7 @@ export default async function VatCountryPage({ params }: Params) {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Invoice your customers in {v.currency}</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">The free invoice generator adds {v.tax} at {pct(v.standard)}, totals it in {v.currency}, and saves a professional PDF.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">The free invoice generator adds {v.tax} at {pct(v.standard)}, totals it in {v.currency}, and saves a professional PDF.</p>
           <Link href={`/tools/invoice-generator?currency=${v.currency}&tax=${defaultRate}`} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Make an invoice</Link>
         </>
       }
@@ -91,7 +91,7 @@ export default async function VatCountryPage({ params }: Params) {
       <section>
         <h2 className="text-[22px] font-semibold text-white">{v.tax} rates in {v.country}</h2>
         <table className="mt-4 w-full text-left text-[15px]">
-          <thead><tr className="border-b border-white/10 text-[#a1a1a6]"><th className="py-2 font-medium">Rate</th><th className="py-2 font-medium">{v.tax} on {money(v, 1000)}</th></tr></thead>
+          <thead><tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Rate</th><th className="py-2 font-medium">{v.tax} on {money(v, 1000)}</th></tr></thead>
           <tbody>
             {presets.map((p) => (
               <tr key={p.label} className="border-b border-white/5"><td className="py-2 text-white">{p.label}</td><td className="py-2">{money(v, vatSplit(1000, p.rate, "add").tax)}</td></tr>

@@ -22,7 +22,7 @@ const checks = [
 export default function FreeAuditPage() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <div className="text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
@@ -31,7 +31,7 @@ export default function FreeAuditPage() {
             <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
               Free 3-minute website audit
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[#a1a1a6]">
+            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-brand-muted">
               Drop your URL below. We reply with 2–3 specific problems holding back enquiries —
               and whether a small fix or a rebuild makes sense. Honest next step, not a hard sell.
             </p>
@@ -46,7 +46,7 @@ export default function FreeAuditPage() {
               href={discoveryCallLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[14px] font-semibold text-[#2997ff] hover:underline"
+              className="text-[14px] font-semibold text-brand-link hover:underline"
             >
               Prefer a 15-min call instead?
             </a>
@@ -62,7 +62,7 @@ export default function FreeAuditPage() {
               downloadHref="/digital-products/free-whatsapp-reply-scripts.md"
               downloadLabel="Download scripts again"
             />
-            <p className="mt-4 text-center text-[13px] text-[#86868b]">
+            <p className="mt-4 text-center text-[13px] text-brand-subtle">
               Ready for the full system?{" "}
               <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
                 Browse kits
@@ -75,29 +75,29 @@ export default function FreeAuditPage() {
             </p>
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-6">
+          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[15px] font-semibold text-white">What we check</h2>
             <ul className="mt-4 space-y-2">
               {checks.map((c) => (
-                <li key={c} className="flex gap-2 text-[14px] text-[#c7cdd8]">
+                <li key={c} className="flex gap-2 text-[14px] text-brand-soft">
                   <span className="text-[#ff8c14]">✓</span> {c}
                 </li>
               ))}
             </ul>
-            <p className="mt-5 text-[13px] text-[#86868b]">
+            <p className="mt-5 text-[13px] text-brand-subtle">
               Self-check first: if you answer &quot;no&quot; to two or more, a focused landing page
               or rebuild usually pays for itself in enquiries.
             </p>
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6 text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6 text-center">
+            <p className="text-[12px] font-semibold uppercase tracking-wide text-brand-subtle">
               After the audit
             </p>
             <h2 className="mt-2 text-[20px] font-semibold text-white">
               Many clients book a fixed-price site
             </h2>
-            <p className="mx-auto mt-2 max-w-md text-[14px] text-[#a1a1a6]">
+            <p className="mx-auto mt-2 max-w-md text-[14px] text-brand-muted">
               Landing Page Starter ₦100,000 · Local Business Website ₦250,000 · 50% deposit via
               Paystack.
             </p>

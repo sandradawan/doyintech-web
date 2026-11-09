@@ -425,7 +425,7 @@ export default function ShopClient({
               href={waChat}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-[#25D366] px-5 py-3 text-[14px] font-semibold text-white shadow-sm transition hover:brightness-95 sm:self-center"
+              className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-[#25D366] px-5 py-3 text-[14px] font-semibold text-black shadow-sm transition hover:brightness-95 sm:self-center"
             >
               <FaWhatsapp size={17} /> Chat with us
             </a>
@@ -828,7 +828,7 @@ export default function ShopClient({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-semibold ${
-                        canPay ? "border border-black/10 text-[#111] hover:bg-black/[0.03]" : "bg-[#25D366] text-white hover:brightness-95"
+                        canPay ? "border border-black/10 text-[#111] hover:bg-black/[0.03]" : "bg-[#25D366] text-black hover:brightness-95"
                       }`}
                     >
                       <FaWhatsapp size={18} className={canPay ? "text-[#25D366]" : ""} /> Send order on WhatsApp
@@ -893,7 +893,7 @@ function OrderBanner({
               href={confirmLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-[14px] font-semibold text-white"
+              className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-[14px] font-semibold text-black"
             >
               <FaWhatsapp size={16} /> Arrange delivery on WhatsApp
             </a>

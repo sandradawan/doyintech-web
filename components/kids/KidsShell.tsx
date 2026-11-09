@@ -13,22 +13,22 @@ export const KIDS_GAMES = [
 /** Paid packs for parents, shown under every kids page. */
 export function ParentPacks() {
   return (
-    <section className="rounded-3xl border border-white/10 bg-[#141a28] p-6">
+    <section className="rounded-3xl border border-white/10 bg-brand-surface p-6">
       <p className="t-eyebrow">For parents</p>
       <h2 className="mt-2 text-[22px] font-semibold text-white">Printable packs for home</h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <Link href="/products/primary-maths-practice-workbook" className="rounded-2xl border border-white/10 bg-black/30 p-4 hover:border-[#ff8c14]">
           <p className="text-[16px] font-semibold text-white">Primary Maths Practice Workbook</p>
-          <p className="mt-1 text-[14px] text-[#a1a1a6]">40 graded worksheets with answers, ages 5–11.</p>
+          <p className="mt-1 text-[14px] text-brand-muted">40 graded worksheets with answers, ages 5–11.</p>
           <p className="mt-2 text-[15px] font-semibold text-[#ff8c14]">₦3,500 · $5</p>
         </Link>
         <Link href="/products/kids-routine-reward-holiday-pack" className="rounded-2xl border border-white/10 bg-black/30 p-4 hover:border-[#ff8c14]">
           <p className="text-[16px] font-semibold text-white">Routine, Reward Chart & Holiday Pack</p>
-          <p className="mt-1 text-[14px] text-[#a1a1a6]">Routines, chores, screen time agreement, holiday plan.</p>
+          <p className="mt-1 text-[14px] text-brand-muted">Routines, chores, screen time agreement, holiday plan.</p>
           <p className="mt-2 text-[15px] font-semibold text-[#ff8c14]">₦2,500 · $4</p>
         </Link>
       </div>
-      <p className="mt-4 text-[13px] text-[#a1a1a6]">
+      <p className="mt-4 text-[13px] text-brand-muted">
         Run a school? We build <Link href="/school-management-software-nigeria" className="text-[#ff8c14] underline">school websites and result portals</Link>.
       </p>
     </section>
@@ -60,11 +60,11 @@ export default function KidsShell({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <Link href="/kids" className="text-[15px] font-semibold text-[#ff8c14] hover:underline">← Kids zone</Link>
           <h1 className="mt-3 text-[34px] font-black tracking-tight text-white sm:text-[44px]">{h1}</h1>
-          <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-[#c7cdd8]">{intro}</p>
+          <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-brand-soft">{intro}</p>
 
           <div className="mt-6">{tool}</div>
 
@@ -77,7 +77,7 @@ export default function KidsShell({
             ))}
           </nav>
 
-          <article className="mx-auto mt-14 max-w-3xl space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <article className="mx-auto mt-14 max-w-3xl space-y-10 text-[15px] leading-relaxed text-brand-soft">
             {children}
             <section>
               <h2 className="text-[22px] font-semibold text-white">Questions from parents</h2>

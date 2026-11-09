@@ -117,7 +117,7 @@ function AccountInner() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0e17] px-6 pb-24 pt-28">
+    <main className="min-h-screen bg-brand-deep px-6 pb-24 pt-28">
       <div className="mx-auto max-w-[560px]">
         <h1 className="text-[30px] font-semibold tracking-tight text-white">Your account</h1>
 
@@ -130,11 +130,11 @@ function AccountInner() {
         )}
 
         {checking ? (
-          <p className="mt-8 text-[14px] text-[#86868b]">Loading…</p>
+          <p className="mt-8 text-[14px] text-brand-subtle">Loading…</p>
         ) : !email ? (
-          <form onSubmit={sendLink} className="mt-8 rounded-2xl border border-white/10 bg-[#141a28] p-6">
+          <form onSubmit={sendLink} className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <p className="text-[15px] font-semibold text-white">Sign in with your email</p>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">
+            <p className="mt-1 text-[13px] text-brand-muted">
               We&apos;ll email you a one-time sign-in link. No password needed.
             </p>
             {linkSent ? (
@@ -164,7 +164,7 @@ function AccountInner() {
           </form>
         ) : (
           <div className="mt-8 space-y-4">
-            <p className="text-[14px] text-[#a1a1a6]">
+            <p className="text-[14px] text-brand-muted">
               Signed in as <span className="text-white">{email}</span> ·{" "}
               <button type="button" onClick={signOut} className="text-[#ff8c14] hover:underline">
                 Sign out
@@ -172,9 +172,9 @@ function AccountInner() {
             </p>
 
             {memberships.length === 0 ? (
-              <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
+              <div className="rounded-2xl border border-white/10 bg-brand-surface p-6">
                 <p className="text-[15px] text-white">No active memberships on this email yet.</p>
-                <p className="mt-1 text-[13px] text-[#a1a1a6]">
+                <p className="mt-1 text-[13px] text-brand-muted">
                   Just paid? Confirmation can take a minute; refresh shortly.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3 text-[14px]">
@@ -188,11 +188,11 @@ function AccountInner() {
               </div>
             ) : (
               memberships.map((m) => (
-                <div key={m.planId} className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+                <div key={m.planId} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-[16px] font-semibold text-white">{m.name}</p>
-                      <p className="mt-1 text-[13px] text-[#a1a1a6]">
+                      <p className="mt-1 text-[13px] text-brand-muted">
                         {STATUS_LABEL[m.status] || m.status}
                         {m.nextPaymentDate &&
                           ` · ${m.status === "non-renewing" ? "ends" : "renews"} ${new Date(
@@ -235,7 +235,7 @@ function AccountInner() {
 export default function AccountPage() {
   return (
     <>
-      <Suspense fallback={<main className="min-h-screen bg-[#0a0e17] pt-28" />}>
+      <Suspense fallback={<main className="min-h-screen bg-brand-deep pt-28" />}>
         <AccountInner />
       </Suspense>
       <Footer />

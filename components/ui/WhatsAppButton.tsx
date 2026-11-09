@@ -35,7 +35,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       style={{ bottom: offset }}
-      className="fixed right-5 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/40 transition-all duration-300 hover:scale-105 sm:right-6 sm:h-14 sm:w-14"
+      className="fixed right-5 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-black shadow-lg shadow-black/40 transition-all duration-300 hover:scale-105 sm:right-6 sm:h-14 sm:w-14"
     >
       <FaWhatsapp size={26} />
     </a>

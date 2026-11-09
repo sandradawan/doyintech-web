@@ -80,17 +80,17 @@ export default async function IndustryPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-6">
-          <nav aria-label="Breadcrumb" className="text-[13px] text-[#86868b]">
+          <nav aria-label="Breadcrumb" className="text-[13px] text-brand-subtle">
             <Link href="/websites" className="hover:text-white">
               Websites
             </Link>{" "}
-            / <span className="text-[#c7cdd8]">{i.name}</span>
+            / <span className="text-brand-soft">{i.name}</span>
           </nav>
 
           <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-white sm:text-[42px]">{i.h1}</h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">{i.intro}</p>
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">{i.intro}</p>
 
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
@@ -107,7 +107,7 @@ export default async function IndustryPage({ params }: Props) {
             </Link>
           </div>
           {packagePrice && (
-            <p className="mt-3 text-[13px] text-[#86868b]">
+            <p className="mt-3 text-[13px] text-brand-subtle">
               From {naira(packagePrice)} fixed · 50% deposit · {offer?.timeline}
             </p>
           )}
@@ -116,7 +116,7 @@ export default async function IndustryPage({ params }: Props) {
             <h2 className="text-[22px] font-semibold text-white">The problem we fix</h2>
             <ul className="mt-4 space-y-3">
               {i.problems.map((p) => (
-                <li key={p} className="flex gap-3 text-[15px] leading-relaxed text-[#c7cdd8]">
+                <li key={p} className="flex gap-3 text-[15px] leading-relaxed text-brand-soft">
                   <span className="mt-1 text-[#ff8c14]" aria-hidden>
                     ✕
                   </span>
@@ -132,7 +132,7 @@ export default async function IndustryPage({ params }: Props) {
               {included.map((f) => (
                 <div key={f.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
                   <h3 className="text-[15px] font-semibold text-white">{f.title}</h3>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-[#a1a1a6]">{f.why}</p>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-brand-muted">{f.why}</p>
                 </div>
               ))}
             </div>
@@ -141,7 +141,7 @@ export default async function IndustryPage({ params }: Props) {
                 <h3 className="mt-8 text-[16px] font-semibold text-white">Add when you&apos;re ready</h3>
                 <ul className="mt-3 space-y-2">
                   {addOns.map((f) => (
-                    <li key={f.title} className="text-[14px] leading-relaxed text-[#c7cdd8]">
+                    <li key={f.title} className="text-[14px] leading-relaxed text-brand-soft">
                       <strong className="text-white">{f.title}</strong> — {f.why}
                     </li>
                   ))}
@@ -150,15 +150,15 @@ export default async function IndustryPage({ params }: Props) {
             )}
           </section>
 
-          <section className="mt-14 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-6">
+          <section className="mt-14 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-6">
             <h2 className="text-[20px] font-semibold text-white">Price</h2>
             {offer && packagePrice && (
               <div className="mt-4">
                 <p className="text-[15px] text-white">
                   <strong>{offer.name}</strong> — {naira(packagePrice)} fixed
                 </p>
-                <p className="mt-1 text-[14px] text-[#a1a1a6]">{i.packageReason}</p>
-                <p className="mt-1 text-[13px] text-[#86868b]">
+                <p className="mt-1 text-[14px] text-brand-muted">{i.packageReason}</p>
+                <p className="mt-1 text-[13px] text-brand-subtle">
                   {naira(packagePrice / 2)} deposit to start · {offer.timeline}
                 </p>
               </div>
@@ -168,7 +168,7 @@ export default async function IndustryPage({ params }: Props) {
                 <p className="text-[15px] text-white">
                   <strong>{i.fullBuildLabel}</strong> — typically {naira(full.baseMin)} – {naira(full.baseMax)}
                 </p>
-                <p className="mt-1 text-[13px] text-[#86868b]">
+                <p className="mt-1 text-[13px] text-brand-subtle">
                   Custom quote · {full.weeks[0]}–{full.weeks[1]} weeks
                 </p>
               </div>
@@ -181,7 +181,7 @@ export default async function IndustryPage({ params }: Props) {
                 Estimate a custom build
               </Link>
             </div>
-            <p className="mt-4 text-[13px] text-[#86868b]">
+            <p className="mt-4 text-[13px] text-brand-subtle">
               Keep it secure and up to date after launch with a{" "}
               <Link href="/care-plans" className="text-[#ff8c14] hover:underline">
                 care plan
@@ -218,7 +218,7 @@ export default async function IndustryPage({ params }: Props) {
               {i.faqs.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>
@@ -226,7 +226,7 @@ export default async function IndustryPage({ params }: Props) {
 
           <section className="mt-14 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center">
             <h2 className="text-[20px] font-semibold text-white">Ready for a website that brings enquiries?</h2>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               Fixed price, 50% deposit online, and a site you can share within weeks.
             </p>
             <Link
@@ -238,7 +238,7 @@ export default async function IndustryPage({ params }: Props) {
           </section>
 
           <section className="mt-14">
-            <h2 className="text-[13px] font-semibold uppercase tracking-wide text-[#86868b]">Other industries</h2>
+            <h2 className="text-[13px] font-semibold uppercase tracking-wide text-brand-subtle">Other industries</h2>
             <ul className="mt-3 flex flex-wrap gap-2">
               {others.map((o) => (
                 <li key={o.slug}>

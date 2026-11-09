@@ -51,31 +51,31 @@ export default function CoverLetterPage() {
     <>
       <main className="pb-24 pt-28">
         <div className="mx-auto max-w-[720px] px-5 sm:px-6">
-          <p className="text-[13px] text-[#a1a1a6]">
-            <Link href="/students" className="text-[#2997ff] hover:underline">Students</Link> / Cover letter
+          <p className="text-[13px] text-brand-muted">
+            <Link href="/students" className="text-brand-link hover:underline">Students</Link> / Cover letter
           </p>
           <h1 className="mt-3 font-display text-[32px] font-semibold text-white">AI cover letter</h1>
-          <p className="mt-3 text-[15px] text-[#a1a1a6]">
+          <p className="mt-3 text-[15px] text-brand-muted">
             Draft a clear cover letter for internships and graduate roles. Pair with the{" "}
-            <Link href="/tools/cv-builder" className="text-[#2997ff] hover:underline">CV builder</Link>.
+            <Link href="/tools/cv-builder" className="text-brand-link hover:underline">CV builder</Link>.
           </p>
           <form onSubmit={onSubmit} className="mt-10 space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Your full name
+            <label className="block text-[12px] font-medium text-brand-muted">Your full name
               <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white" />
             </label>
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Role / job title *
+            <label className="block text-[12px] font-medium text-brand-muted">Role / job title *
               <input value={role} onChange={(e) => setRole(e.target.value)} required className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white" />
             </label>
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Company *
+            <label className="block text-[12px] font-medium text-brand-muted">Company *
               <input value={company} onChange={(e) => setCompany(e.target.value)} required className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white" />
             </label>
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Experience highlight
+            <label className="block text-[12px] font-medium text-brand-muted">Experience highlight
               <textarea value={experience} onChange={(e) => setExperience(e.target.value)} rows={3} placeholder="Final-year project on… internship at…" className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white" />
             </label>
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Skills to emphasise
+            <label className="block text-[12px] font-medium text-brand-muted">Skills to emphasise
               <input value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="Python, research, communication" className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white" />
             </label>
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">Tone
+            <label className="block text-[12px] font-medium text-brand-muted">Tone
               <select value={tone} onChange={(e) => setTone(e.target.value)} className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white">
                 <option value="professional">Professional</option>
                 <option value="confident">Confident</option>
@@ -90,10 +90,10 @@ export default function CoverLetterPage() {
           {output && (
             <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-6">
               <div className="flex justify-between">
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-[#a1a1a6]">Draft</p>
-                <button type="button" onClick={copyOut} className="text-[12px] font-semibold text-[#2997ff]">{copied ? "Copied" : "Copy"}</button>
+                <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-muted">Draft</p>
+                <button type="button" onClick={copyOut} className="text-[12px] font-semibold text-brand-link">{copied ? "Copied" : "Copy"}</button>
               </div>
-              <pre className="mt-3 whitespace-pre-wrap font-sans text-[14px] leading-relaxed text-[#e8e8ed]">{output}</pre>
+              <pre className="mt-3 whitespace-pre-wrap font-sans text-[14px] leading-relaxed text-brand-soft">{output}</pre>
             </div>
           )}
         </div>

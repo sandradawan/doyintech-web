@@ -1,5 +1,6 @@
 import type { Ebook } from "@/lib/ebooks";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
+import { absoluteUrl } from "@/lib/site";
 
 export function findEbookByProductId(productId: string): Ebook | undefined {
   return findAnyEbook(productId);
@@ -59,16 +60,14 @@ export function formatEbookHtml(book: Ebook): string {
     "<style>@media print { body { background:#fff!important } .no-print { display:none!important } section { break-inside:avoid } }</style>",
     "</head>",
     "<body style='font-family:Georgia,system-ui,sans-serif;max-width:720px;margin:0 auto;padding:32px 20px;background:#f8fafc;color:#111'>",
-    "<div style='border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 12px 40px rgba(0,0,0,.12)'>",
-    "<img src='" +
-      esc(book.coverImage) +
-      "' alt='' style='width:100%;height:280px;object-fit:cover;display:block'/>",
-    "<div style='padding:24px;background:linear-gradient(135deg," +
-      esc(book.coverFrom) +
-      "," +
-      esc(book.coverTo) +
-      ");color:#fff'>",
-    "<p style='margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.85'>DoyinTech Press</p>",
+    "<div style='overflow:hidden;margin-bottom:28px;box-shadow:0 12px 40px rgba(0,0,0,.12)'>",
+    "<div style='padding:28px;background:#ffffff;text-align:center'><img src='" +
+      esc(absoluteUrl(book.coverImage)) +
+      "' alt='" +
+      esc(book.title) +
+      " cover' width='220' style='width:220px;max-width:100%;height:auto;display:inline-block'/></div>",
+    "<div style='padding:24px;background:#0a3d2e;color:#fff'>",
+    "<p style='margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#ff8c14'>DoyinTech</p>",
     "<h1 style='margin:8px 0 6px;font-size:28px'>" + esc(book.title) + "</h1>",
     "<p style='margin:0;opacity:.9;font-size:15px'>" + esc(book.subtitle) + "</p>",
     "<p style='margin:12px 0 0;font-size:13px;opacity:.75'>By " +

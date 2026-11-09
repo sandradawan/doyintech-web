@@ -42,7 +42,7 @@ export default function OpsCommandPalette({
   return (
     <div className="fixed inset-0 z-[70] flex items-start justify-center bg-black/70 px-4 pt-[12vh]">
       <button type="button" className="absolute inset-0" onClick={onClose} aria-label="Close" />
-      <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-white/10 bg-[#0c1220] shadow-2xl">
+      <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-white/10 bg-brand-deep shadow-2xl">
         <div className="border-b border-white/[0.06] px-4 py-3">
           <input
             autoFocus

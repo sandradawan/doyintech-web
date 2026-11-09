@@ -199,7 +199,7 @@ export default function RecordDrawer({
             {resource.singular}
             {typeof record?.created_at === "string" && <span>· created {relativeTime(record.created_at)}</span>}
             {contactEmail && (
-              <Link href={`/admin/contacts?email=${encodeURIComponent(contactEmail)}`} className="text-[#8ab4ff] hover:underline">
+              <Link href={`/admin/contacts?email=${encodeURIComponent(contactEmail)}`} className="text-brand-link hover:underline">
                 · Open contact
               </Link>
             )}
@@ -238,7 +238,7 @@ export default function RecordDrawer({
           const wide = f.type === "textarea" || f.type === "json";
           return (
             <div key={f.key} className={wide ? "sm:col-span-2" : ""}>
-              <label htmlFor={`f-${f.key}`} className="mb-1 block text-[12px] font-medium text-[#a1a1a6]">
+              <label htmlFor={`f-${f.key}`} className="mb-1 block text-[12px] font-medium text-brand-muted">
                 {f.label}
                 {f.required && editable(f) && <span className="text-[#ff8c14]"> *</span>}
               </label>
@@ -253,7 +253,7 @@ export default function RecordDrawer({
                   )}
                 </div>
               )}
-              {f.hint && editable(f) && <p className="mt-1 text-[11px] text-[#6e6e73]">{f.hint}</p>}
+              {f.hint && editable(f) && <p className="mt-1 text-[11px] text-brand-subtle">{f.hint}</p>}
             </div>
           );
         })}
@@ -372,7 +372,7 @@ export function ActivityTimeline({ leadId, email }: { leadId?: string; email?: s
               key={k}
               type="button"
               onClick={() => setKind(k)}
-              className={`rounded-full px-2.5 py-1 text-[12px] font-medium capitalize ${kind === k ? "bg-[#ff8c14] text-black" : "bg-white/[0.05] text-[#a1a1a6] hover:text-white"}`}
+              className={`rounded-full px-2.5 py-1 text-[12px] font-medium capitalize ${kind === k ? "bg-[#ff8c14] text-black" : "bg-white/[0.05] text-brand-muted hover:text-white"}`}
             >
               {k}
             </button>
@@ -386,7 +386,7 @@ export function ActivityTimeline({ leadId, email }: { leadId?: string; email?: s
           className={inputCls}
         />
         <div className="flex flex-wrap items-center gap-2">
-          <label className="flex items-center gap-2 text-[12px] text-[#a1a1a6]">
+          <label className="flex items-center gap-2 text-[12px] text-brand-muted">
             {kind === "task" ? "Due" : "Follow-up (optional)"}
             <input type="datetime-local" value={due} onChange={(e) => setDue(e.target.value)} className={`${inputCls} !w-auto !py-1.5`} />
           </label>
@@ -397,26 +397,26 @@ export function ActivityTimeline({ leadId, email }: { leadId?: string; email?: s
       </form>
       {error && <div className="mt-3"><ErrorNote message={error} /></div>}
       {loading ? (
-        <p className="mt-4 text-[13px] text-[#86868b]">Loading…</p>
+        <p className="mt-4 text-[13px] text-brand-subtle">Loading…</p>
       ) : items.length === 0 ? (
-        <p className="mt-4 text-[13px] text-[#86868b]">No activity yet.</p>
+        <p className="mt-4 text-[13px] text-brand-subtle">No activity yet.</p>
       ) : (
         <ol className="mt-4 space-y-3 border-l border-white/10 pl-4">
           {items.map((a) => (
             <li key={a.id} className="relative">
               <span className={`absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full ${a.kind === "task" && !a.done ? "bg-[#ff8c14]" : "bg-white/25"}`} />
-              <div className="flex flex-wrap items-center gap-2 text-[11px] text-[#86868b]">
+              <div className="flex flex-wrap items-center gap-2 text-[11px] text-brand-subtle">
                 <Badge value={a.kind} tone={a.kind === "task" ? (a.done ? "green" : "orange") : "gray"} />
                 <span>{relativeTime(a.created_at)}</span>
                 {a.created_by && <span>· {a.created_by}</span>}
                 {a.due_at && <span className={!a.done && new Date(a.due_at) < new Date() ? "text-red-300" : ""}>· due {formatDate(a.due_at, true)}</span>}
                 {a.kind === "task" && (
-                  <button type="button" onClick={() => toggle(a)} className="ml-auto text-[#8ab4ff] hover:underline">
+                  <button type="button" onClick={() => toggle(a)} className="ml-auto text-brand-link hover:underline">
                     {a.done ? "Reopen" : "Mark done"}
                   </button>
                 )}
               </div>
-              <p className={`mt-1 whitespace-pre-line text-[13px] ${a.done && a.kind === "task" ? "text-[#86868b] line-through" : "text-[#e5e5ea]"}`}>{a.body}</p>
+              <p className={`mt-1 whitespace-pre-line text-[13px] ${a.done && a.kind === "task" ? "text-brand-subtle line-through" : "text-[#e5e5ea]"}`}>{a.body}</p>
             </li>
           ))}
         </ol>

@@ -29,7 +29,7 @@ export default function WebsiteCalculatorPage() {
           <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
             Website Price Calculator
           </h1>
-          <p className="mt-3 text-gray-400">
+          <p className="mt-3 text-brand-muted">
             Answer a few questions to get an estimated project range in Nigerian Naira.
             Useful for budgeting before you talk to a developer.
           </p>
@@ -38,7 +38,7 @@ export default function WebsiteCalculatorPage() {
             <WebsiteCalculator />
           </div>
 
-          <article className="prose-invert mt-14 space-y-4 text-sm leading-relaxed text-gray-400">
+          <article className="prose-invert mt-14 space-y-4 text-sm leading-relaxed text-brand-muted">
             <h2 className="font-display text-xl font-bold text-white">
               How website costs work in Nigeria
             </h2>

@@ -128,7 +128,7 @@ export default function BusinessPlanGenerator() {
               ["Payback", f.payback != null ? `${f.payback} months` : "Not yet profitable"],
             ].map(([k, v]) => (
               <div key={k} className="rounded-xl bg-black/30 p-3">
-                <dt className="text-[#a1a1a6]">{k}</dt>
+                <dt className="text-brand-muted">{k}</dt>
                 <dd className={`mt-0.5 font-semibold ${k === "Monthly profit" && f.profit < 0 ? "text-[#ff8a8a]" : "text-white"}`}>{v}</dd>
               </div>
             ))}
@@ -140,7 +140,7 @@ export default function BusinessPlanGenerator() {
       <div className="flex flex-wrap items-center gap-3">
         <button type="button" onClick={print} className={primaryBtn}>Download business plan PDF</button>
         <button type="button" onClick={() => confirm("Clear the whole plan?") && setP(START)} className={ghostBtn}>Start over</button>
-        <p className="text-[12px] text-[#a1a1a6]">Your plan saves automatically on this device.</p>
+        <p className="text-[12px] text-brand-muted">Your plan saves automatically on this device.</p>
       </div>
     </div>
   );

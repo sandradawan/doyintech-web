@@ -40,8 +40,8 @@ export default function NewsletterSignup({ source = "footer" }: { source?: strin
 
   return (
     <form onSubmit={submit} className="w-full max-w-md">
-      <p className="text-[14px] font-semibold text-[#f5f5f7]">Get one practical growth idea every week or two</p>
-      <p className="mt-1 text-[12px] text-[#86868b]">
+      <p className="text-[14px] font-semibold text-brand-ink">Get one practical growth idea every week or two</p>
+      <p className="mt-1 text-[12px] text-brand-subtle">
         Plus free WhatsApp reply scripts straight away. Unsubscribe any time.
       </p>
       <div className="mt-3 flex gap-2">

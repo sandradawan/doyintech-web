@@ -239,7 +239,7 @@ export default function AdminStudentsPage() {
             <h1 className="mt-1 font-display text-[26px] font-semibold text-white sm:text-[30px]">
               Student projects
             </h1>
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">
+            <p className="mt-1 text-[13px] text-brand-muted">
               50% deposit → work → mark Delivered → send payment link → unlock
               download.
             </p>
@@ -250,7 +250,7 @@ export default function AdminStudentsPage() {
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
               placeholder="Admin secret"
-              className="min-w-[160px] rounded-xl border border-white/15 bg-[#141a28] px-4 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+              className="min-w-[160px] rounded-xl border border-white/15 bg-brand-surface px-4 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
             />
             <button
               type="button"
@@ -282,12 +282,12 @@ export default function AdminStudentsPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search ID, name, email, topic…"
-            className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]"
+            className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-brand-surface px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]"
           />
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white"
+            className="rounded-xl border border-white/10 bg-brand-surface px-3 py-2 text-sm text-white"
           >
             <option value="">All statuses</option>
             {STATUSES.map((s) => (
@@ -299,7 +299,7 @@ export default function AdminStudentsPage() {
           <select
             value={filterStage}
             onChange={(e) => setFilterStage(e.target.value)}
-            className="rounded-xl border border-white/10 bg-[#141416] px-3 py-2 text-sm text-white"
+            className="rounded-xl border border-white/10 bg-brand-surface px-3 py-2 text-sm text-white"
           >
             <option value="">All stages</option>
             {PROJECT_STAGES.map((s) => (
@@ -312,7 +312,7 @@ export default function AdminStudentsPage() {
 
         <div className="mt-6 space-y-3">
           {filtered.length === 0 && !loading && (
-            <p className="rounded-2xl border border-white/10 bg-[#141416] px-5 py-8 text-center text-[13px] text-[#86868b]">
+            <p className="rounded-2xl border border-white/10 bg-brand-surface px-5 py-8 text-center text-[13px] text-brand-subtle">
               No projects yet.
             </p>
           )}
@@ -326,7 +326,7 @@ export default function AdminStudentsPage() {
             return (
               <div
                 key={p.id}
-                className="rounded-2xl border border-white/10 bg-[#141416] p-4 sm:p-5"
+                className="rounded-2xl border border-white/10 bg-brand-surface p-4 sm:p-5"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
@@ -334,7 +334,7 @@ export default function AdminStudentsPage() {
                       <span className="font-mono text-[13px] font-semibold text-[#ff8c14]">
                         {p.request_id}
                       </span>
-                      <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-[#a1a1a6]">
+                      <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-brand-muted">
                         {p.status}
                       </span>
                       <span className="rounded-full border border-[#ff8c14]/30 bg-[#ff8c14]/10 px-2 py-0.5 text-[10px] text-[#ff8c14]">
@@ -349,10 +349,10 @@ export default function AdminStudentsPage() {
                     <p className="mt-1 text-[15px] font-medium text-white">
                       {p.name} · {p.package_name}
                     </p>
-                    <p className="mt-0.5 truncate text-[13px] text-[#a1a1a6]">
+                    <p className="mt-0.5 truncate text-[13px] text-brand-muted">
                       {p.topic}
                     </p>
-                    <p className="mt-1 text-[12px] text-[#86868b]">
+                    <p className="mt-1 text-[12px] text-brand-subtle">
                       Total ₦{Number(p.amount_ngn || 0).toLocaleString()} · Paid
                       ₦{paid.toLocaleString()} · Dep ₦{dep.toLocaleString()} ·
                       Bal ₦{bal.toLocaleString()} · {p.email}
@@ -393,7 +393,7 @@ export default function AdminStudentsPage() {
                           }));
                         }
                       }}
-                      className="rounded-full border border-white/15 px-3 py-1.5 text-[12px] text-[#a1a1a6] hover:text-white"
+                      className="rounded-full border border-white/15 px-3 py-1.5 text-[12px] text-brand-muted hover:text-white"
                     >
                       {open ? "Close" : "Manage"}
                     </button>
@@ -403,7 +403,7 @@ export default function AdminStudentsPage() {
                 {open && (
                   <div className="mt-4 grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-2">
                     <div>
-                      <label className="text-[11px] uppercase tracking-wide text-[#86868b]">
+                      <label className="text-[11px] uppercase tracking-wide text-brand-subtle">
                         Stage
                       </label>
                       <select
@@ -420,13 +420,13 @@ export default function AdminStudentsPage() {
                           </option>
                         ))}
                       </select>
-                      <p className="mt-1 text-[11px] text-[#86868b]">
+                      <p className="mt-1 text-[11px] text-brand-subtle">
                         Set to &quot;Ready — pay balance&quot; when work is done,
                         then use <strong>Send balance link</strong>.
                       </p>
                     </div>
                     <div>
-                      <label className="text-[11px] uppercase tracking-wide text-[#86868b]">
+                      <label className="text-[11px] uppercase tracking-wide text-brand-subtle">
                         Status
                       </label>
                       <select
@@ -450,7 +450,7 @@ export default function AdminStudentsPage() {
                         <p className="text-[13px] font-medium text-white">
                           Email Paystack payment link
                         </p>
-                        <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                        <p className="mt-1 text-[12px] text-brand-muted">
                           {p.status === "pending_payment"
                             ? `Sends 50% deposit link (₦${dep.toLocaleString()}) to ${p.email}`
                             : `Sends final 50% balance link (₦${bal.toLocaleString()}) to ${p.email}`}
@@ -469,7 +469,7 @@ export default function AdminStudentsPage() {
                     )}
 
                     <div className="sm:col-span-2">
-                      <label className="text-[11px] uppercase tracking-wide text-[#86868b]">
+                      <label className="text-[11px] uppercase tracking-wide text-brand-subtle">
                         Delivery URL (Google Drive / Dropbox link)
                       </label>
                       <div className="mt-1 flex flex-wrap gap-2">
@@ -500,12 +500,12 @@ export default function AdminStudentsPage() {
                           Save link
                         </button>
                       </div>
-                      <p className="mt-1 text-[11px] text-[#86868b]">
+                      <p className="mt-1 text-[11px] text-brand-subtle">
                         Student only sees this after final 50% is paid.
                       </p>
                     </div>
                     {(p.school || p.level || p.deadline || p.notes) && (
-                      <div className="sm:col-span-2 rounded-xl border border-white/5 bg-black/30 px-3 py-2 text-[12px] text-[#a1a1a6]">
+                      <div className="sm:col-span-2 rounded-xl border border-white/5 bg-black/30 px-3 py-2 text-[12px] text-brand-muted">
                         {p.school && <p>School: {p.school}</p>}
                         {p.level && <p>Level: {p.level}</p>}
                         {p.deadline && <p>Deadline: {p.deadline}</p>}
@@ -537,11 +537,11 @@ function MiniKpi({
       className={`rounded-2xl border px-4 py-3 ${
         accent
           ? "border-[#ff8c14]/40 bg-[#ff8c14]/10"
-          : "border-white/10 bg-[#141416]"
+          : "border-white/10 bg-brand-surface"
       }`}
     >
       <p className="text-[22px] font-semibold text-white">{value}</p>
-      <p className="text-[11px] uppercase tracking-wide text-[#86868b]">
+      <p className="text-[11px] uppercase tracking-wide text-brand-subtle">
         {label}
       </p>
     </div>

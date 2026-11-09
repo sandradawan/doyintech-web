@@ -52,7 +52,7 @@ export default function DailyProspecting() {
       <h1 className="mt-2 text-[30px] font-semibold tracking-tight text-white sm:text-[36px]">
         Daily prospecting — 20 messages
       </h1>
-      <p className="mt-3 text-[15px] leading-relaxed text-[#a1a1a6]">
+      <p className="mt-3 text-[15px] leading-relaxed text-brand-muted">
         Revenue comes from conversations. Use this page every workday. Scripts are ready —
         personalize the brackets, then send.
       </p>
@@ -81,7 +81,7 @@ export default function DailyProspecting() {
               className={`rounded-lg py-2 text-[12px] font-semibold ${
                 c.done
                   ? "bg-[#ff8c14] text-black"
-                  : "bg-black/40 text-[#a1a1a6] hover:bg-white/10"
+                  : "bg-black/40 text-brand-muted hover:bg-white/10"
               }`}
             >
               {c.id}
@@ -91,7 +91,7 @@ export default function DailyProspecting() {
         <button
           type="button"
           onClick={() => setChecks(CHECKLIST_SEED)}
-          className="mt-3 text-[12px] text-[#86868b] hover:text-white"
+          className="mt-3 text-[12px] text-brand-subtle hover:text-white"
         >
           Reset day
         </button>
@@ -99,7 +99,7 @@ export default function DailyProspecting() {
 
       <div className="mt-10">
         <h2 className="text-[18px] font-semibold text-white">How to run the day</h2>
-        <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-[#c7cdd8]">
+        <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-brand-soft">
           {STEPS.map((s) => (
             <li key={s}>{s}</li>
           ))}
@@ -108,29 +108,29 @@ export default function DailyProspecting() {
 
       <div className="mt-10">
         <h2 className="text-[18px] font-semibold text-white">WhatsApp DM scripts</h2>
-        <p className="mt-1 text-[13px] text-[#a1a1a6]">
+        <p className="mt-1 text-[13px] text-brand-muted">
           Replace [Name], [Business], [source], [issues]. Keep it short.
         </p>
         <div className="mt-4 space-y-4">
           {dmTemplates.map((t) => (
             <div
               key={t.id}
-              className="rounded-2xl border border-white/10 bg-[#141a28] p-5"
+              className="rounded-2xl border border-white/10 bg-brand-surface p-5"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <p className="text-[14px] font-semibold text-white">{t.title}</p>
-                  <p className="text-[11px] text-[#86868b]">{t.channel}</p>
+                  <p className="text-[11px] text-brand-subtle">{t.channel}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => copy(t.id, t.body)}
-                  className="rounded-full bg-[#25D366] px-4 py-2 text-[12px] font-semibold text-white"
+                  className="rounded-full bg-[#25D366] px-4 py-2 text-[12px] font-semibold text-black"
                 >
                   {copiedId === t.id ? "Copied ✓" : "Copy script"}
                 </button>
               </div>
-              <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-[#e8eaed]">
+              <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-brand-soft">
                 {t.body}
               </pre>
             </div>
@@ -144,7 +144,7 @@ export default function DailyProspecting() {
           {statusTemplates.map((t) => (
             <div
               key={t.id}
-              className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-5"
+              className="rounded-2xl border border-white/10 bg-brand-surface p-5"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-[14px] font-semibold text-white">{t.title}</p>
@@ -156,7 +156,7 @@ export default function DailyProspecting() {
                   {copiedId === t.id ? "Copied ✓" : "Copy"}
                 </button>
               </div>
-              <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-[#e8eaed]">
+              <pre className="mt-3 whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-brand-soft">
                 {t.body}
               </pre>
             </div>
@@ -164,30 +164,30 @@ export default function DailyProspecting() {
         </div>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-5 text-[14px] text-[#a1a1a6]">
+      <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-5 text-[14px] text-brand-muted">
         <p className="font-semibold text-white">Links to paste</p>
         <ul className="mt-2 space-y-1">
           <li>
             Hire:{" "}
-            <a className="text-[#2997ff]" href="https://www.doyintech.com/hire">
+            <a className="text-brand-link" href="https://www.doyintech.com/hire">
               /hire
             </a>
           </li>
           <li>
             Free audit:{" "}
-            <a className="text-[#2997ff]" href="https://www.doyintech.com/free-audit">
+            <a className="text-brand-link" href="https://www.doyintech.com/free-audit">
               /free-audit
             </a>
           </li>
           <li>
             Store:{" "}
-            <a className="text-[#2997ff]" href="https://www.doyintech.com/products">
+            <a className="text-brand-link" href="https://www.doyintech.com/products">
               /products
             </a>
           </li>
           <li>
             Full console:{" "}
-            <a className="text-[#2997ff]" href="/outreach">
+            <a className="text-brand-link" href="/outreach">
               /outreach
             </a>
           </li>

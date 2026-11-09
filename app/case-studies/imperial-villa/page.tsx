@@ -21,7 +21,7 @@ export default function ImperialVillaCaseStudy() {
     <>
       <main className="pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-6">
-          <Link href="/case-studies" className="text-sm text-[#2997ff] hover:underline">
+          <Link href="/case-studies" className="text-sm text-brand-link hover:underline">
             ← All case studies
           </Link>
 
@@ -31,7 +31,7 @@ export default function ImperialVillaCaseStudy() {
           <h1 className="mt-3 text-4xl font-bold leading-tight text-white md:text-5xl">
             Imperial Villa Property Platform
           </h1>
-          <p className="mt-4 text-xl text-[#a1a1a6]">
+          <p className="mt-4 text-xl text-brand-muted">
             Corporate website + client portal + staff management system for a premium
             property & pension facilitation company.
           </p>
@@ -40,7 +40,7 @@ export default function ImperialVillaCaseStudy() {
             {["Next.js", "Laravel / PHP", "MySQL", "Auth", "Dashboards"].map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300"
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-brand-soft"
               >
                 {t}
               </span>
@@ -54,14 +54,14 @@ export default function ImperialVillaCaseStudy() {
                 className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center"
               >
                 <p className="text-2xl font-bold text-white">{m.value}</p>
-                <p className="mt-1 text-[11px] uppercase tracking-wider text-gray-500">
+                <p className="mt-1 text-[11px] uppercase tracking-wider text-brand-subtle">
                   {m.label}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-12 space-y-10 leading-relaxed text-gray-300">
+          <div className="mt-12 space-y-10 leading-relaxed text-brand-soft">
             <section>
               <h2 className="mb-3 text-2xl font-bold text-white">The challenge</h2>
               <p>
@@ -98,7 +98,7 @@ export default function ImperialVillaCaseStudy() {
               <p className="text-[13px] font-semibold uppercase tracking-wide text-[#ff8c14]">
                 Similar project?
               </p>
-              <p className="mt-2 text-[15px] text-[#e8eaed]">
+              <p className="mt-2 text-[15px] text-brand-soft">
                 Property, clinics, multi-branch ops — we scope fixed-price websites and custom
                 portals with 50% deposit.
               </p>
@@ -121,7 +121,7 @@ export default function ImperialVillaCaseStudy() {
                   href="https://www.imperialvillapropertydevelopment.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#2997ff]"
+                  className="rounded-full px-5 py-2.5 text-sm font-semibold text-brand-link"
                 >
                   Visit live site →
                 </a>

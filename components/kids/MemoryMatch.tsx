@@ -64,14 +64,14 @@ export default function MemoryMatch() {
   const best = progress?.best[`memory:${size}`];
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-[#1b2340] to-[#141a28] p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       <StreakBar progress={progress} />
 
       {!cards && (
         <>
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Theme">
             {Object.keys(THEMES).map((t) => (
-              <button key={t} type="button" role="radio" aria-checked={theme === t} onClick={() => setTheme(t)} className={`min-h-12 rounded-2xl px-4 text-[16px] font-bold ${theme === t ? "bg-[#ff8c14] text-black" : "border border-white/15 bg-white/5 text-white"}`}>
+              <button key={t} type="button" role="radio" aria-checked={theme === t} onClick={() => setTheme(t)} className={`min-h-12 rounded-2xl px-4 text-[16px] font-bold ${theme === t ? "bg-[#ff8c14] text-black" : "border border-white/15 bg-white/5 text-black"}`}>
                 {THEMES[t][0]} {t}
               </button>
             ))}
@@ -112,7 +112,7 @@ export default function MemoryMatch() {
           {won && (
             <div className="text-center">
               <p className="text-[26px] font-black text-white">You found them all in {moves} moves! {newBest && "🏆 New best!"}</p>
-              {best && !newBest && <p className="text-[15px] text-[#a1a1a6]">Your best on {size}: {best} moves</p>}
+              {best && !newBest && <p className="text-[15px] text-brand-muted">Your best on {size}: {best} moves</p>}
             </div>
           )}
           <div className="flex flex-wrap justify-center gap-2">

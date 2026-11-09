@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function StatusPackPage() {
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <StatusPackClient />
       </main>
       <Footer />

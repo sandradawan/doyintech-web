@@ -59,7 +59,7 @@ export default function QuotationGeneratorPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Let clients accept and pay online</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             Send a payment link with your quote so the client can pay the deposit by card or transfer the moment they agree.{" "}
             <Link href="/stores" className="text-[#ff8c14] hover:underline">
               Payment links come free with a DoyinTech shop

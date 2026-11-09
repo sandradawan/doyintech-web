@@ -1,17 +1,30 @@
 @import "tailwindcss";
 
+/* Brand colours: deep green, white, orange and black. Change them here and the whole site follows. */
+@theme {
+  --color-brand-deepest: #041f17;
+  --color-brand-deep: #06291f;
+  --color-brand-surface: #0b3a2c;
+  --color-brand-raised: #114a39;
+  --color-brand-ink: #f6faf8;
+  --color-brand-soft: #dce9e3;
+  --color-brand-muted: #b5cdc2;
+  --color-brand-subtle: #93b4a6;
+  --color-brand-link: #ffa64d;
+}
+
 :root {
-  --apple-bg: #000000;
-  --apple-surface: #1d1d1f;
-  --apple-elevated: #2a2a2c;
-  --apple-ink: #f5f5f7;
-  --apple-muted: #a1a1a6;
-  --apple-blue: #2997ff;
-  --apple-blue-solid: #0071e3;
+  --apple-bg: #06291f;
+  --apple-surface: #0b3a2c;
+  --apple-elevated: #114a39;
+  --apple-ink: #f6faf8;
+  --apple-muted: #b5cdc2;
+  --apple-blue: #ffa64d;
+  --apple-blue-solid: #ff8c14;
   --apple-accent: #ff8c14;
   --apple-hairline: rgba(255, 255, 255, 0.12);
-  --apple-nav: rgba(22, 22, 23, 0.78);
-  --glass-bg: rgba(29, 29, 31, 0.55);
+  --apple-nav: rgba(4, 31, 23, 0.88);
+  --glass-bg: rgba(11, 58, 44, 0.6);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-highlight: rgba(255, 255, 255, 0.06);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -20,12 +33,12 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) #000;
+  scrollbar-color: rgba(255, 255, 255, 0.25) #06291f;
 }
 
 body {
-  background-color: #000;
-  color: #f5f5f7;
+  background-color: #06291f;
+  color: #f6faf8;
   font-family:
     var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -45,7 +58,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(41, 151, 255, 0.35);
+  background-color: rgba(255, 140, 20, 0.35);
   color: #fff;
 }
 
@@ -58,7 +71,7 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: #06291f;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.22);
@@ -70,14 +83,14 @@ body {
 }
 
 .apple-section-black {
-  background: #000;
-  color: #f5f5f7;
+  background: #06291f;
+  color: #f6faf8;
 }
 
 .apple-section-white,
 .apple-section-gray {
-  background: #000;
-  color: #f5f5f7;
+  background: #06291f;
+  color: #f6faf8;
 }
 
 .apple-headline {
@@ -85,7 +98,7 @@ body {
   font-weight: 600;
   line-height: 1.06;
   letter-spacing: -0.03em;
-  color: #f5f5f7;
+  color: #f6faf8;
   text-wrap: balance;
 }
 
@@ -93,7 +106,7 @@ body {
   font-size: clamp(1.05rem, 2vw, 1.5rem);
   font-weight: 400;
   line-height: 1.45;
-  color: #a1a1a6;
+  color: #b5cdc2;
   text-wrap: pretty;
   max-width: 42rem;
 }
@@ -112,18 +125,18 @@ body {
 
 .apple-link:hover {
   background-size: 100% 1.5px;
-  color: #5ab0ff;
+  color: #ffb366;
 }
 
 .footer-link {
-  color: #a1a1a6;
+  color: #b5cdc2;
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s var(--ease-out-soft);
   display: inline-block;
 }
 
 .footer-link:hover {
-  color: #f5f5f7;
+  color: #f6faf8;
   transform: translateX(2px);
 }
 
@@ -148,35 +161,35 @@ body {
 
 .apple-btn-primary {
   background: var(--apple-blue-solid);
-  color: #fff;
+  color: #0a0a0a;
 }
 
 .apple-btn-primary:hover {
-  background: #0077ed;
-  box-shadow: 0 8px 28px rgba(0, 113, 227, 0.35);
+  background: #ffa03a;
+  box-shadow: 0 8px 28px rgba(255, 140, 20, 0.35);
 }
 
 .apple-btn-secondary {
   background: transparent;
   color: var(--apple-blue);
-  border: 1px solid rgba(41, 151, 255, 0.55);
+  border: 1px solid rgba(255, 140, 20, 0.55);
 }
 
 .apple-btn-secondary:hover {
-  background: rgba(41, 151, 255, 0.12);
+  background: rgba(255, 140, 20, 0.12);
   border-color: var(--apple-blue);
 }
 
 .apple-card {
   background: linear-gradient(
     165deg,
-    rgba(42, 42, 44, 0.9) 0%,
-    rgba(29, 29, 31, 0.95) 100%
+    rgba(17, 74, 57, 0.9) 0%,
+    rgba(11, 58, 44, 0.95) 100%
   );
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--glass-border);
-  color: #f5f5f7;
+  color: #f6faf8;
   transition: transform 0.4s var(--ease-out-soft), border-color 0.3s ease,
     box-shadow 0.4s ease;
 }
@@ -188,9 +201,9 @@ body {
 }
 
 .apple-card-dark {
-  background: #1d1d1f;
+  background: #0b3a2c;
   border-color: transparent;
-  color: #f5f5f7;
+  color: #f6faf8;
 }
 
 .glass-card,
@@ -202,7 +215,7 @@ body {
   border-radius: 24px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 var(--glass-highlight);
-  color: #f5f5f7;
+  color: #f6faf8;
   transition: transform 0.4s var(--ease-out-soft), border-color 0.3s ease,
     box-shadow 0.4s ease;
 }
@@ -210,9 +223,9 @@ body {
 .pro-card:hover,
 .glass-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(41, 151, 255, 0.28);
+  border-color: rgba(255, 140, 20, 0.28);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(41, 151, 255, 0.08);
+    0 0 0 1px rgba(255, 140, 20, 0.08);
 }
 
 .pro-card::before {
@@ -232,7 +245,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #a1a1a6;
+  color: #b5cdc2;
 }
 
 .section-title {
@@ -240,20 +253,20 @@ body {
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.15;
-  color: #f5f5f7;
+  color: #f6faf8;
   text-wrap: balance;
 }
 
 .section-lead {
   font-size: clamp(0.95rem, 1.6vw, 1.125rem);
   line-height: 1.55;
-  color: #a1a1a6;
+  color: #b5cdc2;
   max-width: 36rem;
   text-wrap: pretty;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #f5f5f7 0%, #a1a1a6 100%);
+  background: linear-gradient(135deg, #f6faf8 0%, #b5cdc2 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -266,16 +279,16 @@ body {
   justify-content: center;
   border-radius: 980px;
   background: var(--apple-blue-solid);
-  color: #fff;
+  color: #0a0a0a;
   font-weight: 500;
   transition: background 0.2s ease, box-shadow 0.25s ease,
     transform 0.2s var(--ease-out-soft);
-  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.25);
+  box-shadow: 0 4px 16px rgba(255, 140, 20, 0.25);
 }
 
 .btn-primary:hover {
-  background: #0077ed;
-  box-shadow: 0 8px 28px rgba(0, 113, 227, 0.4);
+  background: #ffa03a;
+  box-shadow: 0 8px 28px rgba(255, 140, 20, 0.4);
   transform: translateY(-1px);
 }
 
@@ -376,9 +389,9 @@ body {
 .text-shine {
   background: linear-gradient(
     90deg,
-    #a1a1a6 0%,
-    #f5f5f7 40%,
-    #a1a1a6 80%
+    #b5cdc2 0%,
+    #f6faf8 40%,
+    #b5cdc2 80%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -388,7 +401,7 @@ body {
 }
 
 .prose-muted {
-  color: #a1a1a6;
+  color: #b5cdc2;
   line-height: 1.65;
 }
 
@@ -543,7 +556,7 @@ body {
 .t-lead {
   font-size: var(--text-lead);
   line-height: 1.55;
-  color: #c7c7cc;
+  color: #dce9e3;
 }
 .t-eyebrow {
   font-size: 0.75rem;

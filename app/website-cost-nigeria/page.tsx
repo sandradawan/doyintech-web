@@ -73,7 +73,7 @@ export default function WebsiteCostNigeriaPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             2026 price guide
@@ -81,14 +81,14 @@ export default function WebsiteCostNigeriaPage() {
           <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
             How much does a website cost in Nigeria?
           </h1>
-          <p className="mt-3 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 text-[17px] leading-relaxed text-brand-muted">
             Typical prices for each type of website, what pushes the cost up or down, and the
             ongoing fees nobody mentions — plus a calculator for your exact project.
           </p>
 
           <section className="mt-10">
             <h2 className="text-[22px] font-semibold text-white">Website prices in Nigeria at a glance</h2>
-            <table className="mt-4 w-full overflow-hidden rounded-xl border border-white/10 text-left text-[14px] text-[#c7cdd8]">
+            <table className="mt-4 w-full overflow-hidden rounded-xl border border-white/10 text-left text-[14px] text-brand-soft">
               <thead className="bg-white/[0.05] text-white">
                 <tr>
                   <th className="px-4 py-2.5 font-semibold">Type of website</th>
@@ -110,24 +110,24 @@ export default function WebsiteCostNigeriaPage() {
                 ))}
               </tbody>
             </table>
-            <p className="mt-2 text-[12px] text-[#86868b]">
+            <p className="mt-2 text-[12px] text-brand-subtle">
               Ranges for professionally built sites before extra features. Your quote depends on
               scope.
             </p>
           </section>
 
-          <section className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-6">
+          <section className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-6">
             <h2 className="text-[20px] font-semibold text-white">Our fixed prices</h2>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               No vague quotes: pay a 50% deposit online to start, the balance before handover.
             </p>
             <ul className="mt-4 divide-y divide-white/10">
               {PACKAGES.map((p) => (
                 <li key={p.name} className="flex items-baseline justify-between gap-4 py-2.5 text-[15px]">
                   <span className="text-white">{p.name}</span>
-                  <span className="text-[#c7cdd8]">
+                  <span className="text-brand-soft">
                     {formatNgn(p.totalNgn)}{" "}
-                    <span className="text-[12px] text-[#86868b]">({formatNgn(p.depositNgn)} deposit)</span>
+                    <span className="text-[12px] text-brand-subtle">({formatNgn(p.depositNgn)} deposit)</span>
                   </span>
                 </li>
               ))}
@@ -142,7 +142,7 @@ export default function WebsiteCostNigeriaPage() {
 
           <section className="mt-12">
             <h2 className="text-[22px] font-semibold text-white">Calculate your website cost</h2>
-            <p className="mt-2 text-[15px] text-[#a1a1a6]">
+            <p className="mt-2 text-[15px] text-brand-muted">
               Pick your business, website type and features to get an estimate and timeline.
             </p>
             <div className="mt-6">
@@ -150,7 +150,7 @@ export default function WebsiteCostNigeriaPage() {
             </div>
           </section>
 
-          <article className="mt-14 space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <article className="mt-14 space-y-10 text-[15px] leading-relaxed text-brand-soft">
             <section>
               <h2 className="text-[22px] font-semibold text-white">What drives the price</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
@@ -189,7 +189,7 @@ export default function WebsiteCostNigeriaPage() {
 
             <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center">
               <h2 className="text-[20px] font-semibold text-white">Not sure what you need?</h2>
-              <p className="mt-2 text-[14px] text-[#a1a1a6]">
+              <p className="mt-2 text-[14px] text-brand-muted">
                 Send us your current site or idea and we&apos;ll reply with 2–3 specific
                 recommendations, free.
               </p>

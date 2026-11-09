@@ -35,21 +35,21 @@ export default function WorksheetGenerator() {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:grid-cols-2 lg:grid-cols-4">
-        <label className="block text-[12px] font-medium text-[#a1a1a6]">Topic
+      <div className="grid gap-4 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:grid-cols-2 lg:grid-cols-4">
+        <label className="block text-[12px] font-medium text-brand-muted">Topic
           <select value={topic} onChange={(e) => setTopic(e.target.value as Topic)} className={field}>
             {Object.entries(TOPICS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
           </select>
         </label>
-        <label className="block text-[12px] font-medium text-[#a1a1a6]">Difficulty
+        <label className="block text-[12px] font-medium text-brand-muted">Difficulty
           <select value={level} onChange={(e) => setLevel(Number(e.target.value) as Difficulty)} className={field}>
             {Object.entries(DIFFICULTY).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
           </select>
         </label>
-        <label className="block text-[12px] font-medium text-[#a1a1a6]">Child&apos;s name (optional, stays on this device)
+        <label className="block text-[12px] font-medium text-brand-muted">Child&apos;s name (optional, stays on this device)
           <input value={name} maxLength={40} onChange={(e) => setName(e.target.value)} className={field} />
         </label>
-        <label className="block text-[12px] font-medium text-[#a1a1a6]">Sheet code
+        <label className="block text-[12px] font-medium text-brand-muted">Sheet code
           <input value={code} maxLength={8} onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))} className={field} />
         </label>
         <div className="flex flex-wrap gap-2 sm:col-span-2 lg:col-span-4">
@@ -73,7 +73,7 @@ export default function WorksheetGenerator() {
 
       <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-5">
         <p className="text-[16px] font-semibold text-white">Want a whole term&apos;s practice ready to print?</p>
-        <p className="mt-1 text-[14px] text-[#c7cdd8]">The Primary Maths Practice Workbook has 40 graded worksheets with answers, from counting to fractions and word problems.</p>
+        <p className="mt-1 text-[14px] text-brand-soft">The Primary Maths Practice Workbook has 40 graded worksheets with answers, from counting to fractions and word problems.</p>
         <Link href="/products/primary-maths-practice-workbook" className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">See the workbook</Link>
       </div>
     </div>

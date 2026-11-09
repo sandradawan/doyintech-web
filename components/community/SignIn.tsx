@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { getSupabaseBrowser, isSupabaseConfigured } from "@/lib/supabase/client";
 
-export const fieldClass = "mt-1 min-h-12 w-full rounded-xl border border-white/15 bg-[#0a0e17] px-3 text-[16px] text-white";
+export const fieldClass = "mt-1 min-h-12 w-full rounded-xl border border-white/15 bg-brand-deep px-3 text-[16px] text-white";
 
 export function useSignedIn() {
   const [state, setState] = useState({ checking: isSupabaseConfigured(), email: null as string | null });

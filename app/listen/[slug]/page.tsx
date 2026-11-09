@@ -34,7 +34,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <Link href="/listen" className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#ff8c14] hover:underline">← All shows</Link>
           <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -45,8 +45,8 @@ export default async function Page({ params }: Props) {
             <div className="min-w-0">
               <p className="t-eyebrow">{show.category}</p>
               <h1 className="mt-1 text-[30px] font-black tracking-tight text-white sm:text-[38px]">{show.name}</h1>
-              <p className="mt-1 text-[16px] text-[#c7cdd8]">{show.blurb}</p>
-              {feed?.author && <p className="mt-1 text-[14px] text-[#a1a1a6]">By {feed.author}</p>}
+              <p className="mt-1 text-[16px] text-brand-soft">{show.blurb}</p>
+              {feed?.author && <p className="mt-1 text-[14px] text-brand-muted">By {feed.author}</p>}
             </div>
           </div>
 
@@ -54,11 +54,11 @@ export default async function Page({ params }: Props) {
             {feed ? (
               <EpisodeList items={feed.episodes.map((e) => listed(show, feed, e))} openShared />
             ) : (
-              <p className="text-[15px] text-[#c7cdd8]">We can&apos;t load this show&apos;s episodes right now. Please try again soon.</p>
+              <p className="text-[15px] text-brand-soft">We can&apos;t load this show&apos;s episodes right now. Please try again soon.</p>
             )}
           </section>
           {feed?.link && (
-            <p className="mt-6 text-[14px] text-[#a1a1a6]">
+            <p className="mt-6 text-[14px] text-brand-muted">
               Episodes belong to their creators. <a href={feed.link} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#ff8c14] hover:underline">Visit the show&apos;s website</a>
             </p>
           )}

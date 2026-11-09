@@ -51,27 +51,27 @@ export default function FreelancerTaxCalculator() {
         </span>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Total income for the year (₦)
-            <span className="block text-[11px] text-[#86868b]">All clients, local and foreign, converted to naira</span>
+            <span className="block text-[11px] text-brand-subtle">All clients, local and foreign, converted to naira</span>
             <input inputMode="numeric" value={income} onChange={(e) => setIncome(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Business expenses (₦)
-            <span className="block text-[11px] text-[#86868b]">Internet, software, equipment, workspace — keep receipts</span>
+            <span className="block text-[11px] text-brand-subtle">Internet, software, equipment, workspace — keep receipts</span>
             <input inputMode="numeric" value={expenses} onChange={(e) => setExpenses(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Annual rent you pay (₦)
             <input inputMode="numeric" value={rent} onChange={(e) => setRent(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Voluntary pension contributions (₦)
             <input inputMode="numeric" value={pension} onChange={(e) => setPension(e.target.value)} className={field} />
           </label>
-          <label className="block text-[13px] text-[#a1a1a6]">
+          <label className="block text-[13px] text-brand-muted">
             Health insurance premiums (₦)
             <input inputMode="numeric" value={nhis} onChange={(e) => setNhis(e.target.value)} className={field} />
           </label>
@@ -87,7 +87,7 @@ export default function FreelancerTaxCalculator() {
       <div className="overflow-hidden rounded-2xl border border-white/10">
         <table className="w-full text-left text-[14px]">
           <caption className="sr-only">Freelancer tax breakdown</caption>
-          <tbody className="divide-y divide-white/10 text-[#c7cdd8]">
+          <tbody className="divide-y divide-white/10 text-brand-soft">
             <Row label="Income" value={naira(num(income))} />
             <Row label="Less business expenses" value={`− ${naira(num(expenses))}`} />
             <Row label="Profit" value={naira(r.profit)} strong />
@@ -105,7 +105,7 @@ export default function FreelancerTaxCalculator() {
         </table>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-[14px] text-[#a1a1a6]">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-[14px] text-brand-muted">
         Records make filing easy: issue every client a proper{" "}
         <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">invoice</Link> and keep{" "}
         <Link href="/tools/receipt-generator-nigeria" className="text-[#ff8c14] hover:underline">receipts</Link> for expenses.
@@ -119,7 +119,7 @@ export default function FreelancerTaxCalculator() {
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className={`rounded-2xl border p-5 ${highlight ? "border-[#ff8c14]/40 bg-[#ff8c14]/10" : "border-white/10 bg-white/[0.03]"}`}>
-      <p className="text-[12px] uppercase tracking-wide text-[#86868b]">{label}</p>
+      <p className="text-[12px] uppercase tracking-wide text-brand-subtle">{label}</p>
       <p className="mt-1 text-[24px] font-semibold text-white">{value}</p>
     </div>
   );
@@ -128,8 +128,8 @@ function Stat({ label, value, highlight }: { label: string; value: string; highl
 function Row({ label, value, strong, muted }: { label: string; value: string; strong?: boolean; muted?: boolean }) {
   return (
     <tr className={strong ? "bg-white/[0.04]" : ""}>
-      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-[#86868b]" : ""} ${strong ? "font-semibold text-white" : ""}`}>{label}</td>
-      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-white" : muted ? "text-[#86868b]" : ""}`}>{value}</td>
+      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-brand-subtle" : ""} ${strong ? "font-semibold text-white" : ""}`}>{label}</td>
+      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-white" : muted ? "text-brand-subtle" : ""}`}>{value}</td>
     </tr>
   );
 }

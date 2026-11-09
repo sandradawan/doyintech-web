@@ -71,9 +71,9 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1040px] px-6">
-          <nav aria-label="Breadcrumb" className="text-[14px] text-[#a1a1a6]">
+          <nav aria-label="Breadcrumb" className="text-[14px] text-brand-muted">
             <Link href="/products" className="text-[#ffb366] hover:underline">Products</Link>
             <span aria-hidden="true"> / </span>
             <Link href={`/products?c=${catSlug(category)}`} className="hover:underline">{category}</Link>
@@ -83,9 +83,9 @@ export default async function ProductPage({ params }: Props) {
             <div>
               {p.badge && <span className="rounded-full bg-[#ff8c14]/15 px-3 py-1 text-[12px] font-semibold text-[#ffb366]">{p.badge}</span>}
               <h1 className="mt-4 text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[42px]">{p.name}</h1>
-              <p className="mt-4 text-[17px] leading-relaxed text-[#c7cdd8]">{p.description}</p>
+              <p className="mt-4 text-[17px] leading-relaxed text-brand-soft">{p.description}</p>
               {p.audience && (
-                <p className="mt-4 text-[15px] text-[#a1a1a6]">
+                <p className="mt-4 text-[15px] text-brand-muted">
                   <strong className="font-semibold text-white">For:</strong> {p.audience}
                 </p>
               )}
@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: Props) {
                 <h2 className="text-[20px] font-semibold text-white">What you get</h2>
                 <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {p.features.map((f) => (
-                    <li key={f} className="flex gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-3.5 text-[14px] text-[#e8eaed]">
+                    <li key={f} className="flex gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-3.5 text-[14px] text-brand-soft">
                       <Tick />
                       {f}
                     </li>
@@ -107,8 +107,8 @@ export default async function ProductPage({ params }: Props) {
                   <h2 className="text-[20px] font-semibold text-white">Files in your download</h2>
                   <ul className="mt-4 divide-y divide-white/10 rounded-xl border border-white/10">
                     {p.contents.map((c) => (
-                      <li key={c} className="flex items-center gap-3 px-4 py-3 text-[14px] text-[#e8eaed]">
-                        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 flex-none text-[#a1a1a6]" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <li key={c} className="flex items-center gap-3 px-4 py-3 text-[14px] text-brand-soft">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 flex-none text-brand-muted" fill="none" stroke="currentColor" strokeWidth="1.8">
                           <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
                           <path d="M14 3v5h5" />
                         </svg>
@@ -120,15 +120,15 @@ export default async function ProductPage({ params }: Props) {
               )}
 
               {p.demandNote && (
-                <section className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+                <section className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-5">
                   <h2 className="text-[16px] font-semibold text-white">Why we made it</h2>
-                  <p className="mt-2 text-[14px] leading-relaxed text-[#a1a1a6]">{p.demandNote}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{p.demandNote}</p>
                 </section>
               )}
 
               <section className="mt-10">
                 <h2 className="text-[20px] font-semibold text-white">How delivery works</h2>
-                <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] text-[#c7cdd8]">
+                <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] text-brand-soft">
                   <li>Enter your email and pay by card, transfer or USSD through Paystack.</li>
                   <li>Download links appear straight away and are emailed to you with the PDF attached.</li>
                   <li>
@@ -141,13 +141,13 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <aside className="lg:sticky lg:top-28 lg:self-start">
-              <div className="rounded-2xl border border-[#ff8c14]/40 bg-gradient-to-b from-[#1f2128] to-[#141a28] p-6">
+              <div className="rounded-2xl border border-[#ff8c14]/40 bg-gradient-to-b from-brand-surface to-brand-surface p-6">
                 <p className="text-[34px] font-semibold text-white">{p.priceNgn}</p>
-                <p className="text-[13px] text-[#a1a1a6]">One-time payment · about {p.priceUsd}</p>
+                <p className="text-[13px] text-brand-muted">One-time payment · about {p.priceUsd}</p>
                 <div className="mt-5">
                   <PaystackBuyButton product={p} />
                 </div>
-                <p className="mt-4 text-[13px] text-[#a1a1a6]">{p.delivery}</p>
+                <p className="mt-4 text-[13px] text-brand-muted">{p.delivery}</p>
                 <a
                   href={productWhatsAppLink(p.name, "digital product")}
                   target="_blank"
@@ -165,9 +165,9 @@ export default async function ProductPage({ params }: Props) {
               <h2 className="text-[20px] font-semibold text-white">More in {category}</h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-3">
                 {related.map((r) => (
-                  <Link key={r.id} href={`/products/${r.id}`} className="rounded-2xl border border-white/10 bg-[#16181d] p-5 transition hover:border-[#ff8c14]/50">
+                  <Link key={r.id} href={`/products/${r.id}`} className="rounded-2xl border border-white/10 bg-brand-surface p-5 transition hover:border-[#ff8c14]/50">
                     <p className="text-[15px] font-semibold text-white">{r.name}</p>
-                    <p className="mt-2 line-clamp-2 text-[13px] text-[#a1a1a6]">{r.description}</p>
+                    <p className="mt-2 line-clamp-2 text-[13px] text-brand-muted">{r.description}</p>
                     <p className="mt-3 text-[16px] font-semibold text-white">{r.priceNgn}</p>
                   </Link>
                 ))}

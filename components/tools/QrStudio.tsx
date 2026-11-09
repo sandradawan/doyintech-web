@@ -17,7 +17,7 @@ const KINDS: { id: Kind; label: string }[] = [
 
 const field =
   "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
-const label = "block text-[13px] text-[#a1a1a6]";
+const label = "block text-[13px] text-brand-muted";
 const EXPORT_SIZE = 1024;
 
 /** Wi-Fi QR strings need \ ; , : " escaped. */
@@ -194,7 +194,7 @@ export default function QrStudio() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:p-6">
+      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="QR code type">
           {KINDS.map((k) => (
             <button
@@ -204,7 +204,7 @@ export default function QrStudio() {
               aria-selected={kind === k.id}
               onClick={() => setKind(k.id)}
               className={`rounded-full px-4 py-2 text-[13px] font-semibold transition ${
-                kind === k.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-[#c7cdd8] hover:border-white/30"
+                kind === k.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/30"
               }`}
             >
               {k.label}
@@ -293,7 +293,7 @@ export default function QrStudio() {
           preview={
             <div className="rounded-xl border border-white/10 bg-black/20 p-4">
               <p className="text-[14px] font-semibold text-white">Branded QR codes</p>
-              <p className="mt-1 text-[13px] text-[#a1a1a6]">
+              <p className="mt-1 text-[13px] text-brand-muted">
                 Put your logo in the middle and add a caption like &ldquo;Scan to order&rdquo; in your brand colour. Customers trust a
                 branded code more and scan it more often.
               </p>
@@ -308,7 +308,7 @@ export default function QrStudio() {
                 <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="sr-only" onChange={(e) => onLogo(e.target.files?.[0])} />
               </label>
               {logo && (
-                <button type="button" onClick={() => setLogo("")} className="text-[12px] text-[#a1a1a6] underline">
+                <button type="button" onClick={() => setLogo("")} className="text-[12px] text-brand-muted underline">
                   Remove logo
                 </button>
               )}
@@ -327,12 +327,12 @@ export default function QrStudio() {
         </PaidGate>
       </div>
 
-      <div className="h-fit rounded-2xl border border-white/10 bg-[#141a28] p-5 lg:sticky lg:top-24">
+      <div className="h-fit rounded-2xl border border-white/10 bg-brand-surface p-5 lg:sticky lg:top-24">
         <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-white/[0.03]">
           {payload ? (
             <canvas ref={canvasRef} className="h-auto max-h-full w-full max-w-[320px] object-contain" aria-label="QR code preview" role="img" />
           ) : (
-            <p className="px-6 text-center text-[14px] text-[#86868b]">Fill in the details to see your QR code.</p>
+            <p className="px-6 text-center text-[14px] text-brand-subtle">Fill in the details to see your QR code.</p>
           )}
         </div>
         {error && <p className="mt-3 text-[13px] text-red-400">{error}</p>}
@@ -354,7 +354,7 @@ export default function QrStudio() {
             SVG (print)
           </button>
         </div>
-        <p className="mt-3 text-[12px] text-[#86868b]">
+        <p className="mt-3 text-[12px] text-brand-subtle">
           Generated on your device: nothing you type is sent to us. Static codes never expire. Test-scan before printing.
           {branded ? " SVG export is the plain code; logo and caption are in the PNG." : ""}
         </p>

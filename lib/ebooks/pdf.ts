@@ -57,37 +57,49 @@ function buildPageStream(lines: { text: string; size: number; gapAfter?: number 
   return ops.join("\n");
 }
 
+/** Cover background in brand colours: deep green page, orange foot and the DoyinTech mark. */
+const COVER_ART = [
+  "0.039 0.239 0.180 rg 0 0 612 792 re f",
+  "1 0.549 0.078 rg 0 0 612 58 re f",
+  "1 0.549 0.078 rg",
+  "544 760 m 557.25 760 568 749.25 568 736 c 568 722.75 557.25 712 544 712 c 530.75 712 520 722.75 520 736 c 520 749.25 530.75 760 544 760 c f",
+  "0.17 0.17 0.17 RG 4 w 1 J 1 j",
+  "538 745 m 529 736 l 538 727 l S",
+  "550 745 m 559 736 l 550 727 l S",
+  "1 1 1 rg",
+].join("\n");
+
+function coverStream(book: Ebook): string {
+  const ops: string[] = [COVER_ART];
+  const text = (font: string, size: number, x: number, y: number, s: string) =>
+    ops.push(`BT /${font} ${size} Tf ${x} ${y} Td (${esc(s)}) Tj ET`);
+
+  text("F2", 18, 50, 729, "DoyinTech");
+  let y = 610;
+  for (const line of wrapText(book.title, 24).slice(0, 5)) {
+    text("F2", 38, 50, y, line);
+    y -= 46;
+  }
+  ops.push(`1 0.549 0.078 rg 50 ${y + 14} 90 6 re f 1 1 1 rg`);
+  y -= 22;
+  for (const line of wrapText(book.subtitle, 62).slice(0, 3)) {
+    text("F1", 15, 50, y, line);
+    y -= 21;
+  }
+  y -= 16;
+  for (const line of wrapText(book.blurb, 80).slice(0, 7)) {
+    text("F1", 11, 50, y, line);
+    y -= 15;
+  }
+  text("F1", 11, 50, 96, `By ${book.author} · ${book.category} · ${book.pagesLabel}`);
+  text("F1", 9, 50, 78, "Licensed to the purchaser · Personal use · doyintech.com/ebooks");
+  return ops.join("\n");
+}
+
 export function buildEbookPdf(book: Ebook): Buffer {
   const pages: PageContent[] = [];
 
-  pages.push({
-    streams: [
-      buildPageStream([
-        { text: "DOYINTECH PRESS", size: 11, gapAfter: 28 },
-        { text: book.title.slice(0, 60), size: 22, gapAfter: 18 },
-        ...(book.title.length > 60
-          ? [{ text: book.title.slice(60, 120), size: 22, gapAfter: 18 }]
-          : []),
-        { text: book.subtitle.slice(0, 90), size: 12, gapAfter: 14 },
-        ...(book.subtitle.length > 90
-          ? [{ text: book.subtitle.slice(90, 180), size: 12, gapAfter: 14 }]
-          : []),
-        { text: " ", size: 10, gapAfter: 20 },
-        { text: `By ${book.author}`, size: 12, gapAfter: 10 },
-        { text: book.pagesLabel, size: 10, gapAfter: 8 },
-        { text: book.category, size: 10, gapAfter: 24 },
-        { text: " ", size: 10, gapAfter: 12 },
-        ...wrapText(book.blurb, 78).slice(0, 8).map((t) => ({
-          text: t,
-          size: 11,
-          gapAfter: 14,
-        })),
-        { text: " ", size: 10, gapAfter: 28 },
-        { text: "Licensed to the purchaser · Personal use", size: 9, gapAfter: 10 },
-        { text: "doyintech.com/ebooks", size: 9, gapAfter: 10 },
-      ]),
-    ],
-  });
+  pages.push({ streams: [coverStream(book)] });
 
   const benefitLines = [
     { text: "What you get", size: 16, gapAfter: 20 },
@@ -179,6 +191,7 @@ export function buildEbookPdf(book: Ebook): Buffer {
   const catalogId = nextId++;
   const pagesId = nextId++;
   const fontId = nextId++;
+  const boldFontId = nextId++;
 
   const pageIds: number[] = [];
   const contentIds: number[] = [];
@@ -190,7 +203,7 @@ export function buildEbookPdf(book: Ebook): Buffer {
     pageIds.push(pageId);
 
     const stream = pages[i].streams[0] || "BT /F1 11 Tf 50 700 Td ( ) Tj ET";
-    const footer = `\nBT /F1 9 Tf 50 36 Td (${esc(`${book.title.slice(0, 40)} · ${i + 1} / ${pages.length}`)}) Tj ET`;
+    const footer = `\n${i === 0 ? "0 g " : ""}BT /F1 9 Tf 50 ${i === 0 ? 24 : 36} Td (${esc(`${book.title.slice(0, 40)} · ${i + 1} / ${pages.length}`)}) Tj ET`;
     const full = stream + footer;
     emitObj(
       contentId,
@@ -201,11 +214,12 @@ export function buildEbookPdf(book: Ebook): Buffer {
   for (let i = 0; i < pageIds.length; i++) {
     emitObj(
       pageIds[i],
-      `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 612 792] /Contents ${contentIds[i]} 0 R /Resources << /Font << /F1 ${fontId} 0 R >> >> >>`
+      `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 612 792] /Contents ${contentIds[i]} 0 R /Resources << /Font << /F1 ${fontId} 0 R /F2 ${boldFontId} 0 R >> >> >>`
     );
   }
 
   emitObj(fontId, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
+  emitObj(boldFontId, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>");
   emitObj(
     pagesId,
     `<< /Type /Pages /Kids [${pageIds.map((id) => `${id} 0 R`).join(" ")}] /Count ${pageIds.length} >>`

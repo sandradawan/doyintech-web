@@ -28,7 +28,7 @@ export default function CvBuilderPage() {
           <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
             CV & Portfolio Builder
           </h1>
-          <p className="mt-3 max-w-2xl text-gray-400">
+          <p className="mt-3 max-w-2xl text-brand-muted">
             Build a professional CV with live preview. Drafts save in your browser.
             Print or save as PDF from your browser print dialog. Only enter real
             experience — never invent qualifications.

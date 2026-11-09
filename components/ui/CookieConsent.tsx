@@ -54,11 +54,11 @@ export default function CookieConsent() {
           transition={{ duration: 0.25 }}
           className="fixed inset-x-0 bottom-0 z-[110] p-3 sm:p-4 pointer-events-none"
         >
-          <div className="pointer-events-auto mx-auto max-w-xl rounded-2xl border border-white/12 bg-[#1d1d1f]/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:max-w-2xl">
-            <p className="text-[12px] leading-snug text-[#f5f5f7] sm:text-[13px]">
+          <div className="pointer-events-auto mx-auto max-w-xl rounded-2xl border border-white/12 bg-brand-surface/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:max-w-2xl">
+            <p className="text-[12px] leading-snug text-brand-ink sm:text-[13px]">
               We use essential cookies for the site to work. With your OK, we also use analytics and
               advertising cookies (including Meta Pixel) to measure campaigns and improve the site.{" "}
-              <Link href="/privacy" className="text-[#2997ff] hover:underline">
+              <Link href="/privacy" className="text-brand-link hover:underline">
                 Privacy
               </Link>
             </p>
@@ -66,14 +66,14 @@ export default function CookieConsent() {
               <button
                 type="button"
                 onClick={() => save("essential")}
-                className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-medium text-[#f5f5f7] hover:bg-white/10"
+                className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-medium text-brand-ink hover:bg-white/10"
               >
                 Essential only
               </button>
               <button
                 type="button"
                 onClick={() => save("all")}
-                className="rounded-full bg-[#0071e3] px-4 py-2 text-[12px] font-medium text-white hover:bg-[#0077ed]"
+                className="rounded-full bg-[#ff8c14] px-4 py-2 text-[12px] font-medium text-black hover:bg-[#ffa03a]"
               >
                 Accept all
               </button>

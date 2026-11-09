@@ -80,10 +80,10 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
       {mode === "snapshot" && (
         <>
           {!loaded && !failedAll && (
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-[#0b1220]/80">
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-brand-deep/80">
               <div className="h-9 w-9 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-              <p className="text-xs text-gray-300">Loading real page preview…</p>
-              <p className="max-w-xs truncate px-4 text-center text-[10px] text-gray-500">
+              <p className="text-xs text-brand-soft">Loading real page preview…</p>
+              <p className="max-w-xs truncate px-4 text-center text-[10px] text-brand-subtle">
                 {url}
               </p>
             </div>
@@ -136,7 +136,7 @@ export default function SitePreview({ url, className = "", onReady }: Props) {
             className="h-full w-full bg-white"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           />
-          <p className="absolute bottom-2 left-2 right-2 rounded-lg bg-black/75 px-2 py-1 text-[10px] text-gray-300">
+          <p className="absolute bottom-2 left-2 right-2 rounded-lg bg-black/75 px-2 py-1 text-[10px] text-brand-soft">
             If this stays blank, the site blocks embedding. Switch to{" "}
             <strong>Page snapshot</strong> or open the real site.
           </p>

@@ -43,18 +43,18 @@ export default function SeoToolPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-6">
           <Link href="/tools" className="text-[14px] text-[#ff8c14] hover:underline">
             ← All tools
           </Link>
           <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">{h1}</h1>
-          <p className="mt-3 max-w-3xl text-[17px] leading-relaxed text-[#a1a1a6]">{intro}</p>
+          <p className="mt-3 max-w-3xl text-[17px] leading-relaxed text-brand-muted">{intro}</p>
 
           <div className="mt-8">{tool}</div>
           <ToolFollowUp source={newsletterSource} />
 
-          <article className="mx-auto mt-16 max-w-3xl space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <article className="mx-auto mt-16 max-w-3xl space-y-10 text-[15px] leading-relaxed text-brand-soft">
             {children}
 
             <section>
@@ -69,7 +69,7 @@ export default function SeoToolPage({
               </dl>
             </section>
 
-            <section className="rounded-2xl border border-white/10 bg-[#141a28] p-6">{upsell}</section>
+            <section className="rounded-2xl border border-white/10 bg-brand-surface p-6">{upsell}</section>
 
           </article>
           <RelatedTools />

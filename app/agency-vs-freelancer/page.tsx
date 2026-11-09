@@ -42,7 +42,7 @@ const rows = [
 export default function AgencyVsFreelancerPage() {
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[800px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Comparison
@@ -50,7 +50,7 @@ export default function AgencyVsFreelancerPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
             Agency vs freelancer vs DIY
           </h1>
-          <p className="mt-4 text-[17px] text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] text-brand-muted">
             Most Nigerian SMEs do not need a six-month agency project. They need a clear offer page,
             WhatsApp, and someone who shows up after payment.
           </p>
@@ -58,7 +58,7 @@ export default function AgencyVsFreelancerPage() {
           <div className="mt-10 overflow-x-auto">
             <table className="w-full min-w-[560px] text-left text-[13px]">
               <thead>
-                <tr className="border-b border-white/15 text-[#86868b]">
+                <tr className="border-b border-white/15 text-brand-subtle">
                   <th className="py-3 pr-4 font-semibold">Option</th>
                   <th className="py-3 pr-4 font-semibold">Cost</th>
                   <th className="py-3 pr-4 font-semibold">Speed</th>
@@ -68,7 +68,7 @@ export default function AgencyVsFreelancerPage() {
               </thead>
               <tbody>
                 {rows.map((r) => (
-                  <tr key={r.who} className="border-b border-white/10 text-[#c7cdd8]">
+                  <tr key={r.who} className="border-b border-white/10 text-brand-soft">
                     <td className="py-3 pr-4 font-semibold text-white">{r.who}</td>
                     <td className="py-3 pr-4">{r.cost}</td>
                     <td className="py-3 pr-4">{r.speed}</td>
@@ -82,7 +82,7 @@ export default function AgencyVsFreelancerPage() {
 
           <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
             <h2 className="text-[20px] font-semibold text-white">Our model</h2>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               Productized packages, 50% deposit, revision rounds written in, balance only when you
               approve. See the guarantee and packages — then take the pricing quiz if unsure.
             </p>

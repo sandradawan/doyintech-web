@@ -68,7 +68,7 @@ export default function TimesheetCalculator() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[480px] text-[13px]">
             <thead>
-              <tr className="text-left text-[#a1a1a6]">
+              <tr className="text-left text-brand-muted">
                 <th className="py-2 font-medium">Day</th>
                 <th className="font-medium">Start</th>
                 <th className="font-medium">End</th>
@@ -97,11 +97,11 @@ export default function TimesheetCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start">
-        <dl className="grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-[#141a28] p-5 text-[14px]" aria-live="polite">
+        <dl className="grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-brand-surface p-5 text-[14px]" aria-live="polite">
           {[["Total hours", hrs(r.total)], ["Overtime", hrs(r.overtime)], ["Regular pay", ngn(r.regularPay)], ["Overtime pay", ngn(r.otPay)]].map(([k, v]) => (
-            <div key={k}><dt className="text-[#a1a1a6]">{k}</dt><dd className="mt-0.5 text-[18px] font-semibold text-white">{v}</dd></div>
+            <div key={k}><dt className="text-brand-muted">{k}</dt><dd className="mt-0.5 text-[18px] font-semibold text-white">{v}</dd></div>
           ))}
-          <div className="col-span-2 border-t border-white/10 pt-3"><dt className="text-[#a1a1a6]">Gross pay this week</dt><dd className="text-[30px] font-semibold text-[#ff8c14]">{ngn(r.pay)}</dd></div>
+          <div className="col-span-2 border-t border-white/10 pt-3"><dt className="text-brand-muted">Gross pay this week</dt><dd className="text-[30px] font-semibold text-[#ff8c14]">{ngn(r.pay)}</dd></div>
         </dl>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download signed timesheet PDF</button>
       </div>

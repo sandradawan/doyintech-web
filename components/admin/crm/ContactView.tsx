@@ -108,7 +108,7 @@ export default function ContactView() {
                   <Avatar name={p.name || p.email} />
                   <span className="min-w-0">
                     <span className="block truncate text-[14px] font-medium text-white">{p.name || p.email}</span>
-                    <span className="block truncate text-[12px] text-[#86868b]">
+                    <span className="block truncate text-[12px] text-brand-subtle">
                       {p.email}
                       {p.detail ? ` · ${p.detail}` : ""}
                     </span>
@@ -119,7 +119,7 @@ export default function ContactView() {
           </ul>
         )}
         {q.trim().length >= 2 && !searching && people.length === 0 && (
-          <p className="mt-4 text-[13px] text-[#86868b]">No matches. Press Enter on a full email address to open it anyway.</p>
+          <p className="mt-4 text-[13px] text-brand-subtle">No matches. Press Enter on a full email address to open it anyway.</p>
         )}
       </div>
     );
@@ -131,10 +131,10 @@ export default function ContactView() {
 
   return (
     <div>
-      <Link href={pathname} className="text-[13px] text-[#8ab4ff] hover:underline">
+      <Link href={pathname} className="text-[13px] text-brand-link hover:underline">
         ← All contacts
       </Link>
-      {loading && !c && <p className="mt-6 text-[13px] text-[#86868b]">Loading…</p>}
+      {loading && !c && <p className="mt-6 text-[13px] text-brand-subtle">Loading…</p>}
       {error && <div className="mt-4"><ErrorNote message={error} /></div>}
       {c && (
         <>
@@ -142,7 +142,7 @@ export default function ContactView() {
             <Avatar name={c.name || c.email} large />
             <div className="min-w-0 flex-1">
               <h1 className="truncate text-[24px] font-semibold tracking-tight text-white">{c.name || c.email}</h1>
-              <p className="text-[13px] text-[#a1a1a6]">
+              <p className="text-[13px] text-brand-muted">
                 {c.email}
                 {c.phone ? ` · ${c.phone}` : ""}
                 {c.company ? ` · ${c.company}` : ""}
@@ -247,7 +247,7 @@ function Avatar({ name, large }: { name: string; large?: boolean }) {
 function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className={`${panel} px-4 py-3`}>
-      <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
+      <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
       <div className="mt-1 text-[16px] font-semibold capitalize text-white">{value}</div>
     </div>
   );
@@ -258,7 +258,7 @@ function Section({ title, count, children }: { title: string; count: number; chi
   return (
     <section className={panel}>
       <h2 className="border-b border-white/[0.06] px-4 py-3 text-[13px] font-semibold text-white">
-        {title} <span className="text-[#86868b]">({count})</span>
+        {title} <span className="text-brand-subtle">({count})</span>
       </h2>
       <ul className="divide-y divide-white/[0.05]">{children}</ul>
     </section>
@@ -272,8 +272,8 @@ function Item({ title, meta, badge, body, href }: { title: string; meta: string;
         <p className="min-w-0 truncate text-[13px] font-medium text-white">{title}</p>
         {badge && <Badge value={badge} />}
       </div>
-      <p className="mt-0.5 text-[12px] text-[#86868b]">{meta}</p>
-      {body && <p className="mt-1 line-clamp-2 text-[12px] text-[#a1a1a6]">{body}</p>}
+      <p className="mt-0.5 text-[12px] text-brand-subtle">{meta}</p>
+      {body && <p className="mt-1 line-clamp-2 text-[12px] text-brand-muted">{body}</p>}
     </>
   );
   return <li>{href ? <Link href={href} className="block px-4 py-3 hover:bg-white/[0.03]">{inner}</Link> : <div className="px-4 py-3">{inner}</div>}</li>;

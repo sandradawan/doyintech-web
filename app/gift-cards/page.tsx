@@ -46,13 +46,13 @@ export default function GiftCardsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">Gift cards</p>
               <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">Give the gift of a better business</h1>
-              <p className="mt-3 max-w-2xl text-[17px] text-[#a1a1a6]">
+              <p className="mt-3 max-w-2xl text-[17px] text-brand-muted">
                 A website deposit, premium tools, templates or ebooks: let them choose. Delivered by email in seconds.
               </p>
             </div>
@@ -71,7 +71,7 @@ export default function GiftCardsPage() {
               {FAQS.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>

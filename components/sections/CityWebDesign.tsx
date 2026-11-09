@@ -62,13 +62,13 @@ export default function CityWebDesign({ slug }: { slug: string }) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[900px] px-5 sm:px-6">
           <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">
             {c.name} · {c.state}
           </p>
           <h1 className="mt-2 text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[42px]">{c.headline}</h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">{c.intro}</p>
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">{c.intro}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/hire" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">
               See packages and prices
@@ -76,30 +76,30 @@ export default function CityWebDesign({ slug }: { slug: string }) {
             <Link href="/free-audit" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">
               Free website audit
             </Link>
-            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white">
+            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black">
               Chat on WhatsApp
             </a>
           </div>
 
           <section className="mt-14 grid gap-4 sm:grid-cols-3">
             {packages.map((p) => (
-              <div key={p.name} className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+              <div key={p.name} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
                 <p className="text-[14px] font-semibold text-white">{p.name}</p>
                 <p className="mt-2 text-[26px] font-semibold text-white">{p.total}</p>
-                <p className="mt-1 text-[12px] text-[#86868b]">50% deposit · {p.timeline}</p>
+                <p className="mt-1 text-[12px] text-brand-subtle">50% deposit · {p.timeline}</p>
               </div>
             ))}
           </section>
 
           <section className="mt-14">
             <h2 className="text-[24px] font-semibold text-white">{c.angle.title}</h2>
-            <p className="mt-3 text-[16px] leading-relaxed text-[#c7cdd8]">{c.angle.body}</p>
+            <p className="mt-3 text-[16px] leading-relaxed text-brand-soft">{c.angle.body}</p>
           </section>
 
           <section className="mt-12 grid gap-8 sm:grid-cols-2">
             <div>
               <h2 className="text-[18px] font-semibold text-white">Who we build for in {c.name}</h2>
-              <ul className="mt-3 space-y-2 text-[15px] text-[#c7cdd8]">
+              <ul className="mt-3 space-y-2 text-[15px] text-brand-soft">
                 {c.businesses.map((b) => (
                   <li key={b}>✓ {b}</li>
                 ))}
@@ -110,11 +110,11 @@ export default function CityWebDesign({ slug }: { slug: string }) {
             </div>
             <div>
               <h2 className="text-[18px] font-semibold text-white">Areas we serve</h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-[#c7cdd8]">
+              <p className="mt-3 text-[15px] leading-relaxed text-brand-soft">
                 {c.areas.join(", ")} and everywhere else in {c.name}. Projects run over WhatsApp and video calls, so location never slows us down.
               </p>
               <h2 className="mt-6 text-[18px] font-semibold text-white">Every site includes</h2>
-              <ul className="mt-3 space-y-2 text-[15px] text-[#c7cdd8]">
+              <ul className="mt-3 space-y-2 text-[15px] text-brand-soft">
                 <li>✓ Mobile-first design that loads fast on data</li>
                 <li>✓ WhatsApp chat and enquiry buttons</li>
                 <li>✓ Paystack payments where you need them</li>
@@ -129,13 +129,13 @@ export default function CityWebDesign({ slug }: { slug: string }) {
               {faqs.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <section className="mt-14 rounded-2xl border border-white/10 bg-[#141a28] p-6">
+          <section className="mt-14 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[18px] font-semibold text-white">Also useful</h2>
             <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-[14px]">
               <Link href="/google-business-profile-setup" className="text-[#ff8c14] hover:underline">
@@ -151,7 +151,7 @@ export default function CityWebDesign({ slug }: { slug: string }) {
                 What a website costs in 2026
               </Link>
             </div>
-            <p className="mt-5 text-[13px] text-[#86868b]">
+            <p className="mt-5 text-[13px] text-brand-subtle">
               Web design in other cities:{" "}
               {others.map(([s, n], i) => (
                 <span key={s}>

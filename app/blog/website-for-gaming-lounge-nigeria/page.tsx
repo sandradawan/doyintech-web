@@ -13,7 +13,7 @@ export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-
 export default function GamingLoungeWebsitePage() {
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <article className="mx-auto max-w-[720px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Local business · Gaming
@@ -21,12 +21,12 @@ export default function GamingLoungeWebsitePage() {
           <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[40px]">
             Website for a gaming lounge in Nigeria
           </h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
             Instagram posts fill the feed — not always the stations. A simple site with prices,
             hours, location, and one-tap WhatsApp booking turns browsers into reserved seats.
           </p>
 
-          <div className="mt-10 space-y-8 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <div className="mt-10 space-y-8 text-[15px] leading-relaxed text-brand-soft">
             <section>
               <h2 className="text-[22px] font-semibold text-white">What gamers look for</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
@@ -43,7 +43,7 @@ export default function GamingLoungeWebsitePage() {
               <p className="mt-3">
                 Fixed-price pages that match how lounges actually sell seats — bold design, mobile
                 first, WhatsApp CTA on every screen. See our{" "}
-                <Link href="/case-studies/legacyplay" className="text-[#2997ff] hover:underline">
+                <Link href="/case-studies/legacyplay" className="text-brand-link hover:underline">
                   LegacyPlay case study
                 </Link>
                 .
@@ -60,7 +60,7 @@ export default function GamingLoungeWebsitePage() {
               <p className="mt-3">
                 &quot;Gaming lounge near me&quot; and city searches reward a complete Google Business Profile
                 plus a matching website. Guide:{" "}
-                <Link href="/local-seo" className="text-[#2997ff] hover:underline">
+                <Link href="/local-seo" className="text-brand-link hover:underline">
                   Local SEO for Nigerian SMEs
                 </Link>
                 .
@@ -70,7 +70,7 @@ export default function GamingLoungeWebsitePage() {
 
           <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
             <h2 className="text-[20px] font-semibold text-white">Ready to fill more stations?</h2>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               Free 3-minute audit of your current link, or pay a fixed deposit and go live in days.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">

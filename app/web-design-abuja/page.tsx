@@ -11,7 +11,7 @@ export const metadata: Metadata = { alternates: { canonical: "/web-design-abuja"
 export default function WebDesignAbujaPage() {
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Abuja · FCT
@@ -19,12 +19,12 @@ export default function WebDesignAbujaPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
             Web design for Abuja businesses
           </h1>
-          <p className="mt-4 text-[17px] text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] text-brand-muted">
             Fixed-price websites delivered remotely with the same process we use in Jos: clear
             scope, WhatsApp coordination, Paystack deposit, and sites built to get enquiries — not
             just look pretty.
           </p>
-          <ul className="mt-8 space-y-2 text-[15px] text-[#c7cdd8]">
+          <ul className="mt-8 space-y-2 text-[15px] text-brand-soft">
             <li>✓ Landing page ₦100,000 · Local site ₦250,000</li>
             <li>✓ Ideal for consultants, clinics, property, events, shops</li>
             <li>✓ Mobile-first + one-tap WhatsApp</li>
@@ -32,10 +32,10 @@ export default function WebDesignAbujaPage() {
           <div className="mt-10 flex flex-wrap gap-3">
             <a href="/hire" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">Hire — deposit</a>
             <a href="/pricing" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">See pricing</a>
-            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white">WhatsApp</a>
+            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black">WhatsApp</a>
           </div>
-          <p className="mt-8 text-[14px] text-[#86868b]">
-            <a href="/web-design-jos" className="text-[#2997ff] hover:underline">Web design Jos</a>{" "}
+          <p className="mt-8 text-[14px] text-brand-subtle">
+            <a href="/web-design-jos" className="text-brand-link hover:underline">Web design Jos</a>{" "}
             · based in Plateau, serving Nigeria.
           </p>
         </div>

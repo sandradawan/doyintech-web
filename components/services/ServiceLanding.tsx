@@ -59,27 +59,27 @@ export default async function ServiceLanding({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1000px] px-5 sm:px-6">
           <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">{eyebrow}</p>
           <div className="mt-2 grid gap-8 lg:grid-cols-[1fr_340px]">
             <div>
               <h1 className="text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[42px]">{h1}</h1>
-              <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">{intro}</p>
-              <div className="mt-10 space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">{children}</div>
+              <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">{intro}</p>
+              <div className="mt-10 space-y-10 text-[15px] leading-relaxed text-brand-soft">{children}</div>
             </div>
-            <aside className="h-fit rounded-2xl border border-[#ff8c14]/40 bg-[#141a28] p-5 lg:sticky lg:top-24">
+            <aside className="h-fit rounded-2xl border border-[#ff8c14]/40 bg-brand-surface p-5 lg:sticky lg:top-24">
               <p className="text-[15px] font-semibold text-white">{addon.name}</p>
               <p className="mt-2 text-[34px] font-semibold text-white">{naira(amountKobo)}</p>
-              <p className="text-[12px] text-[#86868b]">Fixed price · paid securely with Paystack</p>
+              <p className="text-[12px] text-brand-subtle">Fixed price · paid securely with Paystack</p>
               <ul className="mt-4 space-y-1.5">
                 {addon.includes.map((x) => (
-                  <li key={x} className="flex gap-2 text-[13px] text-[#e8eaed]">
+                  <li key={x} className="flex gap-2 text-[13px] text-brand-soft">
                     <span className="text-[#ff8c14]">✓</span> {x}
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-[12px] text-[#86868b]">{addon.delivery}</p>
+              <p className="mt-3 text-[12px] text-brand-subtle">{addon.delivery}</p>
               <div className="mt-4">
                 <AddonBuyButton id={addon.id} name={addon.name} price={naira(amountKobo)} />
               </div>
@@ -98,9 +98,9 @@ export default async function ServiceLanding({
             <h2 className="text-[22px] font-semibold text-white">How it works</h2>
             <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {steps.map((s, i) => (
-                <li key={s} className="rounded-2xl border border-white/10 bg-[#141a28] p-4">
+                <li key={s} className="rounded-2xl border border-white/10 bg-brand-surface p-4">
                   <span className="text-[12px] font-semibold text-[#ff8c14]">Step {i + 1}</span>
-                  <p className="mt-1 text-[14px] text-[#e8eaed]">{s}</p>
+                  <p className="mt-1 text-[14px] text-brand-soft">{s}</p>
                 </li>
               ))}
             </ol>
@@ -112,13 +112,13 @@ export default async function ServiceLanding({
               {faqs.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <section className="mt-14 rounded-2xl border border-white/10 bg-[#141a28] p-6">
+          <section className="mt-14 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[18px] font-semibold text-white">Next steps for your business</h2>
             <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-[14px]">
               {related.map(([href, label]) => (

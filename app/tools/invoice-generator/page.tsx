@@ -37,7 +37,7 @@ export default function Page() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Charging VAT or GST?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">Check the current rate and work out the tax for your country before you send the invoice.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">Check the current rate and work out the tax for your country before you send the invoice.</p>
           <Link href="/vat-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">VAT calculators by country</Link>
         </>
       }

@@ -38,10 +38,10 @@ export default async function Page() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <h1 className="text-[34px] font-black tracking-tight text-white sm:text-[44px]">DoyinTech Listen</h1>
-          <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-[#c7cdd8]">Podcasts on business, money, tech and ideas, plus African stories for children. Press play: no app needed.</p>
+          <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-brand-soft">Podcasts on business, money, tech and ideas, plus African stories for children. Press play: no app needed.</p>
 
           {pick && (
             <section aria-labelledby="pick-heading" className="mt-6 flex flex-col gap-4 rounded-3xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-5 sm:flex-row sm:items-center">
@@ -66,7 +66,7 @@ export default async function Page() {
               <EpisodeList items={fresh} showNames />
             </section>
           ) : (
-            <p className="mt-8 text-[15px] text-[#c7cdd8]">We can&apos;t load new episodes right now. Please check back soon.</p>
+            <p className="mt-8 text-[15px] text-brand-soft">We can&apos;t load new episodes right now. Please check back soon.</p>
           )}
 
           {SHOW_CATEGORIES.map((cat) => {
@@ -77,12 +77,12 @@ export default async function Page() {
                 <h2 className="text-[22px] font-semibold text-white">{cat}</h2>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   {shows.map(({ show, feed }) => (
-                    <Link key={show.slug} href={`/listen/${show.slug}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#141a28] p-3 hover:border-[#ff8c14]">
+                    <Link key={show.slug} href={`/listen/${show.slug}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-brand-surface p-3 hover:border-[#ff8c14]">
                       {/* eslint-disable-next-line @next/next/no-img-element -- cover art comes from each show's own host */}
                       <img src={show.art || feed?.image} alt={`${show.name} podcast artwork`} width={72} height={72} loading="lazy" className="h-[72px] w-[72px] shrink-0 rounded-xl object-cover" />
                       <span className="min-w-0">
                         <span className="block text-[15px] font-semibold text-white">{show.name}</span>
-                        <span className="mt-0.5 block text-[14px] leading-snug text-[#a1a1a6]">{show.blurb}</span>
+                        <span className="mt-0.5 block text-[14px] leading-snug text-brand-muted">{show.blurb}</span>
                       </span>
                     </Link>
                   ))}
@@ -91,7 +91,7 @@ export default async function Page() {
             );
           })}
 
-          <article className="mx-auto mt-14 max-w-3xl space-y-10 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <article className="mx-auto mt-14 max-w-3xl space-y-10 text-[15px] leading-relaxed text-brand-soft">
             <section className="rounded-3xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
               <p className="t-eyebrow">Want your own show?</p>
               <h2 className="mt-2 text-[22px] font-semibold text-white">Podcast Starter Kit</h2>

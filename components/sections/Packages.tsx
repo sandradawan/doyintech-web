@@ -14,7 +14,7 @@ export default function Packages() {
       <div className="mx-auto max-w-[1100px] px-6">
         <ScrollReveal direction="up">
           <div className="text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-brand-muted">
               Clear offers
             </p>
             <h2 className="apple-headline mt-2">Packages & pricing.</h2>
@@ -33,28 +33,28 @@ export default function Packages() {
             <ScrollReveal key={pkg.id} direction="up" delay={i * 0.05}>
               <article
                 className={`apple-card relative flex h-full flex-col p-6 ${
-                  pkg.featured ? "ring-1 ring-[#2997ff]/50" : ""
+                  pkg.featured ? "ring-1 ring-brand-link/50" : ""
                 }`}
               >
                 {pkg.badge && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-[#0071e3] px-3 py-1 text-[11px] font-semibold text-white">
+                  <span className="absolute -top-3 left-6 rounded-full bg-[#ff8c14] px-3 py-1 text-[11px] font-semibold text-black">
                     {pkg.badge}
                   </span>
                 )}
-                <h3 className="text-[20px] font-semibold tracking-tight text-[#f5f5f7]">
+                <h3 className="text-[20px] font-semibold tracking-tight text-brand-ink">
                   {pkg.name}
                 </h3>
-                <p className="mt-1 text-[13px] text-[#a1a1a6]">{pkg.tagline}</p>
+                <p className="mt-1 text-[13px] text-brand-muted">{pkg.tagline}</p>
 
                 <div className="mt-5">
-                  <p className="text-[26px] font-semibold tracking-tight text-[#f5f5f7]">
+                  <p className="text-[26px] font-semibold tracking-tight text-brand-ink">
                     {pkg.priceUsd}
                   </p>
-                  <p className="text-[13px] text-[#a1a1a6]">{pkg.priceNgn}</p>
-                  <p className="mt-1 text-[12px] text-[#2997ff]">{pkg.timeline}</p>
+                  <p className="text-[13px] text-brand-muted">{pkg.priceNgn}</p>
+                  <p className="mt-1 text-[12px] text-brand-link">{pkg.timeline}</p>
                 </div>
 
-                <p className="mt-4 text-[12px] text-[#a1a1a6]">
+                <p className="mt-4 text-[12px] text-brand-muted">
                   Ideal for: {pkg.idealFor}
                 </p>
 
@@ -62,9 +62,9 @@ export default function Packages() {
                   {pkg.features.map((f) => (
                     <li
                       key={f}
-                      className="flex gap-2 text-[13px] leading-snug text-[#f5f5f7]/90"
+                      className="flex gap-2 text-[13px] leading-snug text-brand-ink/90"
                     >
-                      <span className="mt-0.5 text-[#2997ff]">✓</span>
+                      <span className="mt-0.5 text-brand-link">✓</span>
                       <span>{f}</span>
                     </li>
                   ))}
@@ -76,8 +76,8 @@ export default function Packages() {
                   rel="noopener noreferrer"
                   className={`mt-6 inline-flex w-full items-center justify-center rounded-full py-3 text-[14px] font-medium transition ${
                     pkg.featured
-                      ? "bg-[#0071e3] text-white hover:bg-[#0077ed]"
-                      : "border border-white/20 text-[#f5f5f7] hover:bg-white/5"
+                      ? "bg-[#ff8c14] text-black hover:bg-[#ffa03a]"
+                      : "border border-white/20 text-brand-ink hover:bg-white/5"
                   }`}
                 >
                   {pkg.ctaLabel}
@@ -88,21 +88,21 @@ export default function Packages() {
         </div>
 
         <ScrollReveal direction="up" delay={0.1}>
-          <div className="mt-8 flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/10 bg-[#1d1d1f] p-8 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/10 bg-brand-surface p-8 sm:flex-row sm:items-center">
             <div>
-              <h3 className="text-[22px] font-semibold text-[#f5f5f7]">
+              <h3 className="text-[22px] font-semibold text-brand-ink">
                 {MAINTENANCE.name}
               </h3>
-              <p className="mt-1 text-[15px] text-[#a1a1a6]">{MAINTENANCE.tagline}</p>
-              <p className="mt-3 text-[18px] font-semibold text-[#f5f5f7]">
+              <p className="mt-1 text-[15px] text-brand-muted">{MAINTENANCE.tagline}</p>
+              <p className="mt-3 text-[18px] font-semibold text-brand-ink">
                 {MAINTENANCE.priceUsd}{" "}
-                <span className="text-[14px] font-normal text-[#a1a1a6]">
+                <span className="text-[14px] font-normal text-brand-muted">
                   · {MAINTENANCE.priceNgn}
                 </span>
               </p>
               <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                 {MAINTENANCE.features.map((f) => (
-                  <li key={f} className="text-[13px] text-[#a1a1a6]">
+                  <li key={f} className="text-[13px] text-brand-muted">
                     ✓ {f}
                   </li>
                 ))}
@@ -121,7 +121,7 @@ export default function Packages() {
           >
             Hire — pay 50% deposit online
           </a>
-          <p className="max-w-md text-[13px] text-[#a1a1a6]">
+          <p className="max-w-md text-[13px] text-brand-muted">
             Fixed-price packages. Secure Paystack deposit. Or{" "}
             <a href="/pricing" className="apple-link">
               see full pricing ›

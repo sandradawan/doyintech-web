@@ -21,12 +21,12 @@ export default function BackendServicePage() {
           <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white">
             Backend Engineering
           </h1>
-          <p className="mt-4 text-xl text-gray-400">
+          <p className="mt-4 text-xl text-brand-muted">
             Secure, scalable backends built with Laravel, PHP, Node.js, MySQL and
             PostgreSQL.
           </p>
 
-          <div className="mt-12 space-y-10 text-gray-300 leading-relaxed">
+          <div className="mt-12 space-y-10 text-brand-soft leading-relaxed">
             <p>
               We design and implement backend systems that handle real traffic,
               real data, and real business rules — with clear architecture and
@@ -66,7 +66,7 @@ export default function BackendServicePage() {
 
             <section>
               <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
-              <p className="text-gray-400 text-sm mb-3">
+              <p className="text-brand-muted text-sm mb-3">
                 Indicative only — final quote depends on scope. We price clearly
                 after discovery.
               </p>
@@ -82,14 +82,14 @@ export default function BackendServicePage() {
               <div className="space-y-4 text-sm">
                 <div>
                   <p className="font-semibold text-white">Laravel or Node?</p>
-                  <p className="text-gray-400 mt-1">
+                  <p className="text-brand-muted mt-1">
                     We recommend based on your team, timeline and product type —
                     not hype.
                   </p>
                 </div>
                 <div>
                   <p className="font-semibold text-white">Do you work with existing codebases?</p>
-                  <p className="text-gray-400 mt-1">
+                  <p className="text-brand-muted mt-1">
                     Yes. Stabilisation, refactors and feature work on production
                     systems are core to what we do.
                   </p>

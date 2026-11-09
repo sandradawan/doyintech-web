@@ -59,7 +59,7 @@ export default function ProformaInvoicePage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Need quotes, invoices and receipts that look official?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             Add your logo and brand colour to every document for a one-off ₦3,500, or get every premium tool with{" "}
             <Link href="/pro" className="text-[#ff8c14] hover:underline">
               DoyinTech Pro

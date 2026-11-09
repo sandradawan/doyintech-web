@@ -13,7 +13,7 @@ export const btn = {
   danger:
     "inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-500/30 px-3.5 py-2 text-[13px] font-medium text-red-300 transition hover:bg-red-500/10 disabled:opacity-50",
 };
-export const panel = "rounded-2xl border border-white/[0.07] bg-[#0b0d13]";
+export const panel = "rounded-2xl border border-white/[0.07] bg-brand-deep";
 
 const TONES: Record<string, string> = {
   green: "bg-emerald-500/12 text-emerald-300 ring-emerald-500/20",
@@ -21,7 +21,7 @@ const TONES: Record<string, string> = {
   blue: "bg-sky-500/12 text-sky-300 ring-sky-500/20",
   violet: "bg-violet-500/12 text-violet-300 ring-violet-500/20",
   red: "bg-red-500/12 text-red-300 ring-red-500/20",
-  gray: "bg-white/[0.06] text-[#a1a1a6] ring-white/10",
+  gray: "bg-white/[0.06] text-brand-muted ring-white/10",
 };
 
 const STATUS_TONE: Record<string, keyof typeof TONES> = {
@@ -113,7 +113,7 @@ export function CellValue({ field, value }: { field: Field; value: unknown }) {
     case "json":
       return <span className="font-mono text-[11px] text-white/50">{JSON.stringify(value).slice(0, 60)}</span>;
     case "email":
-      return <span className="text-[#8ab4ff]">{String(value)}</span>;
+      return <span className="text-brand-link">{String(value)}</span>;
     default:
       return <span className="line-clamp-2 break-words">{String(value)}</span>;
   }
@@ -157,16 +157,16 @@ export function Drawer({
       <div
         ref={ref}
         tabIndex={-1}
-        className={`absolute inset-y-0 right-0 flex w-full flex-col border-l border-white/10 bg-[#0b0d13] shadow-2xl outline-none ${
+        className={`absolute inset-y-0 right-0 flex w-full flex-col border-l border-white/10 bg-brand-deep shadow-2xl outline-none ${
           wide ? "sm:max-w-3xl" : "sm:max-w-xl"
         }`}
       >
         <div className="flex items-start justify-between gap-3 border-b border-white/[0.07] px-5 py-4">
           <div className="min-w-0">
             <div className="truncate text-[17px] font-semibold text-white">{title}</div>
-            {subtitle && <div className="mt-0.5 text-[12px] text-[#86868b]">{subtitle}</div>}
+            {subtitle && <div className="mt-0.5 text-[12px] text-brand-subtle">{subtitle}</div>}
           </div>
-          <button type="button" onClick={onClose} className="rounded-lg px-2 py-1 text-[18px] leading-none text-[#a1a1a6] hover:bg-white/5 hover:text-white" aria-label="Close">
+          <button type="button" onClick={onClose} className="rounded-lg px-2 py-1 text-[18px] leading-none text-brand-muted hover:bg-white/5 hover:text-white" aria-label="Close">
             ×
           </button>
         </div>
@@ -187,7 +187,7 @@ export function PageHeader({ eyebrow, title, description, actions }: { eyebrow?:
       <div className="min-w-0">
         {eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">{eyebrow}</p>}
         <h1 className="mt-1 text-[24px] font-semibold tracking-tight text-white">{title}</h1>
-        {description && <p className="mt-1 max-w-2xl text-[13px] text-[#86868b]">{description}</p>}
+        {description && <p className="mt-1 max-w-2xl text-[13px] text-brand-subtle">{description}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </div>

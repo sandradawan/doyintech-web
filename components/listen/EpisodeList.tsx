@@ -58,10 +58,10 @@ export default function EpisodeList({ items, showNames = false, openShared = fal
             <div className="min-w-0 flex-1">
               {showNames && <Link href={`/listen/${item.showSlug}`} className="text-[13px] font-semibold text-[#ffb366] hover:underline">{item.showName}</Link>}
               <h3 className="text-[16px] font-semibold leading-snug text-white">{e.title}</h3>
-              <p className="mt-0.5 text-[13px] text-[#a1a1a6]">
+              <p className="mt-0.5 text-[13px] text-brand-muted">
                 {[when(e.date), e.seconds ? `${Math.max(1, Math.round(e.seconds / 60))} min` : ""].filter(Boolean).join(" · ")}
               </p>
-              {e.summary && <p className="mt-1 line-clamp-2 text-[14px] text-[#c7cdd8]">{e.summary}</p>}
+              {e.summary && <p className="mt-1 line-clamp-2 text-[14px] text-brand-soft">{e.summary}</p>}
               {place && place.duration > 0 && (
                 <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10" role="img" aria-label={`${Math.round((place.at / place.duration) * 100)}% played`}>
                   <div className="h-full bg-[#ff8c14]" style={{ width: `${(place.at / place.duration) * 100}%` }} />

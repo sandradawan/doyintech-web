@@ -47,7 +47,7 @@ export default function DigitalReadiness() {
             <h2 className="mt-1 font-display text-2xl font-bold text-white md:text-3xl">
               {result.level}
             </h2>
-            <p className="mt-2 text-sm text-gray-400">
+            <p className="mt-2 text-sm text-brand-muted">
               Based on your self-assessment across presence, experience, payments,
               marketing, operations, and security.
             </p>
@@ -61,7 +61,7 @@ export default function DigitalReadiness() {
               className="rounded-xl border border-white/10 bg-black/30 px-3 py-3"
             >
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-300">{c.category}</span>
+                <span className="text-brand-soft">{c.category}</span>
                 <span className="font-semibold text-white">{c.score}</span>
               </div>
               <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -117,7 +117,7 @@ export default function DigitalReadiness() {
 
   return (
     <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-brand-subtle">
         Step {page + 1} of {pages}
       </p>
       <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -131,7 +131,7 @@ export default function DigitalReadiness() {
         {slice.map((q) => (
           <div key={q.id}>
             <p className="text-sm font-medium text-white">{q.label}</p>
-            <p className="text-[11px] text-gray-500">{q.category}</p>
+            <p className="text-[11px] text-brand-subtle">{q.category}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {(["yes", "partial", "no"] as ReadinessAnswer[]).map((a) => (
                 <button
@@ -141,7 +141,7 @@ export default function DigitalReadiness() {
                   className={`rounded-full border px-3 py-1.5 text-xs capitalize ${
                     answers[q.id] === a
                       ? "border-primary bg-primary/20 text-white"
-                      : "border-white/10 text-gray-400"
+                      : "border-white/10 text-brand-muted"
                   }`}
                 >
                   {a}
@@ -157,7 +157,7 @@ export default function DigitalReadiness() {
           type="button"
           disabled={page === 0}
           onClick={() => setPage((p) => p - 1)}
-          className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-gray-300 disabled:opacity-40"
+          className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-soft disabled:opacity-40"
         >
           Back
         </button>
@@ -188,9 +188,9 @@ function Block({ title, items }: { title: string; items: string[] }) {
     <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
       <p className="text-sm font-semibold text-white">{title}</p>
       {items.length === 0 ? (
-        <p className="mt-2 text-sm text-gray-500">—</p>
+        <p className="mt-2 text-sm text-brand-subtle">—</p>
       ) : (
-        <ul className="mt-2 space-y-1 text-sm text-gray-300">
+        <ul className="mt-2 space-y-1 text-sm text-brand-soft">
           {items.map((i) => (
             <li key={i}>• {i}</li>
           ))}

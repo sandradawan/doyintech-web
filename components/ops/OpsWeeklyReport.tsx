@@ -84,7 +84,7 @@ export default function OpsWeeklyReport({ ws }: { ws: OpsWorkspace }) {
           ["Paid (week)", formatNgn(paidSum)],
           ["Open tasks", String(openTasks.length)],
         ].map(([l, v]) => (
-          <div key={l} className="rounded-xl border border-white/[0.06] bg-[#0c1220]/80 p-3">
+          <div key={l} className="rounded-xl border border-white/[0.06] bg-brand-deep/80 p-3">
             <p className="text-[10px] uppercase tracking-wide text-white/40">{l}</p>
             <p className="mt-1 text-lg font-semibold text-white">{v}</p>
           </div>

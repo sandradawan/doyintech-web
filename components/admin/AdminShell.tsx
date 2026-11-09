@@ -11,9 +11,9 @@ function AdminRedirect({ error }: { error: string | null }) {
     router.replace("/admin/login");
   }, [router]);
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-[#05060a] px-6 text-center">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-brand-deepest px-6 text-center">
       <div className="h-10 w-10 animate-pulse rounded-2xl bg-[#ff8c14]/20" />
-      <p className="text-[15px] text-[#a1a1a6]">{error || "Admin sign-in required"}</p>
+      <p className="text-[15px] text-brand-muted">{error || "Admin sign-in required"}</p>
       <Link href="/admin/login" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black">
         Go to admin login
       </Link>
@@ -131,7 +131,7 @@ function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () 
     <nav className="flex flex-col gap-5">
       {NAV.map((group) => (
         <div key={group.label}>
-          <p className="px-3 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6e6e73]">{group.label}</p>
+          <p className="px-3 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-subtle">{group.label}</p>
           <div className="flex flex-col gap-0.5">
             {group.items.map((item) => {
               const active = navActive(pathname, item);
@@ -141,7 +141,7 @@ function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () 
                   href={item.href}
                   onClick={onNavigate}
                   className={`rounded-lg px-3 py-1.5 text-[13px] transition ${
-                    active ? "bg-[#ff8c14]/12 font-semibold text-[#ffb366]" : "text-[#a1a1a6] hover:bg-white/[0.04] hover:text-white"
+                    active ? "bg-[#ff8c14]/12 font-semibold text-[#ffb366]" : "text-brand-muted hover:bg-white/[0.04] hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -171,7 +171,7 @@ function Shell({ children }: { children: ReactNode }) {
   if (pathname === "/admin/login") return <>{children}</>;
   if (session.loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-[#05060a] text-[#a1a1a6]">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-brand-deepest text-brand-muted">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-[#ff8c14]" />
         <p className="text-[13px]">Verifying admin session…</p>
       </div>
@@ -188,12 +188,12 @@ function Shell({ children }: { children: ReactNode }) {
   const account = (
     <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-3">
       <p className="truncate text-[12px] font-medium text-white">{session.email}</p>
-      <p className="mt-0.5 text-[11px] text-[#86868b]">Administrator · full access</p>
+      <p className="mt-0.5 text-[11px] text-brand-subtle">Administrator · full access</p>
       <div className="mt-3 flex gap-2">
-        <button type="button" onClick={signOut} className="flex-1 rounded-lg border border-white/10 py-1.5 text-[11px] font-medium text-[#a1a1a6] transition hover:border-white/25 hover:text-white">
+        <button type="button" onClick={signOut} className="flex-1 rounded-lg border border-white/10 py-1.5 text-[11px] font-medium text-brand-muted transition hover:border-white/25 hover:text-white">
           Sign out
         </button>
-        <Link href="/" className="flex-1 rounded-lg border border-white/10 py-1.5 text-center text-[11px] font-medium text-[#a1a1a6] transition hover:border-white/25 hover:text-white">
+        <Link href="/" className="flex-1 rounded-lg border border-white/10 py-1.5 text-center text-[11px] font-medium text-brand-muted transition hover:border-white/25 hover:text-white">
           View site
         </Link>
       </div>
@@ -201,8 +201,8 @@ function Shell({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#05060a] text-[#f5f5f7]">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] flex-col border-r border-white/[0.07] bg-[#08090e] lg:flex">
+    <div className="min-h-screen bg-brand-deepest text-brand-ink">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] flex-col border-r border-white/[0.07] bg-brand-deep lg:flex">
         <div className="px-4 pb-3 pt-5">
           <Link href="/admin" className="block px-1">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ff8c14]">DoyinTech</p>
@@ -218,7 +218,7 @@ function Shell({ children }: { children: ReactNode }) {
         <div className="border-t border-white/[0.07] p-3">{account}</div>
       </aside>
 
-      <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-[#05060a]/95 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-brand-deepest/95 backdrop-blur lg:hidden">
         <div className="flex items-center justify-between gap-3 px-4 py-3">
           <div className="min-w-0">
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">DoyinTech CRM</p>

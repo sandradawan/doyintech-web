@@ -54,14 +54,14 @@ export default function GiftCardSuccess() {
 
   if (state === "loading" || (state === "pending" && !card?.code)) {
     return (
-      <div className="flex items-center gap-3 text-[15px] text-[#a1a1a6]" role="status">
+      <div className="flex items-center gap-3 text-[15px] text-brand-muted" role="status">
         <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/15 border-t-[#ff8c14]" />
         Confirming your payment…
       </div>
     );
   }
   if (state === "error" || !card) {
-    return <p className="text-[15px] text-[#a1a1a6]">We couldn&apos;t find this gift card. If you were charged, message us on WhatsApp with your Paystack receipt.</p>;
+    return <p className="text-[15px] text-brand-muted">We couldn&apos;t find this gift card. If you were charged, message us on WhatsApp with your Paystack receipt.</p>;
   }
 
   const share = `I got you a ${naira(card.amountKobo)} DoyinTech gift card 🎁\nCode: ${card.code}\nUse it at https://www.doyintech.com/gift-cards/redeem`;
@@ -73,7 +73,7 @@ export default function GiftCardSuccess() {
       </div>
       <div>
         <h1 className="text-[28px] font-semibold tracking-tight text-white">Your gift card is ready</h1>
-        <p className="mt-2 text-[15px] text-[#a1a1a6]">
+        <p className="mt-2 text-[15px] text-brand-muted">
           We&apos;ve emailed it{card.recipientName ? ` and sent it to ${card.recipientName} if you gave their email` : ""}. Keep the code safe:
           anyone with it can spend the balance.
           {card.expiresAt && ` Valid until ${new Date(card.expiresAt).toLocaleDateString("en-NG", { day: "numeric", month: "long", year: "numeric" })}.`}
@@ -94,7 +94,7 @@ export default function GiftCardSuccess() {
             href={`https://wa.me/?text=${encodeURIComponent(share)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-[#25D366] px-5 py-2.5 text-[14px] font-semibold text-white"
+            className="rounded-full bg-[#25D366] px-5 py-2.5 text-[14px] font-semibold text-black"
           >
             Send on WhatsApp
           </a>
@@ -102,9 +102,9 @@ export default function GiftCardSuccess() {
             Print
           </button>
         </div>
-        <div className="mt-8 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+        <div className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-5">
           <p className="text-[14px] font-semibold text-white">Bought it for yourself?</p>
-          <p className="mt-1 text-[13px] text-[#a1a1a6]">Apply it now and it&apos;s used automatically at checkout across DoyinTech.</p>
+          <p className="mt-1 text-[13px] text-brand-muted">Apply it now and it&apos;s used automatically at checkout across DoyinTech.</p>
           <Link
             href="/products"
             onClick={() => card.code && applyGiftCode(card.code)}

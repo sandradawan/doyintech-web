@@ -5,10 +5,10 @@
 
 const BRAND = {
   orange: "#ff8c14",
-  blue: "#2997ff",
-  black: "#0a0a0a",
-  card: "#141414",
-  muted: "#a1a1a6",
+  blue: "#ffa64d",
+  black: "#06291f",
+  card: "#0b3a2c",
+  muted: "#b5cdc2",
   body: "#e8e8ed",
   white: "#ffffff",
   site: "https://www.doyintech.com",

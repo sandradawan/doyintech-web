@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function DailyOutreachPage() {
   return (
     <>
-      <main className="min-h-screen bg-[#070b12] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deepest pb-24 pt-24">
         <DailyProspecting />
       </main>
       <Footer />

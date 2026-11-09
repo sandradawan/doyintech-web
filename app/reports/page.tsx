@@ -91,17 +91,17 @@ export default function ReportStudioPage() {
     <>
       <main className="pb-24 pt-28">
         <div className="mx-auto max-w-[1020px] px-5 sm:px-6">
-          <p className="text-[13px] text-[#a1a1a6]">
-            <Link href="/" className="text-[#2997ff] hover:underline">Home</Link> / Report Studio
+          <p className="text-[13px] text-brand-muted">
+            <Link href="/" className="text-brand-link hover:underline">Home</Link> / Report Studio
           </p>
-          <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[40px]">
+          <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             AI Report Studio
           </h1>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-brand-muted">
             Multi-platform audits — Instagram, Facebook, TikTok, YouTube, LinkedIn,
             WhatsApp, website, X, and more. One branded report. Print → Save as PDF.
           </p>
-          <div className="mt-6 flex flex-wrap gap-2 text-[12px] text-[#a1a1a6]">
+          <div className="mt-6 flex flex-wrap gap-2 text-[12px] text-brand-muted">
             {["Instagram", "Facebook", "TikTok", "YouTube", "LinkedIn", "WhatsApp", "Website", "X"].map(
               (x) => (
                 <span key={x} className="rounded-full border border-white/10 px-2.5 py-1">{x}</span>
@@ -131,10 +131,10 @@ export default function ReportStudioPage() {
                   )}
                   <h2 className="mt-1 font-display text-[17px] font-semibold text-white">{p.name}</h2>
                   <p className="mt-1 text-[20px] font-bold text-white">{formatNgn(p.priceNgn)}</p>
-                  <p className="text-[12px] text-[#86868b]">
+                  <p className="text-[12px] text-brand-subtle">
                     {formatUsdFromNgn(p.priceNgn)} · up to {p.maxPlatforms} channel{p.maxPlatforms > 1 ? "s" : ""}
                   </p>
-                  <p className="mt-2 text-[13px] text-[#a1a1a6]">{p.blurb}</p>
+                  <p className="mt-2 text-[13px] text-brand-muted">{p.blurb}</p>
                 </button>
               );
             })}
@@ -142,22 +142,22 @@ export default function ReportStudioPage() {
 
           <form onSubmit={submit} className="mt-10 space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
             <h2 className="font-display text-[20px] font-semibold text-white">Order details</h2>
-            <p className="text-[13px] text-[#a1a1a6]">
+            <p className="text-[13px] text-brand-muted">
               <strong className="text-white">{pkg?.name}</strong> — {pkg ? formatNgn(pkg.priceNgn) : ""} · max {max} link{max > 1 ? "s" : ""}
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Full name *
                 <input required value={name} onChange={(e) => setName(e.target.value)}
                   className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Email *
                 <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
               </label>
             </div>
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Phone / WhatsApp
               <input value={phone} onChange={(e) => setPhone(e.target.value)}
                 className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
@@ -166,7 +166,7 @@ export default function ReportStudioPage() {
             <div className="space-y-3">
               <p className="text-[13px] font-medium text-white">
                 Platform links *{" "}
-                <span className="font-normal text-[#a1a1a6]">(IG, FB, TikTok, YT, LinkedIn, WA, web, X…)</span>
+                <span className="font-normal text-brand-muted">(IG, FB, TikTok, YT, LinkedIn, WA, web, X…)</span>
               </p>
               {rows.map((row, i) => (
                 <div key={i} className="flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -187,36 +187,36 @@ export default function ReportStudioPage() {
                   />
                   {rows.length > 1 && (
                     <button type="button" onClick={() => setRows((prev) => prev.filter((_, idx) => idx !== i))}
-                      className="text-[13px] text-[#a1a1a6]">Remove</button>
+                      className="text-[13px] text-brand-muted">Remove</button>
                   )}
                 </div>
               ))}
               {rows.length < max && (
                 <button type="button" onClick={() => setRows((prev) => [...prev, { platform: "website", url: "" }])}
-                  className="text-[13px] font-medium text-[#2997ff]">+ Add another platform</button>
+                  className="text-[13px] font-medium text-brand-link">+ Add another platform</button>
               )}
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Business category
                 <input value={businessCategory} onChange={(e) => setBusinessCategory(e.target.value)}
                   placeholder="e.g. Makeup, Property, Coaching"
                   className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Main objective
                 <input value={businessObjective} onChange={(e) => setBusinessObjective(e.target.value)}
                   placeholder="e.g. More bookings from social + web"
                   className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
               </label>
             </div>
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Target audience
               <input value={targetAudience} onChange={(e) => setTargetAudience(e.target.value)}
                 className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
             </label>
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Notes
               <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3}
                 className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
@@ -229,7 +229,7 @@ export default function ReportStudioPage() {
               className="rounded-full bg-[#ff8c14] px-6 py-3.5 text-[15px] font-semibold text-black disabled:opacity-60">
               {loading ? "Starting payment…" : `Pay ${pkg ? formatNgn(pkg.priceNgn) : ""} & get report`}
             </button>
-            <p className="text-[12px] text-[#86868b]">
+            <p className="text-[12px] text-brand-subtle">
               We analyse links you submit and public details only. No invented follower or view counts.
             </p>
           </form>

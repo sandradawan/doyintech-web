@@ -27,7 +27,7 @@ export default function ReportDocument({
             <p className="text-[11px] font-medium uppercase tracking-wider text-[#ff8c14]">
               DoyinTech Report Studio
             </p>
-            <p className="text-[13px] text-[#a1a1a6]">
+            <p className="text-[13px] text-brand-muted">
               {productName} · {orderId}
             </p>
           </div>
@@ -50,7 +50,7 @@ export default function ReportDocument({
       </div>
 
       <article className="report-doc mx-auto max-w-[820px] bg-white text-[#1a1a1a]">
-        <div className="report-cover bg-gradient-to-br from-[#0a0a0b] via-[#141416] to-[#1a1208] px-8 py-12 text-white sm:px-12 sm:py-14">
+        <div className="report-cover bg-gradient-to-br from-brand-deep via-brand-surface to-brand-deep px-8 py-12 text-white sm:px-12 sm:py-14">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ff8c14]">

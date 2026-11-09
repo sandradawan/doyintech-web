@@ -69,12 +69,12 @@ export default function StatusPackClient() {
         Daily distribution · free
       </p>
       <h1 className="mt-2 text-[32px] font-semibold text-white">This week’s Status captions</h1>
-      <p className="mt-3 text-[15px] text-[#a1a1a6]">
+      <p className="mt-3 text-[15px] text-brand-muted">
         Post one per day. Copy → paste on WhatsApp Status. Consistency fills the pipeline.
       </p>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-[#141a28] p-4">
-        <p className="text-[13px] text-[#c7cdd8]">Share this pack with a friend who needs clients:</p>
+      <div className="mt-6 rounded-2xl border border-white/10 bg-brand-surface p-4">
+        <p className="text-[13px] text-brand-soft">Share this pack with a friend who needs clients:</p>
         <ViralShare
           className="mt-3"
           text="Free weekly WhatsApp Status captions for Nigerian SMEs — audit, fixed-price sites, digital products."
@@ -85,16 +85,16 @@ export default function StatusPackClient() {
 
       <div className="mt-10 space-y-4">
         {week.map((w) => (
-          <div key={w.day} className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-5">
+          <div key={w.day} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
             <div className="flex items-center justify-between gap-3">
               <p className="text-[12px] font-semibold text-[#ff8c14]">{w.day}</p>
               <CopyCaption text={w.caption} />
             </div>
-            <p className="mt-2 text-[15px] leading-relaxed text-[#e8eaed]">{w.caption}</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-brand-soft">{w.caption}</p>
           </div>
         ))}
       </div>
-      <p className="mt-8 text-[13px] text-[#86868b]">
+      <p className="mt-8 text-[13px] text-brand-subtle">
         Sell the same system to clients:{" "}
         <a href="/products" className="text-[#ff8c14] hover:underline">
           Status + caption products

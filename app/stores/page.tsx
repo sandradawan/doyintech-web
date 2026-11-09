@@ -60,13 +60,13 @@ export default function StoresPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([faqJsonLd(FAQS)]) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1000px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">DoyinTech Store</p>
           <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">
             Your online shop in two minutes. Free.
           </h1>
-          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
             Stop sending price lists in DMs. Share one link with your products, prices and photos —
             customers order on WhatsApp or pay online straight to your bank.
           </p>
@@ -84,7 +84,7 @@ export default function StoresPage() {
               <li key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
                 <span className="text-[13px] font-semibold text-[#ff8c14]">Step {i + 1}</span>
                 <h2 className="mt-1 text-[16px] font-semibold text-white">{s.title}</h2>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-[#a1a1a6]">{s.body}</p>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-brand-muted">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -92,11 +92,11 @@ export default function StoresPage() {
           <section id="pricing" className="mt-16">
             <h2 className="text-[24px] font-semibold text-white">Pricing</h2>
             <div className="mt-6 grid gap-5 lg:grid-cols-3">
-              <div className="flex flex-col rounded-[22px] border border-white/10 bg-[#141a28] p-6">
+              <div className="flex flex-col rounded-[22px] border border-white/10 bg-brand-surface p-6">
                 <h3 className="text-[19px] font-semibold text-white">Free</h3>
-                <p className="mt-1 text-[14px] text-[#a1a1a6]">Everything you need to start.</p>
+                <p className="mt-1 text-[14px] text-brand-muted">Everything you need to start.</p>
                 <p className="mt-5 text-[34px] font-semibold text-white">₦0</p>
-                <ul className="mt-5 flex-1 space-y-2.5 text-[14px] text-[#c7cdd8]">
+                <ul className="mt-5 flex-1 space-y-2.5 text-[14px] text-brand-soft">
                   <li>✓ Shop page with your own link</li>
                   <li>✓ Up to {FREE_PRODUCT_LIMIT} products with photos</li>
                   <li>✓ Orders on WhatsApp with item list and total</li>
@@ -120,7 +120,7 @@ export default function StoresPage() {
               {FAQS.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>

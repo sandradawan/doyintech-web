@@ -36,7 +36,7 @@ export default function Page() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Sell at your new price online</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">We build online stores that take card and transfer payments, so customers can order any time.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">We build online stores that take card and transfer payments, so customers can order any time.</p>
           <Link href="/stores" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get a website</Link>
         </>
       }
@@ -44,7 +44,7 @@ export default function Page() {
       <section>
         <h2 className="text-[22px] font-semibold text-white">Margin and markup side by side</h2>
         <table className="mt-4 w-full text-left text-[15px]">
-          <thead><tr className="border-b border-white/10 text-[#a1a1a6]"><th className="py-2 font-medium">Margin</th><th className="py-2 font-medium">Same as markup</th><th className="py-2 font-medium">Price for a cost of 100</th></tr></thead>
+          <thead><tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Margin</th><th className="py-2 font-medium">Same as markup</th><th className="py-2 font-medium">Price for a cost of 100</th></tr></thead>
           <tbody>
             {[10, 20, 25, 30, 40, 50, 60].map((m) => (
               <tr key={m} className="border-b border-white/5"><td className="py-2 text-white">{m}%</td><td className="py-2">{((m / (100 - m)) * 100).toFixed(1)}%</td><td className="py-2">{(100 / (1 - m / 100)).toFixed(2)}</td></tr>

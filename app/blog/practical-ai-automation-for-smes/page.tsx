@@ -23,7 +23,7 @@ export default function Post() {
           <h1 className="mt-3 font-display text-3xl md:text-4xl font-bold text-white leading-tight">
             Practical AI Automation for SMEs (Not Hype)
           </h1>
-          <div className="mt-10 space-y-6 text-gray-300 leading-relaxed">
+          <div className="mt-10 space-y-6 text-brand-soft leading-relaxed">
             <p>
               You don’t need a research lab. Simple AI workflows can remove
               repetitive work from sales, support and operations today — if you

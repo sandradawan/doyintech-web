@@ -23,7 +23,7 @@ export default function Post() {
           <h1 className="mt-3 font-display text-3xl md:text-4xl font-bold text-white leading-tight">
             Why Production-Grade Backends Matter for African Businesses
           </h1>
-          <div className="mt-10 space-y-6 text-gray-300 leading-relaxed">
+          <div className="mt-10 space-y-6 text-brand-soft leading-relaxed">
             <p>
               Many businesses start with a quick website or a simple app. That
               works until real customers arrive, payments increase, or staff need

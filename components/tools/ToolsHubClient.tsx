@@ -81,7 +81,7 @@ export default function ToolsHubClient() {
             setPage(1);
           }}
           placeholder="Search tools — invoice, VAT, WhatsApp, margin, word counter…"
-          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-gray-400 focus:border-primary/50"
+          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-brand-muted focus:border-primary/50"
         />
       </div>
 
@@ -110,7 +110,7 @@ export default function ToolsHubClient() {
           className={`min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
             category === "all"
               ? "bg-white text-black"
-              : "border border-white/15 text-gray-300 hover:border-white/30"
+              : "border border-white/15 text-brand-soft hover:border-white/30"
           }`}
         >
           All ({TOOLS_META.length})
@@ -126,7 +126,7 @@ export default function ToolsHubClient() {
               className={`inline-flex items-center gap-1.5 min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
                 category === cat.id
                   ? "bg-white text-black"
-                  : "border border-white/15 text-gray-300 hover:border-white/30"
+                  : "border border-white/15 text-brand-soft hover:border-white/30"
               }`}
             >
               <CategoryIcon category={cat.id} size={14} />
@@ -136,7 +136,7 @@ export default function ToolsHubClient() {
         })}
       </div>
 
-      <p className="mt-4 text-sm text-gray-400">
+      <p className="mt-4 text-sm text-brand-muted">
         Showing {slice.length} of {filtered.length} tools
         {category !== "all" ? " in this category" : ""}
         {q.trim() ? ` matching "${q.trim()}"` : ""} · Page {safePage} of {totalPages}
@@ -173,14 +173,14 @@ export default function ToolsHubClient() {
             <h2 className="mt-3 font-display text-lg font-semibold text-white group-hover:text-primary">
               {t.title}
             </h2>
-            <p className="mt-1 text-sm text-gray-400">{t.short}</p>
-            <p className="mt-2 line-clamp-2 text-xs text-gray-400">{t.description}</p>
+            <p className="mt-1 text-sm text-brand-muted">{t.short}</p>
+            <p className="mt-2 line-clamp-2 text-xs text-brand-muted">{t.description}</p>
           </Link>
         ))}
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-10 text-center text-sm text-gray-400">
+        <p className="mt-10 text-center text-sm text-brand-muted">
           No tools match{q.trim() ? ` “${q.trim()}”` : ""}{audience || category !== "all" ? " with these filters" : ""}. Try invoice, payslip, CGPA or certificate, or{" "}
           <button type="button" className="text-primary underline" onClick={() => { setQ(""); setCategory("all"); selectAudience(""); }}>
             clear all filters
@@ -199,7 +199,7 @@ export default function ToolsHubClient() {
           >
             Previous
           </button>
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-brand-muted">
             {safePage} / {totalPages}
           </span>
           <button

@@ -105,12 +105,12 @@ export default async function BlogPage() {
 
   return (
     <>
-      <main className="bg-black pb-24 pt-24">
+      <main className="bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-brand-muted">
             Insights
           </p>
-          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Blog & notes</h1>
+          <h1 className="apple-headline mt-3 text-brand-ink">Blog & notes</h1>
           <p className="apple-subhead mt-4 max-w-2xl">
             Practical writing for Nigerian SMEs — websites that get bookings, WhatsApp systems,
             backends, and AI automation — plus lessons from our YouTube playlist.
@@ -121,17 +121,17 @@ export default async function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="apple-card group block p-6 transition hover:border-[#2997ff]/40"
+                className="apple-card group block p-6 transition hover:border-brand-link/40"
               >
-                <div className="flex items-center gap-3 text-[12px] text-[#a1a1a6]">
-                  <span className="font-semibold text-[#2997ff]">{post.category}</span>
+                <div className="flex items-center gap-3 text-[12px] text-brand-muted">
+                  <span className="font-semibold text-brand-link">{post.category}</span>
                   <span>·</span>
                   <span>{post.date}</span>
                 </div>
-                <h2 className="mt-3 text-[22px] font-semibold tracking-tight text-[#f5f5f7] transition group-hover:text-[#2997ff]">
+                <h2 className="mt-3 text-[22px] font-semibold tracking-tight text-brand-ink transition group-hover:text-brand-link">
                   {post.title}
                 </h2>
-                <p className="mt-2 text-[15px] leading-relaxed text-[#a1a1a6]">{post.excerpt}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-brand-muted">{post.excerpt}</p>
                 <span className="apple-link mt-4 inline-block text-[14px]">Read article ›</span>
               </Link>
             ))}

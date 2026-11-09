@@ -18,7 +18,7 @@ export default async function FeaturedShops({ title = "Featured shops" }: { titl
           <Link href="/shops" className="text-[#ff8c14] hover:underline">
             Browse all shops
           </Link>
-          <Link href="/get-featured" className="text-[#a1a1a6] hover:text-white">
+          <Link href="/get-featured" className="text-brand-muted hover:text-white">
             Feature your shop
           </Link>
         </div>
@@ -26,16 +26,16 @@ export default async function FeaturedShops({ title = "Featured shops" }: { titl
       <ul className="-mx-5 mt-6 flex snap-x gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
         {shops.map((s) => (
           <li key={s.id} className="w-[72%] shrink-0 snap-start sm:w-auto">
-            <Link href={`/s/${s.slug}`} className="group block overflow-hidden rounded-2xl border border-white/10 bg-[#141a28] transition hover:border-white/25">
+            <Link href={`/s/${s.slug}`} className="group block overflow-hidden rounded-2xl border border-white/10 bg-brand-surface transition hover:border-white/25">
               <div className="relative aspect-[4/3] bg-black/40">
                 {s.images[0] && <Image src={s.images[0]} alt="" fill sizes="(max-width: 640px) 72vw, 340px" className="object-cover transition duration-500 group-hover:scale-[1.03]" />}
                 <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#ffb366]">Sponsored</span>
               </div>
               <div className="p-4">
                 <p className="truncate text-[15px] font-semibold text-white">{s.name}</p>
-                <p className="mt-0.5 truncate text-[12px] text-[#86868b]">
+                <p className="mt-0.5 truncate text-[12px] text-brand-subtle">
                   {[s.category, s.city].filter(Boolean).join(" · ") || `${s.productCount} products`}
-                  {s.fromKobo !== null && <span className="text-[#c7cdd8]"> · from {formatKobo(s.fromKobo)}</span>}
+                  {s.fromKobo !== null && <span className="text-brand-soft"> · from {formatKobo(s.fromKobo)}</span>}
                 </p>
               </div>
             </Link>

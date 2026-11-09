@@ -34,7 +34,7 @@ function FooterColumn({ col }: { col: Column }) {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={id}
-          className="flex min-h-12 w-full items-center justify-between text-left text-[13px] font-semibold uppercase tracking-[0.1em] text-[#f5f5f7] lg:pointer-events-none lg:min-h-0"
+          className="flex min-h-12 w-full items-center justify-between text-left text-[13px] font-semibold uppercase tracking-[0.1em] text-brand-ink lg:pointer-events-none lg:min-h-0"
         >
           {col.label}
           <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden className={`text-white/50 transition lg:hidden ${open ? "rotate-180" : ""}`}>
@@ -66,7 +66,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#050507] text-[14px] text-[#a1a1a6]">
+    <footer className="border-t border-white/[0.08] bg-black text-[14px] text-brand-muted">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-6">
         {/* Brand, contact and newsletter */}
         <div className="grid gap-10 py-12 sm:py-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16">

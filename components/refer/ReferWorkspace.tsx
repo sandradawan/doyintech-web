@@ -61,12 +61,12 @@ export default function ReferWorkspace() {
     <div className="space-y-8">
       <div className="glass-card p-6 sm:p-8">
         <h2 className="text-[18px] font-semibold text-white">Your referral link</h2>
-        <p className="mt-2 text-[14px] text-[#a1a1a6]">
+        <p className="mt-2 text-[14px] text-brand-muted">
           Create a code, share the link. When they deposit, tell us your code so we apply ₦10,000
           credit.
         </p>
         <label className="mt-5 block">
-          <span className="text-[12px] text-[#a1a1a6]">Your name (for the code)</span>
+          <span className="text-[12px] text-brand-muted">Your name (for the code)</span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -90,7 +90,7 @@ export default function ReferWorkspace() {
         </div>
         {shareUrl && (
           <div className="mt-5 space-y-3">
-            <div className="break-all rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[13px] text-[#c7cdd8]">
+            <div className="break-all rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[13px] text-brand-soft">
               {shareUrl}
             </div>
             <div className="flex flex-wrap gap-3">
@@ -105,7 +105,7 @@ export default function ReferWorkspace() {
                 href={waShare}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-[#25D366] px-5 py-2.5 text-[14px] font-semibold text-white"
+                className="rounded-full bg-[#25D366] px-5 py-2.5 text-[14px] font-semibold text-black"
               >
                 Share on WhatsApp
               </a>

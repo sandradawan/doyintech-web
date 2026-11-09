@@ -22,7 +22,7 @@ function Field({
   ...rest
 }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <label className="block text-xs text-gray-500">
+    <label className="block text-xs text-brand-subtle">
       {label}
       <input
         {...rest}
@@ -96,7 +96,7 @@ export function PositionRiskTool() {
       </div>
       <Card title="Suggested size (risk-based)">
         {result.invalid ? (
-          <p className="text-sm text-gray-400">Enter valid entry and stop (must differ).</p>
+          <p className="text-sm text-brand-muted">Enter valid entry and stop (must differ).</p>
         ) : (
           <ul className="space-y-2 text-sm text-gray-200">
             <li>
@@ -117,7 +117,7 @@ export function PositionRiskTool() {
             </li>
           </ul>
         )}
-        <p className="mt-3 text-[11px] text-gray-500">
+        <p className="mt-3 text-[11px] text-brand-subtle">
           Rule of thumb: many educators suggest risking only 0.5–2% of equity per trade.
         </p>
       </Card>
@@ -181,13 +181,13 @@ export function PaperJournalTool() {
   return (
     <div className="space-y-4">
       {DISCLAIMER}
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Log <strong className="text-gray-200">simulated</strong> trades only. Data stays in this
         browser session (refresh clears unless you export).
       </p>
       <form onSubmit={addTrade} className="grid gap-3 sm:grid-cols-2">
         <Field label="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} placeholder="e.g. AAPL or DANGCEM" />
-        <label className="block text-xs text-gray-500">
+        <label className="block text-xs text-brand-subtle">
           Side
           <select
             value={side}
@@ -210,7 +210,7 @@ export function PaperJournalTool() {
         </button>
       </form>
       <Card title="Session stats">
-        <p className="text-sm text-gray-300">
+        <p className="text-sm text-brand-soft">
           Trades: {stats.count} · Win rate: {stats.winRate.toFixed(0)}% · Paper P&L:{" "}
           <span className={stats.pnl >= 0 ? "text-emerald-400" : "text-red-400"}>
             {stats.pnl.toFixed(2)}
@@ -223,7 +223,7 @@ export function PaperJournalTool() {
           return (
             <div
               key={t.id}
-              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-gray-300"
+              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-brand-soft"
             >
               <span className="font-semibold text-white">{t.symbol}</span> {t.side} {t.qty} @{" "}
               {t.entry} → {t.exit}{" "}
@@ -231,7 +231,7 @@ export function PaperJournalTool() {
                 ({diff >= 0 ? "+" : ""}
                 {diff.toFixed(2)})
               </span>
-              {t.notes && <p className="text-xs text-gray-500">{t.notes}</p>}
+              {t.notes && <p className="text-xs text-brand-subtle">{t.notes}</p>}
             </div>
           );
         })}
@@ -259,7 +259,7 @@ export function SignalExplainerTool() {
   return (
     <div className="space-y-4">
       {DISCLAIMER}
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Enter example moving-average values to see how a <em>textbook</em> reading is described.
         This does not fetch live market data or place orders.
       </p>
@@ -271,7 +271,7 @@ export function SignalExplainerTool() {
       {signal && (
         <Card title="Educational reading">
           <p className={`text-lg font-semibold ${signal.color}`}>{signal.label}</p>
-          <p className="mt-2 text-sm text-gray-400">{signal.tip}</p>
+          <p className="mt-2 text-sm text-brand-muted">{signal.tip}</p>
         </Card>
       )}
     </div>
@@ -296,7 +296,7 @@ export function TradeChecklistTool() {
   return (
     <div className="space-y-4">
       {DISCLAIMER}
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Tick every item before a real trade. Green when complete — still not a profit guarantee.
       </p>
       <ul className="space-y-2">
@@ -316,7 +316,7 @@ export function TradeChecklistTool() {
       </ul>
       <p
         className={`text-sm font-semibold ${
-          score === CHECKS.length ? "text-emerald-400" : "text-gray-400"
+          score === CHECKS.length ? "text-emerald-400" : "text-brand-muted"
         }`}
       >
         {score}/{CHECKS.length} ready

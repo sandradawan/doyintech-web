@@ -34,13 +34,13 @@ export default function ServiceDepositButton({ offer }: { offer: ServiceOffer })
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
-      <p className="text-[13px] text-[#a1a1a6]">Pay 50% deposit to lock your slot</p>
+    <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+      <p className="text-[13px] text-brand-muted">Pay 50% deposit to lock your slot</p>
       <p className="mt-1 text-[28px] font-semibold text-white">{offer.depositNgn}</p>
-      <p className="text-[12px] text-[#86868b]">
+      <p className="text-[12px] text-brand-subtle">
         Total package {offer.totalNgn} · balance before handoff
       </p>
-      <label className="mt-4 block text-[12px] text-[#a1a1a6]">
+      <label className="mt-4 block text-[12px] text-brand-muted">
         Email (receipt)
         <input
           type="email"

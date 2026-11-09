@@ -55,15 +55,15 @@ export default function DailyQuiz() {
   const share = `I got ${score}/5 on today's DoyinTech Daily Money Quiz 🔥${streak > 1 ? ` (${streak}-day streak)` : ""}. Can you beat me? ${SITE}`;
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-[#1b2340] to-[#141a28] p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-2 text-[14px] font-semibold">
         <span className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-[#ff8c14]/15 px-3 text-[#ffb366]"><span aria-hidden>🔥</span> {streak} day{streak === 1 ? "" : "s"} streak</span>
-        <span className="text-[13px] font-normal text-[#a1a1a6]">{new Date(day + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</span>
+        <span className="text-[13px] font-normal text-brand-muted">{new Date(day + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</span>
       </div>
 
       {!finished && (
         <div>
-          <div className="flex items-center justify-between text-[13px] text-[#a1a1a6]">
+          <div className="flex items-center justify-between text-[13px] text-brand-muted">
             <span>Question {i + 1} of {qs.length} · {q.topic}</span>
             <span>{answers.filter((a, k) => a === qs[k].correct).length} right</span>
           </div>
@@ -82,7 +82,7 @@ export default function DailyQuiz() {
           {picked !== undefined && (
             <div className="mt-4 rounded-2xl bg-black/30 p-4" aria-live="polite">
               <p className={`text-[16px] font-bold ${picked === q.correct ? "text-green-400" : "text-pink-300"}`}>{picked === q.correct ? "Correct!" : "Not quite."}</p>
-              <p className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{q.explain}</p>
+              <p className="mt-1 text-[15px] leading-relaxed text-brand-soft">{q.explain}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <button type="button" onClick={() => setI(i + 1)} className="min-h-11 rounded-full bg-[#ff8c14] px-5 text-[15px] font-semibold text-black">{i + 1 < qs.length ? "Next question" : "See my score"}</button>
                 {q.tool && <Link href={q.tool.href} className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-5 text-[14px] font-semibold text-white">{q.tool.label} →</Link>}
@@ -97,8 +97,8 @@ export default function DailyQuiz() {
           <div className="text-center">
             <p className="text-[52px]" aria-hidden>{score === 5 ? "🏆" : score >= 3 ? "🎉" : "💡"}</p>
             <p className="text-[30px] font-black text-white">{score} / 5 today</p>
-            <p className="mt-1 text-[15px] text-[#c7cdd8]">New questions in {countdown}. Come back tomorrow to keep your streak!</p>
-            {progress.played > 1 && <p className="mt-1 text-[13px] text-[#a1a1a6]">All time: {progress.correct} right from {progress.played * 5} questions · best streak {progress.streak?.best ?? 1}</p>}
+            <p className="mt-1 text-[15px] text-brand-soft">New questions in {countdown}. Come back tomorrow to keep your streak!</p>
+            {progress.played > 1 && <p className="mt-1 text-[13px] text-brand-muted">All time: {progress.correct} right from {progress.played * 5} questions · best streak {progress.streak?.best ?? 1}</p>}
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               <a href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-full bg-green-500 px-5 text-[15px] font-semibold text-black">Share on WhatsApp</a>
               <Link href="/kids/daily-challenge" className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-5 text-[15px] font-semibold text-white">Kids&apos; daily challenge</Link>
@@ -108,7 +108,7 @@ export default function DailyQuiz() {
             {qs.map((x, k) => (
               <li key={k} className="rounded-2xl bg-black/25 p-3 text-[14px]">
                 <p className="text-white"><span aria-hidden>{given[k] === x.correct ? "✅" : "❌"}</span> {x.q}</p>
-                <p className="mt-1 text-[#a1a1a6]">Answer: <span className="text-green-300">{x.shuffled[x.correct]}</span></p>
+                <p className="mt-1 text-brand-muted">Answer: <span className="text-green-300">{x.shuffled[x.correct]}</span></p>
               </li>
             ))}
           </ol>

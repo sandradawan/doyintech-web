@@ -66,11 +66,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#05060a] px-5">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-brand-deepest px-5">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,140,20,0.16),_transparent_50%)]" />
       <form
         onSubmit={onSubmit}
-        className="relative w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-[#0c0d12]/90 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+        className="relative w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-brand-deep/90 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
       >
         <div className="text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 text-[18px] font-bold text-[#ff8c14]">
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
         ) : null}
 
         <label className="block">
-          <span className="text-[12px] font-medium text-[#a1a1a6]">Work email</span>
+          <span className="text-[12px] font-medium text-brand-muted">Work email</span>
           <input
             type="email"
             required
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
           />
         </label>
         <label className="block">
-          <span className="text-[12px] font-medium text-[#a1a1a6]">Password</span>
+          <span className="text-[12px] font-medium text-brand-muted">Password</span>
           <input
             type="password"
             required
@@ -129,7 +129,7 @@ export default function AdminLoginPage() {
 
         <p className="text-center text-[12px] text-white/35">
           Allowlisted admins only ·{" "}
-          <Link href="/" className="text-[#2997ff] hover:underline">
+          <Link href="/" className="text-brand-link hover:underline">
             Public site
           </Link>
         </p>

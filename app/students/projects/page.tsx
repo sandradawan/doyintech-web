@@ -74,16 +74,16 @@ export default function StudentProjectsPage() {
     <>
       <main className="pb-24 pt-28">
         <div className="mx-auto max-w-[1020px] px-5 sm:px-6">
-          <p className="text-[13px] text-[#a1a1a6]">
-            <Link href="/students" className="text-[#2997ff] hover:underline">
+          <p className="text-[13px] text-brand-muted">
+            <Link href="/students" className="text-brand-link hover:underline">
               Students
             </Link>{" "}
             / Research projects
           </p>
-          <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[40px]">
+          <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             Research project portal
           </h1>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-brand-muted">
             Choose a package (₦15,000–₦30,000). Pay <strong className="text-white">50% to start</strong>,
             we work on your project, then pay the <strong className="text-white">final 50%</strong> to
             unlock your download link.
@@ -112,13 +112,13 @@ export default function StudentProjectsPage() {
                   <p className="mt-1 font-display text-[17px] font-semibold text-white">
                     {p.name}
                   </p>
-                  <p className="mt-1 text-[20px] font-semibold text-[#f5f5f7]">
+                  <p className="mt-1 text-[20px] font-semibold text-brand-ink">
                     ₦{p.priceNgn.toLocaleString()}
                   </p>
-                  <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                  <p className="mt-1 text-[12px] text-brand-muted">
                     Pay now: ₦{dep.toLocaleString()} · Later: ₦{bal.toLocaleString()}
                   </p>
-                  <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+                  <p className="mt-2 text-[13px] leading-relaxed text-brand-muted">
                     {p.blurb}
                   </p>
                 </button>
@@ -131,7 +131,7 @@ export default function StudentProjectsPage() {
             className="mt-10 space-y-5 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
           >
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Full name *
                 <input
                   required
@@ -140,7 +140,7 @@ export default function StudentProjectsPage() {
                   className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
                 />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Email *
                 <input
                   required
@@ -150,7 +150,7 @@ export default function StudentProjectsPage() {
                   className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
                 />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Phone / WhatsApp
                 <input
                   value={phone}
@@ -158,7 +158,7 @@ export default function StudentProjectsPage() {
                   className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
                 />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 School / institution
                 <input
                   value={school}
@@ -166,7 +166,7 @@ export default function StudentProjectsPage() {
                   className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
                 />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Level (e.g. HND, BSc, MSc)
                 <input
                   value={level}
@@ -174,7 +174,7 @@ export default function StudentProjectsPage() {
                   className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
                 />
               </label>
-              <label className="block text-[13px] text-[#a1a1a6]">
+              <label className="block text-[13px] text-brand-muted">
                 Deadline
                 <input
                   value={deadline}
@@ -184,7 +184,7 @@ export default function StudentProjectsPage() {
                 />
               </label>
             </div>
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Research topic *
               <textarea
                 required
@@ -195,7 +195,7 @@ export default function StudentProjectsPage() {
                 className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
               />
             </label>
-            <label className="block text-[13px] text-[#a1a1a6]">
+            <label className="block text-[13px] text-brand-muted">
               Notes (scope, chapter needed, tools)
               <textarea
                 rows={2}
@@ -214,14 +214,14 @@ export default function StudentProjectsPage() {
             />
 
             {selected && (
-              <div className="rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+              <div className="rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 px-4 py-3 text-[13px] text-brand-soft">
                 <p className="font-semibold text-white">{selected.name}</p>
                 <p className="mt-1">
                   Total ₦{selected.priceNgn.toLocaleString()} · Pay now (50%) ₦
                   {depositNgn(selected).toLocaleString()} · Balance later ₦
                   {balanceNgn(selected).toLocaleString()}
                 </p>
-                <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                <p className="mt-1 text-[12px] text-brand-muted">
                   Download link unlocks only after the final 50% is paid.
                 </p>
               </div>
@@ -229,12 +229,12 @@ export default function StudentProjectsPage() {
 
             {error && <p className="text-[13px] text-red-400">{error}</p>}
             {requestId && (
-              <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-[#e8e8ed]">
+              <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-brand-soft">
                 Request ID: <strong className="text-white">{requestId}</strong> —
                 save this to track your project.{" "}
                 <Link
                   href={`/students/projects/track?id=${requestId}`}
-                  className="text-[#2997ff] hover:underline"
+                  className="text-brand-link hover:underline"
                 >
                   Open tracker
                 </Link>
@@ -252,7 +252,7 @@ export default function StudentProjectsPage() {
                   ? `Pay ₦${depositNgn(selected).toLocaleString()} deposit & get Request ID`
                   : "Pay deposit & get Request ID"}
             </button>
-            <p className="text-[12px] text-[#86868b]">
+            <p className="text-[12px] text-brand-subtle">
               Academic integrity: deliverables are research support drafts. Follow
               your school’s rules and supervisor guidance.
             </p>

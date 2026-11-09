@@ -57,13 +57,13 @@ const sequences = [
 export default function NurturePage() {
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Internal · noindex
           </p>
           <h1 className="mt-2 text-[32px] font-semibold text-white">Lead nurture scripts</h1>
-          <p className="mt-3 text-[15px] text-[#a1a1a6]">
+          <p className="mt-3 text-[15px] text-brand-muted">
             Paste into WhatsApp from the lead inbox. Replace{" "}
             <code className="text-[#ff8c14]">{`{{name}}`}</code> and{" "}
             <code className="text-[#ff8c14]">{`{{url}}`}</code>. Consistency beats perfect copy.
@@ -76,10 +76,10 @@ export default function NurturePage() {
                   {seq.steps.map((s) => (
                     <div
                       key={s.day}
-                      className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-5"
+                      className="rounded-2xl border border-white/10 bg-brand-surface p-5"
                     >
                       <p className="text-[12px] font-semibold text-[#ff8c14]">{s.day}</p>
-                      <pre className="mt-2 whitespace-pre-wrap text-[14px] leading-relaxed text-[#e8eaed]">
+                      <pre className="mt-2 whitespace-pre-wrap text-[14px] leading-relaxed text-brand-soft">
                         {s.text}
                       </pre>
                     </div>
@@ -88,7 +88,7 @@ export default function NurturePage() {
               </section>
             ))}
           </div>
-          <p className="mt-10 text-[13px] text-[#86868b]">
+          <p className="mt-10 text-[13px] text-brand-subtle">
             Leads:{" "}
             <a href="/admin/leads" className="text-[#ff8c14] hover:underline">
               /admin/leads

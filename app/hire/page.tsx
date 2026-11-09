@@ -17,7 +17,7 @@ export const metadata: Metadata = { alternates: { canonical: "/hire" },
 export default function HirePage() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Fixed price · USD · Paystack deposit
@@ -25,7 +25,7 @@ export default function HirePage() {
           <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
             Book your website slot. Pay deposit. We build.
           </h1>
-          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
             Three clear packages. No vague “from” quotes. 50% online today — balance before
             launch. Built for growing businesses worldwide.
           </p>
@@ -47,7 +47,7 @@ export default function HirePage() {
             </a>
             <a
               href="/free-audit"
-              className="rounded-full px-5 py-3 text-[14px] text-[#a1a1a6] hover:text-white"
+              className="rounded-full px-5 py-3 text-[14px] text-brand-muted hover:text-white"
             >
               Free audit first →
             </a>
@@ -61,10 +61,10 @@ export default function HirePage() {
             ].map((x) => (
               <div
                 key={x.t}
-                className="rounded-xl border border-white/10 bg-[#141a28] px-4 py-3"
+                className="rounded-xl border border-white/10 bg-brand-surface px-4 py-3"
               >
                 <p className="text-[13px] font-semibold text-white">{x.t}</p>
-                <p className="mt-1 text-[12px] text-[#a1a1a6]">{x.d}</p>
+                <p className="mt-1 text-[12px] text-brand-muted">{x.d}</p>
               </div>
             ))}
           </div>
@@ -73,7 +73,7 @@ export default function HirePage() {
             {SERVICE_OFFERS.map((offer) => (
               <article
                 key={offer.id}
-                className="flex flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a2030] to-[#0c1018] p-6"
+                className="flex flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-deep p-6"
               >
                 {offer.badge && (
                   <span className="mb-3 w-fit rounded-full bg-[#ff8c14]/15 px-2.5 py-0.5 text-[11px] font-semibold text-[#ff8c14]">
@@ -81,30 +81,30 @@ export default function HirePage() {
                   </span>
                 )}
                 <h2 className="text-[22px] font-semibold text-white">{offer.name}</h2>
-                <p className="mt-2 text-[14px] text-[#a1a1a6]">{offer.tagline}</p>
+                <p className="mt-2 text-[14px] text-brand-muted">{offer.tagline}</p>
                 <p className="mt-4 text-[28px] font-semibold text-white">{offer.totalUsd || offer.totalNgn}</p>
-                <p className="text-[13px] text-[#86868b]">
+                <p className="text-[13px] text-brand-subtle">
                   Deposit {offer.depositUsd || offer.depositNgn} · {offer.timeline}
                 </p>
-                <p className="mt-3 text-[13px] text-[#c7cdd8]">Ideal for: {offer.idealFor}</p>
+                <p className="mt-3 text-[13px] text-brand-soft">Ideal for: {offer.idealFor}</p>
 
-                <h3 className="mt-6 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+                <h3 className="mt-6 text-[12px] font-semibold uppercase tracking-wide text-brand-subtle">
                   Included
                 </h3>
                 <ul className="mt-2 space-y-2">
                   {offer.scope.map((s) => (
-                    <li key={s} className="flex gap-2 text-[13px] text-[#e8eaed]">
+                    <li key={s} className="flex gap-2 text-[13px] text-brand-soft">
                       <span className="text-[#ff8c14]">✓</span> {s}
                     </li>
                   ))}
                 </ul>
 
-                <h3 className="mt-5 text-[12px] font-semibold uppercase tracking-wide text-[#86868b]">
+                <h3 className="mt-5 text-[12px] font-semibold uppercase tracking-wide text-brand-subtle">
                   Not included
                 </h3>
                 <ul className="mt-2 space-y-1">
                   {offer.notIncluded.map((s) => (
-                    <li key={s} className="text-[12px] text-[#86868b]">
+                    <li key={s} className="text-[12px] text-brand-subtle">
                       · {s}
                     </li>
                   ))}
@@ -117,7 +117,7 @@ export default function HirePage() {
                   href={serviceWhatsAppLink(offer)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 text-center text-[13px] text-[#2997ff] hover:underline"
+                  className="mt-3 text-center text-[13px] text-brand-link hover:underline"
                 >
                   Questions? WhatsApp before deposit
                 </a>
@@ -128,7 +128,7 @@ export default function HirePage() {
           <ServiceAddons />
 
           <div className="mt-12 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[14px] text-[#a1a1a6]">
+            <div className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-[14px] text-brand-muted">
               <p className="font-semibold text-white">How it works</p>
               <ol className="mt-3 list-decimal space-y-2 pl-5">
                 <li>Pick a package → pay 50% deposit.</li>
@@ -137,9 +137,9 @@ export default function HirePage() {
                 <li>Pay balance → we launch + short support.</li>
               </ol>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6">
+            <div className="rounded-2xl border border-white/10 bg-brand-surface p-6">
               <p className="font-semibold text-white">Not ready to deposit?</p>
-              <p className="mt-2 text-[14px] text-[#a1a1a6]">
+              <p className="mt-2 text-[14px] text-brand-muted">
                 Free audit or 15-min call — no pressure. Deposit only when you book a slot.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -153,7 +153,7 @@ export default function HirePage() {
                   href={discoveryCallLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-[#25D366] px-4 py-2 text-[13px] font-semibold text-white"
+                  className="rounded-full bg-[#25D366] px-4 py-2 text-[13px] font-semibold text-black"
                 >
                   Book a call
                 </a>
@@ -183,10 +183,10 @@ export default function HirePage() {
             ].map((item) => (
               <div
                 key={item.q}
-                className="rounded-xl border border-white/10 bg-[#0c1018] px-5 py-4"
+                className="rounded-xl border border-white/10 bg-brand-deep px-5 py-4"
               >
                 <p className="text-[14px] font-semibold text-white">{item.q}</p>
-                <p className="mt-1 text-[13px] text-[#a1a1a6]">{item.a}</p>
+                <p className="mt-1 text-[13px] text-brand-muted">{item.a}</p>
               </div>
             ))}
           </div>

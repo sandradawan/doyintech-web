@@ -45,7 +45,7 @@ export default function QuestionCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-[13px] text-[#a1a1a6]">
+      <div className="flex items-center justify-between text-[13px] text-brand-muted">
         <span>{label} · {q.cat}</span>
         <span className={`font-bold ${choice === null && left <= 5 ? "text-pink-300" : "text-sky-300"}`}>⏱ {Math.max(left, 0)}s</span>
       </div>
@@ -68,7 +68,7 @@ export default function QuestionCard({
           <p className={`text-[16px] font-bold ${choice === q.correct ? "text-green-400" : "text-pink-300"}`}>
             {choice === q.correct ? "Correct!" : choice === -1 ? `Time's up! It's ${q.shuffled[q.correct]}.` : `It's ${q.shuffled[q.correct]}.`}
           </p>
-          <p className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{q.fact}</p>
+          <p className="mt-1 text-[15px] leading-relaxed text-brand-soft">{q.fact}</p>
           <button type="button" autoFocus onClick={onNext} className="mt-3 min-h-11 rounded-full bg-[#ff8c14] px-5 text-[15px] font-semibold text-black">{nextLabel}</button>
         </div>
       )}

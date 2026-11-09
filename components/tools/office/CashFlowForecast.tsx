@@ -63,7 +63,7 @@ export default function CashFlowForecast() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-[13px]">
             <thead>
-              <tr className="text-left text-[#a1a1a6]">
+              <tr className="text-left text-brand-muted">
                 <th className="py-2 font-medium">Item</th>
                 <th className="font-medium">In / out</th>
                 <th className="font-medium">Amount (₦)</th>
@@ -94,7 +94,7 @@ export default function CashFlowForecast() {
                     <input aria-label={r.freq === "monthly" ? "Week of the month (1 to 4)" : "Week number"} type="number" min={1} max={r.freq === "monthly" ? 4 : FORECAST_WEEKS} className={field} value={r.week} onChange={(e) => setRow(i, "week", e.target.value)} />
                   </td>
                   <td>
-                    <button type="button" aria-label={`Remove ${r.label || "row"}`} onClick={() => setRows(rows.filter((_, j) => j !== i))} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#a1a1a6] hover:text-white">
+                    <button type="button" aria-label={`Remove ${r.label || "row"}`} onClick={() => setRows(rows.filter((_, j) => j !== i))} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-muted hover:text-white">
                       <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
                     </button>
                   </td>
@@ -103,11 +103,11 @@ export default function CashFlowForecast() {
             </tbody>
           </table>
         </div>
-        <p className="text-[12px] text-[#8b919c]">Week: for &quot;once&quot; the week it lands (1–13); for &quot;monthly&quot; the week of each month (1–4); for &quot;every week&quot; the week it starts.</p>
+        <p className="text-[12px] text-brand-subtle">Week: for &quot;once&quot; the week it lands (1–13); for &quot;monthly&quot; the week of each month (1–4); for &quot;every week&quot; the week it starts.</p>
         <button type="button" className={ghostBtn} onClick={() => setRows([...rows, { label: "", kind: "out", amount: "", freq: "once", week: "1" }])}>+ Add item</button>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5" aria-live="polite">
+      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5" aria-live="polite">
         {f.firstNegative ? (
           <p className="rounded-xl border border-[#ff6b6b]/40 bg-[#ff6b6b]/10 p-3 text-[14px] text-[#ffb3b3]">
             Cash runs out in <b>week {f.firstNegative.week}</b>. You need about <b>{naira0(-f.lowest.closing)}</b> more by week {f.lowest.week}: chase invoices, take deposits, or move a payment.
@@ -133,13 +133,13 @@ export default function CashFlowForecast() {
         </svg>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[520px] text-right text-[13px]">
-            <thead><tr className="text-[#a1a1a6]"><th className="py-1.5 text-left font-medium">Week</th><th className="font-medium">Cash in</th><th className="font-medium">Cash out</th><th className="font-medium">Closing</th></tr></thead>
+            <thead><tr className="text-brand-muted"><th className="py-1.5 text-left font-medium">Week</th><th className="font-medium">Cash in</th><th className="font-medium">Cash out</th><th className="font-medium">Closing</th></tr></thead>
             <tbody>
               {f.weeks.map((w) => (
                 <tr key={w.week} className="border-t border-white/5">
                   <th scope="row" className="py-1.5 text-left font-medium text-white">Week {w.week}</th>
                   <td className="text-[#a8f0cf]">{k(w.inflow)}</td>
-                  <td className="text-[#c7cdd8]">{k(w.outflow)}</td>
+                  <td className="text-brand-soft">{k(w.outflow)}</td>
                   <td className={w.closing < 0 ? "font-semibold text-[#ff6b6b]" : "text-white"}>{naira0(w.closing)}</td>
                 </tr>
               ))}
@@ -147,7 +147,7 @@ export default function CashFlowForecast() {
           </table>
         </div>
         <button type="button" onClick={print} className={`${primaryBtn} mt-4 w-full sm:w-auto`}>Download forecast PDF</button>
-        <p className="mt-2 text-[12px] text-[#8b919c]">Saved on this device only. Update it every Monday with your real bank balance.</p>
+        <p className="mt-2 text-[12px] text-brand-subtle">Saved on this device only. Update it every Monday with your real bank balance.</p>
       </div>
     </div>
   );

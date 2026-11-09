@@ -136,7 +136,7 @@ export function SecurityHeadersTool() {
                   </span>
                 </div>
                 {h.value && (
-                  <p className="mt-1 break-all font-mono text-[11px] text-gray-500">
+                  <p className="mt-1 break-all font-mono text-[11px] text-brand-subtle">
                     {h.value}
                   </p>
                 )}
@@ -170,7 +170,7 @@ export function SslCheckerTool() {
       <UrlForm onSubmit={go} loading={loading} label="Check SSL" />
       <Err error={error} />
       {data && (
-        <div className="space-y-2 text-sm text-gray-300">
+        <div className="space-y-2 text-sm text-brand-soft">
           <p>
             HTTPS:{" "}
             <strong className="text-white">{data.https ? "Yes" : "No"}</strong>
@@ -195,8 +195,8 @@ export function SslCheckerTool() {
           )}
           {data.httpRedirectChain && (
             <div className="mt-3">
-              <p className="text-xs uppercase text-gray-500">HTTP redirect probe</p>
-              <ul className="mt-1 font-mono text-[11px] text-gray-400">
+              <p className="text-xs uppercase text-brand-subtle">HTTP redirect probe</p>
+              <ul className="mt-1 font-mono text-[11px] text-brand-muted">
                 {data.httpRedirectChain.map((c, i) => (
                   <li key={i}>
                     {c.status} → {c.url}
@@ -229,7 +229,7 @@ export function ExposedFilesTool() {
   }
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Probes common sensitive paths and only flags risk when response body supports it.
       </p>
       <UrlForm onSubmit={go} loading={loading} label="Probe paths" />
@@ -247,9 +247,9 @@ export function ExposedFilesTool() {
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="font-mono text-white">{r.path}</span>
-                <span className="text-xs text-gray-400">HTTP {r.status ?? "—"}</span>
+                <span className="text-xs text-brand-muted">HTTP {r.status ?? "—"}</span>
               </div>
-              <p className="mt-1 text-xs text-gray-400">{r.evidence}</p>
+              <p className="mt-1 text-xs text-brand-muted">{r.evidence}</p>
               {r.risk && (
                 <p className="mt-1 text-xs font-semibold text-red-300">Risk flagged</p>
               )}
@@ -279,7 +279,7 @@ export function CookieAuditorTool() {
   }
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Reads Set-Cookie on the first response hop. Client-only JS cookies are not visible
         server-side.
       </p>
@@ -287,14 +287,14 @@ export function CookieAuditorTool() {
       <Err error={error} />
       {data && (
         <div className="space-y-2">
-          <p className="text-sm text-gray-300">{data.count} cookie(s) observed</p>
+          <p className="text-sm text-brand-soft">{data.count} cookie(s) observed</p>
           {data.cookies?.length === 0 && (
-            <p className="text-sm text-gray-500">No Set-Cookie header on this response.</p>
+            <p className="text-sm text-brand-subtle">No Set-Cookie header on this response.</p>
           )}
           {data.cookies?.map((c, i) => (
             <div key={i} className="rounded-xl border border-white/10 bg-black/30 p-3 text-xs">
-              <p className="break-all font-mono text-gray-400">{c.raw}</p>
-              <p className="mt-2 text-gray-300">
+              <p className="break-all font-mono text-brand-muted">{c.raw}</p>
+              <p className="mt-2 text-brand-soft">
                 HttpOnly: {c.httpOnly ? "✓" : "✗"} · Secure: {c.secure ? "✓" : "✗"} ·
                 SameSite: {c.sameSite || "—"}
               </p>
@@ -324,7 +324,7 @@ export function CspGeneratorTool() {
   }
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         Builds a starter CSP from script hosts found on the page. Test in report-only mode
         first.
       </p>
@@ -334,21 +334,21 @@ export function CspGeneratorTool() {
         <div className="space-y-3">
           {data.existingCsp && (
             <div>
-              <p className="text-xs text-gray-500">Existing CSP</p>
-              <pre className="mt-1 overflow-x-auto rounded-xl bg-black/40 p-3 text-[11px] text-gray-300">
+              <p className="text-xs text-brand-subtle">Existing CSP</p>
+              <pre className="mt-1 overflow-x-auto rounded-xl bg-black/40 p-3 text-[11px] text-brand-soft">
                 {data.existingCsp}
               </pre>
             </div>
           )}
           <div>
-            <p className="text-xs text-gray-500">Suggested starter policy</p>
+            <p className="text-xs text-brand-subtle">Suggested starter policy</p>
             <pre className="mt-1 overflow-x-auto rounded-xl bg-black/40 p-3 text-[11px] text-green-300">
               {data.generated}
             </pre>
           </div>
-          <p className="text-xs text-gray-500">{data.note}</p>
+          <p className="text-xs text-brand-subtle">{data.note}</p>
           {data.scriptHosts && data.scriptHosts.length > 0 && (
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-brand-muted">
               Script hosts: {data.scriptHosts.join(", ")}
             </p>
           )}
@@ -379,14 +379,14 @@ export function RobotsAuditorTool() {
       <UrlForm onSubmit={go} loading={loading} label="Audit robots" />
       <Err error={error} />
       {data && (
-        <div className="space-y-3 text-sm text-gray-300">
+        <div className="space-y-3 text-sm text-brand-soft">
           <p>robots.txt: HTTP {data.robotsStatus ?? "—"}</p>
           <p>sitemap.xml: HTTP {data.sitemapStatus ?? "—"}</p>
           <p>Sitemap URL count: {data.sitemapHasLocs}</p>
           {data.disallows && data.disallows.length > 0 && (
             <div>
-              <p className="text-xs uppercase text-gray-500">Disallow rules</p>
-              <ul className="mt-1 font-mono text-[11px] text-gray-400">
+              <p className="text-xs uppercase text-brand-subtle">Disallow rules</p>
+              <ul className="mt-1 font-mono text-[11px] text-brand-muted">
                 {data.disallows.map((d: string) => (
                   <li key={d}>{d}</li>
                 ))}
@@ -394,7 +394,7 @@ export function RobotsAuditorTool() {
             </div>
           )}
           {data.robotsText && (
-            <pre className="max-h-48 overflow-auto rounded-xl bg-black/40 p-3 text-[11px] text-gray-400">
+            <pre className="max-h-48 overflow-auto rounded-xl bg-black/40 p-3 text-[11px] text-brand-muted">
               {data.robotsText.slice(0, 3000)}
             </pre>
           )}
@@ -426,11 +426,11 @@ export function MixedContentTool() {
       <Err error={error} />
       {data && (
         <div className="space-y-2 text-sm">
-          <p className="text-gray-300">
+          <p className="text-brand-soft">
             Page HTTPS: {data.httpsPage ? "Yes" : "No"} · HTTP URLs found:{" "}
             <strong className="text-white">{data.mixedCount}</strong>
           </p>
-          <ul className="max-h-60 space-y-1 overflow-auto font-mono text-[11px] text-gray-400">
+          <ul className="max-h-60 space-y-1 overflow-auto font-mono text-[11px] text-brand-muted">
             {data.samples?.map((s: string) => (
               <li key={s}>{s}</li>
             ))}
@@ -462,12 +462,12 @@ export function RedirectInspectorTool() {
       <UrlForm onSubmit={go} loading={loading} label="Trace redirects" />
       <Err error={error} />
       {data && (
-        <div className="space-y-2 text-sm text-gray-300">
+        <div className="space-y-2 text-sm text-brand-soft">
           <p>
             Hops: {data.hops} · Final:{" "}
             <span className="text-white">{data.finalUrl}</span>
           </p>
-          <ol className="list-decimal space-y-1 pl-4 font-mono text-[11px] text-gray-400">
+          <ol className="list-decimal space-y-1 pl-4 font-mono text-[11px] text-brand-muted">
             {data.chain?.map((c, i) => (
               <li key={i}>
                 {c.status ?? "—"} · {c.url}
@@ -494,7 +494,7 @@ function Checklist({
   const done = Object.values(checked).filter(Boolean).length;
   return (
     <div className={box}>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-brand-muted">
         {done}/{items.length} complete — {title}
       </p>
       <ul className="space-y-2">
@@ -506,7 +506,7 @@ function Checklist({
               className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left text-sm ${
                 checked[i]
                   ? "border-primary/40 bg-primary/10 text-white"
-                  : "border-white/10 text-gray-300"
+                  : "border-white/10 text-brand-soft"
               }`}
             >
               <span>{checked[i] ? "✓" : "○"}</span>
@@ -570,7 +570,7 @@ export function BreachHygieneTool() {
       <h3 className="font-display text-lg font-bold text-white">
         If an email or password may be leaked
       </h3>
-      <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-gray-300">
+      <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-brand-soft">
         <li>Change the password on the affected account immediately.</li>
         <li>Change the same password everywhere else it was reused.</li>
         <li>Turn on 2FA (authenticator app preferred over SMS).</li>
@@ -596,7 +596,7 @@ export function DependencyRiskTool() {
       <h3 className="font-display text-lg font-bold text-white">
         Why software updates are a security control
       </h3>
-      <div className="space-y-3 text-sm leading-relaxed text-gray-300">
+      <div className="space-y-3 text-sm leading-relaxed text-brand-soft">
         <p>
           Most website breaches on small business sites come from outdated CMS plugins,
           themes, or abandoned JavaScript libraries — not Hollywood zero-days.

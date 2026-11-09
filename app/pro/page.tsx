@@ -37,7 +37,7 @@ export default function ProPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1000px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Membership
@@ -45,7 +45,7 @@ export default function ProPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">
             DoyinTech Pro
           </h1>
-          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
             All {toolCount} premium business tools in one membership: documents, invoices,
             contracts, CVs, proposals and more. Plus cloud sync for your DoyinOps workspace.
           </p>
@@ -56,7 +56,7 @@ export default function ProPage() {
             ))}
           </div>
 
-          <p className="mt-6 text-center text-[13px] text-[#86868b]">
+          <p className="mt-6 text-center text-[13px] text-brand-subtle">
             Already a member?{" "}
             <Link href="/account" className="text-[#ff8c14] hover:underline">
               Sign in to your account
@@ -73,7 +73,7 @@ export default function ProPage() {
                     className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[14px] text-white hover:border-[#ff8c14]/40"
                   >
                     {t.title}
-                    <span className="mt-0.5 block text-[12px] text-[#86868b]">
+                    <span className="mt-0.5 block text-[12px] text-brand-subtle">
                       {t.priceNgn} one-off · included in Pro
                     </span>
                   </Link>
@@ -88,7 +88,7 @@ export default function ProPage() {
               {FAQ.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[14px] leading-relaxed text-[#a1a1a6]">{f.a}</dd>
+                  <dd className="mt-1 text-[14px] leading-relaxed text-brand-muted">{f.a}</dd>
                 </div>
               ))}
             </dl>

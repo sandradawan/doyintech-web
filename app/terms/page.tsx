@@ -11,9 +11,9 @@ export default function TermsPage() {
       <main className="pt-32 pb-24">
         <div className="max-w-3xl mx-auto px-6 prose prose-invert prose-headings:font-display">
           <h1 className="font-display text-4xl font-bold text-white">Terms of Service</h1>
-          <p className="text-gray-400 mt-4">Last updated: August 2026</p>
+          <p className="text-brand-muted mt-4">Last updated: August 2026</p>
 
-          <div className="mt-10 space-y-8 text-gray-300 leading-relaxed">
+          <div className="mt-10 space-y-8 text-brand-soft leading-relaxed">
             <section>
               <h2 className="text-xl font-bold text-white mb-3">1. Services</h2>
               <p>

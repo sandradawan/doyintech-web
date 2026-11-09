@@ -16,7 +16,7 @@ export function useLocalCurrency(fallback = "USD") {
 
 export default function CurrencySelect({ value, onChange }: { value: string; onChange: (code: string) => void }) {
   return (
-    <label className="block text-[12px] font-medium text-[#a1a1a6]">
+    <label className="block text-[12px] font-medium text-brand-muted">
       Currency
       <select
         value={value}

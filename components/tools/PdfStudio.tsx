@@ -174,7 +174,7 @@ export default function PdfStudio() {
             className={`rounded-xl border px-4 py-3 text-sm capitalize ${
               docType === t
                 ? "border-primary bg-primary/20 text-white"
-                : "border-white/10 text-gray-300"
+                : "border-white/10 text-brand-soft"
             }`}
           >
             {t}

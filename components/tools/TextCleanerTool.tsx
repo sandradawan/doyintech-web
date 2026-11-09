@@ -25,7 +25,7 @@ export default function TextCleanerTool() {
         className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
       />
       <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Cleaned</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-brand-subtle">Cleaned</p>
         <pre className="mt-2 whitespace-pre-wrap text-sm text-gray-200">{cleaned || "—"}</pre>
       </div>
       <button

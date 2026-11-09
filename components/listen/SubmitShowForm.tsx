@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const field = "mt-1 min-h-12 w-full rounded-xl border border-white/15 bg-[#0a0e17] px-3 text-[16px] text-white";
+const field = "mt-1 min-h-12 w-full rounded-xl border border-white/15 bg-brand-deep px-3 text-[16px] text-white";
 
 /** Podcasters ask to be listed or featured here; every show is checked by hand before it goes up. */
 export default function SubmitShowForm() {

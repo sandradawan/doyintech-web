@@ -25,11 +25,11 @@ export default function ContinueListening() {
       </div>
       <ul className="mt-3 space-y-2">
         {items.map((p) => (
-          <li key={p.id} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#141a28] p-3">
+          <li key={p.id} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-brand-surface p-3">
             <PlayButton track={p} />
             <span className="min-w-0 flex-1">
               <span className="block truncate text-[15px] font-semibold text-white">{p.title}</span>
-              <span className="block truncate text-[13px] text-[#a1a1a6]">{p.showName} · stopped at {clock(p.at)}</span>
+              <span className="block truncate text-[13px] text-brand-muted">{p.showName} · stopped at {clock(p.at)}</span>
             </span>
           </li>
         ))}

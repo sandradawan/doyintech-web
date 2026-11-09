@@ -10,7 +10,7 @@ function DemoFrame({
   label?: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0b0f18]">
+    <div className="overflow-hidden rounded-xl border border-white/10 bg-brand-deep">
       <div className="flex items-center gap-1.5 border-b border-white/10 bg-black/40 px-3 py-2">
         <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
         <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
@@ -41,11 +41,11 @@ export function ComponentLivePreview({ slug }: { slug: string }) {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="rounded-full bg-[#25D366] px-2.5 py-1 text-[10px] font-semibold text-white sm:hidden"
+              className="rounded-full bg-[#25D366] px-2.5 py-1 text-[10px] font-semibold text-black sm:hidden"
             >
               {open ? "Close" : "Menu"}
             </button>
-            <span className="hidden rounded-full bg-[#25D366] px-2.5 py-1 text-[10px] font-semibold text-white sm:inline">
+            <span className="hidden rounded-full bg-[#25D366] px-2.5 py-1 text-[10px] font-semibold text-black sm:inline">
               Book call
             </span>
           </div>
@@ -120,7 +120,7 @@ export function ComponentLivePreview({ slug }: { slug: string }) {
           <p className="text-[13px] font-semibold text-white">Ready to start?</p>
           <div className="mt-4 flex justify-center gap-2">
             <span className="rounded-full border border-white/20 px-4 py-2 text-[11px] text-white">Email</span>
-            <span className="rounded-full bg-[#25D366] px-4 py-2 text-[11px] font-semibold text-white">
+            <span className="rounded-full bg-[#25D366] px-4 py-2 text-[11px] font-semibold text-black">
               Book a call
             </span>
           </div>

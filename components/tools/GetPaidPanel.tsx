@@ -95,7 +95,7 @@ export default function GetPaidPanel(p: Props) {
     return (
       <div className={box}>
         <p className="text-[15px] font-semibold text-white">Get paid online for this invoice</p>
-        <p className="mt-1 text-[13px] text-[#c7cdd8]">Send your customer a Pay now link. They pay by card, transfer or USSD, the money goes straight to your bank, and we send them reminders until it&apos;s paid.</p>
+        <p className="mt-1 text-[13px] text-brand-soft">Send your customer a Pay now link. They pay by card, transfer or USSD, the money goes straight to your bank, and we send them reminders until it&apos;s paid.</p>
         <button type="button" onClick={open} className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#3ddc97] px-5 text-[14px] font-semibold text-black">
           Create a payment link
         </button>
@@ -103,7 +103,7 @@ export default function GetPaidPanel(p: Props) {
     );
   }
 
-  if (stage.kind === "checking") return <div className={box}><p className="text-[14px] text-[#c7cdd8]">Checking your account…</p></div>;
+  if (stage.kind === "checking") return <div className={box}><p className="text-[14px] text-brand-soft">Checking your account…</p></div>;
 
   if (stage.kind === "signin") {
     return (
@@ -112,7 +112,7 @@ export default function GetPaidPanel(p: Props) {
           <p className="text-[14px] text-white" role="status">Check {email} for your sign-in link, then come back to this invoice.</p>
         ) : (
           <form onSubmit={signIn} className="flex flex-col gap-3 sm:flex-row sm:items-end">
-            <label className="flex-1 text-[13px] text-[#c7cdd8]">
+            <label className="flex-1 text-[13px] text-brand-soft">
               Sign in with your email to send payment links. It&apos;s free.
               <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@business.com" className="mt-2 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#3ddc97]" />
             </label>
@@ -139,7 +139,7 @@ export default function GetPaidPanel(p: Props) {
             {stage.status === "none" ? "Set up in 3 minutes" : "Connect your bank"}
           </Link>
         )}
-        <p className="mt-2 text-[12px] text-[#8b919c]">Your invoice details stay on this page; come back to it after setup.</p>
+        <p className="mt-2 text-[12px] text-brand-subtle">Your invoice details stay on this page; come back to it after setup.</p>
       </div>
     );
   }
@@ -148,7 +148,7 @@ export default function GetPaidPanel(p: Props) {
     return (
       <div className={box}>
         <p className="text-[15px] font-semibold text-white">Payment link for {naira(p.amountNgn)}</p>
-        <p className="mt-1 text-[13px] text-[#c7cdd8]">
+        <p className="mt-1 text-[13px] text-brand-soft">
           Invoice {p.docNumber}{p.customerName ? ` · ${p.customerName}` : ""}. {stage.feePercent ? `${stage.feePercent}% fee on payments received (0% on the Store plan).` : "No DoyinTech fee on your plan."}
         </p>
         {p.customerEmail && (
@@ -190,7 +190,7 @@ export default function GetPaidPanel(p: Props) {
         </button>
         <Link href="/stores/dashboard" className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-5 text-[14px] font-semibold text-white">Track payments</Link>
       </div>
-      <p className="mt-2 text-[12px] text-[#8b919c]">
+      <p className="mt-2 text-[12px] text-brand-subtle">
         {stage.emailed ? `Emailed to ${p.customerEmail}. ` : ""}When they pay, the money settles to your bank and the link shows as paid in your dashboard.
       </p>
     </div>

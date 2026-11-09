@@ -80,10 +80,10 @@ export default function GiftCardRedeem() {
         {error && <p className="mt-3 text-[14px] text-red-400">{error}</p>}
 
         {card && (
-          <div className="mt-6 rounded-2xl border border-white/10 bg-[#141a28] p-5">
-            <p className="text-[13px] uppercase tracking-wide text-[#86868b]">Balance</p>
+          <div className="mt-6 rounded-2xl border border-white/10 bg-brand-surface p-5">
+            <p className="text-[13px] uppercase tracking-wide text-brand-subtle">Balance</p>
             <p className="mt-1 text-[32px] font-semibold text-white">{naira(card.balanceKobo)}</p>
-            <p className="text-[13px] text-[#a1a1a6]">
+            <p className="text-[13px] text-brand-muted">
               of {naira(card.initialKobo)} · card ••{card.last4}
               {card.expiresAt && ` · valid until ${new Date(card.expiresAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}`}
             </p>
@@ -117,7 +117,7 @@ export default function GiftCardRedeem() {
       </div>
       <div>
         {card && <GiftCardVisual amountKobo={card.balanceKobo} design={card.design} code={`••••-••••-••••-${card.last4}`} />}
-        <p className="mt-3 text-[12px] text-[#86868b]">
+        <p className="mt-3 text-[12px] text-brand-subtle">
           Spend it on tools, templates, ebooks, website deposits and add-ons. If a purchase costs more than your balance, you pay the rest with
           Paystack. Gift cards can&apos;t be used in independent seller shops or exchanged for cash.
         </p>

@@ -11,7 +11,7 @@ export const metadata: Metadata = { alternates: { canonical: "/web-design-jos" }
 export default function WebDesignJosPage() {
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Jos · Plateau
@@ -19,12 +19,12 @@ export default function WebDesignJosPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
             Web design in Jos for SMEs that want enquiries
           </h1>
-          <p className="mt-4 text-[17px] text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] text-brand-muted">
             DoyinTech is based in Jos. We build fixed-price websites — not vague hourly quotes — so
             salons, clinics, property firms, lounges, and shops get a professional presence with
             WhatsApp as the booking path.
           </p>
-          <ul className="mt-8 space-y-2 text-[15px] text-[#c7cdd8]">
+          <ul className="mt-8 space-y-2 text-[15px] text-brand-soft">
             <li>✓ Landing page from ₦100,000</li>
             <li>✓ Local business site from ₦250,000</li>
             <li>✓ 50% deposit on Paystack · live in days to weeks</li>
@@ -33,11 +33,11 @@ export default function WebDesignJosPage() {
           <div className="mt-10 flex flex-wrap gap-3">
             <a href="/hire" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">See packages</a>
             <a href="/free-audit" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">Free audit</a>
-            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white">WhatsApp Jos team</a>
+            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black">WhatsApp Jos team</a>
           </div>
-          <p className="mt-8 text-[14px] text-[#86868b]">
+          <p className="mt-8 text-[14px] text-brand-subtle">
             Also serving Abuja and nationwide remotely —{" "}
-            <a href="/web-design-abuja" className="text-[#2997ff] hover:underline">web design Abuja</a>.
+            <a href="/web-design-abuja" className="text-brand-link hover:underline">web design Abuja</a>.
           </p>
         </div>
       </main>

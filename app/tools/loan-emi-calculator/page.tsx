@@ -36,7 +36,7 @@ export default function Page() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Will the loan pay for itself?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">Check how many sales you need to cover the repayments with the break-even calculator.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">Check how many sales you need to cover the repayments with the break-even calculator.</p>
           <Link href="/tools/break-even-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Break-even calculator</Link>
         </>
       }

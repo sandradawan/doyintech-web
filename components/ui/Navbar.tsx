@@ -72,7 +72,7 @@ export default function Navbar() {
         <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-2 text-[17px] font-semibold tracking-tight text-[#f5f5f7]"
+            className="flex shrink-0 items-center gap-2 text-[17px] font-semibold tracking-tight text-brand-ink"
             aria-label="DoyinTech Home"
           >
             <span className="relative h-5 w-5 overflow-hidden">
@@ -100,7 +100,7 @@ export default function Navbar() {
                     }
                     aria-expanded={isOpen}
                     className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-[13px] font-medium transition ${
-                      active || isOpen ? "text-white" : "text-[#f5f5f7]/80 hover:text-white"
+                      active || isOpen ? "text-white" : "text-brand-ink/80 hover:text-white"
                     }`}
                   >
                     {group.label}
@@ -128,7 +128,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.16 }}
-                        className="fixed inset-x-0 top-12 z-50 border-b border-white/10 bg-[#0c0c0e] shadow-[0_24px_60px_rgba(0,0,0,0.55)]"
+                        className="fixed inset-x-0 top-12 z-50 border-b border-white/10 bg-brand-deep shadow-[0_24px_60px_rgba(0,0,0,0.55)]"
                       >
                         <div className="mx-auto flex max-w-[1200px] gap-10 px-6 py-8">
                           <div className="w-56 shrink-0 border-r border-white/[0.08] pr-8">
@@ -182,7 +182,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/account"
-              className="hidden text-[13px] font-medium text-[#f5f5f7]/75 transition hover:text-white md:inline"
+              className="hidden text-[13px] font-medium text-brand-ink/75 transition hover:text-white md:inline"
             >
               Sign in
             </Link>
@@ -195,19 +195,19 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center text-[#f5f5f7] lg:hidden"
+              className="flex h-9 w-9 items-center justify-center text-brand-ink lg:hidden"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
               <span className="sr-only">Menu</span>
               <div className="flex w-4 flex-col gap-1">
                 <span
-                  className={`h-px w-full bg-[#f5f5f7] transition ${
+                  className={`h-px w-full bg-brand-ink transition ${
                     mobileMenuOpen ? "translate-y-[2.5px] rotate-45" : ""
                   }`}
                 />
                 <span
-                  className={`h-px w-full bg-[#f5f5f7] transition ${
+                  className={`h-px w-full bg-brand-ink transition ${
                     mobileMenuOpen ? "-translate-y-[2.5px] -rotate-45" : ""
                   }`}
                 />
@@ -223,7 +223,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            className="max-h-[calc(100vh-3rem)] overflow-y-auto border-b border-white/10 bg-[#161617] px-4 py-4 lg:hidden"
+            className="max-h-[calc(100vh-3rem)] overflow-y-auto border-b border-white/10 bg-brand-surface px-4 py-4 lg:hidden"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
               {NAV_GROUPS.map((group) => {
@@ -235,7 +235,7 @@ export default function Navbar() {
                       onClick={() =>
                         setOpenMobileGroup((v) => (v === group.label ? null : group.label))
                       }
-                      className="flex w-full items-center justify-between px-2 py-3 text-left text-[16px] font-semibold text-[#f5f5f7]"
+                      className="flex w-full items-center justify-between px-2 py-3 text-left text-[16px] font-semibold text-brand-ink"
                       aria-expanded={expanded}
                     >
                       {group.label}

@@ -22,11 +22,11 @@ export default function YouTubeShorts({
   if (!videos || videos.length === 0) {
     return (
       <section className="mt-16">
-        <h2 className="text-[28px] font-semibold tracking-tight text-[#f5f5f7]">
+        <h2 className="text-[28px] font-semibold tracking-tight text-brand-ink">
           From the playlist
         </h2>
-        <div className="mt-6 rounded-[22px] border border-dashed border-white/15 bg-[#1d1d1f] p-8 text-center">
-          <p className="text-[15px] text-[#a1a1a6]">
+        <div className="mt-6 rounded-[22px] border border-dashed border-white/15 bg-brand-surface p-8 text-center">
+          <p className="text-[15px] text-brand-muted">
             Videos will appear here once the playlist feed is available.
           </p>
         </div>
@@ -38,13 +38,13 @@ export default function YouTubeShorts({
     <section className="mt-16">
       <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-brand-muted">
             YouTube playlist
           </p>
-          <h2 className="mt-1 text-[28px] font-semibold tracking-tight text-[#f5f5f7] sm:text-[34px]">
+          <h2 className="mt-1 text-[28px] font-semibold tracking-tight text-brand-ink sm:text-[34px]">
             {playlistTitle || "Latest videos"}
           </h2>
-          <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-brand-muted">
             Latest {videos.length} videos — learn free, hire when you want the same quality on your
             business site.
           </p>
@@ -116,12 +116,12 @@ export default function YouTubeShorts({
                 href={video.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-[15px] font-semibold leading-snug text-[#f5f5f7] transition hover:text-[#2997ff]"
+                className="block text-[15px] font-semibold leading-snug text-brand-ink transition hover:text-brand-link"
               >
                 {video.title}
               </a>
               {video.published && (
-                <p className="mt-1 text-[12px] text-[#a1a1a6]">
+                <p className="mt-1 text-[12px] text-brand-muted">
                   {new Date(video.published).toLocaleDateString("en-NG", {
                     year: "numeric",
                     month: "short",
@@ -140,8 +140,8 @@ export default function YouTubeShorts({
         ))}
       </div>
 
-      <div className="mt-8 rounded-2xl border border-white/10 bg-[#1d1d1f] p-5 text-center">
-        <p className="text-[14px] text-[#a1a1a6]">
+      <div className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-5 text-center">
+        <p className="text-[14px] text-brand-muted">
           Ready for a fixed-price build? Landing from ₦100k · Local site from ₦250k.
         </p>
         <a

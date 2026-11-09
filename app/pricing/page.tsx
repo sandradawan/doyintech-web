@@ -16,12 +16,12 @@ export const metadata: Metadata = { alternates: { canonical: "/pricing" },
 export default function PricingPage() {
   return (
     <>
-      <main className="bg-black pt-20">
+      <main className="bg-brand-deep pt-20">
         <div className="mx-auto max-w-[980px] px-6 pb-8 text-center">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-brand-muted">
             Pricing
           </p>
-          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Simple website packages and prices.</h1>
+          <h1 className="apple-headline mt-3 text-brand-ink">Simple website packages and prices.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
             Know what you&apos;re buying. Pay a fixed-price deposit online, or book a free call to
             confirm scope first.

@@ -34,7 +34,7 @@ export default async function ComponentDetailPage({ params }: Props) {
 
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[960px] px-6">
           <Link href="/components" className="text-[14px] text-[#ff8c14] hover:underline">
             ← All components
@@ -43,7 +43,7 @@ export default async function ComponentDetailPage({ params }: Props) {
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
             <ComponentLivePreview slug={item.slug} />
           </div>
-          <p className="mt-2 text-center text-[11px] uppercase tracking-wide text-[#86868b]">
+          <p className="mt-2 text-center text-[11px] uppercase tracking-wide text-brand-subtle">
             Live output — always moving so buyers see the result
           </p>
 
@@ -55,9 +55,9 @@ export default async function ComponentDetailPage({ params }: Props) {
                 </span>
               )}
               <h1 className="mt-3 text-[30px] font-semibold text-white sm:text-[36px]">{item.name}</h1>
-              <p className="mt-2 text-[16px] text-[#a1a1a6]">{item.tagline}</p>
-              <p className="mt-4 text-[15px] leading-relaxed text-[#c7cdd8]">{item.description}</p>
-              <p className="mt-3 text-[13px] text-[#86868b]">
+              <p className="mt-2 text-[16px] text-brand-muted">{item.tagline}</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-brand-soft">{item.description}</p>
+              <p className="mt-3 text-[13px] text-brand-subtle">
                 {formatCompPrice(item.priceNgn)} · {item.stack.join(" · ")}
               </p>
               <ul className="mt-6 space-y-2">

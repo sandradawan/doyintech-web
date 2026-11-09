@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function OutreachPage() {
   return (
-    <div className="min-h-screen bg-[#070b12] px-4 pb-20 pt-24">
+    <div className="min-h-screen bg-brand-deepest px-4 pb-20 pt-24">
       <OutreachConsole />
     </div>
   );

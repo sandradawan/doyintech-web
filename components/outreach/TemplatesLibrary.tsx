@@ -28,7 +28,7 @@ export default function TemplatesLibrary() {
 
   return (
     <div className="space-y-4">
-      <p className="text-[13px] text-[#a1a1a6]">
+      <p className="text-[13px] text-brand-muted">
         Personalize every [BRACKET] before sending. Do not spam the same message to lists.
       </p>
       <div className="flex flex-wrap gap-2">
@@ -40,7 +40,7 @@ export default function TemplatesLibrary() {
             className={`rounded-full px-3 py-1.5 text-[11px] font-semibold ${
               channel === c
                 ? "bg-[#ff8c14] text-black"
-                : "border border-white/15 text-[#a1a1a6]"
+                : "border border-white/15 text-brand-muted"
             }`}
           >
             {c}
@@ -68,7 +68,7 @@ export default function TemplatesLibrary() {
                 {copiedId === t.id ? "Copied" : "Copy"}
               </button>
             </div>
-            <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-[#c7cdd8]">
+            <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-brand-soft">
               {t.body}
             </pre>
           </div>

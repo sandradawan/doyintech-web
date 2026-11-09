@@ -59,10 +59,10 @@ function HireSuccessInner() {
   const addon = service ? undefined : getServiceAddon(resolvedId);
 
   return (
-    <main className="min-h-screen bg-[#0a0e17] px-6 pb-24 pt-28">
+    <main className="min-h-screen bg-brand-deep px-6 pb-24 pt-28">
       <div className="mx-auto max-w-lg text-center">
         {state === "loading" && (
-          <p className="text-[15px] text-[#a1a1a6]">Verifying your deposit…</p>
+          <p className="text-[15px] text-brand-muted">Verifying your deposit…</p>
         )}
 
         {state === "ok" && service && (
@@ -73,13 +73,13 @@ function HireSuccessInner() {
             <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white">
               Deposit received
             </h1>
-            <p className="mt-3 text-[17px] text-[#a1a1a6]">
+            <p className="mt-3 text-[17px] text-brand-muted">
               {service.name} · {service.depositNgn} locked your slot.
             </p>
             {email && (
-              <p className="mt-2 text-[14px] text-[#a1a1a6]">Receipt email: {email}</p>
+              <p className="mt-2 text-[14px] text-brand-muted">Receipt email: {email}</p>
             )}
-            <p className="mt-1 text-[13px] text-[#86868b]">Ref: {reference}</p>
+            <p className="mt-1 text-[13px] text-brand-subtle">Ref: {reference}</p>
             {refCode ? (
               <p className="mt-1 text-[12px] text-[#ff8c14]">Referral code applied: {refCode}</p>
             ) : null}
@@ -91,9 +91,9 @@ function HireSuccessInner() {
               referralCode={refCode}
             />
 
-            <div className="mt-10 rounded-2xl border border-white/10 bg-[#141a28] p-5 text-left">
+            <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-5 text-left">
               <h2 className="text-[18px] font-semibold text-white">Add extras to your project</h2>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+              <p className="mt-2 text-[13px] leading-relaxed text-brand-muted">
                 Google Business Profile setup, WhatsApp Business setup, a logo kit, copywriting or extra pages, at fixed
                 prices. Add them now and we build them in alongside your site.
               </p>
@@ -105,14 +105,14 @@ function HireSuccessInner() {
               </Link>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-5 text-left">
+            <div className="mt-6 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-5 text-left">
               <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
                 After launch
               </p>
               <h2 className="mt-1 text-[18px] font-semibold text-white">
                 Keep your new site secure and improving
               </h2>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+              <p className="mt-2 text-[13px] leading-relaxed text-brand-muted">
                 Care plans cover security updates, backups, uptime monitoring and monthly
                 changes, from ₦50,000/month. Most clients start one at handover.
               </p>
@@ -125,13 +125,13 @@ function HireSuccessInner() {
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-[14px]">
-              <a href="/hire" className="text-[#a1a1a6] hover:text-white">
+              <a href="/hire" className="text-brand-muted hover:text-white">
                 Hire packages
               </a>
-              <a href="/client-portal" className="text-[#2997ff] hover:underline">
+              <a href="/client-portal" className="text-brand-link hover:underline">
                 Project portal
               </a>
-              <Link href="/" className="text-[#a1a1a6] hover:text-white">
+              <Link href="/" className="text-brand-muted hover:text-white">
                 Home
               </Link>
             </div>
@@ -144,7 +144,7 @@ function HireSuccessInner() {
             <h1 className="mt-2 text-[28px] font-semibold text-white">
               {addon ? `${addon.name}: paid` : "Payment successful"}
             </h1>
-            <p className="mt-3 text-[15px] text-[#a1a1a6]">
+            <p className="mt-3 text-[15px] text-brand-muted">
               Ref: {reference}.{" "}
               {addon ? `${addon.delivery}. Send us your details on WhatsApp to start.` : "We will follow up shortly."}
             </p>
@@ -156,12 +156,12 @@ function HireSuccessInner() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-black"
             >
               Message on WhatsApp
             </a>
             <p className="mt-4">
-              <a href="/client-portal" className="text-[14px] text-[#2997ff] hover:underline">
+              <a href="/client-portal" className="text-[14px] text-brand-link hover:underline">
                 Project portal →
               </a>
             </p>
@@ -171,7 +171,7 @@ function HireSuccessInner() {
         {state === "fail" && (
           <>
             <h1 className="text-[28px] font-semibold text-white">Payment not confirmed</h1>
-            <p className="mt-3 text-[15px] text-[#a1a1a6]">
+            <p className="mt-3 text-[15px] text-brand-muted">
               If money left your account, send the Paystack reference on WhatsApp and we will
               verify manually.
             </p>
@@ -181,7 +181,7 @@ function HireSuccessInner() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-black"
             >
               Contact support
             </a>
@@ -202,7 +202,7 @@ export default function HireSuccessPage() {
     <>
       <Suspense
         fallback={
-          <main className="min-h-screen bg-[#0a0e17] pt-28 text-center text-[#a1a1a6]">
+          <main className="min-h-screen bg-brand-deep pt-28 text-center text-brand-muted">
             Loading…
           </main>
         }

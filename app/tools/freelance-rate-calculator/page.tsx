@@ -36,7 +36,7 @@ export default function Page() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Look the part to clients</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">A portfolio website with your services, prices and a booking button, at a fixed price.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">A portfolio website with your services, prices and a booking button, at a fixed price.</p>
           <Link href="/hire" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get a website</Link>
         </>
       }

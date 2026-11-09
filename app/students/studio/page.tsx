@@ -73,14 +73,14 @@ export default function AiProjectStudioPage() {
 
   const inputCls =
     "mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white";
-  const labelCls = "block text-[12px] font-medium text-[#a1a1a6]";
+  const labelCls = "block text-[12px] font-medium text-brand-muted";
 
   return (
     <>
       <main className="pb-24 pt-28">
         <div className="mx-auto max-w-[1020px] px-5 sm:px-6">
-          <p className="text-[13px] text-[#a1a1a6]">
-            <Link href="/students" className="text-[#2997ff] hover:underline">
+          <p className="text-[13px] text-brand-muted">
+            <Link href="/students" className="text-brand-link hover:underline">
               Students
             </Link>{" "}
             / AI Project Studio
@@ -88,7 +88,7 @@ export default function AiProjectStudioPage() {
           <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
             AI Project Studio
           </h1>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-brand-muted">
             Generate research outlines, chapter scaffolds, abstracts, and academic templates.
             Pair with the analyzer and project portal when you need full support.
           </p>
@@ -102,7 +102,7 @@ export default function AiProjectStudioPage() {
                 className={`rounded-full px-4 py-2 text-[13px] font-semibold transition ${
                   tab === t.id
                     ? "bg-[#ff8c14] text-black"
-                    : "border border-white/15 bg-white/[0.04] text-[#e8e8ed] hover:border-white/30"
+                    : "border border-white/15 bg-white/[0.04] text-brand-soft hover:border-white/30"
                 }`}
               >
                 {t.label}
@@ -218,7 +218,7 @@ export default function AiProjectStudioPage() {
 
               {tab === "demo" && (
                 <div className="space-y-4">
-                  <p className="text-[14px] text-[#a1a1a6]">Walk through how students use the studio.</p>
+                  <p className="text-[14px] text-brand-muted">Walk through how students use the studio.</p>
                   {demoSteps.map((s, i) => (
                     <button
                       key={s.title}
@@ -229,7 +229,7 @@ export default function AiProjectStudioPage() {
                       }`}
                     >
                       <p className="text-[14px] font-semibold text-white">{s.title}</p>
-                      <p className="mt-1 text-[13px] text-[#a1a1a6]">{s.body}</p>
+                      <p className="mt-1 text-[13px] text-brand-muted">{s.body}</p>
                     </button>
                   ))}
                   <div className="flex flex-wrap gap-3 pt-2">
@@ -250,7 +250,7 @@ export default function AiProjectStudioPage() {
                       <div className="flex justify-between gap-3">
                         <div>
                           <p className="text-[14px] font-semibold text-white">{t.name}</p>
-                          <p className="mt-1 text-[13px] text-[#a1a1a6]">{t.blurb}</p>
+                          <p className="mt-1 text-[13px] text-brand-muted">{t.blurb}</p>
                         </div>
                         <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-[#ff8c14]">
                           {templatePriceLabel(t)}
@@ -259,7 +259,7 @@ export default function AiProjectStudioPage() {
                       <button
                         type="button"
                         onClick={() => setOutput(t.fullMarkdown)}
-                        className="mt-3 text-[13px] font-semibold text-[#2997ff] hover:underline"
+                        className="mt-3 text-[13px] font-semibold text-brand-link hover:underline"
                       >
                         Preview / copy →
                       </button>
@@ -273,7 +273,7 @@ export default function AiProjectStudioPage() {
 
             <div className="rounded-3xl border border-white/10 bg-black/40 p-6">
               <div className="flex items-center justify-between">
-                <p className="text-[13px] font-semibold uppercase tracking-wider text-[#a1a1a6]">Output</p>
+                <p className="text-[13px] font-semibold uppercase tracking-wider text-brand-muted">Output</p>
                 {output && (
                   <button type="button" onClick={copyOut} className="rounded-full border border-white/15 px-3 py-1 text-[12px] font-semibold text-white">
                     {copied ? "Copied" : "Copy"}
@@ -281,7 +281,7 @@ export default function AiProjectStudioPage() {
                 )}
               </div>
               {output ? (
-                <pre className="mt-4 max-h-[70vh] overflow-auto whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-[#e8e8ed]">{output}</pre>
+                <pre className="mt-4 max-h-[70vh] overflow-auto whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-brand-soft">{output}</pre>
               ) : (
                 <p className="mt-8 text-[14px] text-[#6b7280]">Your generated content appears here.</p>
               )}
@@ -291,15 +291,15 @@ export default function AiProjectStudioPage() {
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
             <Link href="/students/analyzer" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-[#ff8c14]/40">
               <p className="text-[15px] font-semibold text-white">Questionnaire analyzer</p>
-              <p className="mt-1 text-[13px] text-[#a1a1a6]">CSV → tables + narrative</p>
+              <p className="mt-1 text-[13px] text-brand-muted">CSV → tables + narrative</p>
             </Link>
             <Link href="/students/citations" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-[#ff8c14]/40">
               <p className="text-[15px] font-semibold text-white">Citation formatter</p>
-              <p className="mt-1 text-[13px] text-[#a1a1a6]">APA · MLA · Chicago · Harvard</p>
+              <p className="mt-1 text-[13px] text-brand-muted">APA · MLA · Chicago · Harvard</p>
             </Link>
             <Link href="/students/cover-letter" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-[#ff8c14]/40">
               <p className="text-[15px] font-semibold text-white">Cover letter AI</p>
-              <p className="mt-1 text-[13px] text-[#a1a1a6]">Job-ready draft in seconds</p>
+              <p className="mt-1 text-[13px] text-brand-muted">Job-ready draft in seconds</p>
             </Link>
           </div>
         </div>

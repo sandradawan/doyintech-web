@@ -62,7 +62,7 @@ export default function CertificateGenerator() {
           <Field name="Organisation / school (saved)" value={org.name} onChange={(v) => setOrg({ ...org, name: v })} />
           <Field name="Course, event or award" value={event} onChange={setEvent} placeholder="Digital Marketing Bootcamp 2026" />
           <Field name="Date" type="date" value={date} onChange={setDate} />
-          <label className="block text-[12px] font-medium text-[#a1a1a6]">
+          <label className="block text-[12px] font-medium text-brand-muted">
             Colour
             <input type="color" value={org.color} onChange={(e) => setOrg({ ...org, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40" />
           </label>
@@ -75,7 +75,7 @@ export default function CertificateGenerator() {
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>
           Print {list.length > 1 ? `${list.length} certificates` : "certificate"} (PDF)
         </button>
-        <p className="text-[12px] text-[#a1a1a6]">Prints A4 landscape. In the print window turn off “Headers and footers” for a clean edge.</p>
+        <p className="text-[12px] text-brand-muted">Prints A4 landscape. In the print window turn off “Headers and footers” for a clean edge.</p>
       </div>
 
       <div className="lg:sticky lg:top-28 lg:self-start" aria-label="Certificate preview">

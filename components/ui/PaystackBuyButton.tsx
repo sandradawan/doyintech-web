@@ -61,7 +61,7 @@ export default function PaystackBuyButton({
         onClick={() => setOpen(true)}
         className={
           className ||
-          "mt-auto inline-flex w-full items-center justify-center rounded-full bg-[#0071e3] py-3.5 text-[14px] font-semibold text-white transition hover:bg-[#0077ed]"
+          "mt-auto inline-flex w-full items-center justify-center rounded-full bg-[#ff8c14] py-3.5 text-[14px] font-semibold text-black transition hover:bg-[#ffa03a]"
         }
       >
         Pay with Paystack
@@ -81,15 +81,15 @@ export default function PaystackBuyButton({
             onClick={() => !loading && setOpen(false)}
           />
 
-          <div className="relative z-10 flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-t-[24px] border border-white/10 bg-[#1d1d1f] shadow-2xl sm:rounded-[24px]">
+          <div className="relative z-10 flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-t-[24px] border border-white/10 bg-brand-surface shadow-2xl sm:rounded-[24px]">
             <div className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
               <div className="min-w-0">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#a1a1a6]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-brand-muted">
                   Secure checkout
                 </p>
                 <h3
                   id="checkout-title"
-                  className="mt-1 truncate text-[17px] font-semibold text-[#f5f5f7]"
+                  className="mt-1 truncate text-[17px] font-semibold text-brand-ink"
                 >
                   {product.name}
                 </h3>
@@ -101,7 +101,7 @@ export default function PaystackBuyButton({
                 type="button"
                 disabled={loading}
                 onClick={() => setOpen(false)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-[#f5f5f7] hover:bg-white/15 disabled:opacity-40"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand-ink hover:bg-white/15 disabled:opacity-40"
                 aria-label="Close"
               >
                 ✕
@@ -109,12 +109,12 @@ export default function PaystackBuyButton({
             </div>
 
             <form onSubmit={pay} className="flex flex-col gap-4 overflow-y-auto px-5 py-5">
-              <p className="text-[13px] leading-relaxed text-[#a1a1a6]">
+              <p className="text-[13px] leading-relaxed text-brand-muted">
                 Enter the email for your receipt and product delivery. You’ll be redirected to
                 Paystack.
               </p>
               <label className="block">
-                <span className="mb-1.5 block text-[12px] font-medium text-[#a1a1a6]">
+                <span className="mb-1.5 block text-[12px] font-medium text-brand-muted">
                   Email
                 </span>
                 <input
@@ -125,7 +125,7 @@ export default function PaystackBuyButton({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@email.com"
-                  className="w-full rounded-xl border border-white/15 bg-black/50 px-4 py-3 text-[15px] text-white outline-none ring-[#0071e3] placeholder:text-white/30 focus:border-[#0071e3] focus:ring-1"
+                  className="w-full rounded-xl border border-white/15 bg-black/50 px-4 py-3 text-[15px] text-white outline-none ring-[#ff8c14] placeholder:text-white/30 focus:border-[#ff8c14] focus:ring-1"
                 />
               </label>
 
@@ -147,7 +147,7 @@ export default function PaystackBuyButton({
                 href={productWhatsAppLink(product.name, "digital product")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-center text-[13px] text-[#2997ff] hover:underline"
+                className="block text-center text-[13px] text-brand-link hover:underline"
               >
                 Prefer WhatsApp payment?
               </a>

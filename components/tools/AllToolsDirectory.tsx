@@ -27,7 +27,7 @@ export default function AllToolsDirectory() {
               <ul className="mt-2 grid gap-x-4 sm:grid-cols-2">
                 {tools.map((t) => (
                   <li key={t.href}>
-                    <Link href={t.href} className="inline-flex min-h-10 items-center text-[14px] text-gray-300 hover:text-white hover:underline">{t.title}</Link>
+                    <Link href={t.href} className="inline-flex min-h-10 items-center text-[14px] text-brand-soft hover:text-white hover:underline">{t.title}</Link>
                   </li>
                 ))}
               </ul>

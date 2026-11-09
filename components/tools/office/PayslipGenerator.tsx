@@ -97,7 +97,7 @@ export default function PayslipGenerator() {
           <legend className="mb-1 text-[14px] font-semibold text-white">Company (saved on this device)</legend>
           <Field name="Company name" value={company.name} onChange={(v) => setCompany({ ...company, name: v })} />
           <Field name="Address" value={company.address} onChange={(v) => setCompany({ ...company, address: v })} />
-          <label className="block text-[12px] font-medium text-[#a1a1a6]">
+          <label className="block text-[12px] font-medium text-brand-muted">
             Brand colour
             <input type="color" value={company.color} onChange={(e) => setCompany({ ...company, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40" />
           </label>
@@ -121,7 +121,7 @@ export default function PayslipGenerator() {
           <Field name="Annual rent paid (for rent relief)" type="number" value={pay.rent} onChange={set("rent")} placeholder="optional" />
           <Field name="Loan / advance repayment" type="number" value={pay.loan} onChange={set("loan")} placeholder="0" />
           <Field name="Other deductions" type="number" value={pay.otherDeduction} onChange={set("otherDeduction")} placeholder="0" />
-          <div className="flex flex-col justify-end gap-2 text-[13px] text-[#c7cdd8]">
+          <div className="flex flex-col justify-end gap-2 text-[13px] text-brand-soft">
             <label className="flex min-h-10 items-center gap-2"><input type="checkbox" className="h-4 w-4 accent-[#ff8c14]" checked={pay.pension} onChange={(e) => setPay({ ...pay, pension: e.target.checked })} /> Pension (8%)</label>
             <label className="flex min-h-10 items-center gap-2"><input type="checkbox" className="h-4 w-4 accent-[#ff8c14]" checked={pay.nhf} onChange={(e) => setPay({ ...pay, nhf: e.target.checked })} /> NHF (2.5% of basic)</label>
           </div>
@@ -161,7 +161,7 @@ export default function PayslipGenerator() {
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>
           Download payslip PDF
         </button>
-        <p className="text-center text-[12px] text-[#a1a1a6]">Choose “Save as PDF” in the print window. Nothing leaves your browser.</p>
+        <p className="text-center text-[12px] text-brand-muted">Choose “Save as PDF” in the print window. Nothing leaves your browser.</p>
       </div>
     </div>
   );

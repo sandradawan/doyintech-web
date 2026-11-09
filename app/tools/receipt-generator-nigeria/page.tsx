@@ -63,7 +63,7 @@ export default function ReceiptGeneratorNigeriaPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Issue receipts automatically</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             When customers pay on your own website, receipts go out by email without you lifting
             a finger.{" "}
             <Link href="/hire" className="text-[#ff8c14] hover:underline">

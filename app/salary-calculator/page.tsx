@@ -38,7 +38,7 @@ export default function SalaryHub() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-black pb-16 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-16 pt-24">
         <header className="mx-auto max-w-[760px] px-6 text-center">
           <p className="t-eyebrow">Free · no sign-up</p>
           <h1 className="t-h1 mt-3 text-white">Salary calculator: take-home pay after tax</h1>
@@ -47,9 +47,9 @@ export default function SalaryHub() {
         <ul className="mx-auto mt-10 grid max-w-[900px] gap-3 px-6 sm:grid-cols-2 lg:grid-cols-3">
           {COUNTRIES.map((c) => (
             <li key={c.href}>
-              <Link href={c.href} className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-[#141a28] px-5 text-white hover:border-[#ff8c14]">
+              <Link href={c.href} className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-brand-surface px-5 text-white hover:border-[#ff8c14]">
                 <span className="text-[16px] font-semibold">{c.name}</span>
-                <span className="text-[13px] text-[#a1a1a6]">{c.year}</span>
+                <span className="text-[13px] text-brand-muted">{c.year}</span>
               </Link>
             </li>
           ))}
@@ -60,7 +60,7 @@ export default function SalaryHub() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
-                <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
               </div>
             ))}
           </dl>

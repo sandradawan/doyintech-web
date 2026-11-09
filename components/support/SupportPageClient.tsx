@@ -62,7 +62,7 @@ const CHANNELS = [
     href: "mailto:hello@doyintech.com?subject=Support%20request",
     cta: "hello@doyintech.com",
     external: true,
-    accent: "#2997ff",
+    accent: "#ffa64d",
   },
   {
     title: "Discovery call",
@@ -144,7 +144,7 @@ export default function SupportPageClient() {
             <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
               We&apos;re here to help you ship and stay unblocked.
             </h1>
-            <p className="mt-4 text-[16px] leading-relaxed text-[#a1a1a6]">
+            <p className="mt-4 text-[16px] leading-relaxed text-brand-muted">
               Product access, payments, Report Studio, website delivery, and
               student projects — pick a channel or send a request. Typical
               WhatsApp response is during business hours.
@@ -167,7 +167,7 @@ export default function SupportPageClient() {
                   {c.title}
                 </p>
                 <p className="mt-2 text-[15px] font-semibold text-white">{c.cta}</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-[#86868b]">
+                <p className="mt-2 text-[13px] leading-relaxed text-brand-subtle">
                   {c.desc}
                 </p>
               </a>
@@ -176,11 +176,11 @@ export default function SupportPageClient() {
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12">
             <section className="lg:col-span-7">
-              <div className="rounded-3xl border border-white/10 bg-[#121214]/80 p-6 sm:p-8">
+              <div className="rounded-3xl border border-white/10 bg-brand-deep/80 p-6 sm:p-8">
                 <h2 className="font-display text-[20px] font-semibold text-white">
                   Submit a support request
                 </h2>
-                <p className="mt-2 text-[13px] text-[#86868b]">
+                <p className="mt-2 text-[13px] text-brand-subtle">
                   We email the team and send you a confirmation when possible.
                   Include payment reference or order ID if you have one.
                 </p>
@@ -190,7 +190,7 @@ export default function SupportPageClient() {
                     <p className="text-[15px] font-semibold text-emerald-300">
                       Request sent
                     </p>
-                    <p className="mt-2 text-[13px] leading-relaxed text-[#c7cdd8]">
+                    <p className="mt-2 text-[13px] leading-relaxed text-brand-soft">
                       Thanks — we&apos;ll follow up on email or WhatsApp. For
                       urgent issues, message us on WhatsApp with the same
                       details.
@@ -227,7 +227,7 @@ export default function SupportPageClient() {
                     />
                     <div className="grid gap-4 sm:grid-cols-2">
                       <label className="block">
-                        <span className="text-[12px] font-medium text-[#a1a1a6]">
+                        <span className="text-[12px] font-medium text-brand-muted">
                           Your name *
                         </span>
                         <input
@@ -238,7 +238,7 @@ export default function SupportPageClient() {
                         />
                       </label>
                       <label className="block">
-                        <span className="text-[12px] font-medium text-[#a1a1a6]">
+                        <span className="text-[12px] font-medium text-brand-muted">
                           Email *
                         </span>
                         <input
@@ -251,7 +251,7 @@ export default function SupportPageClient() {
                       </label>
                     </div>
                     <label className="block">
-                      <span className="text-[12px] font-medium text-[#a1a1a6]">
+                      <span className="text-[12px] font-medium text-brand-muted">
                         Topic
                       </span>
                       <select
@@ -267,7 +267,7 @@ export default function SupportPageClient() {
                       </select>
                     </label>
                     <label className="block">
-                      <span className="text-[12px] font-medium text-[#a1a1a6]">
+                      <span className="text-[12px] font-medium text-brand-muted">
                         Order / payment reference (optional)
                       </span>
                       <input
@@ -278,7 +278,7 @@ export default function SupportPageClient() {
                       />
                     </label>
                     <label className="block">
-                      <span className="text-[12px] font-medium text-[#a1a1a6]">
+                      <span className="text-[12px] font-medium text-brand-muted">
                         How can we help? *
                       </span>
                       <textarea
@@ -326,10 +326,10 @@ export default function SupportPageClient() {
                           <span className="text-[13px] font-medium text-white">
                             {f.q}
                           </span>
-                          <span className="text-[#86868b]">{open ? "−" : "+"}</span>
+                          <span className="text-brand-subtle">{open ? "−" : "+"}</span>
                         </button>
                         {open ? (
-                          <p className="border-t border-white/5 px-4 pb-3.5 pt-2 text-[13px] leading-relaxed text-[#a1a1a6]">
+                          <p className="border-t border-white/5 px-4 pb-3.5 pt-2 text-[13px] leading-relaxed text-brand-muted">
                             {f.a}
                           </p>
                         ) : null}
@@ -354,7 +354,7 @@ export default function SupportPageClient() {
                         <p className="text-[13px] font-semibold text-white">
                           {q.label}
                         </p>
-                        <p className="text-[11px] text-[#86868b]">{q.desc}</p>
+                        <p className="text-[11px] text-brand-subtle">{q.desc}</p>
                       </div>
                       <span className="text-[#ff8c14]">→</span>
                     </Link>
@@ -364,7 +364,7 @@ export default function SupportPageClient() {
 
               <div className="rounded-2xl border border-white/10 bg-[#ff8c14]/10 p-5">
                 <p className="text-[13px] font-semibold text-[#ff8c14]">Hours</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-[#e8e8ed]">
+                <p className="mt-2 text-[13px] leading-relaxed text-brand-soft">
                   Mon–Sat · roughly 9:00–19:00 WAT. Outside hours we still
                   receive WhatsApp and email — replies resume next business
                   window.

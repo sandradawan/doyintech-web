@@ -94,7 +94,7 @@ export default function ImportDutyCalculator() {
           <Field name="Customs exchange rate (₦ per $)" type="number" value={s.rate} onChange={set("rate")} />
         </div>
         <div>
-          <p className="mb-2 text-[12px] font-medium text-[#a1a1a6]">Import duty band (ECOWAS CET, from your HS code)</p>
+          <p className="mb-2 text-[12px] font-medium text-brand-muted">Import duty band (ECOWAS CET, from your HS code)</p>
           <Chips label="Import duty band" options={CET_BANDS} value={s.duty} onChange={set("duty")} />
           <Field name="Or exact duty rate (%)" type="number" value={s.duty} onChange={set("duty")} className="mt-3 max-w-[220px]" />
         </div>
@@ -116,22 +116,22 @@ export default function ImportDutyCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
           <dl className="space-y-1.5 text-[13px]">
             {lines.map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-3"><dt className="text-[#a1a1a6]">{k}</dt><dd className="text-white">{ngn(v)}</dd></div>
+              <div key={k} className="flex justify-between gap-3"><dt className="text-brand-muted">{k}</dt><dd className="text-white">{ngn(v)}</dd></div>
             ))}
           </dl>
           <div className="mt-4 border-t border-white/10 pt-4">
-            <p className="text-[13px] text-[#a1a1a6]">Duties and taxes</p>
-            <p className="text-[20px] font-semibold text-white">{ngn(r.totalTaxes)} <span className="text-[13px] font-normal text-[#a1a1a6]">({Math.round(r.taxShare * 100)}% of landed cost)</span></p>
-            <p className="mt-3 text-[13px] text-[#a1a1a6]">Landed cost</p>
+            <p className="text-[13px] text-brand-muted">Duties and taxes</p>
+            <p className="text-[20px] font-semibold text-white">{ngn(r.totalTaxes)} <span className="text-[13px] font-normal text-brand-muted">({Math.round(r.taxShare * 100)}% of landed cost)</span></p>
+            <p className="mt-3 text-[13px] text-brand-muted">Landed cost</p>
             <p className="text-[30px] font-semibold text-[#ff8c14]">{ngn(r.landed)}</p>
             <p className="mt-2 text-[14px] text-white">{ngn(r.perUnit)} per unit → sell at <b>{ngn(r.sellPerUnit)}</b></p>
           </div>
         </div>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download landed cost PDF</button>
-        <p className="text-[12px] text-[#8b919c]">Customs values goods on its own assessment and HS code. Confirm the duty rate with your licensed clearing agent.</p>
+        <p className="text-[12px] text-brand-subtle">Customs values goods on its own assessment and HS code. Confirm the duty rate with your licensed clearing agent.</p>
       </div>
     </div>
   );

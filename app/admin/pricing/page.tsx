@@ -119,7 +119,7 @@ export default function AdminPricingPage() {
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Commerce</p>
           <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Pricing control</h1>
-          <p className="mt-1 max-w-xl text-[13px] text-[#86868b]">
+          <p className="mt-1 max-w-xl text-[13px] text-brand-subtle">
             Edit NGN prices for services, products, students, tools, ebooks, components, and templates. Overrides apply to Paystack charges immediately.
           </p>
         </div>
@@ -140,14 +140,14 @@ export default function AdminPricingPage() {
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or id…" className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]/50" />
         {CATS.map((c) => (
           <button key={c} type="button" onClick={() => setCat(c)} className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${
-            cat === c ? "bg-[#ff8c14]/15 text-[#ff8c14]" : "bg-white/[0.04] text-[#a1a1a6]"
+            cat === c ? "bg-[#ff8c14]/15 text-[#ff8c14]" : "bg-white/[0.04] text-brand-muted"
           }`}>{c}</button>
         ))}
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-white/10">
         <table className="w-full min-w-[720px] text-left text-[13px]">
-          <thead className="bg-white/[0.04] text-[11px] uppercase text-[#86868b]">
+          <thead className="bg-white/[0.04] text-[11px] uppercase text-brand-subtle">
             <tr>
               <th className="px-3 py-2.5">Item</th>
               <th className="px-3 py-2.5">Category</th>
@@ -163,10 +163,10 @@ export default function AdminPricingPage() {
                     {it.name}
                     {it.overridden ? <span className="ml-2 rounded-full bg-[#ff8c14]/20 px-2 py-0.5 text-[10px] text-[#ff8c14]">custom</span> : null}
                   </p>
-                  <p className="text-[11px] text-[#86868b]">{it.key}</p>
+                  <p className="text-[11px] text-brand-subtle">{it.key}</p>
                   {it.note ? <p className="text-[11px] text-[#555]">{it.note}</p> : null}
                 </td>
-                <td className="px-3 py-3 text-[#a1a1a6]">{it.category}</td>
+                <td className="px-3 py-3 text-brand-muted">{it.category}</td>
                 <td className="px-3 py-3">
                   {it.amountKobo != null || it.priceNgn != null ? (
                     <input
@@ -175,7 +175,7 @@ export default function AdminPricingPage() {
                       className="w-28 rounded-lg border border-white/10 bg-black/40 px-2 py-1.5 text-sm tabular-nums text-white outline-none focus:border-[#ff8c14]/50"
                     />
                   ) : (
-                    <span className="text-[12px] text-[#86868b]">{it.displayLabel || "Display only"}</span>
+                    <span className="text-[12px] text-brand-subtle">{it.displayLabel || "Display only"}</span>
                   )}
                 </td>
                 <td className="whitespace-nowrap px-3 py-3">
@@ -185,7 +185,7 @@ export default function AdminPricingPage() {
                         {saving === it.key ? "…" : "Save"}
                       </button>
                       {it.overridden ? (
-                        <button type="button" disabled={saving === it.key} onClick={() => clearOverride(it.key)} className="text-[12px] text-[#a1a1a6] hover:underline">Reset</button>
+                        <button type="button" disabled={saving === it.key} onClick={() => clearOverride(it.key)} className="text-[12px] text-brand-muted hover:underline">Reset</button>
                       ) : null}
                     </>
                   ) : (
@@ -195,7 +195,7 @@ export default function AdminPricingPage() {
               </tr>
             ))}
             {!loading && filtered.length === 0 ? (
-              <tr><td colSpan={4} className="px-3 py-8 text-center text-[#86868b]">No items match.</td></tr>
+              <tr><td colSpan={4} className="px-3 py-8 text-center text-brand-subtle">No items match.</td></tr>
             ) : null}
           </tbody>
         </table>

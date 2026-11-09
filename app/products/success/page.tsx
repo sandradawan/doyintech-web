@@ -72,10 +72,10 @@ function SuccessInner() {
   );
 
   return (
-    <main className="bg-black px-6 pb-24 pt-28">
+    <main className="bg-brand-deep px-6 pb-24 pt-28">
       <div className="mx-auto max-w-lg text-center">
         {state === "loading" && (
-          <p className="text-[15px] text-[#a1a1a6]">Verifying payment…</p>
+          <p className="text-[15px] text-brand-muted">Verifying payment…</p>
         )}
 
         {state === "ok" && (
@@ -83,10 +83,10 @@ function SuccessInner() {
             <p className="text-[48px]" aria-hidden>
               ✓
             </p>
-            <h1 className="mt-2 text-[32px] font-semibold text-[#f5f5f7]">Payment successful</h1>
-            <p className="mt-3 text-[16px] text-[#a1a1a6]">{title} confirmed.</p>
-            {email && <p className="mt-2 text-[14px] text-[#a1a1a6]">Email: {email}</p>}
-            <p className="mt-1 text-[13px] text-[#a1a1a6]">Ref: {reference}</p>
+            <h1 className="mt-2 text-[32px] font-semibold text-brand-ink">Payment successful</h1>
+            <p className="mt-3 text-[16px] text-brand-muted">{title} confirmed.</p>
+            {email && <p className="mt-2 text-[14px] text-brand-muted">Email: {email}</p>}
+            <p className="mt-1 text-[13px] text-brand-muted">Ref: {reference}</p>
 
             {links.length > 0 && (
               <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left">
@@ -162,7 +162,7 @@ function SuccessInner() {
             ) : product?.kind === "digital" ? (
               <>
                 {links.length === 0 && (
-                  <p className="mt-8 text-[14px] text-[#a1a1a6]">
+                  <p className="mt-8 text-[14px] text-brand-muted">
                     Your files are on their way to {email || "your email"}. If nothing arrives in
                     10 minutes, message us with your reference.
                   </p>
@@ -174,19 +174,19 @@ function SuccessInner() {
                 href={`https://wa.me/2348085343926?text=${wa}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+                className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-black"
               >
                 Message us for delivery
               </a>
             )}
 
             {product?.kind === "component" && !product.isBundle && (
-              <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-[#141a28] p-5 text-left">
+              <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-5 text-left">
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
                   Save on the rest
                 </p>
                 <h2 className="mt-1 text-[18px] font-semibold text-white">Get the Full UI Kit</h2>
-                <p className="mt-2 text-[13px] text-[#a1a1a6]">
+                <p className="mt-2 text-[13px] text-brand-muted">
                   Every component in one purchase.
                 </p>
                 <a
@@ -202,10 +202,10 @@ function SuccessInner() {
               <a href="/hire" className="text-[#ff8c14] hover:underline">
                 Hire us
               </a>
-              <Link href="/products" className="text-[#2997ff] hover:underline">
+              <Link href="/products" className="text-brand-link hover:underline">
                 Products
               </Link>
-              <Link href="/ebooks" className="text-[#2997ff] hover:underline">
+              <Link href="/ebooks" className="text-brand-link hover:underline">
                 Ebooks
               </Link>
             </div>
@@ -214,8 +214,8 @@ function SuccessInner() {
 
         {state === "fail" && (
           <>
-            <h1 className="text-[28px] font-semibold text-[#f5f5f7]">Payment not confirmed</h1>
-            <p className="mt-3 text-[15px] text-[#a1a1a6]">
+            <h1 className="text-[28px] font-semibold text-brand-ink">Payment not confirmed</h1>
+            <p className="mt-3 text-[15px] text-brand-muted">
               If money left your account, send us the Paystack reference and we will check it
               manually.
             </p>
@@ -223,7 +223,7 @@ function SuccessInner() {
               href={`https://wa.me/2348085343926?text=${wa}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+              className="mt-8 inline-flex rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-black"
             >
               Contact support
             </a>
@@ -237,7 +237,7 @@ function SuccessInner() {
 export default function ProductSuccessPage() {
   return (
     <>
-      <Suspense fallback={<main className="bg-black pt-28 text-center text-[#a1a1a6]">Loading…</main>}>
+      <Suspense fallback={<main className="bg-brand-deep pt-28 text-center text-brand-muted">Loading…</main>}>
         <SuccessInner />
       </Suspense>
       <Footer />

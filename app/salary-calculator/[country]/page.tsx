@@ -66,7 +66,7 @@ export default async function SalaryCountryPage({ params }: Params) {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Earn more on the side</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">Open a free online shop, send invoices in {c.currency} and get paid by link.</p>
+          <p className="mt-2 text-[14px] text-brand-muted">Open a free online shop, send invoices in {c.currency} and get paid by link.</p>
           <Link href="/stores" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Open a free shop</Link>
         </>
       }
@@ -75,7 +75,7 @@ export default async function SalaryCountryPage({ params }: Params) {
         <h2 className="text-[22px] font-semibold text-white">Take-home pay at common salaries ({c.taxYear})</h2>
         <table className="mt-4 w-full text-left text-[15px]">
           <thead>
-            <tr className="border-b border-white/10 text-[#a1a1a6]"><th className="py-2 font-medium">Gross a year</th><th className="py-2 font-medium">Take-home a year</th><th className="py-2 font-medium">Take-home a month</th></tr>
+            <tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Gross a year</th><th className="py-2 font-medium">Take-home a year</th><th className="py-2 font-medium">Take-home a month</th></tr>
           </thead>
           <tbody>
             {levels.map((g) => {

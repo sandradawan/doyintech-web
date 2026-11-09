@@ -89,7 +89,7 @@ export default function SubscribeButton({
         {loading ? "Opening secure checkout…" : label}
       </button>
       {signedInEmail && (
-        <p className="text-center text-[11px] text-[#86868b]">Billed to {signedInEmail}</p>
+        <p className="text-center text-[11px] text-brand-subtle">Billed to {signedInEmail}</p>
       )}
       {error && <p className="text-center text-[12px] text-red-400">{error}</p>}
     </div>

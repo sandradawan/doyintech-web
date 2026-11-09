@@ -59,7 +59,7 @@ export default function LetterGeneratorPage() {
       upsell={
         <>
           <h2 className="text-[18px] font-semibold text-white">Applying for jobs?</h2>
-          <p className="mt-2 text-[14px] text-[#a1a1a6]">
+          <p className="mt-2 text-[14px] text-brand-muted">
             Pair your letter with a clean CV from the{" "}
             <Link href="/tools/cv-builder" className="text-[#ff8c14] hover:underline">
               free CV builder

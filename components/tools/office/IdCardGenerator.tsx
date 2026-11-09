@@ -76,12 +76,12 @@ export default function IdCardGenerator() {
             <Field name="Organisation / school (saved)" value={org.name} onChange={(v) => setOrg({ ...org, name: v })} />
             <Field name="Address or tagline" value={org.address} onChange={(v) => setOrg({ ...org, address: v })} />
             <Field name="Valid until" value={org.expiry} onChange={(v) => setOrg({ ...org, expiry: v })} placeholder="Dec 2027" />
-            <label className="block text-[12px] font-medium text-[#a1a1a6]">
+            <label className="block text-[12px] font-medium text-brand-muted">
               Colour
               <input type="color" value={org.color} onChange={(e) => setOrg({ ...org, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40" />
             </label>
           </div>
-          <label className="flex min-h-10 items-center gap-2 text-[13px] text-[#c7cdd8]">
+          <label className="flex min-h-10 items-center gap-2 text-[13px] text-brand-soft">
             <input type="checkbox" className="h-4 w-4 accent-[#ff8c14]" checked={org.blood} onChange={(e) => setOrg({ ...org, blood: e.target.checked })} />
             Add a blood group line to fill by hand
           </label>
@@ -100,9 +100,9 @@ export default function IdCardGenerator() {
               <Field name="Full name" value={p.name} onChange={(v) => setP(p.id, "name", v)} />
               <Field name={roleLabel} value={p.role} onChange={(v) => setP(p.id, "role", v)} />
               <Field name={numLabel} value={p.number} onChange={(v) => setP(p.id, "number", v)} />
-              <label className="block text-[12px] font-medium text-[#a1a1a6]">
+              <label className="block text-[12px] font-medium text-brand-muted">
                 Passport photo (optional)
-                <input type="file" accept="image/*" onChange={(e) => loadPhoto(p.id, e.target.files?.[0])} className="mt-1 block w-full text-[13px] text-[#c7cdd8] file:mr-3 file:min-h-10 file:rounded-full file:border-0 file:bg-white/10 file:px-4 file:text-white" />
+                <input type="file" accept="image/*" onChange={(e) => loadPhoto(p.id, e.target.files?.[0])} className="mt-1 block w-full text-[13px] text-brand-soft file:mr-3 file:min-h-10 file:rounded-full file:border-0 file:bg-white/10 file:px-4 file:text-white" />
               </label>
             </div>
           </div>
@@ -112,7 +112,7 @@ export default function IdCardGenerator() {
           <button type="button" className={ghostBtn} onClick={() => setPeople([...people, blank()])}>+ Add person</button>
           <button type="button" className={primaryBtn} onClick={print}>Print {people.length} card{people.length > 1 ? "s" : ""}</button>
         </div>
-        <p className="text-[12px] text-[#a1a1a6]">Photos stay in your browser. Print on card paper at 100% scale, cut, and laminate.</p>
+        <p className="text-[12px] text-brand-muted">Photos stay in your browser. Print on card paper at 100% scale, cut, and laminate.</p>
       </div>
 
       <div className="lg:sticky lg:top-28 lg:self-start" aria-label="ID card preview">

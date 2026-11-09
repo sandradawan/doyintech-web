@@ -22,25 +22,25 @@ export default async function Page() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h1 className="text-[34px] font-black tracking-tight text-white sm:text-[44px]">DoyinTech Community</h1>
-          <p className="mt-2 text-[17px] leading-relaxed text-[#c7cdd8]">Ask a question, share what you&apos;ve learned and help someone else. We check every post, so it stays useful and free of scams.</p>
+          <p className="mt-2 text-[17px] leading-relaxed text-brand-soft">Ask a question, share what you&apos;ve learned and help someone else. We check every post, so it stays useful and free of scams.</p>
           {posts && <a href="#ask" className="mt-4 inline-flex min-h-12 items-center rounded-full bg-[#ff8c14] px-6 text-[15px] font-semibold text-black">Ask a question</a>}
 
           <section aria-labelledby="latest-heading" className="mt-8">
             <h2 id="latest-heading" className="text-[22px] font-semibold text-white">Latest questions</h2>
-            {posts ? <PostList posts={posts} /> : <p className="mt-3 text-[15px] text-[#c7cdd8]">The community is opening soon. Please check back shortly.</p>}
+            {posts ? <PostList posts={posts} /> : <p className="mt-3 text-[15px] text-brand-soft">The community is opening soon. Please check back shortly.</p>}
           </section>
 
           {posts && (
-            <section id="ask" aria-labelledby="ask-heading" className="mt-10 rounded-3xl border border-white/10 bg-[#141a28] p-5">
+            <section id="ask" aria-labelledby="ask-heading" className="mt-10 rounded-3xl border border-white/10 bg-brand-surface p-5">
               <h2 id="ask-heading" className="mb-3 text-[22px] font-semibold text-white">Ask a question</h2>
               <Compose />
             </section>
           )}
 
-          <section aria-labelledby="rules-heading" className="mt-10 text-[15px] leading-relaxed text-[#c7cdd8]">
+          <section aria-labelledby="rules-heading" className="mt-10 text-[15px] leading-relaxed text-brand-soft">
             <h2 id="rules-heading" className="text-[22px] font-semibold text-white">Community rules</h2>
             <ul className="mt-3 list-disc space-y-1 pl-5">
               {RULES.map((r) => <li key={r}>{r}</li>)}

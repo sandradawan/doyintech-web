@@ -199,12 +199,12 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
               setSearch("");
               setParams({ q: null, page: null, ...Object.fromEntries(Object.keys(activeFilters).map((k) => [k, null])) });
             }}
-            className="text-[12px] text-[#8ab4ff] hover:underline"
+            className="text-[12px] text-brand-link hover:underline"
           >
             Clear
           </button>
         )}
-        <span className="ml-auto flex items-center gap-2 text-[12px] text-[#86868b]">
+        <span className="ml-auto flex items-center gap-2 text-[12px] text-brand-subtle">
           {loading && <Spinner />}
           {total.toLocaleString()} {total === 1 ? "record" : "records"}
         </span>
@@ -239,7 +239,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
               Delete selected
             </button>
           )}
-          <button type="button" onClick={() => setSelected(new Set())} className="ml-auto text-[12px] text-[#a1a1a6] hover:text-white">
+          <button type="button" onClick={() => setSelected(new Set())} className="ml-auto text-[12px] text-brand-muted hover:text-white">
             Clear selection
           </button>
         </div>
@@ -250,7 +250,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
       <div className={`${panel} overflow-hidden`}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-[13px]">
-            <thead className="border-b border-white/[0.07] bg-white/[0.02] text-[11px] uppercase tracking-wide text-[#86868b]">
+            <thead className="border-b border-white/[0.07] bg-white/[0.02] text-[11px] uppercase tracking-wide text-brand-subtle">
               <tr>
                 <th className="w-10 px-3 py-2.5">
                   <input
@@ -274,7 +274,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
             <tbody className="divide-y divide-white/[0.05]">
               {!loading && rows.length === 0 && (
                 <tr>
-                  <td colSpan={columns.length + 1} className="px-3 py-14 text-center text-[13px] text-[#86868b]">
+                  <td colSpan={columns.length + 1} className="px-3 py-14 text-center text-[13px] text-brand-subtle">
                     {q || Object.keys(activeFilters).length ? "Nothing matches these filters." : `No ${resource.label.toLowerCase()} yet.`}
                   </td>
                 </tr>
@@ -300,7 +300,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
                       />
                     </td>
                     {columns.map((c, i) => (
-                      <td key={c.key} className={`max-w-[260px] px-3 py-2.5 align-top ${i === 0 ? "font-medium text-white" : "text-[#c7c7cc]"}`}>
+                      <td key={c.key} className={`max-w-[260px] px-3 py-2.5 align-top ${i === 0 ? "font-medium text-white" : "text-brand-soft"}`}>
                         <CellValue field={c} value={row[c.key]} />
                       </td>
                     ))}
@@ -310,7 +310,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.07] px-3 py-2.5 text-[12px] text-[#86868b]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.07] px-3 py-2.5 text-[12px] text-brand-subtle">
           <label className="flex items-center gap-2">
             Rows
             <select value={pageSize} onChange={(e) => setParams({ pageSize: e.target.value, page: null })} className={`${inputCls} !w-auto !py-1`}>

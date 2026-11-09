@@ -233,7 +233,7 @@ export default function OutreachHub() {
             key={String(label)}
             className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
           >
-            <p className="text-[11px] uppercase tracking-wide text-[#86868b]">{label}</p>
+            <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
             <p className="mt-1 text-2xl font-semibold text-white">{n}</p>
           </div>
         ))}
@@ -248,7 +248,7 @@ export default function OutreachHub() {
             className={`rounded-full px-4 py-2 text-xs font-semibold ${
               tab === t.id
                 ? "bg-[#ff8c14] text-black"
-                : "border border-white/15 text-[#a1a1a6] hover:text-white"
+                : "border border-white/15 text-brand-muted hover:text-white"
             }`}
           >
             {t.label}
@@ -262,10 +262,10 @@ export default function OutreachHub() {
         <div className="space-y-6">
           <form
             onSubmit={addProspect}
-            className="grid gap-3 rounded-2xl border border-white/10 bg-[#141a28] p-5 sm:grid-cols-2"
+            className="grid gap-3 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:grid-cols-2"
           >
             <h2 className="sm:col-span-2 text-sm font-semibold text-white">Add prospect</h2>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Market
               <select
                 className={`mt-1 ${input}`}
@@ -276,7 +276,7 @@ export default function OutreachHub() {
                 <option value="UK">United Kingdom</option>
               </select>
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               City
               <input
                 className={`mt-1 ${input}`}
@@ -285,7 +285,7 @@ export default function OutreachHub() {
                 placeholder="Austin / Manchester"
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Business name *
               <input
                 required
@@ -294,7 +294,7 @@ export default function OutreachHub() {
                 onChange={(e) => setForm({ ...form, businessName: e.target.value })}
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Industry
               <input
                 className={`mt-1 ${input}`}
@@ -302,7 +302,7 @@ export default function OutreachHub() {
                 onChange={(e) => setForm({ ...form, industry: e.target.value })}
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Website
               <input
                 className={`mt-1 ${input}`}
@@ -311,7 +311,7 @@ export default function OutreachHub() {
                 placeholder="https:// or (none)"
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Contact name
               <input
                 className={`mt-1 ${input}`}
@@ -319,7 +319,7 @@ export default function OutreachHub() {
                 onChange={(e) => setForm({ ...form, contactName: e.target.value })}
               />
             </label>
-            <label className="text-xs text-gray-500 sm:col-span-2">
+            <label className="text-xs text-brand-subtle sm:col-span-2">
               Email / channel
               <input
                 className={`mt-1 ${input}`}
@@ -327,7 +327,7 @@ export default function OutreachHub() {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Specific issue 1
               <input
                 className={`mt-1 ${input}`}
@@ -336,7 +336,7 @@ export default function OutreachHub() {
                 placeholder="e.g. no mobile booking button"
               />
             </label>
-            <label className="text-xs text-gray-500">
+            <label className="text-xs text-brand-subtle">
               Specific issue 2
               <input
                 className={`mt-1 ${input}`}
@@ -360,14 +360,14 @@ export default function OutreachHub() {
             >
               Export CSV
             </button>
-            <p className="self-center text-[12px] text-[#86868b]">
+            <p className="self-center text-[12px] text-brand-subtle">
               Saved in this browser (localStorage)
             </p>
           </div>
 
           <ul className="space-y-3">
             {prospects.length === 0 && (
-              <p className="text-sm text-[#a1a1a6]">No prospects yet — add your first above.</p>
+              <p className="text-sm text-brand-muted">No prospects yet — add your first above.</p>
             )}
             {prospects.map((p) => (
               <li key={p.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
@@ -375,17 +375,17 @@ export default function OutreachHub() {
                   <div>
                     <p className="font-semibold text-white">
                       {p.businessName}{" "}
-                      <span className="text-xs font-normal text-[#86868b]">
+                      <span className="text-xs font-normal text-brand-subtle">
                         {p.market} · {p.city} · {p.industry}
                       </span>
                     </p>
-                    <p className="mt-1 text-xs text-[#a1a1a6]">
+                    <p className="mt-1 text-xs text-brand-muted">
                       {p.website || "No website"}
                       {p.contactName ? ` · ${p.contactName}` : ""}
                       {p.email ? ` · ${p.email}` : ""}
                     </p>
                     {(p.issue1 || p.issue2) && (
-                      <p className="mt-2 text-xs text-[#c7cdd8]">
+                      <p className="mt-2 text-xs text-brand-soft">
                         {p.issue1}
                         {p.issue2 ? ` · ${p.issue2}` : ""}
                       </p>
@@ -420,7 +420,7 @@ export default function OutreachHub() {
 
       {tab === "messages" && (
         <div className="grid gap-4 lg:grid-cols-2">
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-brand-surface p-5">
             <h2 className="text-sm font-semibold text-white">Personalize</h2>
             <select
               className={input}
@@ -447,7 +447,7 @@ export default function OutreachHub() {
                       Copy
                     </button>
                   </div>
-                  <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-gray-300">{text}</pre>
+                  <pre className="whitespace-pre-wrap text-[12px] leading-relaxed text-brand-soft">{text}</pre>
                 </div>
               );
             })}
@@ -457,7 +457,7 @@ export default function OutreachHub() {
 
       {tab === "audit" && (
         <div className="grid gap-4 lg:grid-cols-2">
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-[#141a28] p-5">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-brand-surface p-5">
             <h2 className="text-sm font-semibold text-white">3-minute digital audit</h2>
             <input className={input} placeholder="Business name" value={auditBiz} onChange={(e) => setAuditBiz(e.target.value)} />
             <input className={input} placeholder="Observation 1" value={audit1} onChange={(e) => setAudit1(e.target.value)} />
@@ -473,13 +473,13 @@ export default function OutreachHub() {
                 Copy
               </button>
             </div>
-            <pre className="whitespace-pre-wrap text-[12px] text-gray-300">{auditText}</pre>
+            <pre className="whitespace-pre-wrap text-[12px] text-brand-soft">{auditText}</pre>
           </div>
         </div>
       )}
 
       {tab === "checklist" && (
-        <div className="rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[14px] text-[#c7cdd8]">
+        <div className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-[14px] text-brand-soft">
           <h2 className="text-sm font-semibold text-white">Daily 90-minute plan</h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5">
             <li>Find 20–30 qualified prospects (Search queries tab).</li>
@@ -488,14 +488,14 @@ export default function OutreachHub() {
             <li>Send 5–10 free audits to engaged contacts.</li>
             <li>Do day-3 and day-7 follow-ups on open threads.</li>
           </ol>
-          <p className="mt-4 text-[13px] text-[#86868b]">
+          <p className="mt-4 text-[13px] text-brand-subtle">
             You send the messages — this hub prepares copy and tracks the pipeline. No bulk spam.
           </p>
         </div>
       )}
 
       {tab === "queries" && (
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-[#141a28] p-6 text-[13px] text-[#c7cdd8]">
+        <div className="space-y-4 rounded-2xl border border-white/10 bg-brand-surface p-6 text-[13px] text-brand-soft">
           <h2 className="text-sm font-semibold text-white">Search queries (swap CITY)</h2>
           <p className="font-semibold text-[#ff8c14]">US</p>
           <pre className="whitespace-pre-wrap text-[12px]">{`beauty salon in [CITY] -facebook\n"best cleaning service" [CITY]\nrestaurant [CITY] menu\nestate agent [CITY]\n"makeup artist" [CITY] book`}</pre>

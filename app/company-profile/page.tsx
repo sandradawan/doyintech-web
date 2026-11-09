@@ -21,7 +21,7 @@ export default function CompanyProfilePage() {
               <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white tracking-tight">
                 Doyin<span className="text-primary">Tech</span>
               </h1>
-              <p className="mt-4 text-xl text-gray-400 max-w-xl">
+              <p className="mt-4 text-xl text-brand-muted max-w-xl">
                 Production-grade software engineering for businesses that need
                 systems they can rely on.
               </p>
@@ -62,7 +62,7 @@ export default function CompanyProfilePage() {
             <h2 className="text-2xl font-bold text-white mb-4">
               Executive Summary
             </h2>
-            <div className="space-y-4 text-gray-300 leading-relaxed">
+            <div className="space-y-4 text-brand-soft leading-relaxed">
               <p>
                 DoyinTech is a Nigerian technology company specializing in
                 frontend and backend engineering, scalable system architecture,
@@ -93,7 +93,7 @@ export default function CompanyProfilePage() {
           <div className="mt-14 grid md:grid-cols-2 gap-8">
             <section className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
               <h2 className="text-lg font-bold text-primary mb-3">Mission</h2>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-brand-soft text-sm leading-relaxed">
                 To design and deploy robust, scalable, and secure technology
                 solutions that solve real-world business problems while
                 maintaining performance, reliability, and long-term
@@ -102,7 +102,7 @@ export default function CompanyProfilePage() {
             </section>
             <section className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
               <h2 className="text-lg font-bold text-primary mb-3">Vision</h2>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-brand-soft text-sm leading-relaxed">
                 To become a leading African technology engineering firm
                 recognized for frontend and backend excellence, system
                 optimization, and enterprise-grade software development.
@@ -152,7 +152,7 @@ export default function CompanyProfilePage() {
                   className="rounded-xl border border-white/5 bg-white/[0.02] p-5 hover:border-primary/40 transition"
                 >
                   <h3 className="font-semibold text-white">{s.title}</h3>
-                  <p className="mt-1 text-sm text-gray-400">{s.desc}</p>
+                  <p className="mt-1 text-sm text-brand-muted">{s.desc}</p>
                 </Link>
               ))}
             </div>
@@ -161,32 +161,32 @@ export default function CompanyProfilePage() {
           {/* Selected Work */}
           <section className="mt-14">
             <h2 className="text-2xl font-bold text-white mb-6">Selected Work</h2>
-            <ul className="space-y-4 text-gray-300">
+            <ul className="space-y-4 text-brand-soft">
               <li>
                 <span className="font-semibold text-white">
                   Imperial Villa Property Platform
                 </span>
-                <span className="text-gray-500"> — </span>
+                <span className="text-brand-subtle"> — </span>
                 Corporate website, client portal & staff management system.
               </li>
               <li>
                 <span className="font-semibold text-white">DoyinMart</span>
-                <span className="text-gray-500"> — </span>
+                <span className="text-brand-subtle"> — </span>
                 African software marketplace for digital products.
               </li>
               <li>
                 <span className="font-semibold text-white">LegacyPlay</span>
-                <span className="text-gray-500"> — </span>
+                <span className="text-brand-subtle"> — </span>
                 Premium PlayStation gaming lounge website.
               </li>
               <li>
                 <span className="font-semibold text-white">JennyGlams</span>
-                <span className="text-gray-500"> — </span>
+                <span className="text-brand-subtle"> — </span>
                 Portfolio & booking site for makeup artistry.
               </li>
               <li>
                 <span className="font-semibold text-white">Arqademy CBT</span>
-                <span className="text-gray-500"> — </span>
+                <span className="text-brand-subtle"> — </span>
                 Computer-based testing platform for education.
               </li>
             </ul>
@@ -203,23 +203,23 @@ export default function CompanyProfilePage() {
             <h2 className="text-lg font-bold text-primary mb-4">
               Business Registration
             </h2>
-            <div className="grid sm:grid-cols-2 gap-3 text-sm text-gray-300">
+            <div className="grid sm:grid-cols-2 gap-3 text-sm text-brand-soft">
               <p>
-                <span className="text-gray-500">Registered Name:</span>{" "}
+                <span className="text-brand-subtle">Registered Name:</span>{" "}
                 DOYIN&apos;S TECHNOLOGY
               </p>
               <p>
-                <span className="text-gray-500">CAC Reg. No:</span> 9380561
+                <span className="text-brand-subtle">CAC Reg. No:</span> 9380561
               </p>
               <p>
-                <span className="text-gray-500">TIN:</span> 2623175378501
+                <span className="text-brand-subtle">TIN:</span> 2623175378501
               </p>
               <p>
-                <span className="text-gray-500">Nature:</span> Technology &
+                <span className="text-brand-subtle">Nature:</span> Technology &
                 Software
               </p>
               <p className="sm:col-span-2">
-                <span className="text-gray-500">Location:</span> Jos, Plateau
+                <span className="text-brand-subtle">Location:</span> Jos, Plateau
                 State, Nigeria
               </p>
             </div>

@@ -63,10 +63,10 @@ export default function FAQ() {
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                   className="flex w-full items-center justify-between p-5 text-left"
                 >
-                  <span className="pr-4 text-[16px] font-medium text-[#f5f5f7]">
+                  <span className="pr-4 text-[16px] font-medium text-brand-ink">
                     {faq.q}
                   </span>
-                  <span className="shrink-0 text-[20px] text-[#2997ff]">
+                  <span className="shrink-0 text-[20px] text-brand-link">
                     {openIndex === i ? "−" : "+"}
                   </span>
                 </button>
@@ -78,7 +78,7 @@ export default function FAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.22 }}
                     >
-                      <p className="px-5 pb-5 text-[15px] leading-relaxed text-[#a1a1a6]">
+                      <p className="px-5 pb-5 text-[15px] leading-relaxed text-brand-muted">
                         {faq.a}
                       </p>
                     </motion.div>
@@ -95,7 +95,7 @@ export default function FAQ() {
               href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%20have%20a%20question%20before%20buying%20%2F%20hiring."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-white"
+              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-semibold text-black"
             >
               Ask on WhatsApp — free
             </a>

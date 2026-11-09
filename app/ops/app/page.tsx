@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function OpsAppPage() {
   return (
-    <div className="min-h-screen bg-[#070b12] pt-12">
+    <div className="min-h-screen bg-brand-deepest pt-12">
       <OpsApp />
     </div>
   );

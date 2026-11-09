@@ -39,21 +39,21 @@ export default function SolutionLanding({ page }: { page: SolutionPage }) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main className="min-h-screen bg-[#0a0e17] pb-24 pt-28">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
           <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">{page.eyebrow}</p>
           <div className="mt-2 grid gap-10 lg:grid-cols-[1fr_400px]">
             <div>
               <h1 className="text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[44px]">{page.h1}</h1>
-              <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">{page.intro}</p>
+              <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">{page.intro}</p>
               <ul className="mt-6 space-y-2">
                 {page.outcomes.map((o) => (
-                  <li key={o} className="flex gap-2 text-[15px] text-[#e8eaed]">
+                  <li key={o} className="flex gap-2 text-[15px] text-brand-soft">
                     <span className="text-[#ff8c14]">✓</span> {o}
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-[14px] leading-relaxed text-[#c7cdd8]">{page.pricing}</p>
+              <p className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-[14px] leading-relaxed text-brand-soft">{page.pricing}</p>
             </div>
             <div id="quote" className="scroll-mt-28">
               <QuoteRequestForm product={page.product} prompts={page.prompts} />
@@ -64,9 +64,9 @@ export default function SolutionLanding({ page }: { page: SolutionPage }) {
             <h2 className="text-[24px] font-semibold text-white">What&apos;s included</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {page.modules.map((m) => (
-                <div key={m.title} className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+                <div key={m.title} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
                   <h3 className="text-[16px] font-semibold text-white">{m.title}</h3>
-                  <ul className="mt-3 space-y-1.5 text-[14px] text-[#c7cdd8]">
+                  <ul className="mt-3 space-y-1.5 text-[14px] text-brand-soft">
                     {m.items.map((i) => (
                       <li key={i}>· {i}</li>
                     ))}
@@ -82,13 +82,13 @@ export default function SolutionLanding({ page }: { page: SolutionPage }) {
               {page.faqs.map((f) => (
                 <div key={f.q}>
                   <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-[#c7cdd8]">{f.a}</dd>
+                  <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <section className="mt-14 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-[#141a28] p-6">
+          <section className="mt-14 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-[14px]">
               {page.related.map(([href, label]) => (
                 <Link key={href} href={href} className="text-[#ff8c14] hover:underline">

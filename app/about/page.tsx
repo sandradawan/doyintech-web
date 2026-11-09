@@ -16,11 +16,11 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="max-w-3xl">
-          <p className="text-sm text-gray-400">About</p>
+          <p className="text-sm text-brand-muted">About</p>
           <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight">
             DoyinTech is built for quality, speed, and scale.
           </h1>
-          <p className="mt-5 text-gray-400 leading-relaxed">
+          <p className="mt-5 text-brand-muted leading-relaxed">
             We build production-grade backend systems, secure APIs, and modern
             mobile applications. Our focus is clean architecture,
             maintainability, and premium execution.
@@ -33,12 +33,12 @@ export default function AboutPage() {
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
               {/* Left: Founder info */}
               <div className="max-w-2xl">
-                <p className="text-sm text-gray-400">Founder</p>
+                <p className="text-sm text-brand-muted">Founder</p>
                 <h2 className="mt-2 font-display text-3xl font-bold tracking-tight">
                   Silas Doyin Jonathan
                 </h2>
 
-                <p className="mt-4 text-gray-400 leading-relaxed">
+                <p className="mt-4 text-brand-muted leading-relaxed">
                   I’m a Front/backend and mobile engineer focused on building
                   scalable systems and high-quality products. DoyinTech exists
                   to help businesses ship reliable software with clean
@@ -48,17 +48,17 @@ export default function AboutPage() {
                 <div className="mt-6 grid sm:grid-cols-3 gap-4">
                   <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                     <p className="text-gray-200 font-medium">Backend</p>
-                    <p className="mt-1 text-xs text-gray-400">
+                    <p className="mt-1 text-xs text-brand-muted">
                       APIs • Databases
                     </p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                     <p className="text-gray-200 font-medium">Mobile</p>
-                    <p className="mt-1 text-xs text-gray-400">Flutter • UX</p>
+                    <p className="mt-1 text-xs text-brand-muted">Flutter • UX</p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                     <p className="text-gray-200 font-medium">Delivery</p>
-                    <p className="mt-1 text-xs text-gray-400">
+                    <p className="mt-1 text-xs text-brand-muted">
                       Quality • Speed
                     </p>
                   </div>
@@ -100,7 +100,7 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  <p className="mt-3 text-center text-xs text-gray-500">
+                  <p className="mt-3 text-center text-xs text-brand-subtle">
                     Founder & CEO @Doyins Technology
                   </p>
                 </div>
@@ -132,7 +132,7 @@ export default function AboutPage() {
               <h2 className="font-display text-2xl font-bold">
                 What we stand for
               </h2>
-              <ul className="mt-4 space-y-3 text-gray-400">
+              <ul className="mt-4 space-y-3 text-brand-muted">
                 <li>• Clean architecture & reliability</li>
                 <li>• Secure, scalable systems</li>
                 <li>• Premium UX & engineering</li>
@@ -146,7 +146,7 @@ export default function AboutPage() {
                   className="rounded-2xl border border-white/10 bg-black/20 p-5"
                 >
                   <p className="text-gray-200 font-medium">{v}</p>
-                  <p className="mt-1 text-sm text-gray-400">
+                  <p className="mt-1 text-sm text-brand-muted">
                     Built intentionally
                   </p>
                 </div>
@@ -156,13 +156,13 @@ export default function AboutPage() {
 
           <div className="grid gap-5">
             <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-sm text-gray-400 mb-3">Our Location</p>
+              <p className="text-sm text-brand-muted mb-3">Our Location</p>
               <MapSection />
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-black/20 p-6">
               <p className="text-gray-200 font-medium">Jos, Nigeria</p>
-              <p className="mt-2 text-sm text-gray-400">
+              <p className="mt-2 text-sm text-brand-muted">
                 Serving clients locally and globally.
               </p>
             </div>
@@ -183,7 +183,7 @@ function StandardCard({ title, content }: { title: string; content: string }) {
       <h3 className="font-display text-2xl font-semibold text-gray-100">
         {title}
       </h3>
-      <p className="mt-4 text-gray-400 leading-relaxed">{content}</p>
+      <p className="mt-4 text-brand-muted leading-relaxed">{content}</p>
     </div>
   );
 }

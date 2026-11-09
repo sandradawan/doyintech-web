@@ -52,7 +52,7 @@ export default function SystemProtectorQuiz() {
       <h1 className="mt-2 text-[28px] font-semibold tracking-tight text-white sm:text-[34px]">
         Device & WhatsApp security score
       </h1>
-      <p className="mt-3 text-[15px] leading-relaxed text-[#a1a1a6]">
+      <p className="mt-3 text-[15px] leading-relaxed text-brand-muted">
         Honest hygiene check — not a virus scan. Tick what is true for your phone and PC.
         Then get a score and next steps. Full playbooks are in the SME System Protector Kit.
       </p>
@@ -61,7 +61,7 @@ export default function SystemProtectorQuiz() {
         {QUESTIONS.map((q) => (
           <label
             key={q.id}
-            className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-[#141a28] p-4 hover:border-white/20"
+            className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-brand-surface p-4 hover:border-white/20"
           >
             <input
               type="checkbox"
@@ -72,7 +72,7 @@ export default function SystemProtectorQuiz() {
               }}
               className="mt-1 h-4 w-4 rounded border-white/30"
             />
-            <span className="text-[14px] text-[#e8eaed]">{q.text}</span>
+            <span className="text-[14px] text-brand-soft">{q.text}</span>
           </label>
         ))}
       </div>
@@ -86,15 +86,15 @@ export default function SystemProtectorQuiz() {
       </button>
 
       {done && (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-[#0c1018] p-6">
-          <p className="text-[13px] text-[#86868b]">Your protector score</p>
+        <div className="mt-8 rounded-2xl border border-white/10 bg-brand-deep p-6">
+          <p className="text-[13px] text-brand-subtle">Your protector score</p>
           <p className={`mt-1 text-[40px] font-bold ${label.c}`}>{score}/100</p>
           <p className={`text-[16px] font-semibold ${label.c}`}>{label.t}</p>
 
           {gaps.length > 0 && (
             <div className="mt-4">
               <p className="text-[13px] font-semibold text-white">Fix next</p>
-              <ul className="mt-2 space-y-1 text-[13px] text-[#a1a1a6]">
+              <ul className="mt-2 space-y-1 text-[13px] text-brand-muted">
                 {gaps.slice(0, 5).map((g) => (
                   <li key={g.id}>· {g.text}</li>
                 ))}
@@ -122,7 +122,7 @@ export default function SystemProtectorQuiz() {
               System Protector Kit
             </Link>
           </div>
-          <p className="mt-4 text-[12px] text-[#86868b]">
+          <p className="mt-4 text-[12px] text-brand-subtle">
             Does not replace Windows Defender or Play Protect. Keep them on.
           </p>
         </div>

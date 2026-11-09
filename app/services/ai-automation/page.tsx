@@ -21,12 +21,12 @@ export default function AIAutomationPage() {
           <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white">
             AI Automation
           </h1>
-          <p className="mt-4 text-xl text-gray-400">
+          <p className="mt-4 text-xl text-brand-muted">
             Practical automation that removes repetitive work — not science
             projects.
           </p>
 
-          <div className="mt-12 space-y-10 text-gray-300 leading-relaxed">
+          <div className="mt-12 space-y-10 text-brand-soft leading-relaxed">
             <p>
               We help businesses identify high-ROI processes and implement
               reliable AI-assisted workflows for support, sales, reporting, and

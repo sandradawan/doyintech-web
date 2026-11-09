@@ -121,7 +121,7 @@ export default function CgpaCalculator() {
                 setScale(s);
                 setSemesters((ss) => ss.map((sem) => ({ ...sem, courses: sem.courses.map((c) => ({ ...c, grade: "" })) })));
               }}
-              className={`rounded-full px-4 py-2 text-[13px] font-semibold ${scale === s ? "bg-[#ff8c14] text-black" : "border border-white/15 text-[#c7cdd8]"}`}
+              className={`rounded-full px-4 py-2 text-[13px] font-semibold ${scale === s ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft"}`}
             >
               {SCALES[s].label}
             </button>
@@ -129,7 +129,7 @@ export default function CgpaCalculator() {
         </div>
 
         {semesters.map((sem, si) => (
-          <section key={sem.id} className="rounded-2xl border border-white/10 bg-[#141a28] p-4 sm:p-5">
+          <section key={sem.id} className="rounded-2xl border border-white/10 bg-brand-surface p-4 sm:p-5">
             <div className="flex items-center justify-between gap-3">
               <input
                 value={sem.name}
@@ -137,7 +137,7 @@ export default function CgpaCalculator() {
                 aria-label="Semester name"
                 className="min-w-0 flex-1 bg-transparent text-[15px] font-semibold text-white outline-none"
               />
-              <span className="text-[13px] text-[#a1a1a6]">
+              <span className="text-[13px] text-brand-muted">
                 GPA <strong className="text-white">{perSemester[si].gpa.toFixed(2)}</strong>
               </span>
               {semesters.length > 1 && (
@@ -146,7 +146,7 @@ export default function CgpaCalculator() {
                 </button>
               )}
             </div>
-            <div className="mt-3 grid grid-cols-[1fr_72px_96px_28px] gap-2 text-[11px] uppercase tracking-wide text-[#86868b]">
+            <div className="mt-3 grid grid-cols-[1fr_72px_96px_28px] gap-2 text-[11px] uppercase tracking-wide text-brand-subtle">
               <span>Course</span>
               <span>Units</span>
               <span>Grade</span>
@@ -176,7 +176,7 @@ export default function CgpaCalculator() {
                     type="button"
                     aria-label="Remove course"
                     onClick={() => setSemesters((ss) => ss.map((s, i) => (i !== si ? s : { ...s, courses: s.courses.filter((_, j) => j !== ci) })))}
-                    className="text-[16px] text-[#86868b] hover:text-white"
+                    className="text-[16px] text-brand-subtle hover:text-white"
                   >
                     ×
                   </button>
@@ -206,20 +206,20 @@ export default function CgpaCalculator() {
             onClick={() => {
               if (confirm("Clear all courses?")) setSemesters([blankSemester(1)]);
             }}
-            className="text-[13px] text-[#a1a1a6] underline"
+            className="text-[13px] text-brand-muted underline"
           >
             Start over
           </button>
         </div>
 
-        <details className="rounded-2xl border border-white/10 bg-[#141a28] p-4">
+        <details className="rounded-2xl border border-white/10 bg-brand-surface p-4">
           <summary className="cursor-pointer text-[14px] font-semibold text-white">Already have a CGPA from earlier semesters?</summary>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            <label className="text-[13px] text-[#a1a1a6]">
+            <label className="text-[13px] text-brand-muted">
               Current CGPA
               <input className={`${field} mt-1`} inputMode="decimal" value={prevCgpa} onChange={(e) => setPrevCgpa(e.target.value)} placeholder="3.45" />
             </label>
-            <label className="text-[13px] text-[#a1a1a6]">
+            <label className="text-[13px] text-brand-muted">
               Units taken so far
               <input className={`${field} mt-1`} inputMode="numeric" value={prevUnits} onChange={(e) => setPrevUnits(e.target.value)} placeholder="72" />
             </label>
@@ -232,25 +232,25 @@ export default function CgpaCalculator() {
           <p className="text-[12px] uppercase tracking-wide text-[#ffb366]">Your CGPA</p>
           <p className="mt-1 text-[44px] font-semibold leading-none tabular-nums text-white">
             {cgpa.toFixed(2)}
-            <span className="text-[16px] text-[#a1a1a6]"> / {max.toFixed(1)}</span>
+            <span className="text-[16px] text-brand-muted"> / {max.toFixed(1)}</span>
           </p>
           <p className="mt-2 text-[15px] font-semibold text-white">{totalUnits ? classOf(cgpa, scale) : "Add courses to see your class"}</p>
-          <p className="mt-1 text-[12px] text-[#a1a1a6]">{totalUnits} units counted</p>
+          <p className="mt-1 text-[12px] text-brand-muted">{totalUnits} units counted</p>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
           <p className="text-[14px] font-semibold text-white">What GPA do I need?</p>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            <label className="text-[12px] text-[#a1a1a6]">
+            <label className="text-[12px] text-brand-muted">
               Target CGPA
               <input className={`${field} mt-1`} inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} placeholder={scale === "5" ? "4.50" : "3.50"} />
             </label>
-            <label className="text-[12px] text-[#a1a1a6]">
+            <label className="text-[12px] text-brand-muted">
               Units still to take
               <input className={`${field} mt-1`} inputMode="numeric" value={futureUnits} onChange={(e) => setFutureUnits(e.target.value)} placeholder="48" />
             </label>
           </div>
           {needed !== null && (
-            <p className="mt-3 text-[14px] text-[#c7cdd8]">
+            <p className="mt-3 text-[14px] text-brand-soft">
               {needed > max ? (
                 <>Not reachable with {futureUnits} units: you&apos;d need {needed.toFixed(2)}. Aim for the next class down.</>
               ) : needed <= 0 ? (
@@ -263,7 +263,7 @@ export default function CgpaCalculator() {
             </p>
           )}
         </div>
-        <p className="text-[12px] text-[#86868b]">Saved on this device only. Check your school&apos;s handbook: some departments use slightly different boundaries.</p>
+        <p className="text-[12px] text-brand-subtle">Saved on this device only. Check your school&apos;s handbook: some departments use slightly different boundaries.</p>
       </aside>
     </div>
   );

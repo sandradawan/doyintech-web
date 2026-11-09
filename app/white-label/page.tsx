@@ -17,7 +17,7 @@ export default function WhiteLabelPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-black pb-24 pt-24">
+      <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
             Partners
@@ -25,34 +25,34 @@ export default function WhiteLabelPage() {
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
             We build. You resell.
           </h1>
-          <p className="mt-4 text-[17px] leading-relaxed text-[#a1a1a6]">
+          <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
             Freelancers and small agencies: offer websites to your clients without burning nights on
             code. Fixed partner rates, clean handoff, your brand on the relationship.
           </p>
 
-          <ul className="mt-8 space-y-3 text-[15px] text-[#c7cdd8]">
+          <ul className="mt-8 space-y-3 text-[15px] text-brand-soft">
             <li>✓ Landing and multi-page sites on fixed timelines</li>
             <li>✓ You own the client relationship and pricing to them</li>
             <li>✓ We deliver production-ready Next.js / modern stack</li>
             <li>✓ WhatsApp coordination — no agency bureaucracy</li>
           </ul>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
+          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[18px] font-semibold text-white">Partner economics (illustrative)</h2>
-            <p className="mt-2 text-[14px] text-[#a1a1a6]">
+            <p className="mt-2 text-[14px] text-brand-muted">
               Example: public landing page ₦100k — partner build lower; you charge the client ₦150–200k+
               and keep the margin. Exact partner rates on WhatsApp after a quick fit check.
             </p>
-            <ul className="mt-3 space-y-1 text-[14px] text-[#c7cdd8]">
+            <ul className="mt-3 space-y-1 text-[14px] text-brand-soft">
               <li>· You sell & support the relationship</li>
               <li>· We build & revise within agreed rounds</li>
               <li>· Client never has to know the factory</li>
             </ul>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
+          <div className="mt-6 rounded-2xl border border-white/10 bg-brand-surface p-6">
             <h2 className="text-[18px] font-semibold text-white">How it works</h2>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-[#a1a1a6]">
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-brand-muted">
               <li>You close the client and set your fee to them.</li>
               <li>We quote a partner build price and timeline.</li>
               <li>Deposit locks the slot; you send content.</li>
@@ -62,7 +62,7 @@ export default function WhiteLabelPage() {
 
           <div className="mt-6 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
             <h2 className="text-[18px] font-semibold text-white">Partner checklist</h2>
-            <ul className="mt-3 space-y-1 text-[14px] text-[#c7cdd8]">
+            <ul className="mt-3 space-y-1 text-[14px] text-brand-soft">
               <li>□ Client brief + brand assets collected</li>
               <li>□ Your invoice terms separate from our partner invoice</li>
               <li>□ Content deadline agreed before build starts</li>
@@ -75,7 +75,7 @@ export default function WhiteLabelPage() {
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-white"
+              className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black"
             >
               Partner on WhatsApp
             </a>
@@ -87,7 +87,7 @@ export default function WhiteLabelPage() {
             >
               Book a call
             </a>
-            <a href="/hire" className="rounded-full px-6 py-3 text-[14px] text-[#2997ff]">
+            <a href="/hire" className="rounded-full px-6 py-3 text-[14px] text-brand-link">
               See public packages →
             </a>
           </div>

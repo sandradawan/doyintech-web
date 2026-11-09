@@ -30,7 +30,7 @@ export default function AcademyCta({
       <h3 className="mt-1 font-display text-lg font-bold text-white">
         Continue on DoyinTech Academy
       </h3>
-      <p className="mt-2 text-sm text-gray-300">
+      <p className="mt-2 text-sm text-brand-soft">
         {skillText} Build real projects with guidance — not random tutorials.
       </p>
       <a
