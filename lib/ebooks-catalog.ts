@@ -4,7 +4,7 @@ import { MORE_EBOOKS } from "./ebooks-more";
 import { WAVE3_EBOOKS } from "./ebooks-wave3";
 import { LIFE_EBOOKS } from "./ebooks-life";
 import { WAVE4_EBOOKS } from "./ebooks-wave4";
-import { getFullChapters } from "./ebooks/full";
+import { getFullChapters, withExtraChapters } from "./ebooks/full";
 
 /** A book shorter than this is not sold: the buy button goes away and checkout refuses it. */
 export const MIN_WORDS_TO_SELL = 1000;
@@ -19,7 +19,7 @@ export function ebookOnSale(book: Pick<Ebook, "chapters">): boolean {
 
 /** The label always comes from the real text, so a book can never claim more than it holds. */
 function withFullBook(book: Ebook): Ebook {
-  const chapters = getFullChapters(book.id) ?? book.chapters;
+  const chapters = getFullChapters(book.id) ?? withExtraChapters(book.id, book.chapters);
   const words = ebookWords({ chapters });
   const size = words >= 1000 ? `about ${(Math.round(words / 100) * 100).toLocaleString("en-NG")} words` : "being finished";
   return { ...book, chapters, pagesLabel: `${chapters.length} chapters · ${size}` };

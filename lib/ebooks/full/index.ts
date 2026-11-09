@@ -3,6 +3,7 @@
  * catalogue record, and lib/ebooks-catalog.ts refuses to sell anything without enough words.
  */
 import type { EbookChapter } from "@/lib/ebooks";
+import { EXTRA_CHAPTERS } from "./extras";
 import { WRITTEN_1 } from "./written-1";
 import { WRITTEN_2 } from "./written-2";
 import { WRITTEN_3 } from "./written-3";
@@ -21,6 +22,14 @@ const BOOKS: Record<string, EbookChapter[]> = {
 
 export function getFullChapters(bookId: string): EbookChapter[] | undefined {
   return BOOKS[bookId];
+}
+
+/** Puts a book's extra chapters before its closing plan and renumbers every chapter title. */
+export function withExtraChapters(bookId: string, chapters: EbookChapter[]): EbookChapter[] {
+  const extras = EXTRA_CHAPTERS[bookId];
+  if (!extras?.length || !chapters.length) return chapters;
+  const merged = [...chapters.slice(0, -1), ...extras, chapters[chapters.length - 1]];
+  return merged.map((ch, i) => ({ ...ch, title: `${i + 1}. ${ch.title.replace(/^\d+\.\s*/, "")}` }));
 }
 
 export function wordCountForBook(bookId: string): number {
