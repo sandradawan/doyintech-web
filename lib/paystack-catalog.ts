@@ -54,7 +54,7 @@ function basePayItemSync(id: string): PayItem | undefined {
       id: ebook.id,
       name: ebook.title + " (Ebook)",
       amountKobo: ebook.amountKobo,
-      delivery: "Full ebook unlock on site + illustrated PDF",
+      delivery: "Full ebook unlock on site + PDF by email",
     };
   }
 

@@ -79,7 +79,7 @@ export function EbookCover({
   );
 }
 
-export function EbookCard({ book }: { book: Ebook }) {
+export function EbookCard({ book }: { book: PublicEbook }) {
   return (
     <Link
       href={`/ebooks/${book.slug}`}
@@ -100,7 +100,7 @@ export function EbookCard({ book }: { book: Ebook }) {
         <p className="mt-1 line-clamp-2 text-[13px] text-[#a1a1a6]">{book.subtitle}</p>
         <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
           <span className="text-[16px] font-semibold text-white">
-            {formatEbookPrice(book.priceNgn)}
+            {book.onSale ? formatEbookPrice(book.priceNgn) : "Coming soon"}
           </span>
           <span className="text-[11px] text-[#86868b]">{book.pagesLabel}</span>
         </div>
@@ -109,7 +109,7 @@ export function EbookCard({ book }: { book: Ebook }) {
   );
 }
 
-export function EbookBuyPanel({ book }: { book: Ebook }) {
+export function EbookBuyPanel({ book }: { book: PublicEbook }) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -142,6 +142,15 @@ export function EbookBuyPanel({ book }: { book: Ebook }) {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (!book.onSale) {
+    return (
+      <div className="rounded-2xl border border-white/10 bg-[#141a28] p-5">
+        <p className="text-[18px] font-semibold text-white">Coming soon</p>
+        <p className="mt-2 text-[14px] leading-relaxed text-[#c7cdd8]">We are finishing this book and it isn&apos;t on sale yet. Please check back shortly.</p>
+      </div>
+    );
   }
 
   return (
@@ -212,6 +221,8 @@ export function EbookGatedReader({ book }: { book: PublicEbook }) {
       </div>
     );
   }
+
+  if (!book.onSale) return null;
 
   const preview = book.chapters.slice(0, 1);
   const restCount = Math.max(0, book.totalChapters - preview.length);

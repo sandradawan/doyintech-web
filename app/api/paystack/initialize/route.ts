@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse, after } from "next/server";
 import { recordEvent } from "@/lib/analytics/server";
 import { getPayItem } from "@/lib/paystack-catalog";
+import { ebookOnSale, findAnyEbook } from "@/lib/ebooks-catalog";
 import { signQuote } from "@/lib/payments/purchase";
 import { captureGiftHold, checkGiftCode, holdGiftCredit, newRef } from "@/lib/giftcards/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
@@ -41,6 +42,11 @@ export async function POST(req: NextRequest) {
 
     if (!EMAIL_RE.test(email) || email.length > 254) {
       return NextResponse.json({ error: "Valid email is required." }, { status: 400 });
+    }
+
+    const book = findAnyEbook(productId);
+    if (book && !ebookOnSale(book)) {
+      return NextResponse.json({ error: "This ebook is being finished and is not on sale yet." }, { status: 409 });
     }
 
     const item = await getPayItem(productId);

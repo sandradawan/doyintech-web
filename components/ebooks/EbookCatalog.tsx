@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Ebook } from "@/lib/ebooks";
+import type { PublicEbook } from "@/lib/shop/public";
 import { EbookCard } from "@/components/ebooks/EbookShop";
 
 const CATEGORIES = [
@@ -23,7 +23,7 @@ const CATEGORIES = [
   "AI & Productivity",
 ];
 
-export default function EbookCatalog({ books }: { books: Ebook[] }) {
+export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
   const [category, setCategory] = useState("All");
   const [query, setQuery] = useState("");
 

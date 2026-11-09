@@ -51,7 +51,7 @@ export default async function EbookDetailPage({ params }: Props) {
       genre: book.category,
       image: book.coverImage,
       url,
-      offers: { "@type": "Offer", price: String(book.priceNgn), priceCurrency: "NGN", availability: "https://schema.org/InStock", url },
+      offers: { "@type": "Offer", price: String(book.priceNgn), priceCurrency: "NGN", availability: book.onSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url },
     },
     {
       "@context": "https://schema.org",
@@ -87,8 +87,8 @@ export default async function EbookDetailPage({ params }: Props) {
               </h1>
               <p className="mt-2 text-[16px] text-[#a1a1a6]">{book.subtitle}</p>
               <p className="mt-3 text-[13px] text-[#86868b]">
-                {book.author} · {book.pagesLabel} · {book.category} ·{" "}
-                {formatEbookPrice(book.priceNgn)}
+                {book.author} · {book.pagesLabel} · {book.category}
+                {book.onSale && <> · {formatEbookPrice(book.priceNgn)}</>}
               </p>
               <p className="mt-6 text-[15px] leading-relaxed text-[#c7cdd8]">{book.blurb}</p>
               <ul className="mt-6 space-y-2">

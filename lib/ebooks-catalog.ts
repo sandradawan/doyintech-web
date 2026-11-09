@@ -6,15 +6,23 @@ import { LIFE_EBOOKS } from "./ebooks-life";
 import { WAVE4_EBOOKS } from "./ebooks-wave4";
 import { getFullChapters } from "./ebooks/full";
 
+/** A book shorter than this is not sold: the buy button goes away and checkout refuses it. */
+export const MIN_WORDS_TO_SELL = 1000;
+
+export function ebookWords(book: Pick<Ebook, "chapters">): number {
+  return book.chapters.reduce((n, ch) => n + ch.body.trim().split(/\s+/).filter(Boolean).length, 0);
+}
+
+export function ebookOnSale(book: Pick<Ebook, "chapters">): boolean {
+  return ebookWords(book) >= MIN_WORDS_TO_SELL;
+}
+
+/** The label always comes from the real text, so a book can never claim more than it holds. */
 function withFullBook(book: Ebook): Ebook {
-  const chapters = getFullChapters(book.id);
-  if (!chapters?.length) return book;
-  const words = chapters.reduce((n, ch) => n + ch.body.split(/\s+/).length, 0);
-  return {
-    ...book,
-    pagesLabel: `Full book · ~${Math.round(words / 1000)}k words · ${chapters.length} chapters`,
-    chapters,
-  };
+  const chapters = getFullChapters(book.id) ?? book.chapters;
+  const words = ebookWords({ chapters });
+  const size = words >= 1000 ? `about ${(Math.round(words / 100) * 100).toLocaleString("en-NG")} words` : "being finished";
+  return { ...book, chapters, pagesLabel: `${chapters.length} chapters · ${size}` };
 }
 
 export const ALL_EBOOKS: Ebook[] = [
