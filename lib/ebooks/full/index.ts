@@ -1,16 +1,17 @@
 /**
- * Full-book chapter expansions.
- * Lightweight stub so catalog/pricing imports resolve and production builds succeed.
- * Heavy teaching packs can replace this later without changing call sites.
+ * The full text of each ebook, by book id. A book with no entry here uses the chapters in its
+ * catalogue record, and lib/ebooks-catalog.ts refuses to sell anything without enough words.
  */
 import type { EbookChapter } from "@/lib/ebooks";
+import { WRITTEN_1 } from "./written-1";
+import { WRITTEN_2 } from "./written-2";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- stub keeps the call-site signature
-export function getFullChapters(_bookId: string): EbookChapter[] | undefined {
-  return undefined;
+const BOOKS: Record<string, EbookChapter[]> = { ...WRITTEN_1, ...WRITTEN_2 };
+
+export function getFullChapters(bookId: string): EbookChapter[] | undefined {
+  return BOOKS[bookId];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- stub keeps the call-site signature
-export function wordCountForBook(_bookId: string): number {
-  return 0;
+export function wordCountForBook(bookId: string): number {
+  return (BOOKS[bookId] ?? []).reduce((n, ch) => n + ch.body.trim().split(/\s+/).length, 0);
 }
