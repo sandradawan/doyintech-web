@@ -8,8 +8,16 @@ import { WRITTEN_2 } from "./written-2";
 import { WRITTEN_3 } from "./written-3";
 import { WRITTEN_4 } from "./written-4";
 import { WRITTEN_5 } from "./written-5";
+import { WRITTEN_6 } from "./written-6";
 
-const BOOKS: Record<string, EbookChapter[]> = { ...WRITTEN_1, ...WRITTEN_2, ...WRITTEN_3, ...WRITTEN_4, ...WRITTEN_5 };
+const BOOKS: Record<string, EbookChapter[]> = {
+  ...WRITTEN_1,
+  ...WRITTEN_2,
+  ...WRITTEN_3,
+  ...WRITTEN_4,
+  ...WRITTEN_5,
+  ...WRITTEN_6,
+};
 
 export function getFullChapters(bookId: string): EbookChapter[] | undefined {
   return BOOKS[bookId];
