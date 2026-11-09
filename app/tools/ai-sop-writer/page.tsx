@@ -4,7 +4,7 @@ import { AiSopWriterTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
   title: "AI SOP / Process Writer (Paid)",
-  description: "Generate practical standard operating procedures with AI. One-time unlock.",
+  description: "Generate practical standard operating procedures with AI so your staff can follow each task the same way every time. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-sop-writer" },
 };
 

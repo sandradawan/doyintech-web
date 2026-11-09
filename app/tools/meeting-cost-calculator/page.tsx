@@ -4,7 +4,7 @@ import { MeetingCostCalculatorTool } from "@/components/tools/RetentionTools";
 
 export const metadata: Metadata = {
   title: "Meeting Cost Calculator (Free)",
-  description: "Estimate the Naira cost of a meeting from people, rate, and duration.",
+  description: "Estimate what a meeting really costs in naira from the number of people, their pay and how long it runs. A quick way to shorten your next meeting.",
   alternates: { canonical: "/tools/meeting-cost-calculator" },
 };
 

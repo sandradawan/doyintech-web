@@ -4,7 +4,7 @@ import Footer from "@/components/ui/Footer";
 import { CASE_STUDIES } from "@/lib/case-studies-data";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/case-studies" },
   title: "Case Studies — Real results for Nigerian businesses",
   description:
     "How DoyinTech ships websites and systems that get enquiries: property platforms, local service brands, gaming lounges, and marketplaces.",

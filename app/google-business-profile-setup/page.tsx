@@ -3,15 +3,15 @@ import ServiceLanding, { type Faq } from "@/components/services/ServiceLanding";
 
 export const revalidate = 3600;
 
-const TITLE = "Put Your Business on Google Maps — Google Business Profile Setup in Nigeria";
+const TITLE = "Google Business Profile Setup in Nigeria: Get on Google Maps";
 const DESCRIPTION =
-  "Show up when people search for businesses near them. We create or claim, verify and optimise your Google Business Profile with photos, hours, WhatsApp and first posts. Fixed price.";
+  "Show up when people search for businesses near them. We create or claim, verify and optimise your Google Business Profile so customers can find and call you.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/google-business-profile-setup" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/google-business-profile-setup" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/google-business-profile-setup" },
 };
 
 const FAQS: Faq[] = [

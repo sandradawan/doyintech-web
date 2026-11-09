@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Agency vs Freelancer vs DIY Website — What Nigerian SMEs Should Choose",
+export const metadata: Metadata = { alternates: { canonical: "/agency-vs-freelancer" },
+  title: "Agency vs Freelancer vs DIY Website: Which Is Best in Nigeria?",
   description:
     "Honest comparison: big agency, random freelancer, DIY builders, and fixed-price productized delivery from DoyinTech.",
 };

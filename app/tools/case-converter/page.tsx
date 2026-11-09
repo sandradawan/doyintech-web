@@ -3,9 +3,9 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import { CaseConverterTool } from "@/components/tools/SearchDemandTools";
 
 export const metadata: Metadata = {
-  title: "Case Converter — Uppercase Lowercase (Free)",
+  title: "Case Converter: Uppercase, Lowercase and Title Case",
   description:
-    "Convert text to UPPERCASE, lowercase, Title Case, or Sentence case online.",
+    "Convert text to UPPERCASE, lowercase, Title Case or Sentence case online. Paste your text and copy the result. Free, with no sign-up needed.",
   alternates: { canonical: "/tools/case-converter" },
 };
 

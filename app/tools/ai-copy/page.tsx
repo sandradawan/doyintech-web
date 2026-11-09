@@ -4,7 +4,7 @@ import { AiCopyStudioTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
   title: "AI Business Copy Suite (Paid)",
-  description: "Generate ads, WhatsApp, and email copy with AI. One-time unlock.",
+  description: "Generate ads, WhatsApp messages and email copy for your business with AI, so you always have something to send. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-copy" },
 };
 

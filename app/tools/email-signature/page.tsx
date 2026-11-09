@@ -3,8 +3,8 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import { EmailSignatureTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
-  title: "Email Signature Generator",
-  description: "Create a clean professional email signature for business and freelancing.",
+  title: "Email Signature Generator: Free and Professional",
+  description: "Create a clean, professional email signature for your business or freelance work. Add your name, role, phone and website, then copy it into your email.",
   alternates: { canonical: "/tools/email-signature" },
 };
 

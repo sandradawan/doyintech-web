@@ -1,8 +1,8 @@
 import Footer from "@/components/ui/Footer";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/terms" },
   title: "Terms of Service",
-  description: "Terms of Service for DoyinTech.",
+  description: "The terms for using the DoyinTech website, tools, digital products and services, including payments, refunds, licences and your responsibilities.",
 };
 
 export default function TermsPage() {

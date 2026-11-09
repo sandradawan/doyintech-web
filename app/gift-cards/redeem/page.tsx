@@ -3,8 +3,8 @@ import Link from "next/link";
 import GiftCardRedeem from "@/components/giftcards/GiftCardRedeem";
 
 export const metadata: Metadata = {
-  title: "Check gift card balance",
-  description: "Check your DoyinTech gift card balance and use it at checkout.",
+  title: "Check Your Gift Card Balance",
+  description: "Enter your DoyinTech gift card code to check the balance you have left, then use it at checkout on any website package, tool or template.",
   alternates: { canonical: "/gift-cards/redeem" },
 };
 

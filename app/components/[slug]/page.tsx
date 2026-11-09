@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/ui/Footer";
+import RelatedLinks, { relatedBy } from "@/components/ui/RelatedLinks";
 import {
   ComponentBuyPanel,
   ComponentCodeGate,
@@ -20,7 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = getUiComponent(slug);
   if (!item) return { title: "Component" };
-  return { title: item.name + " · Next.js component", description: item.description };
+  const title = `${item.name}: Next.js and Tailwind Component`;
+  const description = `${item.description} Next.js and Tailwind source code with a live demo. Pay once and use it in your own projects.`.slice(0, 200);
+  return { title, description, alternates: { canonical: `/components/${item.slug}` }, openGraph: { images: ["/opengraph-image"], title, description, url: `/components/${item.slug}` } };
 }
 
 export default async function ComponentDetailPage({ params }: Props) {
@@ -73,6 +76,7 @@ export default async function ComponentDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
+        <RelatedLinks heading="More components" links={relatedBy(UI_COMPONENTS, (c) => c.slug, slug, 6).map((c) => ({ href: `/components/${c.slug}`, label: c.name }))} />
       </main>
       <Footer />
     </>

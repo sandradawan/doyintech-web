@@ -4,14 +4,14 @@ import Footer from "@/components/ui/Footer";
 import { faqJsonLd } from "@/components/tools/SeoToolPage";
 import { FREE_PLAN_FEE_PERCENT } from "@/lib/storefront/shared";
 
-const TITLE = "Invoice Payment Links Nigeria — Get Paid Faster by Card, Transfer or USSD";
-const DESCRIPTION = `Turn any invoice into a Pay now link. Customers pay by card, bank transfer or USSD through Paystack, money settles to your own bank, and reminders go out until it's paid. ${FREE_PLAN_FEE_PERCENT}% per payment, or 0% on the Store plan.`;
+const TITLE = "Invoice Payment Links in Nigeria: Get Paid Faster";
+const DESCRIPTION = "Turn any invoice into a Pay now link. Customers pay by card, bank transfer or USSD through Paystack and you get the money without chasing them.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/get-paid" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/get-paid" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/get-paid" },
 };
 
 const STEPS: [string, string][] = [

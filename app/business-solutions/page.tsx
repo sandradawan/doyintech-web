@@ -6,13 +6,13 @@ import { absoluteUrl } from "@/lib/site";
 
 const TITLE = "Business Problems in Nigeria and Free Tools That Solve Them";
 const DESCRIPTION =
-  "Power costs, cash flow, import duty, staff costs, tax deadlines, procurement, paperwork and finding customers: the biggest bottlenecks for Nigerian businesses, offices and government, each with a free tool.";
+  "Power costs, cash flow, import duty, staff costs and tax deadlines: the biggest problems Nigerian businesses face, each with a free tool that helps.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/business-solutions" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/business-solutions" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/business-solutions" },
 };
 
 type Problem = {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import EInvoicingReadiness from "@/components/tools/EInvoicingReadiness";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 
-const TITLE = "E-Invoicing in Nigeria: 2027 Deadline for Small Businesses (NRS)";
+const TITLE = "E-Invoicing in Nigeria: 2027 Deadline for Small Businesses";
 const DESCRIPTION =
   "When does NRS e-invoicing apply to your business? Check your phase by turnover — small businesses go live 1 July 2027 — and what to do now to be ready.";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/e-invoicing-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/e-invoicing-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/e-invoicing-nigeria" },
 };
 
 const FAQS: Faq[] = [

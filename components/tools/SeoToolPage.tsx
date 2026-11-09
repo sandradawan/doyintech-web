@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import RelatedTools from "@/components/tools/RelatedTools";
 import ToolFollowUp from "@/components/tools/ToolFollowUp";
 
 export type Faq = { q: string; a: string };
@@ -71,6 +72,7 @@ export default function SeoToolPage({
             <section className="rounded-2xl border border-white/10 bg-[#141a28] p-6">{upsell}</section>
 
           </article>
+          <RelatedTools />
         </div>
       </main>
       <Footer />

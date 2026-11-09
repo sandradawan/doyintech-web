@@ -391,9 +391,9 @@ export default function CvBuilder() {
           }`}
         >
           <header className="border-b border-gray-200 pb-4">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <p className="text-2xl font-bold tracking-tight text-gray-900">
               {data.fullName || "Your Name"}
-            </h1>
+            </p>
             <p className="text-sm font-medium text-blue-700">
               {data.title || "Professional Title"}
             </p>

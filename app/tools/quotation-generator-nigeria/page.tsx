@@ -6,13 +6,13 @@ import { absoluteUrl } from "@/lib/site";
 
 const TITLE = "Free Quotation Generator Nigeria — Price Quotes in Naira (PDF)";
 const DESCRIPTION =
-  "Make a professional quotation in naira: items, quantities, VAT, validity date and your bank details. Print or save as PDF for free, then turn it into an invoice when the client says yes.";
+  "Make a professional quotation in naira with items, quantities, VAT and a validity date. Print it or save it as a PDF to send to your customer. Free.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/quotation-generator-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/quotation-generator-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/quotation-generator-nigeria" },
 };
 
 const FAQS: Faq[] = [

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/proforma-invoice-generator-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/proforma-invoice-generator-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/proforma-invoice-generator-nigeria" },
 };
 
 const FAQS: Faq[] = [

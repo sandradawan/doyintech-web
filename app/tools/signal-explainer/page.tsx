@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import { SignalExplainerTool } from "@/components/tools/MarketTools";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/tools/signal-explainer" },
   title: "Signal Explainer (Educational)",
-  description: "Learn how moving-average stacks are described in textbooks. Not signals to trade.",
+  description: "Learn how moving-average stacks are described in textbooks. This is an educational explainer only, not trading signals or financial advice.",
 };
 
 export default function Page() {

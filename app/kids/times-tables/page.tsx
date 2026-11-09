@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import KidsShell, { SAFETY_FAQ } from "@/components/kids/KidsShell";
 import TimesTables from "@/components/kids/TimesTables";
 
-const TITLE = "Times Tables Game — 60-Second Multiplication Race for Kids";
+const TITLE = "Times Tables Game: 60-Second Multiplication Race";
 const DESCRIPTION = "Free times tables practice game: pick a table from 2 to 12 or mix them, answer as many as you can in 60 seconds and beat your best score.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/kids/times-tables" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/kids/times-tables" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/kids/times-tables" },
 };
 
 const FAQS = [

@@ -4,7 +4,7 @@ import { DependencyRiskTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "Dependency Risk Explainer",
-  description: "Why keeping WordPress, npm, and frameworks updated is a security control.",
+  description: "Why keeping WordPress, plugins, npm packages and frameworks updated is a security control, explained in plain language for website owners.",
   alternates: { canonical: "/tools/dependency-risk" },
 };
 

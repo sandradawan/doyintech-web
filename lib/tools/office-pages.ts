@@ -18,7 +18,7 @@ export type OfficeToolPage = {
 const PAGES: OfficeToolPage[] = [
   {
     slug: "payslip-generator-nigeria",
-    title: "Payslip Generator Nigeria 2026 — Free PDF with PAYE and Pension",
+    title: "Payslip Generator Nigeria 2026: Free PDF with PAYE",
     description: "Create staff payslips with the 2026 PAYE bands, 8% pension, NHF, rent relief and loan deductions. Free PDF download, no sign-up.",
     h1: "Free payslip generator for Nigerian employers",
     intro: "Enter basic, housing and transport pay and get a clean payslip with PAYE under the Nigeria Tax Act 2025, pension, NHF and other deductions worked out for you.",
@@ -97,7 +97,7 @@ const PAGES: OfficeToolPage[] = [
   },
   {
     slug: "business-plan-generator",
-    title: "Business Plan Generator Nigeria — Free Template with Financials",
+    title: "Business Plan Generator Nigeria: Free Template",
     description: "Write a business plan for a loan, grant or investor with start-up costs, monthly profit projection, break-even and payback worked out. Free PDF.",
     h1: "Business plan generator with financial projections",
     intro: "Answer each section in plain language, add your start-up costs and expected sales, and get a formatted business plan with break-even and payback calculated for you.",

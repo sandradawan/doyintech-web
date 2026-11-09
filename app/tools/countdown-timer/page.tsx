@@ -4,7 +4,7 @@ import { CountdownTimerTool } from "@/components/tools/RetentionTools";
 
 export const metadata: Metadata = {
   title: "Event Countdown Timer (Free)",
-  description: "Countdown to a launch, payment, or exam. Saved so you can check anytime.",
+  description: "Count down to a launch, payment date or exam. Your countdown is saved on your device so you can check it again anytime. Free, with no sign-up.",
   alternates: { canonical: "/tools/countdown-timer" },
 };
 

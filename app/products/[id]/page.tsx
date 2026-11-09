@@ -15,12 +15,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getDigitalProduct((await params).id);
   if (!p) return { title: "Product" };
-  const title = `${p.name} — ${p.priceNgn} instant download`;
+  const title = `${p.name}: ${p.priceNgn} Download`;
   return {
     title,
     description: p.description,
     alternates: { canonical: `/products/${p.id}` },
-    openGraph: { title, description: p.description, url: `/products/${p.id}` },
+    openGraph: { images: ["/opengraph-image"], title, description: p.description, url: `/products/${p.id}` },
   };
 }
 

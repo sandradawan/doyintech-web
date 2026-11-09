@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/case-studies/legacyplay" },
   title: "Case Study — LegacyPlay Gaming Lounge",
   description:
     "Website and booking experience for LegacyPlay — premium PlayStation lounge. Clear reserve path and WhatsApp integration.",

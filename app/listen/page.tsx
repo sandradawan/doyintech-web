@@ -11,14 +11,14 @@ import { SHOW_CATEGORIES } from "@/lib/listen/shows";
 
 export const revalidate = 3600;
 
-const TITLE = "DoyinTech Listen — Free Nigerian and African Podcasts in Your Browser";
-const DESCRIPTION = "Listen free to podcasts on business, money, tech, news and ideas, plus African stories for children. No app or account needed. Pick up where you left off and share episodes on WhatsApp.";
+const TITLE = "Listen to Nigerian and African Podcasts Free Online";
+const DESCRIPTION = "Listen free to podcasts on business, money, tech and news, plus African stories for children. No app or account needed, it plays in your browser.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/listen" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/listen" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/listen" },
 };
 
 const FAQS = [
@@ -47,7 +47,7 @@ export default async function Page() {
             <section aria-labelledby="pick-heading" className="mt-6 flex flex-col gap-4 rounded-3xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-5 sm:flex-row sm:items-center">
               {pick.art && (
                 // eslint-disable-next-line @next/next/no-img-element -- cover art comes from each show's own host
-                <img src={pick.art} alt="" width={120} height={120} className="h-[120px] w-[120px] rounded-2xl object-cover" />
+                <img src={pick.art} alt={`${pick.showName} podcast artwork`} width={120} height={120} className="h-[120px] w-[120px] rounded-2xl object-cover" />
               )}
               <div className="min-w-0">
                 <p id="pick-heading" className="t-eyebrow">Today&apos;s pick</p>
@@ -79,7 +79,7 @@ export default async function Page() {
                   {shows.map(({ show, feed }) => (
                     <Link key={show.slug} href={`/listen/${show.slug}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#141a28] p-3 hover:border-[#ff8c14]">
                       {/* eslint-disable-next-line @next/next/no-img-element -- cover art comes from each show's own host */}
-                      <img src={show.art || feed?.image} alt="" width={72} height={72} loading="lazy" className="h-[72px] w-[72px] shrink-0 rounded-xl object-cover" />
+                      <img src={show.art || feed?.image} alt={`${show.name} podcast artwork`} width={72} height={72} loading="lazy" className="h-[72px] w-[72px] shrink-0 rounded-xl object-cover" />
                       <span className="min-w-0">
                         <span className="block text-[15px] font-semibold text-white">{show.name}</span>
                         <span className="mt-0.5 block text-[14px] leading-snug text-[#a1a1a6]">{show.blurb}</span>

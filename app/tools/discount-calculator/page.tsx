@@ -10,7 +10,7 @@ export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/discount-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/discount-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/discount-calculator" },
 };
 
 const FAQS = [

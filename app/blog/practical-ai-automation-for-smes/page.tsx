@@ -1,8 +1,9 @@
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import Link from "next/link";
 import ShareBar from "@/components/blog/ShareBar";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/blog/practical-ai-automation-for-smes" },
   title: "Practical AI Automation for SMEs (Not Hype)",
   description:
     "Simple AI workflows can remove repetitive work from sales, support and operations today — without a research lab.",
@@ -70,6 +71,7 @@ export default function Post() {
               </ul>
             </div>
           </div>
+          <BlogPostExtras slug="practical-ai-automation-for-smes" title={"Practical AI Automation for SMEs (Not Hype)"} description={"Simple AI workflows can remove repetitive work from sales, support and operations today — without a research lab."} published="2026-08-26" />
         </article>
       </main>
       <Footer />

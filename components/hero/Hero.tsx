@@ -22,7 +22,7 @@ const SLIDES: Slide[] = [
   {
     tab: "Websites",
     eyebrow: "Fixed-price websites",
-    title: "Websites that bring you customers.",
+    title: "Website design that brings you customers.",
     desc: "Landing pages from $65 and local business sites from $161, with WhatsApp booking built in. Pay a 50% deposit and go live in 1–2 weeks.",
     cta: PRIMARY_CTA,
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2400&q=80",

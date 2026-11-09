@@ -8,10 +8,10 @@ import { discoveryCallLink } from "@/lib/packages";
 // Add-on prices can be changed in Admin → Pricing; refresh hourly.
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/hire" },
   title: "Hire DoyinTech — Fixed-price websites · 50% deposit",
   description:
-    "Landing page from $65 · Business website from $161 · Growth from $290. Clear fixed USD pricing. Pay 50% deposit with Paystack.",
+    "Hire DoyinTech to build your business website at a fixed price. Book your slot with a 50% deposit, pay securely with Paystack and go live in days.",
 };
 
 export default function HirePage() {

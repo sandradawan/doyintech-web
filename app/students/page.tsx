@@ -3,7 +3,7 @@ import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import { formatUsdFromNgn, CURRENCY_NOTE } from "@/lib/currency";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/students" },
   title: "Student research tools & AI Project Studio",
   description:
     "All student tools in one place: AI Project Studio, questionnaire analyzer, citations, cover letter, CV builder, and managed research projects with USD pricing.",

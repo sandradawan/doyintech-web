@@ -3,13 +3,14 @@ import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import DigitalReadiness from "@/components/tools/DigitalReadiness";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
+import RelatedTools from "@/components/tools/RelatedTools";
 
 export const metadata: Metadata = {
   title: "Digital Readiness Assessment",
   description:
     "Free digital transformation readiness checker for businesses. Score presence, payments, marketing, operations, and security.",
   alternates: { canonical: "/tools/digital-readiness" },
-  openGraph: {
+  openGraph: { images: ["/opengraph-image"],
     title: "Digital Readiness Checker",
     description: "How digitally ready is your business? Free assessment with quick wins.",
     url: `${TOOLS_CONFIG.siteUrl}/tools/digital-readiness`,
@@ -34,6 +35,7 @@ export default function DigitalReadinessPage() {
             <DigitalReadiness />
           </div>
         </div>
+        <div className="px-6"><RelatedTools /></div>
       </main>
       <Footer />
     </>

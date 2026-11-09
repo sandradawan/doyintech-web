@@ -6,14 +6,14 @@ import { KIDS_GAMES, ParentPacks } from "@/components/kids/KidsShell";
 import { faqJsonLd } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Kids Zone — Free Learning Games, Daily Challenges and Worksheets";
+const TITLE = "Kids Zone: Free Learning Games and Worksheets";
 const DESCRIPTION = "Free educational games for children aged 5–13: a daily maths and word challenge, times tables race, memory match and printable worksheets. Safe, no sign-up.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/kids" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/kids" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/kids" },
 };
 
 const FAQS = [

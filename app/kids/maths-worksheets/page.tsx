@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import KidsShell, { SAFETY_FAQ } from "@/components/kids/KidsShell";
 import WorksheetGenerator from "@/components/kids/WorksheetGenerator";
 
-const TITLE = "Free Printable Maths Worksheets with Answers — Primary Ages 5–11";
+const TITLE = "Free Printable Maths Worksheets with Answers (Ages 5 to 11)";
 const DESCRIPTION = "Make free printable maths worksheets for addition, subtraction, times tables, division or mixed practice in three difficulty levels, with an answer key.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/kids/maths-worksheets" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/kids/maths-worksheets" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/kids/maths-worksheets" },
 };
 
 const FAQS = [

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Website for a Clinic in Nigeria — Appointments via WhatsApp",
+export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-clinic-nigeria" },
+  title: "Clinic Website in Nigeria: Appointments via WhatsApp",
   description:
     "What clinics need online: clear services, hours, location, and one-tap WhatsApp booking. Fixed-price websites from DoyinTech.",
 };
@@ -56,6 +57,7 @@ export default function ClinicWebsitePost() {
                   <p className="mt-8 text-[14px] text-[#a1a1a6]">
             Ready to build? See our <Link href="/websites/clinics" className="text-[#ff8c14] hover:underline">clinic website design and pricing</Link>.
           </p>
+          <BlogPostExtras slug="website-for-clinic-nigeria" title={"Clinic Website in Nigeria: Appointments via WhatsApp"} description={"What clinics need online: clear services, hours, location, and one-tap WhatsApp booking. Fixed-price websites from DoyinTech."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

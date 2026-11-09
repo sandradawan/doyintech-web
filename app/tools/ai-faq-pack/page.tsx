@@ -4,7 +4,7 @@ import { AiFaqPackTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
   title: "AI FAQ & Objection Pack (Paid)",
-  description: "Sales FAQs and objection handlers generated with AI.",
+  description: "Generate sales FAQs and answers to common objections with AI, ready to paste into your website or WhatsApp. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-faq-pack" },
 };
 

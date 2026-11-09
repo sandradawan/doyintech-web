@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const title = `${headline(v)} 2026 — Add or Remove ${pct(v.standard)} ${v.tax}`;
   const description = `Free ${v.country} ${v.tax} calculator: add ${v.tax} to a price or take it out of a ${v.currency} amount at ${pct(v.standard)}${v.reduced?.length || v.presets ? " or the other rates" : ""}. Instant net, ${v.tax} and gross totals.`;
   const url = `/vat-calculator/${v.slug}`;
-  return { title, description, alternates: { canonical: url }, openGraph: { title, description, url } };
+  return { title, description, alternates: { canonical: url }, openGraph: { images: ["/opengraph-image"], title, description, url } };
 }
 
 export default async function VatCountryPage({ params }: Params) {

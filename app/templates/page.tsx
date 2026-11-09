@@ -5,7 +5,7 @@ import { TemplateCard } from "@/components/shop/TemplateShop";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { publicTemplate } from "@/lib/shop/public";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/templates" },
   title: "Next.js Templates — Buy & build",
   description:
     "Full page templates for agencies, local businesses, SaaS waitlists, portfolios, and digital product sales pages.",

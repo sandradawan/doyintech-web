@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import { DuesReceiptTool } from "@/components/tools/PaidToolKit";
 
-export const metadata: Metadata = { title: "Dues Receipt (Paid)" };
+export const metadata: Metadata = { alternates: { canonical: "/tools/dues-receipt" }, description: "Create receipts for association, church or estate dues and export them as PDF, so every member has proof of payment. One-time unlock, no subscription.", title: "Dues Receipt (Paid)" };
 
 export default function Page() {
   return (

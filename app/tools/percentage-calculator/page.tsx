@@ -5,7 +5,7 @@ import { PercentageCalculatorTool } from "@/components/tools/SearchDemandTools";
 export const metadata: Metadata = {
   title: "Percentage Calculator (Free)",
   description:
-    "Calculate X% of Y, what percent X is of Y, and percent change. Free online percentage calculator.",
+    "Calculate X% of Y, what percent X is of Y, and percentage increase or decrease. Free online percentage calculator for work, school and shopping.",
   alternates: { canonical: "/tools/percentage-calculator" },
 };
 

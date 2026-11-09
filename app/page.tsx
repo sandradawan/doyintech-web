@@ -16,8 +16,14 @@ import type { Metadata } from "next";
 // Featured (sponsored) shops change as sellers buy placement.
 export const revalidate = 600;
 
+const TITLE = "Website Design in Nigeria, Free Business Tools and Ebooks | DoyinTech";
+const DESCRIPTION = "Fixed-price website design for Nigerian businesses, free invoice and tax tools, PDF ebooks and digital products. Pay securely with Paystack. Live in days.";
+
 export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/" },
 };
 
 /**

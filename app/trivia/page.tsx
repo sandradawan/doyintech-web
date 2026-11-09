@@ -3,14 +3,14 @@ import TriviaShell from "@/components/trivia/TriviaShell";
 import DailyTrivia from "@/components/trivia/DailyTrivia";
 import { CATEGORIES } from "@/lib/trivia/bank";
 
-const TITLE = "Daily Trivia Quiz — 10 Questions a Day on Nigeria, Africa and the World";
+const TITLE = "Daily Trivia Quiz: 10 Questions on Nigeria, Africa and the World";
 const DESCRIPTION = "Free daily general knowledge quiz for all ages: Nigeria, Africa and the world, science, animals, food, sport, languages and history. Beat the clock and keep your streak.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/trivia" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/trivia" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/trivia" },
 };
 
 const FAQS = [

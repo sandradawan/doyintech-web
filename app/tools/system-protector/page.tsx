@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import SystemProtectorQuiz from "@/components/tools/SystemProtectorQuiz";
+import RelatedTools from "@/components/tools/RelatedTools";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/tools/system-protector" },
   title: "System Protector — device & WhatsApp security score",
   description:
     "Free SME security hygiene quiz for phone, PC, and WhatsApp. Not a virus scanner — practical protector checklist from DoyinTech.",
@@ -15,6 +16,7 @@ export default function SystemProtectorPage() {
         <div className="px-6">
           <SystemProtectorQuiz />
         </div>
+        <div className="px-6"><RelatedTools /></div>
       </main>
       <Footer />
     </>

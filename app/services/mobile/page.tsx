@@ -1,7 +1,7 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/services/mobile" },
   title: "Flutter Mobile Development",
   description:
     "Cross-platform Flutter apps for Android and iOS by DoyinTech. Architecture, API integration, auth and store readiness.",

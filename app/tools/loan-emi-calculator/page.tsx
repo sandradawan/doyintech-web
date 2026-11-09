@@ -10,7 +10,7 @@ export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/loan-emi-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/loan-emi-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/loan-emi-calculator" },
 };
 
 const FAQS = [

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Website for a Gaming Lounge in Nigeria — Bookings & Tournaments",
+export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-gaming-lounge-nigeria" },
+  title: "Gaming Lounge Website in Nigeria: Bookings and Tournaments",
   description:
     "What a gaming lounge website needs to fill stations: clear pricing, tournament calendar, WhatsApp booking, and a mobile-first design. Fixed-price builds from ₦100k.",
 };
@@ -95,6 +96,7 @@ export default function GamingLoungeWebsitePage() {
               </a>
             </div>
           </div>
+          <BlogPostExtras slug="website-for-gaming-lounge-nigeria" title={"Gaming Lounge Website in Nigeria: Bookings and Tournaments"} description={"What a gaming lounge website needs to fill stations: clear pricing, tournament calendar, WhatsApp booking, and a mobile-first design. Fixed-price builds from ₦100k."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

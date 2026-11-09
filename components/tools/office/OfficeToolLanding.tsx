@@ -12,7 +12,7 @@ export function officeToolMetadata(slug: string): Metadata {
     title: p.title,
     description: p.description,
     alternates: { canonical: url },
-    openGraph: { title: p.title, description: p.description, url },
+    openGraph: { images: ["/opengraph-image"], title: p.title, description: p.description, url },
   };
 }
 

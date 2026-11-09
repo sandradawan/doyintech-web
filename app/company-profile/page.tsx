@@ -1,7 +1,7 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/company-profile" },
   title: "Company Profile",
   description:
     "DoyinTech company profile — production-grade software engineering, Laravel, Flutter, APIs, and AI automation. Jos, Nigeria.",

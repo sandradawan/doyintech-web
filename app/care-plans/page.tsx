@@ -5,9 +5,9 @@ import PlanCard from "@/components/subscriptions/PlanCard";
 import { plansInFamily } from "@/lib/subscriptions/plans";
 
 export const metadata: Metadata = {
-  title: "Website care plans — maintenance, security & monthly improvements",
+  title: "Website Maintenance Plans: Security, Backups and Updates",
   description:
-    "Monthly website care from DoyinTech: security updates, backups, uptime monitoring, content changes and SEO upkeep. From ₦50,000/month, billed automatically. Cancel any time.",
+    "Monthly website care from DoyinTech: security updates, backups, uptime monitoring, content changes and SEO upkeep, so your site keeps working.",
   alternates: { canonical: "/care-plans" },
 };
 

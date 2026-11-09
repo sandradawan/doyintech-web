@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/ui/Footer";
+import RelatedLinks, { relatedBy } from "@/components/ui/RelatedLinks";
 import {
   TemplateBuyPanel,
   TemplateGuideGate,
@@ -24,7 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = getPageTemplate(slug);
   if (!item) return { title: "Template" };
-  return { title: item.name + " · Template", description: item.description };
+  const title = `${item.name}: Next.js Website Template`;
+  const description = `${item.description} A complete Next.js page you can edit and launch. Pay once and use the source code in your own projects.`.slice(0, 200);
+  return { title, description, alternates: { canonical: `/templates/${item.slug}` }, openGraph: { images: ["/opengraph-image"], title, description, url: `/templates/${item.slug}` } };
 }
 
 export default async function TemplateDetailPage({ params }: Props) {
@@ -78,6 +81,7 @@ export default async function TemplateDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
+        <RelatedLinks heading="More templates" links={relatedBy(PAGE_TEMPLATES, (t) => t.slug, slug, 6).map((t) => ({ href: `/templates/${t.slug}`, label: t.name }))} />
       </main>
       <Footer />
     </>

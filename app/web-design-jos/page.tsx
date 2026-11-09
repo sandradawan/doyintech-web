@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/web-design-jos" },
   title: "Web Design Jos · Plateau — Fixed-price SME websites",
   description:
     "Website design in Jos, Plateau State. Fixed-price landing pages and local business sites with WhatsApp booking. Based in Jos, serving Nigeria.",

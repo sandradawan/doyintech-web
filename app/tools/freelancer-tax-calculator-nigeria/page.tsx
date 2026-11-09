@@ -4,15 +4,15 @@ import FreelancerTaxCalculator from "@/components/tools/FreelancerTaxCalculator"
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Freelancer & Self-Employed Tax Calculator Nigeria (2027 Filing)";
+const TITLE = "Freelancer Tax Calculator Nigeria for 2027 Filing";
 const DESCRIPTION =
-  "Work out income tax on freelance, remote-work and business income under the Nigeria Tax Act 2025. Deduct expenses and rent relief, see what to set aside monthly, and file by 31 March 2027.";
+  "Work out income tax on freelance, remote-work and business income under the Nigeria Tax Act 2025. Deduct your expenses and see what to set aside.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/freelancer-tax-calculator-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/freelancer-tax-calculator-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/freelancer-tax-calculator-nigeria" },
 };
 
 const FAQS: Faq[] = [

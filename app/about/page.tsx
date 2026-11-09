@@ -3,7 +3,7 @@ import MapSection from "@/components/map/MapSection";
 import Image from "next/image";
 import Footer from "@/components/ui/Footer";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/about" },
   title: "About",
   description:
     "Learn about DoyinTech, our founder Silas Doyin Jonathan, our mission, and the values that drive our engineering work.",

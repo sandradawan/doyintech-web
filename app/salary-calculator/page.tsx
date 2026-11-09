@@ -5,14 +5,14 @@ import { faqJsonLd } from "@/components/tools/SeoToolPage";
 import { SALARY_COUNTRIES } from "@/lib/global/salary";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Salary Calculator by Country 2026 — Take-Home Pay After Tax";
-const DESCRIPTION = "Free take-home pay calculators for the UK, US, Canada, Ireland, India, Australia, South Africa, Kenya and Nigeria. See income tax, social contributions and net pay for 2026.";
+const TITLE = "Salary Calculator by Country 2026: Take-Home Pay After Tax";
+const DESCRIPTION = "Free take-home pay calculators for the UK, US, Canada, Ireland, India, Australia, South Africa, Kenya and Nigeria. See your pay after tax.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/salary-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/salary-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/salary-calculator" },
 };
 
 const FAQS = [

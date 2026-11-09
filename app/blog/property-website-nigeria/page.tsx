@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Property Website in Nigeria — Estates, Leads & Equity Mortgage",
+export const metadata: Metadata = { alternates: { canonical: "/blog/property-website-nigeria" },
+  title: "Property Website in Nigeria: Listings, Leads and Enquiries",
   description:
     "How property developers and facilitators get serious enquiries online. Lessons from platforms like Imperial Villa. Fixed-price and custom builds.",
 };
@@ -52,6 +53,7 @@ export default function PropertyWebsitePost() {
                   <p className="mt-8 text-[14px] text-[#a1a1a6]">
             Ready to build? See our <Link href="/websites/real-estate" className="text-[#ff8c14] hover:underline">real estate website design and pricing</Link>.
           </p>
+          <BlogPostExtras slug="property-website-nigeria" title={"Property Website in Nigeria: Listings, Leads and Enquiries"} description={"How property developers and facilitators get serious enquiries online. Lessons from platforms like Imperial Villa. Fixed-price and custom builds."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

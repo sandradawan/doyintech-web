@@ -4,7 +4,7 @@ import { ChatbotScriptTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
   title: "Chatbot & WhatsApp Script Generator",
-  description: "Generate starter FAQ scripts for website chatbots and WhatsApp Business auto-replies.",
+  description: "Generate starter FAQ scripts for your website chatbot and WhatsApp Business auto-replies, so customers get a useful answer even when you are busy.",
   alternates: { canonical: "/tools/chatbot-script" },
 };
 

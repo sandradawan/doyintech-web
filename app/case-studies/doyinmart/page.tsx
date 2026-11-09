@@ -1,10 +1,10 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Case Study — DoyinMart Marketplace",
+export const metadata = { alternates: { canonical: "/case-studies/doyinmart" },
+  title: "Case Study: DoyinMart Software Marketplace",
   description:
-    "How DoyinTech built a modern software marketplace tailored for African markets.",
+    "How DoyinTech built DoyinMart, a modern software marketplace made for African markets: the problem, what we built and how it works.",
 };
 
 export default function DoyinMartCaseStudy() {

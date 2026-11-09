@@ -4,7 +4,7 @@ import { ExposedFilesTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "Exposed Files Checker",
-  description: "Probe .env, .git, backups, phpinfo and admin paths with evidence-based flags.",
+  description: "Check your website for exposed .env files, .git folders, backups, phpinfo and admin paths, with evidence for each finding. Only scan sites you own.",
   alternates: { canonical: "/tools/exposed-files" },
 };
 

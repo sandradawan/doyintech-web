@@ -4,7 +4,7 @@ import { ProjectIdeasTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
   title: "Portfolio Project Ideas for Developers",
-  description: "Beginner to advanced portfolio project ideas for students and junior developers in Nigeria.",
+  description: "Portfolio project ideas from beginner to advanced for students and junior developers, so you have real work to show employers and clients.",
   alternates: { canonical: "/tools/project-ideas" },
 };
 

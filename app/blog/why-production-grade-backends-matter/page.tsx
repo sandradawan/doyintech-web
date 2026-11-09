@@ -1,8 +1,9 @@
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import Link from "next/link";
 import ShareBar from "@/components/blog/ShareBar";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/blog/why-production-grade-backends-matter" },
   title: "Why Production-Grade Backends Matter for African Businesses",
   description:
     "Why clean architecture, proper auth, and scalable databases save money for African businesses in the long run.",
@@ -78,6 +79,7 @@ export default function Post() {
               </ul>
             </div>
           </div>
+          <BlogPostExtras slug="why-production-grade-backends-matter" title={"Why Production-Grade Backends Matter for African Businesses"} description={"Why clean architecture, proper auth, and scalable databases save money for African businesses in the long run."} published="2026-08-26" />
         </article>
       </main>
       <Footer />

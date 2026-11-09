@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/get-featured" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/get-featured" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/get-featured" },
 };
 
 const FAQS: Faq[] = [

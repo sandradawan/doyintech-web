@@ -3,14 +3,14 @@ import SeoToolPage, { faqJsonLd } from "@/components/tools/SeoToolPage";
 import LatePaymentCalculator from "@/components/tools/LatePaymentCalculator";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Late Payment Interest Calculator — UK Statutory Interest and Compensation";
+const TITLE = "Late Payment Interest Calculator UK: Statutory Interest";
 const DESCRIPTION = "Work out the interest and fixed compensation you can claim on an unpaid invoice: UK statutory 8% plus base rate, or your own contract rate in any currency.";
 
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/late-payment-interest-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/late-payment-interest-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/late-payment-interest-calculator" },
 };
 
 const FAQS = [

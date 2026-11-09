@@ -3,15 +3,15 @@ import ServiceLanding, { type Faq } from "@/components/services/ServiceLanding";
 
 export const revalidate = 3600;
 
-const TITLE = "Business Email and Domain in Nigeria — you@yourbusiness.com Setup";
+const TITLE = "Business Email and Domain Setup in Nigeria";
 const DESCRIPTION =
-  "Get a .com.ng or .com domain in your name and professional email like hello@yourbusiness.com on Zoho Mail or Google Workspace, set up on your phone. Fixed setup price.";
+  "Get a .com.ng or .com domain in your own name and professional email like hello@yourbusiness.com on Zoho Mail or Google Workspace, set up for you.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/business-email-domain-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/business-email-domain-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/business-email-domain-nigeria" },
 };
 
 const FAQS: Faq[] = [

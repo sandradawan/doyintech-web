@@ -3,13 +3,14 @@ import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import BusinessAudit from "@/components/tools/BusinessAudit";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
+import RelatedTools from "@/components/tools/RelatedTools";
 
 export const metadata: Metadata = {
   title: "Business Digital Audit Tool",
   description:
     "Free business audit tool: score your website, SEO, payments, WhatsApp, and online presence. Get clear recommendations.",
   alternates: { canonical: "/tools/business-audit" },
-  openGraph: {
+  openGraph: { images: ["/opengraph-image"],
     title: "Business Digital Audit | DoyinTech Tools",
     description: "How strong is your business online? Free self-assessment with actionable tips.",
     url: `${TOOLS_CONFIG.siteUrl}/tools/business-audit`,
@@ -42,6 +43,7 @@ export default function BusinessAuditPage() {
             </p>
           </article>
         </div>
+        <div className="px-6"><RelatedTools /></div>
       </main>
       <Footer />
     </>

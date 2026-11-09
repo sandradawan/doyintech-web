@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const r = c.calc(c.example);
   const description = `Free ${c.country} take-home pay calculator for ${c.taxYear}. On ${money(c, c.example)} a year you take home ${money(c, r.net)} (${money(c, r.net / 12)} a month). See every deduction, yearly and monthly.`;
   const url = `/salary-calculator/${c.slug}`;
-  return { title, description, alternates: { canonical: url }, openGraph: { title, description, url } };
+  return { title, description, alternates: { canonical: url }, openGraph: { images: ["/opengraph-image"], title, description, url } };
 }
 
 export default async function SalaryCountryPage({ params }: Params) {

@@ -4,7 +4,7 @@ import { SslCheckerTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "SSL / TLS Checker",
-  description: "Check certificate expiry, issuer, protocol, and HTTPS redirect behaviour.",
+  description: "Check a website's SSL certificate: when it expires, who issued it, its protocol and whether HTTP redirects to HTTPS. Free, with no sign-up needed.",
   alternates: { canonical: "/tools/ssl-checker" },
 };
 

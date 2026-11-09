@@ -22,12 +22,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "DoyinTech — Websites, Systems & Digital Products for Growing Businesses",
+    default: "Website Design in Nigeria, Free Business Tools and Ebooks | DoyinTech",
     template: "%s | DoyinTech",
   },
   description:
-    "Fixed-price websites that get enquiries, WhatsApp booking systems, free business tools, and digital products. 50% deposit · Secure Paystack · Live in days. Serving clients worldwide.",
+    "Fixed-price website design for Nigerian businesses, free invoice and tax tools, PDF ebooks and digital products. Pay securely with Paystack. Live in days.",
   keywords: [
     "fixed price website",
     "WhatsApp business system",
@@ -51,16 +50,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "DoyinTech",
-    title: "DoyinTech — Websites that get clients · Fixed price · Global",
-    description:
-      "Growth sites, WhatsApp systems, and digital products businesses actually buy. 50% deposit. Paystack. Live in days.",
-    url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: "DoyinTech — Websites that get clients",
-    description:
-      "Fixed-price websites, WhatsApp systems & digital products for businesses worldwide.",
     creator: "@doyintechnology",
   },
   robots: {
@@ -69,6 +61,9 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
 };
+
+// Tells Google the site's name for search results.
+const websiteLd = { "@context": "https://schema.org", "@type": "WebSite", name: "DoyinTech", alternateName: "DoyinTech Nigeria", url: SITE_URL };
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -111,6 +106,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>

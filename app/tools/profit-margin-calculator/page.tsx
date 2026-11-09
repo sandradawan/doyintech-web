@@ -10,7 +10,7 @@ export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/profit-margin-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/profit-margin-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/profit-margin-calculator" },
 };
 
 const FAQS = [

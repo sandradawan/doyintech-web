@@ -3,8 +3,8 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import { AiMeetingActionsTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
-  title: "AI Meeting → Actions (Paid)",
-  description: "Turn messy meeting notes into decisions and action items with AI.",
+  title: "AI Meeting Notes to Action Items (Paid)",
+  description: "Paste messy meeting notes and get clear decisions and action items with AI, so everybody knows who is doing what. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-meeting-actions" },
 };
 

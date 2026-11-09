@@ -1,10 +1,10 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Case Study — Arqademy CBT Platform",
+export const metadata = { alternates: { canonical: "/case-studies/arqademy-cbt" },
+  title: "Case Study: Arqademy CBT Exam Platform",
   description:
-    "Computer-based testing platform for practice exams, student assessment and digital learning workflows.",
+    "How we built Arqademy, a computer-based testing platform for practice exams, student assessment and digital learning, and what it does for its users.",
 };
 
 export default function ArqademyCbtCaseStudy() {

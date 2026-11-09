@@ -4,15 +4,15 @@ import Footer from "@/components/ui/Footer";
 import GiftCardBuyForm from "@/components/giftcards/GiftCardBuyForm";
 import { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 
-const TITLE = "DoyinTech Gift Cards — Give a website, tools or templates";
+const TITLE = "Gift Cards: Give a Website, Tools or Templates";
 const DESCRIPTION =
-  "Send a DoyinTech gift card by email or WhatsApp in a minute. Spend it on website packages, business tools, templates and ebooks. ₦2,000 to ₦500,000, valid for 3 years.";
+  "Send a DoyinTech gift card by email or WhatsApp in a minute. Spend it on website packages, business tools, templates and more across the site.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/gift-cards" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/gift-cards" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/gift-cards" },
 };
 
 const FAQS: Faq[] = [

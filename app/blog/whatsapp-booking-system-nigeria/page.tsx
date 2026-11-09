@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "WhatsApp Booking System for Nigerian SMEs — Clinics, Lounges, Salons",
+export const metadata: Metadata = { alternates: { canonical: "/blog/whatsapp-booking-system-nigeria" },
+  title: "WhatsApp Booking System for Nigerian Small Businesses",
   description:
     "How to combine a simple website with WhatsApp so customers book stations, appointments, and services without friction. Fixed-price options from DoyinTech.",
 };
@@ -104,6 +105,7 @@ export default function WhatsAppBookingPost() {
                   <p className="mt-8 text-[14px] text-[#a1a1a6]">
             Ready to build? See our <Link href="/websites/hotels" className="text-[#ff8c14] hover:underline">hotel and shortlet websites with WhatsApp booking</Link>.
           </p>
+          <BlogPostExtras slug="whatsapp-booking-system-nigeria" title={"WhatsApp Booking System for Nigerian Small Businesses"} description={"How to combine a simple website with WhatsApp so customers book stations, appointments, and services without friction. Fixed-price options from DoyinTech."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

@@ -4,7 +4,7 @@ import LetterGenerator from "@/components/tools/LetterGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Free Letter Generator — Application, Resignation, Leave & SIWES Letters";
+const TITLE = "Free Letter Generator: Application, Resignation and SIWES";
 const DESCRIPTION =
   "Write a formal job application, resignation, leave request or SIWES placement letter in the Nigerian format. Fill a few fields, edit the wording and save as PDF free.";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/letter-generator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/letter-generator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/letter-generator" },
 };
 
 const FAQS: Faq[] = [

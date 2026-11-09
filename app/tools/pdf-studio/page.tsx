@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import PdfStudio from "@/components/tools/PdfStudio";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/tools/pdf-studio" },
   title: "PDF Studio (Paid)",
   description:
     "Create professional letters, quotes, and reports as PDF. Preview free — full export is a paid one-time unlock.",

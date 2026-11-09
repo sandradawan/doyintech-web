@@ -4,7 +4,7 @@ import { PasswordTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
   title: "Strong Password Generator",
-  description: "Generate strong random passwords in your browser. Nothing is stored on our servers.",
+  description: "Generate strong random passwords in your browser. Choose the length and characters you want. Nothing is sent to or stored on our servers. Free.",
   alternates: { canonical: "/tools/password-generator" },
 };
 

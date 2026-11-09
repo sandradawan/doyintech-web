@@ -5,16 +5,17 @@ import PayeCalculator from "@/components/tools/PayeCalculator";
 import ToolFollowUp from "@/components/tools/ToolFollowUp";
 import { PAYE_BANDS_2026, computePaye, naira } from "@/lib/tax/paye2026";
 import { absoluteUrl } from "@/lib/site";
+import RelatedTools from "@/components/tools/RelatedTools";
 
-const TITLE = "PAYE Calculator Nigeria 2026 — New Tax Act Bands & Take-Home Pay";
+const TITLE = "PAYE Calculator Nigeria 2026: New Tax Bands and Take-Home Pay";
 const DESCRIPTION =
-  "Free 2026 PAYE calculator for Nigeria under the Nigeria Tax Act 2025: ₦800,000 tax-free band, new 15%–25% rates, rent relief and pension. See your monthly tax and take-home pay instantly.";
+  "Free 2026 PAYE calculator for Nigeria under the Nigeria Tax Act 2025. See your monthly tax, pension and take-home pay using the new bands.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/paye-calculator-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/paye-calculator-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/paye-calculator-nigeria" },
 };
 
 const LAST_REVIEWED = "October 2026";
@@ -196,6 +197,7 @@ export default function PayeCalculatorPage() {
             </p>
           </article>
         </div>
+        <div className="px-6"><RelatedTools /></div>
       </main>
       <Footer />
     </>

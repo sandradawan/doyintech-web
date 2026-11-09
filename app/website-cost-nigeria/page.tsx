@@ -8,15 +8,15 @@ import { SERVICE_OFFERS } from "@/lib/service-offers";
 import { PRIMARY_CTA } from "@/lib/cta";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "How Much Does a Website Cost in Nigeria? (2026 Price Guide)";
+const TITLE = "How Much Is a Website in Nigeria? 2026 Price Guide";
 const DESCRIPTION =
-  "Website prices in Nigeria for 2026: landing pages, business websites, e-commerce stores and web apps, what drives the cost, ongoing fees, and a free calculator for your exact project.";
+  "How much a website costs in Nigeria in 2026: landing pages, business websites, online stores and web apps, plus domain and hosting costs and how to avoid overpaying.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/website-cost-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/website-cost-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/website-cost-nigeria" },
 };
 
 // Fixed DoyinTech packages: the offer stores the 50% deposit, so the full price is double.

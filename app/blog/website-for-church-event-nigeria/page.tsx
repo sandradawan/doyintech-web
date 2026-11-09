@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-church-event-nigeria" },
   title: "Website for a Church or Event Centre in Nigeria",
   description:
     "Service times, location, giving links, event bookings via WhatsApp. Fixed-price websites for churches and event centres.",
@@ -51,6 +52,7 @@ export default function ChurchEventWebsitePage() {
                   <p className="mt-8 text-[14px] text-[#a1a1a6]">
             Ready to build? See our <Link href="/websites/churches" className="text-[#ff8c14] hover:underline">church website design and pricing</Link>.
           </p>
+          <BlogPostExtras slug="website-for-church-event-nigeria" title={"Website for a Church or Event Centre in Nigeria"} description={"Service times, location, giving links, event bookings via WhatsApp. Fixed-price websites for churches and event centres."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

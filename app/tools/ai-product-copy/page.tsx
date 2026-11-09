@@ -4,7 +4,7 @@ import { AiProductCopyTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
   title: "AI Product Copy Studio (Paid)",
-  description: "Landing, ads, and WhatsApp product copy with AI.",
+  description: "Generate landing page, ad and WhatsApp copy for your product with AI, from a few details about what you sell. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-product-copy" },
 };
 

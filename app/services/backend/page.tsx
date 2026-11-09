@@ -1,7 +1,7 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/services/backend" },
   title: "Backend Engineering",
   description:
     "Laravel, PHP, Node.js and production-grade backend systems by DoyinTech. Auth, APIs, databases, queues and documentation.",

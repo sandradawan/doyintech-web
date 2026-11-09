@@ -4,7 +4,7 @@ import { RoiTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
   title: "Website ROI Calculator",
-  description: "Estimate return on investment for a new website or digital upgrade using simple revenue assumptions.",
+  description: "Estimate the return on investment from a new website or digital upgrade using your own sales figures, so you can decide if the spend is worth it.",
   alternates: { canonical: "/tools/roi-calculator" },
 };
 

@@ -213,4 +213,5 @@ export const COMPANY_SECTION: NavSection = {
 export const LEGAL_LINKS: NavLink[] = [
   { name: "Privacy", href: "/privacy" },
   { name: "Terms", href: "/terms" },
+  { name: "All pages", href: "/all-pages" },
 ];

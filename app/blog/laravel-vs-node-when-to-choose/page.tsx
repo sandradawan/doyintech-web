@@ -1,11 +1,12 @@
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import Link from "next/link";
 import ShareBar from "@/components/blog/ShareBar";
 
-export const metadata = {
-  title: "Laravel vs Node.js — When to Choose Which",
+export const metadata = { alternates: { canonical: "/blog/laravel-vs-node-when-to-choose" },
+  title: "Laravel vs Node.js: Which Should You Choose?",
   description:
-    "Both are excellent. The right choice depends on your team, timeline, and the type of product you’re building.",
+    "Laravel or Node.js for your next project? A plain comparison based on your team, your timeline and the type of product you are building.",
 };
 
 export default function Post() {
@@ -78,6 +79,7 @@ export default function Post() {
               </ul>
             </div>
           </div>
+          <BlogPostExtras slug="laravel-vs-node-when-to-choose" title={"Laravel vs Node.js: Which Should You Choose?"} description={"Laravel or Node.js for your next project? A plain comparison based on your team, your timeline and the type of product you are building."} published="2026-08-26" />
         </article>
       </main>
       <Footer />

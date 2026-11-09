@@ -4,7 +4,7 @@ import { MaintenanceTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
   title: "Website Maintenance Plan Picker",
-  description: "Choose a practical website maintenance plan based on update frequency and business criticality.",
+  description: "Choose a practical website maintenance plan based on how often you update your site and how much your business depends on it. Free and quick.",
   alternates: { canonical: "/tools/maintenance-picker" },
 };
 

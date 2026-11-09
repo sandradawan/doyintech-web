@@ -3,14 +3,14 @@ import SeoToolPage, { faqJsonLd } from "@/components/tools/SeoToolPage";
 import HourlySalaryCalculator from "@/components/tools/HourlySalaryCalculator";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Hourly to Salary Calculator — Hourly, Daily, Weekly, Monthly, Yearly Pay";
+const TITLE = "Hourly to Salary Calculator: Daily, Weekly and Yearly Pay";
 const DESCRIPTION = "Convert an hourly wage to a yearly salary, or a salary to an hourly rate, in any currency. Set your hours, days and paid weeks for an exact figure.";
 
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/hourly-to-salary-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/hourly-to-salary-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/hourly-to-salary-calculator" },
 };
 
 const FAQS = [

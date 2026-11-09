@@ -21,6 +21,11 @@ export function publicEbook(book: Ebook): PublicEbook {
   };
 }
 
+/** The catalogue grid only draws cards, so it sends no chapter text at all. */
+export function catalogEbook(book: Ebook): PublicEbook {
+  return { ...publicEbook(book), chapters: [] };
+}
+
 export function publicComponent(item: UiComponentPack): UiComponentPack {
   return { ...item, fullCode: "" };
 }

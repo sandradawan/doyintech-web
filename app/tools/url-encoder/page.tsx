@@ -5,7 +5,7 @@ import { UrlEncoderTool } from "@/components/tools/SearchDemandTools";
 export const metadata: Metadata = {
   title: "URL Encoder / Decoder (Free)",
   description:
-    "Encode or decode URL strings for query parameters and safe links. Free URL encoder decoder.",
+    "Encode or decode URL strings for query parameters and safe links. Paste your text and copy the result. A free online tool with no sign-up.",
   alternates: { canonical: "/tools/url-encoder" },
 };
 

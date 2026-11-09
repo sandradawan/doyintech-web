@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/cgpa-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/cgpa-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/cgpa-calculator" },
 };
 
 const FAQS: Faq[] = [

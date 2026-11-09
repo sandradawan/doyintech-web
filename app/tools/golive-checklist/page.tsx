@@ -4,7 +4,7 @@ import { GoLiveChecklistTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "Website Go-Live Security Checklist",
-  description: "Pre-launch security gates before putting a website into production.",
+  description: "A pre-launch security checklist to go through before you put a website live: HTTPS, passwords, backups, admin access and more. Free, with no sign-up.",
   alternates: { canonical: "/tools/golive-checklist" },
 };
 

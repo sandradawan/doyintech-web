@@ -3,8 +3,8 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import { CoverLetterTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
-  title: "Cover Letter Generator",
-  description: "Draft a professional cover letter structure for job applications. Use your real achievements only.",
+  title: "Cover Letter Generator for Job Applications",
+  description: "Draft a professional cover letter for a job application, then fill it in with your real achievements. Free, with a clear structure employers expect.",
   alternates: { canonical: "/tools/cover-letter" },
 };
 

@@ -1,7 +1,7 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/case-studies/ipvl" },
   title: "Case Study — IPVL Lobby Dashboard",
   description:
     "Operations lobby dashboard for ImperialVilla (IPVL) — real-time overview and staff access for property & pension facilitation.",

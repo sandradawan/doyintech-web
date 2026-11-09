@@ -4,7 +4,7 @@ import FreeAuditForm from "@/components/tools/FreeAuditForm";
 import EmailCapture from "@/components/tools/EmailCapture";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/free-audit" },
   title: "Free 3-Minute Website Audit",
   description:
     "Free website audit for Nigerian SMEs. Send your URL — get 2–3 specific fixes. Plus free WhatsApp reply scripts.",

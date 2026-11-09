@@ -4,15 +4,15 @@ import ProductsCatalog from "@/components/products/ProductsCatalog";
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Digital Products for Nigerian Businesses, Offices, Schools & Students";
+const TITLE = "Digital Products for Nigerian Businesses and Schools";
 const DESCRIPTION =
-  "Instant-download templates and kits: HR policy pack, payroll and PAYE sheet, office admin templates, business plan kit, school fees tracker, NGO finance kit and final year project kit. Pay with Paystack.";
+  "Instant-download templates and kits: HR policy pack, payroll and PAYE sheet, office templates, business plan kit, school fees tracker and more.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/products" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/products" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/products" },
 };
 
 const jsonLd = {

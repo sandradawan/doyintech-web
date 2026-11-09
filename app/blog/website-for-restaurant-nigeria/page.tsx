@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Website for a Restaurant in Nigeria — Menu, Location & WhatsApp",
+export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-restaurant-nigeria" },
+  title: "Restaurant Website in Nigeria: Menu, Location and WhatsApp",
   description:
     "What restaurants and cafes need online: menu highlights, hours, Maps, and one-tap WhatsApp orders or reservations. Fixed-price sites from ₦100k.",
 };
@@ -57,6 +58,7 @@ export default function RestaurantWebsitePage() {
                   <p className="mt-8 text-[14px] text-[#a1a1a6]">
             Ready to build? See our <Link href="/websites/restaurants" className="text-[#ff8c14] hover:underline">restaurant website design and pricing</Link>.
           </p>
+          <BlogPostExtras slug="website-for-restaurant-nigeria" title={"Restaurant Website in Nigeria: Menu, Location and WhatsApp"} description={"What restaurants and cafes need online: menu highlights, hours, Maps, and one-tap WhatsApp orders or reservations. Fixed-price sites from ₦100k."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

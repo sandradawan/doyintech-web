@@ -3,10 +3,10 @@ import Footer from "@/components/ui/Footer";
 import ReviewForm from "@/components/reviews/ReviewForm";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Leave a review — DoyinTech",
+export const metadata: Metadata = { alternates: { canonical: "/reviews" },
+  title: "Leave a Review",
   description:
-    "Share your experience working with DoyinTech. Help other Nigerian SMEs choose with confidence.",
+    "Share your experience of working with DoyinTech. Your honest review helps other Nigerian small business owners choose with confidence.",
 };
 
 export default function ReviewsPage() {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import RelatedTools from "@/components/tools/RelatedTools";
 
 export default function ToolPageShell({
   title,
@@ -22,6 +23,7 @@ export default function ToolPageShell({
           </h1>
           <p className="mt-3 text-gray-400">{subtitle}</p>
           <div className="mt-8">{children}</div>
+          <RelatedTools />
         </div>
       </main>
       <Footer />

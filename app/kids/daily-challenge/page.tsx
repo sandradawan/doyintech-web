@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import KidsShell, { SAFETY_FAQ } from "@/components/kids/KidsShell";
 import DailyChallenge from "@/components/kids/DailyChallenge";
 
-const TITLE = "Daily Maths & Word Challenge for Kids — New Puzzles Every Day";
+const TITLE = "Daily Maths and Word Challenge for Kids: New Every Day";
 const DESCRIPTION = "Free daily maths sums and word scrambles for children aged 5–13. Three levels, stars and a streak to keep them practising every day. No sign-up.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/kids/daily-challenge" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/kids/daily-challenge" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/kids/daily-challenge" },
 };
 
 const FAQS = [

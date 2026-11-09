@@ -4,7 +4,7 @@ import { RobotsAuditorTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "robots.txt & Sitemap Auditor",
-  description: "Inspect robots.txt rules and sitemap presence for recon risks.",
+  description: "Inspect a website's robots.txt rules and check its sitemap is present. Find pages blocked by mistake and paths that reveal too much. Free to use.",
   alternates: { canonical: "/tools/robots-auditor" },
 };
 

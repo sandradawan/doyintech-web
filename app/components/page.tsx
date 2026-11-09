@@ -5,10 +5,10 @@ import { ComponentCard } from "@/components/shop/ComponentShop";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { publicComponent } from "@/lib/shop/public";
 
-export const metadata: Metadata = {
-  title: "Next.js Components — Buy & download",
+export const metadata: Metadata = { alternates: { canonical: "/components" },
+  title: "Next.js and Tailwind Components to Buy and Download",
   description:
-    "Production-ready Next.js + Tailwind components with live demos and AI prompts. Pay once, download source.",
+    "Production-ready Next.js and Tailwind components with live demos and AI prompts. Pay once, download the source code and use it in your own projects.",
 };
 
 /** Rotate featured component weekly without Intl week options (TS-safe). */

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!show) return {};
   const title = `${show.name} — Listen Free Online`;
   const path = `/listen/${show.slug}`;
-  return { title, description: `${show.blurb} Listen free in your browser on DoyinTech Listen, no app needed.`, alternates: { canonical: path }, openGraph: { title, description: show.blurb, url: path } };
+  return { title, description: `${show.blurb} Listen free in your browser on DoyinTech Listen, no app needed.`, alternates: { canonical: path }, openGraph: { images: ["/opengraph-image"], title, description: show.blurb, url: path } };
 }
 
 export default async function Page({ params }: Props) {
@@ -40,7 +40,7 @@ export default async function Page({ params }: Props) {
           <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-center">
             {art && (
               // eslint-disable-next-line @next/next/no-img-element -- cover art comes from each show's own host
-              <img src={art} alt="" width={140} height={140} className="h-[140px] w-[140px] rounded-2xl object-cover" />
+              <img src={art} alt={`${show.name} podcast artwork`} width={140} height={140} className="h-[140px] w-[140px] rounded-2xl object-cover" />
             )}
             <div className="min-w-0">
               <p className="t-eyebrow">{show.category}</p>

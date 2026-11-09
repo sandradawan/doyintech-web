@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Google Business & Local SEO for Nigerian SMEs | Jos & nationwide",
+export const metadata: Metadata = { alternates: { canonical: "/local-seo" },
+  title: "Google Business and Local SEO for Nigerian Small Businesses",
   description:
     "Website + Google Business Profile setup so local customers find you. Fixed-price sites with WhatsApp booking. Jos, Plateau, Nigeria.",
 };

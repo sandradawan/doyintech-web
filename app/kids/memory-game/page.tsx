@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import KidsShell, { SAFETY_FAQ } from "@/components/kids/KidsShell";
 import MemoryMatch from "@/components/kids/MemoryMatch";
 
-const TITLE = "Memory Match Game for Kids — Find the Pairs (Free, No Download)";
+const TITLE = "Memory Match Game for Kids: Free, No Download";
 const DESCRIPTION = "Free memory card game for children: find matching pairs of animals, fruits or space pictures. Three levels, stars and best scores. Works on phones.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/kids/memory-game" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/kids/memory-game" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/kids/memory-game" },
 };
 
 const FAQS = [

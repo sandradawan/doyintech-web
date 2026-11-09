@@ -27,13 +27,13 @@ const SHARED_FAQS = [
 
 export function cityMetadata(slug: string): Metadata {
   const c = getCity(slug)!;
-  const title = `Web Design ${c.name} — Fixed-price websites for ${c.name} businesses`;
+  const title = `Web Design in ${c.name}: Fixed-Price Business Websites`;
   const description = `Website design for businesses in ${c.name}, ${c.state}. Fixed prices from ${packages[0]?.total}, WhatsApp and Paystack built in, live in days. Free website audit.`;
   return {
     title,
     description,
     alternates: { canonical: `/web-design-${c.slug}` },
-    openGraph: { title, description, url: `/web-design-${c.slug}` },
+    openGraph: { images: ["/opengraph-image"], title, description, url: `/web-design-${c.slug}` },
   };
 }
 

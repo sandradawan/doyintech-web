@@ -4,7 +4,7 @@ import { DailyChecklistTool } from "@/components/tools/RetentionTools";
 
 export const metadata: Metadata = {
   title: "Daily Checklist (Free)",
-  description: "Simple daily checklist saved on your device. Come back tomorrow and continue.",
+  description: "A simple daily checklist saved on your device. Tick things off today, come back tomorrow and carry on. Free online, with no account needed.",
   alternates: { canonical: "/tools/daily-checklist" },
 };
 

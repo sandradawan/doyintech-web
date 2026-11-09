@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/case-studies/jennyglams" },
   title: "Case Study — JennyGlams Makeup Artistry",
   description:
     "Portfolio and WhatsApp booking website for JennyGlams — Jos makeup artist. Turn social followers into booked clients.",

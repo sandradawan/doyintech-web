@@ -4,7 +4,7 @@ import { AiSocialCalendarTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
   title: "AI Social Content Calendar (Paid)",
-  description: "Plan weeks of social posts with AI. One-time unlock.",
+  description: "Plan weeks of social media posts for your business with AI, with ideas and captions for each day. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-social-calendar" },
 };
 

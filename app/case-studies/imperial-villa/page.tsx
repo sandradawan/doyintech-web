@@ -3,7 +3,7 @@ import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/case-studies/imperial-villa" },
   title: "Case Study — Imperial Villa Property Platform",
   description:
     "How DoyinTech built the corporate website, client portal and internal management system for Imperial Villa Property Development — fixed scope, remote delivery.",

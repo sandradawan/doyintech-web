@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import TriviaShell from "@/components/trivia/TriviaShell";
 import QuizNight from "@/components/trivia/QuizNight";
 
-const TITLE = "Family Quiz Night — Free Pass-the-Phone Trivia Game for 2 to 6 Players";
+const TITLE = "Family Quiz Night: Free Pass-the-Phone Trivia Game";
 const DESCRIPTION = "Play a quiz with family and friends on one phone: 2–6 players or teams, kids, family or expert level, and categories from Nigeria to science. Free, no app needed.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/trivia/family-quiz-night" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/trivia/family-quiz-night" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/trivia/family-quiz-night" },
 };
 
 const FAQS = [

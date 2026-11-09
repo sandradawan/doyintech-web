@@ -7,10 +7,10 @@ import FAQ from "@/components/sections/FAQ";
 import { discoveryCallLink } from "@/lib/packages";
 import { PRIMARY_CTA } from "@/lib/cta";
 
-export const metadata: Metadata = {
-  title: "Pricing & Packages",
+export const metadata: Metadata = { alternates: { canonical: "/pricing" },
+  title: "Website Design Prices and Packages in Nigeria",
   description:
-    "Clear DoyinTech packages: starter websites, growth sites, WhatsApp booking systems, web apps/CRM, and monthly care plans. USD and NGN pricing. What's included and deposit rules.",
+    "Clear fixed prices for starter websites, growth sites, WhatsApp booking systems, web apps and care plans. See what each package includes and what it costs.",
 };
 
 export default function PricingPage() {
@@ -21,7 +21,7 @@ export default function PricingPage() {
           <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#a1a1a6]">
             Pricing
           </p>
-          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Simple packages.</h1>
+          <h1 className="apple-headline mt-3 text-[#f5f5f7]">Simple website packages and prices.</h1>
           <p className="apple-subhead mx-auto mt-4 max-w-2xl">
             Know what you&apos;re buying. Pay a fixed-price deposit online, or book a free call to
             confirm scope first.

@@ -4,7 +4,7 @@ import QrStudio from "@/components/tools/QrStudio";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Free QR Code Generator — WhatsApp, Wi-Fi, Links & Contact Cards";
+const TITLE = "Free QR Code Generator: WhatsApp, Wi-Fi and Links";
 const DESCRIPTION =
   "Make QR codes for your website, WhatsApp chat, Wi-Fi, contact card or menu. Free PNG and SVG downloads that never expire. Add your logo and a “Scan to order” frame.";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/qr-generator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/qr-generator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/qr-generator" },
 };
 
 const FAQS: Faq[] = [

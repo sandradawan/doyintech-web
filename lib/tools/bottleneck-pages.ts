@@ -4,7 +4,7 @@ import type { OfficeToolPage } from "./office-pages";
 export const BOTTLENECK_PAGES: OfficeToolPage[] = [
   {
     slug: "solar-vs-generator-calculator",
-    title: "Solar vs Generator Cost Calculator Nigeria 2026 — Payback and Savings",
+    title: "Solar vs Generator Cost Calculator Nigeria 2026",
     description: "Compare your monthly petrol or diesel generator cost with a solar and lithium battery system. See system size, installed cost, payback period and 5-year savings.",
     h1: "Solar vs generator cost calculator",
     intro: "Tell us what you power and how long your generator runs. See what fuel really costs you each month, the solar system that would replace it, and how fast it pays for itself.",
@@ -26,7 +26,7 @@ export const BOTTLENECK_PAGES: OfficeToolPage[] = [
   },
   {
     slug: "import-duty-calculator-nigeria",
-    title: "Import Duty Calculator Nigeria 2026 — Customs Duty, VAT and Landed Cost",
+    title: "Import Duty Calculator Nigeria 2026: Duty, VAT, Landed Cost",
     description: "Work out Nigeria customs duty, surcharge, ETLS, CISS and 7.5% VAT on your imports, then the landed cost per unit and the selling price for your margin.",
     h1: "Import duty and landed cost calculator (Nigeria)",
     intro: "Enter the FOB value, freight and exchange rate. Get every customs charge, the total landed cost of the shipment, the cost per unit, and the price to sell at to keep your margin.",
@@ -67,7 +67,7 @@ export const BOTTLENECK_PAGES: OfficeToolPage[] = [
   },
   {
     slug: "employee-cost-calculator-nigeria",
-    title: "Cost of an Employee in Nigeria 2026 — True Staff Cost Calculator",
+    title: "True Cost of an Employee in Nigeria 2026: Calculator",
     description: "The real cost of hiring in Nigeria: salary, 13th month, leave allowance, 10% employer pension, NSITF, ITF, HMO and group life. Per year, per month and per day.",
     h1: "True cost of an employee in Nigeria",
     intro: "A ₦300,000 salary costs you far more than ₦300,000. Add allowances, statutory contributions and benefits to see the full cost of a hire, and what the employee actually takes home.",
@@ -87,7 +87,7 @@ export const BOTTLENECK_PAGES: OfficeToolPage[] = [
   },
   {
     slug: "bid-evaluation-tool",
-    title: "Bid Evaluation Tool — Tender Scoring Sheet and Evaluation Report",
+    title: "Bid Evaluation Tool: Tender Scoring Sheet and Report",
     description: "Score tenders fairly: weighted technical criteria, pass mark, financial score and QCBS or lowest-evaluated-bid ranking. Download a signed evaluation report PDF.",
     h1: "Bid and tender evaluation tool",
     intro: "For ministries, agencies, local governments, companies and NGOs evaluating bids. Score each bidder against your criteria, apply the pass mark and weights, and get a ranked, signed evaluation report.",
@@ -107,7 +107,7 @@ export const BOTTLENECK_PAGES: OfficeToolPage[] = [
   },
   {
     slug: "compliance-calendar-nigeria",
-    title: "Tax and Compliance Calendar Nigeria 2026 — PAYE, VAT, WHT, CAC Deadlines",
+    title: "Tax and Compliance Calendar Nigeria 2026: PAYE, VAT, CAC",
     description: "Every filing deadline for your business in one calendar: PAYE, pension, VAT, WHT, company income tax, ITF and CAC annual returns. Add them all to Google Calendar.",
     h1: "Business compliance calendar for Nigeria",
     intro: "Answer four questions and get your filing deadlines for the next 12 months, with days remaining. Add them all to Google or Outlook Calendar in one click, with reminders three days before each.",

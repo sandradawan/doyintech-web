@@ -8,10 +8,10 @@ import {
   getYoutubePlaylistUrl,
 } from "@/lib/youtube";
 
-export const metadata = {
-  title: "Blog & Insights",
+export const metadata = { alternates: { canonical: "/blog" },
+  title: "Website and Business Blog for Nigerian SMEs",
   description:
-    "Practical insights for Nigerian SMEs: websites that get bookings, WhatsApp systems, Laravel, Flutter, and AI automation — plus the Introduction To Web Development playlist.",
+    "Practical guides for Nigerian small businesses: websites that get bookings, WhatsApp systems, choosing a tech stack and useful AI automation.",
 };
 
 const posts = [

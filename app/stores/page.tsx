@@ -6,15 +6,15 @@ import { plansInFamily } from "@/lib/subscriptions/plans";
 import { FREE_PLAN_FEE_PERCENT, FREE_PRODUCT_LIMIT } from "@/lib/storefront/shared";
 import { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 
-const TITLE = "Free Online Store for WhatsApp Sellers in Nigeria — DoyinTech Store";
+const TITLE = "Free Online Store for WhatsApp Sellers in Nigeria";
 const DESCRIPTION =
-  "Create a free online shop in minutes: product photos, prices, delivery fees and a shareable link. Customers order on WhatsApp or pay with Paystack straight to your bank. Send payment links for invoices. No website needed.";
+  "Create a free online shop in minutes with product photos, prices, delivery fees and a shareable link. Customers order straight on WhatsApp.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/stores" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/stores" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/stores" },
 };
 
 const STEPS = [

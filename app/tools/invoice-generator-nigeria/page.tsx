@@ -4,15 +4,15 @@ import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Free Invoice Generator Nigeria — Naira Invoices with VAT (PDF)";
+const TITLE = "Free Invoice Generator in Naira with VAT (PDF)";
 const DESCRIPTION =
-  "Create a professional invoice in naira in minutes: line items, 7.5% VAT, bank details and due date. Print or save as PDF for free. Add your logo and brand colour for a branded invoice.";
+  "Create a professional invoice in naira in minutes: line items, 7.5% VAT, bank details and due date. Print or save as PDF. Free with no sign-up.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/invoice-generator-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/invoice-generator-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/invoice-generator-nigeria" },
 };
 
 const FAQS: Faq[] = [

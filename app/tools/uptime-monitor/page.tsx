@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import { UptimeMonitorTool } from "@/components/tools/PaidToolKit";
 
-export const metadata: Metadata = { title: "Uptime & SSL Monitor (Paid)" };
+export const metadata: Metadata = { alternates: { canonical: "/tools/uptime-monitor" }, description: "Monitor your website's uptime and SSL certificate and get an alert when something goes wrong, before your customers notice. One-time unlock.", title: "Uptime & SSL Monitor (Paid)" };
 
 export default function Page() {
   return (

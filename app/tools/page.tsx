@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import ToolsHubClient from "@/components/tools/ToolsHubClient";
+import AllToolsDirectory from "@/components/tools/AllToolsDirectory";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 
 export const metadata: Metadata = {
-  title: "Free Online Tools — Invoice, VAT, WhatsApp Link, Margin, Word Counter",
+  title: "Free Online Business Tools: Invoice, Receipt, Tax and VAT",
   description:
-    "Free business tools: invoice generator, Nigeria VAT calculator, profit margin calculator, WhatsApp link generator, word counter, SEO meta tags, loan EMI, and more. Built for Nigerian SMEs.",
+    "Free tools with no sign-up: invoice and receipt generators in naira, PAYE and VAT calculators, CGPA calculator, profit margin, WhatsApp links and more.",
   alternates: { canonical: "/tools" },
-  openGraph: {
+  openGraph: { images: ["/opengraph-image"],
     title: "DoyinTech Free Online Tools",
     description:
       "Invoice, VAT, WhatsApp links, profit margin, word counter, SEO meta tags, and AI tools — free and paid.",
@@ -26,7 +27,7 @@ export default function ToolsHubPage() {
             DoyinTech Tools
           </p>
           <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Free online tools people actually search for
+            Free online business tools for invoices, receipts, tax and more
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-400">
             Invoice generator, Nigeria VAT calculator, profit margin, WhatsApp link generator,
@@ -35,6 +36,8 @@ export default function ToolsHubPage() {
           </p>
 
           <ToolsHubClient />
+
+          <AllToolsDirectory />
 
           <section className="mt-16 rounded-3xl border border-white/10 bg-black/30 p-6 md:p-8">
             <h2 className="font-display text-2xl font-bold text-white">

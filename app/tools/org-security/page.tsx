@@ -5,7 +5,7 @@ import OrgSecurityDashboard from "@/components/tools/OrgSecurityDashboard";
 export const metadata: Metadata = {
   title: "Organization Security Dashboard",
   description:
-    "Monitor multiple company domains for uptime, SSL, security headers, SPF and DMARC with live alerts.",
+    "Monitor several company domains for uptime, SSL expiry, security headers, SPF and DMARC in one dashboard, with alerts when something changes.",
   alternates: { canonical: "/tools/org-security" },
 };
 

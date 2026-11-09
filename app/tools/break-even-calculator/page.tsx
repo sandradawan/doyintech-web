@@ -10,7 +10,7 @@ export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/break-even-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/break-even-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/break-even-calculator" },
 };
 
 const FAQS = [

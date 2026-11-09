@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: i.seoTitle,
     description: i.seoDescription,
     alternates: { canonical: path },
-    openGraph: { title: i.seoTitle, description: i.seoDescription, url: path },
+    openGraph: { images: ["/opengraph-image"], title: i.seoTitle, description: i.seoDescription, url: path },
   };
 }
 

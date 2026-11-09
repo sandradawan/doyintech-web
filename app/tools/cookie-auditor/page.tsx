@@ -4,7 +4,7 @@ import { CookieAuditorTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "Cookie Security Auditor",
-  description: "Inspect Set-Cookie flags: Secure, HttpOnly, SameSite.",
+  description: "Check your website's cookies for the Secure, HttpOnly and SameSite flags and see which ones are unprotected. A free security check for website owners.",
   alternates: { canonical: "/tools/cookie-auditor" },
 };
 

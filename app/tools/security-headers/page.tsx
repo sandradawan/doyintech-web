@@ -4,7 +4,7 @@ import { SecurityHeadersTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "Security Headers Checker",
-  description: "Score HSTS, CSP, X-Frame-Options, nosniff, Referrer-Policy and more.",
+  description: "Score your website's HSTS, Content-Security-Policy, X-Frame-Options, nosniff, Referrer-Policy and more, and see exactly which headers to fix.",
   alternates: { canonical: "/tools/security-headers" },
 };
 

@@ -3,8 +3,8 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import { HostingPlannerTool } from "@/components/tools/ExtendedTools";
 
 export const metadata: Metadata = {
-  title: "Hosting & Domain Cost Planner Nigeria",
-  description: "Estimate yearly domain and hosting costs in Naira for static sites, business websites, and web apps.",
+  title: "Website Hosting and Domain Cost Calculator Nigeria",
+  description: "Estimate how much a domain and hosting cost per year in naira for a static site, business website or web app. Plan your website budget in a minute.",
   alternates: { canonical: "/tools/hosting-planner" },
 };
 

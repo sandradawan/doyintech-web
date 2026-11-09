@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { alternates: { canonical: "/white-label" },
   title: "White-label websites for freelancers & agencies",
   description:
     "We build, you resell. Fixed-price delivery under your brand for freelancers and small agencies in Nigeria.",

@@ -38,7 +38,7 @@ export function EbookCover({
       <div className="relative h-full w-full overflow-hidden rounded-r-md rounded-l-[3px] shadow-[4px_8px_24px_rgba(0,0,0,0.55)] ring-1 ring-black/40">
         <Image
           src={book.coverImage}
-          alt=""
+          alt={`${book.title} ebook cover`}
           fill
           className="object-cover"
           sizes="230px"

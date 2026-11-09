@@ -4,7 +4,7 @@ import { NotePadTool } from "@/components/tools/RetentionTools";
 
 export const metadata: Metadata = {
   title: "Browser Note Pad (Free)",
-  description: "Quick notes saved in your browser. Free online notepad.",
+  description: "Quick notes saved in your browser, with no account needed. A free online notepad for a phone number, a list or an idea you don't want to lose.",
   alternates: { canonical: "/tools/note-pad" },
 };
 

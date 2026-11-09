@@ -4,15 +4,15 @@ import SmallCompanyTaxChecker from "@/components/tools/SmallCompanyTaxChecker";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Small Company Tax Checker Nigeria 2026 — Do You Pay 0% Company Tax?";
+const TITLE = "Small Company Tax Checker Nigeria 2026: Do You Pay 0%?";
 const DESCRIPTION =
-  "Check if your business qualifies as a small company under the Nigeria Tax Act 2025: ₦50m turnover and ₦250m fixed-asset limits, 0% company tax, no development levy. Estimate tax if you don't.";
+  "Check if your business qualifies as a small company under the Nigeria Tax Act 2025 and what that means for your company income tax.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/small-company-tax-checker" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/small-company-tax-checker" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/small-company-tax-checker" },
 };
 
 const FAQS: Faq[] = [

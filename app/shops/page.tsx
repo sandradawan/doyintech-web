@@ -25,7 +25,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     alternates: { canonical: cat ? `/shops?category=${categorySlug(cat)}` : "/shops" },
     // Search and city results are endless combinations; keep them out of the index.
     robots: q || city ? { index: false, follow: true } : undefined,
-    openGraph: { title, description: DESCRIPTION, url: "/shops" },
+    openGraph: { images: ["/opengraph-image"], title, description: DESCRIPTION, url: "/shops" },
   };
 }
 

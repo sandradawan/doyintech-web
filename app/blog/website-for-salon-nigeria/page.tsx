@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import BlogPostExtras from "@/components/blog/BlogPostExtras";
 import { discoveryCallLink } from "@/lib/packages";
 
-export const metadata: Metadata = {
-  title: "Website for a Salon in Nigeria — What Actually Gets Bookings",
+export const metadata: Metadata = { alternates: { canonical: "/blog/website-for-salon-nigeria" },
+  title: "Salon Website in Nigeria: What Actually Gets Bookings",
   description:
     "How Nigerian salons and makeup artists turn Instagram followers into WhatsApp bookings with a simple, fixed-price website. Jos and nationwide.",
 };
@@ -105,6 +106,7 @@ export default function SalonWebsitePost() {
               </a>
             </div>
           </div>
+          <BlogPostExtras slug="website-for-salon-nigeria" title={"Salon Website in Nigeria: What Actually Gets Bookings"} description={"How Nigerian salons and makeup artists turn Instagram followers into WhatsApp bookings with a simple, fixed-price website. Jos and nationwide."} published="2026-09-18" />
         </article>
       </main>
       <Footer />

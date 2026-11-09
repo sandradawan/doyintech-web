@@ -4,15 +4,15 @@ import ServiceLanding, { type Faq } from "@/components/services/ServiceLanding";
 
 export const revalidate = 3600;
 
-const TITLE = "Business Name Registration in Nigeria (CAC) — Done for You";
+const TITLE = "Business Name Registration in Nigeria with CAC, Done for You";
 const DESCRIPTION =
-  "Register your business name with the Corporate Affairs Commission without the stress. We search, reserve and file for you and send your certificate. Fixed service fee, CAC fee at cost.";
+  "Register your business name with the CAC without the stress. We search, reserve and file for you, then send your certificate. See what it costs and what you need.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/business-name-registration-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/business-name-registration-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/business-name-registration-nigeria" },
 };
 
 const FAQS: Faq[] = [

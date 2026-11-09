@@ -1,7 +1,7 @@
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/services/ai-automation" },
   title: "AI Automation",
   description:
     "Practical AI automation for business processes by DoyinTech — support, sales, reporting and internal ops.",

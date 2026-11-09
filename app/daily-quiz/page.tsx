@@ -3,14 +3,14 @@ import SeoToolPage, { faqJsonLd } from "@/components/tools/SeoToolPage";
 import DailyQuiz from "@/components/daily/DailyQuiz";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Daily Money Quiz — 5 Questions a Day on Money, Business and Online Safety";
+const TITLE = "Daily Money Quiz: 5 Questions on Money and Online Safety";
 const DESCRIPTION = "A free two-minute quiz every day: money, business, marketing, tax and staying safe online. Build a streak, learn something useful and challenge friends on WhatsApp.";
 
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/daily-quiz" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/daily-quiz" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/daily-quiz" },
 };
 
 const FAQS = [

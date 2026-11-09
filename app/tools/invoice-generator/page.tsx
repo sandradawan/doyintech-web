@@ -11,7 +11,7 @@ export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/invoice-generator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/invoice-generator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/invoice-generator" },
 };
 
 const FAQS = [

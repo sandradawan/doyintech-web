@@ -3,13 +3,14 @@ import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import WebsiteCalculator from "@/components/tools/WebsiteCalculator";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
+import RelatedTools from "@/components/tools/RelatedTools";
 
 export const metadata: Metadata = {
   title: "Website Cost Calculator Nigeria",
   description:
     "Free website price calculator for Nigeria. Estimate development cost in Naira for business sites, e-commerce, portals and custom web apps.",
   alternates: { canonical: "/tools/website-calculator" },
-  openGraph: {
+  openGraph: { images: ["/opengraph-image"],
     title: "Website Cost Calculator Nigeria",
     description:
       "Estimate website development cost in Naira. Not a formal quote — a planning range for your project.",
@@ -62,6 +63,7 @@ export default function WebsiteCalculatorPage() {
             </ul>
           </article>
         </div>
+        <div className="px-6"><RelatedTools /></div>
       </main>
       <Footer />
     </>

@@ -4,7 +4,7 @@ import { CspGeneratorTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
   title: "Content-Security-Policy Generator",
-  description: "Generate a starter CSP from script hosts found on your page.",
+  description: "Generate a starter Content-Security-Policy from the script hosts found on your page, then test it before you switch it on. A free tool for developers.",
   alternates: { canonical: "/tools/csp-generator" },
 };
 

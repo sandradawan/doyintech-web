@@ -5,14 +5,14 @@ import { faqJsonLd } from "@/components/tools/SeoToolPage";
 import { VAT_COUNTRIES, VAT_REGIONS, vatHref } from "@/lib/global/vat-rates";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = `VAT & GST Calculator by Country 2026 — Rates for ${VAT_COUNTRIES.length} Countries`;
+const TITLE = "VAT and GST Calculator by Country 2026";
 const DESCRIPTION = `Free VAT and GST calculators for ${VAT_COUNTRIES.length} countries: UK, EU, Africa, India, Australia, Canada, the Gulf and Latin America. Add or remove tax at the current rates and invoice in the local currency.`;
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/vat-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/vat-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/vat-calculator" },
 };
 
 const FAQS = [

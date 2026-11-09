@@ -4,15 +4,15 @@ import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Free Receipt Generator Nigeria — Payment Receipts in Naira (PDF)";
+const TITLE = "Free Receipt Generator in Naira (PDF)";
 const DESCRIPTION =
-  "Make a payment receipt in naira for any sale, service, rent or fee. Add items, amount paid and payment date, then print or save as PDF for free. Branded receipts with your logo available.";
+  "Make a payment receipt in naira for any sale, service, rent or fee. Add your business details, then print it or save it as a PDF. Free with no sign-up.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/receipt-generator-nigeria" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/receipt-generator-nigeria" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/receipt-generator-nigeria" },
 };
 
 const FAQS: Faq[] = [

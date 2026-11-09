@@ -3,14 +3,14 @@ import SeoToolPage, { faqJsonLd } from "@/components/tools/SeoToolPage";
 import FreelanceRateCalculator from "@/components/tools/FreelanceRateCalculator";
 import { absoluteUrl } from "@/lib/site";
 
-const TITLE = "Freelance Rate Calculator — What Hourly & Day Rate Should I Charge?";
+const TITLE = "Freelance Rate Calculator: What Should You Charge?";
 const DESCRIPTION = "Work out the hourly and day rate you need as a freelancer or consultant to hit your income after tax, business costs and time off. Free, any currency.";
 
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/tools/freelance-rate-calculator" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/tools/freelance-rate-calculator" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/tools/freelance-rate-calculator" },
 };
 
 const FAQS = [

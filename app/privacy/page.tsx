@@ -1,8 +1,8 @@
 import Footer from "@/components/ui/Footer";
 
-export const metadata = {
+export const metadata = { alternates: { canonical: "/privacy" },
   title: "Privacy Policy",
-  description: "Privacy Policy for DoyinTech website and services.",
+  description: "How DoyinTech collects, uses and protects your personal data when you use our website, tools and services, and the choices and rights you have.",
 };
 
 export default function PrivacyPage() {

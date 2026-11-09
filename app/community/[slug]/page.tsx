@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!thread) return {};
   const { post } = thread;
   const path = postPath(post);
-  return { title: `${post.title} — DoyinTech Community`, description: post.body.slice(0, 155), alternates: { canonical: path }, openGraph: { title: post.title, description: post.body.slice(0, 155), url: path } };
+  return { title: `${post.title} — DoyinTech Community`, description: post.body.slice(0, 155), alternates: { canonical: path }, openGraph: { images: ["/opengraph-image"], title: post.title, description: post.body.slice(0, 155), url: path } };
 }
 
 export default async function Page({ params }: Props) {

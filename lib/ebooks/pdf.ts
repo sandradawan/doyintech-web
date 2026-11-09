@@ -104,7 +104,7 @@ export function buildEbookPdf(book: Ebook): Buffer {
   const tocLines = [
     { text: "Contents", size: 16, gapAfter: 22 },
     ...book.chapters.map((ch, i) => ({
-      text: `${i + 1}. ${ch.title}`.slice(0, 85),
+      text: `${i + 1}. ${ch.title.replace(/^\d+\.\s*/, "")}`.slice(0, 85),
       size: 11,
       gapAfter: 14,
     })),
@@ -114,14 +114,10 @@ export function buildEbookPdf(book: Ebook): Buffer {
   for (let ci = 0; ci < book.chapters.length; ci++) {
     const ch = book.chapters[ci];
     const bodyLines = wrapText(ch.body, 84);
-    const caption = ch.imageCaption
-      ? wrapText(`[Illustration: ${ch.imageCaption}]`, 84)
-      : [];
 
     const all: { text: string; size: number; gapAfter?: number }[] = [
       { text: `Chapter ${ci + 1}`, size: 10, gapAfter: 12 },
-      { text: ch.title.slice(0, 80), size: 15, gapAfter: 16 },
-      ...caption.map((t) => ({ text: t, size: 9, gapAfter: 12 })),
+      { text: ch.title.replace(/^\d+\.\s*/, "").slice(0, 80), size: 15, gapAfter: 16 },
       { text: " ", size: 8, gapAfter: 8 },
     ];
 

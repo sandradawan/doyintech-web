@@ -3,8 +3,8 @@ import ToolPageShell from "@/components/tools/ToolPageShell";
 import { BreachHygieneTool } from "@/components/tools/SecurityExtraTools";
 
 export const metadata: Metadata = {
-  title: "Breach Hygiene Guide",
-  description: "What to do if an email or password may have been leaked.",
+  title: "What to Do After a Data Breach: Password Leak Guide",
+  description: "What to do if your email or password may have been leaked: the steps to secure your accounts, in order, in plain language for non-technical people.",
   alternates: { canonical: "/tools/breach-hygiene" },
 };
 

@@ -4,7 +4,7 @@ import { RandomPickerTool } from "@/components/tools/RetentionTools";
 
 export const metadata: Metadata = {
   title: "Random Decision Picker (Free)",
-  description: "List options and pick one at random. Free decision spinner.",
+  description: "List your options and let the picker choose one at random. A free online decision spinner for raffles, classroom turns and hard choices.",
   alternates: { canonical: "/tools/random-picker" },
 };
 

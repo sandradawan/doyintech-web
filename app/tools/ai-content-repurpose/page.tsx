@@ -4,7 +4,7 @@ import { AiContentRepurposeTool } from "@/components/tools/AiStudioSuite";
 
 export const metadata: Metadata = {
   title: "AI Content Repurposer (Paid)",
-  description: "Turn long content into posts, Status, email, and scripts with AI.",
+  description: "Turn one long post, video script or article into social posts, WhatsApp Status updates, emails and short scripts with AI. One-time unlock, no subscription.",
   alternates: { canonical: "/tools/ai-content-repurpose" },
 };
 

@@ -7,14 +7,14 @@ import { listPosts } from "@/lib/community/server";
 
 export const revalidate = 60;
 
-const TITLE = "DoyinTech Community — Ask Questions About Business, Money and Tech";
+const TITLE = "Community: Ask Questions About Business, Money and Tech";
 const DESCRIPTION = "A friendly place for Nigerian and African business owners, students, parents and creators to ask questions and share what they know. Free to join.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/community" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/community" },
+  openGraph: { images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: "/community" },
 };
 
 export default async function Page() {

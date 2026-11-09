@@ -3,13 +3,14 @@ import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import CvBuilder from "@/components/tools/CvBuilder";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
+import RelatedTools from "@/components/tools/RelatedTools";
 
 export const metadata: Metadata = {
   title: "Free CV & Portfolio Builder Nigeria",
   description:
     "Free professional CV builder for students, developers, and job seekers. Live preview, templates, and print-ready download.",
   alternates: { canonical: "/tools/cv-builder" },
-  openGraph: {
+  openGraph: { images: ["/opengraph-image"],
     title: "CV & Portfolio Builder",
     description: "Create a clean professional CV with live preview. Free to use.",
     url: `${TOOLS_CONFIG.siteUrl}/tools/cv-builder`,
@@ -36,6 +37,7 @@ export default function CvBuilderPage() {
             <CvBuilder />
           </div>
         </div>
+        <div className="px-6"><RelatedTools /></div>
       </main>
       <Footer />
     </>
