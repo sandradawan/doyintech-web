@@ -6,7 +6,7 @@ import { computePaye, naira } from "@/lib/tax/paye2026";
 import PaidGate, { printHtml } from "@/components/tools/PaidGate";
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 
 function num(v: string): number {
   const n = Number(v.replace(/[^\d.]/g, ""));
@@ -47,7 +47,7 @@ export default function PayeCalculator() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
         <div className="flex gap-2" role="tablist" aria-label="Salary period">
           {(["monthly", "annual"] as const).map((p) => (
             <button
@@ -57,7 +57,7 @@ export default function PayeCalculator() {
               aria-selected={period === p}
               onClick={() => setPeriod(p)}
               className={`rounded-full px-4 py-1.5 text-[13px] font-semibold ${
-                period === p ? "bg-[#ff8c14] text-black" : "border border-white/15 text-white/80"
+                period === p ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-ink/80"
               }`}
             >
               {p === "monthly" ? "Monthly salary" : "Annual salary"}
@@ -76,7 +76,7 @@ export default function PayeCalculator() {
           </label>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-white">
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-brand-ink">
           <label className="flex items-center gap-2">
             <input type="checkbox" checked={pension} onChange={(e) => setPension(e.target.checked)} />
             Pension (8%)
@@ -88,7 +88,7 @@ export default function PayeCalculator() {
           <button
             type="button"
             onClick={() => setShowAdvanced((v) => !v)}
-            className="text-[13px] text-[#ff8c14] hover:underline"
+            className="text-[13px] text-brand-link hover:underline"
           >
             {showAdvanced ? "Hide" : "More"} options
           </button>
@@ -114,10 +114,10 @@ export default function PayeCalculator() {
         <Stat label="Effective tax rate" value={`${(r.effectiveRate * 100).toFixed(1)}%`} />
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-white/10">
+      <div className="overflow-hidden rounded-2xl border border-brand-ink/10">
         <table className="w-full text-left text-[14px]">
           <caption className="sr-only">PAYE calculation breakdown</caption>
-          <tbody className="divide-y divide-white/10">
+          <tbody className="divide-y divide-brand-ink/10">
             <Row label="Gross pay (annual)" value={naira(r.grossAnnual)} />
             <Row label="Less pension" value={`− ${naira(r.pension)}`} />
             {r.nhf > 0 && <Row label="Less NHF" value={`− ${naira(r.nhf)}`} />}
@@ -142,11 +142,11 @@ export default function PayeCalculator() {
       <PaidGate
         toolSlug="paye-calculator-nigeria"
         preview={
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="text-[15px] font-semibold text-white">Need a payslip for staff or a loan application?</p>
+          <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5">
+            <p className="text-[15px] font-semibold text-brand-ink">Need a payslip for staff or a loan application?</p>
             <p className="mt-1 text-[13px] text-brand-muted">
               Generate a clean, printable payslip with this exact 2026 PAYE breakdown. Included in{" "}
-              <Link href="/pro" className="text-[#ff8c14] hover:underline">
+              <Link href="/pro" className="text-brand-link hover:underline">
                 DoyinTech Pro
               </Link>
               .
@@ -199,7 +199,7 @@ function PayslipForm({ result }: { result: ReturnType<typeof computePaye> }) {
 
   return (
     <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5">
-      <p className="text-[15px] font-semibold text-white">Payslip generator</p>
+      <p className="text-[15px] font-semibold text-brand-ink">Payslip generator</p>
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
         <input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company name" aria-label="Company name" className={field} />
         <input value={employee} onChange={(e) => setEmployee(e.target.value)} placeholder="Employee name" aria-label="Employee name" className={field} />
@@ -208,7 +208,7 @@ function PayslipForm({ result }: { result: ReturnType<typeof computePaye> }) {
       <button
         type="button"
         onClick={print}
-        className="mt-4 rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
+        className="mt-4 rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black"
       >
         Print / save payslip PDF
       </button>
@@ -218,18 +218,18 @@ function PayslipForm({ result }: { result: ReturnType<typeof computePaye> }) {
 
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
-    <div className={`rounded-2xl border p-5 ${highlight ? "border-[#ff8c14]/40 bg-[#ff8c14]/10" : "border-white/10 bg-white/[0.03]"}`}>
+    <div className={`rounded-2xl border p-5 ${highlight ? "border-brand-link/40 bg-brand-link/10" : "border-brand-ink/10 bg-brand-ink/[0.03]"}`}>
       <p className="text-[12px] uppercase tracking-wide text-brand-subtle">{label}</p>
-      <p className="mt-1 text-[26px] font-semibold text-white">{value}</p>
+      <p className="mt-1 text-[26px] font-semibold text-brand-ink">{value}</p>
     </div>
   );
 }
 
 function Row({ label, value, strong, muted }: { label: string; value: string; strong?: boolean; muted?: boolean }) {
   return (
-    <tr className={strong ? "bg-white/[0.04]" : ""}>
-      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-brand-subtle" : "text-brand-soft"} ${strong ? "font-semibold text-white" : ""}`}>{label}</td>
-      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-white" : muted ? "text-brand-subtle" : "text-brand-soft"}`}>{value}</td>
+    <tr className={strong ? "bg-brand-ink/[0.04]" : ""}>
+      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-brand-subtle" : "text-brand-soft"} ${strong ? "font-semibold text-brand-ink" : ""}`}>{label}</td>
+      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-brand-ink" : muted ? "text-brand-subtle" : "text-brand-soft"}`}>{value}</td>
     </tr>
   );
 }

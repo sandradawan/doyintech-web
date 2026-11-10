@@ -35,19 +35,19 @@ export default function Page() {
       newsletterSource="hourly-to-salary"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">What will you take home?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">What will you take home?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">See income tax and contributions for the UK, US, Canada, Ireland, India, Australia, South Africa, Kenya and Nigeria.</p>
-          <Link href="/salary-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Salary after tax</Link>
+          <Link href="/salary-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Salary after tax</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Common conversions (40 hours, 52 weeks)</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Common conversions (40 hours, 52 weeks)</h2>
         <table className="mt-4 w-full text-left text-[15px]">
-          <thead><tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Hourly</th><th className="py-2 font-medium">Monthly</th><th className="py-2 font-medium">Yearly</th></tr></thead>
+          <thead><tr className="border-b border-brand-ink/10 text-brand-muted"><th className="py-2 font-medium">Hourly</th><th className="py-2 font-medium">Monthly</th><th className="py-2 font-medium">Yearly</th></tr></thead>
           <tbody>
             {[15, 20, 25, 30, 40, 50].map((h) => (
-              <tr key={h} className="border-b border-white/5"><td className="py-2 text-white">{h}</td><td className="py-2">{((h * 2080) / 12).toLocaleString("en", { maximumFractionDigits: 0 })}</td><td className="py-2">{(h * 2080).toLocaleString("en")}</td></tr>
+              <tr key={h} className="border-b border-brand-ink/5"><td className="py-2 text-brand-ink">{h}</td><td className="py-2">{((h * 2080) / 12).toLocaleString("en", { maximumFractionDigits: 0 })}</td><td className="py-2">{(h * 2080).toLocaleString("en")}</td></tr>
             ))}
           </tbody>
         </table>

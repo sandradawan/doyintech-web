@@ -60,7 +60,7 @@ export default function BusinessEmailPage() {
       ]}
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">What you get</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">What you get</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>A domain registered in your name, so you own it.</li>
           <li>Up to five mailboxes, for example hello@, sales@ and your own name.</li>

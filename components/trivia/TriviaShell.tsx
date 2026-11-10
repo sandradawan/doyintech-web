@@ -20,33 +20,33 @@ export default function TriviaShell({ h1, intro, game, faqs, path, appName, chil
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <h1 className="text-[34px] font-black tracking-tight text-white sm:text-[44px]">{h1}</h1>
+          <h1 className="text-[34px] font-black tracking-tight text-brand-ink sm:text-[44px]">{h1}</h1>
           <p className="mt-2 max-w-2xl text-[17px] leading-relaxed text-brand-soft">{intro}</p>
           <div className="mt-6">{game}</div>
 
           <nav aria-label="More games" className="mt-8 grid grid-cols-3 gap-3">
             {others.map((o) => (
-              <Link key={o.href} href={o.href} className="rounded-2xl border border-white/10 bg-brand-surface p-4 text-center hover:border-[#ff8c14]">
+              <Link key={o.href} href={o.href} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-4 text-center hover:border-brand-link">
                 <span className="text-[28px]" aria-hidden>{o.icon}</span>
-                <span className="mt-1 block text-[14px] font-semibold text-white">{o.name}</span>
+                <span className="mt-1 block text-[14px] font-semibold text-brand-ink">{o.name}</span>
               </Link>
             ))}
           </nav>
 
           <article className="mx-auto mt-14 max-w-3xl space-y-10 text-[15px] leading-relaxed text-brand-soft">
             {children}
-            <section className="rounded-3xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
+            <section className="rounded-3xl border border-brand-link/30 bg-brand-link/10 p-6">
               <p className="t-eyebrow">Hosting a quiz?</p>
-              <h2 className="mt-2 text-[22px] font-semibold text-white">Quiz Night Host Pack</h2>
+              <h2 className="mt-2 text-[22px] font-semibold text-brand-ink">Quiz Night Host Pack</h2>
               <p className="mt-2">230 questions in ready-made rounds, answer sheets, a scorecard and a host script. Perfect for church socials, school events, office parties and family gatherings.</p>
-              <Link href="/products/quiz-night-host-pack" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get the pack · ₦2,000</Link>
+              <Link href="/products/quiz-night-host-pack" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Get the pack · ₦2,000</Link>
             </section>
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Questions</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Questions</h2>
               <dl className="mt-4 space-y-5">
                 {faqs.map((f) => (
                   <div key={f.q}>
-                    <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
+                    <dt className="text-[16px] font-semibold text-brand-ink">{f.q}</dt>
                     <dd className="mt-1">{f.a}</dd>
                   </div>
                 ))}

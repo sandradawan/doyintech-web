@@ -70,7 +70,7 @@ function HireSuccessInner() {
             <p className="text-[48px]" aria-hidden>
               ✓
             </p>
-            <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white">
+            <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-brand-ink">
               Deposit received
             </h1>
             <p className="mt-3 text-[17px] text-brand-muted">
@@ -81,7 +81,7 @@ function HireSuccessInner() {
             )}
             <p className="mt-1 text-[13px] text-brand-subtle">Ref: {reference}</p>
             {refCode ? (
-              <p className="mt-1 text-[12px] text-[#ff8c14]">Referral code applied: {refCode}</p>
+              <p className="mt-1 text-[12px] text-brand-link">Referral code applied: {refCode}</p>
             ) : null}
 
             <ServiceSuccessChecklist
@@ -91,25 +91,25 @@ function HireSuccessInner() {
               referralCode={refCode}
             />
 
-            <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-5 text-left">
-              <h2 className="text-[18px] font-semibold text-white">Add extras to your project</h2>
+            <div className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 text-left">
+              <h2 className="text-[18px] font-semibold text-brand-ink">Add extras to your project</h2>
               <p className="mt-2 text-[13px] leading-relaxed text-brand-muted">
                 Google Business Profile setup, WhatsApp Business setup, a logo kit, copywriting or extra pages, at fixed
                 prices. Add them now and we build them in alongside your site.
               </p>
               <Link
                 href="/hire#add-ons"
-                className="mt-4 inline-flex rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
+                className="mt-4 inline-flex rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink"
               >
                 See add-ons
               </Link>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-5 text-left">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+            <div className="mt-6 rounded-2xl border border-brand-link/30 bg-brand-surface p-5 text-left">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
                 After launch
               </p>
-              <h2 className="mt-1 text-[18px] font-semibold text-white">
+              <h2 className="mt-1 text-[18px] font-semibold text-brand-ink">
                 Keep your new site secure and improving
               </h2>
               <p className="mt-2 text-[13px] leading-relaxed text-brand-muted">
@@ -118,20 +118,20 @@ function HireSuccessInner() {
               </p>
               <Link
                 href="/care-plans"
-                className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+                className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
               >
                 See care plans
               </Link>
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-[14px]">
-              <a href="/hire" className="text-brand-muted hover:text-white">
+              <a href="/hire" className="text-brand-muted hover:text-brand-ink">
                 Hire packages
               </a>
               <a href="/client-portal" className="text-brand-link hover:underline">
                 Project portal
               </a>
-              <Link href="/" className="text-brand-muted hover:text-white">
+              <Link href="/" className="text-brand-muted hover:text-brand-ink">
                 Home
               </Link>
             </div>
@@ -141,7 +141,7 @@ function HireSuccessInner() {
         {state === "ok" && !service && (
           <>
             <p className="text-[48px]">✓</p>
-            <h1 className="mt-2 text-[28px] font-semibold text-white">
+            <h1 className="mt-2 text-[28px] font-semibold text-brand-ink">
               {addon ? `${addon.name}: paid` : "Payment successful"}
             </h1>
             <p className="mt-3 text-[15px] text-brand-muted">
@@ -170,7 +170,7 @@ function HireSuccessInner() {
 
         {state === "fail" && (
           <>
-            <h1 className="text-[28px] font-semibold text-white">Payment not confirmed</h1>
+            <h1 className="text-[28px] font-semibold text-brand-ink">Payment not confirmed</h1>
             <p className="mt-3 text-[15px] text-brand-muted">
               If money left your account, send the Paystack reference on WhatsApp and we will
               verify manually.
@@ -186,7 +186,7 @@ function HireSuccessInner() {
               Contact support
             </a>
             <p className="mt-4">
-              <a href="/hire" className="text-[14px] text-[#ff8c14] hover:underline">
+              <a href="/hire" className="text-[14px] text-brand-link hover:underline">
                 ← Back to hire
               </a>
             </p>

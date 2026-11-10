@@ -36,19 +36,19 @@ export default function VatHub() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-16 pt-24">
         <header className="mx-auto max-w-[760px] px-6 text-center">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">{VAT_COUNTRIES.length} countries · free · no sign-up</p>
-          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">VAT and GST calculator for every country</h1>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">{VAT_COUNTRIES.length} countries · free · no sign-up</p>
+          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">VAT and GST calculator for every country</h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-soft">Pick your country to add or remove tax at the current rates, then invoice your customer in the local currency.</p>
         </header>
 
         <div className="mx-auto mt-10 max-w-[1100px] space-y-10 px-6">
           {VAT_REGIONS.map((region) => (
             <section key={region}>
-              <h2 className="text-[20px] font-semibold text-white">{region}</h2>
+              <h2 className="text-[20px] font-semibold text-brand-ink">{region}</h2>
               <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
                 {VAT_COUNTRIES.filter((v) => v.region === region).map((v) => (
                   <li key={v.slug}>
-                    <Link href={vatHref(v)} className="flex min-h-11 items-center justify-between gap-2 rounded-xl border border-white/10 bg-brand-surface px-4 text-[14px] text-white hover:border-[#ff8c14]">
+                    <Link href={vatHref(v)} className="flex min-h-11 items-center justify-between gap-2 rounded-xl border border-brand-ink/10 bg-brand-surface px-4 text-[14px] text-brand-ink hover:border-brand-link">
                       <span>{v.country}</span>
                       <span className="text-[13px] text-brand-muted">{v.tax} {v.standard}%</span>
                     </Link>
@@ -60,16 +60,16 @@ export default function VatHub() {
         </div>
 
         <section className="mx-auto mt-14 max-w-[760px] px-6">
-          <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/5 p-6">
-            <h2 className="text-[20px] font-semibold text-white">Invoice in any currency</h2>
+          <div className="rounded-2xl border border-brand-link/30 bg-brand-link/5 p-6">
+            <h2 className="text-[20px] font-semibold text-brand-ink">Invoice in any currency</h2>
             <p className="mt-2 text-[15px] text-brand-soft">The free invoice generator handles VAT or GST, 30+ currencies and a clean PDF, with your logo on the branded upgrade.</p>
-            <Link href="/tools/invoice-generator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-6 text-[14px] font-semibold text-black">Make an invoice</Link>
+            <Link href="/tools/invoice-generator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-6 text-[14px] font-semibold text-black">Make an invoice</Link>
           </div>
-          <h2 className="mt-12 text-[24px] font-semibold text-white">Questions</h2>
+          <h2 className="mt-12 text-[24px] font-semibold text-brand-ink">Questions</h2>
           <dl className="mt-4 space-y-5">
             {FAQS.map((f) => (
               <div key={f.q}>
-                <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
+                <dt className="text-[16px] font-semibold text-brand-ink">{f.q}</dt>
                 <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
               </div>
             ))}

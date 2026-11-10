@@ -80,7 +80,7 @@ export default function Hero() {
     <section
       aria-roledescription="carousel"
       aria-label="DoyinTech highlights"
-      className={`relative isolate flex min-h-[640px] w-full flex-col overflow-hidden bg-brand-deep pt-12 sm:min-h-[700px] lg:h-[min(92vh,880px)] ${playing ? "" : "hero-paused"}`}
+      className={`relative isolate flex min-h-[640px] w-full flex-col theme-dark theme-dark overflow-hidden bg-brand-deep pt-12 sm:min-h-[700px] lg:h-[min(92vh,880px)] ${playing ? "" : "hero-paused"}`}
       style={{ ["--hero-interval" as string]: `${INTERVAL}ms` }}
     >
       {/* Media */}
@@ -111,8 +111,8 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
       {/* Legibility: dark left side for the text, fade into the page below */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(6,41,31,0.45)_0%,rgba(6,41,31,0.3)_100%)] sm:bg-[linear-gradient(90deg,rgba(6,41,31,0.6)_0%,rgba(6,41,31,0.25)_55%,rgba(6,41,31,0.05)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#06291f]/90 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,22,12,0.5)_0%,rgba(4,22,12,0.35)_100%)] sm:bg-[linear-gradient(90deg,rgba(4,22,12,0.72)_0%,rgba(4,22,12,0.3)_55%,rgba(4,22,12,0.08)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#061c11] to-transparent" />
 
       {/* Copy */}
       <div className="mx-auto flex w-full max-w-[1200px] flex-1 items-center px-5 sm:px-6">
@@ -130,25 +130,25 @@ export default function Hero() {
             {/* Each word slides up out of its own mask */}
             <motion.h1
               variants={{ show: { transition: { staggerChildren: 0.06 } } }}
-              className="t-display mt-4 font-bold text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
+              className="t-display mt-4 font-bold text-brand-ink [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
             >
-              {slide.title.split(" ").map((word, i) => (
+              {slide.title.split(" ").map((word, i, words) => (
                 <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-                  <motion.span variants={wordUp} className="inline-block">
+                  <motion.span variants={wordUp} className={`inline-block ${i === words.length - 1 ? "text-brand-accent" : ""}`}>
                     {word}
                     {" "}
                   </motion.span>
                 </span>
               ))}
             </motion.h1>
-            <motion.p variants={rise} className="t-lead mt-5 max-w-[560px] font-medium text-white/85">
+            <motion.p variants={rise} className="t-lead mt-5 max-w-[560px] font-medium text-brand-ink/85">
               {slide.desc}
             </motion.p>
             <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">
               <motion.span variants={pop} className="inline-flex">
                 <Link
                   href={slide.cta.href}
-                  className="hero-cta apple-btn relative overflow-hidden bg-[#ff8c14] px-6 font-semibold text-black shadow-[0_8px_30px_rgba(255,140,20,0.35)] transition hover:-translate-y-0.5 hover:brightness-110"
+                  className="hero-cta apple-btn relative overflow-hidden bg-brand-accent px-6 font-semibold text-black shadow-[0_8px_30px_rgba(163,230,53,0.35)] transition hover:-translate-y-0.5 hover:brightness-110"
                 >
                   {slide.cta.label}
                 </Link>
@@ -165,7 +165,7 @@ export default function Hero() {
                 )}
               </motion.span>
             </motion.div>
-            <motion.p variants={rise} className="mt-5 text-[13px] text-white/60">
+            <motion.p variants={rise} className="mt-5 text-[13px] text-brand-ink/60">
               Fixed price · 50% deposit · live in 1–2 weeks
             </motion.p>
           </motion.div>
@@ -185,13 +185,13 @@ export default function Hero() {
                 onClick={() => setCurrent(i)}
                 className="group min-h-11 text-left"
               >
-                <span className="relative block h-[3px] overflow-hidden rounded-full bg-white/20">
+                <span className="relative block h-[3px] overflow-hidden rounded-full bg-brand-ink/20">
                   {i === current && (
-                    <span key={`${current}-${playing}`} className={`absolute inset-0 rounded-full bg-[#ff8c14] ${playing ? "hero-progress" : ""}`} />
+                    <span key={`${current}-${playing}`} className={`absolute inset-0 rounded-full bg-brand-accent ${playing ? "hero-progress" : ""}`} />
                   )}
-                  {i < current && <span className="absolute inset-0 rounded-full bg-white/50" />}
+                  {i < current && <span className="absolute inset-0 rounded-full bg-brand-ink/50" />}
                 </span>
-                <span className={`mt-2.5 hidden text-[13px] font-medium transition sm:block ${i === current ? "text-white" : "text-white/50 group-hover:text-white/80"}`}>
+                <span className={`mt-2.5 hidden text-[13px] font-medium transition sm:block ${i === current ? "text-brand-ink" : "text-brand-ink/50 group-hover:text-brand-ink/80"}`}>
                   {s.tab}
                 </span>
               </button>
@@ -202,7 +202,7 @@ export default function Hero() {
               type="button"
               onClick={() => setPaused((p) => !p)}
               aria-label={paused ? "Play slideshow" : "Pause slideshow"}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 text-white/80 transition hover:border-white/50 hover:text-white"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-ink/20 text-brand-ink/80 transition hover:border-brand-ink/50 hover:text-brand-ink"
             >
               {paused ? (
                 <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden><path d="M3.5 2v10l8-5z" fill="currentColor" /></svg>

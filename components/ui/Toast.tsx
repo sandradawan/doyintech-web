@@ -68,7 +68,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   ? "border-green-500/30 bg-green-500/15 text-green-100"
                   : t.kind === "error"
                     ? "border-red-500/30 bg-red-500/15 text-red-100"
-                    : "border-white/15 bg-brand-surface/95 text-white"
+                    : "border-brand-ink/15 bg-brand-surface/95 text-brand-ink"
               }`}
             >
               {t.message}

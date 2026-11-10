@@ -13,10 +13,10 @@ export default function WebDesignAbujaPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Abuja · FCT
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink">
             Web design for Abuja businesses
           </h1>
           <p className="mt-4 text-[17px] text-brand-muted">
@@ -30,8 +30,8 @@ export default function WebDesignAbujaPage() {
             <li>✓ Mobile-first + one-tap WhatsApp</li>
           </ul>
           <div className="mt-10 flex flex-wrap gap-3">
-            <a href="/hire" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">Hire — deposit</a>
-            <a href="/pricing" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">See pricing</a>
+            <a href="/hire" className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black">Hire — deposit</a>
+            <a href="/pricing" className="rounded-full border border-brand-ink/20 px-6 py-3 text-[14px] font-semibold text-brand-ink">See pricing</a>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black">WhatsApp</a>
           </div>
           <p className="mt-8 text-[14px] text-brand-subtle">

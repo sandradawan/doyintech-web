@@ -14,7 +14,7 @@ const STAGES = [
 type Stage = (typeof STAGES)[number];
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 
 const STORAGE = "doyintech_project_status_v1";
 
@@ -114,7 +114,7 @@ export default function ProjectStatus() {
 
   return (
     <div className="space-y-6">
-      <div className="doc-no-print space-y-4 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+      <div className="doc-no-print space-y-4 rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
         <p className="text-sm text-gray-400">
           Update status for a client project, then share the link or print a status sheet. Clients see progress without endless &quot;any update?&quot; messages.
         </p>
@@ -131,7 +131,7 @@ export default function ProjectStatus() {
               type="button"
               onClick={() => setStage(s)}
               className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                stage === s ? "border-primary bg-primary/20 text-white" : "border-white/10 text-gray-400"
+                stage === s ? "border-primary bg-primary/20 text-brand-ink" : "border-brand-ink/10 text-gray-400"
               }`}
             >
               {s}
@@ -149,13 +149,13 @@ export default function ProjectStatus() {
           <button type="button" onClick={copyLink} className="rounded-xl bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white">
             Copy client link
           </button>
-          <button type="button" onClick={handlePrint} className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white">
+          <button type="button" onClick={handlePrint} className="rounded-xl border border-brand-ink/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-ink">
             Print status
           </button>
         </div>
       </div>
 
-      <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
+      <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-brand-ink/10 bg-white text-gray-900 shadow-xl">
         <div className="border-b-4 border-blue-600 px-8 py-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Project status</p>
           <h2 className="mt-1 text-2xl font-bold">{project || "Project name"}</h2>

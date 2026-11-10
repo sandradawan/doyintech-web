@@ -10,7 +10,7 @@ export default function StoreDashboardPage() {
   return (
     <main className="min-h-screen bg-brand-deep px-5 pb-24 pt-28">
       <div className="mx-auto max-w-[860px]">
-        <h1 className="mb-6 text-[28px] font-semibold tracking-tight text-white">Your shop</h1>
+        <h1 className="mb-6 text-[28px] font-semibold tracking-tight text-brand-ink">Your shop</h1>
         <SellerDashboard />
       </div>
     </main>

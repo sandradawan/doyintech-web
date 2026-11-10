@@ -58,8 +58,8 @@ export default async function ShopsPage({ searchParams }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">DoyinTech Shops</p>
-          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-brand-link">DoyinTech Shops</p>
+          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             {cat ? `${cat} shops` : "Shop from small businesses"}
           </h1>
           <p className="mt-3 max-w-2xl text-[17px] text-brand-muted">{DESCRIPTION}</p>
@@ -71,16 +71,16 @@ export default async function ShopsPage({ searchParams }: Props) {
               defaultValue={q}
               placeholder="What are you looking for?"
               aria-label="Search shops"
-              className="min-w-0 flex-1 rounded-full border border-white/15 bg-black/40 px-5 py-3 text-[15px] text-white outline-none focus:border-[#ff8c14]"
+              className="min-w-0 flex-1 rounded-full border border-brand-ink/15 bg-brand-well px-5 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link"
             />
             <input
               name="city"
               defaultValue={city}
               placeholder="City"
               aria-label="City"
-              className="rounded-full border border-white/15 bg-black/40 px-5 py-3 text-[15px] text-white outline-none focus:border-[#ff8c14] sm:w-44"
+              className="rounded-full border border-brand-ink/15 bg-brand-well px-5 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link sm:w-44"
             />
-            <button type="submit" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black">
+            <button type="submit" className="rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black">
               Search
             </button>
           </form>
@@ -88,7 +88,7 @@ export default async function ShopsPage({ searchParams }: Props) {
           <nav aria-label="Categories" className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
             <Link
               href={href({ category: "" })}
-              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${!cat ? "bg-white text-black" : "border border-white/15 text-brand-soft hover:border-white/30"}`}
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${!cat ? "bg-brand-ink text-brand-deep" : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/30"}`}
             >
               All
             </Link>
@@ -96,7 +96,7 @@ export default async function ShopsPage({ searchParams }: Props) {
               <Link
                 key={c}
                 href={href({ category: categorySlug(c) })}
-                className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${cat === c ? "bg-white text-black" : "border border-white/15 text-brand-soft hover:border-white/30"}`}
+                className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] ${cat === c ? "bg-brand-ink text-brand-deep" : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/30"}`}
               >
                 {c}
               </Link>
@@ -104,12 +104,12 @@ export default async function ShopsPage({ searchParams }: Props) {
           </nav>
 
           {shops.length === 0 ? (
-            <div className="mt-12 rounded-2xl border border-dashed border-white/15 px-6 py-14 text-center">
-              <p className="text-[17px] font-semibold text-white">No shops match yet</p>
+            <div className="mt-12 rounded-2xl border border-dashed border-brand-ink/15 px-6 py-14 text-center">
+              <p className="text-[17px] font-semibold text-brand-ink">No shops match yet</p>
               <p className="mt-2 text-[14px] text-brand-muted">
                 {q || city || cat ? "Try another search or category." : "Shops appear here once they add products."}
               </p>
-              <Link href="/stores" className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+              <Link href="/stores" className="mt-5 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
                 Open your own shop free
               </Link>
             </div>
@@ -119,26 +119,26 @@ export default async function ShopsPage({ searchParams }: Props) {
                 <li key={s.id}>
                   <Link
                     href={`/s/${s.slug}`}
-                    className={`group block overflow-hidden rounded-2xl border bg-brand-surface transition hover:-translate-y-0.5 hover:border-white/25 ${
-                      s.sponsored ? "border-[#ff8c14]/40" : "border-white/10"
+                    className={`group block overflow-hidden rounded-2xl border bg-brand-surface transition hover:-translate-y-0.5 hover:border-brand-ink/25 ${
+                      s.sponsored ? "border-brand-link/40" : "border-brand-ink/10"
                     }`}
                   >
-                    <div className="grid aspect-[3/2] grid-cols-3 grid-rows-2 gap-0.5 bg-black/40">
+                    <div className="grid aspect-[3/2] grid-cols-3 grid-rows-2 gap-0.5 bg-brand-well">
                       {[0, 1, 2].map((i) =>
                         s.images[i] ? (
                           <div key={i} className={`relative ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
                             <Image src={s.images[i]} alt="" fill sizes="(max-width: 640px) 66vw, 240px" className="object-cover" />
                           </div>
                         ) : (
-                          <div key={i} className={`bg-white/[0.03] ${i === 0 ? "col-span-2 row-span-2" : ""}`} />
+                          <div key={i} className={`bg-brand-ink/[0.03] ${i === 0 ? "col-span-2 row-span-2" : ""}`} />
                         )
                       )}
                     </div>
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-2">
-                        <h2 className="truncate text-[16px] font-semibold text-white">{s.name}</h2>
+                        <h2 className="truncate text-[16px] font-semibold text-brand-ink">{s.name}</h2>
                         {s.sponsored && (
-                          <span className="shrink-0 rounded-full bg-[#ff8c14]/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#ffb366]">
+                          <span className="shrink-0 rounded-full bg-brand-link/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-link">
                             Sponsored
                           </span>
                         )}
@@ -146,7 +146,7 @@ export default async function ShopsPage({ searchParams }: Props) {
                       {s.tagline && <p className="mt-1 line-clamp-2 text-[13px] text-brand-muted">{s.tagline}</p>}
                       <p className="mt-3 text-[12px] text-brand-subtle">
                         {[s.category, s.city, `${s.productCount} product${s.productCount === 1 ? "" : "s"}`].filter(Boolean).join(" · ")}
-                        {s.fromKobo !== null && <span className="text-white"> · from {formatKobo(s.fromKobo)}</span>}
+                        {s.fromKobo !== null && <span className="text-brand-ink"> · from {formatKobo(s.fromKobo)}</span>}
                       </p>
                     </div>
                   </Link>
@@ -155,18 +155,18 @@ export default async function ShopsPage({ searchParams }: Props) {
             </ul>
           )}
 
-          <section className="mt-16 grid gap-4 rounded-2xl border border-white/10 bg-brand-surface p-6 sm:grid-cols-[1fr_auto] sm:items-center">
+          <section className="mt-16 grid gap-4 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6 sm:grid-cols-[1fr_auto] sm:items-center">
             <div>
-              <h2 className="text-[18px] font-semibold text-white">Sell here</h2>
+              <h2 className="text-[18px] font-semibold text-brand-ink">Sell here</h2>
               <p className="mt-1 text-[14px] text-brand-muted">
                 Open a free shop in two minutes and get listed. Want more buyers?{" "}
-                <Link href="/get-featured" className="text-[#ff8c14] hover:underline">
+                <Link href="/get-featured" className="text-brand-link hover:underline">
                   Feature your shop
                 </Link>{" "}
                 at the top from ₦2,000 a week.
               </p>
             </div>
-            <Link href="/stores" className="inline-flex justify-center rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+            <Link href="/stores" className="inline-flex justify-center rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
               Open a free shop
             </Link>
           </section>

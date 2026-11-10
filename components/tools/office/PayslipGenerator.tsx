@@ -94,17 +94,17 @@ export default function PayslipGenerator() {
     <div className="grid gap-6 lg:grid-cols-2">
       <div className={panel}>
         <fieldset className="grid gap-3 sm:grid-cols-2">
-          <legend className="mb-1 text-[14px] font-semibold text-white">Company (saved on this device)</legend>
+          <legend className="mb-1 text-[14px] font-semibold text-brand-ink">Company (saved on this device)</legend>
           <Field name="Company name" value={company.name} onChange={(v) => setCompany({ ...company, name: v })} />
           <Field name="Address" value={company.address} onChange={(v) => setCompany({ ...company, address: v })} />
           <label className="block text-[12px] font-medium text-brand-muted">
             Brand colour
-            <input type="color" value={company.color} onChange={(e) => setCompany({ ...company, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40" />
+            <input type="color" value={company.color} onChange={(e) => setCompany({ ...company, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-brand-ink/15 bg-brand-well" />
           </label>
           <Field name="Pay month" type="month" value={month} onChange={setMonth} />
         </fieldset>
         <fieldset className="grid gap-3 sm:grid-cols-2">
-          <legend className="mb-1 text-[14px] font-semibold text-white">Employee</legend>
+          <legend className="mb-1 text-[14px] font-semibold text-brand-ink">Employee</legend>
           <Field name="Full name" value={emp.name} onChange={setE("name")} />
           <Field name="Staff ID" value={emp.staffId} onChange={setE("staffId")} />
           <Field name="Job title" value={emp.role} onChange={setE("role")} />
@@ -113,7 +113,7 @@ export default function PayslipGenerator() {
           <Field name="Account number" value={emp.account} onChange={setE("account")} />
         </fieldset>
         <fieldset className="grid gap-3 sm:grid-cols-2">
-          <legend className="mb-1 text-[14px] font-semibold text-white">Monthly pay (₦)</legend>
+          <legend className="mb-1 text-[14px] font-semibold text-brand-ink">Monthly pay (₦)</legend>
           <Field name="Basic salary" type="number" value={pay.basic} onChange={set("basic")} />
           <Field name="Housing" type="number" value={pay.housing} onChange={set("housing")} />
           <Field name="Transport" type="number" value={pay.transport} onChange={set("transport")} />
@@ -122,8 +122,8 @@ export default function PayslipGenerator() {
           <Field name="Loan / advance repayment" type="number" value={pay.loan} onChange={set("loan")} placeholder="0" />
           <Field name="Other deductions" type="number" value={pay.otherDeduction} onChange={set("otherDeduction")} placeholder="0" />
           <div className="flex flex-col justify-end gap-2 text-[13px] text-brand-soft">
-            <label className="flex min-h-10 items-center gap-2"><input type="checkbox" className="h-4 w-4 accent-[#ff8c14]" checked={pay.pension} onChange={(e) => setPay({ ...pay, pension: e.target.checked })} /> Pension (8%)</label>
-            <label className="flex min-h-10 items-center gap-2"><input type="checkbox" className="h-4 w-4 accent-[#ff8c14]" checked={pay.nhf} onChange={(e) => setPay({ ...pay, nhf: e.target.checked })} /> NHF (2.5% of basic)</label>
+            <label className="flex min-h-10 items-center gap-2"><input type="checkbox" className="h-4 w-4 accent-brand-link" checked={pay.pension} onChange={(e) => setPay({ ...pay, pension: e.target.checked })} /> Pension (8%)</label>
+            <label className="flex min-h-10 items-center gap-2"><input type="checkbox" className="h-4 w-4 accent-brand-link" checked={pay.nhf} onChange={(e) => setPay({ ...pay, nhf: e.target.checked })} /> NHF (2.5% of basic)</label>
           </div>
         </fieldset>
       </div>

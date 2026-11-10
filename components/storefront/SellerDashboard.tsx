@@ -51,8 +51,8 @@ type Me = {
 };
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
-const card = "rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
+const card = "rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6";
 
 const api = sellerApi;
 
@@ -120,19 +120,19 @@ export default function SellerDashboard() {
               Your shop
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal ${
-                  store.is_published ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-brand-muted"
+                  store.is_published ? "bg-emerald-500/15 text-emerald-300" : "bg-brand-ink/10 text-brand-muted"
                 }`}
               >
                 {store.is_published ? "Live" : "Hidden"}
               </span>
             </p>
-            <p className="mt-1 text-[22px] font-semibold text-white">{store.name}</p>
-            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="mt-1 block break-all text-[14px] text-[#ff8c14] hover:underline">
+            <p className="mt-1 text-[22px] font-semibold text-brand-ink">{store.name}</p>
+            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="mt-1 block break-all text-[14px] text-brand-link hover:underline">
               {shopUrl.replace(/^https?:\/\//, "")}
             </a>
           </div>
           <div className="flex flex-wrap gap-2">
-            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-black">
+            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-brand-ink px-4 py-2 text-[13px] font-semibold text-brand-deep">
               View shop
             </a>
             <CopyButton text={shopUrl} />
@@ -153,26 +153,26 @@ export default function SellerDashboard() {
             ["Paid orders", String(paidOrders.length)],
             ["Online sales", formatKobo(revenue)],
           ].map(([label, value]) => (
-            <div key={label} className="rounded-xl bg-black/30 px-3 py-3 sm:px-4">
+            <div key={label} className="rounded-xl bg-brand-well px-3 py-3 sm:px-4">
               <dt className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</dt>
-              <dd className="mt-1 truncate text-[18px] font-semibold tabular-nums text-white sm:text-[20px]">{value}</dd>
+              <dd className="mt-1 truncate text-[18px] font-semibold tabular-nums text-brand-ink sm:text-[20px]">{value}</dd>
             </div>
           ))}
         </dl>
         <p className="mt-4 text-[13px] text-brand-muted">
-          Plan: <strong className="text-white">{me.paid ? "Store" : "Free"}</strong>
+          Plan: <strong className="text-brand-ink">{me.paid ? "Store" : "Free"}</strong>
           {!store.is_published && " · Customers can't see your shop. Turn it on in Shop settings."}
         </p>
       </div>
 
       {stepsLeft > 0 && (
         <div className={card}>
-          <p className="text-[16px] font-semibold text-white">Get your shop ready to sell</p>
+          <p className="text-[16px] font-semibold text-brand-ink">Get your shop ready to sell</p>
           <p className="mt-1 text-[13px] text-brand-muted">
             {steps.length - stepsLeft} of {steps.length} done
           </p>
-          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-[#ff8c14] transition-all" style={{ width: `${((steps.length - stepsLeft) / steps.length) * 100}%` }} />
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-brand-ink/10">
+            <div className="h-full rounded-full bg-brand-accent transition-all" style={{ width: `${((steps.length - stepsLeft) / steps.length) * 100}%` }} />
           </div>
           <ol className="mt-4 space-y-3">
             {steps.map((s) => (
@@ -186,7 +186,7 @@ export default function SellerDashboard() {
                   ✓
                 </span>
                 <div>
-                  <p className={`text-[14px] font-medium ${s.done ? "text-brand-subtle line-through" : "text-white"}`}>{s.label}</p>
+                  <p className={`text-[14px] font-medium ${s.done ? "text-brand-subtle line-through" : "text-brand-ink"}`}>{s.label}</p>
                   {!s.done && <p className="text-[12px] text-brand-subtle">{s.hint}</p>}
                 </div>
               </li>
@@ -196,8 +196,8 @@ export default function SellerDashboard() {
       )}
 
       {!me.paid && (
-        <div className={`${card} border-[#ff8c14]/40`}>
-          <p className="text-[16px] font-semibold text-white">Upgrade to DoyinTech Store — ₦3,500/month</p>
+        <div className={`${card} border-brand-link/40`}>
+          <p className="text-[16px] font-semibold text-brand-ink">Upgrade to DoyinTech Store — ₦3,500/month</p>
           <p className="mt-1 text-[14px] text-brand-muted">
             Unlimited products, no {FREE_PLAN_FEE_PERCENT}% fee on online orders, discount codes, and no DoyinTech badge.
           </p>
@@ -222,7 +222,7 @@ export default function SellerDashboard() {
       <OrdersPanel orders={orders} />
 
       <details className={card}>
-        <summary className="cursor-pointer text-[15px] font-semibold text-white">Shop settings</summary>
+        <summary className="cursor-pointer text-[15px] font-semibold text-brand-ink">Shop settings</summary>
         <div className="mt-4">
           <StoreForm store={store} onSaved={load} />
         </div>
@@ -245,7 +245,7 @@ function CopyButton({ text }: { text: string }) {
           /* clipboard blocked */
         }
       }}
-      className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white"
+      className="rounded-full border border-brand-ink/20 px-4 py-2 text-[13px] font-semibold text-brand-ink"
     >
       {copied ? "Copied ✓" : "Copy link"}
     </button>
@@ -271,14 +271,14 @@ function SignIn() {
 
   return (
     <form onSubmit={send} className={card}>
-      <p className="text-[16px] font-semibold text-white">Sign in to manage your shop</p>
+      <p className="text-[16px] font-semibold text-brand-ink">Sign in to manage your shop</p>
       <p className="mt-1 text-[13px] text-brand-muted">We&apos;ll email you a one-time link. New here? The same link creates your account.</p>
       {sent ? (
         <p className="mt-4 text-[14px] text-emerald-300">Check your inbox (and spam) for the sign-in link.</p>
       ) : (
         <>
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com" aria-label="Email" className={field} />
-          <button type="submit" className="mt-3 rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">
+          <button type="submit" className="mt-3 rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black">
             Email me a sign-in link
           </button>
           {error && <p className="mt-2 text-[13px] text-red-400">{error}</p>}
@@ -323,7 +323,7 @@ function StoreForm({ store, onSaved }: { store?: Storefront; onSaved: () => void
     <form onSubmit={save} className={store ? "" : card}>
       {!store && (
         <>
-          <p className="text-[18px] font-semibold text-white">Create your free shop</p>
+          <p className="text-[18px] font-semibold text-brand-ink">Create your free shop</p>
           <p className="mt-1 text-[13px] text-brand-muted">Takes two minutes. Add up to 5 products free.</p>
         </>
       )}
@@ -333,7 +333,7 @@ function StoreForm({ store, onSaved }: { store?: Storefront; onSaved: () => void
           <input required value={name} onChange={(e) => setName(e.target.value)} className={field} />
         </label>
         <label className="block text-[13px] text-brand-muted">
-          Shop link: doyintech.com/s/<strong className="text-white">{effectiveSlug || "your-shop"}</strong>
+          Shop link: doyintech.com/s/<strong className="text-brand-ink">{effectiveSlug || "your-shop"}</strong>
           <input
             value={effectiveSlug}
             onChange={(e) => {
@@ -368,12 +368,12 @@ function StoreForm({ store, onSaved }: { store?: Storefront; onSaved: () => void
         </label>
       </div>
       {store && (
-        <label className="mt-4 flex items-center gap-2 text-[14px] text-white">
+        <label className="mt-4 flex items-center gap-2 text-[14px] text-brand-ink">
           <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
           Shop visible to customers
         </label>
       )}
-      <button type="submit" disabled={busy} className="mt-5 rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
+      <button type="submit" disabled={busy} className="mt-5 rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
         {busy ? "Saving…" : store ? "Save settings" : "Create my shop"}
       </button>
       {error && <p className="mt-2 text-[13px] text-red-400">{error}</p>}
@@ -408,20 +408,20 @@ function ProductsPanel({
   return (
     <div className={card}>
       <div className="flex items-center justify-between gap-3">
-        <p className="text-[16px] font-semibold text-white">Products</p>
+        <p className="text-[16px] font-semibold text-brand-ink">Products</p>
         {!editing && (
           <button
             type="button"
             disabled={atLimit}
             onClick={() => setEditing("new")}
-            className="rounded-full bg-[#ff8c14] px-4 py-2 text-[13px] font-semibold text-black disabled:opacity-50"
+            className="rounded-full bg-brand-accent px-4 py-2 text-[13px] font-semibold text-black disabled:opacity-50"
           >
             Add product
           </button>
         )}
       </div>
       {atLimit && !editing && (
-        <p className="mt-2 text-[13px] text-[#ff8c14]">You&apos;ve used all {freeLimit} free products. Upgrade above for unlimited.</p>
+        <p className="mt-2 text-[13px] text-brand-link">You&apos;ve used all {freeLimit} free products. Upgrade above for unlimited.</p>
       )}
 
       {editing && (
@@ -438,31 +438,31 @@ function ProductsPanel({
       {products.length === 0 && !editing ? (
         <p className="mt-4 text-[14px] text-brand-subtle">No products yet. Add your first one.</p>
       ) : (
-        <ul className="mt-4 divide-y divide-white/10">
+        <ul className="mt-4 divide-y divide-brand-ink/10">
           {products.map((p) => (
             <li key={p.id} className="flex items-center gap-3 py-3">
-              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-black/40">
+              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-brand-well">
                 {p.image_url && <Image src={p.image_url} alt="" fill sizes="48px" className="object-cover" />}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[14px] font-semibold text-white">{p.name}</p>
+                <p className="truncate text-[14px] font-semibold text-brand-ink">{p.name}</p>
                 <p className="flex items-center gap-2 text-[13px] text-brand-muted">
                   {formatKobo(p.price_kobo)}
                   <span
                     className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                      p.in_stock ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-brand-muted"
+                      p.in_stock ? "bg-emerald-500/15 text-emerald-300" : "bg-brand-ink/10 text-brand-muted"
                     }`}
                   >
                     {p.in_stock ? "In stock" : "Sold out"}
                   </span>
-                  {!p.image_url && <span className="text-[11px] text-[#ff8c14]">No photo</span>}
+                  {!p.image_url && <span className="text-[11px] text-brand-link">No photo</span>}
                 </p>
               </div>
               <div className="flex shrink-0 gap-2 text-[12px]">
                 <button type="button" onClick={() => toggleStock(p)} className="text-brand-muted underline">
                   {p.in_stock ? "Mark out" : "Mark in"}
                 </button>
-                <button type="button" onClick={() => setEditing(p)} className="text-[#ff8c14] underline">
+                <button type="button" onClick={() => setEditing(p)} className="text-brand-link underline">
                   Edit
                 </button>
                 <button type="button" onClick={() => remove(p)} className="text-red-400 underline">
@@ -529,7 +529,7 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
   }
 
   return (
-    <form onSubmit={save} className="mt-4 rounded-xl border border-white/10 bg-black/20 p-4">
+    <form onSubmit={save} className="mt-4 rounded-xl border border-brand-ink/10 bg-brand-well p-4">
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="block text-[13px] text-brand-muted">
           Product name
@@ -551,11 +551,11 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
           />
         </label>
         <div className="flex items-center gap-4 sm:col-span-2">
-          <div className="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-dashed border-white/20 bg-black/30 text-[11px] text-brand-subtle">
+          <div className="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-dashed border-brand-ink/20 bg-brand-well text-[11px] text-brand-subtle">
             {image ? <Image src={image} alt="Product photo preview" fill sizes="96px" className="object-cover" /> : uploading ? "Uploading…" : "No photo"}
           </div>
           <div className="text-[13px] text-brand-muted">
-            <label className="inline-flex cursor-pointer rounded-full border border-white/20 px-4 py-2 font-semibold text-white hover:bg-white/5">
+            <label className="inline-flex cursor-pointer rounded-full border border-brand-ink/20 px-4 py-2 font-semibold text-brand-ink hover:bg-brand-ink/5">
               {uploading ? "Uploading…" : image ? "Change photo" : "Upload photo"}
               <input
                 type="file"
@@ -575,7 +575,7 @@ function ProductForm({ product, onDone, onCancel }: { product?: StoreProduct; on
         </div>
       </div>
       <div className="mt-4 flex gap-3">
-        <button type="submit" disabled={busy || uploading} className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60">
+        <button type="submit" disabled={busy || uploading} className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60">
           {busy ? "Saving…" : "Save product"}
         </button>
         <button type="button" onClick={onCancel} className="text-[14px] text-brand-muted underline">
@@ -636,7 +636,7 @@ function PaymentsPanel({ store, feePercent, onChange }: { store: Storefront; fee
 
   return (
     <div className={card}>
-      <p className="text-[16px] font-semibold text-white">Online payments (Paystack)</p>
+      <p className="text-[16px] font-semibold text-brand-ink">Online payments (Paystack)</p>
       <p className="mt-1 text-[14px] text-brand-muted">{status[store.payments_status]}</p>
       {store.account_name && (
         <p className="mt-1 text-[13px] text-brand-subtle">
@@ -651,7 +651,7 @@ function PaymentsPanel({ store, feePercent, onChange }: { store: Storefront; fee
         Paystack&apos;s own fee is deducted by Paystack.
       </p>
       {!open ? (
-        <button type="button" onClick={openForm} className="mt-4 rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white">
+        <button type="button" onClick={openForm} className="mt-4 rounded-full border border-brand-ink/20 px-4 py-2 text-[13px] font-semibold text-brand-ink">
           {store.payments_status === "off" ? "Connect bank account" : "Change bank account"}
         </button>
       ) : (
@@ -672,7 +672,7 @@ function PaymentsPanel({ store, feePercent, onChange }: { store: Storefront; fee
             <input required inputMode="numeric" maxLength={10} value={account} onChange={(e) => setAccount(e.target.value)} className={field} />
           </label>
           <div className="sm:col-span-2">
-            <button type="submit" disabled={busy} className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60">
+            <button type="submit" disabled={busy} className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60">
               {busy ? "Verifying…" : "Verify and connect"}
             </button>
             <p className="mt-2 text-[12px] text-brand-subtle">
@@ -689,22 +689,22 @@ function PaymentsPanel({ store, feePercent, onChange }: { store: Storefront; fee
 function OrdersPanel({ orders }: { orders: Order[] }) {
   return (
     <div className={card}>
-      <p className="text-[16px] font-semibold text-white">Online orders</p>
+      <p className="text-[16px] font-semibold text-brand-ink">Online orders</p>
       {orders.length === 0 ? (
         <p className="mt-2 text-[14px] text-brand-subtle">
           Paid orders appear here. WhatsApp orders arrive in your WhatsApp chats.
         </p>
       ) : (
-        <ul className="mt-3 divide-y divide-white/10">
+        <ul className="mt-3 divide-y divide-brand-ink/10">
           {orders.map((o) => (
             <li key={o.reference} className="py-3 text-[14px]">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <span className="font-semibold text-white">
+                <span className="font-semibold text-brand-ink">
                   {o.customer_name} · {formatKobo(o.amount_kobo)}
                 </span>
                 <span
                   className={`rounded-full px-2 py-0.5 text-[11px] font-semibold capitalize ${
-                    o.status === "paid" ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-brand-muted"
+                    o.status === "paid" ? "bg-emerald-500/15 text-emerald-300" : "bg-brand-ink/10 text-brand-muted"
                   }`}
                 >
                   {o.status === "pending" ? "Awaiting payment" : o.status}
@@ -726,7 +726,7 @@ function OrdersPanel({ orders }: { orders: Order[] }) {
       )}
       <p className="mt-4 text-[12px] text-brand-subtle">
         Need a full website for your brand?{" "}
-        <Link href="/hire" className="text-[#ff8c14] hover:underline">
+        <Link href="/hire" className="text-brand-link hover:underline">
           See website packages
         </Link>
         .

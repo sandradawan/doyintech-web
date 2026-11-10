@@ -18,10 +18,10 @@ export default function SalonWebsitePost() {
           <Link href="/blog" className="text-sm text-brand-link hover:underline">
             ← Blog
           </Link>
-          <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+          <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-brand-link">
             Local business · September 2026
           </p>
-          <h1 className="mt-3 text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-3 text-[32px] font-semibold leading-tight tracking-tight text-brand-ink sm:text-[40px]">
             Website for a salon in Nigeria — what actually gets bookings
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
@@ -32,7 +32,7 @@ export default function SalonWebsitePost() {
 
           <div className="mt-10 space-y-6 text-[16px] leading-relaxed text-brand-soft">
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">1. One clear offer above the fold</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-brand-ink">1. One clear offer above the fold</h2>
               <p>
                 When someone lands on your page, they should know in three seconds: who you are,
                 what you do (bridal, soft glam, nails, hair), and how to book. Fancy animations do
@@ -40,21 +40,21 @@ export default function SalonWebsitePost() {
               </p>
             </section>
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">2. WhatsApp-first booking</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-brand-ink">2. WhatsApp-first booking</h2>
               <p>
                 Most Nigerian clients will not fill a long form. Put a big &quot;Book on WhatsApp&quot; CTA
                 on every page. Prefill the message with service type so the chat starts warm.
               </p>
             </section>
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">3. Show the work, not stock photos</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-brand-ink">3. Show the work, not stock photos</h2>
               <p>
                 Real portfolio photos (bridal, soft glam, editorial) convert better than generic
                 beauty stock. Mobile-first layout matters — most traffic is phone.
               </p>
             </section>
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">4. Fixed price beats &quot;contact for quote&quot;</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-brand-ink">4. Fixed price beats &quot;contact for quote&quot;</h2>
               <p>
                 At DoyinTech we productised this: a Landing Page Starter at ₦100,000 (₦50,000
                 deposit) or a Local Business Website at ₦250,000. Live in days, not months. See{" "}
@@ -65,7 +65,7 @@ export default function SalonWebsitePost() {
               </p>
             </section>
             <section>
-              <h2 className="mb-3 text-[22px] font-semibold text-white">Quick checklist</h2>
+              <h2 className="mb-3 text-[22px] font-semibold text-brand-ink">Quick checklist</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>Loads fast on mobile data</li>
                 <li>Services + starting prices (or &quot;from&quot;) visible</li>
@@ -76,8 +76,8 @@ export default function SalonWebsitePost() {
             </section>
           </div>
 
-          <div className="mt-12 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
-            <p className="text-[15px] font-semibold text-white">
+          <div className="mt-12 rounded-2xl border border-brand-link/25 bg-brand-link/5 p-6">
+            <p className="text-[15px] font-semibold text-brand-ink">
               Ready for a site that gets enquiries?
             </p>
             <p className="mt-2 text-[14px] text-brand-muted">
@@ -86,13 +86,13 @@ export default function SalonWebsitePost() {
             <div className="mt-4 flex flex-wrap gap-3">
               <Link
                 href="/hire"
-                className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black"
+                className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black"
               >
                 Hire · fixed price
               </Link>
               <Link
                 href="/free-audit"
-                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white"
+                className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink"
               >
                 Free audit
               </Link>

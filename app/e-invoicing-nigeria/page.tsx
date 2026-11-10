@@ -50,32 +50,32 @@ export default function EInvoicingNigeriaPage() {
       newsletterSource="e-invoicing"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Selling online?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Selling online?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             A website with Paystack checkout records every sale cleanly — the foundation for
             automatic e-invoicing. Until then, issue proper numbered invoices with the free{" "}
-            <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">
+            <Link href="/tools/invoice-generator-nigeria" className="text-brand-link hover:underline">
               invoice generator
             </Link>
             .
           </p>
-          <Link href="/hire" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <Link href="/hire" className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             Get a website
           </Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">The rollout at a glance</h2>
-        <table className="mt-4 w-full overflow-hidden rounded-xl border border-white/10 text-left text-[14px]">
-          <thead className="bg-white/[0.05] text-white">
+        <h2 className="text-[22px] font-semibold text-brand-ink">The rollout at a glance</h2>
+        <table className="mt-4 w-full overflow-hidden rounded-xl border border-brand-ink/10 text-left text-[14px]">
+          <thead className="bg-brand-ink/[0.05] text-brand-ink">
             <tr>
               <th className="px-4 py-2.5 font-semibold">Annual turnover</th>
               <th className="px-4 py-2.5 font-semibold">Go-live</th>
               <th className="px-4 py-2.5 font-semibold">Enforcement</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/10">
+          <tbody className="divide-y divide-brand-ink/10">
             <tr><td className="px-4 py-2.5">Above ₦5 billion</td><td className="px-4 py-2.5">Already live</td><td className="px-4 py-2.5">2026</td></tr>
             <tr><td className="px-4 py-2.5">₦1bn – ₦5bn</td><td className="px-4 py-2.5">1 July 2026</td><td className="px-4 py-2.5">Jan–Mar 2027</td></tr>
             <tr><td className="px-4 py-2.5">Below ₦1 billion</td><td className="px-4 py-2.5">1 July 2027</td><td className="px-4 py-2.5">Jan–Mar 2028</td></tr>

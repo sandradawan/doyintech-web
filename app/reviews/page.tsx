@@ -15,7 +15,7 @@ export default function ReviewsPage() {
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[640px] px-6">
           <p className="section-eyebrow">Social proof</p>
-          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             Leave a review
           </h1>
           <p className="mt-3 text-[16px] leading-relaxed text-brand-muted">

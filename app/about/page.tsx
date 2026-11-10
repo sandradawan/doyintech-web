@@ -29,7 +29,7 @@ export default function AboutPage() {
 
         {/* Founder (Professional layout) */}
         <section className="mt-14">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-8">
+          <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-8">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
               {/* Left: Founder info */}
               <div className="max-w-2xl">
@@ -46,17 +46,17 @@ export default function AboutPage() {
                 </p>
 
                 <div className="mt-6 grid sm:grid-cols-3 gap-4">
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="rounded-xl border border-brand-ink/10 bg-brand-ink/5 p-4">
                     <p className="text-gray-200 font-medium">Backend</p>
                     <p className="mt-1 text-xs text-brand-muted">
                       APIs • Databases
                     </p>
                   </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="rounded-xl border border-brand-ink/10 bg-brand-ink/5 p-4">
                     <p className="text-gray-200 font-medium">Mobile</p>
                     <p className="mt-1 text-xs text-brand-muted">Flutter • UX</p>
                   </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="rounded-xl border border-brand-ink/10 bg-brand-ink/5 p-4">
                     <p className="text-gray-200 font-medium">Delivery</p>
                     <p className="mt-1 text-xs text-brand-muted">
                       Quality • Speed
@@ -73,7 +73,7 @@ export default function AboutPage() {
                   </a>
                   <a
                     href="/portfolio"
-                    className="px-6 py-3 rounded-lg border border-white/15 hover:border-primary transition text-center"
+                    className="px-6 py-3 rounded-lg border border-brand-ink/15 hover:border-primary transition text-center"
                   >
                     View Portfolio
                   </a>
@@ -88,7 +88,7 @@ export default function AboutPage() {
                   <div className="absolute inset-[6px] rounded-full animate-pulseGlow blur-[16px] bg-orange-400/25" />
 
                   {/* circle frame */}
-                  <div className="relative w-full h-full rounded-full border border-white/15 bg-white/5 overflow-hidden">
+                  <div className="relative w-full h-full rounded-full border border-brand-ink/15 bg-brand-ink/5 overflow-hidden">
                     <div className="absolute inset-[6px] rounded-full overflow-hidden">
                       <Image
                         src="/founder.png"
@@ -128,7 +128,7 @@ export default function AboutPage() {
         {/* Existing: Values + Location */}
         <section className="mt-12 grid lg:grid-cols-2 gap-10 items-start">
           <div className="grid gap-6">
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-6">
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-6">
               <h2 className="font-display text-2xl font-bold">
                 What we stand for
               </h2>
@@ -143,7 +143,7 @@ export default function AboutPage() {
               {["Speed", "Quality", "Scale"].map((v) => (
                 <div
                   key={v}
-                  className="rounded-2xl border border-white/10 bg-black/20 p-5"
+                  className="rounded-2xl border border-brand-ink/10 bg-brand-well p-5"
                 >
                   <p className="text-gray-200 font-medium">{v}</p>
                   <p className="mt-1 text-sm text-brand-muted">
@@ -155,12 +155,12 @@ export default function AboutPage() {
           </div>
 
           <div className="grid gap-5">
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
               <p className="text-sm text-brand-muted mb-3">Our Location</p>
               <MapSection />
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-6">
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-6">
               <p className="text-gray-200 font-medium">Jos, Nigeria</p>
               <p className="mt-2 text-sm text-brand-muted">
                 Serving clients locally and globally.
@@ -179,7 +179,7 @@ export default function AboutPage() {
 /** Standard professional card (no hover noise) */
 function StandardCard({ title, content }: { title: string; content: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/20 p-8">
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-8">
       <h3 className="font-display text-2xl font-semibold text-gray-100">
         {title}
       </h3>

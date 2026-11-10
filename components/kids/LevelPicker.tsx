@@ -34,7 +34,7 @@ export default function LevelPicker({ value, onChange }: { value: Level; onChang
           role="radio"
           aria-checked={value === l.id}
           onClick={() => onChange(l.id)}
-          className={`min-h-14 rounded-2xl px-2 text-center transition ${value === l.id ? "bg-[#ff8c14] text-black" : "border border-white/15 bg-white/5 text-black hover:border-white/35"}`}
+          className={`min-h-14 rounded-2xl px-2 text-center transition ${value === l.id ? "bg-brand-accent text-black" : "border border-brand-ink/15 bg-brand-ink/5 text-black hover:border-brand-ink/35"}`}
         >
           <span className="block text-[15px] font-bold">{l.label}</span>
           <span className={`block text-[12px] ${value === l.id ? "text-black/70" : "text-brand-muted"}`}>{l.ages}</span>

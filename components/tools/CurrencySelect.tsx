@@ -21,7 +21,7 @@ export default function CurrencySelect({ value, onChange }: { value: string; onC
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]"
+        className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link"
       >
         {INVOICE_CURRENCIES.map((c) => (
           <option key={c.code} value={c.code}>

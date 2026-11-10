@@ -33,10 +33,10 @@ export default function CarePlansPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Website care plans
           </p>
-          <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">
+          <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[46px]">
             Your website, looked after every month.
           </h1>
           <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
@@ -53,22 +53,22 @@ export default function CarePlansPage() {
           <p className="mt-6 text-center text-[13px] text-brand-subtle">
             Unused hours don&apos;t roll over. Bigger projects are quoted separately at a fixed
             price.{" "}
-            <Link href="/free-audit" className="text-[#ff8c14] hover:underline">
+            <Link href="/free-audit" className="text-brand-link hover:underline">
               Not sure which plan? Get a free audit first.
             </Link>
           </p>
 
           <section className="section-light band grid gap-5 md:grid-cols-3">
             {WHY.map((w) => (
-              <div key={w.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                <h2 className="text-[16px] font-semibold text-white">{w.title}</h2>
+              <div key={w.title} className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5">
+                <h2 className="text-[16px] font-semibold text-brand-ink">{w.title}</h2>
                 <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{w.body}</p>
               </div>
             ))}
           </section>
 
-          <section className="mt-16 rounded-2xl border border-white/10 bg-brand-surface p-6 sm:p-8">
-            <h2 className="text-[20px] font-semibold text-white">What happens after you subscribe</h2>
+          <section className="theme-dark panel-glow mt-16 rounded-[28px] p-6 sm:p-8">
+            <h2 className="text-[20px] font-semibold text-brand-ink">What happens after you subscribe</h2>
             <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] leading-relaxed text-brand-soft">
               <li>You get an email receipt from Paystack and a welcome message from us.</li>
               <li>

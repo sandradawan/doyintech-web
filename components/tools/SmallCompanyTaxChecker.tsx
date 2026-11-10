@@ -6,7 +6,7 @@ import { checkCompany } from "@/lib/tax/company2026";
 import { naira } from "@/lib/tax/paye2026";
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 
 const num = (v: string) => {
   const n = Number(v.replace(/[^\d.]/g, ""));
@@ -32,7 +32,7 @@ export default function SmallCompanyTaxChecker() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
         <div className="grid gap-4 sm:grid-cols-3">
           <label className="block text-[13px] text-brand-muted">
             Annual turnover (₦)
@@ -47,7 +47,7 @@ export default function SmallCompanyTaxChecker() {
             <input inputMode="numeric" value={profit} onChange={(e) => setProfit(e.target.value)} className={field} />
           </label>
         </div>
-        <label className="mt-4 flex items-start gap-2 text-[14px] text-white">
+        <label className="mt-4 flex items-start gap-2 text-[14px] text-brand-ink">
           <input type="checkbox" className="mt-1" checked={professional} onChange={(e) => setProfessional(e.target.checked)} />
           <span>
             We provide professional services
@@ -58,10 +58,10 @@ export default function SmallCompanyTaxChecker() {
 
       <div
         role="status"
-        className={`rounded-2xl border p-6 ${r.isSmall ? "border-emerald-500/40 bg-emerald-500/10" : "border-[#ff8c14]/40 bg-[#ff8c14]/10"}`}
+        className={`rounded-2xl border p-6 ${r.isSmall ? "border-emerald-500/40 bg-emerald-500/10" : "border-brand-link/40 bg-brand-link/10"}`}
       >
         <p className="text-[13px] uppercase tracking-wide text-brand-muted">Result</p>
-        <p className="mt-1 text-[24px] font-semibold text-white">
+        <p className="mt-1 text-[24px] font-semibold text-brand-ink">
           {r.isSmall ? "Small company — 0% company tax" : "Not a small company"}
         </p>
         {r.isSmall ? (
@@ -93,11 +93,11 @@ export default function SmallCompanyTaxChecker() {
 
       <p className="text-[14px] text-brand-muted">
         Charging customers VAT? Work it out with the{" "}
-        <Link href="/tools/nigeria-vat-calculator" className="text-[#ff8c14] hover:underline">
+        <Link href="/tools/nigeria-vat-calculator" className="text-brand-link hover:underline">
           7.5% VAT calculator
         </Link>
         , and issue proper{" "}
-        <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">
+        <Link href="/tools/invoice-generator-nigeria" className="text-brand-link hover:underline">
           invoices
         </Link>{" "}
         for your records.
@@ -108,9 +108,9 @@ export default function SmallCompanyTaxChecker() {
 
 function Stat({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-black/20 p-3">
+    <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-3">
       <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
-      <p className={`mt-1 text-[18px] ${strong ? "font-semibold text-white" : "text-brand-soft"}`}>{value}</p>
+      <p className={`mt-1 text-[18px] ${strong ? "font-semibold text-brand-ink" : "text-brand-soft"}`}>{value}</p>
     </div>
   );
 }

@@ -67,7 +67,7 @@ export default function Navbar() {
   if (pathname?.startsWith("/s/") || pathname?.startsWith("/pay/")) return null;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[999]">
+    <header className="theme-dark fixed inset-x-0 top-0 z-[999]">
       <nav ref={navRef} className="glass-navbar h-12 w-full">
         <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
           <Link
@@ -100,7 +100,7 @@ export default function Navbar() {
                     }
                     aria-expanded={isOpen}
                     className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-[13px] font-medium transition ${
-                      active || isOpen ? "text-white" : "text-brand-ink/80 hover:text-white"
+                      active || isOpen ? "text-brand-ink" : "text-brand-ink/80 hover:text-brand-ink"
                     }`}
                   >
                     {group.label}
@@ -131,10 +131,10 @@ export default function Navbar() {
                         className="fixed inset-x-0 top-12 z-50 glass-menu"
                       >
                         <div className="mx-auto flex max-w-[1200px] gap-10 px-6 py-8">
-                          <div className="w-56 shrink-0 border-r border-white/[0.08] pr-8">
+                          <div className="w-56 shrink-0 border-r border-brand-ink/[0.08] pr-8">
                             <p className="t-eyebrow">{group.label}</p>
-                            <p className="mt-3 text-[14px] leading-relaxed text-white/60">{group.intro}</p>
-                            <a href={group.href} className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold text-[#ff8c14] hover:underline">
+                            <p className="mt-3 text-[14px] leading-relaxed text-brand-ink/60">{group.intro}</p>
+                            <a href={group.href} className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold text-brand-link hover:underline">
                               {group.cta} <span aria-hidden>→</span>
                             </a>
                           </div>
@@ -144,7 +144,7 @@ export default function Navbar() {
                           >
                             {group.sections.map((section) => (
                               <div key={section.title}>
-                                <p className="mb-3 px-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-white/40">
+                                <p className="mb-3 px-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-ink/40">
                                   {section.title}
                                 </p>
                                 <ul className="space-y-0.5">
@@ -154,13 +154,13 @@ export default function Navbar() {
                                       <li key={item.href + item.name}>
                                         <a
                                           href={item.href}
-                                          className={`block rounded-lg px-3 py-2 transition hover:bg-white/[0.06] ${on ? "bg-white/[0.06]" : ""}`}
+                                          className={`block rounded-lg px-3 py-2 transition hover:bg-brand-ink/[0.06] ${on ? "bg-brand-ink/[0.06]" : ""}`}
                                         >
-                                          <span className={`block text-[14px] font-medium ${on ? "text-[#ff8c14]" : "text-white"}`}>
+                                          <span className={`block text-[14px] font-medium ${on ? "text-brand-link" : "text-brand-ink"}`}>
                                             {item.name}
                                           </span>
                                           {item.desc && (
-                                            <span className="mt-0.5 block text-[12px] leading-snug text-white/45">{item.desc}</span>
+                                            <span className="mt-0.5 block text-[12px] leading-snug text-brand-ink/45">{item.desc}</span>
                                           )}
                                         </a>
                                       </li>
@@ -182,13 +182,13 @@ export default function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/account"
-              className="hidden text-[13px] font-medium text-brand-ink/75 transition hover:text-white md:inline"
+              className="hidden text-[13px] font-medium text-brand-ink/75 transition hover:text-brand-ink md:inline"
             >
               Sign in
             </Link>
             <Link
               href={PRIMARY_CTA.href}
-              className="inline-flex rounded-full bg-[#ff8c14] px-4 py-1.5 text-[13px] font-semibold text-black transition hover:brightness-110"
+              className="inline-flex rounded-full bg-brand-accent px-4 py-1.5 text-[13px] font-semibold text-black transition hover:brightness-110"
             >
               {PRIMARY_CTA.short}
             </Link>
@@ -229,7 +229,7 @@ export default function Navbar() {
               {NAV_GROUPS.map((group) => {
                 const expanded = openMobileGroup === group.label;
                 return (
-                  <div key={group.label} className="border-b border-white/[0.06]">
+                  <div key={group.label} className="border-b border-brand-ink/[0.06]">
                     <button
                       type="button"
                       onClick={() =>
@@ -239,7 +239,7 @@ export default function Navbar() {
                       aria-expanded={expanded}
                     >
                       {group.label}
-                      <span className="text-white/40">{expanded ? "-" : "+"}</span>
+                      <span className="text-brand-ink/40">{expanded ? "-" : "+"}</span>
                     </button>
                     <AnimatePresence>
                       {expanded && (
@@ -252,21 +252,21 @@ export default function Navbar() {
                           <div className="space-y-4 pb-4 pl-2">
                             {group.sections.map((section) => (
                               <div key={section.title}>
-                                <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/35">
+                                <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-brand-ink/35">
                                   {section.title}
                                 </p>
                                 {section.links.map((item) => (
                                   <a
                                     key={item.href + item.name}
                                     href={item.href}
-                                    className="block rounded-lg px-3 py-2.5 text-[15px] text-white/85 hover:bg-white/5 hover:text-white"
+                                    className="block rounded-lg px-3 py-2.5 text-[15px] text-brand-ink/85 hover:bg-brand-ink/5 hover:text-brand-ink"
                                   >
                                     {item.name}
                                   </a>
                                 ))}
                               </div>
                             ))}
-                            <a href={group.href} className="block px-3 text-[14px] font-semibold text-[#ff8c14]">
+                            <a href={group.href} className="block px-3 text-[14px] font-semibold text-brand-link">
                               {group.cta} →
                             </a>
                           </div>
@@ -279,13 +279,13 @@ export default function Navbar() {
 
               <Link
                 href={PRIMARY_CTA.href}
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-5 py-3 text-[15px] font-semibold text-black"
+                className="mt-4 inline-flex items-center justify-center rounded-full bg-brand-accent px-5 py-3 text-[15px] font-semibold text-black"
               >
                 {PRIMARY_CTA.label}
               </Link>
               <Link
                 href="/account"
-                className="mt-2 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-[15px] font-semibold text-white"
+                className="mt-2 inline-flex items-center justify-center rounded-full border border-brand-ink/20 px-5 py-3 text-[15px] font-semibold text-brand-ink"
               >
                 Sign in
               </Link>

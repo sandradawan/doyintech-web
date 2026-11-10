@@ -60,20 +60,20 @@ export default function TodayStrip() {
         <h2 id="today-heading" className="t-eyebrow">Today on DoyinTech</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {cards.map((c) => (
-            <Link key={c.href} href={c.href} className="group flex items-center gap-4 glass rounded-2xl p-5 transition hover:border-[#ff8c14]">
+            <Link key={c.href} href={c.href} className="group flex items-center gap-4 glass rounded-2xl p-5 transition hover:border-brand-link">
               <span className="text-[40px]" aria-hidden>{c.icon}</span>
               <span className="min-w-0 flex-1">
                 <span className="flex flex-wrap items-center gap-2">
-                  <span className="text-[17px] font-semibold text-white">{c.title}</span>
-                  {c.streak > 0 && <span className="rounded-full bg-[#ff8c14]/15 px-2 py-0.5 text-[12px] font-semibold text-[#ffb366]">🔥 {c.streak}-day streak</span>}
+                  <span className="text-[17px] font-semibold text-brand-ink">{c.title}</span>
+                  {c.streak > 0 && <span className="rounded-full bg-brand-link/15 px-2 py-0.5 text-[12px] font-semibold text-brand-link">🔥 {c.streak}-day streak</span>}
                 </span>
                 <span className="mt-0.5 block text-[14px] text-brand-muted">{c.text}</span>
-                <span className="mt-2 block text-[14px] font-semibold text-[#ff8c14] group-hover:underline">{c.cta} →</span>
+                <span className="mt-2 block text-[14px] font-semibold text-brand-link group-hover:underline">{c.cta} →</span>
               </span>
             </Link>
           ))}
         </div>
-        <Link href="/community" className="mt-4 inline-flex min-h-11 items-center text-[15px] font-semibold text-[#ff8c14] hover:underline">Got a question? Ask the community →</Link>
+        <Link href="/community" className="mt-4 inline-flex min-h-11 items-center text-[15px] font-semibold text-brand-link hover:underline">Got a question? Ask the community →</Link>
       </div>
     </section>
   );

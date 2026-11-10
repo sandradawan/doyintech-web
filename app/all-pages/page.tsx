@@ -61,15 +61,15 @@ export default function AllPagesPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
-          <h1 className="text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">All pages</h1>
+          <h1 className="text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">All pages</h1>
           <p className="mt-2 text-[17px] text-brand-soft">Everything on DoyinTech, grouped by what it does.</p>
           {[{ heading: "Main pages", links: main }, ...sections].map((s) => (
             <section key={s.heading} className="mt-10">
-              <h2 className="text-[22px] font-semibold text-white">{s.heading}</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">{s.heading}</h2>
               <ul className="mt-3 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
                 {s.links.map((p) => (
                   <li key={p}>
-                    <Link href={p} className="inline-flex min-h-10 items-center text-[14px] text-brand-soft hover:text-white hover:underline">{label(p)}</Link>
+                    <Link href={p} className="inline-flex min-h-10 items-center text-[14px] text-brand-soft hover:text-brand-ink hover:underline">{label(p)}</Link>
                   </li>
                 ))}
               </ul>

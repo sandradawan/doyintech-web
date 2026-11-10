@@ -61,8 +61,8 @@ export default function AdminAnalyticsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Insights</p>
-        <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Social analytics</h1>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">Insights</p>
+        <h1 className="mt-1 font-display text-[24px] font-semibold text-brand-ink">Social analytics</h1>
         <p className="mt-1 text-[13px] text-brand-subtle">
           Snapshot from static export. Meta Pixel / ads metrics appear in Events Manager after Pixel is live.
         </p>
@@ -82,7 +82,7 @@ export default function AdminAnalyticsPage() {
             <Kpi label="Engagement %" value={s.engagementRate} />
           </div>
           {data?.yesterday ? (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5">
               <p className="text-[12px] uppercase tracking-wide text-brand-subtle">Yesterday · {data.yesterday.date}</p>
               <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <MiniStat label="Posts" value={data.yesterday.posts} />
@@ -93,9 +93,9 @@ export default function AdminAnalyticsPage() {
             </div>
           ) : null}
           {data?.platforms?.length ? (
-            <div className="overflow-x-auto rounded-2xl border border-white/10">
+            <div className="overflow-x-auto rounded-2xl border border-brand-ink/10">
               <table className="w-full text-left text-[13px]">
-                <thead className="bg-white/[0.04] text-[11px] uppercase text-brand-subtle">
+                <thead className="bg-brand-ink/[0.04] text-[11px] uppercase text-brand-subtle">
                   <tr>
                     <th className="px-3 py-2.5">Platform</th>
                     <th className="px-3 py-2.5">Posts</th>
@@ -105,8 +105,8 @@ export default function AdminAnalyticsPage() {
                 </thead>
                 <tbody>
                   {data.platforms.map((p) => (
-                    <tr key={p.name} className="border-t border-white/5">
-                      <td className="px-3 py-3 text-white">{p.name}</td>
+                    <tr key={p.name} className="border-t border-brand-ink/5">
+                      <td className="px-3 py-3 text-brand-ink">{p.name}</td>
                       <td className="px-3 py-3 text-brand-muted">{p.posts ?? "—"}</td>
                       <td className="px-3 py-3 text-brand-muted">{p.views ?? "—"}</td>
                       <td className="px-3 py-3 text-brand-muted">{p.reactions ?? "—"}</td>
@@ -125,8 +125,8 @@ export default function AdminAnalyticsPage() {
 
 function Kpi({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
-      <p className="font-display text-[22px] font-semibold text-white">
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-4">
+      <p className="font-display text-[22px] font-semibold text-brand-ink">
         {typeof value === "number" ? value.toLocaleString() : value}
       </p>
       <p className="mt-1 text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
@@ -137,7 +137,7 @@ function Kpi({ label, value }: { label: string; value: number }) {
 function MiniStat({ label, value }: { label: string; value: number }) {
   return (
     <div className="text-center">
-      <p className="text-[18px] font-semibold text-white">{value}</p>
+      <p className="text-[18px] font-semibold text-brand-ink">{value}</p>
       <p className="text-[10px] uppercase tracking-wide text-brand-subtle">{label}</p>
     </div>
   );

@@ -46,9 +46,9 @@ export default function OfficeToolLanding({ slug, tool }: { slug: string; tool: 
       newsletterSource={slug}
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">{p.upsell.heading}</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">{p.upsell.heading}</h2>
           <p className="mt-2 text-[14px] text-brand-muted">{p.upsell.body}</p>
-          <Link href={p.upsell.href} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">
+          <Link href={p.upsell.href} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">
             {p.upsell.cta}
           </Link>
         </>
@@ -56,7 +56,7 @@ export default function OfficeToolLanding({ slug, tool }: { slug: string; tool: 
     >
       {p.guide.map(([h, body]) => (
         <section key={h}>
-          <h2 className="text-[22px] font-semibold text-white">{h}</h2>
+          <h2 className="text-[22px] font-semibold text-brand-ink">{h}</h2>
           <p className="mt-3">{body}</p>
         </section>
       ))}

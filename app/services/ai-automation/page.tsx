@@ -18,7 +18,7 @@ export default function AIAutomationPage() {
           <p className="mt-8 text-sm font-semibold uppercase tracking-wider text-primary">
             Service
           </p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white">
+          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-brand-ink">
             AI Automation
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -34,7 +34,7 @@ export default function AIAutomationPage() {
             </p>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">What you get</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">What you get</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Process discovery & opportunity mapping</li>
                 <li>Workflow automation design</li>
@@ -45,7 +45,7 @@ export default function AIAutomationPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Common use cases</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">Common use cases</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Lead qualification and follow-up drafts</li>
                 <li>Customer support triage and FAQs</li>
@@ -55,7 +55,7 @@ export default function AIAutomationPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">Investment range (USD)</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Single workflow pilot — from $150</li>
                 <li>Multi-process automation package — custom quote</li>
@@ -73,7 +73,7 @@ export default function AIAutomationPage() {
                 href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27m%20interested%20in%20AI%20automation."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-xl border border-white/15 text-white text-sm font-semibold"
+                className="px-6 py-3 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold"
               >
                 WhatsApp Us
               </a>

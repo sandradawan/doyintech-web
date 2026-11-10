@@ -25,10 +25,10 @@ export default function FreeAuditPage() {
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <div className="text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
               Free · no long form · reply on WhatsApp
             </p>
-            <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
+            <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[42px]">
               Free 3-minute website audit
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-brand-muted">
@@ -64,23 +64,23 @@ export default function FreeAuditPage() {
             />
             <p className="mt-4 text-center text-[13px] text-brand-subtle">
               Ready for the full system?{" "}
-              <a href="/products" className="font-semibold text-[#ff8c14] hover:underline">
+              <a href="/products" className="font-semibold text-brand-link hover:underline">
                 Browse kits
               </a>{" "}
               or{" "}
-              <a href="/hire" className="font-semibold text-[#ff8c14] hover:underline">
+              <a href="/hire" className="font-semibold text-brand-link hover:underline">
                 hire with deposit
               </a>
               .
             </p>
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6">
-            <h2 className="text-[15px] font-semibold text-white">What we check</h2>
+          <div className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+            <h2 className="text-[15px] font-semibold text-brand-ink">What we check</h2>
             <ul className="mt-4 space-y-2">
               {checks.map((c) => (
                 <li key={c} className="flex gap-2 text-[14px] text-brand-soft">
-                  <span className="text-[#ff8c14]">✓</span> {c}
+                  <span className="text-brand-link">✓</span> {c}
                 </li>
               ))}
             </ul>
@@ -90,11 +90,11 @@ export default function FreeAuditPage() {
             </p>
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6 text-center">
+          <div className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6 text-center">
             <p className="text-[12px] font-semibold uppercase tracking-wide text-brand-subtle">
               After the audit
             </p>
-            <h2 className="mt-2 text-[20px] font-semibold text-white">
+            <h2 className="mt-2 text-[20px] font-semibold text-brand-ink">
               Many clients book a fixed-price site
             </h2>
             <p className="mx-auto mt-2 max-w-md text-[14px] text-brand-muted">
@@ -103,7 +103,7 @@ export default function FreeAuditPage() {
             </p>
             <a
               href="/hire"
-              className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
+              className="mt-5 inline-flex rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black"
             >
               See packages & pay deposit
             </a>

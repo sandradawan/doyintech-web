@@ -15,10 +15,10 @@ export default function ChurchEventWebsitePage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <article className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Community · Events
           </p>
-          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             Website for a church or event centre
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
@@ -27,7 +27,7 @@ export default function ChurchEventWebsitePage() {
           </p>
           <div className="mt-10 space-y-8 text-[15px] leading-relaxed text-brand-soft">
             <section>
-              <h2 className="text-[22px] font-semibold text-white">What to put online</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">What to put online</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
                 <li>Service / opening times</li>
                 <li>Address + Maps</li>
@@ -37,7 +37,7 @@ export default function ChurchEventWebsitePage() {
               </ul>
             </section>
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Packages</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Packages</h2>
               <p className="mt-3">
                 Landing page from ₦100,000 or multi-page local site from ₦250,000 — fixed scope, 50%
                 deposit. See <Link href="/hire" className="text-brand-link">/hire</Link>.
@@ -45,12 +45,12 @@ export default function ChurchEventWebsitePage() {
             </section>
           </div>
           <div className="mt-12 flex flex-wrap gap-3">
-            <a href="/hire" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black">Hire us</a>
-            <a href="/free-audit" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white">Free audit</a>
+            <a href="/hire" className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black">Hire us</a>
+            <a href="/free-audit" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink">Free audit</a>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#25D366]">WhatsApp</a>
           </div>
                   <p className="mt-8 text-[14px] text-brand-muted">
-            Ready to build? See our <Link href="/websites/churches" className="text-[#ff8c14] hover:underline">church website design and pricing</Link>.
+            Ready to build? See our <Link href="/websites/churches" className="text-brand-link hover:underline">church website design and pricing</Link>.
           </p>
           <BlogPostExtras slug="website-for-church-event-nigeria" title={"Website for a Church or Event Centre in Nigeria"} description={"Service times, location, giving links, event bookings via WhatsApp. Fixed-price websites for churches and event centres."} published="2026-09-18" />
         </article>

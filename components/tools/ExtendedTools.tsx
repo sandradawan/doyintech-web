@@ -22,13 +22,13 @@ import { trackToolEvent } from "@/lib/tools/analytics";
 import { TOOLS_CONFIG } from "@/lib/tools/config";
 
 const box =
-  "rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8 space-y-5";
+  "rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8 space-y-5";
 const input =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 const btn =
   "rounded-xl bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white";
 const chip = (on: boolean) =>
-  `rounded-full border px-3 py-1.5 text-xs ${on ? "border-primary bg-primary/20 text-white" : "border-white/10 text-gray-400"}`;
+  `rounded-full border px-3 py-1.5 text-xs ${on ? "border-primary bg-primary/20 text-brand-ink" : "border-brand-ink/10 text-gray-400"}`;
 
 // ——— Project Brief ———
 export function ProjectBriefTool() {
@@ -74,7 +74,7 @@ export function ProjectBriefTool() {
             onChange={(e) => setF({ ...f, type: e.target.value })}
           >
             {["Website", "Mobile app", "Web app", "Automation", "Other"].map((t) => (
-              <option key={t} className="bg-black">
+              <option key={t} className="bg-brand-surface text-brand-ink">
                 {t}
               </option>
             ))}
@@ -109,7 +109,7 @@ export function ProjectBriefTool() {
         </>
       ) : (
         <>
-          <pre className="whitespace-pre-wrap rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200">
+          <pre className="whitespace-pre-wrap rounded-2xl border border-brand-ink/10 bg-brand-well p-4 text-sm text-gray-200">
             {brief}
           </pre>
           <ShareActions
@@ -172,7 +172,7 @@ export function TechStackTool() {
             Product type
             <select className={input + " mt-1"} value={product} onChange={(e) => setProduct(e.target.value)}>
               {["business-website", "online-store", "mobile-app", "school-portal", "booking-system", "internal-tool"].map((p) => (
-                <option key={p} className="bg-black" value={p}>{p.replace(/-/g, " ")}</option>
+                <option key={p} className="bg-brand-surface text-brand-ink" value={p}>{p.replace(/-/g, " ")}</option>
               ))}
             </select>
           </label>
@@ -199,16 +199,16 @@ export function TechStackTool() {
           <p className="text-sm text-gray-400">{result.summary}</p>
           <div className="grid gap-3 sm:grid-cols-2">
             {stackCards.map(([l, v]) => (
-              <div key={l} className="rounded-xl border border-white/10 bg-black/30 p-3">
+              <div key={l} className="rounded-xl border border-brand-ink/10 bg-brand-well p-3">
                 <p className="text-[11px] uppercase text-gray-500">{l}</p>
-                <p className="text-sm text-white">{v}</p>
+                <p className="text-sm text-brand-ink">{v}</p>
               </div>
             ))}
           </div>
           {result.extras.length > 0 && (
             <ul className="space-y-1 text-sm text-gray-300">
               {result.extras.map((e) => (
-                <li key={e.name}>• <strong className="text-white">{e.name}</strong> — {e.why}</li>
+                <li key={e.name}>• <strong className="text-brand-ink">{e.name}</strong> — {e.why}</li>
               ))}
             </ul>
           )}
@@ -251,7 +251,7 @@ export function HostingPlannerTool() {
         </>
       ) : (
         <>
-          <h3 className="font-display text-2xl font-bold text-white">
+          <h3 className="font-display text-2xl font-bold text-brand-ink">
             {formatNgn(r.yearlyMin)} – {formatNgn(r.yearlyMax)}
             <span className="text-sm font-normal text-gray-400"> / year (est.)</span>
           </h3>
@@ -310,9 +310,9 @@ export function RoiTool() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+    <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4">
       <p className="text-[11px] uppercase text-gray-500">{label}</p>
-      <p className="mt-1 text-lg font-semibold text-white">{value}</p>
+      <p className="mt-1 text-lg font-semibold text-brand-ink">{value}</p>
     </div>
   );
 }
@@ -366,7 +366,7 @@ export function WhatsAppChecklistTool() {
             <button
               type="button"
               onClick={() => setChecked((c) => ({ ...c, [i]: !c[i] }))}
-              className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left text-sm ${checked[i] ? "border-primary/40 bg-primary/10 text-white" : "border-white/10 text-gray-300"}`}
+              className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left text-sm ${checked[i] ? "border-primary/40 bg-primary/10 text-brand-ink" : "border-brand-ink/10 text-gray-300"}`}
             >
               <span>{checked[i] ? "✓" : "○"}</span>
               <span>{item}</span>
@@ -404,7 +404,7 @@ export function MaintenanceTool() {
         </>
       ) : (
         <>
-          <h3 className="font-display text-2xl font-bold text-white">{r.plan}</h3>
+          <h3 className="font-display text-2xl font-bold text-brand-ink">{r.plan}</h3>
           <p className="text-primary font-semibold">{r.range}</p>
           <ul className="text-sm text-gray-300 space-y-1">{r.includes.map((i) => <li key={i}>• {i}</li>)}</ul>
           <ShareActions tool="maintenance" shareText={`Suggested plan: ${r.plan} (${r.range})`} onRestart={() => setDone(false)} />
@@ -436,7 +436,7 @@ export function EmailSignatureTool() {
         <input className={input} placeholder="Email" value={e} onChange={(e) => setE(e.target.value)} />
         <input className={input} placeholder="Website" value={w} onChange={(e) => setW(e.target.value)} />
       </div>
-      <div className="rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200 whitespace-pre-wrap">{html}</div>
+      <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-sm text-gray-200 whitespace-pre-wrap">{html}</div>
       <button type="button" className={btn} onClick={() => navigator.clipboard.writeText(html)}>Copy signature</button>
       <LeadForm tool="Email Signature" />
     </div>
@@ -465,7 +465,7 @@ export function SalaryTool() {
       ) : (
         <>
           <p className="text-sm text-gray-400 capitalize">{level} {role}</p>
-          <p className="font-display text-2xl font-bold text-white">{formatNgn(r.monthlyMin)} – {formatNgn(r.monthlyMax)} <span className="text-sm font-normal text-gray-400">/ month</span></p>
+          <p className="font-display text-2xl font-bold text-brand-ink">{formatNgn(r.monthlyMin)} – {formatNgn(r.monthlyMax)} <span className="text-sm font-normal text-gray-400">/ month</span></p>
           <p className="text-sm text-gray-300">Freelance day rate (est.): {formatNgn(r.dayMin)} – {formatNgn(r.dayMax)}</p>
           <p className="text-xs text-gray-500">{r.disclaimer}</p>
           <ShareActions tool="salary" shareText={`${level} ${role}: ${formatNgn(r.monthlyMin)}–${formatNgn(r.monthlyMax)}/mo`} onRestart={() => setDone(false)} />
@@ -498,9 +498,9 @@ export function SkillGapTool() {
         </>
       ) : (
         <>
-          <p className="text-sm font-semibold text-white">Prioritise next</p>
+          <p className="text-sm font-semibold text-brand-ink">Prioritise next</p>
           <ul className="text-sm text-amber-200/90 space-y-1">{(r.missingMust.length ? r.missingMust : ["Core must-haves look covered"]).map((s) => <li key={s}>• {s}</li>)}</ul>
-          <p className="text-sm font-semibold text-white pt-2">Then learn</p>
+          <p className="text-sm font-semibold text-brand-ink pt-2">Then learn</p>
           <ul className="text-sm text-gray-300 space-y-1">{r.missingShould.map((s) => <li key={s}>• {s}</li>)}</ul>
           <p className="text-xs text-gray-500">Explore structured learning at DoyinTech Academy.</p>
           <ShareActions tool="skill-gap" shareText={`Skill gap (${track}): focus on ${r.missingMust.slice(0, 3).join(", ")}`} onRestart={() => setDone(false)} />
@@ -553,7 +553,7 @@ export function ProjectIdeasTool() {
       ))}</div>
       <ul className="space-y-2 text-sm text-gray-300">
         {ideas.map((i) => (
-          <li key={i} className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">• {i}</li>
+          <li key={i} className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2">• {i}</li>
         ))}
       </ul>
       <LeadForm tool="Project Ideas" resultSummary={level} defaultMessage="Hi DoyinTech, I want mentorship building portfolio projects." />
@@ -573,10 +573,10 @@ export function InterviewTool() {
       ))}</div>
       <div className="rounded-2xl border border-primary/30 bg-primary/10 p-5">
         <p className="text-xs text-primary">Question {i + 1} / {qs.length}</p>
-        <p className="mt-2 text-lg text-white">{qs[i]}</p>
+        <p className="mt-2 text-lg text-brand-ink">{qs[i]}</p>
       </div>
       <div className="flex gap-2">
-        <button type="button" className="rounded-xl border border-white/15 px-4 py-2 text-xs text-gray-300" disabled={i === 0} onClick={() => setI((x) => x - 1)}>Previous</button>
+        <button type="button" className="rounded-xl border border-brand-ink/15 px-4 py-2 text-xs text-gray-300" disabled={i === 0} onClick={() => setI((x) => x - 1)}>Previous</button>
         <button type="button" className={btn} disabled={i >= qs.length - 1} onClick={() => setI((x) => x + 1)}>Next</button>
       </div>
       <LeadForm tool="Interview Practice" resultSummary={role} />
@@ -595,7 +595,7 @@ export function AiUseCaseTool() {
       ))}</div>
       <ul className="space-y-2 text-sm text-gray-300">
         {ideas.map((idea) => (
-          <li key={idea} className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">• {idea}</li>
+          <li key={idea} className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2">• {idea}</li>
         ))}
       </ul>
       <LeadForm tool="AI Use-Case Finder" resultSummary={industry} defaultMessage={`Hi DoyinTech, industry: ${industry}. I want to explore AI automation.`} />
@@ -644,7 +644,7 @@ export function PasswordTool() {
       <button type="button" className={btn} onClick={() => setPwd(generatePassword(len, symbols))}>Generate</button>
       {pwd && (
         <div className="flex flex-wrap items-center gap-2">
-          <code className="rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-primary">{pwd}</code>
+          <code className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-primary">{pwd}</code>
           <button type="button" className="text-xs text-gray-300 underline" onClick={() => navigator.clipboard.writeText(pwd)}>Copy</button>
         </div>
       )}

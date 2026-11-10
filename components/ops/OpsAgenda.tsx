@@ -77,8 +77,8 @@ function buildItems(ws: OpsWorkspace, today: string): Item[] {
 
 const badge: Record<Item["urgency"], string> = {
   overdue: "bg-red-500/15 text-red-300 border-red-500/30",
-  today: "bg-[#ff8c14]/15 text-[#ff8c14] border-[#ff8c14]/30",
-  upcoming: "bg-white/5 text-white/50 border-white/10",
+  today: "bg-brand-link/15 text-brand-link border-brand-link/30",
+  upcoming: "bg-brand-ink/5 text-brand-ink/50 border-brand-ink/10",
 };
 
 const kindLabel: Record<Item["kind"], string> = {
@@ -105,15 +105,15 @@ export default function OpsAgenda({
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
-        <h2 className="text-sm font-semibold text-white">Agenda</h2>
-        <p className="mt-1 text-[12px] text-white/45">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-5 backdrop-blur-xl">
+        <h2 className="text-sm font-semibold text-brand-ink">Agenda</h2>
+        <p className="mt-1 text-[12px] text-brand-ink/45">
           Follow-ups, task due dates, and invoice deadlines — sorted so nothing slips.
         </p>
       </div>
 
       {items.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-white/10 px-6 py-12 text-center text-sm text-white/40">
+        <div className="rounded-xl border border-dashed border-brand-ink/10 px-6 py-12 text-center text-sm text-brand-ink/40">
           No dated items yet. Set follow-up dates on deals, due dates on tasks, or invoice due dates.
         </div>
       ) : (
@@ -122,7 +122,7 @@ export default function OpsAgenda({
           if (!list.length) return null;
           return (
             <section key={g.key} className="space-y-2">
-              <h3 className="text-[11px] font-semibold uppercase tracking-wide text-white/40">
+              <h3 className="text-[11px] font-semibold uppercase tracking-wide text-brand-ink/40">
                 {g.label} ({list.length})
               </h3>
               <ul className="space-y-2">
@@ -138,17 +138,17 @@ export default function OpsAgenda({
                   return (
                     <li
                       key={item.id}
-                      className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-brand-deep px-4 py-3"
+                      className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep px-4 py-3"
                     >
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
                           <span className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${badge[item.urgency]}`}>
                             {kindLabel[item.kind]}
                           </span>
-                          <span className="text-[11px] tabular-nums text-white/40">{item.date}</span>
+                          <span className="text-[11px] tabular-nums text-brand-ink/40">{item.date}</span>
                         </div>
-                        <p className="mt-1 text-sm font-medium text-white">{item.title}</p>
-                        <p className="text-[12px] text-white/45">{item.subtitle}</p>
+                        <p className="mt-1 text-sm font-medium text-brand-ink">{item.title}</p>
+                        <p className="text-[12px] text-brand-ink/45">{item.subtitle}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {wa && (

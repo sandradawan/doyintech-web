@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { readReferralCode } from "@/lib/referrals";
 
-const field = "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+const field = "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 const label = "block text-[13px] text-brand-muted";
 
 /** Scoping request for custom systems. Creates a "quote" lead (pipeline + lead email sequence). */
@@ -50,7 +50,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
   if (state === "done") {
     return (
       <div role="status" className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6">
-        <p className="text-[17px] font-semibold text-white">Request received</p>
+        <p className="text-[17px] font-semibold text-brand-ink">Request received</p>
         <p className="mt-1 text-[14px] text-brand-soft">
           We&apos;ll reply within one business day, usually on WhatsApp, to book a free 15-minute scoping call. You&apos;ll get a fixed price before
           paying anything.
@@ -60,8 +60,8 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
   }
 
   return (
-    <form onSubmit={submit} className="space-y-4 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
-      <p className="text-[17px] font-semibold text-white">Get a fixed-price quote</p>
+    <form onSubmit={submit} className="space-y-4 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
+      <p className="text-[17px] font-semibold text-brand-ink">Get a fixed-price quote</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={label}>
           Your name
@@ -91,7 +91,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
                 type="button"
                 aria-pressed={on}
                 onClick={() => setNeeds((n) => (on ? n.filter((x) => x !== p) : [...n, p]))}
-                className={`rounded-full px-3 py-1.5 text-[13px] ${on ? "bg-[#ff8c14] font-semibold text-black" : "border border-white/15 text-brand-soft"}`}
+                className={`rounded-full px-3 py-1.5 text-[13px] ${on ? "bg-brand-accent font-semibold text-black" : "border border-brand-ink/15 text-brand-soft"}`}
               >
                 {p}
               </button>
@@ -104,7 +104,7 @@ export default function QuoteRequestForm({ product, prompts }: { product: string
         <textarea className={field} rows={3} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Number of students/rooms/products, deadline, current system…" />
       </label>
       <input type="text" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} className="absolute left-[-9999px] h-0 w-0 opacity-0" aria-hidden />
-      <button type="submit" disabled={state === "busy"} className="w-full rounded-full bg-[#ff8c14] py-3 text-[15px] font-semibold text-black disabled:opacity-60">
+      <button type="submit" disabled={state === "busy"} className="w-full rounded-full bg-brand-accent py-3 text-[15px] font-semibold text-black disabled:opacity-60">
         {state === "busy" ? "Sending…" : "Request my quote"}
       </button>
       {error && <p className="text-[13px] text-red-400">{error}</p>}

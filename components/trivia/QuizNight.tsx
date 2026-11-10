@@ -11,7 +11,7 @@ const LEVELS: { d: Difficulty; label: string; desc: string }[] = [
   { d: 2, label: "Family", desc: "Easy and medium" },
   { d: 3, label: "Experts", desc: "Everything, including hard" },
 ];
-const COLORS = ["bg-[#ff8c14]", "bg-sky-400", "bg-green-400", "bg-pink-400", "bg-yellow-300", "bg-violet-400"];
+const COLORS = ["bg-brand-accent", "bg-sky-400", "bg-green-400", "bg-pink-400", "bg-yellow-300", "bg-violet-400"];
 
 type Phase = "setup" | "handoff" | "question" | "results";
 
@@ -62,42 +62,42 @@ export default function QuizNight() {
 
   const toggleCat = (c: Category) => setCats((cs) => (cs.includes(c) ? (cs.length > 1 ? cs.filter((x) => x !== c) : cs) : [...cs, c]));
   const ranking = players.map((n, k) => ({ n, k, s: scores[k] ?? 0, r: rights[k] ?? 0 })).sort((a, b) => b.s - a.s);
-  const btn = (on: boolean) => `min-h-11 rounded-full px-4 text-[14px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/35"}`;
+  const btn = (on: boolean) => `min-h-11 rounded-full px-4 text-[14px] font-semibold transition ${on ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/35"}`;
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-brand-ink/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       {phase === "setup" && (
         <>
           <div>
-            <p className="text-[16px] font-semibold text-white">Who is playing? <span className="text-[13px] font-normal text-brand-muted">(2–6 players or teams)</span></p>
+            <p className="text-[16px] font-semibold text-brand-ink">Who is playing? <span className="text-[13px] font-normal text-brand-muted">(2–6 players or teams)</span></p>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               {names.map((n, k) => (
                 <div key={k} className="flex items-center gap-2">
                   <span className={`h-9 w-9 shrink-0 rounded-full ${COLORS[k]}`} aria-hidden />
-                  <input aria-label={`Player ${k + 1} name`} value={n} maxLength={20} onChange={(e) => setNames(names.map((x, j) => (j === k ? e.target.value : x)))} className="min-h-11 w-full rounded-xl border border-white/15 bg-black/40 px-3 text-[15px] text-white outline-none focus:border-[#ff8c14]" />
-                  {names.length > 2 && <button type="button" aria-label={`Remove ${players[k]}`} onClick={() => setNames(names.filter((_, j) => j !== k))} className="min-h-11 min-w-11 rounded-xl border border-white/15 text-white">×</button>}
+                  <input aria-label={`Player ${k + 1} name`} value={n} maxLength={20} onChange={(e) => setNames(names.map((x, j) => (j === k ? e.target.value : x)))} className="min-h-11 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 text-[15px] text-brand-ink outline-none focus:border-brand-link" />
+                  {names.length > 2 && <button type="button" aria-label={`Remove ${players[k]}`} onClick={() => setNames(names.filter((_, j) => j !== k))} className="min-h-11 min-w-11 rounded-xl border border-brand-ink/15 text-brand-ink">×</button>}
                 </div>
               ))}
             </div>
-            {names.length < 6 && <button type="button" onClick={() => setNames([...names, `Team ${names.length + 1}`])} className="mt-2 min-h-11 rounded-full border border-dashed border-white/25 px-4 text-[14px] text-white">+ Add player</button>}
+            {names.length < 6 && <button type="button" onClick={() => setNames([...names, `Team ${names.length + 1}`])} className="mt-2 min-h-11 rounded-full border border-dashed border-brand-ink/25 px-4 text-[14px] text-brand-ink">+ Add player</button>}
           </div>
 
           <div>
-            <p className="text-[16px] font-semibold text-white">Level</p>
+            <p className="text-[16px] font-semibold text-brand-ink">Level</p>
             <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label="Level">
               {LEVELS.map((l) => <button key={l.d} type="button" role="radio" aria-checked={level === l.d} onClick={() => setLevel(l.d)} className={btn(level === l.d)}>{l.label} · <span className="font-normal">{l.desc}</span></button>)}
             </div>
           </div>
 
           <div>
-            <p className="text-[16px] font-semibold text-white">Categories</p>
+            <p className="text-[16px] font-semibold text-brand-ink">Categories</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {CATEGORIES.map((c) => <button key={c} type="button" aria-pressed={cats.includes(c)} onClick={() => toggleCat(c)} className={btn(cats.includes(c))}>{c}</button>)}
             </div>
           </div>
 
           <div>
-            <p className="text-[16px] font-semibold text-white">Questions each</p>
+            <p className="text-[16px] font-semibold text-brand-ink">Questions each</p>
             <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label="Questions each">
               {[3, 5, 10].map((n) => <button key={n} type="button" role="radio" aria-checked={each === n} onClick={() => setEach(n)} className={btn(each === n)}>{n}</button>)}
             </div>
@@ -113,7 +113,7 @@ export default function QuizNight() {
       {(phase === "handoff" || phase === "question") && (
         <div className="flex flex-wrap gap-2">
           {players.map((n, k) => (
-            <span key={k} className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 text-[13px] font-semibold ${k === turn ? `${COLORS[k]} text-black` : "bg-white/10 text-white"}`}>{n}: {scores[k]}</span>
+            <span key={k} className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 text-[13px] font-semibold ${k === turn ? `${COLORS[k]} text-black` : "bg-brand-ink/10 text-brand-ink"}`}>{n}: {scores[k]}</span>
           ))}
         </div>
       )}
@@ -123,7 +123,7 @@ export default function QuizNight() {
           <p className="text-[15px] text-brand-muted">Question {i + 1} of {qs.length}</p>
           <p className="mt-2 text-[18px] text-brand-soft">Pass the phone to</p>
           <p className={`mx-auto mt-3 inline-block rounded-2xl px-6 py-3 text-[32px] font-black text-black ${COLORS[turn]}`}>{players[turn]}</p>
-          <div><button type="button" onClick={() => setPhase("question")} className="mt-6 min-h-14 rounded-full bg-white px-8 text-[18px] font-black text-black">I&apos;m ready</button></div>
+          <div><button type="button" onClick={() => setPhase("question")} className="mt-6 min-h-14 rounded-full bg-brand-ink px-8 text-[18px] font-black text-brand-deep">I&apos;m ready</button></div>
         </div>
       )}
 
@@ -134,11 +134,11 @@ export default function QuizNight() {
       {phase === "results" && (
         <div className="text-center">
           <p className="text-[52px]" aria-hidden>🏆</p>
-          <p className="text-[30px] font-black text-white">{ranking[0].s === ranking[1]?.s ? "It's a tie!" : `${ranking[0].n} wins!`}</p>
+          <p className="text-[30px] font-black text-brand-ink">{ranking[0].s === ranking[1]?.s ? "It's a tie!" : `${ranking[0].n} wins!`}</p>
           <ol className="mx-auto mt-5 max-w-md space-y-2 text-left">
             {ranking.map((p, pos) => (
-              <li key={p.k} className="flex items-center justify-between gap-3 rounded-2xl bg-black/30 px-4 py-3">
-                <span className="flex items-center gap-3 text-[17px] font-semibold text-white">
+              <li key={p.k} className="flex items-center justify-between gap-3 rounded-2xl bg-brand-well px-4 py-3">
+                <span className="flex items-center gap-3 text-[17px] font-semibold text-brand-ink">
                   <span className="w-6 text-center text-brand-muted">{pos + 1}</span>
                   <span className={`h-4 w-4 rounded-full ${COLORS[p.k]}`} aria-hidden />
                   {p.n}
@@ -148,11 +148,11 @@ export default function QuizNight() {
             ))}
           </ol>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <button type="button" onClick={start} className="min-h-12 rounded-full bg-[#ff8c14] px-6 text-[15px] font-bold text-black">Rematch (new questions)</button>
-            <button type="button" onClick={() => setPhase("setup")} className="min-h-12 rounded-full border border-white/15 px-6 text-[15px] font-semibold text-white">Change players</button>
+            <button type="button" onClick={start} className="min-h-12 rounded-full bg-brand-accent px-6 text-[15px] font-bold text-black">Rematch (new questions)</button>
+            <button type="button" onClick={() => setPhase("setup")} className="min-h-12 rounded-full border border-brand-ink/15 px-6 text-[15px] font-semibold text-brand-ink">Change players</button>
           </div>
           <p className="mt-6 text-[14px] text-brand-muted">
-            Hosting a bigger quiz at church, school or the office? Get the <Link href="/products/quiz-night-host-pack" className="text-[#ff8c14] underline">printable Quiz Night Host Pack</Link>.
+            Hosting a bigger quiz at church, school or the office? Get the <Link href="/products/quiz-night-host-pack" className="text-brand-link underline">printable Quiz Night Host Pack</Link>.
           </p>
         </div>
       )}

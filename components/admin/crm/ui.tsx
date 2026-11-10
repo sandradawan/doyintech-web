@@ -4,24 +4,24 @@ import { useEffect, useRef, type ReactNode } from "react";
 import type { Field } from "@/lib/admin/resources";
 
 export const inputCls =
-  "w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-[#ff8c14]/70 focus:ring-2 focus:ring-[#ff8c14]/15 disabled:opacity-60";
+  "w-full rounded-lg border border-brand-ink/10 bg-brand-well px-3 py-2 text-[14px] text-brand-ink outline-none transition placeholder:text-brand-ink/25 focus:border-brand-link/70 focus:ring-2 focus:ring-brand-link/15 disabled:opacity-60";
 export const btn = {
   primary:
-    "inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#ff8c14] px-3.5 py-2 text-[13px] font-semibold text-black transition hover:brightness-110 disabled:opacity-50",
+    "inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand-accent px-3.5 py-2 text-[13px] font-semibold text-black transition hover:brightness-110 disabled:opacity-50",
   ghost:
-    "inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/10 px-3.5 py-2 text-[13px] font-medium text-[#e5e5ea] transition hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-50",
+    "inline-flex items-center justify-center gap-1.5 rounded-lg border border-brand-ink/10 px-3.5 py-2 text-[13px] font-medium text-[#e5e5ea] transition hover:border-brand-ink/25 hover:bg-brand-ink/[0.04] disabled:opacity-50",
   danger:
     "inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-500/30 px-3.5 py-2 text-[13px] font-medium text-red-300 transition hover:bg-red-500/10 disabled:opacity-50",
 };
-export const panel = "rounded-2xl border border-white/[0.07] bg-brand-deep";
+export const panel = "rounded-2xl border border-brand-ink/[0.07] bg-brand-deep";
 
 const TONES: Record<string, string> = {
   green: "bg-emerald-500/12 text-emerald-300 ring-emerald-500/20",
-  orange: "bg-[#ff8c14]/12 text-[#ffb366] ring-[#ff8c14]/25",
+  orange: "bg-brand-link/12 text-brand-link ring-brand-link/25",
   blue: "bg-sky-500/12 text-sky-300 ring-sky-500/20",
   violet: "bg-violet-500/12 text-violet-300 ring-violet-500/20",
   red: "bg-red-500/12 text-red-300 ring-red-500/20",
-  gray: "bg-white/[0.06] text-brand-muted ring-white/10",
+  gray: "bg-brand-ink/[0.06] text-brand-muted ring-brand-ink/10",
 };
 
 const STATUS_TONE: Record<string, keyof typeof TONES> = {
@@ -92,7 +92,7 @@ export function relativeTime(v: unknown): string {
 
 /** Read-only display of a value according to its field type. */
 export function CellValue({ field, value }: { field: Field; value: unknown }) {
-  if (value === null || value === undefined || value === "") return <span className="text-white/20">—</span>;
+  if (value === null || value === undefined || value === "") return <span className="text-brand-ink/20">—</span>;
   switch (field.type) {
     case "select":
       return <Badge value={String(value)} />;
@@ -111,7 +111,7 @@ export function CellValue({ field, value }: { field: Field; value: unknown }) {
         </span>
       );
     case "json":
-      return <span className="font-mono text-[11px] text-white/50">{JSON.stringify(value).slice(0, 60)}</span>;
+      return <span className="font-mono text-[11px] text-brand-ink/50">{JSON.stringify(value).slice(0, 60)}</span>;
     case "email":
       return <span className="text-brand-link">{String(value)}</span>;
     default:
@@ -157,36 +157,36 @@ export function Drawer({
       <div
         ref={ref}
         tabIndex={-1}
-        className={`absolute inset-y-0 right-0 flex w-full flex-col border-l border-white/10 bg-brand-deep shadow-2xl outline-none ${
+        className={`absolute inset-y-0 right-0 flex w-full flex-col border-l border-brand-ink/10 bg-brand-deep shadow-2xl outline-none ${
           wide ? "sm:max-w-3xl" : "sm:max-w-xl"
         }`}
       >
-        <div className="flex items-start justify-between gap-3 border-b border-white/[0.07] px-5 py-4">
+        <div className="flex items-start justify-between gap-3 border-b border-brand-ink/[0.07] px-5 py-4">
           <div className="min-w-0">
-            <div className="truncate text-[17px] font-semibold text-white">{title}</div>
+            <div className="truncate text-[17px] font-semibold text-brand-ink">{title}</div>
             {subtitle && <div className="mt-0.5 text-[12px] text-brand-subtle">{subtitle}</div>}
           </div>
-          <button type="button" onClick={onClose} className="rounded-lg px-2 py-1 text-[18px] leading-none text-brand-muted hover:bg-white/5 hover:text-white" aria-label="Close">
+          <button type="button" onClick={onClose} className="rounded-lg px-2 py-1 text-[18px] leading-none text-brand-muted hover:bg-brand-ink/5 hover:text-brand-ink" aria-label="Close">
             ×
           </button>
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-5">{children}</div>
-        {footer && <div className="border-t border-white/[0.07] px-5 py-3">{footer}</div>}
+        {footer && <div className="border-t border-brand-ink/[0.07] px-5 py-3">{footer}</div>}
       </div>
     </div>
   );
 }
 
 export function Spinner() {
-  return <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/15 border-t-[#ff8c14]" aria-hidden />;
+  return <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-brand-ink/15 border-t-brand-link" aria-hidden />;
 }
 
 export function PageHeader({ eyebrow, title, description, actions }: { eyebrow?: string; title: string; description?: string; actions?: ReactNode }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div className="min-w-0">
-        {eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">{eyebrow}</p>}
-        <h1 className="mt-1 text-[24px] font-semibold tracking-tight text-white">{title}</h1>
+        {eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">{eyebrow}</p>}
+        <h1 className="mt-1 text-[24px] font-semibold tracking-tight text-brand-ink">{title}</h1>
         {description && <p className="mt-1 max-w-2xl text-[13px] text-brand-subtle">{description}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}

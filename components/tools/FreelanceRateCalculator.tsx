@@ -7,7 +7,7 @@ import { formatMoney } from "@/lib/global/currencies";
 import { freelanceRate } from "@/lib/global/pay-rates";
 
 const num = (v: string) => parseFloat(v.replace(/,/g, "")) || 0;
-const field = "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]";
+const field = "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link";
 
 /** The hourly and day rate a freelancer needs to reach a target income after tax and costs. */
 export default function FreelanceRateCalculator() {
@@ -32,7 +32,7 @@ export default function FreelanceRateCalculator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-      <div className="space-y-4 rounded-2xl border border-white/10 bg-brand-surface p-5">
+      <div className="space-y-4 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block text-[12px] font-medium text-brand-muted">Income you want to keep a year<input inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} className={field + " text-[18px] font-semibold"} /></label>
           <CurrencySelect value={currency} onChange={setCurrency} />
@@ -48,18 +48,18 @@ export default function FreelanceRateCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+        <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
           <p className="text-[13px] text-brand-muted">Charge at least</p>
-          <p className="mt-1 text-[32px] font-semibold text-[#ff8c14]">{money(r.hourly)}<span className="text-[15px] font-medium text-brand-muted"> / hour</span></p>
-          <p className="text-[15px] text-white">{money(r.daily)} a day</p>
+          <p className="mt-1 text-[32px] font-semibold text-brand-link">{money(r.hourly)}<span className="text-[15px] font-medium text-brand-muted"> / hour</span></p>
+          <p className="text-[15px] text-brand-ink">{money(r.daily)} a day</p>
         </div>
-        <dl className="rounded-2xl border border-white/10 bg-brand-surface p-5 text-[14px]">
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Revenue you need a year</dt><dd className="text-white">{money(r.revenueNeeded)}</dd></div>
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Billable hours a year</dt><dd className="text-white">{Math.round(r.billableHours).toLocaleString()}</dd></div>
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Working weeks</dt><dd className="text-white">{r.workingWeeks}</dd></div>
-          <div className="flex justify-between gap-3 border-t border-white/10 pt-2.5"><dt className="text-brand-muted">A 40-hour project at this rate</dt><dd className="font-semibold text-white">{money(quote)}</dd></div>
+        <dl className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 text-[14px]">
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Revenue you need a year</dt><dd className="text-brand-ink">{money(r.revenueNeeded)}</dd></div>
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Billable hours a year</dt><dd className="text-brand-ink">{Math.round(r.billableHours).toLocaleString()}</dd></div>
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Working weeks</dt><dd className="text-brand-ink">{r.workingWeeks}</dd></div>
+          <div className="flex justify-between gap-3 border-t border-brand-ink/10 pt-2.5"><dt className="text-brand-muted">A 40-hour project at this rate</dt><dd className="font-semibold text-brand-ink">{money(quote)}</dd></div>
         </dl>
-        <Link href={`/tools/invoice-generator?currency=${currency}`} className="inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">
+        <Link href={`/tools/invoice-generator?currency=${currency}`} className="inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">
           Invoice a client in {currency}
         </Link>
       </div>

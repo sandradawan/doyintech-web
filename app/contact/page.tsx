@@ -42,7 +42,7 @@ export default function ContactPage() {
                 <p className="text-sm font-semibold uppercase tracking-wider text-primary">
                   Fastest path
                 </p>
-                <h2 className="mt-2 font-display text-xl font-bold text-white">
+                <h2 className="mt-2 font-display text-xl font-bold text-brand-ink">
                   Book a discovery call
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-brand-soft">
@@ -60,7 +60,7 @@ export default function ContactPage() {
 
               <a
                 href={emailLink()}
-                className="group block rounded-2xl border border-white/10 bg-black/20 p-6 transition hover:border-primary/60"
+                className="group block rounded-2xl border border-brand-ink/10 bg-brand-well p-6 transition hover:border-primary/60"
               >
                 <p className="text-sm text-brand-muted">Email</p>
                 <p className="mt-2 font-semibold text-gray-100">hello@doyintech.com</p>
@@ -70,7 +70,7 @@ export default function ContactPage() {
 
               <a
                 href="tel:+2348085343926"
-                className="group block rounded-2xl border border-white/10 bg-black/20 p-6 transition hover:border-primary/60"
+                className="group block rounded-2xl border border-brand-ink/10 bg-brand-well p-6 transition hover:border-primary/60"
               >
                 <p className="text-sm text-brand-muted">Phone</p>
                 <p className="mt-2 font-semibold text-gray-100">08085343926</p>
@@ -78,9 +78,9 @@ export default function ContactPage() {
                 <p className="mt-4 text-sm text-primary">Call now →</p>
               </a>
 
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-6">
+              <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-6">
                 <div className="mb-4 flex items-center gap-3.5">
-                  <div className="relative h-11 w-11 overflow-hidden rounded-full border border-white/15">
+                  <div className="relative h-11 w-11 overflow-hidden rounded-full border border-brand-ink/15">
                     <Image
                       src="/founder.png"
                       alt="Silas Doyin Jonathan"
@@ -89,7 +89,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-xs font-bold uppercase tracking-wider text-white">
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-ink">
                       Silas D. Jonathan
                     </span>
                     <span className="mt-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider text-green-400">
@@ -105,7 +105,7 @@ export default function ContactPage() {
             </motion.div>
 
             <motion.div variants={item} className="lg:col-span-7">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-6 md:p-8">
+              <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-6 md:p-8">
                 <h2 className="font-display text-2xl font-bold">Get in touch</h2>
                 <p className="mt-2 text-brand-muted">
                   Choose one path. No form to fill.
@@ -116,7 +116,7 @@ export default function ContactPage() {
                     subtitle="We’ll respond with a clear plan, timeline, and next step."
                   />
                 </div>
-                <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-4">
+                <div className="mt-8 rounded-xl border border-brand-ink/10 bg-brand-ink/5 p-4">
                   <p className="text-sm font-medium text-gray-200">What happens next?</p>
                   <ul className="mt-2 space-y-2 text-sm text-brand-muted">
                     <li>• We review your request</li>

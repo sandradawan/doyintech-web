@@ -98,7 +98,7 @@ export default function BusinessPlanGenerator() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className={panel}>
-          <p className="text-[15px] font-semibold text-white">Start-up costs (₦)</p>
+          <p className="text-[15px] font-semibold text-brand-ink">Start-up costs (₦)</p>
           {p.costs.map((c, i) => (
             <div key={i} className="grid grid-cols-[1fr_140px_auto] items-end gap-2">
               <Field name={`Item ${i + 1}`} value={c.item} onChange={(v) => setP({ ...p, costs: p.costs.map((x, j) => (j === i ? { ...x, item: v } : x)) })} />
@@ -111,7 +111,7 @@ export default function BusinessPlanGenerator() {
         </div>
 
         <div className={panel}>
-          <p className="text-[15px] font-semibold text-white">Monthly projection</p>
+          <p className="text-[15px] font-semibold text-brand-ink">Monthly projection</p>
           <div className="grid gap-3 sm:grid-cols-2">
             <Field name="Average selling price (₦)" type="number" value={p.price} onChange={set("price")} />
             <Field name="Units / customers per month" type="number" value={p.unitsPerMonth} onChange={set("unitsPerMonth")} />
@@ -127,9 +127,9 @@ export default function BusinessPlanGenerator() {
               ["Break-even", f.breakEvenUnits != null ? `${f.breakEvenUnits.toLocaleString()} units/month` : "Set price above unit cost"],
               ["Payback", f.payback != null ? `${f.payback} months` : "Not yet profitable"],
             ].map(([k, v]) => (
-              <div key={k} className="rounded-xl bg-black/30 p-3">
+              <div key={k} className="rounded-xl bg-brand-well p-3">
                 <dt className="text-brand-muted">{k}</dt>
-                <dd className={`mt-0.5 font-semibold ${k === "Monthly profit" && f.profit < 0 ? "text-[#ff8a8a]" : "text-white"}`}>{v}</dd>
+                <dd className={`mt-0.5 font-semibold ${k === "Monthly profit" && f.profit < 0 ? "text-[#ff8a8a]" : "text-brand-ink"}`}>{v}</dd>
               </div>
             ))}
           </dl>

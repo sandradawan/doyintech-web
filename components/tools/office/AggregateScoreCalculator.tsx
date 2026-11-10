@@ -51,14 +51,14 @@ export default function AggregateScoreCalculator() {
         </div>
         {(method === "olevel" || (method === "custom" && num(w.olevel) > 0)) && (
           <fieldset>
-            <legend className="mb-2 text-[13px] font-semibold text-white">O&apos;level grades (five relevant subjects, one sitting)</legend>
+            <legend className="mb-2 text-[13px] font-semibold text-brand-ink">O&apos;level grades (five relevant subjects, one sitting)</legend>
             <div className="grid gap-2 sm:grid-cols-5">
               {grades.map((g, i) => (
                 <label key={i} className={label}>
                   {subjects[i]}
                   <select className={field} value={g} onChange={(e) => setGrades(grades.map((x, j) => (j === i ? e.target.value : x)))}>
                     {Object.keys(OLEVEL_POINTS).map((k) => (
-                      <option key={k} value={k} className="bg-black">{k}</option>
+                      <option key={k} value={k} className="bg-brand-surface text-brand-ink">{k}</option>
                     ))}
                   </select>
                 </label>
@@ -75,14 +75,14 @@ export default function AggregateScoreCalculator() {
         )}
       </div>
 
-      <div className="rounded-2xl border border-[#ff8c14]/40 bg-gradient-to-b from-brand-surface to-brand-surface p-6 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <p className="text-[13px] font-semibold uppercase tracking-wide text-[#ff8c14]">Your aggregate</p>
-        <p className="mt-2 text-[52px] font-semibold leading-none text-white">{r.score.toFixed(2)}<span className="text-[22px] text-brand-muted">/100</span></p>
+      <div className="rounded-2xl border border-brand-link/40 bg-gradient-to-b from-brand-surface to-brand-surface p-6 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
+        <p className="text-[13px] font-semibold uppercase tracking-wide text-brand-link">Your aggregate</p>
+        <p className="mt-2 text-[52px] font-semibold leading-none text-brand-ink">{r.score.toFixed(2)}<span className="text-[22px] text-brand-muted">/100</span></p>
         <p className="mt-2 text-[14px] text-brand-soft">{band}</p>
         <dl className="mt-5 space-y-2 text-[14px]">
-          <div className="flex justify-between"><dt className="text-brand-muted">JAMB ({r.weights.jamb}%)</dt><dd className="text-white">{r.parts.jamb.toFixed(2)}</dd></div>
-          <div className="flex justify-between"><dt className="text-brand-muted">Post-UTME ({r.weights.putme}%)</dt><dd className="text-white">{r.parts.putme.toFixed(2)}</dd></div>
-          {r.weights.olevel > 0 && <div className="flex justify-between"><dt className="text-brand-muted">O&apos;level ({r.weights.olevel}%)</dt><dd className="text-white">{r.parts.olevel.toFixed(2)}</dd></div>}
+          <div className="flex justify-between"><dt className="text-brand-muted">JAMB ({r.weights.jamb}%)</dt><dd className="text-brand-ink">{r.parts.jamb.toFixed(2)}</dd></div>
+          <div className="flex justify-between"><dt className="text-brand-muted">Post-UTME ({r.weights.putme}%)</dt><dd className="text-brand-ink">{r.parts.putme.toFixed(2)}</dd></div>
+          {r.weights.olevel > 0 && <div className="flex justify-between"><dt className="text-brand-muted">O&apos;level ({r.weights.olevel}%)</dt><dd className="text-brand-ink">{r.parts.olevel.toFixed(2)}</dd></div>}
         </dl>
         <p className="mt-5 text-[12px] leading-relaxed text-brand-muted">Each school publishes its own formula and cut-off marks. Check your institution&apos;s admission brochure and choose Custom weights if it differs.</p>
       </div>

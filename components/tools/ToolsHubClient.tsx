@@ -81,7 +81,7 @@ export default function ToolsHubClient() {
             setPage(1);
           }}
           placeholder="Search tools — invoice, VAT, WhatsApp, margin, word counter…"
-          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-brand-muted focus:border-primary/50"
+          className="w-full rounded-2xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-sm text-brand-ink outline-none placeholder:text-brand-muted focus:border-primary/50"
         />
       </div>
 
@@ -94,8 +94,8 @@ export default function ToolsHubClient() {
             onClick={() => selectAudience(a.id)}
             className={`min-h-12 rounded-2xl border px-4 text-left text-[14px] font-semibold transition ${
               audience === a.id
-                ? "border-primary bg-primary/15 text-white"
-                : "border-white/10 bg-white/[0.03] text-gray-200 hover:border-white/30"
+                ? "border-primary bg-primary/15 text-brand-ink"
+                : "border-brand-ink/10 bg-brand-ink/[0.03] text-gray-200 hover:border-brand-ink/30"
             }`}
           >
             {a.label}
@@ -109,8 +109,8 @@ export default function ToolsHubClient() {
           onClick={() => selectCategory("all")}
           className={`min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
             category === "all"
-              ? "bg-white text-black"
-              : "border border-white/15 text-brand-soft hover:border-white/30"
+              ? "bg-brand-ink text-brand-deep"
+              : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/30"
           }`}
         >
           All ({TOOLS_META.length})
@@ -125,8 +125,8 @@ export default function ToolsHubClient() {
               onClick={() => selectCategory(cat.id)}
               className={`inline-flex items-center gap-1.5 min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
                 category === cat.id
-                  ? "bg-white text-black"
-                  : "border border-white/15 text-brand-soft hover:border-white/30"
+                  ? "bg-brand-ink text-brand-deep"
+                  : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/30"
               }`}
             >
               <CategoryIcon category={cat.id} size={14} />
@@ -147,10 +147,10 @@ export default function ToolsHubClient() {
           <Link
             key={t.slug}
             href={t.href}
-            className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-primary/40 hover:bg-white/[0.06]"
+            className="group rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 transition hover:border-primary/40 hover:bg-brand-ink/[0.06]"
           >
             <div className="flex items-start justify-between gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-black/40">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-brand-ink/10 bg-brand-well">
                 <ToolIcon name={t.icon} size={20} />
               </div>
               <div className="flex flex-wrap justify-end gap-1">
@@ -170,7 +170,7 @@ export default function ToolsHubClient() {
                 )}
               </div>
             </div>
-            <h2 className="mt-3 font-display text-lg font-semibold text-white group-hover:text-primary">
+            <h2 className="mt-3 font-display text-lg font-semibold text-brand-ink group-hover:text-primary">
               {t.title}
             </h2>
             <p className="mt-1 text-sm text-brand-muted">{t.short}</p>
@@ -195,7 +195,7 @@ export default function ToolsHubClient() {
             type="button"
             disabled={safePage <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="min-h-11 rounded-full border border-white/15 px-5 text-[13px] font-semibold text-white disabled:opacity-40"
+            className="min-h-11 rounded-full border border-brand-ink/15 px-5 text-[13px] font-semibold text-brand-ink disabled:opacity-40"
           >
             Previous
           </button>
@@ -206,7 +206,7 @@ export default function ToolsHubClient() {
             type="button"
             disabled={safePage >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            className="min-h-11 rounded-full border border-white/15 px-5 text-[13px] font-semibold text-white disabled:opacity-40"
+            className="min-h-11 rounded-full border border-brand-ink/15 px-5 text-[13px] font-semibold text-brand-ink disabled:opacity-40"
           >
             Next
           </button>

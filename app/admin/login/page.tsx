@@ -67,22 +67,22 @@ export default function AdminLoginPage() {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-brand-deepest px-5">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,140,20,0.16),_transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(163,230,53,0.16),_transparent_50%)]" />
       <form
         onSubmit={onSubmit}
-        className="relative w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-brand-deep/90 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+        className="relative w-full max-w-md space-y-5 rounded-3xl border border-brand-ink/10 bg-brand-deep/90 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
       >
         <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 text-[18px] font-bold text-[#ff8c14]">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-link/30 bg-brand-link/10 text-[18px] font-bold text-brand-link">
             DT
           </div>
-          <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ff8c14]">
+          <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-link">
             Command center
           </p>
-          <h1 className="mt-2 font-display text-2xl font-semibold text-white">
+          <h1 className="mt-2 font-display text-2xl font-semibold text-brand-ink">
             Admin sign in
           </h1>
-          <p className="mt-1.5 text-sm text-white/45">
+          <p className="mt-1.5 text-sm text-brand-ink/45">
             Secure email &amp; password access
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@doyintech.com"
-            className="mt-1.5 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/50"
+            className="mt-1.5 w-full rounded-2xl border border-brand-ink/10 bg-brand-well px-4 py-3.5 text-brand-ink outline-none placeholder:text-brand-ink/30 focus:border-brand-link/50"
           />
         </label>
         <label className="block">
@@ -115,19 +115,19 @@ export default function AdminLoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="mt-1.5 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/50"
+            className="mt-1.5 w-full rounded-2xl border border-brand-ink/10 bg-brand-well px-4 py-3.5 text-brand-ink outline-none placeholder:text-brand-ink/30 focus:border-brand-link/50"
           />
         </label>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-gradient-to-r from-[#ff9a2e] to-[#ff8c14] py-3.5 font-semibold text-black shadow-[0_8px_28px_rgba(255,140,20,0.3)] disabled:opacity-50"
+          className="w-full rounded-full bg-gradient-to-r from-[#ff9a2e] to-brand-accent py-3.5 font-semibold text-black shadow-[0_8px_28px_rgba(163,230,53,0.3)] disabled:opacity-50"
         >
           {loading ? "Signing in…" : "Enter dashboard"}
         </button>
 
-        <p className="text-center text-[12px] text-white/35">
+        <p className="text-center text-[12px] text-brand-ink/35">
           Allowlisted admins only ·{" "}
           <Link href="/" className="text-brand-link hover:underline">
             Public site

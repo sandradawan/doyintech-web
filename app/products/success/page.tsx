@@ -89,8 +89,8 @@ function SuccessInner() {
             <p className="mt-1 text-[13px] text-brand-muted">Ref: {reference}</p>
 
             {links.length > 0 && (
-              <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left">
-                <p className="text-[15px] font-semibold text-white">Your files</p>
+              <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-5 text-left">
+                <p className="text-[15px] font-semibold text-brand-ink">Your files</p>
                 <p className="mt-1 text-[13px] text-[#94a3b8]">
                   {detail?.delivery?.emailed
                     ? "Also sent to your email as PDF + Markdown."
@@ -101,7 +101,7 @@ function SuccessInner() {
                     <li key={l.url}>
                       <a
                         href={l.url}
-                        className="text-[14px] font-medium text-[#ff8c14] hover:underline"
+                        className="text-[14px] font-medium text-brand-link hover:underline"
                       >
                         {l.label}
                       </a>
@@ -132,7 +132,7 @@ function SuccessInner() {
                 </p>
                 <a
                   href={`/components/${product.isBundle ? "" : product.slug}?${refQuery}`}
-                  className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+                  className="inline-flex rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black"
                 >
                   {product.isBundle ? "Browse components" : "Open source code"}
                 </a>
@@ -144,7 +144,7 @@ function SuccessInner() {
                 </p>
                 <a
                   href={`/templates/${product.isBundle ? "" : product.slug}?${refQuery}`}
-                  className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+                  className="inline-flex rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black"
                 >
                   {product.isBundle ? "Browse templates" : "Open template"}
                 </a>
@@ -154,7 +154,7 @@ function SuccessInner() {
                 <p className="text-[15px] text-emerald-400">Tool unlocked on this device.</p>
                 <a
                   href={`/tools/${product.toolSlug}`}
-                  className="inline-flex rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-black"
+                  className="inline-flex rounded-full bg-brand-ink px-6 py-3 text-[15px] font-semibold text-brand-deep"
                 >
                   Open {product.title}
                 </a>
@@ -181,17 +181,17 @@ function SuccessInner() {
             )}
 
             {product?.kind === "component" && !product.isBundle && (
-              <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-5 text-left">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+              <div className="mt-10 rounded-2xl border border-brand-link/30 bg-brand-surface p-5 text-left">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
                   Save on the rest
                 </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-white">Get the Full UI Kit</h2>
+                <h2 className="mt-1 text-[18px] font-semibold text-brand-ink">Get the Full UI Kit</h2>
                 <p className="mt-2 text-[13px] text-brand-muted">
                   Every component in one purchase.
                 </p>
                 <a
                   href={`/components/${COMPONENT_KIT_SLUG}`}
-                  className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+                  className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
                 >
                   View Full UI Kit
                 </a>
@@ -199,7 +199,7 @@ function SuccessInner() {
             )}
 
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-[14px]">
-              <a href="/hire" className="text-[#ff8c14] hover:underline">
+              <a href="/hire" className="text-brand-link hover:underline">
                 Hire us
               </a>
               <Link href="/products" className="text-brand-link hover:underline">

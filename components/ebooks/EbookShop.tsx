@@ -25,7 +25,7 @@ export function EbookCover({
         : { wrap: "h-[252px] w-[168px]", sizes: "168px" };
 
   return (
-    <div className={`${dims.wrap} relative overflow-hidden rounded-[3px] shadow-[0_6px_18px_rgba(0,0,0,0.45)] ring-1 ring-white/10`}>
+    <div className={`${dims.wrap} relative overflow-hidden rounded-[3px] shadow-[0_6px_18px_rgba(0,0,0,0.45)] ring-1 ring-brand-ink/10`}>
       <Image
         src={book.coverImage}
         alt={`${book.title} ebook cover`}
@@ -42,7 +42,7 @@ export function EbookCard({ book }: { book: PublicEbook }) {
   return (
     <Link
       href={`/ebooks/${book.slug}`}
-      className="group flex h-full flex-col glass rounded-[22px] p-5 transition hover:border-[#ff8c14]/50"
+      className="group flex h-full flex-col glass rounded-[22px] p-5 transition hover:border-brand-link/50"
     >
       <div className="flex justify-center py-3">
         <div className="transition duration-300 group-hover:-translate-y-1">
@@ -53,12 +53,12 @@ export function EbookCard({ book }: { book: PublicEbook }) {
         <p className="text-[11px] font-medium uppercase tracking-wide text-brand-subtle">
           {book.category}
         </p>
-        <h3 className="mt-1 text-[17px] font-semibold text-white group-hover:text-[#ff8c14]">
+        <h3 className="mt-1 text-[17px] font-semibold text-brand-ink group-hover:text-brand-link">
           {book.title}
         </h3>
         <p className="mt-1 line-clamp-2 text-[13px] text-brand-muted">{book.subtitle}</p>
-        <div className="mt-4 flex flex-col gap-1 border-t border-white/10 pt-3">
-          <span className="text-[16px] font-semibold text-white">
+        <div className="mt-4 flex flex-col gap-1 border-t border-brand-ink/10 pt-3">
+          <span className="text-[16px] font-semibold text-brand-ink">
             {book.onSale ? formatEbookPrice(book.priceNgn) : "Coming soon"}
           </span>
           <span className="text-[11px] text-brand-subtle">{book.pagesLabel}</span>
@@ -105,16 +105,16 @@ export function EbookBuyPanel({ book }: { book: PublicEbook }) {
 
   if (!book.onSale) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
-        <p className="text-[18px] font-semibold text-white">Coming soon</p>
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+        <p className="text-[18px] font-semibold text-brand-ink">Coming soon</p>
         <p className="mt-2 text-[14px] leading-relaxed text-brand-soft">We are finishing this book and it isn&apos;t on sale yet. Please check back shortly.</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
-      <p className="text-[28px] font-semibold text-white">{formatEbookPrice(book.priceNgn)}</p>
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+      <p className="text-[28px] font-semibold text-brand-ink">{formatEbookPrice(book.priceNgn)}</p>
       <p className="mt-1 text-[12px] text-brand-muted">One-time · Instant access after payment</p>
       <label className="mt-4 block text-[12px] text-brand-muted">
         Email for delivery
@@ -123,7 +123,7 @@ export function EbookBuyPanel({ book }: { book: PublicEbook }) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+          className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link"
           placeholder="you@email.com"
         />
       </label>
@@ -132,14 +132,14 @@ export function EbookBuyPanel({ book }: { book: PublicEbook }) {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+          className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link"
         />
       </label>
       <button
         type="button"
         disabled={loading || !email.includes("@")}
         onClick={buy}
-        className="mt-4 w-full rounded-full bg-[#ff8c14] py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
+        className="mt-4 w-full rounded-full bg-brand-accent py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
       >
         {loading ? "Redirecting…" : `Buy ebook · ${formatEbookPrice(book.priceNgn)}`}
       </button>
@@ -155,8 +155,8 @@ function EbookReader({ chapters }: { chapters: EbookChapter[] }) {
   return (
     <article className="space-y-8">
       {chapters.map((ch) => (
-        <section key={ch.title} className="rounded-2xl border border-white/10 bg-black/25 p-5">
-          <h3 className="text-[16px] font-semibold text-white">{ch.title}</h3>
+        <section key={ch.title} className="rounded-2xl border border-brand-ink/10 bg-brand-well p-5">
+          <h3 className="text-[16px] font-semibold text-brand-ink">{ch.title}</h3>
           <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-brand-soft">
             {ch.body}
           </div>
@@ -189,20 +189,20 @@ export function EbookGatedReader({ book }: { book: PublicEbook }) {
   return (
     <div className="space-y-6">
       {preview.map((ch) => (
-        <section key={ch.title} className="rounded-2xl border border-white/10 bg-black/25 p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+        <section key={ch.title} className="rounded-2xl border border-brand-ink/10 bg-brand-well p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
             Free preview
           </p>
-          <h3 className="mt-1 text-[16px] font-semibold text-white">{ch.title}</h3>
+          <h3 className="mt-1 text-[16px] font-semibold text-brand-ink">{ch.title}</h3>
           <div className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-brand-soft">
             {ch.body}
           </div>
         </section>
       ))}
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-center">
-        <p className="text-[15px] font-semibold text-white">+ {restCount} more chapters locked</p>
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6 text-center">
+        <p className="text-[15px] font-semibold text-brand-ink">+ {restCount} more chapters locked</p>
         <p className="mt-2 text-[13px] text-brand-muted">Buy to unlock the full guide on this page.</p>
-        <p className="mt-4 text-[20px] font-semibold text-[#ff8c14]">
+        <p className="mt-4 text-[20px] font-semibold text-brand-link">
           {formatEbookPrice(book.priceNgn)}
         </p>
       </div>

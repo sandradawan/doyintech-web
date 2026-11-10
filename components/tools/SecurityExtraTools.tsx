@@ -5,10 +5,10 @@ import Link from "next/link";
 import LeadForm from "./LeadForm";
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 const btn =
   "rounded-xl bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-50";
-const box = "rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-6 space-y-4";
+const box = "rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-6 space-y-4";
 
 type ChainHop = { url: string; status?: number | null };
 type HeadersResult = {
@@ -120,17 +120,17 @@ export function SecurityHeadersTool() {
       <Err error={error} />
       {data && (
         <div className="space-y-3">
-          <p className="text-2xl font-bold text-white">
+          <p className="text-2xl font-bold text-brand-ink">
             Score {data.score}/100 · Grade {data.grade}
           </p>
           <ul className="space-y-2">
             {data.headers?.map((h) => (
               <li
                 key={h.key}
-                className="rounded-xl border border-white/10 bg-black/30 p-3 text-sm"
+                className="rounded-xl border border-brand-ink/10 bg-brand-well p-3 text-sm"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-semibold text-white">{h.name}</span>
+                  <span className="font-semibold text-brand-ink">{h.name}</span>
                   <span className={h.ok ? "text-green-400" : "text-red-400"}>
                     {h.ok ? "Present" : "Missing"}
                   </span>
@@ -173,7 +173,7 @@ export function SslCheckerTool() {
         <div className="space-y-2 text-sm text-brand-soft">
           <p>
             HTTPS:{" "}
-            <strong className="text-white">{data.https ? "Yes" : "No"}</strong>
+            <strong className="text-brand-ink">{data.https ? "Yes" : "No"}</strong>
           </p>
           {data.tls?.error && <p className="text-red-400">{data.tls.error}</p>}
           {data.tls && !data.tls.error && (
@@ -242,11 +242,11 @@ export function ExposedFilesTool() {
               className={`rounded-xl border p-3 text-sm ${
                 r.risk
                   ? "border-red-500/40 bg-red-500/10"
-                  : "border-white/10 bg-black/30"
+                  : "border-brand-ink/10 bg-brand-well"
               }`}
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-mono text-white">{r.path}</span>
+                <span className="font-mono text-brand-ink">{r.path}</span>
                 <span className="text-xs text-brand-muted">HTTP {r.status ?? "—"}</span>
               </div>
               <p className="mt-1 text-xs text-brand-muted">{r.evidence}</p>
@@ -292,7 +292,7 @@ export function CookieAuditorTool() {
             <p className="text-sm text-brand-subtle">No Set-Cookie header on this response.</p>
           )}
           {data.cookies?.map((c, i) => (
-            <div key={i} className="rounded-xl border border-white/10 bg-black/30 p-3 text-xs">
+            <div key={i} className="rounded-xl border border-brand-ink/10 bg-brand-well p-3 text-xs">
               <p className="break-all font-mono text-brand-muted">{c.raw}</p>
               <p className="mt-2 text-brand-soft">
                 HttpOnly: {c.httpOnly ? "✓" : "✗"} · Secure: {c.secure ? "✓" : "✗"} ·
@@ -335,14 +335,14 @@ export function CspGeneratorTool() {
           {data.existingCsp && (
             <div>
               <p className="text-xs text-brand-subtle">Existing CSP</p>
-              <pre className="mt-1 overflow-x-auto rounded-xl bg-black/40 p-3 text-[11px] text-brand-soft">
+              <pre className="mt-1 overflow-x-auto rounded-xl bg-brand-well p-3 text-[11px] text-brand-soft">
                 {data.existingCsp}
               </pre>
             </div>
           )}
           <div>
             <p className="text-xs text-brand-subtle">Suggested starter policy</p>
-            <pre className="mt-1 overflow-x-auto rounded-xl bg-black/40 p-3 text-[11px] text-green-300">
+            <pre className="mt-1 overflow-x-auto rounded-xl bg-brand-well p-3 text-[11px] text-green-300">
               {data.generated}
             </pre>
           </div>
@@ -394,7 +394,7 @@ export function RobotsAuditorTool() {
             </div>
           )}
           {data.robotsText && (
-            <pre className="max-h-48 overflow-auto rounded-xl bg-black/40 p-3 text-[11px] text-brand-muted">
+            <pre className="max-h-48 overflow-auto rounded-xl bg-brand-well p-3 text-[11px] text-brand-muted">
               {data.robotsText.slice(0, 3000)}
             </pre>
           )}
@@ -428,7 +428,7 @@ export function MixedContentTool() {
         <div className="space-y-2 text-sm">
           <p className="text-brand-soft">
             Page HTTPS: {data.httpsPage ? "Yes" : "No"} · HTTP URLs found:{" "}
-            <strong className="text-white">{data.mixedCount}</strong>
+            <strong className="text-brand-ink">{data.mixedCount}</strong>
           </p>
           <ul className="max-h-60 space-y-1 overflow-auto font-mono text-[11px] text-brand-muted">
             {data.samples?.map((s: string) => (
@@ -465,7 +465,7 @@ export function RedirectInspectorTool() {
         <div className="space-y-2 text-sm text-brand-soft">
           <p>
             Hops: {data.hops} · Final:{" "}
-            <span className="text-white">{data.finalUrl}</span>
+            <span className="text-brand-ink">{data.finalUrl}</span>
           </p>
           <ol className="list-decimal space-y-1 pl-4 font-mono text-[11px] text-brand-muted">
             {data.chain?.map((c, i) => (
@@ -505,8 +505,8 @@ function Checklist({
               onClick={() => setChecked((c) => ({ ...c, [i]: !c[i] }))}
               className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left text-sm ${
                 checked[i]
-                  ? "border-primary/40 bg-primary/10 text-white"
-                  : "border-white/10 text-brand-soft"
+                  ? "border-primary/40 bg-primary/10 text-brand-ink"
+                  : "border-brand-ink/10 text-brand-soft"
               }`}
             >
               <span>{checked[i] ? "✓" : "○"}</span>
@@ -567,7 +567,7 @@ export function GoLiveChecklistTool() {
 export function BreachHygieneTool() {
   return (
     <div className={box}>
-      <h3 className="font-display text-lg font-bold text-white">
+      <h3 className="font-display text-lg font-bold text-brand-ink">
         If an email or password may be leaked
       </h3>
       <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-brand-soft">
@@ -593,7 +593,7 @@ export function BreachHygieneTool() {
 export function DependencyRiskTool() {
   return (
     <div className={box}>
-      <h3 className="font-display text-lg font-bold text-white">
+      <h3 className="font-display text-lg font-bold text-brand-ink">
         Why software updates are a security control
       </h3>
       <div className="space-y-3 text-sm leading-relaxed text-brand-soft">
@@ -602,16 +602,16 @@ export function DependencyRiskTool() {
           themes, or abandoned JavaScript libraries — not Hollywood zero-days.
         </p>
         <p>
-          <strong className="text-white">WordPress / PHP sites:</strong> keep core, themes,
+          <strong className="text-brand-ink">WordPress / PHP sites:</strong> keep core, themes,
           and plugins updated; remove what you do not use; limit login attempts.
         </p>
         <p>
-          <strong className="text-white">Next.js / Node sites:</strong> run{" "}
+          <strong className="text-brand-ink">Next.js / Node sites:</strong> run{" "}
           <code className="text-primary">npm audit</code> regularly, apply security patches,
           and keep Node on a supported release.
         </p>
         <p>
-          <strong className="text-white">Any stack:</strong> prefer maintained dependencies,
+          <strong className="text-brand-ink">Any stack:</strong> prefer maintained dependencies,
           pin versions intentionally, and do not copy random scripts into production.
         </p>
       </div>

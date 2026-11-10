@@ -84,11 +84,11 @@ export default function SolarVsGeneratorCalculator() {
     <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
       <div className={panel}>
         <div>
-          <h2 className="text-[15px] font-semibold text-white">1. What do you power?</h2>
+          <h2 className="text-[15px] font-semibold text-brand-ink">1. What do you power?</h2>
           <p className="mt-1 text-[13px] text-brand-muted">Type your running load in watts, or tap appliances to add them.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {APPLIANCES.map((a) => (
-              <button key={a.name} type="button" onClick={() => addLoad(a.watts)} className="min-h-10 rounded-full border border-white/15 px-3 text-[12px] font-medium text-brand-soft hover:border-[#ff8c14]">
+              <button key={a.name} type="button" onClick={() => addLoad(a.watts)} className="min-h-10 rounded-full border border-brand-ink/15 px-3 text-[12px] font-medium text-brand-soft hover:border-brand-link">
                 + {a.name} <span className="text-brand-subtle">{a.watts}W</span>
               </button>
             ))}
@@ -100,7 +100,7 @@ export default function SolarVsGeneratorCalculator() {
           <button type="button" onClick={() => setS({ ...s, load: "0" })} className="mt-2 text-[12px] text-brand-muted underline">Reset load to 0</button>
         </div>
         <div>
-          <h2 className="text-[15px] font-semibold text-white">2. Your generator</h2>
+          <h2 className="text-[15px] font-semibold text-brand-ink">2. Your generator</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <Field name="Petrol/diesel price (₦ per litre)" type="number" value={s.fuel} onChange={set("fuel")} />
             <Field name="Fuel use (litres per hour)" type="number" value={s.lph} onChange={set("lph")} />
@@ -108,8 +108,8 @@ export default function SolarVsGeneratorCalculator() {
             <Field name="Price of a replacement generator (₦)" type="number" value={s.genPrice} onChange={set("genPrice")} />
           </div>
         </div>
-        <details className="rounded-xl border border-white/10 p-4">
-          <summary className="cursor-pointer text-[14px] font-semibold text-white">3. Solar prices and sizing (edit to match your quote)</summary>
+        <details className="rounded-xl border border-brand-ink/10 p-4">
+          <summary className="cursor-pointer text-[14px] font-semibold text-brand-ink">3. Solar prices and sizing (edit to match your quote)</summary>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <Field name="Peak sun hours per day" type="number" value={s.sun} onChange={set("sun")} />
             <Field name="Battery backup at night (hours)" type="number" value={s.autonomy} onChange={set("autonomy")} />
@@ -123,19 +123,19 @@ export default function SolarVsGeneratorCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+        <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
           <p className="text-[13px] text-brand-muted">Your generator costs you</p>
-          <p className="text-[30px] font-semibold text-white">{naira0(r.genMonthly)}<span className="text-[15px] text-brand-muted"> / month</span></p>
+          <p className="text-[30px] font-semibold text-brand-ink">{naira0(r.genMonthly)}<span className="text-[15px] text-brand-muted"> / month</span></p>
           <p className="text-[13px] text-brand-muted">{naira0(r.genYearly)} a year in fuel and repairs</p>
-          <div className="mt-4 border-t border-white/10 pt-4">
+          <div className="mt-4 border-t border-brand-ink/10 pt-4">
             <p className="text-[13px] text-brand-muted">Solar to replace it</p>
-            <p className="text-[15px] text-white">{r.panelWatts.toLocaleString()} W panels · {r.batteryKwh} kWh battery · {r.inverterKva} kVA inverter</p>
-            <p className="mt-1 text-[22px] font-semibold text-white">{naira0(r.solarCost)}</p>
+            <p className="text-[15px] text-brand-ink">{r.panelWatts.toLocaleString()} W panels · {r.batteryKwh} kWh battery · {r.inverterKva} kVA inverter</p>
+            <p className="mt-1 text-[22px] font-semibold text-brand-ink">{naira0(r.solarCost)}</p>
           </div>
-          <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-[14px]">
-            <div><dt className="text-brand-muted">Pays for itself in</dt><dd className="text-[20px] font-semibold text-[#ff8c14]">{payback}</dd></div>
+          <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-brand-ink/10 pt-4 text-[14px]">
+            <div><dt className="text-brand-muted">Pays for itself in</dt><dd className="text-[20px] font-semibold text-brand-link">{payback}</dd></div>
             <div><dt className="text-brand-muted">5-year saving</dt><dd className={`text-[20px] font-semibold ${r.fiveYearSaving >= 0 ? "text-[#3ddc97]" : "text-[#ff6b6b]"}`}>{(r.fiveYearSaving < 0 ? "-" : "") + naira0(Math.abs(r.fiveYearSaving))}</dd></div>
-            <div className="col-span-2"><dt className="text-brand-muted">CO₂ avoided</dt><dd className="text-white">{r.co2TonnesYearly.toFixed(1)} tonnes a year</dd></div>
+            <div className="col-span-2"><dt className="text-brand-muted">CO₂ avoided</dt><dd className="text-brand-ink">{r.co2TonnesYearly.toFixed(1)} tonnes a year</dd></div>
           </dl>
         </div>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download comparison PDF</button>

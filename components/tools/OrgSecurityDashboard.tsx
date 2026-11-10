@@ -257,13 +257,13 @@ export default function OrgSecurityDashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-6">
+      <div className="rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
               Organization Security Dashboard
             </p>
-            <h2 className="mt-1 font-display text-2xl font-bold text-white">
+            <h2 className="mt-1 font-display text-2xl font-bold text-brand-ink">
               Live domain health signals
             </h2>
             <p className="mt-2 max-w-xl text-sm text-brand-muted">
@@ -293,11 +293,11 @@ export default function OrgSecurityDashboard() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com or https://example.com"
-            className="w-full flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
+            className="w-full flex-1 rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50"
           />
           <button
             type="submit"
-            className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:border-primary/40"
+            className="rounded-xl border border-brand-ink/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-ink hover:border-primary/40"
           >
             Add domain
           </button>
@@ -310,14 +310,14 @@ export default function OrgSecurityDashboard() {
 
       <div className="grid gap-3 sm:grid-cols-4">
         {[
-          { label: "Domains", value: summary.total, color: "text-white" },
+          { label: "Domains", value: summary.total, color: "text-brand-ink" },
           { label: "Healthy", value: summary.healthy, color: "text-green-400" },
           { label: "Attention", value: summary.attention, color: "text-amber-300" },
           { label: "Critical", value: summary.critical, color: "text-red-400" },
         ].map((s) => (
           <div
             key={s.label}
-            className="rounded-2xl border border-white/10 bg-black/30 p-4 text-center"
+            className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4 text-center"
           >
             <p className="text-[11px] uppercase tracking-wider text-brand-subtle">{s.label}</p>
             <p className={`mt-1 text-3xl font-bold ${s.color}`}>{s.value}</p>
@@ -325,9 +325,9 @@ export default function OrgSecurityDashboard() {
         ))}
       </div>
 
-      <div className="rounded-3xl border border-white/10 bg-surface/80 p-5">
+      <div className="rounded-3xl border border-brand-ink/10 bg-surface/80 p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h3 className="font-display text-lg font-bold text-white">Live alert feed</h3>
+          <h3 className="font-display text-lg font-bold text-brand-ink">Live alert feed</h3>
           <a
             href={whatsappUrl(waAlertMsg)}
             target="_blank"
@@ -365,11 +365,11 @@ export default function OrgSecurityDashboard() {
           return (
             <div
               key={domain}
-              className="rounded-3xl border border-white/10 bg-black/30 p-5"
+              className="rounded-3xl border border-brand-ink/10 bg-brand-well p-5"
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="font-mono text-sm font-semibold text-white">{domain}</p>
+                  <p className="font-mono text-sm font-semibold text-brand-ink">{domain}</p>
                   {h?.checkedAt && (
                     <p className="text-[11px] text-brand-subtle">
                       {new Date(h.checkedAt).toLocaleString()}
@@ -410,21 +410,21 @@ export default function OrgSecurityDashboard() {
               {h && !h.loading && (
                 <>
                   <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-brand-soft sm:grid-cols-4">
-                    <div className="rounded-lg bg-white/5 p-2">
+                    <div className="rounded-lg bg-brand-ink/5 p-2">
                       <p className="text-brand-subtle">Uptime</p>
                       <p className="font-semibold">{h.up ? "Up" : "Down"}</p>
                     </div>
-                    <div className="rounded-lg bg-white/5 p-2">
+                    <div className="rounded-lg bg-brand-ink/5 p-2">
                       <p className="text-brand-subtle">SSL days</p>
                       <p className="font-semibold">
                         {h.tls.daysRemaining ?? "—"}
                       </p>
                     </div>
-                    <div className="rounded-lg bg-white/5 p-2">
+                    <div className="rounded-lg bg-brand-ink/5 p-2">
                       <p className="text-brand-subtle">Headers</p>
                       <p className="font-semibold">{h.headerScore}/100</p>
                     </div>
-                    <div className="rounded-lg bg-white/5 p-2">
+                    <div className="rounded-lg bg-brand-ink/5 p-2">
                       <p className="text-brand-subtle">Email</p>
                       <p className="font-semibold">
                         {h.email.spf ? "SPF" : "—"}/{h.email.dmarc ? "DMARC" : "—"}
@@ -451,8 +451,8 @@ export default function OrgSecurityDashboard() {
         })}
       </div>
 
-      <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-6">
-        <h3 className="font-display text-lg font-bold text-white">Alert rules</h3>
+      <div className="rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-6">
+        <h3 className="font-display text-lg font-bold text-brand-ink">Alert rules</h3>
         <p className="mt-1 text-sm text-brand-muted">
           Rules drive the live alert feed. Saved in this browser.
         </p>
@@ -467,7 +467,7 @@ export default function OrgSecurityDashboard() {
               onChange={(e) =>
                 setRules((r) => ({ ...r, sslDays: Number(e.target.value) || 14 }))
               }
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-white"
+              className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-brand-ink"
             />
           </label>
           <label className="block text-sm text-brand-soft">
@@ -483,7 +483,7 @@ export default function OrgSecurityDashboard() {
                   minHeaderScore: Number(e.target.value) || 0,
                 }))
               }
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-white"
+              className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-brand-ink"
             />
           </label>
           {(
@@ -509,7 +509,7 @@ export default function OrgSecurityDashboard() {
       </div>
 
       <div className="rounded-3xl border border-primary/30 bg-primary/10 p-5 md:p-6">
-        <h3 className="font-display text-lg font-bold text-white">
+        <h3 className="font-display text-lg font-bold text-brand-ink">
           Want this watching 24/7?
         </h3>
         <p className="mt-2 text-sm text-brand-soft">

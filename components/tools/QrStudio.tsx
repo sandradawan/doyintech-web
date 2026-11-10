@@ -16,7 +16,7 @@ const KINDS: { id: Kind; label: string }[] = [
 ];
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 const label = "block text-[13px] text-brand-muted";
 const EXPORT_SIZE = 1024;
 
@@ -61,7 +61,7 @@ export default function QrStudio() {
   const [bg, setBg] = useState("#ffffff");
   const [logo, setLogo] = useState<string>("");
   const [caption, setCaption] = useState("Scan to order");
-  const [frameColor, setFrameColor] = useState("#ff8c14");
+  const [frameColor, setFrameColor] = useState("#0b2a1c");
   const [error, setError] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { unlocked: branded } = usePaidUnlock("branded-qr");
@@ -194,7 +194,7 @@ export default function QrStudio() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
+      <div className="space-y-5 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="QR code type">
           {KINDS.map((k) => (
             <button
@@ -204,7 +204,7 @@ export default function QrStudio() {
               aria-selected={kind === k.id}
               onClick={() => setKind(k.id)}
               className={`rounded-full px-4 py-2 text-[13px] font-semibold transition ${
-                kind === k.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/30"
+                kind === k.id ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/30"
               }`}
             >
               {k.label}
@@ -279,11 +279,11 @@ export default function QrStudio() {
         <div className="grid grid-cols-2 gap-4">
           <label className={label}>
             QR colour
-            <input type="color" value={fg} onChange={(e) => setFg(e.target.value)} className="mt-1 block h-10 w-full cursor-pointer rounded-xl border border-white/15 bg-transparent" />
+            <input type="color" value={fg} onChange={(e) => setFg(e.target.value)} className="mt-1 block h-10 w-full cursor-pointer rounded-xl border border-brand-ink/15 bg-transparent" />
           </label>
           <label className={label}>
             Background
-            <input type="color" value={bg} onChange={(e) => setBg(e.target.value)} className="mt-1 block h-10 w-full cursor-pointer rounded-xl border border-white/15 bg-transparent" />
+            <input type="color" value={bg} onChange={(e) => setBg(e.target.value)} className="mt-1 block h-10 w-full cursor-pointer rounded-xl border border-brand-ink/15 bg-transparent" />
           </label>
         </div>
         {lowContrast && <p className="text-[13px] text-amber-300">These colours are too close together; some phones won&apos;t scan it. Use a dark QR on a light background.</p>}
@@ -291,8 +291,8 @@ export default function QrStudio() {
         <PaidGate
           toolSlug="branded-qr"
           preview={
-            <div className="rounded-xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[14px] font-semibold text-white">Branded QR codes</p>
+            <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4">
+              <p className="text-[14px] font-semibold text-brand-ink">Branded QR codes</p>
               <p className="mt-1 text-[13px] text-brand-muted">
                 Put your logo in the middle and add a caption like &ldquo;Scan to order&rdquo; in your brand colour. Customers trust a
                 branded code more and scan it more often.
@@ -300,10 +300,10 @@ export default function QrStudio() {
             </div>
           }
         >
-          <div className="space-y-4 rounded-xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[14px] font-semibold text-white">Branding</p>
+          <div className="space-y-4 rounded-xl border border-brand-ink/10 bg-brand-well p-4">
+            <p className="text-[14px] font-semibold text-brand-ink">Branding</p>
             <div className="flex flex-wrap items-center gap-3">
-              <label className="inline-flex cursor-pointer rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white hover:bg-white/5">
+              <label className="inline-flex cursor-pointer rounded-full border border-brand-ink/20 px-4 py-2 text-[13px] font-semibold text-brand-ink hover:bg-brand-ink/5">
                 {logo ? "Change logo" : "Add your logo"}
                 <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="sr-only" onChange={(e) => onLogo(e.target.files?.[0])} />
               </label>
@@ -320,15 +320,15 @@ export default function QrStudio() {
               </label>
               <label className={label}>
                 Caption colour
-                <input type="color" value={frameColor} onChange={(e) => setFrameColor(e.target.value)} className="mt-1 block h-10 w-full cursor-pointer rounded-xl border border-white/15 bg-transparent" />
+                <input type="color" value={frameColor} onChange={(e) => setFrameColor(e.target.value)} className="mt-1 block h-10 w-full cursor-pointer rounded-xl border border-brand-ink/15 bg-transparent" />
               </label>
             </div>
           </div>
         </PaidGate>
       </div>
 
-      <div className="h-fit rounded-2xl border border-white/10 bg-brand-surface p-5 lg:sticky lg:top-24">
-        <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-white/[0.03]">
+      <div className="h-fit rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 lg:sticky lg:top-24">
+        <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-brand-ink/[0.03]">
           {payload ? (
             <canvas ref={canvasRef} className="h-auto max-h-full w-full max-w-[320px] object-contain" aria-label="QR code preview" role="img" />
           ) : (
@@ -341,7 +341,7 @@ export default function QrStudio() {
             type="button"
             disabled={!payload || Boolean(error)}
             onClick={downloadPng}
-            className="rounded-full bg-[#ff8c14] py-3 text-[14px] font-semibold text-black disabled:opacity-40"
+            className="rounded-full bg-brand-accent py-3 text-[14px] font-semibold text-black disabled:opacity-40"
           >
             Download PNG
           </button>
@@ -349,7 +349,7 @@ export default function QrStudio() {
             type="button"
             disabled={!payload || Boolean(error)}
             onClick={downloadSvg}
-            className="rounded-full border border-white/20 py-3 text-[14px] font-semibold text-white disabled:opacity-40"
+            className="rounded-full border border-brand-ink/20 py-3 text-[14px] font-semibold text-brand-ink disabled:opacity-40"
           >
             SVG (print)
           </button>

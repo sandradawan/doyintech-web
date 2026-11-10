@@ -137,16 +137,16 @@ export default function PdfStudio() {
       {!unlocked && (
         <form
           onSubmit={startPay}
-          className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3"
+          className="rounded-2xl border border-brand-ink/10 bg-brand-ink/5 p-5 space-y-3"
         >
-          <p className="text-sm font-semibold text-white">Unlock PDF Studio</p>
+          <p className="text-sm font-semibold text-brand-ink">Unlock PDF Studio</p>
           <input
             required
             type="email"
             value={payEmail}
             onChange={(e) => setPayEmail(e.target.value)}
             placeholder="Email for receipt"
-            className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
+            className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none"
           />
           {payError && <p className="text-xs text-red-400">{payError}</p>}
           <button
@@ -173,8 +173,8 @@ export default function PdfStudio() {
             onClick={() => setDocType(t)}
             className={`rounded-xl border px-4 py-3 text-sm capitalize ${
               docType === t
-                ? "border-primary bg-primary/20 text-white"
-                : "border-white/10 text-brand-soft"
+                ? "border-primary bg-primary/20 text-brand-ink"
+                : "border-brand-ink/10 text-brand-soft"
             }`}
           >
             {t}
@@ -187,26 +187,26 @@ export default function PdfStudio() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Document title"
-          className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white"
+          className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink"
         />
         <input
           value={fromName}
           onChange={(e) => setFromName(e.target.value)}
           placeholder="From / your name"
-          className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white"
+          className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink"
         />
         <input
           value={toName}
           onChange={(e) => setToName(e.target.value)}
           placeholder="To / client"
-          className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white"
+          className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink"
         />
         {docType === "quote" && (
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Amount (NGN)"
-            className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white"
+            className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink"
           />
         )}
       </div>
@@ -215,13 +215,13 @@ export default function PdfStudio() {
         onChange={(e) => setBody(e.target.value)}
         rows={6}
         placeholder="Body content…"
-        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white"
+        className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink"
       />
 
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white">
+      <div className="relative overflow-hidden rounded-2xl border border-brand-ink/10 bg-white">
         {previewLimited && (
           <div className="absolute inset-x-0 bottom-0 z-10 flex h-24 items-end justify-center bg-gradient-to-t from-black/80 to-transparent pb-3">
-            <span className="text-xs text-white/90">Preview limited — unlock to export PDF</span>
+            <span className="text-xs text-brand-ink/90">Preview limited — unlock to export PDF</span>
           </div>
         )}
         <div
@@ -234,7 +234,7 @@ export default function PdfStudio() {
         type="button"
         disabled={!unlocked}
         onClick={exportPdf}
-        className="w-full rounded-full bg-white py-3 text-sm font-semibold text-black disabled:cursor-not-allowed disabled:opacity-40"
+        className="w-full rounded-full bg-brand-ink py-3 text-sm font-semibold text-brand-deep disabled:cursor-not-allowed disabled:opacity-40"
       >
         {unlocked ? "Export / Print PDF" : "Unlock to export PDF"}
       </button>

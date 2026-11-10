@@ -406,7 +406,7 @@ export default function SignalRunnerGame() {
         />
         {!started || gameOver ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/55 px-6 text-center backdrop-blur-sm">
-            <p className="font-display text-2xl font-bold text-white md:text-3xl">
+            <p className="font-display text-2xl font-bold text-brand-ink md:text-3xl">
               {gameOver ? "Signal lost" : "Signal Runner"}
             </p>
             <p className="mt-2 max-w-md text-sm text-brand-soft">
@@ -429,7 +429,7 @@ export default function SignalRunnerGame() {
       <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
-          className="rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-white"
+          className="rounded-full border border-brand-ink/20 px-4 py-2 text-xs font-semibold text-brand-ink"
           onClick={() => {
             setMusicOn((m) => {
               const next = !m;

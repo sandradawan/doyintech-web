@@ -5,7 +5,7 @@ import GiftCardVisual from "@/components/giftcards/GiftCardVisual";
 import { GIFT_DESIGNS, GIFT_MAX_KOBO, GIFT_MIN_KOBO, GIFT_PRESETS_KOBO, naira } from "@/lib/giftcards/shared";
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 const label = "block text-[13px] text-brand-muted";
 
 /** Choose amount, design and recipient, then pay with Paystack. */
@@ -59,9 +59,9 @@ export default function GiftCardBuyForm() {
 
   return (
     <form onSubmit={buy} className="grid gap-8 lg:grid-cols-[1fr_400px]">
-      <div className="space-y-6 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
+      <div className="space-y-6 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
         <fieldset>
-          <legend className="text-[15px] font-semibold text-white">1. Amount</legend>
+          <legend className="text-[15px] font-semibold text-brand-ink">1. Amount</legend>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {GIFT_PRESETS_KOBO.map((k) => (
               <button
@@ -72,7 +72,7 @@ export default function GiftCardBuyForm() {
                   setCustom("");
                 }}
                 className={`rounded-xl border py-3 text-[15px] font-semibold transition ${
-                  !custom && amountKobo === k ? "border-[#ff8c14] bg-[#ff8c14]/10 text-white" : "border-white/15 text-brand-soft hover:border-white/30"
+                  !custom && amountKobo === k ? "border-brand-link bg-brand-link/10 text-brand-ink" : "border-brand-ink/15 text-brand-soft hover:border-brand-ink/30"
                 }`}
               >
                 {naira(k)}
@@ -86,7 +86,7 @@ export default function GiftCardBuyForm() {
         </fieldset>
 
         <fieldset>
-          <legend className="text-[15px] font-semibold text-white">2. Design</legend>
+          <legend className="text-[15px] font-semibold text-brand-ink">2. Design</legend>
           <div className="mt-3 flex flex-wrap gap-2">
             {GIFT_DESIGNS.map((d) => (
               <button
@@ -95,7 +95,7 @@ export default function GiftCardBuyForm() {
                 onClick={() => setDesign(d.id)}
                 aria-pressed={design === d.id}
                 className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] ${
-                  design === d.id ? "border-white text-white" : "border-white/15 text-brand-soft"
+                  design === d.id ? "border-white text-brand-ink" : "border-brand-ink/15 text-brand-soft"
                 }`}
               >
                 <span className="h-4 w-4 rounded-full" style={{ background: `linear-gradient(135deg, ${d.from}, ${d.to})` }} />
@@ -106,7 +106,7 @@ export default function GiftCardBuyForm() {
         </fieldset>
 
         <fieldset>
-          <legend className="text-[15px] font-semibold text-white">3. Who is it for?</legend>
+          <legend className="text-[15px] font-semibold text-brand-ink">3. Who is it for?</legend>
           <div className="mt-3 flex gap-2">
             {[
               [true, "Someone else"],
@@ -116,7 +116,7 @@ export default function GiftCardBuyForm() {
                 key={String(l)}
                 type="button"
                 onClick={() => setForSomeone(v as boolean)}
-                className={`rounded-full px-4 py-2 text-[13px] font-semibold ${forSomeone === v ? "bg-white text-black" : "border border-white/15 text-brand-soft"}`}
+                className={`rounded-full px-4 py-2 text-[13px] font-semibold ${forSomeone === v ? "bg-brand-ink text-brand-deep" : "border border-brand-ink/15 text-brand-soft"}`}
               >
                 {l as string}
               </button>
@@ -141,7 +141,7 @@ export default function GiftCardBuyForm() {
         </fieldset>
 
         <fieldset>
-          <legend className="text-[15px] font-semibold text-white">4. Your details</legend>
+          <legend className="text-[15px] font-semibold text-brand-ink">4. Your details</legend>
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             <label className={label}>
               Your name
@@ -160,7 +160,7 @@ export default function GiftCardBuyForm() {
         <button
           type="submit"
           disabled={busy || !amountOk}
-          className="w-full rounded-full bg-[#ff8c14] py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
+          className="w-full rounded-full bg-brand-accent py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
         >
           {busy ? "Opening secure payment…" : `Pay ${amountOk ? naira(amount) : ""} with Paystack`}
         </button>

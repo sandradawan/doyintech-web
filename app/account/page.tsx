@@ -119,7 +119,7 @@ function AccountInner() {
   return (
     <main className="min-h-screen bg-brand-deep px-6 pb-24 pt-28">
       <div className="mx-auto max-w-[560px]">
-        <h1 className="text-[30px] font-semibold tracking-tight text-white">Your account</h1>
+        <h1 className="text-[30px] font-semibold tracking-tight text-brand-ink">Your account</h1>
 
         {subscribedPlan && (
           <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-[14px] text-emerald-200">
@@ -132,8 +132,8 @@ function AccountInner() {
         {checking ? (
           <p className="mt-8 text-[14px] text-brand-subtle">Loading…</p>
         ) : !email ? (
-          <form onSubmit={sendLink} className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-6">
-            <p className="text-[15px] font-semibold text-white">Sign in with your email</p>
+          <form onSubmit={sendLink} className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+            <p className="text-[15px] font-semibold text-brand-ink">Sign in with your email</p>
             <p className="mt-1 text-[13px] text-brand-muted">
               We&apos;ll email you a one-time sign-in link. No password needed.
             </p>
@@ -150,12 +150,12 @@ function AccountInner() {
                   onChange={(e) => setLoginEmail(e.target.value)}
                   placeholder="you@email.com"
                   aria-label="Email"
-                  className="mt-4 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+                  className="mt-4 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link"
                 />
                 <button
                   type="submit"
                   disabled={busy === "login"}
-                  className="mt-3 w-full rounded-full bg-[#ff8c14] py-3 text-[14px] font-semibold text-black disabled:opacity-60"
+                  className="mt-3 w-full rounded-full bg-brand-accent py-3 text-[14px] font-semibold text-black disabled:opacity-60"
                 >
                   {busy === "login" ? "Sending…" : "Email me a sign-in link"}
                 </button>
@@ -165,33 +165,33 @@ function AccountInner() {
         ) : (
           <div className="mt-8 space-y-4">
             <p className="text-[14px] text-brand-muted">
-              Signed in as <span className="text-white">{email}</span> ·{" "}
-              <button type="button" onClick={signOut} className="text-[#ff8c14] hover:underline">
+              Signed in as <span className="text-brand-ink">{email}</span> ·{" "}
+              <button type="button" onClick={signOut} className="text-brand-link hover:underline">
                 Sign out
               </button>
             </p>
 
             {memberships.length === 0 ? (
-              <div className="rounded-2xl border border-white/10 bg-brand-surface p-6">
-                <p className="text-[15px] text-white">No active memberships on this email yet.</p>
+              <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+                <p className="text-[15px] text-brand-ink">No active memberships on this email yet.</p>
                 <p className="mt-1 text-[13px] text-brand-muted">
                   Just paid? Confirmation can take a minute; refresh shortly.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3 text-[14px]">
-                  <Link href="/pro" className="text-[#ff8c14] hover:underline">
+                  <Link href="/pro" className="text-brand-link hover:underline">
                     DoyinTech Pro
                   </Link>
-                  <Link href="/care-plans" className="text-[#ff8c14] hover:underline">
+                  <Link href="/care-plans" className="text-brand-link hover:underline">
                     Website care plans
                   </Link>
                 </div>
               </div>
             ) : (
               memberships.map((m) => (
-                <div key={m.planId} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+                <div key={m.planId} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[16px] font-semibold text-white">{m.name}</p>
+                      <p className="text-[16px] font-semibold text-brand-ink">{m.name}</p>
                       <p className="mt-1 text-[13px] text-brand-muted">
                         {STATUS_LABEL[m.status] || m.status}
                         {m.nextPaymentDate &&
@@ -205,7 +205,7 @@ function AccountInner() {
                         type="button"
                         onClick={() => manage(m.planId)}
                         disabled={busy === m.planId}
-                        className="shrink-0 rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-white hover:border-[#ff8c14]/60 disabled:opacity-60"
+                        className="shrink-0 rounded-full border border-brand-ink/20 px-4 py-2 text-[12px] font-semibold text-brand-ink hover:border-brand-link/60 disabled:opacity-60"
                       >
                         {busy === m.planId ? "Opening…" : "Manage billing"}
                       </button>
@@ -214,7 +214,7 @@ function AccountInner() {
                   {getPlan(m.planId)?.family === "pro" && (
                     <p className="mt-3 text-[13px] text-emerald-300">
                       Premium tools unlock automatically while you&apos;re signed in.{" "}
-                      <Link href="/tools" className="text-[#ff8c14] hover:underline">
+                      <Link href="/tools" className="text-brand-link hover:underline">
                         Open tools
                       </Link>
                     </p>

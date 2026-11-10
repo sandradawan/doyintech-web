@@ -36,18 +36,18 @@ export default function Page() {
       newsletterSource="invoice-generator-global"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Charging VAT or GST?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Charging VAT or GST?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">Check the current rate and work out the tax for your country before you send the invoice.</p>
-          <Link href="/vat-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">VAT calculators by country</Link>
+          <Link href="/vat-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">VAT calculators by country</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Invoice numbering that keeps you organised</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Invoice numbering that keeps you organised</h2>
         <p className="mt-3">Use a prefix and the year, then a running number, such as INV-2026-0042. Never reuse or skip numbers: tax authorities in most countries expect a continuous sequence, and it makes chasing payments much easier.</p>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Get paid faster</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Get paid faster</h2>
         <p className="mt-3">Put the due date and payment details on every invoice, send it the day the work is done, and follow up the day after it falls due. Short terms (7 or 14 days) are paid sooner than 30-day terms.</p>
       </section>
     </SeoToolPage>

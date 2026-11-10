@@ -69,7 +69,7 @@ export default function ComplianceCalendar() {
 
   const check = (k: "hasStaff" | "vat" | "wht", text: string) => (
     <label className="flex min-h-11 items-center gap-3 text-[14px] text-brand-soft">
-      <input type="checkbox" className="h-5 w-5 accent-[#ff8c14]" checked={s[k]} onChange={(e) => setS({ ...s, [k]: e.target.checked })} />
+      <input type="checkbox" className="h-5 w-5 accent-brand-link" checked={s[k]} onChange={(e) => setS({ ...s, [k]: e.target.checked })} />
       {text}
     </label>
   );
@@ -92,7 +92,7 @@ export default function ComplianceCalendar() {
           {s.kind === "company" && (
             <label className="block text-[12px] font-medium text-brand-muted">
               Accounting year ends in
-              <select className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white" value={s.yearEnd} onChange={(e) => setS({ ...s, yearEnd: e.target.value })}>
+              <select className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink" value={s.yearEnd} onChange={(e) => setS({ ...s, yearEnd: e.target.value })}>
                 {MONTHS.map((m, i) => <option key={m} value={String(i + 1)}>{m}</option>)}
               </select>
             </label>
@@ -110,16 +110,16 @@ export default function ComplianceCalendar() {
         {!today ? (
           <p className="text-[14px] text-brand-muted">Loading your deadlines…</p>
         ) : items.length === 0 ? (
-          <p className="rounded-xl border border-white/10 p-4 text-[14px] text-brand-muted">No recurring deadlines for these answers. Tick the boxes that apply to you.</p>
+          <p className="rounded-xl border border-brand-ink/10 p-4 text-[14px] text-brand-muted">No recurring deadlines for these answers. Tick the boxes that apply to you.</p>
         ) : (
           <ol className="space-y-2">
             {items.map((d, i) => {
               const left = daysLeft(d.date);
               return (
-                <li key={i} className={`rounded-xl border p-4 ${left <= 14 ? "border-[#ff8c14]/50 bg-[#ff8c14]/5" : "border-white/10 bg-brand-surface"}`}>
+                <li key={i} className={`rounded-xl border p-4 ${left <= 14 ? "border-brand-link/50 bg-brand-link/5" : "border-brand-ink/10 bg-brand-surface"}`}>
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <p className="text-[15px] font-semibold text-white">{d.title}</p>
-                    <p className={`text-[13px] font-semibold ${left <= 14 ? "text-[#ff8c14]" : "text-brand-muted"}`}>{longDate(d.date)} · {left <= 0 ? "today" : `${left} day${left === 1 ? "" : "s"}`}</p>
+                    <p className="text-[15px] font-semibold text-brand-ink">{d.title}</p>
+                    <p className={`text-[13px] font-semibold ${left <= 14 ? "text-brand-link" : "text-brand-muted"}`}>{longDate(d.date)} · {left <= 0 ? "today" : `${left} day${left === 1 ? "" : "s"}`}</p>
                   </div>
                   <p className="mt-1 text-[13px] text-brand-soft">{d.agency}</p>
                   <p className="mt-1 text-[13px] text-brand-muted">{d.note}</p>

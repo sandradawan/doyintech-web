@@ -88,7 +88,7 @@ export default function CvBuilder() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-6 print:hidden">
+      <div className="rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-6 print:hidden">
         <div className="mb-4 flex gap-2">
           <button
             type="button"
@@ -160,7 +160,7 @@ export default function CvBuilder() {
                     template: e.target.value as CvData["template"],
                   })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink"
               >
                 <option value="modern">Modern</option>
                 <option value="professional">Professional</option>
@@ -175,7 +175,7 @@ export default function CvBuilder() {
                 value={data.summary}
                 onChange={(e) => setData({ ...data, summary: e.target.value })}
                 rows={3}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white outline-none"
+                className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink outline-none"
                 placeholder="Write your own summary — do not invent experience."
               />
             </label>
@@ -199,7 +199,7 @@ export default function CvBuilder() {
               }
             />
             {data.experience.map((ex, i) => (
-              <div key={i} className="grid gap-2 rounded-xl border border-white/5 p-3">
+              <div key={i} className="grid gap-2 rounded-xl border border-brand-ink/5 p-3">
                 <Field
                   label="Company"
                   value={ex.company}
@@ -237,7 +237,7 @@ export default function CvBuilder() {
                       setData({ ...data, experience });
                     }}
                     rows={2}
-                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                    className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink"
                   />
                 </label>
               </div>
@@ -256,7 +256,7 @@ export default function CvBuilder() {
               }
             />
             {data.education.map((ed, i) => (
-              <div key={i} className="grid gap-2 rounded-xl border border-white/5 p-3 sm:grid-cols-2">
+              <div key={i} className="grid gap-2 rounded-xl border border-brand-ink/5 p-3 sm:grid-cols-2">
                 <Field
                   label="Institution"
                   value={ed.school}
@@ -309,7 +309,7 @@ export default function CvBuilder() {
               }
             />
             {data.projects.map((pr, i) => (
-              <div key={i} className="grid gap-2 rounded-xl border border-white/5 p-3">
+              <div key={i} className="grid gap-2 rounded-xl border border-brand-ink/5 p-3">
                 <Field
                   label="Project name"
                   value={pr.name}
@@ -347,7 +347,7 @@ export default function CvBuilder() {
                       setData({ ...data, projects });
                     }}
                     rows={2}
-                    className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                    className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink"
                   />
                 </label>
               </div>
@@ -374,7 +374,7 @@ export default function CvBuilder() {
 
       {/* Preview / print surface */}
       <div
-        className={`rounded-3xl border border-white/10 bg-white text-gray-900 shadow-xl print:border-0 print:shadow-none ${
+        className={`rounded-3xl border border-brand-ink/10 bg-white text-gray-900 shadow-xl print:border-0 print:shadow-none ${
           tab === "edit" ? "hidden lg:block" : ""
         }`}
         id="cv-preview"
@@ -526,7 +526,7 @@ function Field({
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-primary/50"
+        className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink outline-none focus:border-primary/50"
       />
     </label>
   );
@@ -541,7 +541,7 @@ function SectionTitle({
 }) {
   return (
     <div className="flex items-center justify-between pt-2">
-      <h3 className="text-sm font-semibold text-white">{title}</h3>
+      <h3 className="text-sm font-semibold text-brand-ink">{title}</h3>
       <button
         type="button"
         onClick={onAdd}

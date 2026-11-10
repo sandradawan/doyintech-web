@@ -61,10 +61,10 @@ export default function ToolFollowUp({ source }: { source: string }) {
     <form
       onSubmit={submit}
       className={`mt-6 rounded-2xl border p-5 transition sm:p-6 ${
-        nudge ? "border-[#ff8c14]/60 bg-[#ff8c14]/10 shadow-[0_0_0_4px_rgba(255,140,20,0.12)]" : "border-white/10 bg-brand-surface"
+        nudge ? "border-brand-link/60 bg-brand-link/10 shadow-[0_0_0_4px_rgba(163,230,53,0.12)]" : "border-brand-ink/10 bg-brand-surface"
       }`}
     >
-      <p className="text-[15px] font-semibold text-white">
+      <p className="text-[15px] font-semibold text-brand-ink">
         {nudge ? "Got your document? Keep this tool for next time" : "Keep these free tools handy"}
       </p>
       <p className="mt-1 text-[13px] text-brand-muted">
@@ -78,7 +78,7 @@ export default function ToolFollowUp({ source }: { source: string }) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@business.com"
           aria-label="Email address"
-          className="min-w-0 flex-1 rounded-full border border-white/15 bg-black/40 px-4 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]"
+          className="min-w-0 flex-1 rounded-full border border-brand-ink/15 bg-brand-well px-4 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link"
         />
         <input
           type="text"
@@ -92,7 +92,7 @@ export default function ToolFollowUp({ source }: { source: string }) {
         <button
           type="submit"
           disabled={state === "busy"}
-          className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60"
+          className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60"
         >
           {state === "busy" ? "Sending…" : "Email me the tools"}
         </button>

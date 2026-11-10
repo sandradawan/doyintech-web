@@ -33,7 +33,7 @@ export default function AddonBuyButton({ id, name, price }: { id: string; name: 
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="w-full rounded-full border border-white/20 py-2.5 text-[14px] font-semibold text-white transition hover:bg-white/5"
+        className="w-full rounded-full border border-brand-ink/20 py-2.5 text-[14px] font-semibold text-brand-ink transition hover:bg-brand-ink/5"
       >
         Add · {price}
       </button>
@@ -48,13 +48,13 @@ export default function AddonBuyButton({ id, name, price }: { id: string; name: 
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@email.com"
         aria-label={`Email for ${name} receipt`}
-        className="w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+        className="w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link"
       />
       <button
         type="button"
         disabled={loading || !email.includes("@")}
         onClick={pay}
-        className="w-full rounded-full bg-[#ff8c14] py-2.5 text-[14px] font-semibold text-black disabled:opacity-50"
+        className="w-full rounded-full bg-brand-accent py-2.5 text-[14px] font-semibold text-black disabled:opacity-50"
       >
         {loading ? "Redirecting…" : `Pay ${price}`}
       </button>

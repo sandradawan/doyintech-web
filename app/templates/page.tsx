@@ -16,10 +16,10 @@ export default function TemplatesPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Page templates
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">
             Next.js templates
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-brand-muted">
@@ -27,13 +27,13 @@ export default function TemplatesPage() {
             guide and structure — or hire us to ship a live site from the same patterns.
           </p>
 
-          <div className="mt-8 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/10 p-5 sm:flex sm:items-center sm:justify-between sm:gap-4">
+          <div className="mt-8 rounded-2xl border border-brand-link/25 bg-brand-link/10 p-5 sm:flex sm:items-center sm:justify-between sm:gap-4">
             <p className="text-[14px] text-brand-soft">
               Prefer a done-for-you site? Fixed-price packages with deposit — not DIY.
             </p>
             <a
               href="/hire"
-              className="mt-3 inline-flex shrink-0 rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black sm:mt-0"
+              className="mt-3 inline-flex shrink-0 rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black sm:mt-0"
             >
               Hire · pay deposit
             </a>
@@ -46,7 +46,7 @@ export default function TemplatesPage() {
           </div>
           <p className="mt-10 text-center text-[14px] text-brand-subtle">
             Need components only?{" "}
-            <Link href="/components" className="text-[#ff8c14] hover:underline">
+            <Link href="/components" className="text-brand-link hover:underline">
               Browse UI components
             </Link>
           </p>

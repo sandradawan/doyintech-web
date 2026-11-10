@@ -10,7 +10,7 @@ function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: str
       <span className="mb-1 block text-xs text-brand-subtle">{label}</span>
       <input
         {...rest}
-        className={`w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none ${className || ""}`}
+        className={`w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none ${className || ""}`}
       />
     </label>
   );
@@ -23,7 +23,7 @@ function Area(props: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label
       <span className="mb-1 block text-xs text-brand-subtle">{label}</span>
       <textarea
         {...rest}
-        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
+        className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none"
       />
     </label>
   );
@@ -34,7 +34,7 @@ function ExportBtn({ onClick, label = "Export / Print PDF" }: { onClick: () => v
     <button
       type="button"
       onClick={onClick}
-      className="w-full rounded-full bg-white py-3 text-sm font-semibold text-black"
+      className="w-full rounded-full bg-brand-ink py-3 text-sm font-semibold text-brand-deep"
     >
       {label}
     </button>
@@ -54,7 +54,7 @@ export function WhatsAppBuilderTool() {
     <PaidGate
       toolSlug="whatsapp-builder"
       preview={
-        <pre className="max-h-32 overflow-hidden rounded-xl border border-white/10 bg-black/40 p-4 text-xs text-brand-muted">
+        <pre className="max-h-32 overflow-hidden rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-xs text-brand-muted">
           {script.slice(0, 180)}…
         </pre>
       }
@@ -62,7 +62,7 @@ export function WhatsAppBuilderTool() {
       <div className="space-y-4">
         <Field label="Business name" value={biz} onChange={(e) => setBiz(e.target.value)} />
         <Field label="Hours" value={hours} onChange={(e) => setHours(e.target.value)} />
-        <pre className="whitespace-pre-wrap rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200">
+        <pre className="whitespace-pre-wrap rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-sm text-gray-200">
           {script}
         </pre>
         <ExportBtn
@@ -120,8 +120,8 @@ export function ContractExportTool() {
     <PaidGate toolSlug="contract-export" preview={<p className="text-sm text-brand-subtle">Contract text locked.</p>}>
       <div className="space-y-3">
         <div className="flex gap-2">
-          <button type="button" onClick={() => setKind("service")} className={`rounded-full px-3 py-1 text-xs ${kind === "service" ? "bg-white text-black" : "border border-white/20 text-white"}`}>Service</button>
-          <button type="button" onClick={() => setKind("nda")} className={`rounded-full px-3 py-1 text-xs ${kind === "nda" ? "bg-white text-black" : "border border-white/20 text-white"}`}>NDA</button>
+          <button type="button" onClick={() => setKind("service")} className={`rounded-full px-3 py-1 text-xs ${kind === "service" ? "bg-brand-ink text-brand-deep" : "border border-brand-ink/20 text-brand-ink"}`}>Service</button>
+          <button type="button" onClick={() => setKind("nda")} className={`rounded-full px-3 py-1 text-xs ${kind === "nda" ? "bg-brand-ink text-brand-deep" : "border border-brand-ink/20 text-brand-ink"}`}>NDA</button>
         </div>
         <Field label="Party A / Provider" value={partyA} onChange={(e) => setA(e.target.value)} />
         <Field label="Party B / Client" value={partyB} onChange={(e) => setB(e.target.value)} />
@@ -158,8 +158,8 @@ export function UptimeMonitorTool() {
     <PaidGate toolSlug="uptime-monitor" preview={<p className="text-sm text-brand-subtle">Monitor dashboard unlock required.</p>}>
       <div className="space-y-3">
         <Field label="Domain" value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="example.com" />
-        <div className="rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-brand-soft">
-          <p className="font-semibold text-white">{domain || "your-domain.com"}</p>
+        <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-sm text-brand-soft">
+          <p className="font-semibold text-brand-ink">{domain || "your-domain.com"}</p>
           <p className="mt-2 text-emerald-400">● Unlocked — check SSL & uptime manually or pair with Org Security tool</p>
           <ul className="mt-3 list-disc pl-5 text-brand-muted">
             <li>Open https://{domain || "example.com"} and confirm load</li>
@@ -213,7 +213,7 @@ export function AiCopyTool() {
       <div className="space-y-3">
         <Field label="Product / service" value={product} onChange={(e) => setProduct(e.target.value)} />
         <Field label="Audience" value={audience} onChange={(e) => setAudience(e.target.value)} />
-        <pre className="whitespace-pre-wrap rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200">{pack}</pre>
+        <pre className="whitespace-pre-wrap rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-sm text-gray-200">{pack}</pre>
         <ExportBtn label="Copy & print pack" onClick={() => { navigator.clipboard?.writeText(pack); printHtml("Copy Pack", `<pre>${pack}</pre>`); }} />
       </div>
     </PaidGate>
@@ -252,7 +252,7 @@ export function QrProTool() {
         <Field label="Destination URL" value={link} onChange={(e) => setLink(e.target.value)} />
         <Field label="Label" value={label} onChange={(e) => setLabel(e.target.value)} />
         <p className="text-sm text-brand-muted">
-          Use any free QR generator with this URL, then print label: <b className="text-white">{label}</b>
+          Use any free QR generator with this URL, then print label: <b className="text-brand-ink">{label}</b>
         </p>
         <ExportBtn
           label="Print QR brief"
@@ -375,7 +375,7 @@ export function InterviewPackTool() {
         <div className="flex flex-wrap gap-2">
           {(Object.keys(QUESTIONS) as (keyof typeof QUESTIONS)[]).map((t) => (
             <button key={t} type="button" onClick={() => setTrack(t)}
-              className={`rounded-full px-3 py-1 text-xs capitalize ${track === t ? "bg-white text-black" : "border border-white/20 text-white"}`}>{t}</button>
+              className={`rounded-full px-3 py-1 text-xs capitalize ${track === t ? "bg-brand-ink text-brand-deep" : "border border-brand-ink/20 text-brand-ink"}`}>{t}</button>
           ))}
         </div>
         <ol className="list-decimal space-y-2 pl-5 text-sm text-gray-200">

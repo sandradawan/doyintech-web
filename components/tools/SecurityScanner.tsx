@@ -234,7 +234,7 @@ export default function SecurityScanner() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
           Evidence-based passive scanner
         </p>
-        <h2 className="mt-2 font-display text-2xl font-bold text-white md:text-3xl">
+        <h2 className="mt-2 font-display text-2xl font-bold text-brand-ink md:text-3xl">
           Real load · real crawl · real findings
         </h2>
         <p className="mt-2 text-sm text-gray-400">
@@ -255,7 +255,7 @@ export default function SecurityScanner() {
             placeholder="https://yourwebsite.com"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full flex-1 rounded-2xl border border-white/15 bg-black/50 px-5 py-3.5 text-sm text-white outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/30"
+            className="w-full flex-1 rounded-2xl border border-brand-ink/15 bg-brand-well px-5 py-3.5 text-sm text-brand-ink outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/30"
           />
           <button
             type="submit"
@@ -283,7 +283,7 @@ export default function SecurityScanner() {
         {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
       </div>
 
-      <div className="doc-no-print mx-auto grid max-w-3xl gap-3 rounded-2xl border border-white/10 bg-black/30 p-4 text-left text-xs text-gray-400 sm:grid-cols-2">
+      <div className="doc-no-print mx-auto grid max-w-3xl gap-3 rounded-2xl border border-brand-ink/10 bg-brand-well p-4 text-left text-xs text-gray-400 sm:grid-cols-2">
         <div>
           <p className="font-semibold text-green-400">What this checks</p>
           <ul className="mt-1 list-inside list-disc space-y-0.5">
@@ -308,7 +308,7 @@ export default function SecurityScanner() {
       {previewUrl && (
         <div className="doc-no-print grid gap-6 lg:grid-cols-5">
           <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black lg:col-span-3">
-            <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2 text-xs text-gray-400">
+            <div className="flex items-center gap-2 border-b border-brand-ink/10 px-4 py-2 text-xs text-gray-400">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
@@ -318,7 +318,7 @@ export default function SecurityScanner() {
             </div>
 
             {pages.length > 0 && (phase === "scanning" || phase === "done") && (
-              <div className="flex gap-1 overflow-x-auto border-b border-white/5 px-2 py-1.5">
+              <div className="flex gap-1 overflow-x-auto border-b border-brand-ink/5 px-2 py-1.5">
                 {pages.slice(0, 18).map((p, i) => (
                   <span
                     key={p.url + i}
@@ -375,7 +375,7 @@ export default function SecurityScanner() {
                     <span className="truncate font-mono">{statusLine}</span>
                     <span className="font-mono">{progress}%</span>
                   </div>
-                  <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
+                  <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-brand-ink/10">
                     <div
                       className="h-full rounded-full bg-green-500 transition-all"
                       style={{ width: `${progress}%` }}
@@ -386,11 +386,11 @@ export default function SecurityScanner() {
             </div>
           </div>
 
-          <div className="flex flex-col rounded-3xl border border-white/10 bg-surface/80 p-5 lg:col-span-2">
+          <div className="flex flex-col rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 lg:col-span-2">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="font-display text-lg font-bold text-white">Console</h3>
+              <h3 className="font-display text-lg font-bold text-brand-ink">Console</h3>
               {phase === "done" && (
-                <span className="rounded-full border border-white/15 px-3 py-1 text-xs font-bold text-white">
+                <span className="rounded-full border border-brand-ink/15 px-3 py-1 text-xs font-bold text-brand-ink">
                   {score} · {grade}
                 </span>
               )}
@@ -413,7 +413,7 @@ export default function SecurityScanner() {
 
             <ul className="mt-4 max-h-[360px] space-y-2.5 overflow-y-auto pr-1">
               {shown.map((f) => (
-                <li key={f.id} className="rounded-xl border border-white/10 bg-black/30 p-3">
+                <li key={f.id} className="rounded-xl border border-brand-ink/10 bg-brand-well p-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${severityStyles[f.severity]}`}
@@ -427,7 +427,7 @@ export default function SecurityScanner() {
                     )}
                     <span className="font-mono text-[10px] text-primary">{f.page}</span>
                   </div>
-                  <p className="mt-1 text-sm font-semibold text-white">{f.title}</p>
+                  <p className="mt-1 text-sm font-semibold text-brand-ink">{f.title}</p>
                   <p className="mt-1 text-xs text-gray-400">{f.description}</p>
                   <p className="mt-1 font-mono text-[10px] text-gray-500">
                     Evidence: {f.evidence}
@@ -452,7 +452,7 @@ export default function SecurityScanner() {
       {phase === "done" && result && (
         <div
           id="doc-sheet"
-          className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl"
+          className="overflow-hidden rounded-2xl border border-brand-ink/10 bg-white text-gray-900 shadow-xl"
         >
           <div className="border-b-4 border-red-600 px-8 py-8">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">

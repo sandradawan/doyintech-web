@@ -90,8 +90,8 @@ export default function AdminSettingsPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">System</p>
-          <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Settings</h1>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">System</p>
+          <h1 className="mt-1 font-display text-[24px] font-semibold text-brand-ink">Settings</h1>
           <p className="mt-1 text-[13px] text-brand-subtle">
             Admin access is email/password + ADMIN_EMAILS. Use health check below to verify every module API.
           </p>
@@ -100,7 +100,7 @@ export default function AdminSettingsPage() {
           type="button"
           onClick={() => runHealth()}
           disabled={checking || !session.isAdmin}
-          className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-white disabled:opacity-50"
+          className="rounded-full border border-brand-ink/15 px-4 py-2 text-[13px] text-brand-ink disabled:opacity-50"
         >
           {checking ? "Checking…" : "Re-run health check"}
         </button>
@@ -108,21 +108,21 @@ export default function AdminSettingsPage() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         {checks.map((c) => (
-          <div key={c.label} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
+          <div key={c.label} className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-4">
             <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{c.label}</p>
-            <p className="mt-2 text-[15px] font-medium text-white">{c.value}</p>
+            <p className="mt-2 text-[15px] font-medium text-brand-ink">{c.value}</p>
           </div>
         ))}
       </div>
 
-      <div className="rounded-2xl border border-white/10 overflow-hidden">
-        <div className="border-b border-white/10 bg-white/[0.04] px-4 py-3">
-          <p className="text-[13px] font-semibold text-white">Module health</p>
+      <div className="rounded-2xl border border-brand-ink/10 overflow-hidden">
+        <div className="border-b border-brand-ink/10 bg-brand-ink/[0.04] px-4 py-3">
+          <p className="text-[13px] font-semibold text-brand-ink">Module health</p>
         </div>
-        <ul className="divide-y divide-white/5">
+        <ul className="divide-y divide-brand-ink/5">
           {health.map((h) => (
             <li key={h.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-[13px]">
-              <span className="text-white">{h.label}</span>
+              <span className="text-brand-ink">{h.label}</span>
               <span
                 className={
                   h.status === "ok"
@@ -142,8 +142,8 @@ export default function AdminSettingsPage() {
         </ul>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-brand-deep p-5 text-[13px] leading-relaxed text-brand-muted">
-        <p className="font-semibold text-white">Required Vercel env</p>
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-deep p-5 text-[13px] leading-relaxed text-brand-muted">
+        <p className="font-semibold text-brand-ink">Required Vercel env</p>
         <ul className="mt-3 list-disc space-y-1 pl-5">
           <li>
             <code className="text-brand-soft">ADMIN_EMAILS</code> — your admin email(s), comma-separated
@@ -156,7 +156,7 @@ export default function AdminSettingsPage() {
             <code className="text-brand-soft">SUPABASE_SERVICE_ROLE_KEY</code> — server data access
           </li>
         </ul>
-        <p className="mt-4 font-semibold text-white">Supabase Auth user</p>
+        <p className="mt-4 font-semibold text-brand-ink">Supabase Auth user</p>
         <p className="mt-2">
           Create a user in Supabase Auth with the same email as ADMIN_EMAILS, then sign in at{" "}
           <a href="/admin/login" className="text-brand-link hover:underline">
@@ -164,7 +164,7 @@ export default function AdminSettingsPage() {
           </a>
           .
         </p>
-        <p className="mt-4 font-semibold text-white">Optional tables</p>
+        <p className="mt-4 font-semibold text-brand-ink">Optional tables</p>
         <p className="mt-2">
           Pricing overrides need <code className="text-brand-soft">site_settings</code> (
           <code className="text-brand-soft">docs/site-settings.sql</code>). Leads / store / students need their

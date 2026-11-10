@@ -43,7 +43,7 @@ export default function GiftCardPill() {
   if (!card || hidden) return null;
 
   return (
-    <div className="fixed bottom-5 left-4 z-[95] flex items-center gap-2 rounded-full border border-[#ff8c14]/40 bg-brand-surface/95 py-1.5 pl-3 pr-1.5 text-[12px] text-white shadow-xl backdrop-blur">
+    <div className="fixed bottom-5 left-4 z-[95] flex items-center gap-2 rounded-full border border-brand-link/40 bg-brand-surface/95 py-1.5 pl-3 pr-1.5 text-[12px] text-brand-ink shadow-xl backdrop-blur">
       <span aria-hidden>🎁</span>
       <Link href="/gift-cards/redeem" className="hover:underline">
         Gift card ••{card.last4} · <strong>{naira(card.balanceKobo)}</strong> applied at checkout
@@ -52,7 +52,7 @@ export default function GiftCardPill() {
         type="button"
         onClick={() => applyGiftCode(null)}
         aria-label="Stop using this gift card"
-        className="rounded-full px-2 py-0.5 text-[14px] leading-none text-brand-muted hover:bg-white/10 hover:text-white"
+        className="rounded-full px-2 py-0.5 text-[14px] leading-none text-brand-muted hover:bg-brand-ink/10 hover:text-brand-ink"
       >
         ×
       </button>

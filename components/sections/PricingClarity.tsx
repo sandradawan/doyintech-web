@@ -26,7 +26,7 @@ const deposit = [
 
 export default function PricingClarity() {
   return (
-    <section id="clarity" className="apple-section apple-section-black border-t border-white/[0.06]">
+    <section id="clarity" className="apple-section apple-section-black border-t border-brand-ink/[0.06]">
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
           <p className="section-eyebrow">Clarity</p>
@@ -52,11 +52,11 @@ export default function PricingClarity() {
           </ScrollReveal>
           <ScrollReveal direction="up" delay={0.1}>
             <div className="glass-card h-full p-6 sm:p-8">
-              <h3 className="text-[17px] font-semibold text-[#ff8c14]">Not included by default</h3>
+              <h3 className="text-[17px] font-semibold text-brand-link">Not included by default</h3>
               <ul className="mt-4 space-y-3">
                 {notIncluded.map((item) => (
                   <li key={item} className="flex gap-2 text-[14px] text-brand-soft">
-                    <span className="text-[#ff8c14]">–</span>
+                    <span className="text-brand-link">–</span>
                     {item}
                   </li>
                 ))}
@@ -68,8 +68,8 @@ export default function PricingClarity() {
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {deposit.map((s, i) => (
             <ScrollReveal key={s.t} direction="up" delay={0.05 * i}>
-              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5">
-                <p className="text-[15px] font-semibold text-white">{s.t}</p>
+              <div className="rounded-2xl border border-brand-ink/[0.08] bg-brand-ink/[0.03] p-5">
+                <p className="text-[15px] font-semibold text-brand-ink">{s.t}</p>
                 <p className="mt-1 text-[13px] text-brand-muted">{s.d}</p>
               </div>
             </ScrollReveal>

@@ -15,8 +15,8 @@ export default function CaseStudiesIndex() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
-          <p className="section-eyebrow text-[#ff8c14]">Proof · not promises</p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
+          <p className="section-eyebrow text-brand-link">Proof · not promises</p>
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">
             Case studies
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
@@ -32,12 +32,12 @@ export default function CaseStudiesIndex() {
                 className="glass-card group flex flex-col p-6 transition hover:border-brand-link/30"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-brand-link">
                     {s.tag}
                   </span>
                   <span className="text-[12px] text-brand-muted">{s.metric}</span>
                 </div>
-                <h2 className="mt-3 text-[20px] font-semibold text-white group-hover:text-brand-link">
+                <h2 className="mt-3 text-[20px] font-semibold text-brand-ink group-hover:text-brand-link">
                   {s.name}
                 </h2>
                 <p className="mt-1 text-[13px] text-brand-subtle">{s.sector}</p>
@@ -48,9 +48,9 @@ export default function CaseStudiesIndex() {
                   {s.results.map((r) => (
                     <div
                       key={r.label}
-                      className="rounded-xl border border-white/[0.08] bg-black/30 px-3 py-2"
+                      className="rounded-xl border border-brand-ink/[0.08] bg-brand-well px-3 py-2"
                     >
-                      <p className="text-[13px] font-semibold text-white">{r.value}</p>
+                      <p className="text-[13px] font-semibold text-brand-ink">{r.value}</p>
                       <p className="text-[10px] uppercase tracking-wider text-brand-subtle">
                         {r.label}
                       </p>
@@ -62,8 +62,8 @@ export default function CaseStudiesIndex() {
             ))}
           </div>
 
-          <div className="mt-16 rounded-[28px] border border-white/[0.1] bg-gradient-to-br from-[#ff8c14]/15 to-brand-surface p-8 text-center sm:p-10">
-            <h2 className="text-[24px] font-semibold text-white sm:text-[28px]">
+          <div className="theme-dark panel-glow mt-16 rounded-[28px] p-8 text-center sm:p-10">
+            <h2 className="text-[24px] font-semibold text-brand-ink sm:text-[28px]">
               Want results like these?
             </h2>
             <p className="mx-auto mt-3 max-w-md text-[15px] text-brand-muted">

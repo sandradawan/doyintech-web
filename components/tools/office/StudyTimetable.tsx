@@ -85,16 +85,16 @@ export default function StudyTimetable() {
     <div className="space-y-6">
       <div className="grid gap-6 lg:grid-cols-2">
         <div className={panel}>
-          <p className="text-[15px] font-semibold text-white">Courses</p>
+          <p className="text-[15px] font-semibold text-brand-ink">Courses</p>
           {s.courses.map((c, i) => (
             <div key={i} className="grid grid-cols-[1fr_110px_1fr_auto] items-end gap-2">
               <Field name="Course" value={c.code} onChange={(v) => setCourse(i, "code", v)} />
               <label className={label}>
                 Difficulty
                 <select className={field} value={c.difficulty} onChange={(e) => setCourse(i, "difficulty", e.target.value)}>
-                  <option value="1" className="bg-black">Easy</option>
-                  <option value="2" className="bg-black">Medium</option>
-                  <option value="3" className="bg-black">Hard</option>
+                  <option value="1" className="bg-brand-surface text-brand-ink">Easy</option>
+                  <option value="2" className="bg-brand-surface text-brand-ink">Medium</option>
+                  <option value="3" className="bg-brand-surface text-brand-ink">Hard</option>
                 </select>
               </label>
               <Field name="Exam date" type="date" value={c.exam} onChange={(v) => setCourse(i, "exam", v)} />
@@ -104,7 +104,7 @@ export default function StudyTimetable() {
           <button type="button" className={ghostBtn} onClick={() => setS({ ...s, courses: [...s.courses, { code: "", difficulty: "2", exam: "" }] })}>+ Add course</button>
         </div>
         <div className={panel}>
-          <p className="text-[15px] font-semibold text-white">Hours you can study each day</p>
+          <p className="text-[15px] font-semibold text-brand-ink">Hours you can study each day</p>
           <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
             {DAYS.map((d, i) => (
               <Field key={d} name={d} type="number" value={s.hours[i] || ""} onChange={(v) => setS({ ...s, hours: s.hours.map((h, j) => (j === i ? v : h)) })} />
@@ -114,7 +114,7 @@ export default function StudyTimetable() {
             <label className={label}>
               Session length
               <select className={field} value={s.slot} onChange={(e) => setS({ ...s, slot: e.target.value })}>
-                {["30", "45", "60", "90"].map((m) => <option key={m} value={m} className="bg-black">{m} minutes</option>)}
+                {["30", "45", "60", "90"].map((m) => <option key={m} value={m} className="bg-brand-surface text-brand-ink">{m} minutes</option>)}
               </select>
             </label>
             <Field name="Start time" type="time" value={s.start} onChange={(v) => setS({ ...s, start: v })} />
@@ -127,16 +127,16 @@ export default function StudyTimetable() {
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-brand-surface p-4">
+      <div className="overflow-x-auto rounded-2xl border border-brand-ink/10 bg-brand-surface p-4">
         <div className="grid min-w-[720px] grid-cols-7 gap-2">
           {t.grid.map((d) => (
             <div key={d.day}>
-              <p className="mb-2 text-center text-[13px] font-semibold text-white">{d.day}</p>
+              <p className="mb-2 text-center text-[13px] font-semibold text-brand-ink">{d.day}</p>
               <div className="space-y-1.5">
-                {d.slots.length === 0 && <p className="rounded-lg border border-dashed border-white/10 p-2 text-center text-[11px] text-brand-muted">Rest</p>}
+                {d.slots.length === 0 && <p className="rounded-lg border border-dashed border-brand-ink/10 p-2 text-center text-[11px] text-brand-muted">Rest</p>}
                 {d.slots.map((x, k) => (
-                  <div key={k} className="rounded-lg bg-black/40 p-2">
-                    <p className="text-[12px] font-semibold text-white">{x.code}</p>
+                  <div key={k} className="rounded-lg bg-brand-well p-2">
+                    <p className="text-[12px] font-semibold text-brand-ink">{x.code}</p>
                     <p className="text-[11px] text-brand-muted">{x.time}</p>
                   </div>
                 ))}

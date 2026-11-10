@@ -6,13 +6,13 @@ import { pullTool, pushTool, toolSlug } from "@/lib/tools/cloud-save";
 /** Shared form styling and helpers for the office, business and student document tools. */
 
 export const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none placeholder:text-[#6e7380] focus:border-[#ff8c14] focus-visible:ring-2 focus-visible:ring-[#ff8c14]/30";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none placeholder:text-[#6e7380] focus:border-brand-link focus-visible:ring-2 focus-visible:ring-brand-link/30";
 export const label = "block text-[12px] font-medium text-brand-muted";
-export const panel = "space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5";
+export const panel = "space-y-5 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5";
 export const primaryBtn =
-  "inline-flex min-h-11 items-center justify-center rounded-full bg-[#ff8c14] px-6 text-[14px] font-semibold text-black transition hover:bg-[#ffa040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff8c14]";
+  "inline-flex min-h-11 items-center justify-center rounded-full bg-brand-accent px-6 text-[14px] font-semibold text-black transition hover:bg-[#ffa040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-link";
 export const ghostBtn =
-  "inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 px-5 text-[13px] font-semibold text-brand-soft transition hover:border-white/35";
+  "inline-flex min-h-11 items-center justify-center rounded-full border border-brand-ink/15 px-5 text-[13px] font-semibold text-brand-soft transition hover:border-brand-ink/35";
 
 export function esc(s: string) {
   return String(s ?? "")
@@ -125,7 +125,7 @@ export function Chips<T extends string>({
           aria-checked={value === o.id}
           onClick={() => onChange(o.id)}
           className={`min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${
-            value === o.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/35"
+            value === o.id ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/35"
           }`}
         >
           {o.label}

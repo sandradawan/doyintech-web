@@ -101,13 +101,13 @@ export default function ContactView() {
         </div>
         {error && <div className="mt-3"><ErrorNote message={error} /></div>}
         {q.trim().length >= 2 && people.length > 0 && (
-          <ul className={`${panel} mt-4 max-w-xl divide-y divide-white/[0.05]`}>
+          <ul className={`${panel} mt-4 max-w-xl divide-y divide-brand-ink/[0.05]`}>
             {people.map((p) => (
               <li key={p.email}>
-                <button type="button" onClick={() => open(p.email)} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/[0.03]">
+                <button type="button" onClick={() => open(p.email)} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-brand-ink/[0.03]">
                   <Avatar name={p.name || p.email} />
                   <span className="min-w-0">
-                    <span className="block truncate text-[14px] font-medium text-white">{p.name || p.email}</span>
+                    <span className="block truncate text-[14px] font-medium text-brand-ink">{p.name || p.email}</span>
                     <span className="block truncate text-[12px] text-brand-subtle">
                       {p.email}
                       {p.detail ? ` · ${p.detail}` : ""}
@@ -141,7 +141,7 @@ export default function ContactView() {
           <div className="mt-4 flex flex-wrap items-center gap-4">
             <Avatar name={c.name || c.email} large />
             <div className="min-w-0 flex-1">
-              <h1 className="truncate text-[24px] font-semibold tracking-tight text-white">{c.name || c.email}</h1>
+              <h1 className="truncate text-[24px] font-semibold tracking-tight text-brand-ink">{c.name || c.email}</h1>
               <p className="text-[13px] text-brand-muted">
                 {c.email}
                 {c.phone ? ` · ${c.phone}` : ""}
@@ -238,7 +238,7 @@ export default function ContactView() {
 function Avatar({ name, large }: { name: string; large?: boolean }) {
   const initials = name.split(/[\s@.]+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("");
   return (
-    <span className={`flex shrink-0 items-center justify-center rounded-full bg-[#ff8c14]/15 font-semibold text-[#ffb366] ring-1 ring-[#ff8c14]/25 ${large ? "h-14 w-14 text-[18px]" : "h-9 w-9 text-[12px]"}`}>
+    <span className={`flex shrink-0 items-center justify-center rounded-full bg-brand-link/15 font-semibold text-brand-link ring-1 ring-brand-link/25 ${large ? "h-14 w-14 text-[18px]" : "h-9 w-9 text-[12px]"}`}>
       {initials || "?"}
     </span>
   );
@@ -248,7 +248,7 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className={`${panel} px-4 py-3`}>
       <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
-      <div className="mt-1 text-[16px] font-semibold capitalize text-white">{value}</div>
+      <div className="mt-1 text-[16px] font-semibold capitalize text-brand-ink">{value}</div>
     </div>
   );
 }
@@ -257,10 +257,10 @@ function Section({ title, count, children }: { title: string; count: number; chi
   if (!count) return null;
   return (
     <section className={panel}>
-      <h2 className="border-b border-white/[0.06] px-4 py-3 text-[13px] font-semibold text-white">
+      <h2 className="border-b border-brand-ink/[0.06] px-4 py-3 text-[13px] font-semibold text-brand-ink">
         {title} <span className="text-brand-subtle">({count})</span>
       </h2>
-      <ul className="divide-y divide-white/[0.05]">{children}</ul>
+      <ul className="divide-y divide-brand-ink/[0.05]">{children}</ul>
     </section>
   );
 }
@@ -269,12 +269,12 @@ function Item({ title, meta, badge, body, href }: { title: string; meta: string;
   const inner = (
     <>
       <div className="flex items-start justify-between gap-3">
-        <p className="min-w-0 truncate text-[13px] font-medium text-white">{title}</p>
+        <p className="min-w-0 truncate text-[13px] font-medium text-brand-ink">{title}</p>
         {badge && <Badge value={badge} />}
       </div>
       <p className="mt-0.5 text-[12px] text-brand-subtle">{meta}</p>
       {body && <p className="mt-1 line-clamp-2 text-[12px] text-brand-muted">{body}</p>}
     </>
   );
-  return <li>{href ? <Link href={href} className="block px-4 py-3 hover:bg-white/[0.03]">{inner}</Link> : <div className="px-4 py-3">{inner}</div>}</li>;
+  return <li>{href ? <Link href={href} className="block px-4 py-3 hover:bg-brand-ink/[0.03]">{inner}</Link> : <div className="px-4 py-3">{inner}</div>}</li>;
 }

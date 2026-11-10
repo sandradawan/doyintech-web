@@ -12,7 +12,7 @@ function Field(
       <span className="mb-1 block text-xs text-brand-subtle">{label}</span>
       <input
         {...rest}
-        className={`w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none ${className || ""}`}
+        className={`w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none ${className || ""}`}
       />
     </label>
   );
@@ -27,7 +27,7 @@ function Area(
       <span className="mb-1 block text-xs text-brand-subtle">{label}</span>
       <textarea
         {...rest}
-        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
+        className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none"
       />
     </label>
   );
@@ -81,7 +81,7 @@ function StudioShell({
           type="button"
           disabled={loading}
           onClick={onGenerate}
-          className="w-full rounded-full bg-[#ff8c14] py-3 text-sm font-semibold text-black disabled:opacity-50"
+          className="w-full rounded-full bg-brand-accent py-3 text-sm font-semibold text-black disabled:opacity-50"
         >
           {loading ? "Generating…" : `Generate ${title}`}
         </button>
@@ -95,12 +95,12 @@ function StudioShell({
             <p className="text-xs text-brand-subtle">
               {llm ? "AI-enhanced output" : "Template draft (set OPENAI_API_KEY for full AI)"}
             </p>
-            <pre className="max-h-[480px] overflow-auto whitespace-pre-wrap rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200">
+            <pre className="max-h-[480px] overflow-auto whitespace-pre-wrap rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-sm text-gray-200">
               {result}
             </pre>
             <button
               type="button"
-              className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black"
+              className="rounded-full bg-brand-ink px-5 py-2.5 text-sm font-semibold text-brand-deep"
               onClick={() => {
                 navigator.clipboard?.writeText(result);
                 printHtml(

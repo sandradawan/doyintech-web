@@ -129,7 +129,7 @@ export default function PortfolioPage() {
                 <p className="text-sm font-semibold uppercase tracking-wider text-primary">
                   Portfolio
                 </p>
-                <h1 className="mt-3 font-display text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+                <h1 className="mt-3 font-display text-4xl md:text-6xl font-bold tracking-tight text-brand-ink leading-tight">
                   Selected Work
                 </h1>
                 <p className="mt-5 text-brand-muted max-w-xl leading-relaxed">
@@ -137,15 +137,15 @@ export default function PortfolioPage() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2 rounded-xl bg-white/5 border border-white/10 p-1.5 self-start md:self-auto">
+              <div className="flex flex-wrap gap-2 rounded-xl bg-brand-ink/5 border border-brand-ink/10 p-1.5 self-start md:self-auto">
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveTab(cat.id)}
                     className={`relative px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition duration-300 ${
                       activeTab === cat.id
-                        ? "text-white"
-                        : "text-brand-muted hover:text-white"
+                        ? "text-brand-ink"
+                        : "text-brand-muted hover:text-brand-ink"
                     }`}
                   >
                     {activeTab === cat.id && (
@@ -173,10 +173,10 @@ export default function PortfolioPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
                   whileHover={{ y: -6 }}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-black/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-brand-ink/5 bg-brand-well hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
                 >
                   <div>
-                    <div className="relative h-56 overflow-hidden border-b border-white/5 bg-brand-deep">
+                    <div className="relative h-56 overflow-hidden border-b border-brand-ink/5 bg-brand-deep">
                       {/* eslint-disable-next-line @next/next/no-img-element -- screenshot URLs vary; keep plain lazy img as before */}
                       <img
                         src={p.img}
@@ -195,14 +195,14 @@ export default function PortfolioPage() {
                         {p.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[9px] font-mono px-2 py-0.5 rounded border border-white/5 bg-white/5 text-brand-soft"
+                            className="text-[9px] font-mono px-2 py-0.5 rounded border border-brand-ink/5 bg-brand-ink/5 text-brand-soft"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
 
-                      <h3 className="font-display text-2xl font-bold text-white tracking-tight">
+                      <h3 className="font-display text-2xl font-bold text-brand-ink tracking-tight">
                         {p.title}
                       </h3>
                       <p className="text-xs text-primary font-medium mt-1 uppercase tracking-wide">
@@ -216,7 +216,7 @@ export default function PortfolioPage() {
                   </div>
 
                   <div className="p-6 pt-0 mt-auto">
-                    <div className="border-t border-white/5 pt-5 flex flex-wrap items-center gap-3">
+                    <div className="border-t border-brand-ink/5 pt-5 flex flex-wrap items-center gap-3">
                       <a
                         href={p.liveUrl}
                         target="_blank"
@@ -228,7 +228,7 @@ export default function PortfolioPage() {
                       {p.caseStudyUrl && (
                         <a
                           href={p.caseStudyUrl}
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-brand-soft text-xs font-semibold hover:border-primary hover:text-white transition duration-300"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-brand-ink/15 text-brand-soft text-xs font-semibold hover:border-primary hover:text-brand-ink transition duration-300"
                         >
                           View Case Study
                         </a>

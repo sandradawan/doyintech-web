@@ -62,23 +62,23 @@ export default function ReceiptGeneratorNigeriaPage() {
       newsletterSource="receipt-generator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Issue receipts automatically</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Issue receipts automatically</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             When customers pay on your own website, receipts go out by email without you lifting
             a finger.{" "}
-            <Link href="/hire" className="text-[#ff8c14] hover:underline">
+            <Link href="/hire" className="text-brand-link hover:underline">
               See our website packages with Paystack checkout
             </Link>
             , or get branded receipts and every premium tool with DoyinTech Pro.
           </p>
-          <Link href="/pro" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <Link href="/pro" className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             See DoyinTech Pro
           </Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">How to write a receipt</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">How to write a receipt</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5">
           <li>Fill in your business details once — they&apos;re remembered next time.</li>
           <li>Enter the customer&apos;s name and what they paid for.</li>
@@ -87,12 +87,12 @@ export default function ReceiptGeneratorNigeriaPage() {
         </ol>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Why receipts matter</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Why receipts matter</h2>
         <p className="mt-3">
           Receipts protect both sides: your customer has proof of payment, and you have a clear
           record for bookkeeping and tax. Keeping numbered receipts also makes it easy to match
           bank transfers to sales. Need to bill first? Use the{" "}
-          <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">
+          <Link href="/tools/invoice-generator-nigeria" className="text-brand-link hover:underline">
             invoice generator
           </Link>
           .

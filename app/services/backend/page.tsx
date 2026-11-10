@@ -18,7 +18,7 @@ export default function BackendServicePage() {
           <p className="mt-8 text-sm font-semibold uppercase tracking-wider text-primary">
             Service
           </p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white">
+          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-brand-ink">
             Backend Engineering
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -34,7 +34,7 @@ export default function BackendServicePage() {
             </p>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">What you get</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">What you get</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Laravel & modern PHP applications</li>
                 <li>Node.js / TypeScript APIs</li>
@@ -47,25 +47,25 @@ export default function BackendServicePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Typical timeline</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">Typical timeline</h2>
               <ul className="space-y-2">
                 <li>
-                  <span className="text-white font-medium">Discovery</span> — 3–5
+                  <span className="text-brand-ink font-medium">Discovery</span> — 3–5
                   days (scope, risks, architecture sketch)
                 </li>
                 <li>
-                  <span className="text-white font-medium">MVP backend</span> —
+                  <span className="text-brand-ink font-medium">MVP backend</span> —
                   2–6 weeks depending on modules
                 </li>
                 <li>
-                  <span className="text-white font-medium">Hardening</span> —
+                  <span className="text-brand-ink font-medium">Hardening</span> —
                   auth hardening, tests on critical paths, docs
                 </li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">Investment range (USD)</h2>
               <p className="text-brand-muted text-sm mb-3">
                 Indicative only — final quote depends on scope. We price clearly
                 after discovery.
@@ -78,17 +78,17 @@ export default function BackendServicePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">FAQ</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">FAQ</h2>
               <div className="space-y-4 text-sm">
                 <div>
-                  <p className="font-semibold text-white">Laravel or Node?</p>
+                  <p className="font-semibold text-brand-ink">Laravel or Node?</p>
                   <p className="text-brand-muted mt-1">
                     We recommend based on your team, timeline and product type —
                     not hype.
                   </p>
                 </div>
                 <div>
-                  <p className="font-semibold text-white">Do you work with existing codebases?</p>
+                  <p className="font-semibold text-brand-ink">Do you work with existing codebases?</p>
                   <p className="text-brand-muted mt-1">
                     Yes. Stabilisation, refactors and feature work on production
                     systems are core to what we do.
@@ -108,7 +108,7 @@ export default function BackendServicePage() {
                 href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27m%20interested%20in%20backend%20engineering."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-xl border border-white/15 text-white text-sm font-semibold"
+                className="px-6 py-3 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold"
               >
                 WhatsApp Us
               </a>

@@ -49,33 +49,33 @@ function TrackInner() {
         <p className="text-[13px] text-brand-muted">
           <Link href="/reports" className="text-brand-link hover:underline">Report Studio</Link> / Track
         </p>
-        <h1 className="mt-3 font-display text-[28px] font-semibold text-white">Track your report</h1>
+        <h1 className="mt-3 font-display text-[28px] font-semibold text-brand-ink">Track your report</h1>
         <form onSubmit={lookup} className="mt-8 space-y-4">
           <label className="block text-[13px] text-brand-muted">
             Order ID *
             <input required value={orderId} onChange={(e) => setOrderId(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+              className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
           </label>
           <label className="block text-[13px] text-brand-muted">
             Email used at checkout *
             <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+              className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
           </label>
           {error && <p className="text-red-300 text-[14px]">{error}</p>}
           <button type="submit" disabled={loading}
-            className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
+            className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
             {loading ? "Looking up…" : "Check status"}
           </button>
         </form>
         {result && (
-          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+          <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6">
             <p className="text-[12px] text-brand-subtle">{result.orderId}</p>
-            <p className="mt-1 text-[18px] font-semibold text-white">{result.productName}</p>
+            <p className="mt-1 text-[18px] font-semibold text-brand-ink">{result.productName}</p>
             <p className="mt-1 text-[14px] text-brand-muted">
               {formatNgn(result.priceNgn)} · {reportStatusLabel(result.status)}
             </p>
             {result.viewUrl ? (
-              <a href={result.viewUrl} className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+              <a href={result.viewUrl} className="mt-5 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
                 Open report
               </a>
             ) : (

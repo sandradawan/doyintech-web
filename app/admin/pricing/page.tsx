@@ -117,13 +117,13 @@ export default function AdminPricingPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Commerce</p>
-          <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Pricing control</h1>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">Commerce</p>
+          <h1 className="mt-1 font-display text-[24px] font-semibold text-brand-ink">Pricing control</h1>
           <p className="mt-1 max-w-xl text-[13px] text-brand-subtle">
             Edit NGN prices for services, products, students, tools, ebooks, components, and templates. Overrides apply to Paystack charges immediately.
           </p>
         </div>
-        <button type="button" onClick={() => load()} disabled={loading} className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-white disabled:opacity-50">
+        <button type="button" onClick={() => load()} disabled={loading} className="rounded-full border border-brand-ink/15 px-4 py-2 text-[13px] text-brand-ink disabled:opacity-50">
           {loading ? "Loading…" : "Refresh"}
         </button>
       </div>
@@ -137,17 +137,17 @@ export default function AdminPricingPage() {
       {msg ? <p className="text-sm text-emerald-300">{msg}</p> : null}
 
       <div className="flex flex-wrap gap-2">
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or id…" className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-white outline-none focus:border-[#ff8c14]/50" />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or id…" className="min-w-[200px] flex-1 rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink outline-none focus:border-brand-link/50" />
         {CATS.map((c) => (
           <button key={c} type="button" onClick={() => setCat(c)} className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${
-            cat === c ? "bg-[#ff8c14]/15 text-[#ff8c14]" : "bg-white/[0.04] text-brand-muted"
+            cat === c ? "bg-brand-link/15 text-brand-link" : "bg-brand-ink/[0.04] text-brand-muted"
           }`}>{c}</button>
         ))}
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/10">
+      <div className="overflow-x-auto rounded-2xl border border-brand-ink/10">
         <table className="w-full min-w-[720px] text-left text-[13px]">
-          <thead className="bg-white/[0.04] text-[11px] uppercase text-brand-subtle">
+          <thead className="bg-brand-ink/[0.04] text-[11px] uppercase text-brand-subtle">
             <tr>
               <th className="px-3 py-2.5">Item</th>
               <th className="px-3 py-2.5">Category</th>
@@ -157,11 +157,11 @@ export default function AdminPricingPage() {
           </thead>
           <tbody>
             {filtered.map((it) => (
-              <tr key={it.key} className="border-t border-white/5">
+              <tr key={it.key} className="border-t border-brand-ink/5">
                 <td className="px-3 py-3">
-                  <p className="font-medium text-white">
+                  <p className="font-medium text-brand-ink">
                     {it.name}
-                    {it.overridden ? <span className="ml-2 rounded-full bg-[#ff8c14]/20 px-2 py-0.5 text-[10px] text-[#ff8c14]">custom</span> : null}
+                    {it.overridden ? <span className="ml-2 rounded-full bg-brand-link/20 px-2 py-0.5 text-[10px] text-brand-link">custom</span> : null}
                   </p>
                   <p className="text-[11px] text-brand-subtle">{it.key}</p>
                   {it.note ? <p className="text-[11px] text-[#555]">{it.note}</p> : null}
@@ -172,7 +172,7 @@ export default function AdminPricingPage() {
                     <input
                       value={drafts[it.key] ?? ""}
                       onChange={(e) => setDrafts((d) => ({ ...d, [it.key]: e.target.value.replace(/[^\d]/g, "") }))}
-                      className="w-28 rounded-lg border border-white/10 bg-black/40 px-2 py-1.5 text-sm tabular-nums text-white outline-none focus:border-[#ff8c14]/50"
+                      className="w-28 rounded-lg border border-brand-ink/10 bg-brand-well px-2 py-1.5 text-sm tabular-nums text-brand-ink outline-none focus:border-brand-link/50"
                     />
                   ) : (
                     <span className="text-[12px] text-brand-subtle">{it.displayLabel || "Display only"}</span>
@@ -181,7 +181,7 @@ export default function AdminPricingPage() {
                 <td className="whitespace-nowrap px-3 py-3">
                   {it.amountKobo != null || it.priceNgn != null ? (
                     <>
-                      <button type="button" disabled={saving === it.key} onClick={() => save(it.key)} className="mr-2 text-[12px] font-medium text-[#ff8c14] hover:underline disabled:opacity-50">
+                      <button type="button" disabled={saving === it.key} onClick={() => save(it.key)} className="mr-2 text-[12px] font-medium text-brand-link hover:underline disabled:opacity-50">
                         {saving === it.key ? "…" : "Save"}
                       </button>
                       {it.overridden ? (

@@ -18,10 +18,10 @@ export default function PropertyWebsitePost() {
           <Link href="/blog" className="text-sm text-brand-link hover:underline">
             ← Blog
           </Link>
-          <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+          <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-brand-link">
             Property · September 2026
           </p>
-          <h1 className="mt-3 text-[32px] font-semibold leading-tight text-white sm:text-[40px]">
+          <h1 className="mt-3 text-[32px] font-semibold leading-tight text-brand-ink sm:text-[40px]">
             Property website in Nigeria that gets leads
           </h1>
           <p className="mt-4 text-[17px] text-brand-muted">
@@ -43,15 +43,15 @@ export default function PropertyWebsitePost() {
             </p>
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/hire" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black">
+            <Link href="/hire" className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black">
               Start with fixed-price site
             </Link>
-            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white">
+            <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink">
               Scope a portal
             </a>
           </div>
                   <p className="mt-8 text-[14px] text-brand-muted">
-            Ready to build? See our <Link href="/websites/real-estate" className="text-[#ff8c14] hover:underline">real estate website design and pricing</Link>.
+            Ready to build? See our <Link href="/websites/real-estate" className="text-brand-link hover:underline">real estate website design and pricing</Link>.
           </p>
           <BlogPostExtras slug="property-website-nigeria" title={"Property Website in Nigeria: Listings, Leads and Enquiries"} description={"How property developers and facilitators get serious enquiries online. Lessons from platforms like Imperial Villa. Fixed-price and custom builds."} published="2026-09-18" />
         </article>

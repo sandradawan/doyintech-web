@@ -5,7 +5,7 @@ import Link from "next/link";
 import { RENT_RELIEF_CAP, RENT_RELIEF_RATE, naira, taxOnTaxableIncome } from "@/lib/tax/paye2026";
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 
 const num = (v: string) => {
   const n = Number(v.replace(/[^\d.]/g, ""));
@@ -44,14 +44,14 @@ export default function FreelancerTaxCalculator() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-[#ff8c14]/40 bg-[#ff8c14]/10 px-5 py-4 text-[14px] text-white">
+      <div className="rounded-2xl border border-brand-link/40 bg-brand-link/10 px-5 py-4 text-[14px] text-brand-ink">
         {/* Day count is computed at build time and again in the browser; the browser value wins. */}
         <span suppressHydrationWarning>
           {`${deadline.days} days until the ${deadline.label} deadline to file your ${deadline.incomeYear} income tax return.`}
         </span>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block text-[13px] text-brand-muted">
             Total income for the year (₦)
@@ -84,10 +84,10 @@ export default function FreelancerTaxCalculator() {
         <Stat label="Taxable income" value={naira(r.taxable)} />
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-white/10">
+      <div className="overflow-hidden rounded-2xl border border-brand-ink/10">
         <table className="w-full text-left text-[14px]">
           <caption className="sr-only">Freelancer tax breakdown</caption>
-          <tbody className="divide-y divide-white/10 text-brand-soft">
+          <tbody className="divide-y divide-brand-ink/10 text-brand-soft">
             <Row label="Income" value={naira(num(income))} />
             <Row label="Less business expenses" value={`− ${naira(num(expenses))}`} />
             <Row label="Profit" value={naira(r.profit)} strong />
@@ -105,12 +105,12 @@ export default function FreelancerTaxCalculator() {
         </table>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-[14px] text-brand-muted">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 text-[14px] text-brand-muted">
         Records make filing easy: issue every client a proper{" "}
-        <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">invoice</Link> and keep{" "}
-        <Link href="/tools/receipt-generator-nigeria" className="text-[#ff8c14] hover:underline">receipts</Link> for expenses.
+        <Link href="/tools/invoice-generator-nigeria" className="text-brand-link hover:underline">invoice</Link> and keep{" "}
+        <Link href="/tools/receipt-generator-nigeria" className="text-brand-link hover:underline">receipts</Link> for expenses.
         Branded invoices, receipts and every premium tool come with{" "}
-        <Link href="/pro" className="text-[#ff8c14] hover:underline">DoyinTech Pro</Link>.
+        <Link href="/pro" className="text-brand-link hover:underline">DoyinTech Pro</Link>.
       </div>
     </div>
   );
@@ -118,18 +118,18 @@ export default function FreelancerTaxCalculator() {
 
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
-    <div className={`rounded-2xl border p-5 ${highlight ? "border-[#ff8c14]/40 bg-[#ff8c14]/10" : "border-white/10 bg-white/[0.03]"}`}>
+    <div className={`rounded-2xl border p-5 ${highlight ? "border-brand-link/40 bg-brand-link/10" : "border-brand-ink/10 bg-brand-ink/[0.03]"}`}>
       <p className="text-[12px] uppercase tracking-wide text-brand-subtle">{label}</p>
-      <p className="mt-1 text-[24px] font-semibold text-white">{value}</p>
+      <p className="mt-1 text-[24px] font-semibold text-brand-ink">{value}</p>
     </div>
   );
 }
 
 function Row({ label, value, strong, muted }: { label: string; value: string; strong?: boolean; muted?: boolean }) {
   return (
-    <tr className={strong ? "bg-white/[0.04]" : ""}>
-      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-brand-subtle" : ""} ${strong ? "font-semibold text-white" : ""}`}>{label}</td>
-      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-white" : muted ? "text-brand-subtle" : ""}`}>{value}</td>
+    <tr className={strong ? "bg-brand-ink/[0.04]" : ""}>
+      <td className={`px-4 py-2.5 ${muted ? "pl-8 text-brand-subtle" : ""} ${strong ? "font-semibold text-brand-ink" : ""}`}>{label}</td>
+      <td className={`px-4 py-2.5 text-right ${strong ? "font-semibold text-brand-ink" : muted ? "text-brand-subtle" : ""}`}>{value}</td>
     </tr>
   );
 }

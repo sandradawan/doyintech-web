@@ -39,10 +39,10 @@ export default function ProPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1000px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Membership
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[46px]">
             DoyinTech Pro
           </h1>
           <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
@@ -58,19 +58,19 @@ export default function ProPage() {
 
           <p className="mt-6 text-center text-[13px] text-brand-subtle">
             Already a member?{" "}
-            <Link href="/account" className="text-[#ff8c14] hover:underline">
+            <Link href="/account" className="text-brand-link hover:underline">
               Sign in to your account
             </Link>
           </p>
 
           <section className="mt-16">
-            <h2 className="text-[22px] font-semibold text-white">Premium tools included</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Premium tools included</h2>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {PAID_TOOLS.map((t) => (
                 <li key={t.toolSlug}>
                   <Link
                     href={`/tools/${t.toolSlug}`}
-                    className="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[14px] text-white hover:border-[#ff8c14]/40"
+                    className="block rounded-xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-3 text-[14px] text-brand-ink hover:border-brand-link/40"
                   >
                     {t.title}
                     <span className="mt-0.5 block text-[12px] text-brand-subtle">
@@ -83,11 +83,11 @@ export default function ProPage() {
           </section>
 
           <section className="mt-16">
-            <h2 className="text-[22px] font-semibold text-white">Questions</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Questions</h2>
             <dl className="mt-5 space-y-5">
               {FAQ.map((f) => (
                 <div key={f.q}>
-                  <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
+                  <dt className="text-[15px] font-semibold text-brand-ink">{f.q}</dt>
                   <dd className="mt-1 text-[14px] leading-relaxed text-brand-muted">{f.a}</dd>
                 </div>
               ))}

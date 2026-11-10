@@ -23,9 +23,9 @@ export default function ReportButton({ kind, id }: { kind: "post" | "reply"; id:
 
   return (
     <form onSubmit={submit} className="mt-2 max-w-md">
-      <label className="block text-[13px] font-semibold text-white">What&apos;s wrong?<input name="reason" required minLength={3} maxLength={300} className={fieldClass} /></label>
+      <label className="block text-[13px] font-semibold text-brand-ink">What&apos;s wrong?<input name="reason" required minLength={3} maxLength={300} className={fieldClass} /></label>
       {error && <p role="alert" className="mt-1 text-[13px] text-red-300">{error}</p>}
-      <button type="submit" className="mt-2 min-h-11 rounded-full border border-white/20 px-4 text-[14px] font-semibold text-white">Send report</button>
+      <button type="submit" className="mt-2 min-h-11 rounded-full border border-brand-ink/20 px-4 text-[14px] font-semibold text-brand-ink">Send report</button>
     </form>
   );
 }

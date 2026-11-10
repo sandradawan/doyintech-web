@@ -66,7 +66,7 @@ function Avatar({ name, hue, size }: { name: string; hue: number; size: "sm" | "
   return (
     <span
       aria-hidden
-      className={`flex shrink-0 items-center justify-center rounded-full font-semibold text-white ${
+      className={`flex shrink-0 items-center justify-center rounded-full font-semibold text-brand-ink ${
         size === "lg" ? "h-16 w-16 text-[22px] sm:h-20 sm:w-20 sm:text-[26px]" : "h-8 w-8 text-[12px]"
       }`}
       style={{ background: `linear-gradient(135deg, hsl(${hue} 70% 45%), hsl(${(hue + 40) % 360} 75% 35%))` }}
@@ -431,14 +431,14 @@ export default function ShopClient({
             </a>
           </div>
           <ul className="mt-6 flex flex-wrap gap-2 text-[12px] font-medium text-[#444]">
-            <li className="rounded-full bg-white/80 px-3 py-1.5 ring-1 ring-black/[0.06]">
+            <li className="rounded-full bg-brand-ink/80 px-3 py-1.5 ring-1 ring-black/[0.06]">
               {products.length} product{products.length === 1 ? "" : "s"}
             </li>
-            <li className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 ring-1 ring-black/[0.06]">
+            <li className="inline-flex items-center gap-1.5 rounded-full bg-brand-ink/80 px-3 py-1.5 ring-1 ring-black/[0.06]">
               <FaWhatsapp className="text-[#25D366]" aria-hidden /> Order on WhatsApp
             </li>
             {canPay && (
-              <li className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 ring-1 ring-black/[0.06]">
+              <li className="inline-flex items-center gap-1.5 rounded-full bg-brand-ink/80 px-3 py-1.5 ring-1 ring-black/[0.06]">
                 <FiLock aria-hidden /> Secure card &amp; transfer payment by Paystack
               </li>
             )}
@@ -495,7 +495,7 @@ export default function ShopClient({
                 <button type="button" onClick={() => setViewing(p)} className="relative block aspect-square overflow-hidden bg-[#efeee9]" aria-label={`View ${p.name}`}>
                   <ProductImage product={p} sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 280px" priority={i < 4} />
                   {!p.in_stock && (
-                    <span className="absolute left-2.5 top-2.5 rounded-full bg-[#111]/80 px-2.5 py-1 text-[11px] font-semibold text-white">Sold out</span>
+                    <span className="absolute left-2.5 top-2.5 rounded-full bg-[#111]/80 px-2.5 py-1 text-[11px] font-semibold text-brand-ink">Sold out</span>
                   )}
                 </button>
                 <div className="flex flex-1 flex-col p-3 sm:p-4">
@@ -583,7 +583,7 @@ export default function ShopClient({
               transition={{ type: "spring", damping: 28, stiffness: 320 }}
               className="relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-t-3xl bg-white text-[#111] shadow-2xl sm:rounded-3xl"
             >
-              <button type="button" onClick={() => setViewing(null)} className={`${iconBtn} absolute right-3 top-3 z-10 bg-white/90 shadow`} aria-label="Close">
+              <button type="button" onClick={() => setViewing(null)} className={`${iconBtn} absolute right-3 top-3 z-10 bg-brand-ink/90 shadow`} aria-label="Close">
                 <FiX size={18} />
               </button>
               <div className="grid sm:grid-cols-2">

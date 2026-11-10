@@ -16,7 +16,7 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "#06291f",
+          background: "#061c11",
           color: "#ffffff",
           fontFamily: "sans-serif",
         }}
@@ -27,7 +27,7 @@ export default function OpengraphImage() {
               width: 56,
               height: 56,
               borderRadius: 14,
-              background: "#ff8c14",
+              background: "#a3e635",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
             Fixed-price sites, WhatsApp systems, care plans and digital tools for growing businesses.
           </div>
         </div>
-        <div style={{ display: "flex", gap: 28, fontSize: 26, color: "#ff8c14", fontWeight: 600 }}>
+        <div style={{ display: "flex", gap: 28, fontSize: 26, color: "#a3e635", fontWeight: 600 }}>
           <span>50% deposit</span>
           <span>·</span>
           <span>Secure Paystack</span>

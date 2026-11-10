@@ -71,24 +71,24 @@ export default function GiftCardRedeem() {
             aria-label="Gift card code"
             autoComplete="off"
             spellCheck={false}
-            className="min-w-0 flex-1 rounded-full border border-white/15 bg-black/40 px-5 py-3 font-mono text-[16px] tracking-[0.08em] text-white outline-none focus:border-[#ff8c14]"
+            className="min-w-0 flex-1 rounded-full border border-brand-ink/15 bg-brand-well px-5 py-3 font-mono text-[16px] tracking-[0.08em] text-brand-ink outline-none focus:border-brand-link"
           />
-          <button type="submit" disabled={busy} className="rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black disabled:opacity-60">
+          <button type="submit" disabled={busy} className="rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black disabled:opacity-60">
             {busy ? "Checking…" : "Check balance"}
           </button>
         </form>
         {error && <p className="mt-3 text-[14px] text-red-400">{error}</p>}
 
         {card && (
-          <div className="mt-6 rounded-2xl border border-white/10 bg-brand-surface p-5">
+          <div className="mt-6 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
             <p className="text-[13px] uppercase tracking-wide text-brand-subtle">Balance</p>
-            <p className="mt-1 text-[32px] font-semibold text-white">{naira(card.balanceKobo)}</p>
+            <p className="mt-1 text-[32px] font-semibold text-brand-ink">{naira(card.balanceKobo)}</p>
             <p className="text-[13px] text-brand-muted">
               of {naira(card.initialKobo)} · card ••{card.last4}
               {card.expiresAt && ` · valid until ${new Date(card.expiresAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}`}
             </p>
             {!card.usable || card.balanceKobo <= 0 ? (
-              <p className="mt-4 text-[14px] text-[#ffb366]">
+              <p className="mt-4 text-[14px] text-brand-link">
                 {card.status === "expired" ? "This card has expired." : card.status === "disabled" ? "This card has been disabled." : "This card has been fully spent."}
               </p>
             ) : applied ? (
@@ -101,14 +101,14 @@ export default function GiftCardRedeem() {
                     ["/ebooks", "Ebooks"],
                     ["/hire", "Website packages"],
                   ].map(([href, l]) => (
-                    <Link key={href} href={href} className="rounded-full border border-white/20 px-4 py-2 font-semibold text-white hover:bg-white/5">
+                    <Link key={href} href={href} className="rounded-full border border-brand-ink/20 px-4 py-2 font-semibold text-brand-ink hover:bg-brand-ink/5">
                       {l}
                     </Link>
                   ))}
                 </div>
               </div>
             ) : (
-              <button type="button" onClick={apply} className="mt-4 rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+              <button type="button" onClick={apply} className="mt-4 rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
                 Use this card at checkout
               </button>
             )}

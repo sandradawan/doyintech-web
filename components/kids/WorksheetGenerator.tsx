@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { DIFFICULTY, TOPICS, newCode, worksheet, type Difficulty, type Topic } from "@/lib/kids/worksheets";
 
-const field = "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]";
+const field = "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link";
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 
 /** Free printable maths worksheets with an answer key; a sheet code reprints the same sheet. */
@@ -35,7 +35,7 @@ export default function WorksheetGenerator() {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:grid-cols-2 lg:grid-cols-4">
         <label className="block text-[12px] font-medium text-brand-muted">Topic
           <select value={topic} onChange={(e) => setTopic(e.target.value as Topic)} className={field}>
             {Object.entries(TOPICS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
@@ -53,8 +53,8 @@ export default function WorksheetGenerator() {
           <input value={code} maxLength={8} onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))} className={field} />
         </label>
         <div className="flex flex-wrap gap-2 sm:col-span-2 lg:col-span-4">
-          <button type="button" onClick={print} className="min-h-11 rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Print worksheet + answers</button>
-          <button type="button" onClick={() => setCode(newCode())} className="min-h-11 rounded-full border border-white/15 px-5 text-[14px] font-semibold text-white">New questions</button>
+          <button type="button" onClick={print} className="min-h-11 rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Print worksheet + answers</button>
+          <button type="button" onClick={() => setCode(newCode())} className="min-h-11 rounded-full border border-brand-ink/15 px-5 text-[14px] font-semibold text-brand-ink">New questions</button>
         </div>
       </div>
 
@@ -71,10 +71,10 @@ export default function WorksheetGenerator() {
         <p className="mt-5 text-[12px] text-black/50">Preview · the printout adds an answer key on page 2</p>
       </div>
 
-      <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-5">
-        <p className="text-[16px] font-semibold text-white">Want a whole term&apos;s practice ready to print?</p>
+      <div className="rounded-2xl border border-brand-link/30 bg-brand-link/10 p-5">
+        <p className="text-[16px] font-semibold text-brand-ink">Want a whole term&apos;s practice ready to print?</p>
         <p className="mt-1 text-[14px] text-brand-soft">The Primary Maths Practice Workbook has 40 graded worksheets with answers, from counting to fractions and word problems.</p>
-        <Link href="/products/primary-maths-practice-workbook" className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">See the workbook</Link>
+        <Link href="/products/primary-maths-practice-workbook" className="mt-3 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">See the workbook</Link>
       </div>
     </div>
   );

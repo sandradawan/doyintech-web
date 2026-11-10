@@ -65,23 +65,23 @@ export default async function SalaryCountryPage({ params }: Params) {
       newsletterSource={`salary-${c.slug}`}
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Earn more on the side</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Earn more on the side</h2>
           <p className="mt-2 text-[14px] text-brand-muted">Open a free online shop, send invoices in {c.currency} and get paid by link.</p>
-          <Link href="/stores" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Open a free shop</Link>
+          <Link href="/stores" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Open a free shop</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Take-home pay at common salaries ({c.taxYear})</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Take-home pay at common salaries ({c.taxYear})</h2>
         <table className="mt-4 w-full text-left text-[15px]">
           <thead>
-            <tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Gross a year</th><th className="py-2 font-medium">Take-home a year</th><th className="py-2 font-medium">Take-home a month</th></tr>
+            <tr className="border-b border-brand-ink/10 text-brand-muted"><th className="py-2 font-medium">Gross a year</th><th className="py-2 font-medium">Take-home a year</th><th className="py-2 font-medium">Take-home a month</th></tr>
           </thead>
           <tbody>
             {levels.map((g) => {
               const n = c.calc(g).net;
               return (
-                <tr key={g} className="border-b border-white/5"><td className="py-2 text-white">{money(c, g)}</td><td className="py-2">{money(c, n)}</td><td className="py-2">{money(c, n / 12)}</td></tr>
+                <tr key={g} className="border-b border-brand-ink/5"><td className="py-2 text-brand-ink">{money(c, g)}</td><td className="py-2">{money(c, n)}</td><td className="py-2">{money(c, n / 12)}</td></tr>
               );
             })}
           </tbody>
@@ -89,13 +89,13 @@ export default async function SalaryCountryPage({ params }: Params) {
         <p className="mt-3">Figures cover {c.covers}. They leave out {c.excludes}.</p>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Other countries</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Other countries</h2>
         <ul className="mt-3 flex flex-wrap gap-2">
           {others.map((o) => (
-            <li key={o.slug}><Link href={`/salary-calculator/${o.slug}`} className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] text-white hover:border-[#ff8c14]">{o.country}</Link></li>
+            <li key={o.slug}><Link href={`/salary-calculator/${o.slug}`} className="inline-flex min-h-10 items-center rounded-full border border-brand-ink/15 px-4 text-[13px] text-brand-ink hover:border-brand-link">{o.country}</Link></li>
           ))}
-          <li><Link href="/tools/paye-calculator-nigeria" className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] text-white hover:border-[#ff8c14]">Nigeria (PAYE)</Link></li>
-          <li><Link href="/salary-calculator" className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] text-[#ff8c14]">All countries</Link></li>
+          <li><Link href="/tools/paye-calculator-nigeria" className="inline-flex min-h-10 items-center rounded-full border border-brand-ink/15 px-4 text-[13px] text-brand-ink hover:border-brand-link">Nigeria (PAYE)</Link></li>
+          <li><Link href="/salary-calculator" className="inline-flex min-h-10 items-center rounded-full border border-brand-ink/15 px-4 text-[13px] text-brand-link">All countries</Link></li>
         </ul>
       </section>
     </SeoToolPage>

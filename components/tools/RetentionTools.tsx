@@ -2,14 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-const box = "rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8 space-y-4";
+const box = "rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8 space-y-4";
 const input =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 const labelCls = "block text-xs text-brand-subtle mb-1";
 const btn =
   "rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50";
 const btnGhost =
-  "rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-primary/50";
+  "rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink hover:border-primary/50";
 
 function Field({
   label,
@@ -108,11 +108,11 @@ export function PomodoroTimerTool() {
         <span className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-primary">
           Streak: {streak.count} day{streak.count === 1 ? "" : "s"}
         </span>
-        <span className="rounded-full border border-white/15 px-3 py-1 text-brand-soft">
+        <span className="rounded-full border border-brand-ink/15 px-3 py-1 text-brand-soft">
           {mode === "work" ? "Focus session" : "Break"}
         </span>
       </div>
-      <p className="font-display text-5xl font-bold tracking-tight text-white md:text-6xl">
+      <p className="font-display text-5xl font-bold tracking-tight text-brand-ink md:text-6xl">
         {mm}:{ss}
       </p>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -199,10 +199,10 @@ export function DailyChecklistTool() {
         {todayItems.map((i) => (
           <li
             key={i.id}
-            className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 px-3 py-2"
+            className="flex items-center gap-3 rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2"
           >
             <input type="checkbox" checked={i.done} onChange={() => toggle(i.id)} className="h-4 w-4" />
-            <span className={"flex-1 text-sm " + (i.done ? "text-brand-subtle line-through" : "text-white")}>
+            <span className={"flex-1 text-sm " + (i.done ? "text-brand-subtle line-through" : "text-brand-ink")}>
               {i.text}
             </span>
             <button type="button" className="text-xs text-red-300" onClick={() => remove(i.id)}>
@@ -259,7 +259,7 @@ export function BusinessNameGeneratorTool() {
       </button>
       <ul className="grid gap-2 sm:grid-cols-2">
         {names.map((n) => (
-          <li key={n} className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white">
+          <li key={n} className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-ink">
             {n}
           </li>
         ))}
@@ -328,8 +328,8 @@ export function CountdownTimerTool() {
             ["Min", remaining.m],
             ["Sec", remaining.s],
           ].map(([k, v]) => (
-            <div key={String(k)} className="rounded-xl border border-white/10 bg-black/30 p-3">
-              <p className="font-display text-2xl font-bold text-white">{v}</p>
+            <div key={String(k)} className="rounded-xl border border-brand-ink/10 bg-brand-well p-3">
+              <p className="font-display text-2xl font-bold text-brand-ink">{v}</p>
               <p className="text-xs text-brand-subtle">{k}</p>
             </div>
           ))}
@@ -360,7 +360,7 @@ export function MeetingCostCalculatorTool() {
         <Field label="Avg hourly rate (NGN)" value={rate} onChange={(e) => setRate(e.target.value)} inputMode="decimal" />
         <Field label="Minutes" value={mins} onChange={(e) => setMins(e.target.value)} inputMode="numeric" />
       </div>
-      <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+      <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4">
         <p className="text-xs text-brand-subtle">Estimated cost</p>
         <p className="mt-1 font-display text-3xl font-bold text-emerald-300">
           NGN {cost.toLocaleString(undefined, { maximumFractionDigits: 0 })}
@@ -394,7 +394,7 @@ export function SavingsGoalTrackerTool() {
         <Field label="Goal (NGN)" value={goal} onChange={(e) => setGoal(e.target.value)} inputMode="decimal" />
         <Field label="Saved so far (NGN)" value={saved} onChange={(e) => setSaved(e.target.value)} inputMode="decimal" />
       </div>
-      <div className="h-3 overflow-hidden rounded-full bg-white/10">
+      <div className="h-3 overflow-hidden rounded-full bg-brand-ink/10">
         <div className="h-full rounded-full bg-primary transition-all" style={{ width: pct + "%" }} />
       </div>
       <p className="text-sm text-brand-soft">
@@ -439,7 +439,7 @@ export function RandomPickerTool() {
         Pick one
       </button>
       {pick ? (
-        <p className="rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-lg font-semibold text-white">
+        <p className="rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-lg font-semibold text-brand-ink">
           {pick}
         </p>
       ) : null}

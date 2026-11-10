@@ -144,26 +144,26 @@ export default function ProductUpsells({ productId }: { productId: string }) {
 
   return (
     <div className="mt-10 space-y-3 text-left">
-      <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+      <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
         Recommended next
       </p>
       {items.map((u) => (
         <a
           key={u.title}
           href={u.href}
-          className="block rounded-xl border border-white/10 bg-brand-surface p-4 transition hover:border-[#ff8c14]/40"
+          className="block rounded-xl border border-brand-ink/10 bg-brand-surface p-4 transition hover:border-brand-link/40"
         >
-          <p className="text-[15px] font-semibold text-white">{u.title}</p>
+          <p className="text-[15px] font-semibold text-brand-ink">{u.title}</p>
           <p className="mt-1 text-[13px] text-brand-muted">{u.body}</p>
-          <p className="mt-2 text-[13px] font-semibold text-[#ff8c14]">{u.cta} →</p>
+          <p className="mt-2 text-[13px] font-semibold text-brand-link">{u.cta} →</p>
         </a>
       ))}
       {product?.badge === "Bundle" && (
         <a
           href="/hire"
-          className="block rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-4"
+          className="block rounded-xl border border-brand-link/30 bg-brand-link/10 p-4"
         >
-          <p className="text-[15px] font-semibold text-white">Need it built for you?</p>
+          <p className="text-[15px] font-semibold text-brand-ink">Need it built for you?</p>
           <p className="mt-1 text-[13px] text-brand-muted">
             Fixed-price websites with 50% deposit on /hire
           </p>
@@ -213,8 +213,8 @@ export function ServiceSuccessChecklist({
           <li key={s}>{s}</li>
         ))}
       </ol>
-      <div className="rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] text-brand-muted">
-        <p className="font-semibold text-white">What you get next</p>
+      <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-[13px] text-brand-muted">
+        <p className="font-semibold text-brand-ink">What you get next</p>
         <ul className="mt-2 list-disc space-y-1 pl-4">
           <li>Private Drive folder for logo, photos, and copy</li>
           <li>WhatsApp updates at each milestone</li>
@@ -236,7 +236,7 @@ export function ServiceSuccessChecklist({
       </a>
       <a
         href="/client-portal"
-        className="inline-flex w-full items-center justify-center rounded-full border border-white/20 py-3 text-[14px] font-semibold text-white"
+        className="inline-flex w-full items-center justify-center rounded-full border border-brand-ink/20 py-3 text-[14px] font-semibold text-brand-ink"
       >
         View project portal checklist
       </a>

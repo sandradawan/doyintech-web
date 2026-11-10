@@ -29,10 +29,10 @@ export default function ComponentsShopPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1100px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Code marketplace · {UI_COMPONENTS.length} packs
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">
             Next.js components
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-brand-muted">
@@ -41,8 +41,8 @@ export default function ComponentsShopPage() {
           </p>
 
           {featured && (
-            <div className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-gradient-to-r from-[#ff8c14]/10 to-transparent p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+            <div className="mt-10 rounded-2xl border border-brand-link/30 bg-gradient-to-r from-brand-accent/10 to-transparent p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
                 Featured this week
               </p>
               <div className="mt-4 max-w-md">
@@ -59,11 +59,11 @@ export default function ComponentsShopPage() {
 
           <p className="mt-10 text-center text-[14px] text-brand-subtle">
             Agents:{" "}
-            <a href="/api/registry" className="text-[#ff8c14] hover:underline">
+            <a href="/api/registry" className="text-brand-link hover:underline">
               /api/registry
             </a>
             {" "}· Templates{" "}
-            <Link href="/templates" className="text-[#ff8c14] hover:underline">
+            <Link href="/templates" className="text-brand-link hover:underline">
               here
             </Link>
           </p>

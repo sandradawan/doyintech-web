@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { getSupabaseBrowser, isSupabaseConfigured } from "@/lib/supabase/client";
 
-export const fieldClass = "mt-1 min-h-12 w-full rounded-xl border border-white/15 bg-brand-deep px-3 text-[16px] text-white";
+export const fieldClass = "mt-1 min-h-12 w-full rounded-xl border border-brand-ink/15 bg-brand-deep px-3 text-[16px] text-brand-ink";
 
 export function useSignedIn() {
   const [state, setState] = useState({ checking: isSupabaseConfigured(), email: null as string | null });
@@ -58,16 +58,16 @@ export default function SignIn({ prompt }: { prompt: string }) {
     setSent(true);
   }
 
-  if (sent) return <p role="status" className="text-[15px] text-white">Check your email and open the sign-in link on this device. It brings you back here.</p>;
+  if (sent) return <p role="status" className="text-[15px] text-brand-ink">Check your email and open the sign-in link on this device. It brings you back here.</p>;
 
   return (
     <form onSubmit={submit}>
-      <label className="block text-[14px] font-semibold text-white">
+      <label className="block text-[14px] font-semibold text-brand-ink">
         {prompt}
         <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className={fieldClass} />
       </label>
       {error && <p role="alert" className="mt-2 text-[14px] text-red-300">{error}</p>}
-      <button type="submit" disabled={busy} className="mt-3 min-h-12 rounded-full bg-[#ff8c14] px-6 text-[15px] font-semibold text-black disabled:opacity-60">{busy ? "Sending…" : "Email me a sign-in link"}</button>
+      <button type="submit" disabled={busy} className="mt-3 min-h-12 rounded-full bg-brand-accent px-6 text-[15px] font-semibold text-black disabled:opacity-60">{busy ? "Sending…" : "Email me a sign-in link"}</button>
     </form>
   );
 }

@@ -31,7 +31,7 @@ export default function Page() {
       appName="DoyinTech Daily Trivia"
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">What&apos;s in the quiz</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">What&apos;s in the quiz</h2>
         <p className="mt-3">Questions come from {CATEGORIES.length} categories: {CATEGORIES.join(", ")}. Every answer comes with a short fact, so even a wrong answer teaches you something.</p>
       </section>
     </TriviaShell>

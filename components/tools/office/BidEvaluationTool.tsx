@@ -101,7 +101,7 @@ export default function BidEvaluationTool() {
       </div>
 
       <div className={panel}>
-        <h2 className="text-[15px] font-semibold text-white">Technical criteria and scores</h2>
+        <h2 className="text-[15px] font-semibold text-brand-ink">Technical criteria and scores</h2>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-[13px]">
             <thead>
@@ -117,7 +117,7 @@ export default function BidEvaluationTool() {
             </thead>
             <tbody>
               {criteria.map((c, k) => (
-                <tr key={k} className="border-t border-white/5">
+                <tr key={k} className="border-t border-brand-ink/5">
                   <td className="pr-2"><input aria-label={`Criterion ${k + 1}`} className={field} value={c.name} onChange={(e) => setCriteria(criteria.map((x, i) => (i === k ? { ...x, name: e.target.value } : x)))} /></td>
                   <td className="pr-2"><input aria-label={`Criterion ${k + 1} maximum`} type="number" className={field} value={c.max} onChange={(e) => setCriteria(criteria.map((x, i) => (i === k ? { ...x, max: e.target.value } : x)))} /></td>
                   {bids.map((b, j) => (
@@ -127,7 +127,7 @@ export default function BidEvaluationTool() {
                   ))}
                 </tr>
               ))}
-              <tr className="border-t border-white/10">
+              <tr className="border-t border-brand-ink/10">
                 <td colSpan={2} className="py-2 text-brand-muted">Bid price (₦)</td>
                 {bids.map((b, j) => (
                   <td key={j} className="pr-2"><input aria-label={`${b.name} bid price`} type="number" inputMode="decimal" className={field} value={b.price} onChange={(e) => setBids(bids.map((x, i) => (i === j ? { ...x, price: e.target.value } : x)))} /></td>
@@ -144,14 +144,14 @@ export default function BidEvaluationTool() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5" aria-live="polite">
-        <h2 className="text-[15px] font-semibold text-white">Result</h2>
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5" aria-live="polite">
+        <h2 className="text-[15px] font-semibold text-brand-ink">Result</h2>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[560px] text-right text-[13px]">
             <thead><tr className="text-brand-muted"><th className="py-1.5 text-left font-medium">Bidder</th><th className="font-medium">Price</th><th className="font-medium">Technical %</th><th className="font-medium">Financial %</th><th className="font-medium">{s.method === "qcbs" ? "Combined" : "Score"}</th><th className="font-medium">Rank</th></tr></thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.name} className={`border-t border-white/5 ${r.rank === 1 ? "text-[#ff8c14]" : "text-white"}`}>
+                <tr key={r.name} className={`border-t border-brand-ink/5 ${r.rank === 1 ? "text-brand-link" : "text-brand-ink"}`}>
                   <th scope="row" className="py-1.5 text-left font-medium">{r.name}{!r.passed && <span className="ml-2 text-[12px] text-[#ff6b6b]">below pass mark</span>}</th>
                   <td>{naira0(r.price)}</td>
                   <td>{pct(r.technical)}</td>
@@ -163,8 +163,8 @@ export default function BidEvaluationTool() {
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-[14px] text-white">
-          {winner ? <>Recommended: <b className="text-[#ff8c14]">{winner.name}</b> at {naira0(winner.price)}.</> : "No bid met the technical pass mark: re-tender."}
+        <p className="mt-4 text-[14px] text-brand-ink">
+          {winner ? <>Recommended: <b className="text-brand-link">{winner.name}</b> at {naira0(winner.price)}.</> : "No bid met the technical pass mark: re-tender."}
         </p>
         <div className="mt-4"><Area name="Committee members (one per line, for signatures)" rows={3} value={s.committee} onChange={(v) => setS({ ...s, committee: v })} /></div>
         <button type="button" onClick={print} className={`${primaryBtn} mt-4 w-full sm:w-auto`}>Download evaluation report PDF</button>

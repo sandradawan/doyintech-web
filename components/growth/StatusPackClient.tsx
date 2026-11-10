@@ -55,7 +55,7 @@ function CopyCaption({ text }: { text: string }) {
           /* ignore */
         }
       }}
-      className="rounded-full bg-[#ff8c14] px-4 py-2 text-[12px] font-semibold text-black"
+      className="rounded-full bg-brand-accent px-4 py-2 text-[12px] font-semibold text-black"
     >
       {ok ? "Copied ✓" : "Copy for Status"}
     </button>
@@ -65,15 +65,15 @@ function CopyCaption({ text }: { text: string }) {
 export default function StatusPackClient() {
   return (
     <div className="mx-auto max-w-[640px] px-6">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
         Daily distribution · free
       </p>
-      <h1 className="mt-2 text-[32px] font-semibold text-white">This week’s Status captions</h1>
+      <h1 className="mt-2 text-[32px] font-semibold text-brand-ink">This week’s Status captions</h1>
       <p className="mt-3 text-[15px] text-brand-muted">
         Post one per day. Copy → paste on WhatsApp Status. Consistency fills the pipeline.
       </p>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-brand-surface p-4">
+      <div className="mt-6 rounded-2xl border border-brand-ink/10 bg-brand-surface p-4">
         <p className="text-[13px] text-brand-soft">Share this pack with a friend who needs clients:</p>
         <ViralShare
           className="mt-3"
@@ -85,9 +85,9 @@ export default function StatusPackClient() {
 
       <div className="mt-10 space-y-4">
         {week.map((w) => (
-          <div key={w.day} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+          <div key={w.day} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[12px] font-semibold text-[#ff8c14]">{w.day}</p>
+              <p className="text-[12px] font-semibold text-brand-link">{w.day}</p>
               <CopyCaption text={w.caption} />
             </div>
             <p className="mt-2 text-[15px] leading-relaxed text-brand-soft">{w.caption}</p>
@@ -96,7 +96,7 @@ export default function StatusPackClient() {
       </div>
       <p className="mt-8 text-[13px] text-brand-subtle">
         Sell the same system to clients:{" "}
-        <a href="/products" className="text-[#ff8c14] hover:underline">
+        <a href="/products" className="text-brand-link hover:underline">
           Status + caption products
         </a>
         .

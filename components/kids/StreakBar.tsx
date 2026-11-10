@@ -14,7 +14,7 @@ export default function StreakBar({ progress }: { progress?: Progress | null }) 
   const streak = p ? streakNow(p) : 0;
   return (
     <div className="flex flex-wrap items-center gap-2 text-[14px] font-semibold" aria-live="polite">
-      <span className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-[#ff8c14]/15 px-3 text-[#ffb366]">
+      <span className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-brand-link/15 px-3 text-brand-link">
         <span aria-hidden>🔥</span> {streak} day{streak === 1 ? "" : "s"} streak
       </span>
       <span className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-yellow-400/15 px-3 text-yellow-200">

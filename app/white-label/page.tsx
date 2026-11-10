@@ -19,10 +19,10 @@ export default function WhiteLabelPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Partners
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink">
             We build. You resell.
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
@@ -37,8 +37,8 @@ export default function WhiteLabelPage() {
             <li>✓ WhatsApp coordination — no agency bureaucracy</li>
           </ul>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6">
-            <h2 className="text-[18px] font-semibold text-white">Partner economics (illustrative)</h2>
+          <div className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+            <h2 className="text-[18px] font-semibold text-brand-ink">Partner economics (illustrative)</h2>
             <p className="mt-2 text-[14px] text-brand-muted">
               Example: public landing page ₦100k — partner build lower; you charge the client ₦150–200k+
               and keep the margin. Exact partner rates on WhatsApp after a quick fit check.
@@ -50,8 +50,8 @@ export default function WhiteLabelPage() {
             </ul>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-white/10 bg-brand-surface p-6">
-            <h2 className="text-[18px] font-semibold text-white">How it works</h2>
+          <div className="mt-6 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+            <h2 className="text-[18px] font-semibold text-brand-ink">How it works</h2>
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-brand-muted">
               <li>You close the client and set your fee to them.</li>
               <li>We quote a partner build price and timeline.</li>
@@ -60,8 +60,8 @@ export default function WhiteLabelPage() {
             </ol>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
-            <h2 className="text-[18px] font-semibold text-white">Partner checklist</h2>
+          <div className="mt-6 rounded-2xl border border-brand-link/25 bg-brand-link/5 p-6">
+            <h2 className="text-[18px] font-semibold text-brand-ink">Partner checklist</h2>
             <ul className="mt-3 space-y-1 text-[14px] text-brand-soft">
               <li>□ Client brief + brand assets collected</li>
               <li>□ Your invoice terms separate from our partner invoice</li>
@@ -83,7 +83,7 @@ export default function WhiteLabelPage() {
               href={discoveryCallLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white"
+              className="rounded-full border border-brand-ink/20 px-6 py-3 text-[14px] font-semibold text-brand-ink"
             >
               Book a call
             </a>

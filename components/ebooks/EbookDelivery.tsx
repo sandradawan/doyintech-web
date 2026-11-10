@@ -101,8 +101,8 @@ export default function EbookDelivery({
   }
 
   return (
-    <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left">
-      <p className="text-[15px] font-semibold text-white">Your ebook is ready</p>
+    <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-5 text-left">
+      <p className="text-[15px] font-semibold text-brand-ink">Your ebook is ready</p>
       <p className="mt-1 text-[13px] text-[#94a3b8]">
         Professionally formatted PDF — cover, contents, and full chapters. Also unlocked on this site.
       </p>
@@ -118,7 +118,7 @@ export default function EbookDelivery({
           type="button"
           disabled={loading !== null}
           onClick={() => deliver("pdf")}
-          className="rounded-full bg-[#ff8c14] px-5 py-3 text-sm font-semibold text-black hover:bg-[#ffa03a] disabled:opacity-50"
+          className="rounded-full bg-brand-accent px-5 py-3 text-sm font-semibold text-black hover:bg-brand-accent-hover disabled:opacity-50"
         >
           {loading === "pdf" ? "Building PDF…" : "Download PDF"}
         </button>
@@ -126,7 +126,7 @@ export default function EbookDelivery({
           type="button"
           disabled={loading !== null}
           onClick={() => deliver("email")}
-          className="rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5 disabled:opacity-50"
+          className="rounded-full border border-brand-ink/20 px-5 py-3 text-sm font-semibold text-brand-ink hover:bg-brand-ink/5 disabled:opacity-50"
         >
           {loading === "email" ? "Sending…" : "Email me the PDF"}
         </button>
@@ -139,7 +139,7 @@ export default function EbookDelivery({
         Online reader:{" "}
         <a
           href={`/ebooks/${bookSlug}?reference=${encodeURIComponent(reference)}`}
-          className="text-[#ff8c14] hover:underline"
+          className="text-brand-link hover:underline"
         >
           Open chapters on site
         </a>

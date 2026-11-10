@@ -72,7 +72,7 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
   const shareText = `My DoyinTech website estimate: ${fmt(result.min)} – ${fmt(result.max)} (${result.packageName}). Try the free calculator: https://www.doyintech.com/tools/website-calculator`;
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+    <div className="rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
       <div className="mb-8 flex flex-wrap gap-2">
         {STEPS.map((label, i) => (
           <div
@@ -92,7 +92,7 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
 
       {step === 0 && (
         <div>
-          <h2 className="font-display text-xl font-bold text-white">Business type</h2>
+          <h2 className="font-display text-xl font-bold text-brand-ink">Business type</h2>
           <p className="mt-1 text-sm text-brand-muted">What kind of business is this website for?</p>
           <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
             {BUSINESS_TYPES.map((b) => (
@@ -102,8 +102,8 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
                 onClick={() => setBusinessType(b)}
                 className={`rounded-xl border px-3 py-3 text-left text-sm transition ${
                   businessType === b
-                    ? "border-primary bg-primary/15 text-white"
-                    : "border-white/10 text-brand-soft hover:border-white/25"
+                    ? "border-primary bg-primary/15 text-brand-ink"
+                    : "border-brand-ink/10 text-brand-soft hover:border-brand-ink/25"
                 }`}
               >
                 {b}
@@ -115,7 +115,7 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
 
       {step === 1 && (
         <div>
-          <h2 className="font-display text-xl font-bold text-white">Website type</h2>
+          <h2 className="font-display text-xl font-bold text-brand-ink">Website type</h2>
           <p className="mt-1 text-sm text-brand-muted">Choose the closest match.</p>
           <div className="mt-5 grid gap-2 sm:grid-cols-2">
             {WEBSITE_TYPES.map((w) => (
@@ -125,8 +125,8 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
                 onClick={() => setWebsiteTypeId(w.id)}
                 className={`rounded-xl border px-4 py-3 text-left text-sm transition ${
                   websiteTypeId === w.id
-                    ? "border-primary bg-primary/15 text-white"
-                    : "border-white/10 text-brand-soft hover:border-white/25"
+                    ? "border-primary bg-primary/15 text-brand-ink"
+                    : "border-brand-ink/10 text-brand-soft hover:border-brand-ink/25"
                 }`}
               >
                 {w.label}
@@ -138,7 +138,7 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
 
       {step === 2 && (
         <div>
-          <h2 className="font-display text-xl font-bold text-white">Features</h2>
+          <h2 className="font-display text-xl font-bold text-brand-ink">Features</h2>
           <p className="mt-1 text-sm text-brand-muted">Select all that apply.</p>
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {FEATURES.map((f) => {
@@ -150,8 +150,8 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
                   onClick={() => toggleFeature(f.id)}
                   className={`rounded-xl border px-3 py-2.5 text-left text-sm transition ${
                     on
-                      ? "border-primary bg-primary/15 text-white"
-                      : "border-white/10 text-brand-soft hover:border-white/25"
+                      ? "border-primary bg-primary/15 text-brand-ink"
+                      : "border-brand-ink/10 text-brand-soft hover:border-brand-ink/25"
                   }`}
                 >
                   {on ? "✓ " : ""}
@@ -165,9 +165,9 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
 
       {step === 3 && (
         <div className="space-y-5">
-          <h2 className="font-display text-xl font-bold text-white">Project details</h2>
+          <h2 className="font-display text-xl font-bold text-brand-ink">Project details</h2>
           <label className="block text-sm text-brand-soft">
-            Number of pages: <span className="text-white font-semibold">{pages}</span>
+            Number of pages: <span className="text-brand-ink font-semibold">{pages}</span>
             <input
               type="range"
               min={1}
@@ -221,7 +221,7 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">
               Estimated Project Range
             </p>
-            <h2 className="mt-2 font-display text-3xl font-bold text-white md:text-4xl">
+            <h2 className="mt-2 font-display text-3xl font-bold text-brand-ink md:text-4xl">
               {fmt(result.min)} – {fmt(result.max)}
             </h2>
             <p className="mt-2 text-sm text-brand-muted">
@@ -241,12 +241,12 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
 
           {result.features.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-white">Selected features</p>
+              <p className="text-sm font-semibold text-brand-ink">Selected features</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {result.features.map((f) => (
                   <span
                     key={f}
-                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-brand-soft"
+                    className="rounded-full border border-brand-ink/10 bg-brand-ink/5 px-2.5 py-1 text-[11px] text-brand-soft"
                   >
                     {f}
                   </span>
@@ -283,7 +283,7 @@ export default function WebsiteCalculator({ currency = "USD" }: { currency?: "US
             type="button"
             disabled={step === 0}
             onClick={() => setStep((s) => Math.max(0, s - 1))}
-            className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-soft disabled:opacity-40"
+            className="rounded-xl border border-brand-ink/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-soft disabled:opacity-40"
           >
             Back
           </button>
@@ -314,7 +314,7 @@ function Toggle({
       type="button"
       onClick={() => set(!on)}
       className={`rounded-xl border px-4 py-3 text-left text-sm ${
-        on ? "border-primary bg-primary/15 text-white" : "border-white/10 text-brand-soft"
+        on ? "border-primary bg-primary/15 text-brand-ink" : "border-brand-ink/10 text-brand-soft"
       }`}
     >
       {on ? "✓ " : ""}
@@ -340,10 +340,10 @@ function Select({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
+        className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none"
       >
         {options.map((o) => (
-          <option key={o.v} value={o.v} className="bg-black">
+          <option key={o.v} value={o.v} className="bg-brand-surface text-brand-ink">
             {o.l}
           </option>
         ))}
@@ -354,9 +354,9 @@ function Select({
 
 function ResultTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
       <p className="text-[11px] uppercase tracking-wider text-brand-subtle">{label}</p>
-      <p className="mt-1 font-semibold text-white">{value}</p>
+      <p className="mt-1 font-semibold text-brand-ink">{value}</p>
     </div>
   );
 }

@@ -104,14 +104,14 @@ export default function WhatsAppScriptsGenerator() {
         {scripts.map((s) => (
           <div
             key={s.title}
-            className="rounded-2xl border border-white/10 bg-brand-surface p-5"
+            className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5"
           >
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-[15px] font-semibold text-white">{s.title}</h3>
+              <h3 className="text-[15px] font-semibold text-brand-ink">{s.title}</h3>
               <button
                 type="button"
                 onClick={() => copy(s.text, s.title)}
-                className="rounded-full border border-white/15 px-3 py-1 text-[12px] text-[#ff8c14]"
+                className="rounded-full border border-brand-ink/15 px-3 py-1 text-[12px] text-brand-link"
               >
                 {copied === s.title ? "Copied" : "Copy"}
               </button>
@@ -122,11 +122,11 @@ export default function WhatsAppScriptsGenerator() {
           </div>
         ))}
 
-        <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
-          <p className="text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+        <div className="rounded-2xl border border-brand-link/30 bg-brand-link/10 p-6">
+          <p className="text-[12px] font-semibold uppercase tracking-wide text-brand-link">
             Next step that actually grows sales
           </p>
-          <h3 className="mt-2 text-[20px] font-semibold text-white">
+          <h3 className="mt-2 text-[20px] font-semibold text-brand-ink">
             Put these scripts on a real website
           </h3>
           <p className="mt-2 text-[14px] text-brand-muted">
@@ -136,13 +136,13 @@ export default function WhatsAppScriptsGenerator() {
           <div className="mt-4 flex flex-wrap gap-2">
             <a
               href="/hire"
-              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+              className="rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
             >
               Hire — pay deposit
             </a>
             <a
               href="/free-audit"
-              className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
+              className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink"
             >
               Free site audit
             </a>
@@ -158,7 +158,7 @@ export default function WhatsAppScriptsGenerator() {
         <button
           type="button"
           onClick={() => setStep("form")}
-          className="text-[13px] text-brand-subtle hover:text-white"
+          className="text-[13px] text-brand-subtle hover:text-brand-ink"
         >
           ← Generate for another business
         </button>
@@ -167,13 +167,13 @@ export default function WhatsAppScriptsGenerator() {
   }
 
   return (
-    <form onSubmit={onGenerate} className="rounded-2xl border border-white/10 bg-brand-surface p-6">
+    <form onSubmit={onGenerate} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
       <label className="block text-[13px] font-medium text-brand-ink">
         Business type
         <select
           value={biz}
           onChange={(e) => setBiz(e.target.value as Biz)}
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#ff8c14]/50"
+          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link/50"
         >
           {BUSINESS_TYPES.map((b) => (
             <option key={b} value={b}>
@@ -190,7 +190,7 @@ export default function WhatsAppScriptsGenerator() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. JennyGlams"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
+          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none placeholder:text-[#555] focus:border-brand-link/50"
         />
       </label>
 
@@ -201,7 +201,7 @@ export default function WhatsAppScriptsGenerator() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="080… or +234…"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
+          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none placeholder:text-[#555] focus:border-brand-link/50"
         />
       </label>
 

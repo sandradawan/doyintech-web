@@ -54,7 +54,7 @@ export default function FreeAuditForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-left shadow-xl"
+      className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6 text-left shadow-xl"
     >
       <label className="block text-[13px] font-medium text-brand-ink">
         Website URL
@@ -63,7 +63,7 @@ export default function FreeAuditForm() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://yourbusiness.com"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
+          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none placeholder:text-[#555] focus:border-brand-link/50"
         />
       </label>
 
@@ -75,7 +75,7 @@ export default function FreeAuditForm() {
             value={business}
             onChange={(e) => setBusiness(e.target.value)}
             placeholder="Salon, clinic, property, coach…"
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
+            className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none placeholder:text-[#555] focus:border-brand-link/50"
           />
         </label>
         <label className="block text-[13px] font-medium text-brand-ink">
@@ -85,7 +85,7 @@ export default function FreeAuditForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="First name"
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
+            className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none placeholder:text-[#555] focus:border-brand-link/50"
           />
         </label>
       </div>
@@ -100,7 +100,7 @@ export default function FreeAuditForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@business.com"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none placeholder:text-[#555] focus:border-[#ff8c14]/50"
+          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none placeholder:text-[#555] focus:border-brand-link/50"
         />
       </label>
 
@@ -109,7 +109,7 @@ export default function FreeAuditForm() {
         <select
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#ff8c14]/50"
+          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link/50"
         >
           <option value="more WhatsApp enquiries">More WhatsApp enquiries</option>
           <option value="more phone calls">More phone calls</option>

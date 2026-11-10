@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 
-const box = "rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8 space-y-4";
+const box = "rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8 space-y-4";
 const input =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 const labelCls = "block text-xs text-gray-500 mb-1";
 const btn =
   "rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50";
@@ -80,7 +80,7 @@ export function WhatsAppLinkGeneratorTool() {
       />
       {link ? (
         <div className="space-y-2">
-          <p className="break-all rounded-xl border border-white/10 bg-black/40 p-3 text-sm text-primary">
+          <p className="break-all rounded-xl border border-brand-ink/10 bg-brand-well p-3 text-sm text-primary">
             {link}
           </p>
           <div className="flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ export function WhatsAppLinkGeneratorTool() {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/20 px-5 py-2.5 text-sm text-white"
+              className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm text-brand-ink"
             >
               Open WhatsApp
             </a>
@@ -123,8 +123,8 @@ export function NigeriaVatCalculatorTool() {
             className={
               "rounded-full border px-4 py-1.5 text-xs font-semibold " +
               (mode === m
-                ? "border-primary bg-primary/20 text-white"
-                : "border-white/15 text-gray-400")
+                ? "border-primary bg-primary/20 text-brand-ink"
+                : "border-brand-ink/15 text-gray-400")
             }
           >
             {m === "exclusive" ? "VAT exclusive" : "VAT inclusive"}
@@ -132,15 +132,15 @@ export function NigeriaVatCalculatorTool() {
         ))}
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+        <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4">
           <p className="text-xs text-gray-500">Net / base</p>
-          <p className="mt-1 text-lg font-semibold text-white">{fmt(base)}</p>
+          <p className="mt-1 text-lg font-semibold text-brand-ink">{fmt(base)}</p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+        <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4">
           <p className="text-xs text-gray-500">VAT 7.5%</p>
           <p className="mt-1 text-lg font-semibold text-amber-200">{fmt(vat)}</p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+        <div className="rounded-xl border border-brand-ink/10 bg-brand-well p-4">
           <p className="text-xs text-gray-500">Gross total</p>
           <p className="mt-1 text-lg font-semibold text-emerald-300">{fmt(total)}</p>
         </div>
@@ -170,9 +170,9 @@ export function WordCounterTool() {
           ["Paragraphs", paras],
           ["~Read time", readingMin + " min"],
         ].map(([k, v]) => (
-          <div key={String(k)} className="rounded-xl border border-white/10 bg-black/30 p-3">
+          <div key={String(k)} className="rounded-xl border border-brand-ink/10 bg-brand-well p-3">
             <p className="text-xs text-gray-500">{k}</p>
-            <p className="mt-1 text-lg font-semibold text-white">{v}</p>
+            <p className="mt-1 text-lg font-semibold text-brand-ink">{v}</p>
           </div>
         ))}
       </div>
@@ -208,12 +208,12 @@ export function MetaTagGeneratorTool() {
         {desc.length}/160 recommended
       </p>
       <Field label="Canonical URL" value={url} onChange={(e) => setUrl(e.target.value)} />
-      <div className="rounded-xl border border-white/10 bg-white p-4 text-left text-black">
+      <div className="rounded-xl border border-brand-ink/10 bg-brand-ink p-4 text-left text-brand-deep">
         <p className="text-sm text-blue-700">{title || "Page title preview"}</p>
         <p className="text-xs text-emerald-700">{url}</p>
         <p className="mt-1 text-sm text-gray-700">{desc || "Description preview appears here."}</p>
       </div>
-      <pre className="overflow-auto rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-gray-300">{html}</pre>
+      <pre className="overflow-auto rounded-xl border border-brand-ink/10 bg-brand-well p-3 text-xs text-gray-300">{html}</pre>
       <CopyBtn text={html} />
     </div>
   );
@@ -235,15 +235,15 @@ export function PercentageCalculatorTool() {
       </div>
       <ul className="space-y-2 text-sm text-gray-200">
         <li>
-          <strong className="text-white">{x}%</strong> of <strong className="text-white">{y}</strong> ={" "}
+          <strong className="text-brand-ink">{x}%</strong> of <strong className="text-brand-ink">{y}</strong> ={" "}
           <span className="text-emerald-300">
             {of.toLocaleString(undefined, { maximumFractionDigits: 4 })}
           </span>
         </li>
         <li>
-          <strong className="text-white">{x}</strong> is{" "}
+          <strong className="text-brand-ink">{x}</strong> is{" "}
           <span className="text-sky-300">{isWhat.toFixed(2)}%</span> of{" "}
-          <strong className="text-white">{y}</strong>
+          <strong className="text-brand-ink">{y}</strong>
         </li>
         <li>
           Change from {y} to {x}:{" "}
@@ -281,7 +281,7 @@ export function CaseConverterTool() {
         <div key={name} className="flex items-start gap-2">
           <div className="min-w-0 flex-1">
             <p className="text-xs text-gray-500">{name}</p>
-            <p className="break-words text-sm text-white">{val || "-"}</p>
+            <p className="break-words text-sm text-brand-ink">{val || "-"}</p>
           </div>
           {val ? <CopyBtn text={val} /> : null}
         </div>
@@ -311,8 +311,8 @@ export function UrlEncoderTool() {
             className={
               "rounded-full border px-4 py-1.5 text-xs font-semibold capitalize " +
               (mode === m
-                ? "border-primary bg-primary/20 text-white"
-                : "border-white/15 text-gray-400")
+                ? "border-primary bg-primary/20 text-brand-ink"
+                : "border-brand-ink/15 text-gray-400")
             }
           >
             {m}
@@ -321,7 +321,7 @@ export function UrlEncoderTool() {
       </div>
       <Area label="Input" rows={3} value={text} onChange={(e) => setText(e.target.value)} />
       {err ? <p className="text-sm text-red-300">{err}</p> : null}
-      <pre className="overflow-auto rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-gray-300">
+      <pre className="overflow-auto rounded-xl border border-brand-ink/10 bg-brand-well p-3 text-xs text-gray-300">
         {out}
       </pre>
       {out ? <CopyBtn text={out} /> : null}

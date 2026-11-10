@@ -52,7 +52,7 @@ export default function Testimonials() {
                 <blockquote className="flex-1 text-[16px] leading-relaxed text-brand-ink">
                   “{t.quote}”
                 </blockquote>
-                <figcaption className="mt-6 border-t border-white/10 pt-5">
+                <figcaption className="mt-6 border-t border-brand-ink/10 pt-5">
                   <p className="text-[14px] font-semibold text-brand-ink">{t.name}</p>
                   <p className="text-[13px] text-brand-muted">{t.role}</p>
                 </figcaption>

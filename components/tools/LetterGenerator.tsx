@@ -12,7 +12,7 @@ const KINDS: { id: Kind; label: string }[] = [
   { id: "siwes", label: "SIWES / IT placement" },
 ];
 
-const field = "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]";
+const field = "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link";
 const label = "block text-[12px] text-brand-muted";
 const STORAGE = "doyintech_letter_sender_v1";
 
@@ -165,7 +165,7 @@ export default function LetterGenerator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5">
+      <div className="space-y-5 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
         <div className="flex flex-wrap gap-2">
           {KINDS.map((k) => (
             <button
@@ -175,7 +175,7 @@ export default function LetterGenerator() {
                 setKind(k.id);
                 setEdited(null);
               }}
-              className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold ${kind === k.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft"}`}
+              className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold ${kind === k.id ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-soft"}`}
             >
               {k.label}
             </button>
@@ -198,7 +198,7 @@ export default function LetterGenerator() {
         </div>
 
         <fieldset className="grid gap-3 sm:grid-cols-2">
-          <legend className="mb-2 text-[13px] font-semibold text-white">To</legend>
+          <legend className="mb-2 text-[13px] font-semibold text-brand-ink">To</legend>
           {(
             [
               ["name", "Name (optional)", "The Head of Human Resources"],
@@ -219,7 +219,7 @@ export default function LetterGenerator() {
         </fieldset>
 
         <fieldset className="grid gap-3 sm:grid-cols-2">
-          <legend className="mb-2 text-[13px] font-semibold text-white">From (saved on this device)</legend>
+          <legend className="mb-2 text-[13px] font-semibold text-brand-ink">From (saved on this device)</legend>
           {(
             [
               ["name", "Your full name"],
@@ -255,13 +255,13 @@ export default function LetterGenerator() {
             onChange={(e) => setEdited(e.target.value)}
             aria-label="Letter body (editable)"
             rows={14}
-            className="mt-2 w-full resize-y rounded-md border border-dashed border-black/15 bg-transparent p-2 font-serif text-[14px] leading-relaxed outline-none focus:border-[#ff8c14]"
+            className="mt-2 w-full resize-y rounded-md border border-dashed border-black/15 bg-transparent p-2 font-serif text-[14px] leading-relaxed outline-none focus:border-brand-link"
           />
           <p className="mt-2">{letter.closing}</p>
           <p className="mt-6">{sender.name || "Your name"}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button type="button" onClick={print} className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <button type="button" onClick={print} className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             Print / Save PDF
           </button>
           {edited !== null && (

@@ -61,7 +61,7 @@ export default function BusinessNameRegistrationPage() {
       ]}
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Why register your business name?</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Why register your business name?</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>Open a corporate bank account in your business name.</li>
           <li>Accept payments through Paystack and other gateways as a business.</li>
@@ -70,7 +70,7 @@ export default function BusinessNameRegistrationPage() {
         </ul>
         <p className="mt-4">
           Still choosing a name? Try the{" "}
-          <Link href="/tools/business-name-generator" className="text-[#ff8c14] hover:underline">
+          <Link href="/tools/business-name-generator" className="text-brand-link hover:underline">
             free business name generator
           </Link>{" "}
           and send us your top three.

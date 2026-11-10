@@ -98,8 +98,8 @@ export default function ImportDutyCalculator() {
           <Chips label="Import duty band" options={CET_BANDS} value={s.duty} onChange={set("duty")} />
           <Field name="Or exact duty rate (%)" type="number" value={s.duty} onChange={set("duty")} className="mt-3 max-w-[220px]" />
         </div>
-        <details className="rounded-xl border border-white/10 p-4">
-          <summary className="cursor-pointer text-[14px] font-semibold text-white">Other customs charges (edit if they change)</summary>
+        <details className="rounded-xl border border-brand-ink/10 p-4">
+          <summary className="cursor-pointer text-[14px] font-semibold text-brand-ink">Other customs charges (edit if they change)</summary>
           <div className="mt-3 grid gap-3 sm:grid-cols-3">
             <Field name="Surcharge (% of duty)" type="number" value={s.surcharge} onChange={set("surcharge")} />
             <Field name="ETLS (% of CIF)" type="number" value={s.etls} onChange={set("etls")} />
@@ -116,18 +116,18 @@ export default function ImportDutyCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+        <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
           <dl className="space-y-1.5 text-[13px]">
             {lines.map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-3"><dt className="text-brand-muted">{k}</dt><dd className="text-white">{ngn(v)}</dd></div>
+              <div key={k} className="flex justify-between gap-3"><dt className="text-brand-muted">{k}</dt><dd className="text-brand-ink">{ngn(v)}</dd></div>
             ))}
           </dl>
-          <div className="mt-4 border-t border-white/10 pt-4">
+          <div className="mt-4 border-t border-brand-ink/10 pt-4">
             <p className="text-[13px] text-brand-muted">Duties and taxes</p>
-            <p className="text-[20px] font-semibold text-white">{ngn(r.totalTaxes)} <span className="text-[13px] font-normal text-brand-muted">({Math.round(r.taxShare * 100)}% of landed cost)</span></p>
+            <p className="text-[20px] font-semibold text-brand-ink">{ngn(r.totalTaxes)} <span className="text-[13px] font-normal text-brand-muted">({Math.round(r.taxShare * 100)}% of landed cost)</span></p>
             <p className="mt-3 text-[13px] text-brand-muted">Landed cost</p>
-            <p className="text-[30px] font-semibold text-[#ff8c14]">{ngn(r.landed)}</p>
-            <p className="mt-2 text-[14px] text-white">{ngn(r.perUnit)} per unit → sell at <b>{ngn(r.sellPerUnit)}</b></p>
+            <p className="text-[30px] font-semibold text-brand-link">{ngn(r.landed)}</p>
+            <p className="mt-2 text-[14px] text-brand-ink">{ngn(r.perUnit)} per unit → sell at <b>{ngn(r.sellPerUnit)}</b></p>
           </div>
         </div>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download landed cost PDF</button>

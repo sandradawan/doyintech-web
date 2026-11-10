@@ -111,16 +111,16 @@ export default function Overview() {
           ) : (data.leads?.followUps.length || 0) + (data.tasks?.length || 0) === 0 ? (
             <p className="px-4 py-6 text-[13px] text-brand-subtle">Nothing due. Set a follow-up date on a lead or add a task to see it here.</p>
           ) : (
-            <ul className="divide-y divide-white/[0.05]">
+            <ul className="divide-y divide-brand-ink/[0.05]">
               {data.tasks?.map((t) => (
                 <li key={t.id}>
                   <Link
                     href={t.lead_id ? `/admin/r/site_leads?open=${t.lead_id}` : t.contact_email ? `/admin/contacts?email=${encodeURIComponent(t.contact_email)}` : `/admin/r/crm_activities?open=${t.id}`}
-                    className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.03]"
+                    className="flex items-start gap-3 px-4 py-3 hover:bg-brand-ink/[0.03]"
                   >
                     <Badge value="task" tone={new Date(t.due_at) < new Date() ? "red" : "orange"} />
                     <span className="min-w-0 flex-1">
-                      <span className="line-clamp-2 text-[13px] text-white">{t.body}</span>
+                      <span className="line-clamp-2 text-[13px] text-brand-ink">{t.body}</span>
                       <span className="text-[11px] text-brand-subtle">Due {formatDate(t.due_at, true)}</span>
                     </span>
                   </Link>
@@ -128,10 +128,10 @@ export default function Overview() {
               ))}
               {data.leads?.followUps.map((l) => (
                 <li key={l.id}>
-                  <Link href={`/admin/r/site_leads?open=${l.id}`} className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.03]">
+                  <Link href={`/admin/r/site_leads?open=${l.id}`} className="flex items-start gap-3 px-4 py-3 hover:bg-brand-ink/[0.03]">
                     <Badge value="follow up" tone="violet" />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13px] text-white">
+                      <span className="block truncate text-[13px] text-brand-ink">
                         {l.name}
                         {l.company ? ` · ${l.company}` : ""}
                       </span>
@@ -152,10 +152,10 @@ export default function Overview() {
             {data?.pipeline?.stages.map((s) => (
               <li key={s.stage} className="grid grid-cols-[92px_1fr_auto] items-center gap-3 text-[12px]">
                 <span className="capitalize text-brand-soft">{s.stage}</span>
-                <span className="h-2 overflow-hidden rounded-full bg-white/[0.05]">
-                  <span className="block h-full rounded-full bg-[#ff8c14]" style={{ width: `${(s.count / maxStage) * 100}%` }} />
+                <span className="h-2 overflow-hidden rounded-full bg-brand-ink/[0.05]">
+                  <span className="block h-full rounded-full bg-brand-accent" style={{ width: `${(s.count / maxStage) * 100}%` }} />
                 </span>
-                <span className="tabular-nums text-white">
+                <span className="tabular-nums text-brand-ink">
                   {s.count}
                   {s.value ? <span className="text-brand-subtle"> · {naira(s.value)}</span> : null}
                 </span>
@@ -168,12 +168,12 @@ export default function Overview() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <Card title="Newest leads" action={<Link href="/admin/r/site_leads" className="text-[12px] text-brand-link hover:underline">All leads</Link>}>
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-brand-ink/[0.05]">
             {data?.leads?.recent.map((l) => (
               <li key={l.id}>
-                <Link href={`/admin/r/site_leads?open=${l.id}`} className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-white/[0.03]">
+                <Link href={`/admin/r/site_leads?open=${l.id}`} className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-brand-ink/[0.03]">
                   <span className="min-w-0">
-                    <span className="block truncate text-[13px] font-medium text-white">{l.name}</span>
+                    <span className="block truncate text-[13px] font-medium text-brand-ink">{l.name}</span>
                     <span className="block truncate text-[11px] text-brand-subtle">
                       {l.product || "General"} · {relativeTime(l.created_at)}
                     </span>
@@ -186,7 +186,7 @@ export default function Overview() {
           </ul>
         </Card>
         <Card title="Recent admin changes" action={<Link href="/admin/r/admin_audit_log" className="text-[12px] text-brand-link hover:underline">Audit log</Link>}>
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-brand-ink/[0.05]">
             {data?.audit?.map((a, i) => (
               <li key={i} className="flex items-center gap-3 px-4 py-3 text-[12px]">
                 <Badge value={a.action} />
@@ -208,10 +208,10 @@ export default function Overview() {
 
 function Kpi({ label, value, sub, href, alert }: { label: string; value: string; sub?: string; href: string; alert?: boolean }) {
   return (
-    <Link href={href} className={`${panel} block px-4 py-4 transition hover:border-white/20 ${alert ? "!border-[#ff8c14]/40" : ""}`}>
+    <Link href={href} className={`${panel} block px-4 py-4 transition hover:border-brand-ink/20 ${alert ? "!border-brand-link/40" : ""}`}>
       <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
-      <p className="mt-1.5 text-[22px] font-semibold tabular-nums tracking-tight text-white">{value}</p>
-      {sub && <p className={`mt-0.5 text-[11px] ${alert ? "text-[#ffb366]" : sub.startsWith("▼") ? "text-red-300" : sub.startsWith("▲") ? "text-emerald-300" : "text-brand-subtle"}`}>{sub}</p>}
+      <p className="mt-1.5 text-[22px] font-semibold tabular-nums tracking-tight text-brand-ink">{value}</p>
+      {sub && <p className={`mt-0.5 text-[11px] ${alert ? "text-brand-link" : sub.startsWith("▼") ? "text-red-300" : sub.startsWith("▲") ? "text-emerald-300" : "text-brand-subtle"}`}>{sub}</p>}
     </Link>
   );
 }
@@ -219,8 +219,8 @@ function Kpi({ label, value, sub, href, alert }: { label: string; value: string;
 function Card({ title, action, children }: { title: string; action?: ReactNode; children: ReactNode }) {
   return (
     <section className={panel}>
-      <header className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
-        <h2 className="text-[13px] font-semibold text-white">{title}</h2>
+      <header className="flex items-center justify-between border-b border-brand-ink/[0.06] px-4 py-3">
+        <h2 className="text-[13px] font-semibold text-brand-ink">{title}</h2>
         {action}
       </header>
       {children}

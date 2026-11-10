@@ -54,7 +54,7 @@ export default function CookieConsent() {
           transition={{ duration: 0.25 }}
           className="fixed inset-x-0 bottom-0 z-[110] p-3 sm:p-4 pointer-events-none"
         >
-          <div className="pointer-events-auto mx-auto max-w-xl glass-strong rounded-2xl px-4 py-3 sm:max-w-2xl">
+          <div className="pointer-events-auto mx-auto max-w-xl theme-dark glass-strong rounded-2xl px-4 py-3 sm:max-w-2xl">
             <p className="text-[12px] leading-snug text-brand-ink sm:text-[13px]">
               We use essential cookies for the site to work. With your OK, we also use analytics and
               advertising cookies (including Meta Pixel) to measure campaigns and improve the site.{" "}
@@ -66,14 +66,14 @@ export default function CookieConsent() {
               <button
                 type="button"
                 onClick={() => save("essential")}
-                className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-medium text-brand-ink hover:bg-white/10"
+                className="rounded-full border border-brand-ink/20 px-4 py-2 text-[12px] font-medium text-brand-ink hover:bg-brand-ink/10"
               >
                 Essential only
               </button>
               <button
                 type="button"
                 onClick={() => save("all")}
-                className="rounded-full bg-[#ff8c14] px-4 py-2 text-[12px] font-medium text-black hover:bg-[#ffa03a]"
+                className="rounded-full bg-brand-accent px-4 py-2 text-[12px] font-medium text-black hover:bg-brand-accent-hover"
               >
                 Accept all
               </button>

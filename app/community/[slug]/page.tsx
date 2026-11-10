@@ -57,18 +57,18 @@ export default async function Page({ params }: Props) {
       )}
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <Link href="/community" className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#ff8c14] hover:underline">← All questions</Link>
-          <p className="mt-2 text-[13px] font-semibold text-[#ffb366]">{post.topic}</p>
-          <h1 className="mt-1 text-[28px] font-black leading-tight tracking-tight text-white sm:text-[34px]">{post.title}</h1>
+          <Link href="/community" className="inline-flex min-h-11 items-center text-[14px] font-semibold text-brand-link hover:underline">← All questions</Link>
+          <p className="mt-2 text-[13px] font-semibold text-brand-link">{post.topic}</p>
+          <h1 className="mt-1 text-[28px] font-black leading-tight tracking-tight text-brand-ink sm:text-[34px]">{post.title}</h1>
           <p className="mt-1 text-[13px] text-brand-muted">{post.display_name} · {shortDate(post.created_at)}</p>
           <p className="mt-4 whitespace-pre-line break-words text-[16px] leading-relaxed text-brand-soft">{post.body}</p>
           <ReportButton kind="post" id={post.id} />
 
           <section aria-labelledby="replies-heading" className="mt-8">
-            <h2 id="replies-heading" className="text-[22px] font-semibold text-white">{replies.length} {replies.length === 1 ? "reply" : "replies"}</h2>
+            <h2 id="replies-heading" className="text-[22px] font-semibold text-brand-ink">{replies.length} {replies.length === 1 ? "reply" : "replies"}</h2>
             <ul className="mt-3 space-y-3">
               {replies.map((r) => (
-                <li key={r.id} className="rounded-2xl border border-white/10 bg-brand-surface p-4">
+                <li key={r.id} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-4">
                   <p className="text-[13px] text-brand-muted">{r.display_name} · {shortDate(r.created_at)}</p>
                   <p className="mt-1 whitespace-pre-line break-words text-[15px] leading-relaxed text-brand-soft">{r.body}</p>
                   <ReportButton kind="reply" id={r.id} />
@@ -77,8 +77,8 @@ export default async function Page({ params }: Props) {
             </ul>
           </section>
 
-          <section aria-labelledby="reply-heading" className="mt-8 rounded-3xl border border-white/10 bg-brand-surface p-5">
-            <h2 id="reply-heading" className="mb-3 text-[20px] font-semibold text-white">Add your reply</h2>
+          <section aria-labelledby="reply-heading" className="mt-8 rounded-3xl border border-brand-ink/10 bg-brand-surface p-5">
+            <h2 id="reply-heading" className="mb-3 text-[20px] font-semibold text-brand-ink">Add your reply</h2>
             <Compose postId={post.id} />
           </section>
           <p className="mt-6 text-[13px] text-brand-muted">Replies are members&apos; opinions, not professional advice.</p>

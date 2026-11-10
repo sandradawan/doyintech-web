@@ -82,19 +82,19 @@ export default async function VatCountryPage({ params }: Params) {
       newsletterSource={`vat-${v.slug}`}
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Invoice your customers in {v.currency}</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Invoice your customers in {v.currency}</h2>
           <p className="mt-2 text-[14px] text-brand-muted">The free invoice generator adds {v.tax} at {pct(v.standard)}, totals it in {v.currency}, and saves a professional PDF.</p>
-          <Link href={`/tools/invoice-generator?currency=${v.currency}&tax=${defaultRate}`} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Make an invoice</Link>
+          <Link href={`/tools/invoice-generator?currency=${v.currency}&tax=${defaultRate}`} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Make an invoice</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">{v.tax} rates in {v.country}</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">{v.tax} rates in {v.country}</h2>
         <table className="mt-4 w-full text-left text-[15px]">
-          <thead><tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Rate</th><th className="py-2 font-medium">{v.tax} on {money(v, 1000)}</th></tr></thead>
+          <thead><tr className="border-b border-brand-ink/10 text-brand-muted"><th className="py-2 font-medium">Rate</th><th className="py-2 font-medium">{v.tax} on {money(v, 1000)}</th></tr></thead>
           <tbody>
             {presets.map((p) => (
-              <tr key={p.label} className="border-b border-white/5"><td className="py-2 text-white">{p.label}</td><td className="py-2">{money(v, vatSplit(1000, p.rate, "add").tax)}</td></tr>
+              <tr key={p.label} className="border-b border-brand-ink/5"><td className="py-2 text-brand-ink">{p.label}</td><td className="py-2">{money(v, vatSplit(1000, p.rate, "add").tax)}</td></tr>
             ))}
           </tbody>
         </table>
@@ -102,19 +102,19 @@ export default async function VatCountryPage({ params }: Params) {
         <p className="mt-3">{v.authority ? `${v.tax} in ${v.country} is administered by ${v.authority}. ` : ""}Rates change; confirm the rate for your goods or service with the tax authority before you file.</p>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">The {v.tax} formulas</h2>
-        <p className="mt-3"><strong className="text-white">Adding {v.tax}:</strong> gross = net × {factor}. A net price of {money(v, 1000)} becomes {money(v, ex.gross)}, of which {money(v, ex.tax)} is {v.tax}.</p>
-        <p className="mt-3"><strong className="text-white">Removing {v.tax}:</strong> net = gross ÷ {factor}. A price of {money(v, 1000)} including {v.tax} is {money(v, back.net)} before {v.tax}.</p>
+        <h2 className="text-[22px] font-semibold text-brand-ink">The {v.tax} formulas</h2>
+        <p className="mt-3"><strong className="text-brand-ink">Adding {v.tax}:</strong> gross = net × {factor}. A net price of {money(v, 1000)} becomes {money(v, ex.gross)}, of which {money(v, ex.tax)} is {v.tax}.</p>
+        <p className="mt-3"><strong className="text-brand-ink">Removing {v.tax}:</strong> net = gross ÷ {factor}. A price of {money(v, 1000)} including {v.tax} is {money(v, back.net)} before {v.tax}.</p>
         <p className="mt-3">A common mistake is taking {pct(defaultRate)} off a {v.tax}-inclusive price. That removes too much: always divide by {factor} instead.</p>
       </section>
       {neighbours.length > 0 && (
         <section>
-          <h2 className="text-[22px] font-semibold text-white">{v.region}: other calculators</h2>
+          <h2 className="text-[22px] font-semibold text-brand-ink">{v.region}: other calculators</h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {neighbours.map((n) => (
-              <li key={n.slug}><Link href={vatHref(n)} className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] text-white hover:border-[#ff8c14]">{n.country} {pct(n.standard)}</Link></li>
+              <li key={n.slug}><Link href={vatHref(n)} className="inline-flex min-h-10 items-center rounded-full border border-brand-ink/15 px-4 text-[13px] text-brand-ink hover:border-brand-link">{n.country} {pct(n.standard)}</Link></li>
             ))}
-            <li><Link href="/vat-calculator" className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] text-[#ff8c14]">All countries</Link></li>
+            <li><Link href="/vat-calculator" className="inline-flex min-h-10 items-center rounded-full border border-brand-ink/15 px-4 text-[13px] text-brand-link">All countries</Link></li>
           </ul>
         </section>
       )}

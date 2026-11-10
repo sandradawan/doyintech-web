@@ -18,7 +18,7 @@ export default function MobileServicePage() {
           <p className="mt-8 text-sm font-semibold uppercase tracking-wider text-primary">
             Service
           </p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white">
+          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-brand-ink">
             Flutter Mobile Development
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -33,7 +33,7 @@ export default function MobileServicePage() {
             </p>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">What you get</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">What you get</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Flutter app architecture & state management</li>
                 <li>API integration & offline-friendly patterns</li>
@@ -45,21 +45,21 @@ export default function MobileServicePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Typical timeline</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">Typical timeline</h2>
               <ul className="space-y-2">
                 <li>
-                  <span className="text-white font-medium">MVP app</span> — 4–10
+                  <span className="text-brand-ink font-medium">MVP app</span> — 4–10
                   weeks depending on screens and integrations
                 </li>
                 <li>
-                  <span className="text-white font-medium">Store polish</span> —
+                  <span className="text-brand-ink font-medium">Store polish</span> —
                   icons, listings support, crash-free critical paths
                 </li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">Investment range (USD)</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">Investment range (USD)</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Focused utility app — from $350</li>
                 <li>Full product MVP — typically $800–$2,800+</li>
@@ -67,10 +67,10 @@ export default function MobileServicePage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">FAQ</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">FAQ</h2>
               <div className="space-y-4 text-sm">
                 <div>
-                  <p className="font-semibold text-white">Do you build the backend too?</p>
+                  <p className="font-semibold text-brand-ink">Do you build the backend too?</p>
                   <p className="text-brand-muted mt-1">
                     Yes — many clients ship Flutter + Laravel/Node as one package.
                   </p>
@@ -89,7 +89,7 @@ export default function MobileServicePage() {
                 href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27m%20interested%20in%20a%20Flutter%20app."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-xl border border-white/15 text-white text-sm font-semibold"
+                className="px-6 py-3 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold"
               >
                 WhatsApp Us
               </a>

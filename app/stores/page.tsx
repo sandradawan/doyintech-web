@@ -62,8 +62,8 @@ export default function StoresPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([faqJsonLd(FAQS)]) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1000px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">DoyinTech Store</p>
-          <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">DoyinTech Store</p>
+          <h1 className="mt-2 max-w-3xl text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[46px]">
             Your online shop in two minutes. Free.
           </h1>
           <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
@@ -71,31 +71,31 @@ export default function StoresPage() {
             customers order on WhatsApp or pay online straight to your bank.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/stores/dashboard" className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black">
+            <Link href="/stores/dashboard" className="inline-flex rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black">
               Create my free shop
             </Link>
-            <a href="#pricing" className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white">
+            <a href="#pricing" className="inline-flex rounded-full border border-brand-ink/20 px-6 py-3 text-[15px] font-semibold text-brand-ink">
               See pricing
             </a>
           </div>
 
           <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <li key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                <span className="text-[13px] font-semibold text-[#ff8c14]">Step {i + 1}</span>
-                <h2 className="mt-1 text-[16px] font-semibold text-white">{s.title}</h2>
+              <li key={s.title} className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5">
+                <span className="text-[13px] font-semibold text-brand-link">Step {i + 1}</span>
+                <h2 className="mt-1 text-[16px] font-semibold text-brand-ink">{s.title}</h2>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-brand-muted">{s.body}</p>
               </li>
             ))}
           </ol>
 
           <section id="pricing" className="mt-16">
-            <h2 className="text-[24px] font-semibold text-white">Pricing</h2>
+            <h2 className="text-[24px] font-semibold text-brand-ink">Pricing</h2>
             <div className="mt-6 grid gap-5 lg:grid-cols-3">
-              <div className="flex flex-col rounded-[22px] border border-white/10 bg-brand-surface p-6">
-                <h3 className="text-[19px] font-semibold text-white">Free</h3>
+              <div className="flex flex-col rounded-[22px] border border-brand-ink/10 bg-brand-surface p-6">
+                <h3 className="text-[19px] font-semibold text-brand-ink">Free</h3>
                 <p className="mt-1 text-[14px] text-brand-muted">Everything you need to start.</p>
-                <p className="mt-5 text-[34px] font-semibold text-white">₦0</p>
+                <p className="mt-5 text-[34px] font-semibold text-brand-ink">₦0</p>
                 <ul className="mt-5 flex-1 space-y-2.5 text-[14px] text-brand-soft">
                   <li>✓ Shop page with your own link</li>
                   <li>✓ Up to {FREE_PRODUCT_LIMIT} products with photos</li>
@@ -104,7 +104,7 @@ export default function StoresPage() {
                   <li>✓ Online payments and invoice payment links, {FREE_PLAN_FEE_PERCENT}% per payment</li>
                   <li>✓ &quot;Powered by DoyinTech&quot; note</li>
                 </ul>
-                <Link href="/stores/dashboard" className="mt-6 inline-flex justify-center rounded-full border border-white/20 py-3 text-[14px] font-semibold text-white">
+                <Link href="/stores/dashboard" className="mt-6 inline-flex justify-center rounded-full border border-brand-ink/20 py-3 text-[14px] font-semibold text-brand-ink">
                   Start free
                 </Link>
               </div>
@@ -115,11 +115,11 @@ export default function StoresPage() {
           </section>
 
           <section className="mt-16 max-w-3xl">
-            <h2 className="text-[22px] font-semibold text-white">Questions</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Questions</h2>
             <dl className="mt-4 space-y-5">
               {FAQS.map((f) => (
                 <div key={f.q}>
-                  <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
+                  <dt className="text-[15px] font-semibold text-brand-ink">{f.q}</dt>
                   <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}

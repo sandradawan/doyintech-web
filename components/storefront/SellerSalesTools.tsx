@@ -30,11 +30,11 @@ export type PaymentLink = {
 };
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
-const card = "rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6";
-const primary = "rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
+const card = "rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6";
+const primary = "rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60";
 const pill = (on: boolean) =>
-  `rounded-full px-2 py-0.5 text-[11px] font-semibold ${on ? "bg-emerald-500/15 text-emerald-300" : "bg-white/10 text-brand-muted"}`;
+  `rounded-full px-2 py-0.5 text-[11px] font-semibold ${on ? "bg-emerald-500/15 text-emerald-300" : "bg-brand-ink/10 text-brand-muted"}`;
 
 const ngn = (kobo: number) => String(kobo / 100);
 
@@ -99,13 +99,13 @@ export function BoostPanel({
   }
 
   return (
-    <div className={`${card} ${active ? "border-[#ff8c14]/40" : ""}`}>
+    <div className={`${card} ${active ? "border-brand-link/40" : ""}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-[16px] font-semibold text-white">Get featured in the shop directory</p>
+          <p className="text-[16px] font-semibold text-brand-ink">Get featured in the shop directory</p>
           <p className="mt-1 max-w-xl text-[13px] text-brand-muted">
             Sponsored shops appear first on{" "}
-            <Link href="/shops" target="_blank" className="text-[#ff8c14] hover:underline">
+            <Link href="/shops" target="_blank" className="text-brand-link hover:underline">
               doyintech.com/shops
             </Link>, at the top of their category and in Featured shops on the DoyinTech homepage, in front of people already looking to buy.
           </p>
@@ -114,17 +114,17 @@ export function BoostPanel({
       </div>
       {stats && (
         <p className="mt-3 text-[13px] text-brand-soft">
-          Last 30 days: <strong className="text-white">{stats.views30}</strong> shop view{stats.views30 === 1 ? "" : "s"}, of which{" "}
-          <strong className="text-white">{stats.fromDoyinTech30}</strong> came from the DoyinTech directory and homepage.
+          Last 30 days: <strong className="text-brand-ink">{stats.views30}</strong> shop view{stats.views30 === 1 ? "" : "s"}, of which{" "}
+          <strong className="text-brand-ink">{stats.fromDoyinTech30}</strong> came from the DoyinTech directory and homepage.
         </p>
       )}
       {confirming && <p className="mt-3 text-[13px] text-brand-muted">Confirming your payment…</p>}
       {!ready ? (
-        <p className="mt-3 text-[13px] text-[#ff8c14]">Make your shop visible and add a product in stock to promote it.</p>
+        <p className="mt-3 text-[13px] text-brand-link">Make your shop visible and add a product in stock to promote it.</p>
       ) : (
         <div className="mt-4 flex flex-wrap gap-3">
           {BOOST_PLANS.map((p) => (
-            <button key={p.days} type="button" disabled={busy !== null} onClick={() => buy(p.days)} className={p.days === 30 ? primary : "rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white disabled:opacity-60"}>
+            <button key={p.days} type="button" disabled={busy !== null} onClick={() => buy(p.days)} className={p.days === 30 ? primary : "rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink disabled:opacity-60"}>
               {busy === p.days ? "Opening payment…" : `${active ? "Add" : "Feature for"} ${p.label} · ${formatKobo(p.amountKobo)}`}
             </button>
           ))}
@@ -161,7 +161,7 @@ export function DeliveryPanel({ zones, onChange }: { zones: DeliveryZone[]; onCh
 
   return (
     <div className={card}>
-      <p className="text-[16px] font-semibold text-white">Delivery areas</p>
+      <p className="text-[16px] font-semibold text-brand-ink">Delivery areas</p>
       <p className="mt-1 text-[13px] text-brand-muted">
         Customers pick an area at checkout and the fee is added to their total. Leave empty to arrange delivery on WhatsApp.
       </p>
@@ -199,7 +199,7 @@ export function DeliveryPanel({ zones, onChange }: { zones: DeliveryZone[]; onCh
           <button
             type="button"
             onClick={() => setRows((rs) => [...rs, { name: "", fee: "" }])}
-            className="rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white"
+            className="rounded-full border border-brand-ink/20 px-4 py-2 text-[13px] font-semibold text-brand-ink"
           >
             Add area
           </button>
@@ -265,10 +265,10 @@ export function DiscountsPanel({ discounts, paid, onChange }: { discounts: Disco
 
   return (
     <div className={card}>
-      <p className="text-[16px] font-semibold text-white">Discount codes</p>
+      <p className="text-[16px] font-semibold text-brand-ink">Discount codes</p>
       <p className="mt-1 text-[13px] text-brand-muted">Run a sale or reward loyal customers. Codes work for online payments and WhatsApp orders.</p>
       {!paid ? (
-        <p className="mt-3 text-[13px] text-[#ff8c14]">Discount codes are part of the Store plan. Upgrade above to create them.</p>
+        <p className="mt-3 text-[13px] text-brand-link">Discount codes are part of the Store plan. Upgrade above to create them.</p>
       ) : (
         <form onSubmit={create} className="mt-4 grid gap-3 sm:grid-cols-3">
           <label className="block text-[13px] text-brand-muted">
@@ -307,11 +307,11 @@ export function DiscountsPanel({ discounts, paid, onChange }: { discounts: Disco
         </form>
       )}
       {discounts.length > 0 && (
-        <ul className="mt-5 divide-y divide-white/10">
+        <ul className="mt-5 divide-y divide-brand-ink/10">
           {discounts.map((d) => (
             <li key={d.code} className="flex flex-wrap items-center justify-between gap-3 py-3 text-[14px]">
               <div>
-                <p className="font-mono font-semibold text-white">
+                <p className="font-mono font-semibold text-brand-ink">
                   {d.code} <span className={pill(d.active)}>{d.active ? "On" : "Off"}</span>
                 </p>
                 <p className="text-[12px] text-brand-muted">
@@ -414,7 +414,7 @@ export function PaymentLinksPanel({
   return (
     <div className={card}>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-[16px] font-semibold text-white">Payment links</p>
+        <p className="text-[16px] font-semibold text-brand-ink">Payment links</p>
         {paymentsActive && !open && (
           <button type="button" onClick={() => setOpen(true)} className={primary}>
             New payment link
@@ -428,7 +428,7 @@ export function PaymentLinksPanel({
       </p>
 
       {!paymentsActive && (
-        <p className="mt-3 text-[13px] text-[#ff8c14]">Connect your bank under Online payments first. Links work once your account is approved.</p>
+        <p className="mt-3 text-[13px] text-brand-link">Connect your bank under Online payments first. Links work once your account is approved.</p>
       )}
 
       {created && (
@@ -436,7 +436,7 @@ export function PaymentLinksPanel({
           <p className="font-semibold">Link ready{created.emailed ? " and emailed to your customer" : ""}.</p>
           <p className="mt-1 break-all font-mono text-[12px]">{created.url}</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={() => copy(created.url)} className="rounded-full border border-white/20 px-4 py-2 font-semibold text-white">
+            <button type="button" onClick={() => copy(created.url)} className="rounded-full border border-brand-ink/20 px-4 py-2 font-semibold text-brand-ink">
               {copied === created.url ? "Copied ✓" : "Copy link"}
             </button>
             <a
@@ -452,7 +452,7 @@ export function PaymentLinksPanel({
       )}
 
       {open && (
-        <form onSubmit={create} className="mt-4 grid gap-3 rounded-xl border border-white/10 bg-black/20 p-4 sm:grid-cols-2">
+        <form onSubmit={create} className="mt-4 grid gap-3 rounded-xl border border-brand-ink/10 bg-brand-well p-4 sm:grid-cols-2">
           <label className="block text-[13px] text-brand-muted">
             What it&apos;s for
             <input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Invoice INV-0042" className={field} />
@@ -490,11 +490,11 @@ export function PaymentLinksPanel({
       )}
 
       {links.length > 0 && (
-        <ul className="mt-5 divide-y divide-white/10">
+        <ul className="mt-5 divide-y divide-brand-ink/10">
           {links.map((l) => (
             <li key={l.reference} className="flex flex-wrap items-center justify-between gap-3 py-3 text-[14px]">
               <div className="min-w-0">
-                <p className="font-semibold text-white">
+                <p className="font-semibold text-brand-ink">
                   {l.title} · {formatKobo(l.amount_kobo)}{" "}
                   <span className={pill(l.status === "paid")}>{l.status === "open" ? "Unpaid" : l.status}</span>
                 </p>
@@ -507,7 +507,7 @@ export function PaymentLinksPanel({
               </div>
               {l.status === "open" && (
                 <div className="flex gap-3 text-[12px]">
-                  <button type="button" onClick={() => copy(urlFor(l.reference))} className="text-[#ff8c14] underline">
+                  <button type="button" onClick={() => copy(urlFor(l.reference))} className="text-brand-link underline">
                     {copied === urlFor(l.reference) ? "Copied ✓" : "Copy link"}
                   </button>
                   <button type="button" onClick={() => cancel(l)} className="text-red-400 underline">

@@ -6,7 +6,7 @@ import { TOOLS_CONFIG } from "@/lib/tools/config";
 import LeadForm from "./LeadForm";
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 
 export default function ContractGenerator() {
   const [provider, setProvider] = useState("DoyinTech");
@@ -42,7 +42,7 @@ export default function ContractGenerator() {
 
   return (
     <div className="space-y-6">
-      <div className="doc-no-print space-y-3 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+      <div className="doc-no-print space-y-3 rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
         <div className="grid gap-3 sm:grid-cols-2">
           <input className={field} placeholder="Provider (you)" value={provider} onChange={(e) => setProvider(e.target.value)} />
           <input className={field} placeholder="Provider address" value={providerAddress} onChange={(e) => setProviderAddress(e.target.value)} />
@@ -65,7 +65,7 @@ export default function ContractGenerator() {
         <p className="text-xs text-gray-500">Template only — have a lawyer review for high-value contracts. Signature lines are for wet ink or upload to an e-sign tool.</p>
       </div>
 
-      <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
+      <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-brand-ink/10 bg-white text-gray-900 shadow-xl">
         <div className="border-b border-gray-200 px-8 py-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Service agreement</p>
           <h2 className="mt-2 text-2xl font-bold">{service}</h2>

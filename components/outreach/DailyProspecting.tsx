@@ -46,10 +46,10 @@ export default function DailyProspecting() {
 
   return (
     <div className="mx-auto max-w-[800px] px-4">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
         Internal · sales engine
       </p>
-      <h1 className="mt-2 text-[30px] font-semibold tracking-tight text-white sm:text-[36px]">
+      <h1 className="mt-2 text-[30px] font-semibold tracking-tight text-brand-ink sm:text-[36px]">
         Daily prospecting — 20 messages
       </h1>
       <p className="mt-3 text-[15px] leading-relaxed text-brand-muted">
@@ -57,14 +57,14 @@ export default function DailyProspecting() {
         personalize the brackets, then send.
       </p>
 
-      <div className="mt-8 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-5">
+      <div className="mt-8 rounded-2xl border border-brand-link/30 bg-brand-link/10 p-5">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-[15px] font-semibold text-white">Today’s progress</p>
-          <p className="text-[20px] font-bold text-[#ff8c14]">{doneCount}/20</p>
+          <p className="text-[15px] font-semibold text-brand-ink">Today’s progress</p>
+          <p className="text-[20px] font-bold text-brand-link">{doneCount}/20</p>
         </div>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-black/40">
+        <div className="mt-3 h-2 overflow-hidden rounded-full bg-brand-well">
           <div
-            className="h-full rounded-full bg-[#ff8c14] transition-all"
+            className="h-full rounded-full bg-brand-accent transition-all"
             style={{ width: `${(doneCount / 20) * 100}%` }}
           />
         </div>
@@ -80,8 +80,8 @@ export default function DailyProspecting() {
               }
               className={`rounded-lg py-2 text-[12px] font-semibold ${
                 c.done
-                  ? "bg-[#ff8c14] text-black"
-                  : "bg-black/40 text-brand-muted hover:bg-white/10"
+                  ? "bg-brand-accent text-black"
+                  : "bg-brand-well text-brand-muted hover:bg-brand-ink/10"
               }`}
             >
               {c.id}
@@ -91,14 +91,14 @@ export default function DailyProspecting() {
         <button
           type="button"
           onClick={() => setChecks(CHECKLIST_SEED)}
-          className="mt-3 text-[12px] text-brand-subtle hover:text-white"
+          className="mt-3 text-[12px] text-brand-subtle hover:text-brand-ink"
         >
           Reset day
         </button>
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[18px] font-semibold text-white">How to run the day</h2>
+        <h2 className="text-[18px] font-semibold text-brand-ink">How to run the day</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5 text-[14px] text-brand-soft">
           {STEPS.map((s) => (
             <li key={s}>{s}</li>
@@ -107,7 +107,7 @@ export default function DailyProspecting() {
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[18px] font-semibold text-white">WhatsApp DM scripts</h2>
+        <h2 className="text-[18px] font-semibold text-brand-ink">WhatsApp DM scripts</h2>
         <p className="mt-1 text-[13px] text-brand-muted">
           Replace [Name], [Business], [source], [issues]. Keep it short.
         </p>
@@ -115,11 +115,11 @@ export default function DailyProspecting() {
           {dmTemplates.map((t) => (
             <div
               key={t.id}
-              className="rounded-2xl border border-white/10 bg-brand-surface p-5"
+              className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <p className="text-[14px] font-semibold text-white">{t.title}</p>
+                  <p className="text-[14px] font-semibold text-brand-ink">{t.title}</p>
                   <p className="text-[11px] text-brand-subtle">{t.channel}</p>
                 </div>
                 <button
@@ -139,19 +139,19 @@ export default function DailyProspecting() {
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[18px] font-semibold text-white">Status captions (distribution)</h2>
+        <h2 className="text-[18px] font-semibold text-brand-ink">Status captions (distribution)</h2>
         <div className="mt-4 space-y-4">
           {statusTemplates.map((t) => (
             <div
               key={t.id}
-              className="rounded-2xl border border-white/10 bg-brand-surface p-5"
+              className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-[14px] font-semibold text-white">{t.title}</p>
+                <p className="text-[14px] font-semibold text-brand-ink">{t.title}</p>
                 <button
                   type="button"
                   onClick={() => copy(t.id, t.body)}
-                  className="rounded-full bg-[#ff8c14] px-4 py-2 text-[12px] font-semibold text-black"
+                  className="rounded-full bg-brand-accent px-4 py-2 text-[12px] font-semibold text-black"
                 >
                   {copiedId === t.id ? "Copied ✓" : "Copy"}
                 </button>
@@ -164,8 +164,8 @@ export default function DailyProspecting() {
         </div>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-5 text-[14px] text-brand-muted">
-        <p className="font-semibold text-white">Links to paste</p>
+      <div className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 text-[14px] text-brand-muted">
+        <p className="font-semibold text-brand-ink">Links to paste</p>
         <ul className="mt-2 space-y-1">
           <li>
             Hire:{" "}

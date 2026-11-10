@@ -61,7 +61,7 @@ export default function PaystackBuyButton({
         onClick={() => setOpen(true)}
         className={
           className ||
-          "mt-auto inline-flex w-full items-center justify-center rounded-full bg-[#ff8c14] py-3.5 text-[14px] font-semibold text-black transition hover:bg-[#ffa03a]"
+          "mt-auto inline-flex w-full items-center justify-center rounded-full bg-brand-accent py-3.5 text-[14px] font-semibold text-black transition hover:bg-brand-accent-hover"
         }
       >
         Pay with Paystack
@@ -81,8 +81,8 @@ export default function PaystackBuyButton({
             onClick={() => !loading && setOpen(false)}
           />
 
-          <div className="relative z-10 flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-t-[24px] border border-white/10 bg-brand-surface shadow-2xl sm:rounded-[24px]">
-            <div className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
+          <div className="relative z-10 flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-t-[24px] border border-brand-ink/10 bg-brand-surface shadow-2xl sm:rounded-[24px]">
+            <div className="flex items-start justify-between gap-3 border-b border-brand-ink/10 px-5 py-4">
               <div className="min-w-0">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-brand-muted">
                   Secure checkout
@@ -93,7 +93,7 @@ export default function PaystackBuyButton({
                 >
                   {product.name}
                 </h3>
-                <p className="mt-1 text-[22px] font-semibold tracking-tight text-white">
+                <p className="mt-1 text-[22px] font-semibold tracking-tight text-brand-ink">
                   {product.priceNgn}
                 </p>
               </div>
@@ -101,7 +101,7 @@ export default function PaystackBuyButton({
                 type="button"
                 disabled={loading}
                 onClick={() => setOpen(false)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand-ink hover:bg-white/15 disabled:opacity-40"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-ink/10 text-brand-ink hover:bg-brand-ink/15 disabled:opacity-40"
                 aria-label="Close"
               >
                 ✕
@@ -125,7 +125,7 @@ export default function PaystackBuyButton({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@email.com"
-                  className="w-full rounded-xl border border-white/15 bg-black/50 px-4 py-3 text-[15px] text-white outline-none ring-[#ff8c14] placeholder:text-white/30 focus:border-[#ff8c14] focus:ring-1"
+                  className="w-full rounded-xl border border-brand-ink/15 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none ring-brand-link placeholder:text-brand-ink/30 focus:border-brand-link focus:ring-1"
                 />
               </label>
 

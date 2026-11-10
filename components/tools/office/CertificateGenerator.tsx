@@ -64,7 +64,7 @@ export default function CertificateGenerator() {
           <Field name="Date" type="date" value={date} onChange={setDate} />
           <label className="block text-[12px] font-medium text-brand-muted">
             Colour
-            <input type="color" value={org.color} onChange={(e) => setOrg({ ...org, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40" />
+            <input type="color" value={org.color} onChange={(e) => setOrg({ ...org, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-brand-ink/15 bg-brand-well" />
           </label>
           <Field name="Signatory 1 name" value={org.sign1} onChange={(v) => setOrg({ ...org, sign1: v })} />
           <Field name="Signatory 1 title" value={org.title1} onChange={(v) => setOrg({ ...org, title1: v })} />

@@ -48,16 +48,16 @@ export default function AdminContentPage() {
   return (
     <div className="space-y-8">
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Site</p>
-        <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Content & pages</h1>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">Site</p>
+        <h1 className="mt-1 font-display text-[24px] font-semibold text-brand-ink">Content & pages</h1>
         <p className="mt-1 text-[13px] text-brand-subtle">Quick access to every public surface.</p>
       </div>
       {SECTIONS.map((s) => (
         <section key={s.group}>
-          <h2 className="text-[14px] font-semibold text-white">{s.group}</h2>
+          <h2 className="text-[14px] font-semibold text-brand-ink">{s.group}</h2>
           <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {s.items.map((i) => (
-              <Link key={i.href} href={i.href} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[13px] text-brand-soft transition hover:border-white/25">
+              <Link key={i.href} href={i.href} className="rounded-xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-3 text-[13px] text-brand-soft transition hover:border-brand-ink/25">
                 {i.title}
                 <span className="mt-1 block text-[11px] text-brand-subtle">{i.href}</span>
               </Link>

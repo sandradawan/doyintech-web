@@ -58,18 +58,18 @@ export default function LetterGeneratorPage() {
       newsletterSource="letter-generator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Applying for jobs?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Applying for jobs?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             Pair your letter with a clean CV from the{" "}
-            <Link href="/tools/cv-builder" className="text-[#ff8c14] hover:underline">
+            <Link href="/tools/cv-builder" className="text-brand-link hover:underline">
               free CV builder
             </Link>{" "}
             and a tailored{" "}
-            <Link href="/tools/cover-letter" className="text-[#ff8c14] hover:underline">
+            <Link href="/tools/cover-letter" className="text-brand-link hover:underline">
               cover letter
             </Link>
             . Hiring instead? Use the{" "}
-            <Link href="/tools/offer-letter" className="text-[#ff8c14] hover:underline">
+            <Link href="/tools/offer-letter" className="text-brand-link hover:underline">
               offer letter tool
             </Link>
             .
@@ -78,7 +78,7 @@ export default function LetterGeneratorPage() {
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Tips for a letter that gets read</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Tips for a letter that gets read</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>Keep it to one page and three or four short paragraphs.</li>
           <li>Put the purpose in the subject line and the first sentence.</li>

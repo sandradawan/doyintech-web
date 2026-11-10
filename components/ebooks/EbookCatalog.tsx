@@ -50,7 +50,7 @@ export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search ebooks…"
-          className="w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-[#64748b] focus:border-[#ff8c14] sm:max-w-xs"
+          className="w-full rounded-xl border border-brand-ink/12 bg-brand-ink/[0.04] px-4 py-2.5 text-sm text-brand-ink outline-none placeholder:text-[#64748b] focus:border-brand-link sm:max-w-xs"
         />
         <p className="text-[13px] text-brand-subtle">
           {filtered.length} book{filtered.length === 1 ? "" : "s"}
@@ -65,8 +65,8 @@ export default function EbookCatalog({ books }: { books: PublicEbook[] }) {
             onClick={() => setCategory(c)}
             className={
               category === c
-                ? "rounded-full bg-[#ff8c14] px-3.5 py-1.5 text-[12px] font-semibold text-black"
-                : "rounded-full border border-white/12 bg-white/[0.03] px-3.5 py-1.5 text-[12px] font-medium text-brand-soft hover:border-white/25"
+                ? "rounded-full bg-brand-accent px-3.5 py-1.5 text-[12px] font-semibold text-black"
+                : "rounded-full border border-brand-ink/12 bg-brand-ink/[0.03] px-3.5 py-1.5 text-[12px] font-medium text-brand-soft hover:border-brand-ink/25"
             }
           >
             {c}

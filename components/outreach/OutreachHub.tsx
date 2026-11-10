@@ -33,7 +33,7 @@ type Prospect = {
 const STORAGE_KEY = "doyintech_outreach_prospects_v1";
 
 const input =
-  "w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]";
+  "w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link";
 
 const STATUSES: Status[] = [
   "new",
@@ -231,10 +231,10 @@ export default function OutreachHub() {
         ].map(([label, n]) => (
           <div
             key={String(label)}
-            className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
+            className="rounded-2xl border border-brand-ink/10 bg-brand-well px-4 py-3"
           >
             <p className="text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
-            <p className="mt-1 text-2xl font-semibold text-white">{n}</p>
+            <p className="mt-1 text-2xl font-semibold text-brand-ink">{n}</p>
           </div>
         ))}
       </div>
@@ -247,8 +247,8 @@ export default function OutreachHub() {
             onClick={() => setTab(t.id)}
             className={`rounded-full px-4 py-2 text-xs font-semibold ${
               tab === t.id
-                ? "bg-[#ff8c14] text-black"
-                : "border border-white/15 text-brand-muted hover:text-white"
+                ? "bg-brand-accent text-black"
+                : "border border-brand-ink/15 text-brand-muted hover:text-brand-ink"
             }`}
           >
             {t.label}
@@ -262,9 +262,9 @@ export default function OutreachHub() {
         <div className="space-y-6">
           <form
             onSubmit={addProspect}
-            className="grid gap-3 rounded-2xl border border-white/10 bg-brand-surface p-5 sm:grid-cols-2"
+            className="grid gap-3 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:grid-cols-2"
           >
-            <h2 className="sm:col-span-2 text-sm font-semibold text-white">Add prospect</h2>
+            <h2 className="sm:col-span-2 text-sm font-semibold text-brand-ink">Add prospect</h2>
             <label className="text-xs text-brand-subtle">
               Market
               <select
@@ -346,7 +346,7 @@ export default function OutreachHub() {
             </label>
             <button
               type="submit"
-              className="sm:col-span-2 rounded-full bg-[#ff8c14] py-3 text-sm font-semibold text-black"
+              className="sm:col-span-2 rounded-full bg-brand-accent py-3 text-sm font-semibold text-black"
             >
               Save prospect
             </button>
@@ -356,7 +356,7 @@ export default function OutreachHub() {
             <button
               type="button"
               onClick={exportCsv}
-              className="rounded-full border border-white/20 px-4 py-2 text-xs text-white"
+              className="rounded-full border border-brand-ink/20 px-4 py-2 text-xs text-brand-ink"
             >
               Export CSV
             </button>
@@ -370,10 +370,10 @@ export default function OutreachHub() {
               <p className="text-sm text-brand-muted">No prospects yet — add your first above.</p>
             )}
             {prospects.map((p) => (
-              <li key={p.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+              <li key={p.id} className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-semibold text-white">
+                    <p className="font-semibold text-brand-ink">
                       {p.businessName}{" "}
                       <span className="text-xs font-normal text-brand-subtle">
                         {p.market} · {p.city} · {p.industry}
@@ -395,7 +395,7 @@ export default function OutreachHub() {
                     <select
                       value={p.status}
                       onChange={(e) => updateStatus(p.id, e.target.value as Status)}
-                      className="rounded-lg border border-white/15 bg-black/50 px-2 py-1.5 text-xs text-white"
+                      className="rounded-lg border border-brand-ink/15 bg-brand-well px-2 py-1.5 text-xs text-brand-ink"
                     >
                       {STATUSES.map((s) => (
                         <option key={s} value={s}>
@@ -420,8 +420,8 @@ export default function OutreachHub() {
 
       {tab === "messages" && (
         <div className="grid gap-4 lg:grid-cols-2">
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-brand-surface p-5">
-            <h2 className="text-sm font-semibold text-white">Personalize</h2>
+          <div className="space-y-3 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+            <h2 className="text-sm font-semibold text-brand-ink">Personalize</h2>
             <select
               className={input}
               value={msgMarket}
@@ -440,10 +440,10 @@ export default function OutreachHub() {
             {["Cold email", "LinkedIn note", "Day-3 follow-up", "Day-7 follow-up"].map((label, i) => {
               const text = [coldEmail, linkedInNote, follow3, follow7][i];
               return (
-                <div key={label} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                <div key={label} className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
                   <div className="mb-2 flex justify-between">
-                    <p className="text-xs font-semibold text-[#ff8c14]">{label}</p>
-                    <button type="button" className="text-xs text-white" onClick={() => copy(text)}>
+                    <p className="text-xs font-semibold text-brand-link">{label}</p>
+                    <button type="button" className="text-xs text-brand-ink" onClick={() => copy(text)}>
                       Copy
                     </button>
                   </div>
@@ -457,8 +457,8 @@ export default function OutreachHub() {
 
       {tab === "audit" && (
         <div className="grid gap-4 lg:grid-cols-2">
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-brand-surface p-5">
-            <h2 className="text-sm font-semibold text-white">3-minute digital audit</h2>
+          <div className="space-y-3 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+            <h2 className="text-sm font-semibold text-brand-ink">3-minute digital audit</h2>
             <input className={input} placeholder="Business name" value={auditBiz} onChange={(e) => setAuditBiz(e.target.value)} />
             <input className={input} placeholder="Observation 1" value={audit1} onChange={(e) => setAudit1(e.target.value)} />
             <input className={input} placeholder="Impact 1" value={audit1Impact} onChange={(e) => setAudit1Impact(e.target.value)} />
@@ -466,10 +466,10 @@ export default function OutreachHub() {
             <input className={input} placeholder="Impact 2" value={audit2Impact} onChange={(e) => setAudit2Impact(e.target.value)} />
             <input className={input} placeholder="Recommended fix" value={auditFix} onChange={(e) => setAuditFix(e.target.value)} />
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
+          <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
             <div className="mb-2 flex justify-between">
-              <p className="text-xs font-semibold text-[#ff8c14]">Audit text</p>
-              <button type="button" className="text-xs text-white" onClick={() => copy(auditText)}>
+              <p className="text-xs font-semibold text-brand-link">Audit text</p>
+              <button type="button" className="text-xs text-brand-ink" onClick={() => copy(auditText)}>
                 Copy
               </button>
             </div>
@@ -479,8 +479,8 @@ export default function OutreachHub() {
       )}
 
       {tab === "checklist" && (
-        <div className="rounded-2xl border border-white/10 bg-brand-surface p-6 text-[14px] text-brand-soft">
-          <h2 className="text-sm font-semibold text-white">Daily 90-minute plan</h2>
+        <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6 text-[14px] text-brand-soft">
+          <h2 className="text-sm font-semibold text-brand-ink">Daily 90-minute plan</h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5">
             <li>Find 20–30 qualified prospects (Search queries tab).</li>
             <li>Add them under Prospects with one specific issue each.</li>
@@ -495,11 +495,11 @@ export default function OutreachHub() {
       )}
 
       {tab === "queries" && (
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-brand-surface p-6 text-[13px] text-brand-soft">
-          <h2 className="text-sm font-semibold text-white">Search queries (swap CITY)</h2>
-          <p className="font-semibold text-[#ff8c14]">US</p>
+        <div className="space-y-4 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6 text-[13px] text-brand-soft">
+          <h2 className="text-sm font-semibold text-brand-ink">Search queries (swap CITY)</h2>
+          <p className="font-semibold text-brand-link">US</p>
           <pre className="whitespace-pre-wrap text-[12px]">{`beauty salon in [CITY] -facebook\n"best cleaning service" [CITY]\nrestaurant [CITY] menu\nestate agent [CITY]\n"makeup artist" [CITY] book`}</pre>
-          <p className="font-semibold text-[#ff8c14]">UK</p>
+          <p className="font-semibold text-brand-link">UK</p>
           <pre className="whitespace-pre-wrap text-[12px]">{`"hair salon" [CITY] UK\ncleaning company [CITY]\n"estate agents" [CITY]\n"personal trainer" [CITY] book online\n"accountant" [CITY] sole trader`}</pre>
         </div>
       )}

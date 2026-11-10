@@ -18,7 +18,7 @@ export default function PlayPage() {
           <Link href="/" className="text-sm text-primary hover:underline">
             ← Home
           </Link>
-          <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
+          <h1 className="mt-4 font-display text-3xl font-bold text-brand-ink md:text-4xl">
             Signal Runner
           </h1>
           <p className="mt-3 text-brand-muted">
@@ -33,8 +33,8 @@ export default function PlayPage() {
           <div className="mt-8">
             <SignalRunnerGame />
           </div>
-          <section className="mt-12 rounded-3xl border border-white/10 bg-black/30 p-6">
-            <h2 className="font-display text-xl font-bold text-white">Come back tools</h2>
+          <section className="mt-12 rounded-3xl border border-brand-ink/10 bg-brand-well p-6">
+            <h2 className="font-display text-xl font-bold text-brand-ink">Come back tools</h2>
             <p className="mt-2 text-sm text-brand-muted">
               Bookmark free tools that save on this device — focus timer, checklist, savings goal,
               and more.

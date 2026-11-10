@@ -35,19 +35,19 @@ export default function Page() {
       newsletterSource="discount-calculator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Running a sale?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Running a sale?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">We build online stores with discount codes, sale prices and card payments built in.</p>
-          <Link href="/stores" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get a website</Link>
+          <Link href="/stores" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Get a website</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Quick percent-off table (price 100)</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Quick percent-off table (price 100)</h2>
         <table className="mt-4 w-full text-left text-[15px]">
-          <thead><tr className="border-b border-white/10 text-brand-muted"><th className="py-2 font-medium">Discount</th><th className="py-2 font-medium">You save</th><th className="py-2 font-medium">You pay</th></tr></thead>
+          <thead><tr className="border-b border-brand-ink/10 text-brand-muted"><th className="py-2 font-medium">Discount</th><th className="py-2 font-medium">You save</th><th className="py-2 font-medium">You pay</th></tr></thead>
           <tbody>
             {[10, 15, 20, 25, 30, 40, 50, 70].map((d) => (
-              <tr key={d} className="border-b border-white/5"><td className="py-2 text-white">{d}%</td><td className="py-2">{d}</td><td className="py-2">{100 - d}</td></tr>
+              <tr key={d} className="border-b border-brand-ink/5"><td className="py-2 text-brand-ink">{d}%</td><td className="py-2">{d}</td><td className="py-2">{100 - d}</td></tr>
             ))}
           </tbody>
         </table>

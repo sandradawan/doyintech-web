@@ -37,7 +37,7 @@ export default function ReviewForm() {
   if (status === "ok") {
     return (
       <div className="glass-card p-8 text-center">
-        <p className="text-[18px] font-semibold text-white">Thank you</p>
+        <p className="text-[18px] font-semibold text-brand-ink">Thank you</p>
         <p className="mt-2 text-[15px] text-brand-muted">
           Your review was received. We may feature it on the site with your permission.
         </p>
@@ -54,7 +54,7 @@ export default function ReviewForm() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
+            className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link/50"
             placeholder="Ada O."
           />
         </label>
@@ -63,7 +63,7 @@ export default function ReviewForm() {
           <input
             value={business}
             onChange={(e) => setBusiness(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
+            className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link/50"
             placeholder="Ada Beauty Studio"
           />
         </label>
@@ -79,8 +79,8 @@ export default function ReviewForm() {
               onClick={() => setRating(n)}
               className={`h-10 w-10 rounded-full text-[15px] font-semibold transition ${
                 n <= rating
-                  ? "bg-[#ff8c14] text-black"
-                  : "border border-white/15 text-brand-muted"
+                  ? "bg-brand-accent text-black"
+                  : "border border-brand-ink/15 text-brand-muted"
               }`}
             >
               {n}
@@ -96,7 +96,7 @@ export default function ReviewForm() {
           rows={4}
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-brand-link/50"
+          className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link/50"
           placeholder="What did we build? What changed for your business?"
           minLength={20}
         />

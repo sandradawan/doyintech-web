@@ -19,7 +19,7 @@ export default function BookCall() {
     <section className="apple-section apple-section-black py-16">
       <div className="mx-auto max-w-[980px] px-6">
         <ScrollReveal direction="up">
-          <div className="overflow-hidden rounded-[28px] border border-white/[0.08] bg-gradient-to-br from-[#ff8c14]/25 via-brand-surface to-black p-8 sm:p-12">
+          <div className="theme-dark panel-glow overflow-hidden rounded-[28px] p-8 sm:p-12">
             <div className="grid items-center gap-8 lg:grid-cols-12">
               <div className="lg:col-span-7">
                 <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
@@ -43,7 +43,7 @@ export default function BookCall() {
               <div className="flex flex-col gap-3 lg:col-span-5 lg:items-end">
                 <Link
                   href={PRIMARY_CTA.href}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-[#ff8c14] px-6 py-4 text-[16px] font-semibold text-black transition hover:brightness-110 sm:w-auto sm:min-w-[260px]"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-brand-accent px-6 py-4 text-[16px] font-semibold text-black transition hover:brightness-110 sm:w-auto sm:min-w-[260px]"
                 >
                   {PRIMARY_CTA.label}
                 </Link>
@@ -51,7 +51,7 @@ export default function BookCall() {
                   href={calendar ? primary : whatsappDiscoveryLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-[15px] text-brand-ink transition hover:bg-white/5 sm:w-auto sm:min-w-[260px]"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-brand-ink/20 px-6 py-3.5 text-[15px] text-brand-ink transition hover:bg-brand-ink/5 sm:w-auto sm:min-w-[260px]"
                 >
                   {calendar ? "Book a free 15-min call" : "Ask on WhatsApp first"}
                 </a>

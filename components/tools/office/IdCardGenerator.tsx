@@ -78,18 +78,18 @@ export default function IdCardGenerator() {
             <Field name="Valid until" value={org.expiry} onChange={(v) => setOrg({ ...org, expiry: v })} placeholder="Dec 2027" />
             <label className="block text-[12px] font-medium text-brand-muted">
               Colour
-              <input type="color" value={org.color} onChange={(e) => setOrg({ ...org, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40" />
+              <input type="color" value={org.color} onChange={(e) => setOrg({ ...org, color: e.target.value })} className="mt-1 h-11 w-full cursor-pointer rounded-xl border border-brand-ink/15 bg-brand-well" />
             </label>
           </div>
           <label className="flex min-h-10 items-center gap-2 text-[13px] text-brand-soft">
-            <input type="checkbox" className="h-4 w-4 accent-[#ff8c14]" checked={org.blood} onChange={(e) => setOrg({ ...org, blood: e.target.checked })} />
+            <input type="checkbox" className="h-4 w-4 accent-brand-link" checked={org.blood} onChange={(e) => setOrg({ ...org, blood: e.target.checked })} />
             Add a blood group line to fill by hand
           </label>
         </div>
         {people.map((p, i) => (
           <div key={p.id} className={panel}>
             <div className="flex items-center justify-between">
-              <p className="text-[14px] font-semibold text-white">Card {i + 1}</p>
+              <p className="text-[14px] font-semibold text-brand-ink">Card {i + 1}</p>
               {people.length > 1 && (
                 <button type="button" className="min-h-10 px-2 text-[13px] text-[#ff8a8a] hover:underline" onClick={() => setPeople(people.filter((x) => x.id !== p.id))}>
                   Remove
@@ -102,7 +102,7 @@ export default function IdCardGenerator() {
               <Field name={numLabel} value={p.number} onChange={(v) => setP(p.id, "number", v)} />
               <label className="block text-[12px] font-medium text-brand-muted">
                 Passport photo (optional)
-                <input type="file" accept="image/*" onChange={(e) => loadPhoto(p.id, e.target.files?.[0])} className="mt-1 block w-full text-[13px] text-brand-soft file:mr-3 file:min-h-10 file:rounded-full file:border-0 file:bg-white/10 file:px-4 file:text-white" />
+                <input type="file" accept="image/*" onChange={(e) => loadPhoto(p.id, e.target.files?.[0])} className="mt-1 block w-full text-[13px] text-brand-soft file:mr-3 file:min-h-10 file:rounded-full file:border-0 file:bg-brand-ink/10 file:px-4 file:text-brand-ink" />
               </label>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function IdCardGenerator() {
 
       <div className="lg:sticky lg:top-28 lg:self-start" aria-label="ID card preview">
         <div className="relative mx-auto aspect-[85.6/54] w-full max-w-[420px] overflow-hidden rounded-2xl bg-white shadow-xl">
-          <div className="px-4 py-2.5 text-white" style={{ background: org.color }}>
+          <div className="px-4 py-2.5 text-brand-ink" style={{ background: org.color }}>
             <p className="text-[13px] font-bold uppercase tracking-wide">{org.name || "Organisation"}</p>
             <p className="text-[10px] opacity-90">{org.address}</p>
           </div>
@@ -135,7 +135,7 @@ export default function IdCardGenerator() {
               {org.expiry && <p><b>Valid until</b> {org.expiry}</p>}
             </div>
           </div>
-          <p className="absolute inset-x-0 bottom-0 py-1 text-center text-[10px] uppercase tracking-[0.2em] text-white" style={{ background: org.color }}>
+          <p className="absolute inset-x-0 bottom-0 py-1 text-center text-[10px] uppercase tracking-[0.2em] text-brand-ink" style={{ background: org.color }}>
             {KINDS.find((k) => k.id === kind)!.label}
           </p>
         </div>

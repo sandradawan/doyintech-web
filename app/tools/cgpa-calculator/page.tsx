@@ -62,14 +62,14 @@ export default function CgpaCalculatorPage() {
       newsletterSource="cgpa-calculator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Final year project coming up?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Final year project coming up?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             Get guided support with topic selection, chapter structure, data analysis and formatting from our{" "}
-            <Link href="/students/projects" className="text-[#ff8c14] hover:underline">
+            <Link href="/students/projects" className="text-brand-link hover:underline">
               student project team
             </Link>
             , or use the free{" "}
-            <Link href="/students" className="text-[#ff8c14] hover:underline">
+            <Link href="/students" className="text-brand-link hover:underline">
               student tools
             </Link>
             .
@@ -78,7 +78,7 @@ export default function CgpaCalculatorPage() {
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Example</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Example</h2>
         <p className="mt-3">
           Three courses: GST 101 (2 units, A), MTH 101 (3 units, B) and CHM 101 (3 units, C). Quality points: 2×5 + 3×4 + 3×3 = 31. Units: 8. GPA =
           31 ÷ 8 = 3.88, a Second Class Upper standing on the 5.0 scale.

@@ -35,16 +35,16 @@ export default function Page() {
       newsletterSource="daily-quiz"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Put what you learn to work</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Put what you learn to work</h2>
           <p className="mt-2 text-[14px] text-brand-muted">A website that ranks on Google, takes payments and brings in enquiries, live in one to two weeks.</p>
-          <Link href="/hire" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get a website</Link>
+          <Link href="/hire" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Get a website</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Two minutes a day adds up</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Two minutes a day adds up</h2>
         <p className="mt-3">Most money mistakes come from things nobody explained: how flat-rate loans really cost, why a profitable business can run out of cash, or how fake payment alerts work. One short question a day, with the reason behind the answer, builds the habits that protect your money.</p>
-        <p className="mt-3">Got children? They have their own <Link href="/kids/daily-challenge" className="text-[#ff8c14] underline">daily maths and word challenge</Link>.</p>
+        <p className="mt-3">Got children? They have their own <Link href="/kids/daily-challenge" className="text-brand-link underline">daily maths and word challenge</Link>.</p>
       </section>
     </SeoToolPage>
   );

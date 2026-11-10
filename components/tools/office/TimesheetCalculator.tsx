@@ -78,12 +78,12 @@ export default function TimesheetCalculator() {
             </thead>
             <tbody>
               {days.map((d, i) => (
-                <tr key={d.day} className="border-t border-white/5">
-                  <th scope="row" className="py-1.5 pr-2 text-left font-medium text-white">{d.day.slice(0, 3)}</th>
+                <tr key={d.day} className="border-t border-brand-ink/5">
+                  <th scope="row" className="py-1.5 pr-2 text-left font-medium text-brand-ink">{d.day.slice(0, 3)}</th>
                   <td className="pr-2"><input aria-label={`${d.day} start`} type="time" className={field} value={d.start} onChange={(e) => setDay(i, "start", e.target.value)} /></td>
                   <td className="pr-2"><input aria-label={`${d.day} end`} type="time" className={field} value={d.end} onChange={(e) => setDay(i, "end", e.target.value)} /></td>
                   <td className="pr-2"><input aria-label={`${d.day} break minutes`} type="number" inputMode="numeric" className={field} value={d.brk} onChange={(e) => setDay(i, "brk", e.target.value)} /></td>
-                  <td className="text-right text-white">{r.perDay[i] ? hrs(r.perDay[i]) : "—"}</td>
+                  <td className="text-right text-brand-ink">{r.perDay[i] ? hrs(r.perDay[i]) : "—"}</td>
                 </tr>
               ))}
             </tbody>
@@ -97,11 +97,11 @@ export default function TimesheetCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start">
-        <dl className="grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-brand-surface p-5 text-[14px]" aria-live="polite">
+        <dl className="grid grid-cols-2 gap-3 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 text-[14px]" aria-live="polite">
           {[["Total hours", hrs(r.total)], ["Overtime", hrs(r.overtime)], ["Regular pay", ngn(r.regularPay)], ["Overtime pay", ngn(r.otPay)]].map(([k, v]) => (
-            <div key={k}><dt className="text-brand-muted">{k}</dt><dd className="mt-0.5 text-[18px] font-semibold text-white">{v}</dd></div>
+            <div key={k}><dt className="text-brand-muted">{k}</dt><dd className="mt-0.5 text-[18px] font-semibold text-brand-ink">{v}</dd></div>
           ))}
-          <div className="col-span-2 border-t border-white/10 pt-3"><dt className="text-brand-muted">Gross pay this week</dt><dd className="text-[30px] font-semibold text-[#ff8c14]">{ngn(r.pay)}</dd></div>
+          <div className="col-span-2 border-t border-brand-ink/10 pt-3"><dt className="text-brand-muted">Gross pay this week</dt><dd className="text-[30px] font-semibold text-brand-link">{ngn(r.pay)}</dd></div>
         </dl>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download signed timesheet PDF</button>
       </div>

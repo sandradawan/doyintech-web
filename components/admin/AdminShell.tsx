@@ -12,9 +12,9 @@ function AdminRedirect({ error }: { error: string | null }) {
   }, [router]);
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-brand-deepest px-6 text-center">
-      <div className="h-10 w-10 animate-pulse rounded-2xl bg-[#ff8c14]/20" />
+      <div className="h-10 w-10 animate-pulse rounded-2xl bg-brand-link/20" />
       <p className="text-[15px] text-brand-muted">{error || "Admin sign-in required"}</p>
-      <Link href="/admin/login" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black">
+      <Link href="/admin/login" className="rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black">
         Go to admin login
       </Link>
     </div>
@@ -120,7 +120,7 @@ function QuickSearch({ onDone }: { onDone?: () => void }) {
         onChange={(e) => setQ(e.target.value)}
         placeholder="Find a contact…"
         aria-label="Find a contact"
-        className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[13px] text-white outline-none placeholder:text-white/30 focus:border-[#ff8c14]/60"
+        className="w-full rounded-lg border border-brand-ink/10 bg-brand-ink/[0.04] px-3 py-2 text-[13px] text-brand-ink outline-none placeholder:text-brand-ink/30 focus:border-brand-link/60"
       />
     </form>
   );
@@ -141,7 +141,7 @@ function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () 
                   href={item.href}
                   onClick={onNavigate}
                   className={`rounded-lg px-3 py-1.5 text-[13px] transition ${
-                    active ? "bg-[#ff8c14]/12 font-semibold text-[#ffb366]" : "text-brand-muted hover:bg-white/[0.04] hover:text-white"
+                    active ? "bg-brand-link/12 font-semibold text-brand-link" : "text-brand-muted hover:bg-brand-ink/[0.04] hover:text-brand-ink"
                   }`}
                 >
                   {item.label}
@@ -172,7 +172,7 @@ function Shell({ children }: { children: ReactNode }) {
   if (session.loading) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-brand-deepest text-brand-muted">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-[#ff8c14]" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand-ink/10 border-t-brand-link" />
         <p className="text-[13px]">Verifying admin session…</p>
       </div>
     );
@@ -186,14 +186,14 @@ function Shell({ children }: { children: ReactNode }) {
   };
 
   const account = (
-    <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-3">
-      <p className="truncate text-[12px] font-medium text-white">{session.email}</p>
+    <div className="rounded-xl border border-brand-ink/[0.06] bg-brand-ink/[0.03] px-3 py-3">
+      <p className="truncate text-[12px] font-medium text-brand-ink">{session.email}</p>
       <p className="mt-0.5 text-[11px] text-brand-subtle">Administrator · full access</p>
       <div className="mt-3 flex gap-2">
-        <button type="button" onClick={signOut} className="flex-1 rounded-lg border border-white/10 py-1.5 text-[11px] font-medium text-brand-muted transition hover:border-white/25 hover:text-white">
+        <button type="button" onClick={signOut} className="flex-1 rounded-lg border border-brand-ink/10 py-1.5 text-[11px] font-medium text-brand-muted transition hover:border-brand-ink/25 hover:text-brand-ink">
           Sign out
         </button>
-        <Link href="/" className="flex-1 rounded-lg border border-white/10 py-1.5 text-center text-[11px] font-medium text-brand-muted transition hover:border-white/25 hover:text-white">
+        <Link href="/" className="flex-1 rounded-lg border border-brand-ink/10 py-1.5 text-center text-[11px] font-medium text-brand-muted transition hover:border-brand-ink/25 hover:text-brand-ink">
           View site
         </Link>
       </div>
@@ -202,11 +202,11 @@ function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-brand-deepest text-brand-ink">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] flex-col border-r border-white/[0.07] bg-brand-deep lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] flex-col border-r border-brand-ink/[0.07] bg-brand-deep lg:flex">
         <div className="px-4 pb-3 pt-5">
           <Link href="/admin" className="block px-1">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ff8c14]">DoyinTech</p>
-            <p className="mt-0.5 text-[16px] font-semibold tracking-tight text-white">CRM</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-link">DoyinTech</p>
+            <p className="mt-0.5 text-[16px] font-semibold tracking-tight text-brand-ink">CRM</p>
           </Link>
           <div className="mt-4">
             <QuickSearch />
@@ -215,26 +215,26 @@ function Shell({ children }: { children: ReactNode }) {
         <div className="flex-1 overflow-y-auto px-2 pb-4">
           <NavLinks pathname={pathname} />
         </div>
-        <div className="border-t border-white/[0.07] p-3">{account}</div>
+        <div className="border-t border-brand-ink/[0.07] p-3">{account}</div>
       </aside>
 
-      <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-brand-deepest/95 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-40 border-b border-brand-ink/[0.07] bg-brand-deepest/95 backdrop-blur lg:hidden">
         <div className="flex items-center justify-between gap-3 px-4 py-3">
           <div className="min-w-0">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">DoyinTech CRM</p>
-            <p className="truncate text-[15px] font-semibold text-white">{current?.label || "Admin"}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-link">DoyinTech CRM</p>
+            <p className="truncate text-[15px] font-semibold text-brand-ink">{current?.label || "Admin"}</p>
           </div>
           <button
             type="button"
             onClick={() => setMenu((m) => !m)}
             aria-expanded={menu}
-            className="rounded-lg border border-white/15 px-3 py-1.5 text-[13px] text-white"
+            className="rounded-lg border border-brand-ink/15 px-3 py-1.5 text-[13px] text-brand-ink"
           >
             {menu ? "Close" : "Menu"}
           </button>
         </div>
         {menu && (
-          <div className="max-h-[calc(100vh-60px)] overflow-y-auto border-t border-white/[0.07] px-3 py-4">
+          <div className="max-h-[calc(100vh-60px)] overflow-y-auto border-t border-brand-ink/[0.07] px-3 py-4">
             <QuickSearch onDone={() => setMenu(false)} />
             <div className="mt-4">
               <NavLinks pathname={pathname} onNavigate={() => setMenu(false)} />

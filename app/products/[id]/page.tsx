@@ -28,7 +28,7 @@ const catSlug = (c: string) => c.toLowerCase().replace(/[^a-z]+/g, "-").replace(
 
 function Tick() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 flex-none text-[#ff8c14]" fill="currentColor">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 flex-none text-brand-link" fill="currentColor">
       <path fillRule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" clipRule="evenodd" />
     </svg>
   );
@@ -74,27 +74,27 @@ export default async function ProductPage({ params }: Props) {
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[1040px] px-6">
           <nav aria-label="Breadcrumb" className="text-[14px] text-brand-muted">
-            <Link href="/products" className="text-[#ffb366] hover:underline">Products</Link>
+            <Link href="/products" className="text-brand-link hover:underline">Products</Link>
             <span aria-hidden="true"> / </span>
             <Link href={`/products?c=${catSlug(category)}`} className="hover:underline">{category}</Link>
           </nav>
 
           <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_340px]">
             <div>
-              {p.badge && <span className="rounded-full bg-[#ff8c14]/15 px-3 py-1 text-[12px] font-semibold text-[#ffb366]">{p.badge}</span>}
-              <h1 className="mt-4 text-[32px] font-semibold leading-tight tracking-tight text-white sm:text-[42px]">{p.name}</h1>
+              {p.badge && <span className="rounded-full bg-brand-link/15 px-3 py-1 text-[12px] font-semibold text-brand-link">{p.badge}</span>}
+              <h1 className="mt-4 text-[32px] font-semibold leading-tight tracking-tight text-brand-ink sm:text-[42px]">{p.name}</h1>
               <p className="mt-4 text-[17px] leading-relaxed text-brand-soft">{p.description}</p>
               {p.audience && (
                 <p className="mt-4 text-[15px] text-brand-muted">
-                  <strong className="font-semibold text-white">For:</strong> {p.audience}
+                  <strong className="font-semibold text-brand-ink">For:</strong> {p.audience}
                 </p>
               )}
 
               <section className="mt-10">
-                <h2 className="text-[20px] font-semibold text-white">What you get</h2>
+                <h2 className="text-[20px] font-semibold text-brand-ink">What you get</h2>
                 <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {p.features.map((f) => (
-                    <li key={f} className="flex gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] p-3.5 text-[14px] text-brand-soft">
+                    <li key={f} className="flex gap-2.5 rounded-xl border border-brand-ink/10 bg-brand-ink/[0.03] p-3.5 text-[14px] text-brand-soft">
                       <Tick />
                       {f}
                     </li>
@@ -104,8 +104,8 @@ export default async function ProductPage({ params }: Props) {
 
               {p.contents && (
                 <section className="mt-10">
-                  <h2 className="text-[20px] font-semibold text-white">Files in your download</h2>
-                  <ul className="mt-4 divide-y divide-white/10 rounded-xl border border-white/10">
+                  <h2 className="text-[20px] font-semibold text-brand-ink">Files in your download</h2>
+                  <ul className="mt-4 divide-y divide-brand-ink/10 rounded-xl border border-brand-ink/10">
                     {p.contents.map((c) => (
                       <li key={c} className="flex items-center gap-3 px-4 py-3 text-[14px] text-brand-soft">
                         <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 flex-none text-brand-muted" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -120,14 +120,14 @@ export default async function ProductPage({ params }: Props) {
               )}
 
               {p.demandNote && (
-                <section className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-5">
-                  <h2 className="text-[16px] font-semibold text-white">Why we made it</h2>
+                <section className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+                  <h2 className="text-[16px] font-semibold text-brand-ink">Why we made it</h2>
                   <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{p.demandNote}</p>
                 </section>
               )}
 
               <section className="mt-10">
-                <h2 className="text-[20px] font-semibold text-white">How delivery works</h2>
+                <h2 className="text-[20px] font-semibold text-brand-ink">How delivery works</h2>
                 <ol className="mt-4 list-decimal space-y-2 pl-5 text-[14px] text-brand-soft">
                   <li>Enter your email and pay by card, transfer or USSD through Paystack.</li>
                   <li>Download links appear straight away and are emailed to you with the PDF attached.</li>
@@ -141,8 +141,8 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <aside className="lg:sticky lg:top-28 lg:self-start">
-              <div className="rounded-2xl border border-[#ff8c14]/40 bg-gradient-to-b from-brand-surface to-brand-surface p-6">
-                <p className="text-[34px] font-semibold text-white">{p.priceNgn}</p>
+              <div className="rounded-2xl border border-brand-link/40 bg-gradient-to-b from-brand-surface to-brand-surface p-6">
+                <p className="text-[34px] font-semibold text-brand-ink">{p.priceNgn}</p>
                 <p className="text-[13px] text-brand-muted">One-time payment · about {p.priceUsd}</p>
                 <div className="mt-5">
                   <PaystackBuyButton product={p} />
@@ -162,13 +162,13 @@ export default async function ProductPage({ params }: Props) {
 
           {related.length > 0 && (
             <section className="mt-16">
-              <h2 className="text-[20px] font-semibold text-white">More in {category}</h2>
+              <h2 className="text-[20px] font-semibold text-brand-ink">More in {category}</h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-3">
                 {related.map((r) => (
-                  <Link key={r.id} href={`/products/${r.id}`} className="rounded-2xl border border-white/10 bg-brand-surface p-5 transition hover:border-[#ff8c14]/50">
-                    <p className="text-[15px] font-semibold text-white">{r.name}</p>
+                  <Link key={r.id} href={`/products/${r.id}`} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 transition hover:border-brand-link/50">
+                    <p className="text-[15px] font-semibold text-brand-ink">{r.name}</p>
                     <p className="mt-2 line-clamp-2 text-[13px] text-brand-muted">{r.description}</p>
-                    <p className="mt-3 text-[16px] font-semibold text-white">{r.priceNgn}</p>
+                    <p className="mt-3 text-[16px] font-semibold text-brand-ink">{r.priceNgn}</p>
                   </Link>
                 ))}
               </div>

@@ -21,9 +21,9 @@ import { exportContactsCsv, exportDealsCsv, exportInvoicesCsv } from "@/lib/ops/
 import { getSupabaseBrowser } from "@/lib/supabase/client";
 
 type Tab = "home" | "agenda" | "contacts" | "pipeline" | "quotes" | "invoices" | "tasks" | "settings";
-const field = "w-full rounded-lg border border-white/10 bg-brand-deep px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
-const btnP = "rounded-lg bg-[#ff8c14] px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
-const btnG = "rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 hover:bg-white/10";
+const field = "w-full rounded-lg border border-brand-ink/10 bg-brand-deep px-3 py-2.5 text-sm text-brand-ink placeholder:text-brand-ink/30 outline-none focus:border-brand-link/60";
+const btnP = "rounded-lg bg-brand-accent px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
+const btnG = "rounded-lg border border-brand-ink/10 bg-brand-ink/5 px-3 py-2 text-xs font-medium text-brand-ink/80 hover:bg-brand-ink/10";
 const NAV: { id: Tab; label: string }[] = [
   { id: "home", label: "Overview" }, { id: "agenda", label: "Agenda" }, { id: "contacts", label: "Contacts" },
   { id: "pipeline", label: "Pipeline" }, { id: "quotes", label: "Quotes" },
@@ -151,7 +151,7 @@ export default function OpsDashboard() {
     return hits.slice(0, 12);
   }, [ws, globalQ]);
 
-  if (!ws) return <div className="flex min-h-[50vh] items-center justify-center text-white/50">Loading workspace…</div>;
+  if (!ws) return <div className="flex min-h-[50vh] items-center justify-center text-brand-ink/50">Loading workspace…</div>;
 
   const data: OpsWorkspace = { ...ws, profile: ws.profile || {}, tasks: ws.tasks || [], quotes: ws.quotes || [], activity: ws.activity || [] };
   const byId = (id: string) => data.contacts.find((c) => c.id === id);
@@ -230,30 +230,30 @@ export default function OpsDashboard() {
         ]}
       />
       {menu && <button type="button" className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setMenu(false)} aria-label="Close" />}
-      <aside className={`fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-white/[0.06] bg-brand-deep pt-12 transition-transform lg:static lg:translate-x-0 lg:pt-0 ${menu ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#ff8c14] text-sm font-bold text-black">D</div>
-          <div className="min-w-0"><p className="text-sm font-semibold text-white">DoyinOps</p><p className="truncate text-[11px] text-white/40">{data.orgName}</p></div>
+      <aside className={`fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-brand-ink/[0.06] bg-brand-deep pt-12 transition-transform lg:static lg:translate-x-0 lg:pt-0 ${menu ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className="flex items-center gap-3 border-b border-brand-ink/[0.06] px-4 py-4">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-accent text-sm font-bold text-black">D</div>
+          <div className="min-w-0"><p className="text-sm font-semibold text-brand-ink">DoyinOps</p><p className="truncate text-[11px] text-brand-ink/40">{data.orgName}</p></div>
         </div>
         <nav className="flex-1 space-y-0.5 p-2">
           {NAV.map((item) => (
-            <button key={item.id} type="button" onClick={() => go(item.id)} className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-[13px] font-medium ${tab === item.id ? "bg-[#ff8c14]/15 text-[#ff8c14]" : "text-white/65 hover:bg-white/5"}`}>
+            <button key={item.id} type="button" onClick={() => go(item.id)} className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-[13px] font-medium ${tab === item.id ? "bg-brand-link/15 text-brand-link" : "text-brand-ink/65 hover:bg-brand-ink/5"}`}>
               {item.label}
-              {item.id === "tasks" && openTasks.length > 0 && <span className="rounded-full bg-[#ff8c14]/20 px-2 text-[10px] text-[#ff8c14]">{openTasks.length}</span>}
+              {item.id === "tasks" && openTasks.length > 0 && <span className="rounded-full bg-brand-link/20 px-2 text-[10px] text-brand-link">{openTasks.length}</span>}
               {item.id === "agenda" && agendaCount > 0 && <span className="rounded-full bg-red-500/20 px-2 text-[10px] text-red-300">{agendaCount}</span>}
             </button>
           ))}
         </nav>
-        <div className="space-y-2 border-t border-white/[0.06] p-3">
+        <div className="space-y-2 border-t border-brand-ink/[0.06] p-3">
           <button type="button" onClick={() => setWs(seedDemoWorkspace())} className={`${btnG} w-full`}>Load demo</button>
           <Link href="/ops" className={`${btnG} block w-full text-center`}>About</Link>
         </div>
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-12 z-30 flex items-center justify-between gap-3 border-b border-white/[0.06] bg-brand-deepest/95 px-4 py-3 backdrop-blur lg:top-0 lg:px-8">
+        <header className="sticky top-12 z-30 flex items-center justify-between gap-3 border-b border-brand-ink/[0.06] bg-brand-deepest/95 px-4 py-3 backdrop-blur lg:top-0 lg:px-8">
           <div className="flex items-center gap-3">
-            <button type="button" className="rounded-lg border border-white/10 p-2 lg:hidden" onClick={() => setMenu(true)} aria-label="Menu">☰</button>
-            <h1 className="text-lg font-semibold text-white">{NAV.find((n) => n.id === tab)?.label}</h1>
+            <button type="button" className="rounded-lg border border-brand-ink/10 p-2 lg:hidden" onClick={() => setMenu(true)} aria-label="Menu">☰</button>
+            <h1 className="text-lg font-semibold text-brand-ink">{NAV.find((n) => n.id === tab)?.label}</h1>
           </div>
           <div className="flex flex-1 items-center justify-end gap-2">
             <div className="relative hidden max-w-xs flex-1 sm:block">
@@ -261,20 +261,20 @@ export default function OpsDashboard() {
                 value={globalQ}
                 onChange={(e) => setGlobalQ(e.target.value)}
                 placeholder="Search everything…"
-                className="w-full rounded-lg border border-white/10 bg-brand-deep px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60"
+                className="w-full rounded-lg border border-brand-ink/10 bg-brand-deep px-3 py-2 text-sm text-brand-ink placeholder:text-brand-ink/30 outline-none focus:border-brand-link/60"
               />
               {globalQ.trim() && globalHits.length > 0 && (
-                <ul className="absolute right-0 z-50 mt-1 max-h-72 w-80 overflow-y-auto rounded-xl border border-white/10 bg-brand-deep py-1 shadow-xl">
+                <ul className="absolute right-0 z-50 mt-1 max-h-72 w-80 overflow-y-auto rounded-xl border border-brand-ink/10 bg-brand-deep py-1 shadow-xl">
                   {globalHits.map((h) => (
                     <li key={h.type + h.id}>
                       <button
                         type="button"
-                        className="flex w-full flex-col px-3 py-2 text-left hover:bg-white/5"
+                        className="flex w-full flex-col px-3 py-2 text-left hover:bg-brand-ink/5"
                         onClick={() => { setGlobalQ(""); go(h.tab); }}
                       >
-                        <span className="text-[10px] uppercase text-[#ff8c14]/80">{h.type}</span>
-                        <span className="text-sm text-white">{h.title}</span>
-                        {h.sub && <span className="text-[11px] text-white/40">{h.sub}</span>}
+                        <span className="text-[10px] uppercase text-brand-link/80">{h.type}</span>
+                        <span className="text-sm text-brand-ink">{h.title}</span>
+                        {h.sub && <span className="text-[11px] text-brand-ink/40">{h.sub}</span>}
                       </button>
                     </li>
                   ))}
@@ -292,10 +292,10 @@ export default function OpsDashboard() {
             <div className="space-y-6">
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
                 {[["Contacts", String(stats.contacts), "Clients"], ["Open deals", String(stats.openDeals), "Active"], ["Pipeline", formatNgn(stats.pipelineNgn), "Value"], ["Unpaid", formatNgn(stats.unpaidNgn), "Due"], ["Tasks", String(stats.openTasks), "Open"]].map(([l, v, sub]) => (
-                  <div key={l} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/40">{l}</p>
-                    <p className="mt-2 text-2xl font-semibold tracking-tight text-white">{v}</p>
-                    <p className="mt-1 text-[11px] text-[#ff8c14]/80">{sub}</p>
+                  <div key={l} className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-brand-ink/40">{l}</p>
+                    <p className="mt-2 text-2xl font-semibold tracking-tight text-brand-ink">{v}</p>
+                    <p className="mt-1 text-[11px] text-brand-link/80">{sub}</p>
                   </div>
                 ))}
               </div>
@@ -309,7 +309,7 @@ export default function OpsDashboard() {
                       const wa = whatsappHref(c?.phone, `Hi ${c?.name || "there"}, following up on ${d.title}.`);
                       return (
                         <li key={d.id} className="flex justify-between gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2">
-                          <div><p className="text-sm text-white">{d.title}</p><p className="text-[11px] text-white/45">{nameOf(d.contactId)} · {d.nextFollowUp}</p></div>
+                          <div><p className="text-sm text-brand-ink">{d.title}</p><p className="text-[11px] text-brand-ink/45">{nameOf(d.contactId)} · {d.nextFollowUp}</p></div>
                           {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="self-center rounded-md bg-[#25D366] px-2 py-1 text-[11px] font-semibold text-black">WA</a>}
                         </li>
                       );
@@ -319,8 +319,8 @@ export default function OpsDashboard() {
                 <Panel title="Open tasks" action={() => go("tasks")} actionLabel="Tasks">
                   {openTasks.length === 0 ? <Empty>No open tasks.</Empty> : (
                     <ul className="space-y-2">{openTasks.slice(0, 6).map((t) => (
-                      <li key={t.id} className="flex justify-between rounded-lg border border-white/[0.06] px-3 py-2">
-                        <span className="text-sm text-white">{t.title}</span>
+                      <li key={t.id} className="flex justify-between rounded-lg border border-brand-ink/[0.06] px-3 py-2">
+                        <span className="text-sm text-brand-ink">{t.title}</span>
                         <button type="button" className="text-[11px] text-emerald-400" onClick={() => setWs((w) => w ? { ...normalizeWs(w), tasks: (w.tasks || []).map((x) => x.id === t.id ? { ...x, done: true } : x) } : w)}>Done</button>
                       </li>
                     ))}</ul>
@@ -330,9 +330,9 @@ export default function OpsDashboard() {
               <Panel title="Recent activity">
                 {(data.activity || []).length === 0 ? <Empty>Actions appear here.</Empty> : (
                   <ul className="max-h-48 space-y-2 overflow-y-auto">{(data.activity || []).slice(0, 12).map((a) => (
-                    <li key={a.id} className="border-b border-white/[0.04] pb-2 text-[12px] text-white/55">
-                      <span className="text-white/80">{a.message}</span>
-                      <span className="mt-0.5 block text-[10px] text-white/30">{a.createdAt.slice(0, 16).replace("T", " ")}</span>
+                    <li key={a.id} className="border-b border-brand-ink/[0.04] pb-2 text-[12px] text-brand-ink/55">
+                      <span className="text-brand-ink/80">{a.message}</span>
+                      <span className="mt-0.5 block text-[10px] text-brand-ink/30">{a.createdAt.slice(0, 16).replace("T", " ")}</span>
                     </li>
                   ))}</ul>
                 )}
@@ -368,8 +368,8 @@ export default function OpsDashboard() {
                 if (!c.name) return;
                 setWs((w) => w ? { ...normalizeWs(w), contacts: [c, ...w.contacts] } : w);
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
-                <h2 className="text-sm font-semibold text-white">New contact</h2>
+              }} className="h-fit space-y-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-5">
+                <h2 className="text-sm font-semibold text-brand-ink">New contact</h2>
                 <input name="name" required placeholder="Name *" className={field} />
                 <input name="business" placeholder="Business" className={field} />
                 <input name="phone" placeholder="Phone" className={field} />
@@ -385,11 +385,11 @@ export default function OpsDashboard() {
                   {contacts.map((c: Contact) => {
                     const wa = whatsappHref(c.phone, `Hi ${c.name},`);
                     return (
-                      <div key={c.id} className="rounded-xl border border-white/[0.06] bg-brand-deep p-4">
+                      <div key={c.id} className="rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-4">
                         <button type="button" className="w-full text-left" onClick={() => setSelectedContact(c)}>
-                          <p className="font-semibold text-white">{c.name}</p>
-                          <p className="text-[12px] text-white/45">{[c.business, c.phone, c.email].filter(Boolean).join(" · ")}</p>
-                          <p className="mt-1 text-[11px] text-[#ff8c14]/70">View client 360 →</p>
+                          <p className="font-semibold text-brand-ink">{c.name}</p>
+                          <p className="text-[12px] text-brand-ink/45">{[c.business, c.phone, c.email].filter(Boolean).join(" · ")}</p>
+                          <p className="mt-1 text-[11px] text-brand-link/70">View client 360 →</p>
                         </button>
                         <div className="mt-2 flex gap-3">
                           {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="text-xs text-[#25D366]">WhatsApp</a>}
@@ -413,7 +413,7 @@ export default function OpsDashboard() {
                 const d = newDeal({ contactId, title: String(fd.get("title") || "").trim() || "New deal", stage: "lead", valueNgn: Number(fd.get("valueNgn") || 0) || 0, nextFollowUp: String(fd.get("nextFollowUp") || "") || undefined });
                 setWs((w) => w ? { ...normalizeWs(w), deals: [d, ...w.deals] } : w);
                 e.currentTarget.reset();
-              }} className="grid gap-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5 sm:grid-cols-4">
+              }} className="grid gap-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-5 sm:grid-cols-4">
                 <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Contact *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
                 <input name="title" placeholder="Title" className={field} />
                 <input name="valueNgn" type="number" placeholder="NGN" className={field} />
@@ -424,14 +424,14 @@ export default function OpsDashboard() {
                 {DEAL_STAGES.filter((s) => s.id !== "lost").map((stage) => {
                   const list = data.deals.filter((d) => d.stage === stage.id);
                   return (
-                    <div key={stage.id} className="w-[240px] shrink-0 rounded-xl border border-white/[0.06] bg-brand-deep">
-                      <p className="border-b border-white/[0.06] px-3 py-2 text-[11px] font-semibold uppercase text-[#ff8c14]">{stage.label} ({list.length})</p>
+                    <div key={stage.id} className="w-[240px] shrink-0 rounded-xl border border-brand-ink/[0.06] bg-brand-deep">
+                      <p className="border-b border-brand-ink/[0.06] px-3 py-2 text-[11px] font-semibold uppercase text-brand-link">{stage.label} ({list.length})</p>
                       <ul className="max-h-[420px] space-y-2 overflow-y-auto p-2">
                         {list.map((d: Deal) => (
-                          <li key={d.id} className="rounded-lg border border-white/[0.06] bg-brand-deepest p-3">
-                            <p className="text-sm text-white">{d.title}</p>
-                            <p className="text-[11px] text-white/45">{nameOf(d.contactId)} · {formatNgn(d.valueNgn)}</p>
-                            <select value={d.stage} onChange={(e) => setWs((w) => w ? { ...normalizeWs(w), deals: w.deals.map((x) => x.id === d.id ? { ...x, stage: e.target.value as DealStage, updatedAt: new Date().toISOString() } : x) } : w)} className="mt-2 w-full rounded border border-white/10 bg-brand-deep px-2 py-1 text-xs text-white">
+                          <li key={d.id} className="rounded-lg border border-brand-ink/[0.06] bg-brand-deepest p-3">
+                            <p className="text-sm text-brand-ink">{d.title}</p>
+                            <p className="text-[11px] text-brand-ink/45">{nameOf(d.contactId)} · {formatNgn(d.valueNgn)}</p>
+                            <select value={d.stage} onChange={(e) => setWs((w) => w ? { ...normalizeWs(w), deals: w.deals.map((x) => x.id === d.id ? { ...x, stage: e.target.value as DealStage, updatedAt: new Date().toISOString() } : x) } : w)} className="mt-2 w-full rounded border border-brand-ink/10 bg-brand-deep px-2 py-1 text-xs text-brand-ink">
                               {DEAL_STAGES.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
                             </select>
                           </li>
@@ -454,8 +454,8 @@ export default function OpsDashboard() {
                 const qt = newQuote({ contactId, amountNgn: Number(fd.get("amountNgn") || 0) || 0, description: String(fd.get("description") || "").trim() || "Project quote", status: "sent", validUntil: String(fd.get("validUntil") || todayIsoDate()) }, (data.quotes || []).length + 1);
                 setWs((w) => { if (!w) return w; return pushActivity({ ...normalizeWs(w), quotes: [qt, ...(w.quotes || [])] }, `Quote ${qt.number} created`); });
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
-                <h2 className="text-sm font-semibold text-white">New quote</h2>
+              }} className="h-fit space-y-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-5">
+                <h2 className="text-sm font-semibold text-brand-ink">New quote</h2>
                 <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Client *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
                 <input name="amountNgn" type="number" required placeholder="Amount" className={field} />
                 <input name="description" placeholder="Scope" className={field} />
@@ -467,11 +467,11 @@ export default function OpsDashboard() {
                   const c = byId(qt.contactId);
                   const wa = whatsappHref(c?.phone, quoteMessage(data.orgName, qt, c?.name || "there"));
                   return (
-                    <div key={qt.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-brand-deep p-4">
+                    <div key={qt.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-4">
                       <div>
-                        <p className="font-semibold text-white">{qt.number} <StatusPill status={qt.status} /></p>
-                        <p className="text-[13px] text-white/50">{nameOf(qt.contactId)} · {formatNgn(qt.amountNgn)}</p>
-                        <p className="text-[13px] text-white/70">{qt.description}</p>
+                        <p className="font-semibold text-brand-ink">{qt.number} <StatusPill status={qt.status} /></p>
+                        <p className="text-[13px] text-brand-ink/50">{nameOf(qt.contactId)} · {formatNgn(qt.amountNgn)}</p>
+                        <p className="text-[13px] text-brand-ink/70">{qt.description}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {wa && qt.status !== "converted" && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-black">Send WA</a>}
@@ -504,8 +504,8 @@ export default function OpsDashboard() {
                 const inv = newInvoice({ contactId, amountNgn: Number(fd.get("amountNgn") || 0) || 0, status: "sent", description: String(fd.get("description") || "").trim() || "Services", dueDate: String(fd.get("dueDate") || todayIsoDate()) }, data.invoices.length + 1);
                 setWs((w) => w ? pushActivity({ ...normalizeWs(w), invoices: [inv, ...w.invoices] }, `Invoice ${inv.number} created`) : w);
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
-                <h2 className="text-sm font-semibold text-white">New invoice</h2>
+              }} className="h-fit space-y-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-5">
+                <h2 className="text-sm font-semibold text-brand-ink">New invoice</h2>
                 <select name="contactId" required className={field} defaultValue=""><option value="" disabled>Client *</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
                 <input name="amountNgn" type="number" required placeholder="Amount" className={field} />
                 <input name="description" placeholder="Description" className={field} />
@@ -518,12 +518,12 @@ export default function OpsDashboard() {
                   const remindBody = invoiceReminderMessage(data.orgName, inv, c?.name || "there") + (inv.paymentUrl ? `\n\nPay online: ${inv.paymentUrl}` : "");
                   const wa = whatsappHref(c?.phone, remindBody);
                   return (
-                    <div key={inv.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-white/[0.06] bg-brand-deep p-4">
+                    <div key={inv.id} className="flex flex-wrap justify-between gap-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-4">
                       <div>
-                        <p className="font-semibold text-white">{inv.number} <StatusPill status={inv.status} /></p>
-                        <p className="text-[13px] text-white/50">{nameOf(inv.contactId)} · {formatNgn(inv.amountNgn)}</p>
-                        <p className="text-[13px] text-white/70">{inv.description}</p>
-                        {inv.paymentUrl && inv.status !== "paid" && <a href={inv.paymentUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-[11px] text-[#ff8c14] underline">Open pay link</a>}
+                        <p className="font-semibold text-brand-ink">{inv.number} <StatusPill status={inv.status} /></p>
+                        <p className="text-[13px] text-brand-ink/50">{nameOf(inv.contactId)} · {formatNgn(inv.amountNgn)}</p>
+                        <p className="text-[13px] text-brand-ink/70">{inv.description}</p>
+                        {inv.paymentUrl && inv.status !== "paid" && <a href={inv.paymentUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-[11px] text-brand-link underline">Open pay link</a>}
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <button type="button" onClick={() => setPrintInv(inv)} className={btnG}>Print</button>
@@ -549,8 +549,8 @@ export default function OpsDashboard() {
                 const t = newTask({ title, dueDate: String(fd.get("dueDate") || "") || undefined, contactId: String(fd.get("contactId") || "") || undefined });
                 setWs((w) => w ? { ...normalizeWs(w), tasks: [t, ...(w.tasks || [])] } : w);
                 e.currentTarget.reset();
-              }} className="h-fit space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-5">
-                <h2 className="text-sm font-semibold text-white">New task</h2>
+              }} className="h-fit space-y-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-5">
+                <h2 className="text-sm font-semibold text-brand-ink">New task</h2>
                 <input name="title" required placeholder="Task *" className={field} />
                 <input name="dueDate" type="date" className={field} />
                 <select name="contactId" className={field} defaultValue=""><option value="">Contact</option>{data.contacts.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
@@ -558,8 +558,8 @@ export default function OpsDashboard() {
               </form>
               <ul className="space-y-2">
                 {data.tasks.map((t: Task) => (
-                  <li key={t.id} className={`flex justify-between rounded-xl border border-white/[0.06] px-4 py-3 ${t.done ? "opacity-50" : "bg-brand-deep"}`}>
-                    <label className="flex gap-3 text-sm text-white">
+                  <li key={t.id} className={`flex justify-between rounded-xl border border-brand-ink/[0.06] px-4 py-3 ${t.done ? "opacity-50" : "bg-brand-deep"}`}>
+                    <label className="flex gap-3 text-sm text-brand-ink">
                       <input type="checkbox" checked={t.done} onChange={() => setWs((w) => w ? { ...normalizeWs(w), tasks: (w.tasks || []).map((x) => x.id === t.id ? { ...x, done: !x.done } : x) } : w)} />
                       <span className={t.done ? "line-through" : ""}>{t.title}</span>
                     </label>
@@ -586,8 +586,8 @@ export default function OpsDashboard() {
                 };
                 const orgName = String(fd.get("orgName") || "").trim() || data.orgName;
                 setWs((w) => w ? { ...normalizeWs(w), orgName, profile } : w);
-              }} className="space-y-3 rounded-xl border border-white/[0.06] bg-brand-deep p-6">
-                <h2 className="text-sm font-semibold text-white">Business profile</h2>
+              }} className="space-y-3 rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-6">
+                <h2 className="text-sm font-semibold text-brand-ink">Business profile</h2>
                 <input name="orgName" defaultValue={data.orgName} placeholder="Workspace name" className={field} />
                 <input name="legalName" defaultValue={data.profile.legalName || ""} placeholder="Legal name" className={field} />
                 <input name="email" defaultValue={data.profile.email || ""} placeholder="Email" className={field} />

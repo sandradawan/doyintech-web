@@ -45,10 +45,10 @@ export default function SeoToolPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-4xl px-6">
-          <Link href="/tools" className="text-[14px] text-[#ff8c14] hover:underline">
+          <Link href="/tools" className="text-[14px] text-brand-link hover:underline">
             ← All tools
           </Link>
-          <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">{h1}</h1>
+          <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">{h1}</h1>
           <p className="mt-3 max-w-3xl text-[17px] leading-relaxed text-brand-muted">{intro}</p>
 
           <div className="mt-8">{tool}</div>
@@ -58,18 +58,18 @@ export default function SeoToolPage({
             {children}
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Frequently asked questions</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Frequently asked questions</h2>
               <dl className="mt-4 space-y-5">
                 {faqs.map((f) => (
                   <div key={f.q}>
-                    <dt className="font-semibold text-white">{f.q}</dt>
+                    <dt className="font-semibold text-brand-ink">{f.q}</dt>
                     <dd className="mt-1">{f.a}</dd>
                   </div>
                 ))}
               </dl>
             </section>
 
-            <section className="rounded-2xl border border-white/10 bg-brand-surface p-6">{upsell}</section>
+            <section className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">{upsell}</section>
 
           </article>
           <RelatedTools />

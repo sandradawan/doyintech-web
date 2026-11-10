@@ -64,17 +64,17 @@ export default function AdminConversionsPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">Growth</p>
-          <h1 className="mt-1 font-display text-[24px] font-semibold text-white">Conversions</h1>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">Growth</p>
+          <h1 className="mt-1 font-display text-[24px] font-semibold text-brand-ink">Conversions</h1>
           <p className="mt-1 text-[13px] text-brand-subtle">Which pages and sources bring enquiries and sales, and how the follow-up emails are doing.</p>
         </div>
-        <div className="flex gap-1 rounded-full border border-white/10 p-1">
+        <div className="flex gap-1 rounded-full border border-brand-ink/10 p-1">
           {[7, 30, 90].map((d) => (
             <button
               key={d}
               type="button"
               onClick={() => setDays(d)}
-              className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${days === d ? "bg-white text-black" : "text-brand-muted hover:text-white"}`}
+              className={`rounded-full px-3 py-1.5 text-[12px] font-medium ${days === d ? "bg-brand-ink text-brand-deep" : "text-brand-muted hover:text-brand-ink"}`}
             >
               {d} days
             </button>
@@ -106,12 +106,12 @@ export default function AdminConversionsPage() {
                     style={{ height: `${Math.max(2, (total / peak) * 100)}%` }}
                   >
                     {total === 0 ? (
-                      <span className="h-full bg-white/5" />
+                      <span className="h-full bg-brand-ink/5" />
                     ) : (
                       <>
                         <span className="bg-brand-link" style={{ flex: d.leads }} />
                         <span className="bg-[#25D366]" style={{ flex: d.whatsapp }} />
-                        <span className="bg-[#ff8c14]" style={{ flex: d.payments }} />
+                        <span className="bg-brand-accent" style={{ flex: d.payments }} />
                       </>
                     )}
                   </div>
@@ -121,7 +121,7 @@ export default function AdminConversionsPage() {
             <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-brand-muted">
               <Legend color="#2997ff" label="Leads" />
               <Legend color="#25D366" label="WhatsApp clicks" />
-              <Legend color="#ff8c14" label="Payments" />
+              <Legend color="#2e7d12" label="Payments" />
             </div>
           </Panel>
 
@@ -130,10 +130,10 @@ export default function AdminConversionsPage() {
               {FUNNEL.map((n) => (
                 <li key={n} className="grid grid-cols-[170px_1fr_60px] items-center gap-3 text-[13px]">
                   <span className="text-brand-soft">{EVENT_LABELS[n]}</span>
-                  <span className="h-2.5 overflow-hidden rounded-full bg-white/5">
-                    <span className="block h-full rounded-full bg-[#ff8c14]" style={{ width: `${((t[n] || 0) / funnelPeak) * 100}%` }} />
+                  <span className="h-2.5 overflow-hidden rounded-full bg-brand-ink/5">
+                    <span className="block h-full rounded-full bg-brand-accent" style={{ width: `${((t[n] || 0) / funnelPeak) * 100}%` }} />
                   </span>
-                  <span className="text-right tabular-nums text-white">{(t[n] || 0).toLocaleString()}</span>
+                  <span className="text-right tabular-nums text-brand-ink">{(t[n] || 0).toLocaleString()}</span>
                 </li>
               ))}
             </ul>
@@ -160,7 +160,7 @@ export default function AdminConversionsPage() {
                     <th className="py-2 text-right font-medium">Unsubscribed</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5 text-white">
+                <tbody className="divide-y divide-brand-ink/5 text-brand-ink">
                   {Object.entries(data.sequences).map(([k, s]) => (
                     <tr key={k}>
                       <td className="py-2">{SEQUENCE_NAMES[k] || k}</td>
@@ -184,8 +184,8 @@ export default function AdminConversionsPage() {
 
 function Kpi({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4">
-      <p className="font-display text-[22px] font-semibold text-white">{typeof value === "number" ? value.toLocaleString() : value}</p>
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-4">
+      <p className="font-display text-[22px] font-semibold text-brand-ink">{typeof value === "number" ? value.toLocaleString() : value}</p>
       <p className="mt-1 text-[11px] uppercase tracking-wide text-brand-subtle">{label}</p>
     </div>
   );
@@ -193,8 +193,8 @@ function Kpi({ label, value }: { label: string; value: number | string }) {
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-      <h2 className="mb-4 text-[14px] font-semibold text-white">{title}</h2>
+    <section className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5">
+      <h2 className="mb-4 text-[14px] font-semibold text-brand-ink">{title}</h2>
       {children}
     </section>
   );
@@ -218,7 +218,7 @@ function TopList({ title, rows, empty }: { title: string; rows: Top; empty: stri
           {rows.map((r) => (
             <li key={r.key} className="flex justify-between gap-3">
               <span className="truncate text-brand-soft">{r.key}</span>
-              <span className="tabular-nums text-white">{r.count}</span>
+              <span className="tabular-nums text-brand-ink">{r.count}</span>
             </li>
           ))}
         </ul>

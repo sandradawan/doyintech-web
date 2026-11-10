@@ -65,12 +65,12 @@ export default function AnalyzerPage() {
             <Link href="/students" className="text-brand-link hover:underline">Students</Link>
             {" "}/ Analyzer
           </p>
-          <h1 className="mt-3 font-display text-[32px] font-semibold text-white">Questionnaire analyzer</h1>
+          <h1 className="mt-3 font-display text-[32px] font-semibold text-brand-ink">Questionnaire analyzer</h1>
           <p className="mt-3 text-[15px] text-brand-muted">Upload or paste CSV questionnaire responses.</p>
 
-          <form onSubmit={runAnalysis} className="mt-10 space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <label className="flex cursor-pointer flex-col items-center rounded-2xl border border-dashed border-white/20 px-4 py-10 text-center">
-              <span className="text-[14px] font-semibold text-white">{fileName || "Choose CSV file"}</span>
+          <form onSubmit={runAnalysis} className="mt-10 space-y-4 rounded-3xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6">
+            <label className="flex cursor-pointer flex-col items-center rounded-2xl border border-dashed border-brand-ink/20 px-4 py-10 text-center">
+              <span className="text-[14px] font-semibold text-brand-ink">{fileName || "Choose CSV file"}</span>
               <input type="file" accept=".csv,text/csv" className="hidden" onChange={onFile} />
             </label>
             <textarea
@@ -78,13 +78,13 @@ export default function AnalyzerPage() {
               onChange={(e) => setCsvText(e.target.value)}
               rows={6}
               placeholder="Or paste CSV here..."
-              className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 font-mono text-[12px] text-white"
+              className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 font-mono text-[12px] text-brand-ink"
             />
             {error && <p className="text-[13px] text-red-400">{error}</p>}
             <button
               type="submit"
               disabled={loading || !csvText.trim()}
-              className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60"
+              className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60"
             >
               {loading ? "Analyzing..." : "Run analysis"}
             </button>
@@ -93,7 +93,7 @@ export default function AnalyzerPage() {
           {result && (
             <div className="mt-10 space-y-6">
               <p className="text-[14px] text-brand-muted">{result.rowCount} rows · {result.columnCount} variables</p>
-              <pre className="whitespace-pre-wrap rounded-2xl border border-white/10 bg-black/40 p-6 text-[14px] text-brand-soft">{result.narrative}</pre>
+              <pre className="whitespace-pre-wrap rounded-2xl border border-brand-ink/10 bg-brand-well p-6 text-[14px] text-brand-soft">{result.narrative}</pre>
               <Link href="/students/projects" className="inline-block text-[14px] font-semibold text-[#25D366] hover:underline">
                 Need full statistical project support? Open portal
               </Link>

@@ -69,8 +69,8 @@ export function FieldInput({
       );
     case "boolean":
       return (
-        <label className="inline-flex cursor-pointer items-center gap-2 text-[14px] text-white">
-          <input id={id} type="checkbox" disabled={disabled} checked={Boolean(value)} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-[#ff8c14]" />
+        <label className="inline-flex cursor-pointer items-center gap-2 text-[14px] text-brand-ink">
+          <input id={id} type="checkbox" disabled={disabled} checked={Boolean(value)} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-brand-link" />
           {value ? "Yes" : "No"}
         </label>
       );
@@ -90,7 +90,7 @@ export function FieldInput({
       const numeric = field.type === "number" || field.type === "naira" || field.type === "kobo";
       return (
         <div className="relative">
-          {(field.type === "naira" || field.type === "kobo") && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[13px] text-white/40">₦</span>}
+          {(field.type === "naira" || field.type === "kobo") && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[13px] text-brand-ink/40">₦</span>}
           <input
             {...common}
             type={type}
@@ -240,14 +240,14 @@ export default function RecordDrawer({
             <div key={f.key} className={wide ? "sm:col-span-2" : ""}>
               <label htmlFor={`f-${f.key}`} className="mb-1 block text-[12px] font-medium text-brand-muted">
                 {f.label}
-                {f.required && editable(f) && <span className="text-[#ff8c14]"> *</span>}
+                {f.required && editable(f) && <span className="text-brand-link"> *</span>}
               </label>
               {editable(f) ? (
                 <FieldInput field={f} value={values[f.key]} onChange={(v) => setValues((s) => ({ ...s, [f.key]: v }))} />
               ) : (
-                <div className="min-h-[38px] rounded-lg border border-white/[0.05] bg-white/[0.02] px-3 py-2 text-[14px] text-[#e5e5ea]">
+                <div className="min-h-[38px] rounded-lg border border-brand-ink/[0.05] bg-brand-ink/[0.02] px-3 py-2 text-[14px] text-[#e5e5ea]">
                   {f.type === "json" ? (
-                    <pre className="max-h-60 overflow-auto whitespace-pre-wrap font-mono text-[11px] text-white/70">{JSON.stringify(record?.[f.key] ?? null, null, 2)}</pre>
+                    <pre className="max-h-60 overflow-auto whitespace-pre-wrap font-mono text-[11px] text-brand-ink/70">{JSON.stringify(record?.[f.key] ?? null, null, 2)}</pre>
                   ) : (
                     <CellValue field={f} value={record?.[f.key]} />
                   )}
@@ -364,15 +364,15 @@ export function ActivityTimeline({ leadId, email }: { leadId?: string; email?: s
 
   return (
     <section>
-      <h3 className="text-[14px] font-semibold text-white">Activity</h3>
-      <form onSubmit={add} className="mt-3 space-y-2 rounded-xl border border-white/[0.07] bg-white/[0.02] p-3">
+      <h3 className="text-[14px] font-semibold text-brand-ink">Activity</h3>
+      <form onSubmit={add} className="mt-3 space-y-2 rounded-xl border border-brand-ink/[0.07] bg-brand-ink/[0.02] p-3">
         <div className="flex flex-wrap gap-1.5">
           {ACTIVITY_KINDS.map((k) => (
             <button
               key={k}
               type="button"
               onClick={() => setKind(k)}
-              className={`rounded-full px-2.5 py-1 text-[12px] font-medium capitalize ${kind === k ? "bg-[#ff8c14] text-black" : "bg-white/[0.05] text-brand-muted hover:text-white"}`}
+              className={`rounded-full px-2.5 py-1 text-[12px] font-medium capitalize ${kind === k ? "bg-brand-accent text-black" : "bg-brand-ink/[0.05] text-brand-muted hover:text-brand-ink"}`}
             >
               {k}
             </button>
@@ -401,10 +401,10 @@ export function ActivityTimeline({ leadId, email }: { leadId?: string; email?: s
       ) : items.length === 0 ? (
         <p className="mt-4 text-[13px] text-brand-subtle">No activity yet.</p>
       ) : (
-        <ol className="mt-4 space-y-3 border-l border-white/10 pl-4">
+        <ol className="mt-4 space-y-3 border-l border-brand-ink/10 pl-4">
           {items.map((a) => (
             <li key={a.id} className="relative">
-              <span className={`absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full ${a.kind === "task" && !a.done ? "bg-[#ff8c14]" : "bg-white/25"}`} />
+              <span className={`absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full ${a.kind === "task" && !a.done ? "bg-brand-accent" : "bg-brand-ink/25"}`} />
               <div className="flex flex-wrap items-center gap-2 text-[11px] text-brand-subtle">
                 <Badge value={a.kind} tone={a.kind === "task" ? (a.done ? "green" : "orange") : "gray"} />
                 <span>{relativeTime(a.created_at)}</span>

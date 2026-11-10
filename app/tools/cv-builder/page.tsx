@@ -25,7 +25,7 @@ export default function CvBuilderPage() {
           <Link href="/tools" className="text-sm text-primary hover:underline">
             ← All tools
           </Link>
-          <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
+          <h1 className="mt-4 font-display text-3xl font-bold text-brand-ink md:text-4xl">
             CV & Portfolio Builder
           </h1>
           <p className="mt-3 max-w-2xl text-brand-muted">

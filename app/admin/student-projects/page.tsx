@@ -48,10 +48,10 @@ export default function AdminStudentProjectsPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-link">
             Pipeline
           </p>
-          <h1 className="mt-1 font-display text-[24px] font-semibold text-white">
+          <h1 className="mt-1 font-display text-[24px] font-semibold text-brand-ink">
             Student projects
           </h1>
           <p className="mt-1 text-[13px] text-brand-subtle">
@@ -62,7 +62,7 @@ export default function AdminStudentProjectsPage() {
           type="button"
           onClick={() => load()}
           disabled={loading}
-          className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-white disabled:opacity-50"
+          className="rounded-full border border-brand-ink/15 px-4 py-2 text-[13px] text-brand-ink disabled:opacity-50"
         >
           {loading ? "Loading…" : "Refresh"}
         </button>
@@ -78,11 +78,11 @@ export default function AdminStudentProjectsPage() {
         {rows.map((p) => (
           <div
             key={p.id}
-            className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"
+            className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-3"
           >
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
-                <p className="font-medium text-white">{p.name}</p>
+                <p className="font-medium text-brand-ink">{p.name}</p>
                 <p className="text-[12px] text-brand-muted">
                   {p.request_id} · {p.package_name}
                 </p>
@@ -91,9 +91,9 @@ export default function AdminStudentProjectsPage() {
                 ) : null}
               </div>
               <div className="text-right">
-                <p className="text-[12px] text-[#ff8c14]">{p.status}</p>
+                <p className="text-[12px] text-brand-link">{p.status}</p>
                 <p className="text-[11px] text-brand-subtle">{p.stage}</p>
-                <p className="mt-1 text-[12px] text-white">
+                <p className="mt-1 text-[12px] text-brand-ink">
                   ₦{Number(p.amount_ngn || 0).toLocaleString("en-NG")}
                 </p>
               </div>

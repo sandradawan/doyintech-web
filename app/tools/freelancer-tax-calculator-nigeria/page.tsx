@@ -62,23 +62,23 @@ export default function FreelancerTaxCalculatorPage() {
       newsletterSource="freelancer-tax"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Look established to clients</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Look established to clients</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             A portfolio website with your services and a way to pay you online wins better
             clients than a WhatsApp number alone.{" "}
-            <Link href="/hire" className="text-[#ff8c14] hover:underline">
+            <Link href="/hire" className="text-brand-link hover:underline">
               See fixed-price website packages
             </Link>
             , or get branded invoices, contracts and proposals with DoyinTech Pro.
           </p>
-          <Link href="/hire" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <Link href="/hire" className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             Get a website
           </Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">How freelancer tax works in 2026</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">How freelancer tax works in 2026</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5">
           <li>Add up all your income for the year, including foreign payments converted to naira.</li>
           <li>Subtract business expenses to get your profit.</li>
@@ -88,11 +88,11 @@ export default function FreelancerTaxCalculatorPage() {
         </ol>
         <p className="mt-3">
           Employed as well? Your salary is taxed through PAYE — see the{" "}
-          <Link href="/tools/paye-calculator-nigeria" className="text-[#ff8c14] hover:underline">
+          <Link href="/tools/paye-calculator-nigeria" className="text-brand-link hover:underline">
             PAYE calculator
           </Link>
           . Running a registered company instead? Check the{" "}
-          <Link href="/tools/small-company-tax-checker" className="text-[#ff8c14] hover:underline">
+          <Link href="/tools/small-company-tax-checker" className="text-brand-link hover:underline">
             small company tax checker
           </Link>
           .

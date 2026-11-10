@@ -25,11 +25,11 @@ export function Panel({
   actionLabel?: string;
 }) {
   return (
-    <section className="rounded-xl border border-white/[0.06] bg-brand-deep p-5">
+    <section className="rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-5">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-white">{title}</h2>
+        <h2 className="text-sm font-semibold text-brand-ink">{title}</h2>
         {action && actionLabel && (
-          <button type="button" onClick={action} className="text-[11px] font-medium text-[#ff8c14]">
+          <button type="button" onClick={action} className="text-[11px] font-medium text-brand-link">
             {actionLabel} →
           </button>
         )}
@@ -40,7 +40,7 @@ export function Panel({
 }
 
 export function Empty({ children }: { children: ReactNode }) {
-  return <p className="text-[13px] text-white/40">{children}</p>;
+  return <p className="text-[13px] text-brand-ink/40">{children}</p>;
 }
 
 export function StatusPill({ status }: { status: string }) {
@@ -49,7 +49,7 @@ export function StatusPill({ status }: { status: string }) {
       ? "bg-emerald-500/15 text-emerald-400"
       : status === "overdue" || status === "declined"
         ? "bg-red-500/15 text-red-400"
-        : "bg-[#ff8c14]/15 text-[#ff8c14]";
+        : "bg-brand-link/15 text-brand-link";
   return (
     <span className={`ml-1 rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase ${color}`}>
       {status}

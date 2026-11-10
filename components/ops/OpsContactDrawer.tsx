@@ -32,41 +32,41 @@ export default function OpsContactDrawer({
   return (
     <div className="fixed inset-0 z-[60] flex justify-end">
       <button type="button" className="absolute inset-0 bg-black/60" onClick={onClose} aria-label="Close drawer" />
-      <aside className="relative z-10 flex h-full w-full max-w-md flex-col border-l border-white/10 bg-brand-deep shadow-2xl">
-        <div className="flex items-start justify-between gap-3 border-b border-white/[0.06] px-5 py-4">
+      <aside className="relative z-10 flex h-full w-full max-w-md flex-col border-l border-brand-ink/10 bg-brand-deep shadow-2xl">
+        <div className="flex items-start justify-between gap-3 border-b border-brand-ink/[0.06] px-5 py-4">
           <div>
-            <p className="text-[11px] uppercase tracking-wide text-[#ff8c14]/80">Client 360</p>
-            <h2 className="mt-1 text-lg font-semibold text-white">{contact.name}</h2>
-            <p className="text-[13px] text-white/45">
+            <p className="text-[11px] uppercase tracking-wide text-brand-link/80">Client 360</p>
+            <h2 className="mt-1 text-lg font-semibold text-brand-ink">{contact.name}</h2>
+            <p className="text-[13px] text-brand-ink/45">
               {[contact.business, contact.phone, contact.email].filter(Boolean).join(" · ")}
             </p>
           </div>
-          <button type="button" onClick={onClose} className="rounded-lg border border-white/10 px-2 py-1 text-sm text-white/60 hover:bg-white/5">
+          <button type="button" onClick={onClose} className="rounded-lg border border-brand-ink/10 px-2 py-1 text-sm text-brand-ink/60 hover:bg-brand-ink/5">
             ✕
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 border-b border-white/[0.06] p-4">
+        <div className="grid grid-cols-3 gap-2 border-b border-brand-ink/[0.06] p-4">
           {[
             ["Pipeline", formatNgn(pipeline)],
             ["Unpaid", formatNgn(unpaid)],
             ["Paid", formatNgn(paid)],
           ].map(([l, v]) => (
-            <div key={l} className="rounded-xl border border-white/10 bg-white/[0.04] p-3 backdrop-blur">
-              <p className="text-[10px] uppercase text-white/40">{l}</p>
-              <p className="mt-1 text-sm font-semibold text-white">{v}</p>
+            <div key={l} className="rounded-xl border border-brand-ink/10 bg-brand-ink/[0.04] p-3 backdrop-blur">
+              <p className="text-[10px] uppercase text-brand-ink/40">{l}</p>
+              <p className="mt-1 text-sm font-semibold text-brand-ink">{v}</p>
             </div>
           ))}
         </div>
 
-        <div className="flex gap-2 border-b border-white/[0.06] px-4 py-3">
+        <div className="flex gap-2 border-b border-brand-ink/[0.06] px-4 py-3">
           {wa && (
             <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#25D366] px-3 py-2 text-xs font-semibold text-black">
               WhatsApp
             </a>
           )}
           {contact.email && (
-            <a href={`mailto:${contact.email}`} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/80">
+            <a href={`mailto:${contact.email}`} className="rounded-lg border border-brand-ink/10 bg-brand-ink/5 px-3 py-2 text-xs text-brand-ink/80">
               Email
             </a>
           )}
@@ -75,8 +75,8 @@ export default function OpsContactDrawer({
         <div className="flex-1 space-y-5 overflow-y-auto p-4">
           {contact.notes && (
             <section>
-              <h3 className="mb-1 text-[11px] font-semibold uppercase text-white/40">Notes</h3>
-              <p className="text-sm text-white/70">{contact.notes}</p>
+              <h3 className="mb-1 text-[11px] font-semibold uppercase text-brand-ink/40">Notes</h3>
+              <p className="text-sm text-brand-ink/70">{contact.notes}</p>
             </section>
           )}
 
@@ -85,9 +85,9 @@ export default function OpsContactDrawer({
               <EmptyLine />
             ) : (
               deals.map((d) => (
-                <div key={d.id} className="rounded-lg border border-white/[0.06] px-3 py-2">
-                  <p className="text-sm text-white">{d.title}</p>
-                  <p className="text-[11px] text-white/45">
+                <div key={d.id} className="rounded-lg border border-brand-ink/[0.06] px-3 py-2">
+                  <p className="text-sm text-brand-ink">{d.title}</p>
+                  <p className="text-[11px] text-brand-ink/45">
                     {d.stage} · {formatNgn(d.valueNgn)}
                     {d.nextFollowUp ? ` · follow-up ${d.nextFollowUp}` : ""}
                   </p>
@@ -101,10 +101,10 @@ export default function OpsContactDrawer({
               <EmptyLine />
             ) : (
               invoices.map((i) => (
-                <div key={i.id} className="flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] px-3 py-2">
+                <div key={i.id} className="flex items-center justify-between gap-2 rounded-lg border border-brand-ink/[0.06] px-3 py-2">
                   <div>
-                    <p className="text-sm text-white">{i.number}</p>
-                    <p className="text-[11px] text-white/45">{formatNgn(i.amountNgn)} · due {i.dueDate}</p>
+                    <p className="text-sm text-brand-ink">{i.number}</p>
+                    <p className="text-[11px] text-brand-ink/45">{formatNgn(i.amountNgn)} · due {i.dueDate}</p>
                   </div>
                   <StatusPill status={i.status} />
                 </div>
@@ -117,10 +117,10 @@ export default function OpsContactDrawer({
               <EmptyLine />
             ) : (
               quotes.map((q) => (
-                <div key={q.id} className="flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] px-3 py-2">
+                <div key={q.id} className="flex items-center justify-between gap-2 rounded-lg border border-brand-ink/[0.06] px-3 py-2">
                   <div>
-                    <p className="text-sm text-white">{q.number}</p>
-                    <p className="text-[11px] text-white/45">{formatNgn(q.amountNgn)}</p>
+                    <p className="text-sm text-brand-ink">{q.number}</p>
+                    <p className="text-[11px] text-brand-ink/45">{formatNgn(q.amountNgn)}</p>
                   </div>
                   <StatusPill status={q.status} />
                 </div>
@@ -133,9 +133,9 @@ export default function OpsContactDrawer({
               <EmptyLine />
             ) : (
               tasks.map((t) => (
-                <div key={t.id} className="rounded-lg border border-white/[0.06] px-3 py-2 text-sm text-white">
+                <div key={t.id} className="rounded-lg border border-brand-ink/[0.06] px-3 py-2 text-sm text-brand-ink">
                   <span className={t.done ? "line-through opacity-50" : ""}>{t.title}</span>
-                  {t.dueDate && <span className="ml-2 text-[11px] text-white/40">{t.dueDate}</span>}
+                  {t.dueDate && <span className="ml-2 text-[11px] text-brand-ink/40">{t.dueDate}</span>}
                 </div>
               ))
             )}
@@ -149,12 +149,12 @@ export default function OpsContactDrawer({
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-white/40">{title}</h3>
+      <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-brand-ink/40">{title}</h3>
       <div className="space-y-2">{children}</div>
     </section>
   );
 }
 
 function EmptyLine() {
-  return <p className="text-[12px] text-white/35">None yet.</p>;
+  return <p className="text-[12px] text-brand-ink/35">None yet.</p>;
 }

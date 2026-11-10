@@ -40,11 +40,11 @@ export default async function TemplateDetailPage({ params }: Props) {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[960px] px-6">
-          <Link href="/templates" className="text-[14px] text-[#ff8c14] hover:underline">
+          <Link href="/templates" className="text-[14px] text-brand-link hover:underline">
             ← All templates
           </Link>
 
-          <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+          <div className="mt-6 overflow-hidden rounded-2xl border border-brand-ink/10">
             <TemplateLivePreview slug={item.slug} />
           </div>
           <p className="mt-2 text-center text-[11px] uppercase tracking-wide text-brand-subtle">
@@ -54,21 +54,21 @@ export default async function TemplateDetailPage({ params }: Props) {
           <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_300px]">
             <div>
               {item.badge && (
-                <span className="rounded-full bg-[#ff8c14]/15 px-2.5 py-1 text-[11px] font-semibold text-[#ff8c14]">
+                <span className="rounded-full bg-brand-link/15 px-2.5 py-1 text-[11px] font-semibold text-brand-link">
                   {item.badge}
                 </span>
               )}
-              <h1 className="mt-3 text-[30px] font-semibold text-white sm:text-[36px]">{item.name}</h1>
+              <h1 className="mt-3 text-[30px] font-semibold text-brand-ink sm:text-[36px]">{item.name}</h1>
               <p className="mt-2 text-[16px] text-brand-muted">{item.tagline}</p>
               <p className="mt-4 text-[15px] leading-relaxed text-brand-soft">{item.description}</p>
               <p className="mt-3 text-[13px] text-brand-subtle">
                 {formatTplPrice(item.priceNgn)} · {item.stack.join(" · ")}
               </p>
-              <p className="mt-4 text-[13px] text-white/70">Pages: {item.pages.join(", ")}</p>
+              <p className="mt-4 text-[13px] text-brand-ink/70">Pages: {item.pages.join(", ")}</p>
               <ul className="mt-6 space-y-2">
                 {item.includes.map((x) => (
-                  <li key={x} className="flex gap-2 text-[14px] text-white">
-                    <span className="text-[#ff8c14]">✓</span> {x}
+                  <li key={x} className="flex gap-2 text-[14px] text-brand-ink">
+                    <span className="text-brand-link">✓</span> {x}
                   </li>
                 ))}
               </ul>

@@ -45,7 +45,7 @@ export default function ViralShare({
         <button
           type="button"
           onClick={copy}
-          className="rounded-full border border-white/15 px-3 py-1.5 text-[12px] font-semibold text-brand-soft hover:border-[#ff8c14]/40 hover:text-white"
+          className="rounded-full border border-brand-ink/15 px-3 py-1.5 text-[12px] font-semibold text-brand-soft hover:border-brand-link/40 hover:text-brand-ink"
         >
           {copied ? "Copied ✓" : "Copy"}
         </button>
@@ -66,7 +66,7 @@ export default function ViralShare({
       <button
         type="button"
         onClick={copy}
-        className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white hover:border-[#ff8c14]/50"
+        className="inline-flex items-center justify-center rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink hover:border-brand-link/50"
       >
         {copied ? "Copied ✓" : `Copy ${label}`}
       </button>

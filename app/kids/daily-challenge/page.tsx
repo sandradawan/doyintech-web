@@ -30,7 +30,7 @@ export default function Page() {
       path="/kids/daily-challenge"
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Why ten minutes a day works</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Why ten minutes a day works</h2>
         <p className="mt-3">Children remember number facts and spellings best with short, regular practice rather than long sessions once a week. A daily puzzle that takes five to ten minutes, with a streak to protect, turns practice into a habit they ask for.</p>
         <p className="mt-3">Make it part of the routine: after breakfast at the weekend, or straight after homework on school days.</p>
       </section>

@@ -19,7 +19,7 @@ export default function ArqademyCbtCaseStudy() {
           <p className="mt-8 text-sm font-semibold uppercase tracking-wider text-primary">
             Case Study
           </p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white leading-tight">
+          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-brand-ink leading-tight">
             Arqademy CBT — Computer-Based Testing
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -30,7 +30,7 @@ export default function ArqademyCbtCaseStudy() {
             {["CBT", "Education", "Exam Platform", "SaaS"].map((t) => (
               <span
                 key={t}
-                className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-brand-soft"
+                className="px-3 py-1 rounded-full border border-brand-ink/10 bg-brand-ink/5 text-xs text-brand-soft"
               >
                 {t}
               </span>
@@ -39,14 +39,14 @@ export default function ArqademyCbtCaseStudy() {
 
           <div className="mt-12 space-y-10 text-brand-soft leading-relaxed">
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">The Challenge</h2>
+              <h2 className="text-2xl font-bold text-brand-ink mb-3">The Challenge</h2>
               <p>
                 Education providers needed a reliable way to run computer-based tests — timed questions, structured scoring, and a student experience that works on everyday devices without heavy install requirements.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">The Solution</h2>
+              <h2 className="text-2xl font-bold text-brand-ink mb-3">The Solution</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Web-based CBT flows optimised for exam conditions</li>
                 <li>Clear student navigation during timed assessments</li>
@@ -56,7 +56,7 @@ export default function ArqademyCbtCaseStudy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">Results</h2>
+              <h2 className="text-2xl font-bold text-brand-ink mb-3">Results</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Digitised assessment path for students and organisers</li>
                 <li>Faster exam cycles versus paper-only processes</li>
@@ -75,7 +75,7 @@ export default function ArqademyCbtCaseStudy() {
               </a>
               <a
                 href="/contact"
-                className="px-6 py-3 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 transition"
+                className="px-6 py-3 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold hover:bg-brand-ink/5 transition"
               >
                 Start a Similar Project
               </a>

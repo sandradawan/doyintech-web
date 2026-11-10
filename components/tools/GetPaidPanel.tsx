@@ -94,7 +94,7 @@ export default function GetPaidPanel(p: Props) {
   if (stage.kind === "closed") {
     return (
       <div className={box}>
-        <p className="text-[15px] font-semibold text-white">Get paid online for this invoice</p>
+        <p className="text-[15px] font-semibold text-brand-ink">Get paid online for this invoice</p>
         <p className="mt-1 text-[13px] text-brand-soft">Send your customer a Pay now link. They pay by card, transfer or USSD, the money goes straight to your bank, and we send them reminders until it&apos;s paid.</p>
         <button type="button" onClick={open} className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#3ddc97] px-5 text-[14px] font-semibold text-black">
           Create a payment link
@@ -109,12 +109,12 @@ export default function GetPaidPanel(p: Props) {
     return (
       <div className={box}>
         {sent ? (
-          <p className="text-[14px] text-white" role="status">Check {email} for your sign-in link, then come back to this invoice.</p>
+          <p className="text-[14px] text-brand-ink" role="status">Check {email} for your sign-in link, then come back to this invoice.</p>
         ) : (
           <form onSubmit={signIn} className="flex flex-col gap-3 sm:flex-row sm:items-end">
             <label className="flex-1 text-[13px] text-brand-soft">
               Sign in with your email to send payment links. It&apos;s free.
-              <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@business.com" className="mt-2 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#3ddc97]" />
+              <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@business.com" className="mt-2 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-[#3ddc97]" />
             </label>
             <button type="submit" disabled={busy} className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#3ddc97] px-5 text-[14px] font-semibold text-black disabled:opacity-60">{busy ? "Sending…" : "Email me a link"}</button>
           </form>
@@ -133,7 +133,7 @@ export default function GetPaidPanel(p: Props) {
           : "One-time setup (about 3 minutes): create your free business page and connect the bank account you want paid into. We verify the account name with your bank and approve within one business day.";
     return (
       <div className={box}>
-        <p className="text-[14px] text-white">{msg}</p>
+        <p className="text-[14px] text-brand-ink">{msg}</p>
         {stage.status !== "pending_review" && stage.status !== "rejected" && (
           <Link href="/stores/dashboard" className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#3ddc97] px-5 text-[14px] font-semibold text-black">
             {stage.status === "none" ? "Set up in 3 minutes" : "Connect your bank"}
@@ -147,12 +147,12 @@ export default function GetPaidPanel(p: Props) {
   if (stage.kind === "ready") {
     return (
       <div className={box}>
-        <p className="text-[15px] font-semibold text-white">Payment link for {naira(p.amountNgn)}</p>
+        <p className="text-[15px] font-semibold text-brand-ink">Payment link for {naira(p.amountNgn)}</p>
         <p className="mt-1 text-[13px] text-brand-soft">
           Invoice {p.docNumber}{p.customerName ? ` · ${p.customerName}` : ""}. {stage.feePercent ? `${stage.feePercent}% fee on payments received (0% on the Store plan).` : "No DoyinTech fee on your plan."}
         </p>
         {p.customerEmail && (
-          <label className="mt-3 flex min-h-11 items-center gap-3 text-[14px] text-white">
+          <label className="mt-3 flex min-h-11 items-center gap-3 text-[14px] text-brand-ink">
             <input type="checkbox" className="h-5 w-5 accent-[#3ddc97]" checked={sendEmail} onChange={(e) => setSendEmail(e.target.checked)} />
             Email it to {p.customerEmail}, with reminders before and after the due date
           </label>
@@ -170,8 +170,8 @@ export default function GetPaidPanel(p: Props) {
   const waHref = `https://wa.me/${wa ?? ""}?text=${encodeURIComponent(message)}`;
   return (
     <div className={box}>
-      <p className="text-[15px] font-semibold text-white">Your payment link is ready</p>
-      <p className="mt-2 break-all rounded-xl bg-black/40 px-3 py-2 text-[14px] text-white">{stage.url}</p>
+      <p className="text-[15px] font-semibold text-brand-ink">Your payment link is ready</p>
+      <p className="mt-2 break-all rounded-xl bg-brand-well px-3 py-2 text-[14px] text-brand-ink">{stage.url}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <a href={waHref} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-full bg-[#25D366] px-5 text-[14px] font-semibold text-black">Send on WhatsApp</a>
         <button
@@ -184,11 +184,11 @@ export default function GetPaidPanel(p: Props) {
               /* clipboard blocked */
             }
           }}
-          className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-5 text-[14px] font-semibold text-white"
+          className="inline-flex min-h-11 items-center rounded-full border border-brand-ink/15 px-5 text-[14px] font-semibold text-brand-ink"
         >
           {copied ? "Copied" : "Copy link"}
         </button>
-        <Link href="/stores/dashboard" className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-5 text-[14px] font-semibold text-white">Track payments</Link>
+        <Link href="/stores/dashboard" className="inline-flex min-h-11 items-center rounded-full border border-brand-ink/15 px-5 text-[14px] font-semibold text-brand-ink">Track payments</Link>
       </div>
       <p className="mt-2 text-[12px] text-brand-subtle">
         {stage.emailed ? `Emailed to ${p.customerEmail}. ` : ""}When they pay, the money settles to your bank and the link shows as paid in your dashboard.

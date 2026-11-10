@@ -30,16 +30,16 @@ export default function Page() {
       path="/kids/times-tables"
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Times tables chart 1 to 12</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Times tables chart 1 to 12</h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[520px] text-center text-[14px]">
             <thead>
-              <tr className="text-[#ff8c14]"><th className="p-1">×</th>{Array.from({ length: 12 }, (_, i) => <th key={i} className="p-1">{i + 1}</th>)}</tr>
+              <tr className="text-brand-link"><th className="p-1">×</th>{Array.from({ length: 12 }, (_, i) => <th key={i} className="p-1">{i + 1}</th>)}</tr>
             </thead>
             <tbody>
               {Array.from({ length: 12 }, (_, r) => (
-                <tr key={r} className="border-t border-white/5">
-                  <th className="p-1 text-[#ff8c14]">{r + 1}</th>
+                <tr key={r} className="border-t border-brand-ink/5">
+                  <th className="p-1 text-brand-link">{r + 1}</th>
                   {Array.from({ length: 12 }, (_, c) => <td key={c} className="p-1">{(r + 1) * (c + 1)}</td>)}
                 </tr>
               ))}

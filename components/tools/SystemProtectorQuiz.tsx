@@ -24,7 +24,7 @@ const QUESTIONS: Q[] = [
 
 function scoreLabel(score: number) {
   if (score >= 85) return { t: "Strong habits", c: "text-emerald-400" };
-  if (score >= 60) return { t: "Okay — close the gaps", c: "text-[#ff8c14]" };
+  if (score >= 60) return { t: "Okay — close the gaps", c: "text-brand-link" };
   if (score >= 35) return { t: "At risk", c: "text-amber-400" };
   return { t: "High risk", c: "text-red-400" };
 }
@@ -46,10 +46,10 @@ export default function SystemProtectorQuiz() {
 
   return (
     <div className="mx-auto max-w-[640px]">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
         Free · System Protector
       </p>
-      <h1 className="mt-2 text-[28px] font-semibold tracking-tight text-white sm:text-[34px]">
+      <h1 className="mt-2 text-[28px] font-semibold tracking-tight text-brand-ink sm:text-[34px]">
         Device & WhatsApp security score
       </h1>
       <p className="mt-3 text-[15px] leading-relaxed text-brand-muted">
@@ -61,7 +61,7 @@ export default function SystemProtectorQuiz() {
         {QUESTIONS.map((q) => (
           <label
             key={q.id}
-            className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-brand-surface p-4 hover:border-white/20"
+            className="flex cursor-pointer items-start gap-3 rounded-xl border border-brand-ink/10 bg-brand-surface p-4 hover:border-brand-ink/20"
           >
             <input
               type="checkbox"
@@ -70,7 +70,7 @@ export default function SystemProtectorQuiz() {
                 setAnswers((a) => ({ ...a, [q.id]: e.target.checked }));
                 setDone(false);
               }}
-              className="mt-1 h-4 w-4 rounded border-white/30"
+              className="mt-1 h-4 w-4 rounded border-brand-ink/30"
             />
             <span className="text-[14px] text-brand-soft">{q.text}</span>
           </label>
@@ -80,20 +80,20 @@ export default function SystemProtectorQuiz() {
       <button
         type="button"
         onClick={() => setDone(true)}
-        className="mt-6 w-full rounded-full bg-[#ff8c14] py-3.5 text-[15px] font-semibold text-black"
+        className="mt-6 w-full rounded-full bg-brand-accent py-3.5 text-[15px] font-semibold text-black"
       >
         Calculate score
       </button>
 
       {done && (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-brand-deep p-6">
+        <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-deep p-6">
           <p className="text-[13px] text-brand-subtle">Your protector score</p>
           <p className={`mt-1 text-[40px] font-bold ${label.c}`}>{score}/100</p>
           <p className={`text-[16px] font-semibold ${label.c}`}>{label.t}</p>
 
           {gaps.length > 0 && (
             <div className="mt-4">
-              <p className="text-[13px] font-semibold text-white">Fix next</p>
+              <p className="text-[13px] font-semibold text-brand-ink">Fix next</p>
               <ul className="mt-2 space-y-1 text-[13px] text-brand-muted">
                 {gaps.slice(0, 5).map((g) => (
                   <li key={g.id}>· {g.text}</li>
@@ -105,19 +105,19 @@ export default function SystemProtectorQuiz() {
           <div className="mt-6 flex flex-wrap gap-2">
             <Link
               href="/products"
-              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+              className="rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
             >
               Get full Kit · ₦12,500
             </Link>
             <Link
               href="/tools"
-              className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
+              className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink"
             >
               More security tools
             </Link>
             <Link
               href="/products"
-              className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white"
+              className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink"
             >
               System Protector Kit
             </Link>

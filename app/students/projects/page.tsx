@@ -84,8 +84,8 @@ export default function StudentProjectsPage() {
             Research project portal
           </h1>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-brand-muted">
-            Choose a package (₦15,000–₦30,000). Pay <strong className="text-white">50% to start</strong>,
-            we work on your project, then pay the <strong className="text-white">final 50%</strong> to
+            Choose a package (₦15,000–₦30,000). Pay <strong className="text-brand-ink">50% to start</strong>,
+            we work on your project, then pay the <strong className="text-brand-ink">final 50%</strong> to
             unlock your download link.
           </p>
 
@@ -100,16 +100,16 @@ export default function StudentProjectsPage() {
                   onClick={() => setPackageId(p.id)}
                   className={`rounded-2xl border p-5 text-left transition ${
                     packageId === p.id
-                      ? "border-[#ff8c14] bg-[#ff8c14]/10"
-                      : "border-white/10 bg-white/[0.03] hover:border-white/20"
+                      ? "border-brand-link bg-brand-link/10"
+                      : "border-brand-ink/10 bg-brand-ink/[0.03] hover:border-brand-ink/20"
                   }`}
                 >
                   {p.badge && (
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#ff8c14]">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-link">
                       {p.badge}
                     </span>
                   )}
-                  <p className="mt-1 font-display text-[17px] font-semibold text-white">
+                  <p className="mt-1 font-display text-[17px] font-semibold text-brand-ink">
                     {p.name}
                   </p>
                   <p className="mt-1 text-[20px] font-semibold text-brand-ink">
@@ -128,7 +128,7 @@ export default function StudentProjectsPage() {
 
           <form
             onSubmit={submit}
-            className="mt-10 space-y-5 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
+            className="mt-10 space-y-5 rounded-3xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6 sm:p-8"
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-[13px] text-brand-muted">
@@ -137,7 +137,7 @@ export default function StudentProjectsPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
               </label>
               <label className="block text-[13px] text-brand-muted">
@@ -147,7 +147,7 @@ export default function StudentProjectsPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
               </label>
               <label className="block text-[13px] text-brand-muted">
@@ -155,7 +155,7 @@ export default function StudentProjectsPage() {
                 <input
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
               </label>
               <label className="block text-[13px] text-brand-muted">
@@ -163,7 +163,7 @@ export default function StudentProjectsPage() {
                 <input
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
               </label>
               <label className="block text-[13px] text-brand-muted">
@@ -171,7 +171,7 @@ export default function StudentProjectsPage() {
                 <input
                   value={level}
                   onChange={(e) => setLevel(e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
               </label>
               <label className="block text-[13px] text-brand-muted">
@@ -180,7 +180,7 @@ export default function StudentProjectsPage() {
                   value={deadline}
                   onChange={(e) => setDeadline(e.target.value)}
                   placeholder="e.g. 15 Nov 2026"
-                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
               </label>
             </div>
@@ -192,7 +192,7 @@ export default function StudentProjectsPage() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="State your topic clearly…"
-                className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
               />
             </label>
             <label className="block text-[13px] text-brand-muted">
@@ -201,7 +201,7 @@ export default function StudentProjectsPage() {
                 rows={2}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
               />
             </label>
 
@@ -214,8 +214,8 @@ export default function StudentProjectsPage() {
             />
 
             {selected && (
-              <div className="rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 px-4 py-3 text-[13px] text-brand-soft">
-                <p className="font-semibold text-white">{selected.name}</p>
+              <div className="rounded-xl border border-brand-link/30 bg-brand-link/10 px-4 py-3 text-[13px] text-brand-soft">
+                <p className="font-semibold text-brand-ink">{selected.name}</p>
                 <p className="mt-1">
                   Total ₦{selected.priceNgn.toLocaleString()} · Pay now (50%) ₦
                   {depositNgn(selected).toLocaleString()} · Balance later ₦
@@ -230,7 +230,7 @@ export default function StudentProjectsPage() {
             {error && <p className="text-[13px] text-red-400">{error}</p>}
             {requestId && (
               <p className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-4 py-3 text-[13px] text-brand-soft">
-                Request ID: <strong className="text-white">{requestId}</strong> —
+                Request ID: <strong className="text-brand-ink">{requestId}</strong> —
                 save this to track your project.{" "}
                 <Link
                   href={`/students/projects/track?id=${requestId}`}
@@ -244,7 +244,7 @@ export default function StudentProjectsPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-[#ff8c14] px-6 py-3.5 text-[15px] font-semibold text-black transition hover:bg-[#ffa03a] disabled:opacity-60 sm:w-auto"
+              className="w-full rounded-full bg-brand-accent px-6 py-3.5 text-[15px] font-semibold text-black transition hover:bg-brand-accent-hover disabled:opacity-60 sm:w-auto"
             >
               {loading
                 ? "Starting…"

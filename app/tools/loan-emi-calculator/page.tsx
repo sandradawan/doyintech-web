@@ -35,16 +35,16 @@ export default function Page() {
       newsletterSource="loan-calculator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Will the loan pay for itself?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Will the loan pay for itself?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">Check how many sales you need to cover the repayments with the break-even calculator.</p>
-          <Link href="/tools/break-even-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Break-even calculator</Link>
+          <Link href="/tools/break-even-calculator" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Break-even calculator</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Flat rate or reducing balance?</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Flat rate or reducing balance?</h2>
         <p className="mt-3">This calculator uses reducing balance: interest is charged only on what you still owe, as most banks do. Some lenders quote a flat rate, charging interest on the full amount for the whole term, which means nearly twice the interest at the same headline rate.</p>
-        <p className="mt-3">Taking a loan to grow a business? Check it covers itself with the <Link href="/tools/break-even-calculator" className="text-[#ff8c14] underline">break-even calculator</Link>.</p>
+        <p className="mt-3">Taking a loan to grow a business? Check it covers itself with the <Link href="/tools/break-even-calculator" className="text-brand-link underline">break-even calculator</Link>.</p>
       </section>
     </SeoToolPage>
   );

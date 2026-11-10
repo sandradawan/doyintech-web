@@ -75,10 +75,10 @@ export default function WebsiteCostNigeriaPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             2026 price guide
           </p>
-          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             How much does a website cost in Nigeria?
           </h1>
           <p className="mt-3 text-[17px] leading-relaxed text-brand-muted">
@@ -87,16 +87,16 @@ export default function WebsiteCostNigeriaPage() {
           </p>
 
           <section className="mt-10">
-            <h2 className="text-[22px] font-semibold text-white">Website prices in Nigeria at a glance</h2>
-            <table className="mt-4 w-full overflow-hidden rounded-xl border border-white/10 text-left text-[14px] text-brand-soft">
-              <thead className="bg-white/[0.05] text-white">
+            <h2 className="text-[22px] font-semibold text-brand-ink">Website prices in Nigeria at a glance</h2>
+            <table className="mt-4 w-full overflow-hidden rounded-xl border border-brand-ink/10 text-left text-[14px] text-brand-soft">
+              <thead className="bg-brand-ink/[0.05] text-brand-ink">
                 <tr>
                   <th className="px-4 py-2.5 font-semibold">Type of website</th>
                   <th className="px-4 py-2.5 font-semibold">Typical price</th>
                   <th className="px-4 py-2.5 font-semibold">Timeline</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10">
+              <tbody className="divide-y divide-brand-ink/10">
                 {WEBSITE_TYPES.map((t) => (
                   <tr key={t.id}>
                     <td className="px-4 py-2.5">{t.label}</td>
@@ -116,15 +116,15 @@ export default function WebsiteCostNigeriaPage() {
             </p>
           </section>
 
-          <section className="mt-10 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-6">
-            <h2 className="text-[20px] font-semibold text-white">Our fixed prices</h2>
+          <section className="mt-10 rounded-2xl border border-brand-link/30 bg-brand-surface p-6">
+            <h2 className="text-[20px] font-semibold text-brand-ink">Our fixed prices</h2>
             <p className="mt-2 text-[14px] text-brand-muted">
               No vague quotes: pay a 50% deposit online to start, the balance before handover.
             </p>
-            <ul className="mt-4 divide-y divide-white/10">
+            <ul className="mt-4 divide-y divide-brand-ink/10">
               {PACKAGES.map((p) => (
                 <li key={p.name} className="flex items-baseline justify-between gap-4 py-2.5 text-[15px]">
-                  <span className="text-white">{p.name}</span>
+                  <span className="text-brand-ink">{p.name}</span>
                   <span className="text-brand-soft">
                     {formatNgn(p.totalNgn)}{" "}
                     <span className="text-[12px] text-brand-subtle">({formatNgn(p.depositNgn)} deposit)</span>
@@ -134,14 +134,14 @@ export default function WebsiteCostNigeriaPage() {
             </ul>
             <Link
               href={PRIMARY_CTA.href}
-              className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black"
+              className="mt-5 inline-flex rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black"
             >
               {PRIMARY_CTA.label}
             </Link>
           </section>
 
           <section className="mt-12">
-            <h2 className="text-[22px] font-semibold text-white">Calculate your website cost</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Calculate your website cost</h2>
             <p className="mt-2 text-[15px] text-brand-muted">
               Pick your business, website type and features to get an estimate and timeline.
             </p>
@@ -152,23 +152,23 @@ export default function WebsiteCostNigeriaPage() {
 
           <article className="mt-14 space-y-10 text-[15px] leading-relaxed text-brand-soft">
             <section>
-              <h2 className="text-[22px] font-semibold text-white">What drives the price</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">What drives the price</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
-                <li><strong className="text-white">Number of pages</strong> — each page needs design, content and testing.</li>
-                <li><strong className="text-white">Features</strong> — online payments, booking, user accounts and dashboards add the most cost.</li>
-                <li><strong className="text-white">Content</strong> — whether copywriting, product uploads and photos are included.</li>
-                <li><strong className="text-white">Design</strong> — a customised template costs less than a fully bespoke design.</li>
-                <li><strong className="text-white">Speed</strong> — rush timelines usually cost more.</li>
+                <li><strong className="text-brand-ink">Number of pages</strong> — each page needs design, content and testing.</li>
+                <li><strong className="text-brand-ink">Features</strong> — online payments, booking, user accounts and dashboards add the most cost.</li>
+                <li><strong className="text-brand-ink">Content</strong> — whether copywriting, product uploads and photos are included.</li>
+                <li><strong className="text-brand-ink">Design</strong> — a customised template costs less than a fully bespoke design.</li>
+                <li><strong className="text-brand-ink">Speed</strong> — rush timelines usually cost more.</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Ongoing costs after launch</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Ongoing costs after launch</h2>
               <p className="mt-3">
                 Budget for yearly domain and hosting renewals, and for maintenance. Websites need
                 security updates, backups and small content changes to keep working and bringing
                 enquiries. Our{" "}
-                <Link href="/care-plans" className="text-[#ff8c14] hover:underline">
+                <Link href="/care-plans" className="text-brand-link hover:underline">
                   website care plans
                 </Link>{" "}
                 cover this from ₦50,000/month.
@@ -176,28 +176,28 @@ export default function WebsiteCostNigeriaPage() {
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Frequently asked questions</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Frequently asked questions</h2>
               <dl className="mt-4 space-y-5">
                 {FAQ.map((f) => (
                   <div key={f.q}>
-                    <dt className="font-semibold text-white">{f.q}</dt>
+                    <dt className="font-semibold text-brand-ink">{f.q}</dt>
                     <dd className="mt-1">{f.a}</dd>
                   </div>
                 ))}
               </dl>
             </section>
 
-            <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center">
-              <h2 className="text-[20px] font-semibold text-white">Not sure what you need?</h2>
+            <section className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6 text-center">
+              <h2 className="text-[20px] font-semibold text-brand-ink">Not sure what you need?</h2>
               <p className="mt-2 text-[14px] text-brand-muted">
                 Send us your current site or idea and we&apos;ll reply with 2–3 specific
                 recommendations, free.
               </p>
               <div className="mt-4 flex flex-wrap justify-center gap-3">
-                <Link href={PRIMARY_CTA.href} className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+                <Link href={PRIMARY_CTA.href} className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
                   See packages
                 </Link>
-                <Link href="/free-audit" className="rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white">
+                <Link href="/free-audit" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink">
                   Free website audit
                 </Link>
               </div>

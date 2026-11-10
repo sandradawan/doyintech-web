@@ -88,7 +88,7 @@ export default function EmployeeCostCalculator() {
 
   const toggle = (k: "itfApplies" | "thirteenth", text: string) => (
     <label className="flex min-h-11 items-center gap-3 text-[14px] text-brand-soft">
-      <input type="checkbox" className="h-5 w-5 accent-[#ff8c14]" checked={s[k]} onChange={(e) => setS({ ...s, [k]: e.target.checked })} />
+      <input type="checkbox" className="h-5 w-5 accent-brand-link" checked={s[k]} onChange={(e) => setS({ ...s, [k]: e.target.checked })} />
       {text}
     </label>
   );
@@ -100,14 +100,14 @@ export default function EmployeeCostCalculator() {
           <Field name="Role (optional)" value={s.role} onChange={set("role")} placeholder="e.g. Accountant" />
           <Field name="How many staff in this role" type="number" value={s.headcount} onChange={set("headcount")} />
         </div>
-        <h2 className="text-[15px] font-semibold text-white">Monthly pay</h2>
+        <h2 className="text-[15px] font-semibold text-brand-ink">Monthly pay</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <Field name="Basic (₦)" type="number" value={s.basic} onChange={set("basic")} />
           <Field name="Housing (₦)" type="number" value={s.housing} onChange={set("housing")} />
           <Field name="Transport (₦)" type="number" value={s.transport} onChange={set("transport")} />
           <Field name="Other allowances (₦)" type="number" value={s.other} onChange={set("other")} />
         </div>
-        <h2 className="text-[15px] font-semibold text-white">Benefits and statutory costs</h2>
+        <h2 className="text-[15px] font-semibold text-brand-ink">Benefits and statutory costs</h2>
         <div className="grid gap-3 sm:grid-cols-3">
           <Field name="Employer pension (%)" type="number" value={s.pension} onChange={set("pension")} />
           <Field name="NSITF (% of payroll)" type="number" value={s.nsitf} onChange={set("nsitf")} />
@@ -125,20 +125,20 @@ export default function EmployeeCostCalculator() {
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+        <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
           <p className="text-[13px] text-brand-muted">True cost of this employee</p>
-          <p className="text-[30px] font-semibold text-[#ff8c14]">{naira0(r.total)}<span className="text-[15px] font-normal text-brand-muted"> / year</span></p>
-          <p className="text-[14px] text-white">For every ₦1 of salary you spend <b>₦{r.multiplier.toFixed(2)}</b></p>
-          {heads > 1 && <p className="mt-1 text-[14px] text-white">{heads} staff: <b>{naira0(r.total * heads)}</b> a year</p>}
-          <dl className="mt-4 space-y-1.5 border-t border-white/10 pt-4 text-[13px]">
+          <p className="text-[30px] font-semibold text-brand-link">{naira0(r.total)}<span className="text-[15px] font-normal text-brand-muted"> / year</span></p>
+          <p className="text-[14px] text-brand-ink">For every ₦1 of salary you spend <b>₦{r.multiplier.toFixed(2)}</b></p>
+          {heads > 1 && <p className="mt-1 text-[14px] text-brand-ink">{heads} staff: <b>{naira0(r.total * heads)}</b> a year</p>}
+          <dl className="mt-4 space-y-1.5 border-t border-brand-ink/10 pt-4 text-[13px]">
             {lines.map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-3"><dt className="text-brand-muted">{k}</dt><dd className="text-white">{naira0(v)}</dd></div>
+              <div key={k} className="flex justify-between gap-3"><dt className="text-brand-muted">{k}</dt><dd className="text-brand-ink">{naira0(v)}</dd></div>
             ))}
           </dl>
-          <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-[13px]">
-            <div><dt className="text-brand-muted">Per month</dt><dd className="text-[16px] font-semibold text-white">{naira0(r.monthly)}</dd></div>
-            <div><dt className="text-brand-muted">Per working day</dt><dd className="text-[16px] font-semibold text-white">{naira0(r.perDay)}</dd></div>
-            <div className="col-span-2"><dt className="text-brand-muted">Employee takes home (after PAYE 2026 and 8% pension)</dt><dd className="text-[16px] font-semibold text-white">{naira0(paye.netMonthly)} / month</dd></div>
+          <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-brand-ink/10 pt-4 text-[13px]">
+            <div><dt className="text-brand-muted">Per month</dt><dd className="text-[16px] font-semibold text-brand-ink">{naira0(r.monthly)}</dd></div>
+            <div><dt className="text-brand-muted">Per working day</dt><dd className="text-[16px] font-semibold text-brand-ink">{naira0(r.perDay)}</dd></div>
+            <div className="col-span-2"><dt className="text-brand-muted">Employee takes home (after PAYE 2026 and 8% pension)</dt><dd className="text-[16px] font-semibold text-brand-ink">{naira0(paye.netMonthly)} / month</dd></div>
           </dl>
         </div>
         <button type="button" onClick={print} className={`${primaryBtn} w-full`}>Download cost breakdown PDF</button>

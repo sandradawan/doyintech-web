@@ -59,26 +59,26 @@ export default function NurturePage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Internal · noindex
           </p>
-          <h1 className="mt-2 text-[32px] font-semibold text-white">Lead nurture scripts</h1>
+          <h1 className="mt-2 text-[32px] font-semibold text-brand-ink">Lead nurture scripts</h1>
           <p className="mt-3 text-[15px] text-brand-muted">
             Paste into WhatsApp from the lead inbox. Replace{" "}
-            <code className="text-[#ff8c14]">{`{{name}}`}</code> and{" "}
-            <code className="text-[#ff8c14]">{`{{url}}`}</code>. Consistency beats perfect copy.
+            <code className="text-brand-link">{`{{name}}`}</code> and{" "}
+            <code className="text-brand-link">{`{{url}}`}</code>. Consistency beats perfect copy.
           </p>
           <div className="mt-10 space-y-10">
             {sequences.map((seq) => (
               <section key={seq.title}>
-                <h2 className="text-[20px] font-semibold text-white">{seq.title}</h2>
+                <h2 className="text-[20px] font-semibold text-brand-ink">{seq.title}</h2>
                 <div className="mt-4 space-y-4">
                   {seq.steps.map((s) => (
                     <div
                       key={s.day}
-                      className="rounded-2xl border border-white/10 bg-brand-surface p-5"
+                      className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5"
                     >
-                      <p className="text-[12px] font-semibold text-[#ff8c14]">{s.day}</p>
+                      <p className="text-[12px] font-semibold text-brand-link">{s.day}</p>
                       <pre className="mt-2 whitespace-pre-wrap text-[14px] leading-relaxed text-brand-soft">
                         {s.text}
                       </pre>
@@ -90,7 +90,7 @@ export default function NurturePage() {
           </div>
           <p className="mt-10 text-[13px] text-brand-subtle">
             Leads:{" "}
-            <a href="/admin/leads" className="text-[#ff8c14] hover:underline">
+            <a href="/admin/leads" className="text-brand-link hover:underline">
               /admin/leads
             </a>
           </p>

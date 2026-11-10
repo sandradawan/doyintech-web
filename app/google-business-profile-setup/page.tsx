@@ -60,7 +60,7 @@ export default function GoogleBusinessProfilePage() {
       ]}
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">What customers see</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">What customers see</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>Your business on the map with directions.</li>
           <li>A call button and a link to WhatsApp or your website.</li>

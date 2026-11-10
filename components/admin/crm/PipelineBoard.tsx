@@ -33,7 +33,7 @@ const STAGE_ACCENT: Record<string, string> = {
   new: "bg-sky-400",
   contacted: "bg-violet-400",
   qualified: "bg-amber-400",
-  proposal: "bg-[#ff8c14]",
+  proposal: "bg-brand-accent",
   won: "bg-emerald-400",
   lost: "bg-red-400",
 };
@@ -119,7 +119,7 @@ export default function PipelineBoard() {
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search leads…" aria-label="Search leads" className={`${inputCls} max-w-sm`} />
         <span className="text-[13px] text-brand-subtle">
-          Open pipeline <strong className="text-white">{naira(openValue)}</strong>
+          Open pipeline <strong className="text-brand-ink">{naira(openValue)}</strong>
         </span>
         {loading && <Spinner />}
       </div>
@@ -146,14 +146,14 @@ export default function PipelineBoard() {
                   if (lead) void move(lead, stage);
                 }}
                 className={`flex min-h-[420px] flex-col rounded-2xl border bg-brand-deep transition ${
-                  dragOver === stage ? "border-[#ff8c14]/60 bg-[#ff8c14]/[0.04]" : "border-white/[0.07]"
+                  dragOver === stage ? "border-brand-link/60 bg-brand-link/[0.04]" : "border-brand-ink/[0.07]"
                 }`}
               >
-                <header className="border-b border-white/[0.06] px-3 py-3">
+                <header className="border-b border-brand-ink/[0.06] px-3 py-3">
                   <div className="flex items-center gap-2">
                     <span className={`h-2 w-2 rounded-full ${STAGE_ACCENT[stage]}`} />
-                    <h2 className="text-[13px] font-semibold text-white">{STAGE_LABEL[stage]}</h2>
-                    <span className="ml-auto rounded-full bg-white/[0.06] px-2 py-0.5 text-[11px] text-brand-muted">{col.total}</span>
+                    <h2 className="text-[13px] font-semibold text-brand-ink">{STAGE_LABEL[stage]}</h2>
+                    <span className="ml-auto rounded-full bg-brand-ink/[0.06] px-2 py-0.5 text-[11px] text-brand-muted">{col.total}</span>
                   </div>
                   {value > 0 && <p className="mt-1 text-[11px] text-brand-subtle">{naira(value)}</p>}
                 </header>
@@ -166,12 +166,12 @@ export default function PipelineBoard() {
                         draggable
                         onDragStart={(e) => e.dataTransfer.setData("text/lead", l.id)}
                         onClick={() => setDrawer({ record: l })}
-                        className="cursor-pointer rounded-xl border border-white/[0.07] bg-brand-surface p-3 transition hover:border-white/20"
+                        className="cursor-pointer rounded-xl border border-brand-ink/[0.07] bg-brand-surface p-3 transition hover:border-brand-ink/20"
                       >
-                        <p className="truncate text-[13px] font-semibold text-white">{l.name}</p>
+                        <p className="truncate text-[13px] font-semibold text-brand-ink">{l.name}</p>
                         {(l.company || l.product) && <p className="truncate text-[12px] text-brand-muted">{l.company || l.product}</p>}
                         <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]">
-                          {l.value_ngn ? <span className="font-semibold text-[#ffb366]">{naira(Number(l.value_ngn))}</span> : null}
+                          {l.value_ngn ? <span className="font-semibold text-brand-link">{naira(Number(l.value_ngn))}</span> : null}
                           {l.next_follow_up && (
                             <span className={overdue ? "font-semibold text-red-300" : "text-brand-subtle"}>
                               {overdue ? "Follow up " : "Next "}
@@ -184,7 +184,7 @@ export default function PipelineBoard() {
                           value=""
                           onClick={(e) => e.stopPropagation()}
                           onChange={(e) => e.target.value && void move(l, e.target.value)}
-                          className="mt-2 w-full rounded-md border border-white/10 bg-black/30 px-2 py-1 text-[11px] text-brand-muted outline-none"
+                          className="mt-2 w-full rounded-md border border-brand-ink/10 bg-brand-well px-2 py-1 text-[11px] text-brand-muted outline-none"
                         >
                           <option value="">Move to…</option>
                           {LEAD_STAGES.filter((s) => s !== stage).map((s) => (

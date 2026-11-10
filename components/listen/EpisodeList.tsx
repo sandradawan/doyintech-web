@@ -18,13 +18,13 @@ export function PlayButton({ track, label }: { track: Track; label?: string }) {
   const name = `${active ? "Pause" : "Play"} ${track.title}`;
   if (label) {
     return (
-      <button type="button" onClick={() => toggle(track)} aria-label={name} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#ff8c14] px-6 text-[15px] font-semibold text-black">
+      <button type="button" onClick={() => toggle(track)} aria-label={name} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-accent px-6 text-[15px] font-semibold text-black">
         {active ? <FaPause aria-hidden /> : <FaPlay aria-hidden />} {active ? "Pause" : label}
       </button>
     );
   }
   return (
-    <button type="button" onClick={() => toggle(track)} aria-label={name} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ff8c14] text-black">
+    <button type="button" onClick={() => toggle(track)} aria-label={name} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-accent text-black">
       {active ? <FaPause aria-hidden /> : <FaPlay aria-hidden />}
     </button>
   );
@@ -47,7 +47,7 @@ export default function EpisodeList({ items, showNames = false, openShared = fal
   }, [items, openShared, cue]);
 
   return (
-    <ul className="divide-y divide-white/10">
+    <ul className="divide-y divide-brand-ink/10">
       {items.map((item) => {
         const { episode: e } = item;
         const place = saved[e.id];
@@ -56,18 +56,18 @@ export default function EpisodeList({ items, showNames = false, openShared = fal
           <li key={`${item.showSlug}-${e.id}`} id={`ep-${e.id}`} className="flex gap-3 py-4">
             <PlayButton track={toTrack(item)} />
             <div className="min-w-0 flex-1">
-              {showNames && <Link href={`/listen/${item.showSlug}`} className="text-[13px] font-semibold text-[#ffb366] hover:underline">{item.showName}</Link>}
-              <h3 className="text-[16px] font-semibold leading-snug text-white">{e.title}</h3>
+              {showNames && <Link href={`/listen/${item.showSlug}`} className="text-[13px] font-semibold text-brand-link hover:underline">{item.showName}</Link>}
+              <h3 className="text-[16px] font-semibold leading-snug text-brand-ink">{e.title}</h3>
               <p className="mt-0.5 text-[13px] text-brand-muted">
                 {[when(e.date), e.seconds ? `${Math.max(1, Math.round(e.seconds / 60))} min` : ""].filter(Boolean).join(" · ")}
               </p>
               {e.summary && <p className="mt-1 line-clamp-2 text-[14px] text-brand-soft">{e.summary}</p>}
               {place && place.duration > 0 && (
-                <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10" role="img" aria-label={`${Math.round((place.at / place.duration) * 100)}% played`}>
-                  <div className="h-full bg-[#ff8c14]" style={{ width: `${(place.at / place.duration) * 100}%` }} />
+                <div className="mt-2 h-1 overflow-hidden rounded-full bg-brand-ink/10" role="img" aria-label={`${Math.round((place.at / place.duration) * 100)}% played`}>
+                  <div className="h-full bg-brand-accent" style={{ width: `${(place.at / place.duration) * 100}%` }} />
                 </div>
               )}
-              <a href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center text-[14px] font-semibold text-[#ff8c14] hover:underline">Share on WhatsApp</a>
+              <a href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center text-[14px] font-semibold text-brand-link hover:underline">Share on WhatsApp</a>
             </div>
           </li>
         );

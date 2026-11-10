@@ -30,7 +30,7 @@ const PHASES = [
 type PhaseId = (typeof PHASES)[number]["id"];
 
 const field =
-  "mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white outline-none focus:border-[#ff8c14]";
+  "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[15px] text-brand-ink outline-none focus:border-brand-link";
 
 export default function EInvoicingReadiness() {
   const [phase, setPhase] = useState<PhaseId>("small");
@@ -74,8 +74,8 @@ export default function EInvoicingReadiness() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5 sm:p-6">
-        <p className="text-[14px] font-semibold text-white">Your annual turnover</p>
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 sm:p-6">
+        <p className="text-[14px] font-semibold text-brand-ink">Your annual turnover</p>
         <div className="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Annual turnover">
           {PHASES.map((p) => (
             <button
@@ -85,7 +85,7 @@ export default function EInvoicingReadiness() {
               aria-checked={phase === p.id}
               onClick={() => setPhase(p.id)}
               className={`rounded-full px-4 py-2 text-[13px] font-semibold ${
-                phase === p.id ? "bg-[#ff8c14] text-black" : "border border-white/15 text-white/80"
+                phase === p.id ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-ink/80"
               }`}
             >
               {p.label}
@@ -93,8 +93,8 @@ export default function EInvoicingReadiness() {
           ))}
         </div>
 
-        <div className="mt-5 rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-4" role="status">
-          <p className="text-[17px] font-semibold text-white">{current.title}</p>
+        <div className="mt-5 rounded-xl border border-brand-link/30 bg-brand-link/10 p-4" role="status">
+          <p className="text-[17px] font-semibold text-brand-ink">{current.title}</p>
           <ul className="mt-2 space-y-1 text-[14px] text-brand-soft">
             {current.timeline.map((t) => (
               <li key={t}>• {t}</li>
@@ -103,8 +103,8 @@ export default function EInvoicingReadiness() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-        <p className="text-[16px] font-semibold text-white">Get e-invoicing ready without the stress</p>
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 sm:p-6">
+        <p className="text-[16px] font-semibold text-brand-ink">Get e-invoicing ready without the stress</p>
         <p className="mt-1 text-[14px] text-brand-muted">
           We&apos;ll review how you invoice today, set up an e-invoice-ready billing process on your
           website or POS through an NRS-accredited provider, and remind you before your
@@ -125,7 +125,7 @@ export default function EInvoicingReadiness() {
               <button
                 type="submit"
                 disabled={state === "busy" || (!email.includes("@") && phone.length < 7)}
-                className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60"
+                className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60"
               >
                 {state === "busy" ? "Sending…" : "Help me get ready"}
               </button>

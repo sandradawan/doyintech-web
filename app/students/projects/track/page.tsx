@@ -212,7 +212,7 @@ function TrackInner() {
             value={id}
             onChange={(e) => setId(e.target.value.toUpperCase())}
             placeholder="DT-PRJ-2026-0001"
-            className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+            className="flex-1 rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
           />
           <input
             value={email}
@@ -220,13 +220,13 @@ function TrackInner() {
             placeholder="Email used when submitting"
             type="email"
             required
-            className="flex-1 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+            className="flex-1 rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
           />
           <button
             type="button"
             onClick={load}
             disabled={loading || !id.trim()}
-            className="rounded-full bg-[#ff8c14] px-6 py-2.5 text-[14px] font-semibold text-black hover:bg-[#ffa03a] disabled:opacity-60"
+            className="rounded-full bg-brand-accent px-6 py-2.5 text-[14px] font-semibold text-black hover:bg-brand-accent-hover disabled:opacity-60"
           >
             {loading ? "Loading…" : "Track"}
           </button>
@@ -239,13 +239,13 @@ function TrackInner() {
 
         {project && (
           <div className="mt-10 space-y-8">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="text-[12px] font-semibold uppercase tracking-wider text-[#ff8c14]">
+                  <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-link">
                     {project.request_id}
                   </p>
-                  <h2 className="mt-1 font-display text-[20px] font-semibold text-white">
+                  <h2 className="mt-1 font-display text-[20px] font-semibold text-brand-ink">
                     {project.package_name}
                   </h2>
                   <p className="mt-1 text-[14px] text-brand-muted">
@@ -254,7 +254,7 @@ function TrackInner() {
                 </div>
                 <div className="text-right">
                   <p className="text-[12px] text-brand-muted">Stage</p>
-                  <p className="text-[16px] font-semibold text-white">
+                  <p className="text-[16px] font-semibold text-brand-ink">
                     {project.stage_label || project.stage}
                   </p>
                   <p className="text-[12px] text-brand-subtle">{project.status}</p>
@@ -262,10 +262,10 @@ function TrackInner() {
               </div>
 
               {/* Payment summary */}
-              <div className="mt-5 grid gap-2 rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] sm:grid-cols-3">
+              <div className="mt-5 grid gap-2 rounded-xl border border-brand-ink/10 bg-brand-well p-4 text-[13px] sm:grid-cols-3">
                 <div>
                   <p className="text-[11px] uppercase text-brand-subtle">Total</p>
-                  <p className="font-semibold text-white">
+                  <p className="font-semibold text-brand-ink">
                     ₦{total.toLocaleString()}
                   </p>
                 </div>
@@ -281,7 +281,7 @@ function TrackInner() {
                   <p className="text-[11px] uppercase text-brand-subtle">
                     Balance due
                   </p>
-                  <p className="font-semibold text-white">
+                  <p className="font-semibold text-brand-ink">
                     ₦
                     {project.delivery_unlocked
                       ? "0"
@@ -317,8 +317,8 @@ function TrackInner() {
                     we attach the delivery file.
                   </p>
                 ) : project.can_pay_balance ? (
-                  <div className="rounded-xl border border-[#ff8c14]/40 bg-[#ff8c14]/10 px-4 py-4">
-                    <p className="text-[14px] font-semibold text-white">
+                  <div className="rounded-xl border border-brand-link/40 bg-brand-link/10 px-4 py-4">
+                    <p className="text-[14px] font-semibold text-brand-ink">
                       Project ready — pay final 50% to unlock download
                     </p>
                     <p className="mt-1 text-[13px] text-brand-muted">
@@ -329,7 +329,7 @@ function TrackInner() {
                       type="button"
                       onClick={payBalance}
                       disabled={paying}
-                      className="mt-3 rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black hover:bg-[#ffa03a] disabled:opacity-60"
+                      className="mt-3 rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black hover:bg-brand-accent-hover disabled:opacity-60"
                     >
                       {paying
                         ? "Opening Paystack…"
@@ -342,7 +342,7 @@ function TrackInner() {
                     payment to start the project.
                   </p>
                 ) : (
-                  <p className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[13px] text-brand-muted">
+                  <p className="rounded-xl border border-brand-ink/10 bg-brand-ink/[0.03] px-4 py-3 text-[13px] text-brand-muted">
                     Work in progress. When the draft is ready, you can pay the
                     final 50% here to unlock download.
                   </p>
@@ -364,10 +364,10 @@ function TrackInner() {
                         key={s.code}
                         className={`rounded-full px-3 py-1 text-[11px] font-medium ${
                           active
-                            ? "bg-[#ff8c14] text-black"
+                            ? "bg-brand-accent text-black"
                             : past
-                              ? "bg-white/10 text-white"
-                              : "bg-white/5 text-brand-subtle"
+                              ? "bg-brand-ink/10 text-brand-ink"
+                              : "bg-brand-ink/5 text-brand-subtle"
                         }`}
                       >
                         {s.label}
@@ -407,7 +407,7 @@ function TrackInner() {
                     key={m.id || i}
                     className={`rounded-xl border px-4 py-3 text-[13px] ${
                       m.author === "student"
-                        ? "border-white/10 bg-white/[0.04] text-brand-soft"
+                        ? "border-brand-ink/10 bg-brand-ink/[0.04] text-brand-soft"
                         : "border-brand-link/20 bg-brand-link/10 text-brand-soft"
                     }`}
                   >
@@ -425,12 +425,12 @@ function TrackInner() {
                   rows={3}
                   required
                   placeholder="Describe corrections or questions…"
-                  className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                  className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                 />
                 <button
                   type="submit"
                   disabled={sending}
-                  className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-white/5 disabled:opacity-60"
+                  className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink hover:bg-brand-ink/5 disabled:opacity-60"
                 >
                   {sending ? "Sending…" : "Send feedback"}
                 </button>

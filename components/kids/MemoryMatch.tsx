@@ -64,21 +64,21 @@ export default function MemoryMatch() {
   const best = progress?.best[`memory:${size}`];
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-brand-ink/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       <StreakBar progress={progress} />
 
       {!cards && (
         <>
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Theme">
             {Object.keys(THEMES).map((t) => (
-              <button key={t} type="button" role="radio" aria-checked={theme === t} onClick={() => setTheme(t)} className={`min-h-12 rounded-2xl px-4 text-[16px] font-bold ${theme === t ? "bg-[#ff8c14] text-black" : "border border-white/15 bg-white/5 text-black"}`}>
+              <button key={t} type="button" role="radio" aria-checked={theme === t} onClick={() => setTheme(t)} className={`min-h-12 rounded-2xl px-4 text-[16px] font-bold ${theme === t ? "bg-brand-accent text-black" : "border border-brand-ink/15 bg-brand-ink/5 text-black"}`}>
                 {THEMES[t][0]} {t}
               </button>
             ))}
           </div>
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Difficulty">
             {(Object.keys(SIZES) as Size[]).map((s) => (
-              <button key={s} type="button" role="radio" aria-checked={size === s} onClick={() => setSize(s)} className={`min-h-12 rounded-2xl px-4 text-[16px] font-bold ${size === s ? "bg-sky-400 text-black" : "border border-white/15 bg-white/5 text-white"}`}>
+              <button key={s} type="button" role="radio" aria-checked={size === s} onClick={() => setSize(s)} className={`min-h-12 rounded-2xl px-4 text-[16px] font-bold ${size === s ? "bg-sky-400 text-black" : "border border-brand-ink/15 bg-brand-ink/5 text-brand-ink"}`}>
                 {s} · {SIZES[s]} pairs
               </button>
             ))}
@@ -89,7 +89,7 @@ export default function MemoryMatch() {
 
       {cards && (
         <>
-          <div className="flex justify-between text-[16px] font-bold text-white">
+          <div className="flex justify-between text-[16px] font-bold text-brand-ink">
             <span>Moves: {moves}</span>
             <span>Pairs: {found.size}/{pairs}</span>
           </div>
@@ -102,7 +102,7 @@ export default function MemoryMatch() {
                   type="button"
                   onClick={() => flip(i)}
                   aria-label={shown ? c.face : "Hidden card"}
-                  className={`aspect-square rounded-2xl text-[36px] transition sm:text-[44px] ${shown ? "bg-white/90" : "bg-gradient-to-br from-[#ff8c14] to-pink-500 hover:scale-[1.03]"} ${found.has(c.face) ? "opacity-60" : ""}`}
+                  className={`aspect-square rounded-2xl text-[36px] transition sm:text-[44px] ${shown ? "bg-brand-ink/90" : "bg-gradient-to-br from-brand-accent to-pink-500 hover:scale-[1.03]"} ${found.has(c.face) ? "opacity-60" : ""}`}
                 >
                   {shown ? c.face : ""}
                 </button>
@@ -111,13 +111,13 @@ export default function MemoryMatch() {
           </div>
           {won && (
             <div className="text-center">
-              <p className="text-[26px] font-black text-white">You found them all in {moves} moves! {newBest && "🏆 New best!"}</p>
+              <p className="text-[26px] font-black text-brand-ink">You found them all in {moves} moves! {newBest && "🏆 New best!"}</p>
               {best && !newBest && <p className="text-[15px] text-brand-muted">Your best on {size}: {best} moves</p>}
             </div>
           )}
           <div className="flex flex-wrap justify-center gap-2">
-            <button type="button" onClick={start} className="min-h-12 rounded-full bg-[#ff8c14] px-6 text-[15px] font-bold text-black">{won ? "Play again" : "Restart"}</button>
-            <button type="button" onClick={() => setCards(null)} className="min-h-12 rounded-full border border-white/15 px-6 text-[15px] font-semibold text-white">Change game</button>
+            <button type="button" onClick={start} className="min-h-12 rounded-full bg-brand-accent px-6 text-[15px] font-bold text-black">{won ? "Play again" : "Restart"}</button>
+            <button type="button" onClick={() => setCards(null)} className="min-h-12 rounded-full border border-brand-ink/15 px-6 text-[15px] font-semibold text-brand-ink">Change game</button>
           </div>
         </>
       )}

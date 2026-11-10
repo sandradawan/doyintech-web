@@ -46,14 +46,14 @@ export default function GetFeaturedPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-[1000px] px-5 sm:px-6">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">For sellers</p>
-          <h1 className="mt-2 max-w-3xl text-[32px] font-semibold tracking-tight text-white sm:text-[44px]">Get your shop in front of buyers who are ready to order</h1>
+          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-brand-link">For sellers</p>
+          <h1 className="mt-2 max-w-3xl text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">Get your shop in front of buyers who are ready to order</h1>
           <p className="mt-4 max-w-2xl text-[17px] text-brand-muted">{DESCRIPTION}</p>
 
           <ul className="mt-10 grid gap-4 sm:grid-cols-3">
             {PLACES.map(([t, d]) => (
-              <li key={t} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
-                <p className="text-[15px] font-semibold text-white">{t}</p>
+              <li key={t} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+                <p className="text-[15px] font-semibold text-brand-ink">{t}</p>
                 <p className="mt-1 text-[14px] text-brand-muted">{d}</p>
               </li>
             ))}
@@ -61,12 +61,12 @@ export default function GetFeaturedPage() {
 
           <section className="mt-12 grid gap-4 sm:grid-cols-2">
             {BOOST_PLANS.map((p) => (
-              <div key={p.days} className={`rounded-[22px] border p-6 ${p.days === 30 ? "border-[#ff8c14]/50 bg-[#ff8c14]/[0.06]" : "border-white/10 bg-brand-surface"}`}>
-                {p.days === 30 && <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">Best value · 4 weeks for the price of 3</p>}
-                <h2 className="mt-1 text-[20px] font-semibold text-white">Featured for {p.label}</h2>
-                <p className="mt-3 text-[36px] font-semibold text-white">{formatKobo(p.amountKobo)}</p>
+              <div key={p.days} className={`rounded-[22px] border p-6 ${p.days === 30 ? "border-brand-link/50 bg-brand-link/[0.06]" : "border-brand-ink/10 bg-brand-surface"}`}>
+                {p.days === 30 && <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">Best value · 4 weeks for the price of 3</p>}
+                <h2 className="mt-1 text-[20px] font-semibold text-brand-ink">Featured for {p.label}</h2>
+                <p className="mt-3 text-[36px] font-semibold text-brand-ink">{formatKobo(p.amountKobo)}</p>
                 <p className="text-[13px] text-brand-subtle">≈ {formatKobo(Math.round(p.amountKobo / p.days))} a day · one-off payment, no subscription</p>
-                <Link href="/stores/dashboard" className="mt-5 inline-flex w-full justify-center rounded-full bg-[#ff8c14] py-3 text-[14px] font-semibold text-black">
+                <Link href="/stores/dashboard" className="mt-5 inline-flex w-full justify-center rounded-full bg-brand-accent py-3 text-[14px] font-semibold text-black">
                   Feature my shop
                 </Link>
               </div>
@@ -74,18 +74,18 @@ export default function GetFeaturedPage() {
           </section>
           <p className="mt-4 text-[13px] text-brand-subtle">
             No shop yet?{" "}
-            <Link href="/stores" className="text-[#ff8c14] hover:underline">
+            <Link href="/stores" className="text-brand-link hover:underline">
               Open one free in two minutes
             </Link>
             , add a product, then feature it from your dashboard.
           </p>
 
           <section className="mt-16 max-w-3xl">
-            <h2 className="text-[22px] font-semibold text-white">Questions</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Questions</h2>
             <dl className="mt-4 space-y-5">
               {FAQS.map((f) => (
                 <div key={f.q}>
-                  <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
+                  <dt className="text-[15px] font-semibold text-brand-ink">{f.q}</dt>
                   <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}

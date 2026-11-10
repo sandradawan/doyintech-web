@@ -72,7 +72,7 @@ export default function AiProjectStudioPage() {
   ];
 
   const inputCls =
-    "mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white";
+    "mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink";
   const labelCls = "block text-[12px] font-medium text-brand-muted";
 
   return (
@@ -85,7 +85,7 @@ export default function AiProjectStudioPage() {
             </Link>{" "}
             / AI Project Studio
           </p>
-          <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             AI Project Studio
           </h1>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-brand-muted">
@@ -101,8 +101,8 @@ export default function AiProjectStudioPage() {
                 onClick={() => setTab(t.id)}
                 className={`rounded-full px-4 py-2 text-[13px] font-semibold transition ${
                   tab === t.id
-                    ? "bg-[#ff8c14] text-black"
-                    : "border border-white/15 bg-white/[0.04] text-brand-soft hover:border-white/30"
+                    ? "bg-brand-accent text-black"
+                    : "border border-brand-ink/15 bg-brand-ink/[0.04] text-brand-soft hover:border-brand-ink/30"
                 }`}
               >
                 {t.label}
@@ -111,7 +111,7 @@ export default function AiProjectStudioPage() {
           </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-2">
-            <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+            <div className="rounded-3xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6">
               {tab === "outline" && (
                 <form
                   onSubmit={(e: FormEvent) => {
@@ -144,7 +144,7 @@ export default function AiProjectStudioPage() {
                     Objectives
                     <input value={objectives} onChange={(e) => setObjectives(e.target.value)} className={inputCls} />
                   </label>
-                  <button type="submit" disabled={loading} className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
+                  <button type="submit" disabled={loading} className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
                     {loading ? "Generating…" : "Generate outline"}
                   </button>
                 </form>
@@ -180,7 +180,7 @@ export default function AiProjectStudioPage() {
                     Notes
                     <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className={inputCls} />
                   </label>
-                  <button type="submit" disabled={loading} className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
+                  <button type="submit" disabled={loading} className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
                     {loading ? "Generating…" : "Draft chapter scaffold"}
                   </button>
                 </form>
@@ -210,7 +210,7 @@ export default function AiProjectStudioPage() {
                     Key finding
                     <input value={keyFinding} onChange={(e) => setKeyFinding(e.target.value)} className={inputCls} />
                   </label>
-                  <button type="submit" disabled={loading} className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
+                  <button type="submit" disabled={loading} className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black disabled:opacity-60">
                     {loading ? "Generating…" : "Generate abstract"}
                   </button>
                 </form>
@@ -225,18 +225,18 @@ export default function AiProjectStudioPage() {
                       type="button"
                       onClick={() => setDemoStep(i)}
                       className={`w-full rounded-2xl border p-4 text-left ${
-                        demoStep === i ? "border-[#ff8c14]/50 bg-[#ff8c14]/10" : "border-white/10 bg-black/20"
+                        demoStep === i ? "border-brand-link/50 bg-brand-link/10" : "border-brand-ink/10 bg-brand-well"
                       }`}
                     >
-                      <p className="text-[14px] font-semibold text-white">{s.title}</p>
+                      <p className="text-[14px] font-semibold text-brand-ink">{s.title}</p>
                       <p className="mt-1 text-[13px] text-brand-muted">{s.body}</p>
                     </button>
                   ))}
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <Link href="/students/analyzer" className="rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black">
+                    <Link href="/students/analyzer" className="rounded-full bg-brand-ink px-5 py-2.5 text-[13px] font-semibold text-brand-deep">
                       Open analyzer
                     </Link>
-                    <Link href="/students/projects" className="rounded-full border border-white/20 px-5 py-2.5 text-[13px] font-semibold text-white">
+                    <Link href="/students/projects" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink">
                       Project portal
                     </Link>
                   </div>
@@ -246,13 +246,13 @@ export default function AiProjectStudioPage() {
               {tab === "templates" && (
                 <div className="space-y-4">
                   {RESEARCH_TEMPLATES.map((t) => (
-                    <div key={t.id} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <div key={t.id} className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
                       <div className="flex justify-between gap-3">
                         <div>
-                          <p className="text-[14px] font-semibold text-white">{t.name}</p>
+                          <p className="text-[14px] font-semibold text-brand-ink">{t.name}</p>
                           <p className="mt-1 text-[13px] text-brand-muted">{t.blurb}</p>
                         </div>
-                        <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-[#ff8c14]">
+                        <span className="shrink-0 rounded-full bg-brand-ink/10 px-2.5 py-1 text-[11px] font-semibold text-brand-link">
                           {templatePriceLabel(t)}
                         </span>
                       </div>
@@ -271,11 +271,11 @@ export default function AiProjectStudioPage() {
               {error && <p className="mt-4 text-[13px] text-red-400">{error}</p>}
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-black/40 p-6">
+            <div className="rounded-3xl border border-brand-ink/10 bg-brand-well p-6">
               <div className="flex items-center justify-between">
                 <p className="text-[13px] font-semibold uppercase tracking-wider text-brand-muted">Output</p>
                 {output && (
-                  <button type="button" onClick={copyOut} className="rounded-full border border-white/15 px-3 py-1 text-[12px] font-semibold text-white">
+                  <button type="button" onClick={copyOut} className="rounded-full border border-brand-ink/15 px-3 py-1 text-[12px] font-semibold text-brand-ink">
                     {copied ? "Copied" : "Copy"}
                   </button>
                 )}
@@ -289,16 +289,16 @@ export default function AiProjectStudioPage() {
           </div>
 
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
-            <Link href="/students/analyzer" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-[#ff8c14]/40">
-              <p className="text-[15px] font-semibold text-white">Questionnaire analyzer</p>
+            <Link href="/students/analyzer" className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 hover:border-brand-link/40">
+              <p className="text-[15px] font-semibold text-brand-ink">Questionnaire analyzer</p>
               <p className="mt-1 text-[13px] text-brand-muted">CSV → tables + narrative</p>
             </Link>
-            <Link href="/students/citations" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-[#ff8c14]/40">
-              <p className="text-[15px] font-semibold text-white">Citation formatter</p>
+            <Link href="/students/citations" className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 hover:border-brand-link/40">
+              <p className="text-[15px] font-semibold text-brand-ink">Citation formatter</p>
               <p className="mt-1 text-[13px] text-brand-muted">APA · MLA · Chicago · Harvard</p>
             </Link>
-            <Link href="/students/cover-letter" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 hover:border-[#ff8c14]/40">
-              <p className="text-[15px] font-semibold text-white">Cover letter AI</p>
+            <Link href="/students/cover-letter" className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 hover:border-brand-link/40">
+              <p className="text-[15px] font-semibold text-brand-ink">Cover letter AI</p>
               <p className="mt-1 text-[13px] text-brand-muted">Job-ready draft in seconds</p>
             </Link>
           </div>

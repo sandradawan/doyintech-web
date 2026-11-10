@@ -26,7 +26,7 @@ export default function ToolsHubPage() {
           <p className="text-sm font-semibold uppercase tracking-wider text-primary">
             DoyinTech Tools
           </p>
-          <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
+          <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-brand-ink md:text-5xl">
             Free online business tools for invoices, receipts, tax and more
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-brand-muted">
@@ -39,8 +39,8 @@ export default function ToolsHubPage() {
 
           <AllToolsDirectory />
 
-          <section className="mt-16 rounded-3xl border border-white/10 bg-black/30 p-6 md:p-8">
-            <h2 className="font-display text-2xl font-bold text-white">
+          <section className="theme-dark panel-glow mt-16 rounded-[28px] p-6 md:p-8">
+            <h2 className="font-display text-2xl font-bold text-brand-ink">
               Need a website or system built?
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-muted">

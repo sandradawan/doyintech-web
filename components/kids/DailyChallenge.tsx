@@ -59,13 +59,13 @@ export default function DailyChallenge() {
     setTimeout(() => input.current?.focus(), 0);
   };
 
-  if (!day) return <div className="h-80 animate-pulse rounded-3xl bg-white/5" />;
+  if (!day) return <div className="h-80 animate-pulse rounded-3xl bg-brand-ink/5" />;
 
   const share = `I scored ${score}/${items.length} on today's DoyinTech Kids ${task === "maths" ? "maths" : "word"} challenge! Can you beat me? ${SITE}`;
   const played = progress?.today.scores ?? {};
 
   return (
-    <div className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
+    <div className="space-y-5 rounded-3xl border border-brand-ink/10 bg-gradient-to-b from-brand-raised to-brand-surface p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <StreakBar progress={progress} />
         <span className="text-[13px] text-brand-muted">Puzzles for {new Date(day + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}</span>
@@ -78,10 +78,10 @@ export default function DailyChallenge() {
             {([["maths", "🧮", "Maths challenge", "10 sums"], ["words", "🔤", "Word scramble", "5 mixed-up words"]] as const).map(([t, icon, name, desc]) => {
               const best = played[`${t}:${level}`];
               return (
-                <button key={t} type="button" onClick={() => start(t)} className="flex min-h-24 items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 text-left transition hover:border-[#ff8c14]">
+                <button key={t} type="button" onClick={() => start(t)} className="flex min-h-24 items-center gap-4 rounded-2xl border border-brand-ink/10 bg-brand-ink/5 p-4 text-left transition hover:border-brand-link">
                   <span className="text-[40px]" aria-hidden>{icon}</span>
                   <span>
-                    <span className="block text-[18px] font-bold text-white">{name}</span>
+                    <span className="block text-[18px] font-bold text-brand-ink">{name}</span>
                     <span className="block text-[14px] text-brand-muted">{best !== undefined ? `Done today: ${best} right ✓ Play again` : desc}</span>
                   </span>
                 </button>
@@ -94,9 +94,9 @@ export default function DailyChallenge() {
       {task && !done && (
         <div className="text-center">
           <p className="text-[14px] text-brand-muted">Question {i + 1} of {items.length} · Score {score}</p>
-          <div className="mx-auto mt-2 h-2 max-w-sm overflow-hidden rounded-full bg-white/10"><div className="h-full bg-[#ff8c14] transition-all" style={{ width: `${(i / items.length) * 100}%` }} /></div>
+          <div className="mx-auto mt-2 h-2 max-w-sm overflow-hidden rounded-full bg-brand-ink/10"><div className="h-full bg-brand-accent transition-all" style={{ width: `${(i / items.length) * 100}%` }} /></div>
           {items[i].clue && <p className="mt-5 text-[15px] text-sky-300">Clue: {items[i].clue}</p>}
-          <p className="mt-3 text-[44px] font-black tracking-wider text-white sm:text-[56px]">{items[i].prompt}</p>
+          <p className="mt-3 text-[44px] font-black tracking-wider text-brand-ink sm:text-[56px]">{items[i].prompt}</p>
           <form onSubmit={(e) => { e.preventDefault(); if (feedback) next(); else check(); }} className="mx-auto mt-4 flex max-w-sm gap-2">
             <input
               ref={input}
@@ -108,9 +108,9 @@ export default function DailyChallenge() {
               value={guess}
               onChange={(e) => setGuess(e.target.value)}
               disabled={!!feedback}
-              className="min-h-14 w-full rounded-2xl border-2 border-white/20 bg-black/40 px-4 text-center text-[24px] font-bold text-white outline-none focus:border-[#ff8c14]"
+              className="min-h-14 w-full rounded-2xl border-2 border-brand-ink/20 bg-brand-well px-4 text-center text-[24px] font-bold text-brand-ink outline-none focus:border-brand-link"
             />
-            <button type="submit" className="min-h-14 shrink-0 rounded-2xl bg-[#ff8c14] px-5 text-[16px] font-bold text-black">{feedback ? "Next" : "Check"}</button>
+            <button type="submit" className="min-h-14 shrink-0 rounded-2xl bg-brand-accent px-5 text-[16px] font-bold text-black">{feedback ? "Next" : "Check"}</button>
           </form>
           {feedback && (
             <p className={`mt-4 text-[18px] font-bold ${feedback.right ? "text-green-400" : "text-pink-300"}`}>
@@ -123,17 +123,17 @@ export default function DailyChallenge() {
       {done && (
         <div className="text-center">
           <p className="text-[56px]" aria-hidden>{score === items.length ? "🏆" : score >= items.length / 2 ? "🎉" : "💪"}</p>
-          <p className="text-[28px] font-black text-white">{score} out of {items.length}</p>
+          <p className="text-[28px] font-black text-brand-ink">{score} out of {items.length}</p>
           <p className="mt-1 text-[22px]" aria-label={`${Math.round((score / items.length) * 3)} stars`}>{"⭐".repeat(Math.round((score / items.length) * 3)) || "Keep practising!"}</p>
           <p className="mt-3 text-[15px] text-brand-soft">New puzzles every day. Come back tomorrow to keep your streak going!</p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <button type="button" onClick={() => start(task === "maths" ? "words" : "maths")} className="min-h-12 rounded-full bg-[#ff8c14] px-5 text-[15px] font-bold text-black">
+            <button type="button" onClick={() => start(task === "maths" ? "words" : "maths")} className="min-h-12 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-black">
               Try the {task === "maths" ? "word scramble" : "maths challenge"}
             </button>
             <a href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center rounded-full border border-green-400/40 px-5 text-[15px] font-semibold text-green-300">
               Challenge a friend
             </a>
-            <button type="button" onClick={() => setTask(null)} className="min-h-12 rounded-full border border-white/15 px-5 text-[15px] font-semibold text-white">Back</button>
+            <button type="button" onClick={() => setTask(null)} className="min-h-12 rounded-full border border-brand-ink/15 px-5 text-[15px] font-semibold text-brand-ink">Back</button>
           </div>
         </div>
       )}

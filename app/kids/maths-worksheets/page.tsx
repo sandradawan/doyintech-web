@@ -30,10 +30,10 @@ export default function Page() {
       path="/kids/maths-worksheets"
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Which level for which class?</h2>
-        <p className="mt-3"><strong className="text-white">Easy</strong> suits Primary 1–2 (ages 5–7): adding and taking away to 20, 2× to 5× tables.</p>
-        <p className="mt-3"><strong className="text-white">Medium</strong> suits Primary 3–4 (ages 7–9): numbers to 100 and tables to 12 × 12.</p>
-        <p className="mt-3"><strong className="text-white">Hard</strong> suits Primary 5–6 (ages 9–11): numbers into the hundreds and bigger multiplication and division.</p>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Which level for which class?</h2>
+        <p className="mt-3"><strong className="text-brand-ink">Easy</strong> suits Primary 1–2 (ages 5–7): adding and taking away to 20, 2× to 5× tables.</p>
+        <p className="mt-3"><strong className="text-brand-ink">Medium</strong> suits Primary 3–4 (ages 7–9): numbers to 100 and tables to 12 × 12.</p>
+        <p className="mt-3"><strong className="text-brand-ink">Hard</strong> suits Primary 5–6 (ages 9–11): numbers into the hundreds and bigger multiplication and division.</p>
       </section>
     </KidsShell>
   );

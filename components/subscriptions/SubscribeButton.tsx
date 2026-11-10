@@ -63,8 +63,8 @@ export default function SubscribeButton({
   }
 
   const btn = highlight
-    ? "bg-[#ff8c14] text-black hover:bg-[#ffa03a]"
-    : "border border-white/20 text-white hover:border-[#ff8c14]/60";
+    ? "bg-brand-accent text-black hover:bg-brand-accent-hover"
+    : "border border-brand-ink/20 text-brand-ink hover:border-brand-link/60";
 
   return (
     <div className="space-y-2">
@@ -77,7 +77,7 @@ export default function SubscribeButton({
           onKeyDown={(e) => e.key === "Enter" && subscribe()}
           placeholder="Your email"
           aria-label="Email for your membership"
-          className="w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+          className="w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link"
         />
       )}
       <button

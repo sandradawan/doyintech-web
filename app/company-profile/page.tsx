@@ -18,7 +18,7 @@ export default function CompanyProfilePage() {
               <p className="text-sm font-semibold uppercase tracking-wider text-primary">
                 Company Profile
               </p>
-              <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white tracking-tight">
+              <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-brand-ink tracking-tight">
                 Doyin<span className="text-primary">Tech</span>
               </h1>
               <p className="mt-4 text-xl text-brand-muted max-w-xl">
@@ -50,7 +50,7 @@ export default function CompanyProfilePage() {
               </a>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 transition"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold hover:bg-brand-ink/5 transition"
               >
                 Start a Project
               </a>
@@ -59,7 +59,7 @@ export default function CompanyProfilePage() {
 
           {/* Executive Summary */}
           <section className="mt-16">
-            <h2 className="text-2xl font-bold text-white mb-4">
+            <h2 className="text-2xl font-bold text-brand-ink mb-4">
               Executive Summary
             </h2>
             <div className="space-y-4 text-brand-soft leading-relaxed">
@@ -91,7 +91,7 @@ export default function CompanyProfilePage() {
 
           {/* Mission & Vision */}
           <div className="mt-14 grid md:grid-cols-2 gap-8">
-            <section className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <section className="rounded-2xl border border-brand-ink/5 bg-brand-ink/[0.02] p-6">
               <h2 className="text-lg font-bold text-primary mb-3">Mission</h2>
               <p className="text-brand-soft text-sm leading-relaxed">
                 To design and deploy robust, scalable, and secure technology
@@ -100,7 +100,7 @@ export default function CompanyProfilePage() {
                 maintainability.
               </p>
             </section>
-            <section className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <section className="rounded-2xl border border-brand-ink/5 bg-brand-ink/[0.02] p-6">
               <h2 className="text-lg font-bold text-primary mb-3">Vision</h2>
               <p className="text-brand-soft text-sm leading-relaxed">
                 To become a leading African technology engineering firm
@@ -112,7 +112,7 @@ export default function CompanyProfilePage() {
 
           {/* Services */}
           <section className="mt-14">
-            <h2 className="text-2xl font-bold text-white mb-6">Our Services</h2>
+            <h2 className="text-2xl font-bold text-brand-ink mb-6">Our Services</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
                 {
@@ -149,9 +149,9 @@ export default function CompanyProfilePage() {
                 <Link
                   key={s.title}
                   href={s.href}
-                  className="rounded-xl border border-white/5 bg-white/[0.02] p-5 hover:border-primary/40 transition"
+                  className="rounded-xl border border-brand-ink/5 bg-brand-ink/[0.02] p-5 hover:border-primary/40 transition"
                 >
-                  <h3 className="font-semibold text-white">{s.title}</h3>
+                  <h3 className="font-semibold text-brand-ink">{s.title}</h3>
                   <p className="mt-1 text-sm text-brand-muted">{s.desc}</p>
                 </Link>
               ))}
@@ -160,32 +160,32 @@ export default function CompanyProfilePage() {
 
           {/* Selected Work */}
           <section className="mt-14">
-            <h2 className="text-2xl font-bold text-white mb-6">Selected Work</h2>
+            <h2 className="text-2xl font-bold text-brand-ink mb-6">Selected Work</h2>
             <ul className="space-y-4 text-brand-soft">
               <li>
-                <span className="font-semibold text-white">
+                <span className="font-semibold text-brand-ink">
                   Imperial Villa Property Platform
                 </span>
                 <span className="text-brand-subtle"> — </span>
                 Corporate website, client portal & staff management system.
               </li>
               <li>
-                <span className="font-semibold text-white">DoyinMart</span>
+                <span className="font-semibold text-brand-ink">DoyinMart</span>
                 <span className="text-brand-subtle"> — </span>
                 African software marketplace for digital products.
               </li>
               <li>
-                <span className="font-semibold text-white">LegacyPlay</span>
+                <span className="font-semibold text-brand-ink">LegacyPlay</span>
                 <span className="text-brand-subtle"> — </span>
                 Premium PlayStation gaming lounge website.
               </li>
               <li>
-                <span className="font-semibold text-white">JennyGlams</span>
+                <span className="font-semibold text-brand-ink">JennyGlams</span>
                 <span className="text-brand-subtle"> — </span>
                 Portfolio & booking site for makeup artistry.
               </li>
               <li>
-                <span className="font-semibold text-white">Arqademy CBT</span>
+                <span className="font-semibold text-brand-ink">Arqademy CBT</span>
                 <span className="text-brand-subtle"> — </span>
                 Computer-based testing platform for education.
               </li>
@@ -199,7 +199,7 @@ export default function CompanyProfilePage() {
           </section>
 
           {/* Registration */}
-          <section className="mt-14 rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+          <section className="mt-14 rounded-2xl border border-brand-ink/5 bg-brand-ink/[0.02] p-6">
             <h2 className="text-lg font-bold text-primary mb-4">
               Business Registration
             </h2>
@@ -238,13 +238,13 @@ export default function CompanyProfilePage() {
               href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%27d%20like%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 transition"
+              className="px-6 py-3.5 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold hover:bg-brand-ink/5 transition"
             >
               WhatsApp Us
             </a>
             <Link
               href="/contact"
-              className="px-6 py-3.5 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 transition"
+              className="px-6 py-3.5 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold hover:bg-brand-ink/5 transition"
             >
               Contact Form
             </Link>

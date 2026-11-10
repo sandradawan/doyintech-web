@@ -16,18 +16,18 @@ const GROUPS: { category: ToolMeta["category"]; heading: string }[] = [
 export default function AllToolsDirectory() {
   return (
     <section aria-labelledby="all-tools-heading" className="section-light band">
-      <h2 id="all-tools-heading" className="font-display text-2xl font-bold text-white">All {TOOLS_META.length} tools</h2>
+      <h2 id="all-tools-heading" className="font-display text-2xl font-bold text-brand-ink">All {TOOLS_META.length} tools</h2>
       <div className="mt-6 grid gap-8 md:grid-cols-2">
         {GROUPS.map(({ category, heading }) => {
           const tools = TOOLS_META.filter((t) => t.category === category);
           if (!tools.length) return null;
           return (
             <div key={category}>
-              <h3 className="text-[17px] font-semibold text-white">{heading}</h3>
+              <h3 className="text-[17px] font-semibold text-brand-ink">{heading}</h3>
               <ul className="mt-2 grid gap-x-4 sm:grid-cols-2">
                 {tools.map((t) => (
                   <li key={t.href}>
-                    <Link href={t.href} className="inline-flex min-h-10 items-center text-[14px] text-brand-soft hover:text-white hover:underline">{t.title}</Link>
+                    <Link href={t.href} className="inline-flex min-h-10 items-center text-[14px] text-brand-soft hover:text-brand-ink hover:underline">{t.title}</Link>
                   </li>
                 ))}
               </ul>

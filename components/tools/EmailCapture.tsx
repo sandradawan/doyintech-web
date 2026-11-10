@@ -65,7 +65,7 @@ export default function EmailCapture({
   if (status === "ok") {
     return (
       <div className="rounded-2xl border border-[#25D366]/40 bg-[#25D366]/10 p-6 text-center">
-        <p className="text-[16px] font-semibold text-white">You’re in.</p>
+        <p className="text-[16px] font-semibold text-brand-ink">You’re in.</p>
         <p className="mt-2 text-[14px] text-brand-muted">
           {downloadHref
             ? "Your download should open in a new tab. Check spam if the email tip doesn’t land."
@@ -75,13 +75,13 @@ export default function EmailCapture({
           <a
             href={downloadHref}
             download
-            className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+            className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
           >
             {downloadLabel}
           </a>
         )}
         <div className="mt-4 flex flex-wrap justify-center gap-3 text-[13px]">
-          <a href="/products" className="text-[#ff8c14] hover:underline">
+          <a href="/products" className="text-brand-link hover:underline">
             Browse kits
           </a>
           <a href="/hire" className="text-brand-link hover:underline">
@@ -95,12 +95,12 @@ export default function EmailCapture({
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-2xl border border-white/10 bg-brand-surface p-6"
+      className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6"
     >
-      <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+      <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
         Free · email list
       </p>
-      <h3 className="mt-2 text-[18px] font-semibold text-white">{title}</h3>
+      <h3 className="mt-2 text-[18px] font-semibold text-brand-ink">{title}</h3>
       <p className="mt-1 text-[13px] text-brand-muted">{subtitle}</p>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -111,7 +111,7 @@ export default function EmailCapture({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="First name"
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+            className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
           />
         </label>
         <label className="block text-[12px] font-medium text-brand-ink">
@@ -122,7 +122,7 @@ export default function EmailCapture({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@business.com"
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+            className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
           />
         </label>
       </div>
@@ -141,7 +141,7 @@ export default function EmailCapture({
       <button
         type="submit"
         disabled={status === "loading"}
-        className="mt-4 w-full rounded-full bg-[#ff8c14] py-3 text-[14px] font-semibold text-black disabled:opacity-60"
+        className="mt-4 w-full rounded-full bg-brand-accent py-3 text-[14px] font-semibold text-black disabled:opacity-60"
       >
         {status === "loading" ? "Saving…" : ctaLabel}
       </button>

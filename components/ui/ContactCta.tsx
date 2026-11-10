@@ -26,7 +26,7 @@ export default function ContactCta({
       <div className={`flex flex-col gap-2 sm:flex-row ${className}`}>
         <a
           href={emailLink(emailSubject)}
-          className="inline-flex flex-1 items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-brand-ink transition hover:bg-white/5"
+          className="inline-flex flex-1 items-center justify-center rounded-full border border-brand-ink/20 px-5 py-3 text-sm font-semibold text-brand-ink transition hover:bg-brand-ink/5"
         >
           Email us
         </a>
@@ -44,14 +44,14 @@ export default function ContactCta({
 
   return (
     <div
-      className={`rounded-2xl border border-white/10 bg-black/30 p-5 md:p-6 ${className}`}
+      className={`rounded-2xl border border-brand-ink/10 bg-brand-well p-5 md:p-6 ${className}`}
     >
-      <h3 className="font-display text-lg font-bold text-white">{title}</h3>
+      <h3 className="font-display text-lg font-bold text-brand-ink">{title}</h3>
       <p className="mt-1 text-sm text-brand-muted">{subtitle}</p>
       <div className="mt-5 flex flex-col gap-2 sm:flex-row">
         <a
           href={emailLink(emailSubject)}
-          className="inline-flex flex-1 items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-brand-ink transition hover:bg-white/5"
+          className="inline-flex flex-1 items-center justify-center rounded-full border border-brand-ink/20 px-5 py-3 text-sm font-semibold text-brand-ink transition hover:bg-brand-ink/5"
         >
           Email us
         </a>

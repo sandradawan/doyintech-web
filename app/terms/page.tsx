@@ -10,47 +10,47 @@ export default function TermsPage() {
     <>
       <main className="pt-32 pb-24">
         <div className="max-w-3xl mx-auto px-6 prose prose-invert prose-headings:font-display">
-          <h1 className="font-display text-4xl font-bold text-white">Terms of Service</h1>
+          <h1 className="font-display text-4xl font-bold text-brand-ink">Terms of Service</h1>
           <p className="text-brand-muted mt-4">Last updated: August 2026</p>
 
           <div className="mt-10 space-y-8 text-brand-soft leading-relaxed">
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">1. Services</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">1. Services</h2>
               <p>
                 DoyinTech provides software development, system architecture, API development, and related consulting services. Specific deliverables, timelines and pricing are agreed in writing for each project.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">2. Client Responsibilities</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">2. Client Responsibilities</h2>
               <p>
                 Clients agree to provide timely feedback, necessary access, and accurate information required for the successful delivery of the project.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">3. Intellectual Property</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">3. Intellectual Property</h2>
               <p>
                 Upon full payment, the client owns the custom code and deliverables created specifically for the project, excluding any pre-existing tools, libraries or frameworks used by DoyinTech.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">4. Limitation of Liability</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">4. Limitation of Liability</h2>
               <p>
                 DoyinTech shall not be liable for any indirect, incidental or consequential damages arising from the use of our services or deliverables.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">5. Community</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">5. Community</h2>
               <p>
                 You must be 18 or over to post in the DoyinTech Community. You are responsible for what you post and must follow the community rules. By posting, you allow us to show your post on this website. We check posts before publishing and may refuse or remove any post. Posts are members&apos; own opinions, not advice from DoyinTech.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-white mb-3">6. Contact</h2>
+              <h2 className="text-xl font-bold text-brand-ink mb-3">6. Contact</h2>
               <p>
                 For questions regarding these terms, contact us at{" "}
                 <a href="mailto:hello@doyintech.com" className="text-primary hover:underline">

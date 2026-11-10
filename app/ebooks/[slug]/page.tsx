@@ -97,7 +97,7 @@ export default async function EbookDetailPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
-          <Link href="/ebooks" className="text-[14px] text-[#ff8c14] hover:underline">
+          <Link href="/ebooks" className="text-[14px] text-brand-link hover:underline">
             ← All ebooks
           </Link>
 
@@ -107,11 +107,11 @@ export default async function EbookDetailPage({ params }: Props) {
             </div>
             <div>
               {book.badge && (
-                <span className="rounded-full bg-[#ff8c14]/15 px-2.5 py-1 text-[11px] font-semibold text-[#ff8c14]">
+                <span className="rounded-full bg-brand-link/15 px-2.5 py-1 text-[11px] font-semibold text-brand-link">
                   {book.badge}
                 </span>
               )}
-              <h1 className="mt-3 text-[30px] font-semibold tracking-tight text-white sm:text-[36px]">
+              <h1 className="mt-3 text-[30px] font-semibold tracking-tight text-brand-ink sm:text-[36px]">
                 {book.title}
               </h1>
               <p className="mt-2 text-[16px] text-brand-muted">{book.subtitle}</p>
@@ -122,8 +122,8 @@ export default async function EbookDetailPage({ params }: Props) {
               <p className="mt-6 text-[15px] leading-relaxed text-brand-soft">{book.blurb}</p>
               <ul className="mt-6 space-y-2">
                 {book.benefits.map((b) => (
-                  <li key={b} className="flex gap-2 text-[14px] text-white">
-                    <span className="text-[#ff8c14]">✓</span> {b}
+                  <li key={b} className="flex gap-2 text-[14px] text-brand-ink">
+                    <span className="text-brand-link">✓</span> {b}
                   </li>
                 ))}
               </ul>
@@ -134,7 +134,7 @@ export default async function EbookDetailPage({ params }: Props) {
             <div>
               {found.chapters.length > 0 && (
                 <section aria-labelledby="contents-heading" className="mb-10">
-                  <h2 id="contents-heading" className="text-[22px] font-semibold text-white">What&apos;s inside</h2>
+                  <h2 id="contents-heading" className="text-[22px] font-semibold text-brand-ink">What&apos;s inside</h2>
                   <ol className="mt-3 space-y-1.5 text-[15px] text-brand-soft">
                     {found.chapters.map((ch) => <li key={ch.title}>{ch.title}</li>)}
                   </ol>

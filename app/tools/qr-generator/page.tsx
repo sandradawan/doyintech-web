@@ -62,42 +62,42 @@ export default function QrGeneratorPage() {
       newsletterSource="qr-generator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Point your QR code at a shop that takes orders</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Point your QR code at a shop that takes orders</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             A QR code on your counter, packaging or flyer works best when it opens somewhere customers can buy. Open a{" "}
-            <Link href="/stores" className="text-[#ff8c14] hover:underline">
+            <Link href="/stores" className="text-brand-link hover:underline">
               free DoyinTech shop
             </Link>{" "}
             with your products and prices, then make a QR code for your shop link.
           </p>
-          <Link href="/stores" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <Link href="/stores" className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             Open my free shop
           </Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Where businesses use QR codes</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Where businesses use QR codes</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>
-            <strong className="text-white">Restaurants and cafés:</strong> a menu or order link on every table.
+            <strong className="text-brand-ink">Restaurants and cafés:</strong> a menu or order link on every table.
           </li>
           <li>
-            <strong className="text-white">Shops and market stalls:</strong> a WhatsApp code so customers can message you later.
+            <strong className="text-brand-ink">Shops and market stalls:</strong> a WhatsApp code so customers can message you later.
           </li>
           <li>
-            <strong className="text-white">Hotels, salons and offices:</strong> Wi-Fi codes so guests stop asking for the password.
+            <strong className="text-brand-ink">Hotels, salons and offices:</strong> Wi-Fi codes so guests stop asking for the password.
           </li>
           <li>
-            <strong className="text-white">Business cards and flyers:</strong> a contact card that saves your number in one scan.
+            <strong className="text-brand-ink">Business cards and flyers:</strong> a contact card that saves your number in one scan.
           </li>
           <li>
-            <strong className="text-white">Invoices and receipts:</strong> a link to pay online or to leave a review.
+            <strong className="text-brand-ink">Invoices and receipts:</strong> a link to pay online or to leave a review.
           </li>
         </ul>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Tips so every scan works</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Tips so every scan works</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5">
           <li>Keep strong contrast: a dark code on a light background.</li>
           <li>Leave the white border around the code; scanners need it.</li>

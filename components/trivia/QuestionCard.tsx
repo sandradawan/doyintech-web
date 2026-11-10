@@ -49,27 +49,27 @@ export default function QuestionCard({
         <span>{label} · {q.cat}</span>
         <span className={`font-bold ${choice === null && left <= 5 ? "text-pink-300" : "text-sky-300"}`}>⏱ {Math.max(left, 0)}s</span>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-brand-ink/10">
         <div className="h-full bg-sky-400 transition-all duration-1000 ease-linear" style={{ width: `${(Math.max(left, 0) / SECONDS_PER_QUESTION) * 100}%` }} />
       </div>
-      <p className="mt-5 text-[21px] font-semibold leading-snug text-white sm:text-[24px]">{q.q}</p>
+      <p className="mt-5 text-[21px] font-semibold leading-snug text-brand-ink sm:text-[24px]">{q.q}</p>
       <div className="mt-5 grid gap-2 sm:grid-cols-2">
         {q.shuffled.map((opt, k) => {
-          const state = choice === null ? "" : k === q.correct ? "border-green-400 bg-green-400/15 text-white" : k === choice ? "border-pink-400 bg-pink-400/15 text-white" : "opacity-50";
+          const state = choice === null ? "" : k === q.correct ? "border-green-400 bg-green-400/15 text-brand-ink" : k === choice ? "border-pink-400 bg-pink-400/15 text-brand-ink" : "opacity-50";
           return (
-            <button key={k} type="button" disabled={choice !== null} onClick={() => answer(k)} className={`min-h-14 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-left text-[16px] text-[#e5e7eb] transition enabled:hover:border-[#ff8c14] ${state}`}>
+            <button key={k} type="button" disabled={choice !== null} onClick={() => answer(k)} className={`min-h-14 rounded-2xl border border-brand-ink/15 bg-brand-ink/5 px-4 py-3 text-left text-[16px] text-[#e5e7eb] transition enabled:hover:border-brand-link ${state}`}>
               {opt}
             </button>
           );
         })}
       </div>
       {choice !== null && (
-        <div className="mt-4 rounded-2xl bg-black/30 p-4" aria-live="polite">
+        <div className="mt-4 rounded-2xl bg-brand-well p-4" aria-live="polite">
           <p className={`text-[16px] font-bold ${choice === q.correct ? "text-green-400" : "text-pink-300"}`}>
             {choice === q.correct ? "Correct!" : choice === -1 ? `Time's up! It's ${q.shuffled[q.correct]}.` : `It's ${q.shuffled[q.correct]}.`}
           </p>
           <p className="mt-1 text-[15px] leading-relaxed text-brand-soft">{q.fact}</p>
-          <button type="button" autoFocus onClick={onNext} className="mt-3 min-h-11 rounded-full bg-[#ff8c14] px-5 text-[15px] font-semibold text-black">{nextLabel}</button>
+          <button type="button" autoFocus onClick={onNext} className="mt-3 min-h-11 rounded-full bg-brand-accent px-5 text-[15px] font-semibold text-black">{nextLabel}</button>
         </div>
       )}
     </div>

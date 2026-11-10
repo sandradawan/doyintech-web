@@ -47,7 +47,7 @@ export default function ServicesPage() {
                       {s.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] text-brand-muted"
+                          className="rounded-full bg-brand-ink/10 px-2.5 py-0.5 text-[11px] text-brand-muted"
                         >
                           {tag}
                         </span>
@@ -67,7 +67,7 @@ export default function ServicesPage() {
           </div>
 
           <ScrollReveal direction="up" delay={0.05}>
-            <div className="mt-16 rounded-[28px] bg-brand-surface px-8 py-14 text-center sm:px-12">
+            <div className="theme-dark panel-glow mt-16 rounded-[28px] px-8 py-14 text-center sm:px-12">
               <h2 className="text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
                 Not sure where to start?
               </h2>

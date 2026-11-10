@@ -37,7 +37,7 @@ export default function Packages() {
                 }`}
               >
                 {pkg.badge && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-[#ff8c14] px-3 py-1 text-[11px] font-semibold text-black">
+                  <span className="absolute -top-3 left-6 rounded-full bg-brand-accent px-3 py-1 text-[11px] font-semibold text-black">
                     {pkg.badge}
                   </span>
                 )}
@@ -76,8 +76,8 @@ export default function Packages() {
                   rel="noopener noreferrer"
                   className={`mt-6 inline-flex w-full items-center justify-center rounded-full py-3 text-[14px] font-medium transition ${
                     pkg.featured
-                      ? "bg-[#ff8c14] text-black hover:bg-[#ffa03a]"
-                      : "border border-white/20 text-brand-ink hover:bg-white/5"
+                      ? "bg-brand-accent text-black hover:bg-brand-accent-hover"
+                      : "border border-brand-ink/20 text-brand-ink hover:bg-brand-ink/5"
                   }`}
                 >
                   {pkg.ctaLabel}
@@ -88,7 +88,7 @@ export default function Packages() {
         </div>
 
         <ScrollReveal direction="up" delay={0.1}>
-          <div className="mt-8 flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/10 bg-brand-surface p-8 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col items-start justify-between gap-6 theme-dark panel-glow rounded-[28px] p-8 sm:flex-row sm:items-center">
             <div>
               <h3 className="text-[22px] font-semibold text-brand-ink">
                 {MAINTENANCE.name}
@@ -117,7 +117,7 @@ export default function Packages() {
         <div className="mt-10 flex flex-col items-center gap-4 text-center">
           <a
             href="/hire"
-            className="inline-flex items-center justify-center rounded-full bg-[#ff8c14] px-8 py-3.5 text-[16px] font-semibold text-black transition hover:brightness-110"
+            className="inline-flex items-center justify-center rounded-full bg-brand-accent px-8 py-3.5 text-[16px] font-semibold text-black transition hover:brightness-110"
           >
             Hire — pay 50% deposit online
           </a>

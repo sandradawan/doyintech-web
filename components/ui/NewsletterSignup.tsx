@@ -52,7 +52,7 @@ export default function NewsletterSignup({ source = "footer" }: { source?: strin
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@email.com"
           aria-label="Email address"
-          className="min-w-0 flex-1 rounded-full border border-white/15 bg-black/40 px-4 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]"
+          className="min-w-0 flex-1 rounded-full border border-brand-ink/15 bg-brand-well px-4 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link"
         />
         <input
           type="text"
@@ -66,7 +66,7 @@ export default function NewsletterSignup({ source = "footer" }: { source?: strin
         <button
           type="submit"
           disabled={state === "busy"}
-          className="shrink-0 rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60"
+          className="shrink-0 rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black disabled:opacity-60"
         >
           {state === "busy" ? "Joining…" : "Join"}
         </button>

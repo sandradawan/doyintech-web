@@ -62,16 +62,16 @@ export default function OpsWeeklyReport({ ws }: { ws: OpsWorkspace }) {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-white">Weekly report</h3>
-          <p className="text-[11px] text-white/40">{range.label}</p>
+          <h3 className="text-sm font-semibold text-brand-ink">Weekly report</h3>
+          <p className="text-[11px] text-brand-ink/40">{range.label}</p>
         </div>
         <button
           type="button"
           onClick={printReport}
-          className="rounded-lg bg-[#ff8c14] px-4 py-2 text-xs font-semibold text-black"
+          className="rounded-lg bg-brand-accent px-4 py-2 text-xs font-semibold text-black"
         >
           Print / PDF
         </button>
@@ -84,9 +84,9 @@ export default function OpsWeeklyReport({ ws }: { ws: OpsWorkspace }) {
           ["Paid (week)", formatNgn(paidSum)],
           ["Open tasks", String(openTasks.length)],
         ].map(([l, v]) => (
-          <div key={l} className="rounded-xl border border-white/[0.06] bg-brand-deep/80 p-3">
-            <p className="text-[10px] uppercase tracking-wide text-white/40">{l}</p>
-            <p className="mt-1 text-lg font-semibold text-white">{v}</p>
+          <div key={l} className="rounded-xl border border-brand-ink/[0.06] bg-brand-deep/80 p-3">
+            <p className="text-[10px] uppercase tracking-wide text-brand-ink/40">{l}</p>
+            <p className="mt-1 text-lg font-semibold text-brand-ink">{v}</p>
           </div>
         ))}
       </div>

@@ -24,7 +24,7 @@ export default function ReportDocument({
       <div className="no-print sticky top-0 z-20 border-b border-white/10 bg-black/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-[820px] flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-wider text-[#ff8c14]">
+            <p className="text-[11px] font-medium uppercase tracking-wider text-brand-link">
               DoyinTech Report Studio
             </p>
             <p className="text-[13px] text-brand-muted">
@@ -35,13 +35,13 @@ export default function ReportDocument({
             <button
               type="button"
               onClick={() => window.print()}
-              className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black shadow-lg shadow-orange-500/20 transition hover:brightness-110"
+              className="rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black shadow-lg shadow-orange-500/20 transition hover:brightness-110"
             >
               Download PDF
             </button>
             <a
               href="/reports"
-              className="rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-medium text-white transition hover:border-white/30"
+              className="rounded-full border border-brand-ink/15 px-4 py-2.5 text-[13px] font-medium text-brand-ink transition hover:border-brand-ink/30"
             >
               Order another
             </a>
@@ -50,32 +50,32 @@ export default function ReportDocument({
       </div>
 
       <article className="report-doc mx-auto max-w-[820px] bg-white text-[#1a1a1a]">
-        <div className="report-cover bg-gradient-to-br from-brand-deep via-brand-surface to-brand-deep px-8 py-12 text-white sm:px-12 sm:py-14">
+        <div className="report-cover bg-gradient-to-br from-brand-deep via-brand-surface to-brand-deep px-8 py-12 text-brand-ink sm:px-12 sm:py-14">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ff8c14]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-link">
                 DoyinTech · Report Studio
               </p>
               <h1 className="mt-3 max-w-xl text-[26px] font-semibold leading-tight tracking-tight sm:text-[32px]">
                 {report.title}
               </h1>
-              <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-white/70">
+              <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-brand-ink/70">
                 {report.subtitle}
               </p>
             </div>
-            <div className="hidden shrink-0 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-right sm:block">
-              <p className="text-[10px] uppercase tracking-wider text-white/40">Order</p>
-              <p className="font-mono text-[12px] text-white/90">{orderId}</p>
+            <div className="hidden shrink-0 rounded-xl border border-brand-ink/10 bg-brand-ink/5 px-3 py-2 text-right sm:block">
+              <p className="text-[10px] uppercase tracking-wider text-brand-ink/40">Order</p>
+              <p className="font-mono text-[12px] text-brand-ink/90">{orderId}</p>
             </div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 border-t border-white/10 pt-6 text-[13px] text-white/60">
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 border-t border-brand-ink/10 pt-6 text-[13px] text-brand-ink/60">
             <span>
-              <span className="text-white/40">Prepared for </span>
-              <span className="font-medium text-white">{report.customerName}</span>
+              <span className="text-brand-ink/40">Prepared for </span>
+              <span className="font-medium text-brand-ink">{report.customerName}</span>
             </span>
             {date && (
               <span>
-                <span className="text-white/40">Date </span>
+                <span className="text-brand-ink/40">Date </span>
                 {date}
               </span>
             )}
@@ -85,7 +85,7 @@ export default function ReportDocument({
               {report.platformsReviewed.map((pl) => (
                 <span
                   key={pl.url}
-                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-white/80"
+                  className="rounded-full border border-brand-ink/15 bg-brand-ink/5 px-3 py-1 text-[11px] text-brand-ink/80"
                 >
                   {pl.platform}
                 </span>
@@ -120,7 +120,7 @@ export default function ReportDocument({
             {report.sections.map((section, idx) => (
               <section key={section.title} className="report-section">
                 <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[12px] font-medium text-[#ff8c14]">
+                  <span className="font-mono text-[12px] font-medium text-brand-link">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <h2 className="text-[18px] font-semibold tracking-tight text-neutral-900">
@@ -139,7 +139,7 @@ export default function ReportDocument({
                         key={b}
                         className="flex gap-3 text-[14px] leading-relaxed text-neutral-700"
                       >
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ff8c14]" />
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent" />
                         <span>{b}</span>
                       </li>
                     ))}
@@ -151,7 +151,7 @@ export default function ReportDocument({
             {report.actionPlan && report.actionPlan.length > 0 && (
               <section>
                 <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[12px] font-medium text-[#ff8c14]">
+                  <span className="font-mono text-[12px] font-medium text-brand-link">
                     {String(report.sections.length + 1).padStart(2, "0")}
                   </span>
                   <h2 className="text-[18px] font-semibold tracking-tight text-neutral-900">
@@ -167,7 +167,7 @@ export default function ReportDocument({
                       key={w.week}
                       className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5"
                     >
-                      <p className="text-[11px] font-semibold uppercase tracking-wider text-[#ff8c14]">
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-brand-link">
                         {w.week}
                       </p>
                       {w.focus && (
@@ -181,7 +181,7 @@ export default function ReportDocument({
                             key={t}
                             className="flex gap-2 text-[13px] leading-relaxed text-neutral-700"
                           >
-                            <span className="text-[#ff8c14]">→</span>
+                            <span className="text-brand-link">→</span>
                             <span>{t}</span>
                           </li>
                         ))}
@@ -193,7 +193,7 @@ export default function ReportDocument({
             )}
           </div>
 
-          <div className="mt-14 rounded-2xl border border-[#ff8c14]/25 bg-[#fff8f0] p-6">
+          <div className="mt-14 rounded-2xl border border-brand-link/25 bg-[#fff8f0] p-6">
             <p className="text-[15px] font-semibold text-neutral-900">
               Next step with DoyinTech
             </p>

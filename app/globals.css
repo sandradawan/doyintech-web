@@ -2,28 +2,36 @@
 
 /* Brand colours: deep green, white, orange and black. Change them here and the whole site follows. */
 @theme {
-  --color-brand-deepest: #041f17;
-  --color-brand-deep: #06291f;
-  --color-brand-surface: #0b3a2c;
-  --color-brand-raised: #114a39;
-  --color-brand-ink: #ffffff;
-  --color-brand-soft: #e4f0ea;
-  --color-brand-muted: #bdd4c9;
-  --color-brand-subtle: #9cbcae;
-  --color-brand-link: #ffa64d;
+  /* Light body by default. Dark areas (header, hero, panels, footer) switch these in .theme-dark below. */
+  --color-brand-deepest: #e9eee9;
+  --color-brand-deep: #f4f6f4;
+  --color-brand-surface: #ffffff;
+  --color-brand-raised: #eaf0ea;
+  --color-brand-ink: #0b2a1c;
+  --color-brand-soft: #24443a;
+  --color-brand-muted: #4a6359;
+  --color-brand-subtle: #4d665b;
+  --color-brand-link: #2e7d12;
+  --color-brand-accent: #a3e635;
+  --color-brand-accent-hover: #b7f04f;
+  --color-brand-well: rgba(11, 42, 28, 0.05);
+  --color-primary: #2e7d12;
+  --color-accent: #a3e635;
+  --color-surface: #ffffff;
+  --color-background: #f4f6f4;
 }
 
 :root {
-  --apple-bg: #06291f;
-  --apple-surface: #0b3a2c;
-  --apple-elevated: #114a39;
-  --apple-ink: #f6faf8;
-  --apple-muted: #b5cdc2;
-  --apple-blue: #ffa64d;
-  --apple-blue-solid: #ff8c14;
-  --apple-accent: #ff8c14;
-  --apple-hairline: rgba(255, 255, 255, 0.12);
-  --apple-nav: rgba(4, 31, 23, 0.84);
+  --apple-bg: #f4f6f4;
+  --apple-surface: #ffffff;
+  --apple-elevated: #eaf0ea;
+  --apple-ink: #0b2a1c;
+  --apple-muted: #4a6359;
+  --apple-blue: #2e7d12;
+  --apple-blue-solid: #a3e635;
+  --apple-accent: #2e7d12;
+  --apple-hairline: rgba(11, 42, 28, 0.12);
+  --apple-nav: rgba(4, 22, 13, 0.9);
   --glass-bg: rgba(255, 255, 255, 0.07);
   --glass-border: rgba(255, 255, 255, 0.16);
   --glass-highlight: rgba(255, 255, 255, 0.14);
@@ -58,7 +66,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(255, 140, 20, 0.35);
+  background-color: rgba(163, 230, 53, 0.35);
   color: #fff;
 }
 
@@ -125,7 +133,7 @@ body {
 
 .apple-link:hover {
   background-size: 100% 1.5px;
-  color: #ffb366;
+  color: #b7f04f;
 }
 
 .footer-link {
@@ -165,18 +173,18 @@ body {
 }
 
 .apple-btn-primary:hover {
-  background: #ffa03a;
-  box-shadow: 0 8px 28px rgba(255, 140, 20, 0.35);
+  background: #b7f04f;
+  box-shadow: 0 8px 28px rgba(163, 230, 53, 0.35);
 }
 
 .apple-btn-secondary {
   background: transparent;
   color: var(--apple-blue);
-  border: 1px solid rgba(255, 140, 20, 0.55);
+  border: 1px solid rgba(163, 230, 53, 0.55);
 }
 
 .apple-btn-secondary:hover {
-  background: rgba(255, 140, 20, 0.12);
+  background: rgba(163, 230, 53, 0.12);
   border-color: var(--apple-blue);
 }
 
@@ -223,9 +231,9 @@ body {
 .pro-card:hover,
 .glass-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 140, 20, 0.28);
+  border-color: rgba(163, 230, 53, 0.28);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 140, 20, 0.08);
+    0 0 0 1px rgba(163, 230, 53, 0.08);
 }
 
 .pro-card::before {
@@ -283,12 +291,12 @@ body {
   font-weight: 500;
   transition: background 0.2s ease, box-shadow 0.25s ease,
     transform 0.2s var(--ease-out-soft);
-  box-shadow: 0 4px 16px rgba(255, 140, 20, 0.25);
+  box-shadow: 0 4px 16px rgba(163, 230, 53, 0.25);
 }
 
 .btn-primary:hover {
-  background: #ffa03a;
-  box-shadow: 0 8px 28px rgba(255, 140, 20, 0.4);
+  background: #b7f04f;
+  box-shadow: 0 8px 28px rgba(163, 230, 53, 0.4);
   transform: translateY(-1px);
 }
 
@@ -628,135 +636,237 @@ body {
 }
 
 /* Brand finish */
-/* Smooth page background: soft green and orange light behind everything, so glass has depth. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(58rem 38rem at 10% -8%, rgba(46, 160, 120, 0.3), transparent 62%),
-    radial-gradient(46rem 34rem at 96% 18%, rgba(255, 140, 20, 0.11), transparent 62%),
-    radial-gradient(60rem 42rem at 50% 112%, rgba(30, 128, 96, 0.32), transparent 62%),
-    linear-gradient(180deg, #07352a 0%, #052219 100%);
+/* ------------------------------------------------------------------
+   Light body, dark green header areas, lime accent.
+   ------------------------------------------------------------------ */
+html {
+  scrollbar-color: rgba(11, 42, 28, 0.3) #f4f6f4;
 }
-main.bg-brand-deep,
-section.bg-brand-deep,
-.apple-section-black {
-  background-color: transparent;
+body {
+  background-color: var(--color-brand-deep);
+  color: var(--color-brand-ink);
+}
+::-webkit-scrollbar-track {
+  background: #f4f6f4;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(11, 42, 28, 0.28);
+}
+::selection {
+  background-color: rgba(163, 230, 53, 0.45);
+  color: #0b2a1c;
+}
+:focus-visible {
+  outline-color: var(--color-brand-link);
 }
 
-/* Headings and body copy follow the theme, so they also work on white sections. */
+/* Dark areas. Anything with a solid dark background becomes one automatically, so its text turns white. */
+.theme-dark,
+.bg-black,
+[class*="bg-black/6"],
+[class*="bg-black/7"],
+[class*="bg-black/8"],
+[class*="bg-black/9"],
+.bg-slate-900,
+.bg-slate-950,
+.bg-gray-900,
+.bg-gray-950,
+.bg-neutral-900,
+.bg-neutral-950,
+.bg-zinc-900,
+.bg-zinc-950 {
+  --color-brand-deepest: #03130b;
+  --color-brand-deep: #061c11;
+  --color-brand-surface: #0d2c1c;
+  --color-brand-raised: #143a28;
+  --color-brand-ink: #ffffff;
+  --color-brand-soft: #e4f0ea;
+  --color-brand-muted: #bdd4c9;
+  --color-brand-subtle: #9cbcae;
+  --color-brand-link: #a3e635;
+  --color-brand-well: rgba(0, 0, 0, 0.3);
+  --color-primary: #a3e635;
+  --apple-blue: #a3e635;
+  --apple-accent: #a3e635;
+  --apple-hairline: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --tone-green: #6ee7b7;
+  --tone-amber: #fcd34d;
+  --tone-red: #fca5a5;
+  --tone-blue: #93c5fd;
+  --tone-purple: #c4b5fd;
+  color: var(--color-brand-ink);
+}
+:root {
+  --glass-border: rgba(11, 42, 28, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --tone-green: #047857;
+  --tone-amber: #92400e;
+  --tone-red: #b91c1c;
+  --tone-blue: #1d4ed8;
+  --tone-purple: #6d28d9;
+}
+/* A dark panel: deep green with a soft lime and emerald glow, as on the hero. */
+.theme-dark.panel-glow,
+.theme-dark .panel-glow {
+  background:
+    radial-gradient(40rem 26rem at 88% 0%, rgba(163, 230, 53, 0.14), transparent 62%),
+    radial-gradient(44rem 30rem at 0% 100%, rgba(34, 139, 104, 0.3), transparent 62%),
+    linear-gradient(160deg, #0a2b1a 0%, #04160c 100%);
+}
+
+/* Pale status and grey text was written for dark backgrounds; give it readable tones on light. */
+:is(.text-emerald-200, .text-emerald-300, .text-emerald-400, .text-green-200, .text-green-300, .text-green-400, .text-teal-300, .text-teal-400, .text-lime-300, .text-lime-400, .text-\[\#25d366\], .text-\[\#25D366\], .text-\[\#3ddc97\], .text-\[\#4ade80\], .text-\[\#a8f0cf\]) {
+  color: var(--tone-green);
+}
+:is(.text-amber-100, .text-amber-200, .text-amber-300, .text-amber-400, .text-yellow-200, .text-yellow-300, .text-yellow-400, .text-orange-200, .text-orange-300, .text-orange-400) {
+  color: var(--tone-amber);
+}
+:is(.text-red-200, .text-red-300, .text-red-400, .text-rose-200, .text-rose-300, .text-rose-400, .text-pink-300, .text-pink-400, .text-\[\#ff6b6b\], .text-\[\#ff8a8a\], .text-\[\#ffb3b3\]) {
+  color: var(--tone-red);
+}
+:is(.text-sky-100, .text-sky-200, .text-sky-300, .text-sky-400, .text-blue-200, .text-blue-300, .text-blue-400, .text-cyan-300, .text-cyan-400, .text-indigo-300, .text-indigo-400) {
+  color: var(--tone-blue);
+}
+:is(.text-purple-300, .text-purple-400, .text-violet-300, .text-violet-400, .text-fuchsia-300) {
+  color: var(--tone-purple);
+}
+:is(.text-gray-100, .text-gray-200, .text-\[\#e5e5ea\], .text-\[\#e5e7eb\]) {
+  color: var(--color-brand-ink);
+}
+:is(.text-gray-300, .text-\[\#bbb\], .text-\[\#94a3b8\], .text-\[\#a3a29a\]) {
+  color: var(--color-brand-muted);
+}
+.text-gray-400 {
+  color: var(--color-brand-subtle);
+}
+
+/* Type and buttons follow the theme. */
+.apple-section-black,
+.apple-section-white,
+.apple-section-gray {
+  background: transparent;
+  color: var(--color-brand-ink);
+}
 .apple-headline,
 .section-title {
   color: var(--color-brand-ink);
 }
 .apple-subhead,
 .section-lead,
-.section-eyebrow {
+.section-eyebrow,
+.prose-muted,
+.footer-link {
   color: var(--color-brand-muted);
 }
-
-/* Glass: frosted panels with a light edge. Real blur only where content passes behind. */
-.glass,
-.apple-card,
-.glass-card,
-.pro-card {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.05) 48%, rgba(255, 255, 255, 0.03) 100%);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 40px -18px rgba(0, 0, 0, 0.55);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
+.footer-link:hover {
   color: var(--color-brand-ink);
 }
-.glass-strong {
-  background: linear-gradient(155deg, rgba(10, 61, 46, 0.78) 0%, rgba(6, 41, 31, 0.72) 100%);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
-  backdrop-filter: blur(22px) saturate(170%);
+.t-lead {
+  color: var(--color-brand-soft);
+}
+.t-eyebrow {
+  color: var(--color-brand-link);
+}
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-brand-ink) 0%, var(--color-brand-muted) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.apple-link {
+  color: var(--color-brand-link);
+}
+.apple-link:hover {
+  color: var(--color-brand-link);
+  filter: brightness(0.85);
+}
+.apple-btn-primary,
+.btn-primary {
+  background: var(--color-brand-accent);
+  color: #0b2a1c;
+  font-weight: 600;
+  box-shadow: 0 6px 18px -8px rgba(101, 163, 13, 0.7);
+}
+.apple-btn-primary:hover,
+.btn-primary:hover {
+  background: var(--color-brand-accent-hover);
+  box-shadow: 0 10px 24px -8px rgba(101, 163, 13, 0.8);
+}
+.apple-btn-secondary {
+  color: var(--color-brand-ink);
+  border: 1px solid color-mix(in srgb, var(--color-brand-ink) 28%, transparent);
+  background: transparent;
+}
+.apple-btn-secondary:hover {
+  background: color-mix(in srgb, var(--color-brand-ink) 7%, transparent);
+  border-color: color-mix(in srgb, var(--color-brand-ink) 50%, transparent);
+}
+
+/* Cards: white with a hairline and a soft shadow on light; frosted glass inside dark areas. */
+.glass,
+.apple-card,
+.apple-card-dark,
+.glass-card,
+.pro-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 42, 28, 0.09);
+  box-shadow: 0 1px 2px rgba(11, 42, 28, 0.05), 0 16px 36px -22px rgba(11, 42, 28, 0.28);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  color: var(--color-brand-ink);
 }
 .apple-card:hover,
 .glass-card:hover,
 .pro-card:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 24px 54px -18px rgba(0, 0, 0, 0.6);
-}
-/* Everyday cards: the same frosted look without blur, so long pages stay fast on phones. */
-.bg-brand-surface {
-  background-color: rgba(16, 74, 57, 0.86);
-  background-image: linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0) 100%);
+  border-color: rgba(46, 125, 18, 0.45);
+  box-shadow: 0 1px 2px rgba(11, 42, 28, 0.06), 0 24px 46px -22px rgba(11, 42, 28, 0.36);
 }
 .bg-brand-surface:is([class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-[2"]):not([class*="shadow"]) {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 14px 34px -18px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 2px rgba(11, 42, 28, 0.05), 0 14px 32px -22px rgba(11, 42, 28, 0.25);
 }
-.glass-navbar {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04), 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+.theme-dark :is(.glass, .apple-card, .glass-card, .pro-card),
+.theme-dark.glass {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 48%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 40px -18px rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
 }
-
-/* White sections: the same components, recoloured through the theme tokens. */
-.section-light {
-  background: #ffffff;
-  color: #0a3d2e;
-  --color-white: #0a3d2e;
-  --color-brand-ink: #0a3d2e;
-  --color-brand-soft: #1d4f40;
-  --color-brand-muted: #3f6457;
-  --color-brand-subtle: #486c5f;
-  --color-brand-link: #964000;
-  --apple-blue: #964000;
-  --glass-border: rgba(10, 61, 46, 0.12);
+.theme-dark .bg-brand-surface:is([class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-[2"]):not([class*="shadow"]) {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 34px -18px rgba(0, 0, 0, 0.5);
 }
-.section-light.section-mint {
-  background: #eef6f2;
+.glass-strong {
+  background: linear-gradient(155deg, rgba(10, 43, 26, 0.9) 0%, rgba(4, 22, 12, 0.88) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
 }
-.section-light :is(.apple-card, .glass-card, .pro-card, .glass) {
-  background: #ffffff;
-  border-color: rgba(10, 61, 46, 0.12);
-  box-shadow: 0 1px 2px rgba(10, 61, 46, 0.06), 0 18px 40px -20px rgba(10, 61, 46, 0.3);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-.section-light :is(.apple-card, .glass-card, .pro-card):hover {
-  border-color: rgba(10, 61, 46, 0.28);
-  box-shadow: 0 1px 2px rgba(10, 61, 46, 0.08), 0 24px 50px -20px rgba(10, 61, 46, 0.38);
-}
-.section-light .bg-brand-surface {
-  background-color: #eef6f2;
-  background-image: none;
-  box-shadow: none;
-}
-.section-light.section-mint .bg-brand-surface {
-  background-color: #ffffff;
-}
-.section-light .apple-btn-secondary {
-  border-color: rgba(150, 64, 0, 0.5);
-}
-.section-light .apple-link:hover {
-  color: #7a3400;
-}
-.section-light :is(.text-\[\#ff8c14\], .text-\[\#ffb366\]) {
-  color: #964000;
-}
-/* Menus sit inside the blurred top bar, so they carry their own near-solid glass tint. */
-.glass-menu {
-  background: linear-gradient(160deg, #0e4837 0%, #05221a 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 60px -20px rgba(0, 0, 0, 0.65);
-}
-/* Hero copy panel: lighter glass, so the picture stays visible around and through it. */
 .glass-hero {
-  background: linear-gradient(155deg, rgba(10, 61, 46, 0.64) 0%, rgba(6, 41, 31, 0.56) 100%);
+  background: linear-gradient(155deg, rgba(8, 40, 24, 0.66) 0%, rgba(4, 22, 12, 0.58) 100%);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   backdrop-filter: blur(16px) saturate(150%);
 }
+.glass-navbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.55);
+}
+.glass-menu {
+  background: linear-gradient(160deg, #0b2f1c 0%, #04160c 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 60px -20px rgba(0, 0, 0, 0.65);
+}
 
-/* White bands on inner pages */
-/* A full-width white strip around one block, without changing the page's container. */
+/* White and mint sections, and full-width bands on inner pages. */
+.section-light {
+  background: #ffffff;
+}
+.section-light.section-mint {
+  background: #ecf4ec;
+}
 .band {
   --band-bg: #ffffff;
   margin-block: 4rem;
@@ -764,6 +874,9 @@ section.bg-brand-deep,
   position: relative;
   isolation: isolate;
   background: transparent;
+}
+.band.section-mint {
+  --band-bg: #ecf4ec;
 }
 .band::before {
   content: "";
@@ -774,29 +887,4 @@ section.bg-brand-deep,
   transform: translateX(-50%);
   background: var(--band-bg);
   z-index: -1;
-}
-.band.section-mint {
-  --band-bg: #eef6f2;
-}
-.section-light {
-  --color-brand-deep: #ffffff;
-  --color-brand-deepest: #f3f8f5;
-  --color-brand-raised: #e6f1ec;
-}
-.section-light :is([class*="bg-black/20"], [class*="bg-black/25"], [class*="bg-black/30"], [class*="bg-black/40"], [class*="bg-black/50"]) {
-  background-color: rgba(10, 61, 46, 0.05);
-}
-.section-light :is(input, select, textarea) {
-  background-color: #ffffff;
-  color: #0a3d2e;
-  border-color: rgba(10, 61, 46, 0.25);
-}
-.section-light .bg-white {
-  color: #ffffff;
-}
-.section-light :is(.text-gray-100, .text-gray-200) {
-  color: var(--color-brand-ink);
-}
-.section-light :is(.text-gray-300, .text-gray-400, .text-gray-500) {
-  color: var(--color-brand-muted);
 }

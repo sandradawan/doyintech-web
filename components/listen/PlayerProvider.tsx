@@ -121,7 +121,7 @@ export default function PlayerProvider({ children }: { children: React.ReactNode
   const value = useMemo(() => ({ track, playing, toggle, cue }), [track, playing, toggle, cue]);
   const shareLink = track ? absoluteUrl(`/listen/${track.showSlug}?e=${track.id}&t=${Math.floor(time)}`) : "";
   const shareText = track ? `Listen to this from ${clock(time)}: "${track.title}" on ${track.showName} ${shareLink}` : "";
-  const button = "flex h-11 min-w-11 items-center justify-center rounded-full text-[14px] font-semibold text-white hover:bg-white/10";
+  const button = "flex h-11 min-w-11 items-center justify-center rounded-full text-[14px] font-semibold text-brand-ink hover:bg-brand-ink/10";
 
   return (
     <PlayerContext.Provider value={value}>
@@ -130,7 +130,7 @@ export default function PlayerProvider({ children }: { children: React.ReactNode
       {track && (
         <>
           <div className="h-32" aria-hidden />
-          <section aria-label="Audio player" className="fixed inset-x-0 bottom-0 z-[110] border-t border-white/10 bg-brand-surface px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1">
+          <section aria-label="Audio player" className="fixed inset-x-0 bottom-0 z-[110] border-t border-brand-ink/10 bg-brand-surface px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1">
             <div className="mx-auto max-w-4xl">
               <div className="flex items-center gap-2 text-[12px] tabular-nums text-brand-muted">
                 <span>{clock(time)}</span>
@@ -144,17 +144,17 @@ export default function PlayerProvider({ children }: { children: React.ReactNode
                     if (audio.current) audio.current.currentTime = Number(e.target.value);
                     setTime(Number(e.target.value));
                   }}
-                  className="h-6 min-w-0 flex-1 accent-[#ff8c14]"
+                  className="h-6 min-w-0 flex-1 accent-brand-link"
                 />
                 <span>{clock(duration)}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Link href={`/listen/${track.showSlug}`} className="min-w-0 flex-1 pr-1">
-                  <span className="block truncate text-[14px] font-semibold text-white">{track.title}</span>
+                  <span className="block truncate text-[14px] font-semibold text-brand-ink">{track.title}</span>
                   <span className="block truncate text-[12px] text-brand-muted">{failed ? "This episode won't play here right now." : track.showName}</span>
                 </Link>
                 <button type="button" onClick={() => skip(-15)} aria-label="Back 15 seconds" className={button}>−15</button>
-                <button type="button" onClick={() => toggle(track)} aria-label={playing ? "Pause" : "Play"} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#ff8c14] text-black">
+                <button type="button" onClick={() => toggle(track)} aria-label={playing ? "Pause" : "Play"} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-accent text-black">
                   {playing ? <FaPause aria-hidden /> : <FaPlay aria-hidden />}
                 </button>
                 <button type="button" onClick={() => skip(30)} aria-label="Forward 30 seconds" className={button}>+30</button>

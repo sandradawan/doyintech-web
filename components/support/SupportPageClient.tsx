@@ -70,7 +70,7 @@ const CHANNELS = [
     href: discoveryCallLink(),
     cta: "Book a call",
     external: true,
-    accent: "#ff8c14",
+    accent: "#2e7d12",
   },
 ];
 
@@ -138,10 +138,10 @@ export default function SupportPageClient() {
       <main className="min-h-screen pb-24 pt-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <div className="max-w-2xl">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#ff8c14]">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-link">
               Customer support
             </p>
-            <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
+            <h1 className="mt-3 font-display text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
               We&apos;re here to help you ship and stay unblocked.
             </h1>
             <p className="mt-4 text-[16px] leading-relaxed text-brand-muted">
@@ -158,7 +158,7 @@ export default function SupportPageClient() {
                 href={c.href}
                 target={c.external ? "_blank" : undefined}
                 rel={c.external ? "noopener noreferrer" : undefined}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-white/25"
+                className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 transition hover:border-brand-ink/25"
               >
                 <p
                   className="text-[11px] font-semibold uppercase tracking-[0.12em]"
@@ -166,7 +166,7 @@ export default function SupportPageClient() {
                 >
                   {c.title}
                 </p>
-                <p className="mt-2 text-[15px] font-semibold text-white">{c.cta}</p>
+                <p className="mt-2 text-[15px] font-semibold text-brand-ink">{c.cta}</p>
                 <p className="mt-2 text-[13px] leading-relaxed text-brand-subtle">
                   {c.desc}
                 </p>
@@ -176,8 +176,8 @@ export default function SupportPageClient() {
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12">
             <section className="lg:col-span-7">
-              <div className="rounded-3xl border border-white/10 bg-brand-deep/80 p-6 sm:p-8">
-                <h2 className="font-display text-[20px] font-semibold text-white">
+              <div className="rounded-3xl border border-brand-ink/10 bg-brand-deep/80 p-6 sm:p-8">
+                <h2 className="font-display text-[20px] font-semibold text-brand-ink">
                   Submit a support request
                 </h2>
                 <p className="mt-2 text-[13px] text-brand-subtle">
@@ -207,7 +207,7 @@ export default function SupportPageClient() {
                       <button
                         type="button"
                         onClick={() => setDone(false)}
-                        className="rounded-full border border-white/20 px-4 py-2 text-[13px] text-white"
+                        className="rounded-full border border-brand-ink/20 px-4 py-2 text-[13px] text-brand-ink"
                       >
                         Send another
                       </button>
@@ -234,7 +234,7 @@ export default function SupportPageClient() {
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3.5 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                         />
                       </label>
                       <label className="block">
@@ -246,7 +246,7 @@ export default function SupportPageClient() {
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                          className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3.5 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                         />
                       </label>
                     </div>
@@ -257,7 +257,7 @@ export default function SupportPageClient() {
                       <select
                         value={topic}
                         onChange={(e) => setTopic(e.target.value)}
-                        className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                        className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3.5 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                       >
                         {TOPICS.map((t) => (
                           <option key={t} value={t}>
@@ -274,7 +274,7 @@ export default function SupportPageClient() {
                         value={orderRef}
                         onChange={(e) => setOrderRef(e.target.value)}
                         placeholder="Paystack ref, invoice #, request ID…"
-                        className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                        className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3.5 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                       />
                     </label>
                     <label className="block">
@@ -287,7 +287,7 @@ export default function SupportPageClient() {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Describe the issue, what you expected, and any error messages."
-                        className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]/50"
+                        className="mt-1.5 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3.5 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link/50"
                       />
                     </label>
                     {error ? (
@@ -296,7 +296,7 @@ export default function SupportPageClient() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full rounded-full bg-[#ff8c14] py-3.5 text-[14px] font-semibold text-black shadow-[0_8px_28px_rgba(255,140,20,0.28)] disabled:opacity-60 sm:w-auto sm:px-10"
+                      className="w-full rounded-full bg-brand-accent py-3.5 text-[14px] font-semibold text-black shadow-[0_8px_28px_rgba(163,230,53,0.28)] disabled:opacity-60 sm:w-auto sm:px-10"
                     >
                       {loading ? "Sending…" : "Send support request"}
                     </button>
@@ -307,7 +307,7 @@ export default function SupportPageClient() {
 
             <aside className="space-y-8 lg:col-span-5">
               <div>
-                <h2 className="font-display text-[18px] font-semibold text-white">
+                <h2 className="font-display text-[18px] font-semibold text-brand-ink">
                   Common questions
                 </h2>
                 <ul className="mt-4 space-y-2">
@@ -316,20 +316,20 @@ export default function SupportPageClient() {
                     return (
                       <li
                         key={f.q}
-                        className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]"
+                        className="overflow-hidden rounded-xl border border-brand-ink/10 bg-brand-ink/[0.02]"
                       >
                         <button
                           type="button"
                           onClick={() => setOpenFaq(open ? null : i)}
                           className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left"
                         >
-                          <span className="text-[13px] font-medium text-white">
+                          <span className="text-[13px] font-medium text-brand-ink">
                             {f.q}
                           </span>
                           <span className="text-brand-subtle">{open ? "−" : "+"}</span>
                         </button>
                         {open ? (
-                          <p className="border-t border-white/5 px-4 pb-3.5 pt-2 text-[13px] leading-relaxed text-brand-muted">
+                          <p className="border-t border-brand-ink/5 px-4 pb-3.5 pt-2 text-[13px] leading-relaxed text-brand-muted">
                             {f.a}
                           </p>
                         ) : null}
@@ -340,7 +340,7 @@ export default function SupportPageClient() {
               </div>
 
               <div>
-                <h2 className="font-display text-[18px] font-semibold text-white">
+                <h2 className="font-display text-[18px] font-semibold text-brand-ink">
                   Quick links
                 </h2>
                 <div className="mt-4 grid gap-2">
@@ -348,22 +348,22 @@ export default function SupportPageClient() {
                     <Link
                       key={q.href}
                       href={q.href}
-                      className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 transition hover:border-white/20"
+                      className="flex items-center justify-between rounded-xl border border-brand-ink/10 bg-brand-ink/[0.02] px-4 py-3 transition hover:border-brand-ink/20"
                     >
                       <div>
-                        <p className="text-[13px] font-semibold text-white">
+                        <p className="text-[13px] font-semibold text-brand-ink">
                           {q.label}
                         </p>
                         <p className="text-[11px] text-brand-subtle">{q.desc}</p>
                       </div>
-                      <span className="text-[#ff8c14]">→</span>
+                      <span className="text-brand-link">→</span>
                     </Link>
                   ))}
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-[#ff8c14]/10 p-5">
-                <p className="text-[13px] font-semibold text-[#ff8c14]">Hours</p>
+              <div className="rounded-2xl border border-brand-ink/10 bg-brand-link/10 p-5">
+                <p className="text-[13px] font-semibold text-brand-link">Hours</p>
                 <p className="mt-2 text-[13px] leading-relaxed text-brand-soft">
                   Mon–Sat · roughly 9:00–19:00 WAT. Outside hours we still
                   receive WhatsApp and email — replies resume next business

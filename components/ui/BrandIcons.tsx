@@ -111,7 +111,7 @@ function IconShell({
 }) {
   return (
     <span
-      className={`inline-flex items-center justify-center text-[#ff8c14] ${className}`}
+      className={`inline-flex items-center justify-center text-brand-link ${className}`}
       aria-hidden
     >
       <Icon size={size} />
@@ -168,5 +168,5 @@ export function CategoryIcon({
     markets: HiOutlineChartBar,
   };
   const Icon = map[category] || HiOutlineCube;
-  return <Icon size={size} className="text-[#ff8c14]" aria-hidden />;
+  return <Icon size={size} className="text-brand-link" aria-hidden />;
 }

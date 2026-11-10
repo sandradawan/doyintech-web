@@ -41,13 +41,13 @@ export default function SalaryHub() {
       <main className="min-h-screen bg-brand-deep pb-16 pt-24">
         <header className="mx-auto max-w-[760px] px-6 text-center">
           <p className="t-eyebrow">Free · no sign-up</p>
-          <h1 className="t-h1 mt-3 text-white">Salary calculator: take-home pay after tax</h1>
+          <h1 className="t-h1 mt-3 text-brand-ink">Salary calculator: take-home pay after tax</h1>
           <p className="t-lead mx-auto mt-4 max-w-[600px]">Pick your country to see your income tax, contributions and net pay for 2026, by year, month and week.</p>
         </header>
         <ul className="mx-auto mt-10 grid max-w-[900px] gap-3 px-6 sm:grid-cols-2 lg:grid-cols-3">
           {COUNTRIES.map((c) => (
             <li key={c.href}>
-              <Link href={c.href} className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-brand-surface px-5 text-white hover:border-[#ff8c14]">
+              <Link href={c.href} className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-brand-ink/10 bg-brand-surface px-5 text-brand-ink hover:border-brand-link">
                 <span className="text-[16px] font-semibold">{c.name}</span>
                 <span className="text-[13px] text-brand-muted">{c.year}</span>
               </Link>
@@ -55,11 +55,11 @@ export default function SalaryHub() {
           ))}
         </ul>
         <section className="mx-auto mt-14 max-w-[760px] px-6">
-          <h2 className="t-h3 text-white">Questions</h2>
+          <h2 className="t-h3 text-brand-ink">Questions</h2>
           <dl className="mt-4 space-y-5">
             {FAQS.map((f) => (
               <div key={f.q}>
-                <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
+                <dt className="text-[16px] font-semibold text-brand-ink">{f.q}</dt>
                 <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
               </div>
             ))}

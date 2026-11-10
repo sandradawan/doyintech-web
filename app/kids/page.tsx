@@ -37,13 +37,13 @@ export default function KidsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <section className="relative overflow-hidden">
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,140,20,0.25),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.2),transparent_40%),radial-gradient(circle_at_50%_90%,rgba(74,222,128,0.15),transparent_45%)]" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(163,230,53,0.25),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.2),transparent_40%),radial-gradient(circle_at_50%_90%,rgba(74,222,128,0.15),transparent_45%)]" />
           <div className="relative mx-auto max-w-5xl px-4 py-12 text-center sm:px-6 sm:py-16">
             <p className="text-[48px]" aria-hidden>🚀🧮🧠⭐</p>
-            <h1 className="mt-2 text-[40px] font-black tracking-tight text-white sm:text-[56px]">Kids zone</h1>
+            <h1 className="mt-2 text-[40px] font-black tracking-tight text-brand-ink sm:text-[56px]">Kids zone</h1>
             <p className="mx-auto mt-3 max-w-xl text-[18px] leading-relaxed text-brand-soft">Fun maths and word games, new puzzles every day, and stars to collect. Free and safe, no sign-up.</p>
             <div className="mt-5 flex justify-center"><StreakBar /></div>
-            <Link href="/kids/daily-challenge" className="mt-7 inline-flex min-h-14 items-center gap-2 rounded-full bg-[#ff8c14] px-8 text-[18px] font-black text-black shadow-lg shadow-[#ff8c14]/30 transition hover:scale-[1.03]">
+            <Link href="/kids/daily-challenge" className="mt-7 inline-flex min-h-14 items-center gap-2 rounded-full bg-brand-accent px-8 text-[18px] font-black text-black shadow-lg shadow-brand-accent/30 transition hover:scale-[1.03]">
               Play today&apos;s challenge <span aria-hidden>→</span>
             </Link>
           </div>
@@ -69,11 +69,11 @@ export default function KidsPage() {
         <div className="mx-auto mt-14 max-w-3xl space-y-10 px-4 text-[15px] leading-relaxed text-brand-soft sm:px-6">
           <ParentPacks />
           <section>
-            <h2 className="text-[22px] font-semibold text-white">Questions from parents</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Questions from parents</h2>
             <dl className="mt-4 space-y-5">
               {FAQS.map((f) => (
                 <div key={f.q}>
-                  <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
+                  <dt className="text-[16px] font-semibold text-brand-ink">{f.q}</dt>
                   <dd className="mt-1">{f.a}</dd>
                 </div>
               ))}

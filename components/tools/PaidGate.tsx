@@ -112,7 +112,7 @@ export default function PaidGate({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email for receipt"
-            className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
+            className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none"
           />
           {error && <p className="text-xs text-red-400">{error}</p>}
           <button

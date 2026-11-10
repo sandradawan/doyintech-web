@@ -15,10 +15,10 @@ export default function GamingLoungeWebsitePage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <article className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Local business · Gaming
           </p>
-          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             Website for a gaming lounge in Nigeria
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
@@ -28,7 +28,7 @@ export default function GamingLoungeWebsitePage() {
 
           <div className="mt-10 space-y-8 text-[15px] leading-relaxed text-brand-soft">
             <section>
-              <h2 className="text-[22px] font-semibold text-white">What gamers look for</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">What gamers look for</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
                 <li>Station types and hourly / package prices</li>
                 <li>Tournament schedule and entry fees</li>
@@ -39,7 +39,7 @@ export default function GamingLoungeWebsitePage() {
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">What we ship</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">What we ship</h2>
               <p className="mt-3">
                 Fixed-price pages that match how lounges actually sell seats — bold design, mobile
                 first, WhatsApp CTA on every screen. See our{" "}
@@ -56,7 +56,7 @@ export default function GamingLoungeWebsitePage() {
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Pair with Google Business</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Pair with Google Business</h2>
               <p className="mt-3">
                 &quot;Gaming lounge near me&quot; and city searches reward a complete Google Business Profile
                 plus a matching website. Guide:{" "}
@@ -68,21 +68,21 @@ export default function GamingLoungeWebsitePage() {
             </section>
           </div>
 
-          <div className="mt-12 rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
-            <h2 className="text-[20px] font-semibold text-white">Ready to fill more stations?</h2>
+          <div className="mt-12 rounded-2xl border border-brand-link/30 bg-brand-link/10 p-6">
+            <h2 className="text-[20px] font-semibold text-brand-ink">Ready to fill more stations?</h2>
             <p className="mt-2 text-[14px] text-brand-muted">
               Free 3-minute audit of your current link, or pay a fixed deposit and go live in days.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a
                 href="/hire"
-                className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black"
+                className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black"
               >
                 Fixed-price packages
               </a>
               <a
                 href="/free-audit"
-                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white"
+                className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink"
               >
                 Free audit
               </a>

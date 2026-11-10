@@ -36,14 +36,14 @@ export default function BusinessAudit() {
   if (done) {
     const shareText = `I scored ${result.score}/100 (${result.label}) on the DoyinTech Business Audit. Check yours: https://www.doyintech.com/tools/business-audit`;
     return (
-      <div className="space-y-6 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+      <div className="space-y-6 rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
           <ScoreRing score={result.score} label="/ 100" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">
               How strong is your business online?
             </p>
-            <h2 className="mt-1 font-display text-2xl font-bold text-white md:text-3xl">
+            <h2 className="mt-1 font-display text-2xl font-bold text-brand-ink md:text-3xl">
               {result.label}
             </h2>
             {meta.name && (
@@ -67,7 +67,7 @@ export default function BusinessAudit() {
         </div>
 
         <div className="rounded-2xl border border-primary/30 bg-primary/10 p-4">
-          <p className="text-sm font-semibold text-white">Suggested DoyinTech services</p>
+          <p className="text-sm font-semibold text-brand-ink">Suggested DoyinTech services</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {result.suggestedServices.map((s) => (
               <span
@@ -99,26 +99,26 @@ export default function BusinessAudit() {
   }
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+    <div className="rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
       {page === 0 && (
         <div className="mb-6 grid gap-3 sm:grid-cols-3">
           <input
             value={meta.name}
             onChange={(e) => setMeta({ ...meta, name: e.target.value })}
             placeholder="Business name"
-            className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
+            className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50"
           />
           <input
             value={meta.industry}
             onChange={(e) => setMeta({ ...meta, industry: e.target.value })}
             placeholder="Industry"
-            className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
+            className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50"
           />
           <input
             value={meta.url}
             onChange={(e) => setMeta({ ...meta, url: e.target.value })}
             placeholder="Website URL (optional)"
-            className="rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50"
+            className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50"
           />
         </div>
       )}
@@ -126,7 +126,7 @@ export default function BusinessAudit() {
       <p className="text-xs text-brand-subtle">
         Step {page + 1} of {pages}
       </p>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-brand-ink/10">
         <div
           className="h-full bg-primary transition-all"
           style={{ width: `${((page + 1) / pages) * 100}%` }}
@@ -136,7 +136,7 @@ export default function BusinessAudit() {
       <div className="mt-6 space-y-5">
         {slice.map((q) => (
           <div key={q.id}>
-            <p className="text-sm font-medium text-white">{q.label}</p>
+            <p className="text-sm font-medium text-brand-ink">{q.label}</p>
             <p className="text-[11px] text-brand-subtle">{q.category}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {(["yes", "partial", "no", "unsure"] as AuditAnswer[]).map((a) => (
@@ -146,8 +146,8 @@ export default function BusinessAudit() {
                   onClick={() => setAns(q.id, a)}
                   className={`rounded-full border px-3 py-1.5 text-xs capitalize ${
                     answers[q.id] === a
-                      ? "border-primary bg-primary/20 text-white"
-                      : "border-white/10 text-brand-muted"
+                      ? "border-primary bg-primary/20 text-brand-ink"
+                      : "border-brand-ink/10 text-brand-muted"
                   }`}
                 >
                   {a}
@@ -163,7 +163,7 @@ export default function BusinessAudit() {
           type="button"
           disabled={page === 0}
           onClick={() => setPage((p) => p - 1)}
-          className="rounded-xl border border-white/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-soft disabled:opacity-40"
+          className="rounded-xl border border-brand-ink/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-soft disabled:opacity-40"
         >
           Back
         </button>
@@ -199,8 +199,8 @@ function ListCard({
   tone?: "good" | "bad";
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-      <p className="text-sm font-semibold text-white">{title}</p>
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4">
+      <p className="text-sm font-semibold text-brand-ink">{title}</p>
       {items.length === 0 ? (
         <p className="mt-2 text-sm text-brand-subtle">None highlighted</p>
       ) : (

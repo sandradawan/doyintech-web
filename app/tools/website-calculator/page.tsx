@@ -26,7 +26,7 @@ export default function WebsiteCalculatorPage() {
           <Link href="/tools" className="text-sm text-primary hover:underline">
             ← All tools
           </Link>
-          <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
+          <h1 className="mt-4 font-display text-3xl font-bold text-brand-ink md:text-4xl">
             Website Price Calculator
           </h1>
           <p className="mt-3 text-brand-muted">
@@ -39,7 +39,7 @@ export default function WebsiteCalculatorPage() {
           </div>
 
           <article className="prose-invert mt-14 space-y-4 text-sm leading-relaxed text-brand-muted">
-            <h2 className="font-display text-xl font-bold text-white">
+            <h2 className="font-display text-xl font-bold text-brand-ink">
               How website costs work in Nigeria
             </h2>
             <p>
@@ -52,7 +52,7 @@ export default function WebsiteCalculatorPage() {
               This calculator produces a planning range only. Final pricing from DoyinTech
               is confirmed after discovery of your exact requirements.
             </p>
-            <h2 className="font-display text-xl font-bold text-white">
+            <h2 className="font-display text-xl font-bold text-brand-ink">
               Tips before you hire
             </h2>
             <ul className="list-disc space-y-1 pl-5">

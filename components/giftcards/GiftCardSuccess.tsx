@@ -55,7 +55,7 @@ export default function GiftCardSuccess() {
   if (state === "loading" || (state === "pending" && !card?.code)) {
     return (
       <div className="flex items-center gap-3 text-[15px] text-brand-muted" role="status">
-        <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/15 border-t-[#ff8c14]" />
+        <span className="h-5 w-5 animate-spin rounded-full border-2 border-brand-ink/15 border-t-brand-link" />
         Confirming your payment…
       </div>
     );
@@ -72,7 +72,7 @@ export default function GiftCardSuccess() {
         <GiftCardVisual amountKobo={card.amountKobo} design={card.design} message={card.message} code={card.code} recipient={card.recipientName} />
       </div>
       <div>
-        <h1 className="text-[28px] font-semibold tracking-tight text-white">Your gift card is ready</h1>
+        <h1 className="text-[28px] font-semibold tracking-tight text-brand-ink">Your gift card is ready</h1>
         <p className="mt-2 text-[15px] text-brand-muted">
           We&apos;ve emailed it{card.recipientName ? ` and sent it to ${card.recipientName} if you gave their email` : ""}. Keep the code safe:
           anyone with it can spend the balance.
@@ -86,7 +86,7 @@ export default function GiftCardSuccess() {
               setCopied(true);
               setTimeout(() => setCopied(false), 1500);
             }}
-            className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black"
+            className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black"
           >
             {copied ? "Copied ✓" : "Copy code"}
           </button>
@@ -98,17 +98,17 @@ export default function GiftCardSuccess() {
           >
             Send on WhatsApp
           </a>
-          <button type="button" onClick={() => window.print()} className="rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white">
+          <button type="button" onClick={() => window.print()} className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink">
             Print
           </button>
         </div>
-        <div className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-5">
-          <p className="text-[14px] font-semibold text-white">Bought it for yourself?</p>
+        <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
+          <p className="text-[14px] font-semibold text-brand-ink">Bought it for yourself?</p>
           <p className="mt-1 text-[13px] text-brand-muted">Apply it now and it&apos;s used automatically at checkout across DoyinTech.</p>
           <Link
             href="/products"
             onClick={() => card.code && applyGiftCode(card.code)}
-            className="mt-3 inline-flex rounded-full border border-white/20 px-4 py-2 text-[13px] font-semibold text-white"
+            className="mt-3 inline-flex rounded-full border border-brand-ink/20 px-4 py-2 text-[13px] font-semibold text-brand-ink"
           >
             Use it now
           </Link>

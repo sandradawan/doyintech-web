@@ -25,10 +25,10 @@ export default function JennyGlamsCaseStudy() {
             ← All case studies
           </Link>
 
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-[#ff8c14]">
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-brand-link">
             Case study · Local SME · Jos
           </p>
-          <h1 className="mt-3 text-4xl font-bold leading-tight text-white md:text-5xl">
+          <h1 className="mt-3 text-4xl font-bold leading-tight text-brand-ink md:text-5xl">
             JennyGlams — Makeup Artistry Brand
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -40,7 +40,7 @@ export default function JennyGlamsCaseStudy() {
             {["Next.js", "Portfolio", "WhatsApp booking", "Brand site"].map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-brand-soft"
+                className="rounded-full border border-brand-ink/10 bg-brand-ink/5 px-3 py-1 text-xs text-brand-soft"
               >
                 {t}
               </span>
@@ -51,9 +51,9 @@ export default function JennyGlamsCaseStudy() {
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center"
+                className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-4 text-center"
               >
-                <p className="text-xl font-bold text-white sm:text-2xl">{m.value}</p>
+                <p className="text-xl font-bold text-brand-ink sm:text-2xl">{m.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wider text-brand-subtle">
                   {m.label}
                 </p>
@@ -63,7 +63,7 @@ export default function JennyGlamsCaseStudy() {
 
           <div className="mt-12 space-y-10 leading-relaxed text-brand-soft">
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">The challenge</h2>
+              <h2 className="mb-3 text-2xl font-bold text-brand-ink">The challenge</h2>
               <p>
                 Jennifer was booking through Instagram DMs. Clients asked the same questions
                 repeatedly (prices, packages, availability). Good photos were buried in the feed.
@@ -72,7 +72,7 @@ export default function JennyGlamsCaseStudy() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">What we shipped</h2>
+              <h2 className="mb-3 text-2xl font-bold text-brand-ink">What we shipped</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>Clean portfolio layout optimised for high-quality photos</li>
                 <li>Clear service categories (bridal, soft glam, editorial, masterclasses)</li>
@@ -82,14 +82,14 @@ export default function JennyGlamsCaseStudy() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">Results (practical)</h2>
+              <h2 className="mb-3 text-2xl font-bold text-brand-ink">Results (practical)</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>
-                  <strong className="text-white">Before:</strong> discovery → long DM thread → maybe
+                  <strong className="text-brand-ink">Before:</strong> discovery → long DM thread → maybe
                   a booking
                 </li>
                 <li>
-                  <strong className="text-white">After:</strong> one link → portfolio + services →
+                  <strong className="text-brand-ink">After:</strong> one link → portfolio + services →
                   WhatsApp with context pre-filled
                 </li>
                 <li>A professional link for brides, stylists, and collaborators</li>
@@ -101,8 +101,8 @@ export default function JennyGlamsCaseStudy() {
               </p>
             </section>
 
-            <div className="rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
-              <p className="text-[13px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+            <div className="rounded-2xl border border-brand-link/25 bg-brand-link/5 p-6">
+              <p className="text-[13px] font-semibold uppercase tracking-wide text-brand-link">
                 Salons, coaches, freelancers
               </p>
               <p className="mt-2 text-[15px] text-brand-soft">
@@ -112,7 +112,7 @@ export default function JennyGlamsCaseStudy() {
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
                   href="/hire"
-                  className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black"
+                  className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black"
                 >
                   Hire · fixed price
                 </a>
@@ -120,7 +120,7 @@ export default function JennyGlamsCaseStudy() {
                   href={discoveryCallLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white"
+                  className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink"
                 >
                   Free discovery call
                 </a>

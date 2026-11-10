@@ -6,7 +6,7 @@ import { TOOLS_CONFIG } from "@/lib/tools/config";
 import LeadForm from "./LeadForm";
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 
 export default function ProposalBuilder() {
   const [provider, setProvider] = useState("DoyinTech");
@@ -43,7 +43,7 @@ export default function ProposalBuilder() {
 
   return (
     <div className="space-y-6">
-      <div className="doc-no-print space-y-4 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+      <div className="doc-no-print space-y-4 rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
         <div className="grid gap-3 sm:grid-cols-2">
           <input className={field} placeholder="Your company" value={provider} onChange={(e) => setProvider(e.target.value)} />
           <input className={field} placeholder="Client name" value={client} onChange={(e) => setClient(e.target.value)} />
@@ -64,7 +64,7 @@ export default function ProposalBuilder() {
         </button>
       </div>
 
-      <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
+      <div id="doc-sheet" className="overflow-hidden rounded-2xl border border-brand-ink/10 bg-white text-gray-900 shadow-xl">
         <div className="border-b-4 border-blue-600 px-8 py-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Proposal</p>
           <h2 className="mt-2 text-2xl font-bold">{title}</h2>

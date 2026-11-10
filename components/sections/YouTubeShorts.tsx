@@ -25,7 +25,7 @@ export default function YouTubeShorts({
         <h2 className="text-[28px] font-semibold tracking-tight text-brand-ink">
           From the playlist
         </h2>
-        <div className="mt-6 rounded-[22px] border border-dashed border-white/15 bg-brand-surface p-8 text-center">
+        <div className="mt-6 rounded-[22px] border border-dashed border-brand-ink/15 bg-brand-surface p-8 text-center">
           <p className="text-[15px] text-brand-muted">
             Videos will appear here once the playlist feed is available.
           </p>
@@ -131,7 +131,7 @@ export default function YouTubeShorts({
               )}
               <a
                 href="/hire"
-                className="mt-3 inline-flex text-[12px] font-semibold text-[#ff8c14] hover:underline"
+                className="mt-3 inline-flex text-[12px] font-semibold text-brand-link hover:underline"
               >
                 Get the same quality site →
               </a>
@@ -140,13 +140,13 @@ export default function YouTubeShorts({
         ))}
       </div>
 
-      <div className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-5 text-center">
+      <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 text-center">
         <p className="text-[14px] text-brand-muted">
           Ready for a fixed-price build? Landing from ₦100k · Local site from ₦250k.
         </p>
         <a
           href="/hire"
-          className="mt-3 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+          className="mt-3 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
         >
           Hire — pay deposit
         </a>

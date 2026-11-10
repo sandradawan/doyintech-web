@@ -32,18 +32,18 @@ export default function GlobalVatCalculator({ tax, currency, locale, presets, de
   const invoiceHref = `/tools/invoice-generator?currency=${currency}&tax=${encodeURIComponent(rate)}`;
 
   const btn = (on: boolean) =>
-    `min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${on ? "bg-[#ff8c14] text-black" : "border border-white/15 text-brand-soft hover:border-white/35"}`;
+    `min-h-10 rounded-full px-4 text-[13px] font-semibold transition ${on ? "bg-brand-accent text-black" : "border border-brand-ink/15 text-brand-soft hover:border-brand-ink/35"}`;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-      <div className="space-y-5 rounded-2xl border border-white/10 bg-brand-surface p-5">
+      <div className="space-y-5 rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
         <div role="radiogroup" aria-label="Calculation" className="flex flex-wrap gap-2">
           <button type="button" role="radio" aria-checked={mode === "add"} onClick={() => setMode("add")} className={btn(mode === "add")}>Add {tax} to a price</button>
           <button type="button" role="radio" aria-checked={mode === "remove"} onClick={() => setMode("remove")} className={btn(mode === "remove")}>Remove {tax} from a price</button>
         </div>
         <label className="block text-[12px] font-medium text-brand-muted">
           {mode === "add" ? `Price before ${tax} (${currency})` : `Price including ${tax} (${currency})`}
-          <input inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-3 text-[20px] font-semibold text-white outline-none focus:border-[#ff8c14]" />
+          <input inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-3 text-[20px] font-semibold text-brand-ink outline-none focus:border-brand-link" />
         </label>
         <div>
           <p className="mb-2 text-[12px] font-medium text-brand-muted">{tax} rate</p>
@@ -54,16 +54,16 @@ export default function GlobalVatCalculator({ tax, currency, locale, presets, de
           </div>
           <label className="mt-3 block max-w-[200px] text-[12px] font-medium text-brand-muted">
             Or any rate (%)
-            <input inputMode="decimal" value={rate} onChange={(e) => setRate(e.target.value)} className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-[14px] text-white outline-none focus:border-[#ff8c14]" />
+            <input inputMode="decimal" value={rate} onChange={(e) => setRate(e.target.value)} className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link" />
           </label>
         </div>
       </div>
 
       <div className="space-y-4 lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-        <dl className="rounded-2xl border border-white/10 bg-brand-surface p-5 text-[15px]">
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Net (excl. {tax})</dt><dd className="text-white">{fmt.format(r.net)}</dd></div>
-          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">{tax} at {rate || 0}%</dt><dd className="text-white">{fmt.format(r.tax)}</dd></div>
-          <div className="mt-2 flex justify-between gap-3 border-t border-white/10 pt-3"><dt className="text-brand-muted">Gross (incl. {tax})</dt><dd className="text-[26px] font-semibold text-[#ff8c14]">{fmt.format(r.gross)}</dd></div>
+        <dl className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5 text-[15px]">
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">Net (excl. {tax})</dt><dd className="text-brand-ink">{fmt.format(r.net)}</dd></div>
+          <div className="flex justify-between gap-3 py-1.5"><dt className="text-brand-muted">{tax} at {rate || 0}%</dt><dd className="text-brand-ink">{fmt.format(r.tax)}</dd></div>
+          <div className="mt-2 flex justify-between gap-3 border-t border-brand-ink/10 pt-3"><dt className="text-brand-muted">Gross (incl. {tax})</dt><dd className="text-[26px] font-semibold text-brand-link">{fmt.format(r.gross)}</dd></div>
         </dl>
         <div className="flex flex-wrap gap-2">
           <button
@@ -76,11 +76,11 @@ export default function GlobalVatCalculator({ tax, currency, locale, presets, de
                 /* clipboard blocked */
               }
             }}
-            className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-5 text-[14px] font-semibold text-white"
+            className="inline-flex min-h-11 items-center rounded-full border border-brand-ink/15 px-5 text-[14px] font-semibold text-brand-ink"
           >
             {copied ? "Copied" : "Copy result"}
           </button>
-          <Link href={invoiceHref} className="inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">
+          <Link href={invoiceHref} className="inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">
             Make a {currency} invoice with {tax}
           </Link>
         </div>

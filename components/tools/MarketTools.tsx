@@ -10,8 +10,8 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-      <h3 className="text-sm font-semibold text-white">{title}</h3>
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-well p-5">
+      <h3 className="text-sm font-semibold text-brand-ink">{title}</h3>
       <div className="mt-3">{children}</div>
     </div>
   );
@@ -26,7 +26,7 @@ function Field({
       {label}
       <input
         {...rest}
-        className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#00C3F7]/50"
+        className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-[#00C3F7]/50"
       />
     </label>
   );
@@ -101,17 +101,17 @@ export function PositionRiskTool() {
           <ul className="space-y-2 text-sm text-gray-200">
             <li>
               Max loss if stopped:{" "}
-              <strong className="text-white">
+              <strong className="text-brand-ink">
                 ₦{result.riskAmount.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </strong>
             </li>
             <li>
               Position size (units):{" "}
-              <strong className="text-white">{result.units.toFixed(4)}</strong>
+              <strong className="text-brand-ink">{result.units.toFixed(4)}</strong>
             </li>
             <li>
               Approx. notional:{" "}
-              <strong className="text-white">
+              <strong className="text-brand-ink">
                 ₦{result.notional.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </strong>
             </li>
@@ -192,7 +192,7 @@ export function PaperJournalTool() {
           <select
             value={side}
             onChange={(e) => setSide(e.target.value as "buy" | "sell")}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white"
+            className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink"
           >
             <option value="buy">Buy (long)</option>
             <option value="sell">Sell (short)</option>
@@ -204,7 +204,7 @@ export function PaperJournalTool() {
         <Field label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
         <button
           type="submit"
-          className="sm:col-span-2 rounded-full bg-white py-3 text-sm font-semibold text-black"
+          className="sm:col-span-2 rounded-full bg-brand-ink py-3 text-sm font-semibold text-brand-deep"
         >
           Add paper trade
         </button>
@@ -223,9 +223,9 @@ export function PaperJournalTool() {
           return (
             <div
               key={t.id}
-              className="rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-brand-soft"
+              className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2 text-sm text-brand-soft"
             >
-              <span className="font-semibold text-white">{t.symbol}</span> {t.side} {t.qty} @{" "}
+              <span className="font-semibold text-brand-ink">{t.symbol}</span> {t.side} {t.qty} @{" "}
               {t.entry} → {t.exit}{" "}
               <span className={diff >= 0 ? "text-emerald-400" : "text-red-400"}>
                 ({diff >= 0 ? "+" : ""}
@@ -302,7 +302,7 @@ export function TradeChecklistTool() {
       <ul className="space-y-2">
         {CHECKS.map((c, i) => (
           <li key={c}>
-            <label className="flex cursor-pointer gap-3 rounded-xl border border-white/10 bg-black/30 px-3 py-3 text-sm text-gray-200">
+            <label className="flex cursor-pointer gap-3 rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-3 text-sm text-gray-200">
               <input
                 type="checkbox"
                 checked={!!done[i]}

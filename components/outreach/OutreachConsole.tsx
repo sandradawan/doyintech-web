@@ -39,7 +39,7 @@ function extractSubject(body: string): { subject: string; body: string } {
 }
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-brand-deep px-3 py-2.5 text-sm text-white placeholder:text-white/35 outline-none focus:border-[#ff8c14]/60";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-deep px-3 py-2.5 text-sm text-brand-ink placeholder:text-brand-ink/35 outline-none focus:border-brand-link/60";
 
 export default function OutreachConsole() {
   const [channel, setChannel] = useState<"whatsapp" | "email">("whatsapp");
@@ -193,18 +193,18 @@ export default function OutreachConsole() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-        <h1 className="text-2xl font-semibold tracking-tight text-white">Outreach console</h1>
-        <p className="mt-2 text-sm text-white/50">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+        <h1 className="text-2xl font-semibold tracking-tight text-brand-ink">Outreach console</h1>
+        <p className="mt-2 text-sm text-brand-ink/50">
           Pick a template, fill placeholders, send via WhatsApp or email. WhatsApp opens with the message ready — you confirm Send.
           Email API is locked to your admin secret (same as lead inbox).
         </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-brand-deep p-5">
+        <div className="space-y-4 rounded-2xl border border-brand-ink/10 bg-brand-deep p-5">
           <div>
-            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">Channel</label>
+            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-brand-ink/40">Channel</label>
             <div className="flex gap-2">
               {(["whatsapp", "email"] as const).map((c) => (
                 <button
@@ -213,8 +213,8 @@ export default function OutreachConsole() {
                   onClick={() => setChannel(c)}
                   className={`flex-1 rounded-lg px-3 py-2.5 text-sm font-medium capitalize ${
                     channel === c
-                      ? "bg-[#ff8c14] text-black"
-                      : "border border-white/10 bg-white/5 text-white/70"
+                      ? "bg-brand-accent text-black"
+                      : "border border-brand-ink/10 bg-brand-ink/5 text-brand-ink/70"
                   }`}
                 >
                   {c === "whatsapp" ? "WhatsApp" : "Email"}
@@ -224,7 +224,7 @@ export default function OutreachConsole() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">
+            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-brand-ink/40">
               {channel === "whatsapp" ? "Recipient WhatsApp number" : "Recipient email"}
             </label>
             <input
@@ -237,7 +237,7 @@ export default function OutreachConsole() {
 
           {channel === "email" && (
             <div>
-              <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">
+              <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-brand-ink/40">
                 Admin secret (required for API email)
               </label>
               <input
@@ -252,7 +252,7 @@ export default function OutreachConsole() {
           )}
 
           <div>
-            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-white/40">
+            <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wide text-brand-ink/40">
               Message template
             </label>
             <select
@@ -270,23 +270,23 @@ export default function OutreachConsole() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-[11px] text-white/40">Name</label>
+              <label className="mb-1 block text-[11px] text-brand-ink/40">Name</label>
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ada" className={field} />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] text-white/40">Business</label>
+              <label className="mb-1 block text-[11px] text-brand-ink/40">Business</label>
               <input value={business} onChange={(e) => setBusiness(e.target.value)} placeholder="Glow Salon" className={field} />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] text-white/40">City / Area</label>
+              <label className="mb-1 block text-[11px] text-brand-ink/40">City / Area</label>
               <input value={city} onChange={(e) => { setCity(e.target.value); setArea(e.target.value); }} placeholder="Jos" className={field} />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] text-white/40">Industry</label>
+              <label className="mb-1 block text-[11px] text-brand-ink/40">Industry</label>
               <input value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="salon" className={field} />
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-[11px] text-white/40">Specific issue</label>
+              <label className="mb-1 block text-[11px] text-brand-ink/40">Specific issue</label>
               <input
                 value={issue}
                 onChange={(e) => setIssue(e.target.value)}
@@ -295,7 +295,7 @@ export default function OutreachConsole() {
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-[11px] text-white/40">Website URL</label>
+              <label className="mb-1 block text-[11px] text-brand-ink/40">Website URL</label>
               <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://…" className={field} />
             </div>
           </div>
@@ -315,27 +315,27 @@ export default function OutreachConsole() {
               type="button"
               disabled={busy}
               onClick={handleSend}
-              className="rounded-xl bg-[#ff8c14] px-5 py-3 text-sm font-semibold text-black disabled:opacity-50"
+              className="rounded-xl bg-brand-accent px-5 py-3 text-sm font-semibold text-black disabled:opacity-50"
             >
               {busy ? "Sending…" : channel === "whatsapp" ? "Open WhatsApp & send" : "Send email"}
             </button>
             {channel === "email" && (
-              <button type="button" onClick={openMailtoOnly} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
+              <button type="button" onClick={openMailtoOnly} className="rounded-xl border border-brand-ink/10 bg-brand-ink/5 px-4 py-3 text-sm text-brand-ink/80">
                 Open mail app
               </button>
             )}
           </div>
 
           {status && (
-            <p className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[13px] text-white/70">{status}</p>
+            <p className="rounded-lg border border-brand-ink/10 bg-brand-ink/[0.04] px-3 py-2 text-[13px] text-brand-ink/70">{status}</p>
           )}
         </div>
 
-        <div className="space-y-3 rounded-2xl border border-white/10 bg-brand-deep p-5">
+        <div className="space-y-3 rounded-2xl border border-brand-ink/10 bg-brand-deep p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-white">Preview</h2>
+            <h2 className="text-sm font-semibold text-brand-ink">Preview</h2>
             {channel === "email" && (
-              <span className="text-[11px] text-white/40">Subject: {subject}</span>
+              <span className="text-[11px] text-brand-ink/40">Subject: {subject}</span>
             )}
           </div>
           <textarea
@@ -344,7 +344,7 @@ export default function OutreachConsole() {
             rows={18}
             className={`${field} min-h-[320px] font-mono text-[13px] leading-relaxed`}
           />
-          <p className="text-[11px] text-white/35">
+          <p className="text-[11px] text-brand-ink/35">
             Edit the preview to personalize further. Placeholders like [Name] update when you fill the fields (unless you edited the body).
           </p>
         </div>

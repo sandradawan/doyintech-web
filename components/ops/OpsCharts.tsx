@@ -7,7 +7,7 @@ import { DEAL_STAGES } from "@/lib/ops/types";
 import { formatNgn } from "@/lib/ops/store";
 
 const COLORS = [
-  "#ff8c14",
+  "#2e7d12",
   "#2997ff",
   "#34d399",
   "#a78bfa",
@@ -17,7 +17,7 @@ const COLORS = [
 ];
 
 const glass =
-  "rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl";
+  "rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.04] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl";
 
 type Props = { ws: OpsWorkspace };
 
@@ -70,8 +70,8 @@ function GlassCard({
       className={glass}
     >
       <div className="mb-4">
-        <h3 className="text-sm font-semibold tracking-tight text-white">{title}</h3>
-        {subtitle && <p className="mt-0.5 text-[11px] text-white/40">{subtitle}</p>}
+        <h3 className="text-sm font-semibold tracking-tight text-brand-ink">{title}</h3>
+        {subtitle && <p className="mt-0.5 text-[11px] text-brand-ink/40">{subtitle}</p>}
       </div>
       {children}
     </motion.section>
@@ -84,13 +84,13 @@ function Legend({ items }: { items: { label: string; value: number; color: strin
     <ul className="w-full space-y-2 sm:max-w-[180px]">
       {items.map((item) => (
         <li key={item.label} className="flex items-center justify-between gap-2 text-[12px]">
-          <span className="flex items-center gap-2 text-white/70">
+          <span className="flex items-center gap-2 text-brand-ink/70">
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: item.color }} />
             {item.label}
           </span>
-          <span className="font-medium text-white/90">
+          <span className="font-medium text-brand-ink/90">
             {item.value}
-            <span className="ml-1 text-[10px] text-white/35">
+            <span className="ml-1 text-[10px] text-brand-ink/35">
               ({Math.round((item.value / total) * 100)}%)
             </span>
           </span>
@@ -108,7 +108,7 @@ function BarChart({ data }: { data: { label: string; value: number; color: strin
         const h = Math.max(6, Math.round((d.value / max) * 140));
         return (
           <div key={d.label} className="flex flex-1 flex-col items-center gap-1.5">
-            <span className="text-[9px] tabular-nums text-white/45">
+            <span className="text-[9px] tabular-nums text-brand-ink/45">
               {d.value > 0 ? formatNgn(d.value).replace("NGN", "").trim() : "—"}
             </span>
             <div className="relative flex h-36 w-full items-end justify-center">
@@ -124,7 +124,7 @@ function BarChart({ data }: { data: { label: string; value: number; color: strin
                 title={`${d.label}: ${formatNgn(d.value)}`}
               />
             </div>
-            <span className="max-w-full truncate text-[9px] text-white/40">{d.label}</span>
+            <span className="max-w-full truncate text-[9px] text-brand-ink/40">{d.label}</span>
           </div>
         );
       })}
@@ -317,8 +317,8 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
     <svg viewBox={`0 0 ${w} ${h}`} className="h-40 w-full">
       <defs>
         <linearGradient id="opsLineFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#ff8c14" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#ff8c14" stopOpacity="0" />
+          <stop offset="0%" stopColor="#2e7d12" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#2e7d12" stopOpacity="0" />
         </linearGradient>
       </defs>
       {[0.25, 0.5, 0.75].map((t) => (
@@ -341,7 +341,7 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
       <motion.path
         d={lineD}
         fill="none"
-        stroke="#ff8c14"
+        stroke="#2e7d12"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -356,7 +356,7 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
           cy={c.y}
           r={4}
           fill="#0a0f1a"
-          stroke="#ff8c14"
+          stroke="#2e7d12"
           strokeWidth={2}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -390,7 +390,7 @@ function buildChartData(ws: OpsWorkspace) {
   const statusOrder = ["paid", "sent", "overdue", "draft", "cancelled"] as const;
   const statusColors: Record<string, string> = {
     paid: "#34d399",
-    sent: "#ff8c14",
+    sent: "#2e7d12",
     overdue: "#f87171",
     draft: "#94a3b8",
     cancelled: "#64748b",

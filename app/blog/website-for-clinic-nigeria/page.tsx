@@ -18,10 +18,10 @@ export default function ClinicWebsitePost() {
           <Link href="/blog" className="text-sm text-brand-link hover:underline">
             ← Blog
           </Link>
-          <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+          <p className="mt-8 text-[12px] font-semibold uppercase tracking-wide text-brand-link">
             Healthcare · September 2026
           </p>
-          <h1 className="mt-3 text-[32px] font-semibold leading-tight text-white sm:text-[40px]">
+          <h1 className="mt-3 text-[32px] font-semibold leading-tight text-brand-ink sm:text-[40px]">
             Website for a clinic in Nigeria
           </h1>
           <p className="mt-4 text-[17px] text-brand-muted">
@@ -44,10 +44,10 @@ export default function ClinicWebsitePost() {
             </p>
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/hire" className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black">
+            <Link href="/hire" className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black">
               Hire · fixed price
             </Link>
-            <Link href="/free-audit" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white">
+            <Link href="/free-audit" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink">
               Free audit
             </Link>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full px-5 py-2.5 text-sm font-semibold text-brand-link">
@@ -55,7 +55,7 @@ export default function ClinicWebsitePost() {
             </a>
           </div>
                   <p className="mt-8 text-[14px] text-brand-muted">
-            Ready to build? See our <Link href="/websites/clinics" className="text-[#ff8c14] hover:underline">clinic website design and pricing</Link>.
+            Ready to build? See our <Link href="/websites/clinics" className="text-brand-link hover:underline">clinic website design and pricing</Link>.
           </p>
           <BlogPostExtras slug="website-for-clinic-nigeria" title={"Clinic Website in Nigeria: Appointments via WhatsApp"} description={"What clinics need online: clear services, hours, location, and one-tap WhatsApp booking. Fixed-price websites from DoyinTech."} published="2026-09-18" />
         </article>

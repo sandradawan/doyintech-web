@@ -103,7 +103,7 @@ function CopyBtn({
     <button
       type="button"
       onClick={() => onCopy(id, body)}
-      className="rounded-full bg-[#ff8c14] px-4 py-2 text-[12px] font-semibold text-black"
+      className="rounded-full bg-brand-accent px-4 py-2 text-[12px] font-semibold text-black"
     >
       {active ? "Copied ✓" : "Copy"}
     </button>
@@ -125,10 +125,10 @@ export default function AdsCreatives() {
 
   return (
     <div className="mx-auto max-w-[800px] px-4">
-      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
         Internal · distribution
       </p>
-      <h1 className="mt-2 text-[30px] font-semibold text-white sm:text-[36px]">
+      <h1 className="mt-2 text-[30px] font-semibold text-brand-ink sm:text-[36px]">
         Ads & Status creatives
       </h1>
       <p className="mt-3 text-[15px] text-brand-muted">
@@ -139,13 +139,13 @@ export default function AdsCreatives() {
         .
       </p>
 
-      <h2 className="mt-10 text-[18px] font-semibold text-white">Creatives</h2>
+      <h2 className="mt-10 text-[18px] font-semibold text-brand-ink">Creatives</h2>
       <div className="mt-4 space-y-4">
         {CREATIVES.map((c) => (
-          <div key={c.id} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+          <div key={c.id} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p className="text-[14px] font-semibold text-white">{c.title}</p>
+                <p className="text-[14px] font-semibold text-brand-ink">{c.title}</p>
                 <p className="text-[11px] text-brand-subtle">{c.channel}</p>
               </div>
               <CopyBtn id={c.id} body={c.body} active={copied === c.id} onCopy={onCopy} />
@@ -157,16 +157,16 @@ export default function AdsCreatives() {
         ))}
       </div>
 
-      <h2 className="mt-12 text-[18px] font-semibold text-white">Follow-up sequences</h2>
+      <h2 className="mt-12 text-[18px] font-semibold text-brand-ink">Follow-up sequences</h2>
       <p className="mt-1 text-[13px] text-brand-muted">
         For people who said interested, later, or went quiet. Personalize [Name] / [Business].
       </p>
       <div className="mt-4 space-y-4">
         {FOLLOWUPS.map((c) => (
-          <div key={c.id} className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+          <div key={c.id} className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p className="text-[14px] font-semibold text-white">{c.title}</p>
+                <p className="text-[14px] font-semibold text-brand-ink">{c.title}</p>
                 <p className="text-[11px] text-brand-subtle">{c.channel}</p>
               </div>
               <CopyBtn id={c.id} body={c.body} active={copied === c.id} onCopy={onCopy} />

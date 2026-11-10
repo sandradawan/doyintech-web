@@ -39,8 +39,8 @@ export default function TemplatesLibrary() {
             onClick={() => setChannel(c)}
             className={`rounded-full px-3 py-1.5 text-[11px] font-semibold ${
               channel === c
-                ? "bg-[#ff8c14] text-black"
-                : "border border-white/15 text-brand-muted"
+                ? "bg-brand-accent text-black"
+                : "border border-brand-ink/15 text-brand-muted"
             }`}
           >
             {c}
@@ -51,19 +51,19 @@ export default function TemplatesLibrary() {
         {list.map((t) => (
           <div
             key={t.id}
-            className="rounded-2xl border border-white/10 bg-black/30 p-4"
+            className="rounded-2xl border border-brand-ink/10 bg-brand-well p-4"
           >
             <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
                   {t.channel}
                 </p>
-                <p className="text-[14px] font-semibold text-white">{t.title}</p>
+                <p className="text-[14px] font-semibold text-brand-ink">{t.title}</p>
               </div>
               <button
                 type="button"
                 onClick={() => copy(t.id, t.body)}
-                className="rounded-full border border-white/20 px-3 py-1.5 text-[11px] font-semibold text-white"
+                className="rounded-full border border-brand-ink/20 px-3 py-1.5 text-[11px] font-semibold text-brand-ink"
               >
                 {copiedId === t.id ? "Copied" : "Copy"}
               </button>

@@ -35,18 +35,18 @@ export default function Page() {
       newsletterSource="freelance-rate"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Look the part to clients</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Look the part to clients</h2>
           <p className="mt-2 text-[14px] text-brand-muted">A portfolio website with your services, prices and a booking button, at a fixed price.</p>
-          <Link href="/hire" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-5 text-[14px] font-semibold text-black">Get a website</Link>
+          <Link href="/hire" className="mt-4 inline-flex min-h-11 items-center rounded-full bg-brand-accent px-5 text-[14px] font-semibold text-black">Get a website</Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">A worked example</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">A worked example</h2>
         <p className="mt-3">You want to keep 60,000 a year, your costs are 6,000 and about 25% goes on tax. You need 60,000 ÷ 0.75 + 6,000 = 86,000 in revenue. Billing 25 hours a week for 46 weeks gives 1,150 billable hours, so you should charge at least 86,000 ÷ 1,150 ≈ 75 an hour, or about 523 for a 7-hour day.</p>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Raise your rate without losing clients</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Raise your rate without losing clients</h2>
         <p className="mt-3">Raise rates for new clients first, give existing clients a month’s notice, and tie the increase to results you have delivered. Quoting fixed project prices also makes your hourly rate less visible.</p>
       </section>
     </SeoToolPage>

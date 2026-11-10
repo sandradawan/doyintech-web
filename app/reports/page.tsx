@@ -104,12 +104,12 @@ export default function ReportStudioPage() {
           <div className="mt-6 flex flex-wrap gap-2 text-[12px] text-brand-muted">
             {["Instagram", "Facebook", "TikTok", "YouTube", "LinkedIn", "WhatsApp", "Website", "X"].map(
               (x) => (
-                <span key={x} className="rounded-full border border-white/10 px-2.5 py-1">{x}</span>
+                <span key={x} className="rounded-full border border-brand-ink/10 px-2.5 py-1">{x}</span>
               )
             )}
           </div>
           <div className="mt-8">
-            <Link href="/reports/track" className="rounded-full border border-[#ff8c14]/40 px-3 py-1 text-[13px] text-[#ff8c14]">
+            <Link href="/reports/track" className="rounded-full border border-brand-link/40 px-3 py-1 text-[13px] text-brand-link">
               Track an order →
             </Link>
           </div>
@@ -123,14 +123,14 @@ export default function ReportStudioPage() {
                   type="button"
                   onClick={() => selectPackage(p.id)}
                   className={`rounded-2xl border p-5 text-left transition ${
-                    active ? "border-[#ff8c14] bg-[#ff8c14]/10" : "border-white/10 bg-white/[0.03]"
+                    active ? "border-brand-link bg-brand-link/10" : "border-brand-ink/10 bg-brand-ink/[0.03]"
                   }`}
                 >
                   {p.badge && (
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#ff8c14]">{p.badge}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-link">{p.badge}</span>
                   )}
-                  <h2 className="mt-1 font-display text-[17px] font-semibold text-white">{p.name}</h2>
-                  <p className="mt-1 text-[20px] font-bold text-white">{formatNgn(p.priceNgn)}</p>
+                  <h2 className="mt-1 font-display text-[17px] font-semibold text-brand-ink">{p.name}</h2>
+                  <p className="mt-1 text-[20px] font-bold text-brand-ink">{formatNgn(p.priceNgn)}</p>
                   <p className="text-[12px] text-brand-subtle">
                     {formatUsdFromNgn(p.priceNgn)} · up to {p.maxPlatforms} channel{p.maxPlatforms > 1 ? "s" : ""}
                   </p>
@@ -140,31 +140,31 @@ export default function ReportStudioPage() {
             })}
           </div>
 
-          <form onSubmit={submit} className="mt-10 space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-            <h2 className="font-display text-[20px] font-semibold text-white">Order details</h2>
+          <form onSubmit={submit} className="mt-10 space-y-4 rounded-3xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6 sm:p-8">
+            <h2 className="font-display text-[20px] font-semibold text-brand-ink">Order details</h2>
             <p className="text-[13px] text-brand-muted">
-              <strong className="text-white">{pkg?.name}</strong> — {pkg ? formatNgn(pkg.priceNgn) : ""} · max {max} link{max > 1 ? "s" : ""}
+              <strong className="text-brand-ink">{pkg?.name}</strong> — {pkg ? formatNgn(pkg.priceNgn) : ""} · max {max} link{max > 1 ? "s" : ""}
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-[13px] text-brand-muted">
                 Full name *
                 <input required value={name} onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                  className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
               </label>
               <label className="block text-[13px] text-brand-muted">
                 Email *
                 <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                  className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
               </label>
             </div>
             <label className="block text-[13px] text-brand-muted">
               Phone / WhatsApp
               <input value={phone} onChange={(e) => setPhone(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
             </label>
 
             <div className="space-y-3">
-              <p className="text-[13px] font-medium text-white">
+              <p className="text-[13px] font-medium text-brand-ink">
                 Platform links *{" "}
                 <span className="font-normal text-brand-muted">(IG, FB, TikTok, YT, LinkedIn, WA, web, X…)</span>
               </p>
@@ -173,7 +173,7 @@ export default function ReportStudioPage() {
                   <select
                     value={row.platform}
                     onChange={(e) => setRow(i, { platform: e.target.value as PlatformId })}
-                    className="rounded-xl border border-white/10 bg-black/40 px-3 py-3 text-[14px] text-white sm:w-44"
+                    className="rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-3 text-[14px] text-brand-ink sm:w-44"
                   >
                     {PLATFORMS.map((pl) => (
                       <option key={pl.id} value={pl.id}>{pl.label}</option>
@@ -183,7 +183,7 @@ export default function ReportStudioPage() {
                     value={row.url}
                     onChange={(e) => setRow(i, { url: e.target.value })}
                     placeholder={PLATFORMS.find((p) => p.id === row.platform)?.placeholder || "https://…"}
-                    className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]"
+                    className="min-w-0 flex-1 rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link"
                   />
                   {rows.length > 1 && (
                     <button type="button" onClick={() => setRows((prev) => prev.filter((_, idx) => idx !== i))}
@@ -202,31 +202,31 @@ export default function ReportStudioPage() {
                 Business category
                 <input value={businessCategory} onChange={(e) => setBusinessCategory(e.target.value)}
                   placeholder="e.g. Makeup, Property, Coaching"
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                  className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
               </label>
               <label className="block text-[13px] text-brand-muted">
                 Main objective
                 <input value={businessObjective} onChange={(e) => setBusinessObjective(e.target.value)}
                   placeholder="e.g. More bookings from social + web"
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                  className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
               </label>
             </div>
             <label className="block text-[13px] text-brand-muted">
               Target audience
               <input value={targetAudience} onChange={(e) => setTargetAudience(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
             </label>
             <label className="block text-[13px] text-brand-muted">
               Notes
               <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-[#ff8c14]" />
+                className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-brand-ink outline-none focus:border-brand-link" />
             </label>
             {error && <p className="text-[14px] text-red-300">{error}</p>}
             {orderId && (
               <p className="text-[14px] text-emerald-200">Order ID: <strong>{orderId}</strong></p>
             )}
             <button type="submit" disabled={loading}
-              className="rounded-full bg-[#ff8c14] px-6 py-3.5 text-[15px] font-semibold text-black disabled:opacity-60">
+              className="rounded-full bg-brand-accent px-6 py-3.5 text-[15px] font-semibold text-black disabled:opacity-60">
               {loading ? "Starting payment…" : `Pay ${pkg ? formatNgn(pkg.priceNgn) : ""} & get report`}
             </button>
             <p className="text-[12px] text-brand-subtle">

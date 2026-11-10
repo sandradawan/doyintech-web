@@ -83,25 +83,25 @@ export default async function IndustryPage({ params }: Props) {
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-6">
           <nav aria-label="Breadcrumb" className="text-[13px] text-brand-subtle">
-            <Link href="/websites" className="hover:text-white">
+            <Link href="/websites" className="hover:text-brand-ink">
               Websites
             </Link>{" "}
             / <span className="text-brand-soft">{i.name}</span>
           </nav>
 
-          <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-white sm:text-[42px]">{i.h1}</h1>
+          <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[42px]">{i.h1}</h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">{i.intro}</p>
 
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href={PRIMARY_CTA.href}
-              className="inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black hover:brightness-110"
+              className="inline-flex rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black hover:brightness-110"
             >
               {PRIMARY_CTA.label}
             </Link>
             <Link
               href={SECONDARY_CTA.href}
-              className="inline-flex rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white hover:border-white/40"
+              className="inline-flex rounded-full border border-brand-ink/20 px-6 py-3 text-[15px] font-semibold text-brand-ink hover:border-brand-ink/40"
             >
               {SECONDARY_CTA.label}
             </Link>
@@ -113,11 +113,11 @@ export default async function IndustryPage({ params }: Props) {
           )}
 
           <section className="mt-14">
-            <h2 className="text-[22px] font-semibold text-white">The problem we fix</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">The problem we fix</h2>
             <ul className="mt-4 space-y-3">
               {i.problems.map((p) => (
                 <li key={p} className="flex gap-3 text-[15px] leading-relaxed text-brand-soft">
-                  <span className="mt-1 text-[#ff8c14]" aria-hidden>
+                  <span className="mt-1 text-brand-link" aria-hidden>
                     ✕
                   </span>
                   {p}
@@ -127,22 +127,22 @@ export default async function IndustryPage({ params }: Props) {
           </section>
 
           <section className="mt-14">
-            <h2 className="text-[22px] font-semibold text-white">What your website includes</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">What your website includes</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {included.map((f) => (
-                <div key={f.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                  <h3 className="text-[15px] font-semibold text-white">{f.title}</h3>
+                <div key={f.title} className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5">
+                  <h3 className="text-[15px] font-semibold text-brand-ink">{f.title}</h3>
                   <p className="mt-1.5 text-[14px] leading-relaxed text-brand-muted">{f.why}</p>
                 </div>
               ))}
             </div>
             {addOns.length > 0 && (
               <>
-                <h3 className="mt-8 text-[16px] font-semibold text-white">Add when you&apos;re ready</h3>
+                <h3 className="mt-8 text-[16px] font-semibold text-brand-ink">Add when you&apos;re ready</h3>
                 <ul className="mt-3 space-y-2">
                   {addOns.map((f) => (
                     <li key={f.title} className="text-[14px] leading-relaxed text-brand-soft">
-                      <strong className="text-white">{f.title}</strong> — {f.why}
+                      <strong className="text-brand-ink">{f.title}</strong> — {f.why}
                     </li>
                   ))}
                 </ul>
@@ -150,11 +150,11 @@ export default async function IndustryPage({ params }: Props) {
             )}
           </section>
 
-          <section className="mt-14 rounded-2xl border border-[#ff8c14]/30 bg-brand-surface p-6">
-            <h2 className="text-[20px] font-semibold text-white">Price</h2>
+          <section className="mt-14 rounded-2xl border border-brand-link/30 bg-brand-surface p-6">
+            <h2 className="text-[20px] font-semibold text-brand-ink">Price</h2>
             {offer && packagePrice && (
               <div className="mt-4">
-                <p className="text-[15px] text-white">
+                <p className="text-[15px] text-brand-ink">
                   <strong>{offer.name}</strong> — {naira(packagePrice)} fixed
                 </p>
                 <p className="mt-1 text-[14px] text-brand-muted">{i.packageReason}</p>
@@ -164,8 +164,8 @@ export default async function IndustryPage({ params }: Props) {
               </div>
             )}
             {full && (
-              <div className="mt-5 border-t border-white/10 pt-4">
-                <p className="text-[15px] text-white">
+              <div className="mt-5 border-t border-brand-ink/10 pt-4">
+                <p className="text-[15px] text-brand-ink">
                   <strong>{i.fullBuildLabel}</strong> — typically {naira(full.baseMin)} – {naira(full.baseMax)}
                 </p>
                 <p className="mt-1 text-[13px] text-brand-subtle">
@@ -174,16 +174,16 @@ export default async function IndustryPage({ params }: Props) {
               </div>
             )}
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={PRIMARY_CTA.href} className="inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+              <Link href={PRIMARY_CTA.href} className="inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
                 Start with a deposit
               </Link>
-              <Link href="/website-cost-nigeria" className="inline-flex rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white">
+              <Link href="/website-cost-nigeria" className="inline-flex rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink">
                 Estimate a custom build
               </Link>
             </div>
             <p className="mt-4 text-[13px] text-brand-subtle">
               Keep it secure and up to date after launch with a{" "}
-              <Link href="/care-plans" className="text-[#ff8c14] hover:underline">
+              <Link href="/care-plans" className="text-brand-link hover:underline">
                 care plan
               </Link>
               .
@@ -192,18 +192,18 @@ export default async function IndustryPage({ params }: Props) {
 
           {(i.caseStudy || i.guide) && (
             <section className="mt-14">
-              <h2 className="text-[22px] font-semibold text-white">See it in practice</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">See it in practice</h2>
               <ul className="mt-4 space-y-2 text-[15px]">
                 {i.caseStudy && (
                   <li>
-                    <Link href={i.caseStudy.href} className="text-[#ff8c14] hover:underline">
+                    <Link href={i.caseStudy.href} className="text-brand-link hover:underline">
                       Case study: {i.caseStudy.label} →
                     </Link>
                   </li>
                 )}
                 {i.guide && (
                   <li>
-                    <Link href={i.guide.href} className="text-[#ff8c14] hover:underline">
+                    <Link href={i.guide.href} className="text-brand-link hover:underline">
                       {i.guide.label} →
                     </Link>
                   </li>
@@ -213,25 +213,25 @@ export default async function IndustryPage({ params }: Props) {
           )}
 
           <section className="mt-14">
-            <h2 className="text-[22px] font-semibold text-white">Questions</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Questions</h2>
             <dl className="mt-4 space-y-5">
               {i.faqs.map((f) => (
                 <div key={f.q}>
-                  <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
+                  <dt className="text-[15px] font-semibold text-brand-ink">{f.q}</dt>
                   <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <section className="mt-14 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center">
-            <h2 className="text-[20px] font-semibold text-white">Ready for a website that brings enquiries?</h2>
+          <section className="mt-14 rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-6 text-center">
+            <h2 className="text-[20px] font-semibold text-brand-ink">Ready for a website that brings enquiries?</h2>
             <p className="mt-2 text-[14px] text-brand-muted">
               Fixed price, 50% deposit online, and a site you can share within weeks.
             </p>
             <Link
               href={PRIMARY_CTA.href}
-              className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+              className="mt-5 inline-flex rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black"
             >
               {PRIMARY_CTA.label}
             </Link>
@@ -244,7 +244,7 @@ export default async function IndustryPage({ params }: Props) {
                 <li key={o.slug}>
                   <Link
                     href={`/websites/${o.slug}`}
-                    className="inline-flex rounded-full border border-white/15 px-3.5 py-1.5 text-[13px] text-white hover:border-[#ff8c14]/50"
+                    className="inline-flex rounded-full border border-brand-ink/15 px-3.5 py-1.5 text-[13px] text-brand-ink hover:border-brand-link/50"
                   >
                     {o.name}
                   </Link>

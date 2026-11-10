@@ -30,7 +30,7 @@ export default function Page() {
       appName="Family quiz night"
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Ideas for a great quiz night</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Ideas for a great quiz night</h2>
         <p className="mt-3">Mix ages in each team so children and grandparents both get to answer. Give a small prize to the winner and a funny one for last place. Swap the phone holder each round, and keep snacks on the table: puff-puff and chin chin always help.</p>
       </section>
     </TriviaShell>

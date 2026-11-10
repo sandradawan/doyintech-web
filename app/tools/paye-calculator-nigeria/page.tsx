@@ -81,10 +81,10 @@ export default function PayeCalculatorPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-28">
         <div className="mx-auto max-w-3xl px-6">
-          <Link href="/tools" className="text-[14px] text-[#ff8c14] hover:underline">
+          <Link href="/tools" className="text-[14px] text-brand-link hover:underline">
             ← All tools
           </Link>
-          <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-4 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             PAYE Calculator Nigeria 2026
           </h1>
           <p className="mt-3 text-[17px] leading-relaxed text-brand-muted">
@@ -100,19 +100,19 @@ export default function PayeCalculatorPage() {
 
           <article className="mt-16 space-y-10 text-[15px] leading-relaxed text-brand-soft">
             <section>
-              <h2 className="text-[22px] font-semibold text-white">2026 PAYE tax bands in Nigeria</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">2026 PAYE tax bands in Nigeria</h2>
               <p className="mt-3">
                 From 1 January 2026, personal income tax is charged on annual taxable income (gross
                 pay minus allowable deductions and reliefs) using these bands:
               </p>
-              <table className="mt-4 w-full overflow-hidden rounded-xl border border-white/10 text-left text-[14px]">
-                <thead className="bg-white/[0.05] text-white">
+              <table className="mt-4 w-full overflow-hidden rounded-xl border border-brand-ink/10 text-left text-[14px]">
+                <thead className="bg-brand-ink/[0.05] text-brand-ink">
                   <tr>
                     <th className="px-4 py-2.5 font-semibold">Annual taxable income</th>
                     <th className="px-4 py-2.5 text-right font-semibold">Rate</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/10">
+                <tbody className="divide-y divide-brand-ink/10">
                   {PAYE_BANDS_2026.map((b, i) => {
                     const from = i === 0 ? 0 : PAYE_BANDS_2026[i - 1].upTo;
                     return (
@@ -127,7 +127,7 @@ export default function PayeCalculatorPage() {
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">What changed from the old PAYE rules</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">What changed from the old PAYE rules</h2>
               <ul className="mt-3 list-disc space-y-2 pl-5">
                 <li>The tax-free threshold rose from ₦300,000 to the first ₦800,000 of taxable income.</li>
                 <li>The Consolidated Relief Allowance (CRA) was abolished.</li>
@@ -136,7 +136,7 @@ export default function PayeCalculatorPage() {
               </ul>
               <p className="mt-3">
                 Running a business? Check whether it qualifies for 0% company tax with the{" "}
-                <Link href="/tools/small-company-tax-checker" className="text-[#ff8c14] hover:underline">
+                <Link href="/tools/small-company-tax-checker" className="text-brand-link hover:underline">
                   small company tax checker
                 </Link>
                 .
@@ -144,7 +144,7 @@ export default function PayeCalculatorPage() {
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Worked example: {naira(500_000)} a month</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Worked example: {naira(500_000)} a month</h2>
               <ol className="mt-3 list-decimal space-y-1.5 pl-5">
                 <li>Annual gross pay: {naira(EXAMPLE.grossAnnual)}</li>
                 <li>Pension (8%): {naira(EXAMPLE.pension)}</li>
@@ -152,36 +152,36 @@ export default function PayeCalculatorPage() {
                 <li>Taxable income: {naira(EXAMPLE.taxableIncome)}</li>
                 <li>
                   Tax: 0% on the first ₦800,000, 15% on the next ₦2,200,000, 18% on the remaining{" "}
-                  {naira(EXAMPLE.taxableIncome - 3_000_000)} = <strong className="text-white">{naira(EXAMPLE.annualTax)}</strong> a
+                  {naira(EXAMPLE.taxableIncome - 3_000_000)} = <strong className="text-brand-ink">{naira(EXAMPLE.annualTax)}</strong> a
                   year ({naira(EXAMPLE.monthlyTax)} a month)
                 </li>
               </ol>
             </section>
 
             <section>
-              <h2 className="text-[22px] font-semibold text-white">Frequently asked questions</h2>
+              <h2 className="text-[22px] font-semibold text-brand-ink">Frequently asked questions</h2>
               <dl className="mt-4 space-y-5">
                 {FAQ.map((f) => (
                   <div key={f.q}>
-                    <dt className="font-semibold text-white">{f.q}</dt>
+                    <dt className="font-semibold text-brand-ink">{f.q}</dt>
                     <dd className="mt-1">{f.a}</dd>
                   </div>
                 ))}
               </dl>
             </section>
 
-            <section className="rounded-2xl border border-white/10 bg-brand-surface p-6">
-              <h2 className="text-[18px] font-semibold text-white">Run payroll for a team?</h2>
+            <section className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+              <h2 className="text-[18px] font-semibold text-brand-ink">Run payroll for a team?</h2>
               <p className="mt-2 text-[14px] text-brand-muted">
                 DoyinTech Pro includes payslips, invoices, contracts and every premium tool for
                 ₦5,000/month. Need payroll built into your own website or HR system?{" "}
-                <Link href="/hire" className="text-[#ff8c14] hover:underline">
+                <Link href="/hire" className="text-brand-link hover:underline">
                   We build that too.
                 </Link>
               </p>
               <Link
                 href="/pro"
-                className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black"
+                className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black"
               >
                 See DoyinTech Pro
               </Link>

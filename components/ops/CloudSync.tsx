@@ -11,11 +11,11 @@ type Props = {
 };
 
 const field =
-  "w-full rounded-lg border border-white/10 bg-brand-deep px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#ff8c14]/60";
+  "w-full rounded-lg border border-brand-ink/10 bg-brand-deep px-3 py-2.5 text-sm text-brand-ink placeholder:text-brand-ink/30 outline-none focus:border-brand-link/60";
 const btnP =
-  "rounded-lg bg-[#ff8c14] px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
+  "rounded-lg bg-brand-accent px-4 py-2.5 text-sm font-semibold text-black disabled:opacity-40";
 const btnG =
-  "rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 hover:bg-white/10";
+  "rounded-lg border border-brand-ink/10 bg-brand-ink/5 px-3 py-2 text-xs font-medium text-brand-ink/80 hover:bg-brand-ink/10";
 
 export default function CloudSync({ workspace, onPull }: Props) {
   const configured = isSupabaseConfigured();
@@ -134,10 +134,10 @@ export default function CloudSync({ workspace, onPull }: Props) {
     return (
       <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-5">
         <h2 className="text-sm font-semibold text-amber-200">Cloud sync</h2>
-        <p className="mt-2 text-[13px] text-white/55">
+        <p className="mt-2 text-[13px] text-brand-ink/55">
           Add these Vercel env vars to enable login + multi-device sync:
         </p>
-        <ul className="mt-2 space-y-1 font-mono text-[11px] text-white/45">
+        <ul className="mt-2 space-y-1 font-mono text-[11px] text-brand-ink/45">
           <li>NEXT_PUBLIC_SUPABASE_URL</li>
           <li>NEXT_PUBLIC_SUPABASE_ANON_KEY</li>
           <li>SUPABASE_SERVICE_ROLE_KEY (for payment auto-mark)</li>
@@ -147,9 +147,9 @@ export default function CloudSync({ workspace, onPull }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-brand-deep p-6">
-      <h2 className="text-sm font-semibold text-white">Cloud sync</h2>
-      <p className="mt-1 text-[13px] text-white/45">
+    <div className="rounded-xl border border-brand-ink/[0.06] bg-brand-deep p-6">
+      <h2 className="text-sm font-semibold text-brand-ink">Cloud sync</h2>
+      <p className="mt-1 text-[13px] text-brand-ink/45">
         Sign in with email, then push/pull your workspace across devices.
       </p>
 
@@ -169,8 +169,8 @@ export default function CloudSync({ workspace, onPull }: Props) {
         </form>
       ) : (
         <div className="mt-4 space-y-3">
-          <p className="text-[13px] text-white/70">
-            Signed in as <span className="text-[#ff8c14]">{userEmail}</span>
+          <p className="text-[13px] text-brand-ink/70">
+            Signed in as <span className="text-brand-link">{userEmail}</span>
           </p>
           <div className="flex flex-wrap gap-2">
             <button type="button" disabled={busy} onClick={pushCloud} className={btnP}>
@@ -186,7 +186,7 @@ export default function CloudSync({ workspace, onPull }: Props) {
         </div>
       )}
 
-      {msg && <p className="mt-3 text-[12px] text-white/50">{msg}</p>}
+      {msg && <p className="mt-3 text-[12px] text-brand-ink/50">{msg}</p>}
     </div>
   );
 }

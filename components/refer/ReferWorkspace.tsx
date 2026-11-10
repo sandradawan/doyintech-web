@@ -60,7 +60,7 @@ export default function ReferWorkspace() {
   return (
     <div className="space-y-8">
       <div className="glass-card p-6 sm:p-8">
-        <h2 className="text-[18px] font-semibold text-white">Your referral link</h2>
+        <h2 className="text-[18px] font-semibold text-brand-ink">Your referral link</h2>
         <p className="mt-2 text-[14px] text-brand-muted">
           Create a code, share the link. When they deposit, tell us your code so we apply ₦10,000
           credit.
@@ -70,7 +70,7 @@ export default function ReferWorkspace() {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[15px] text-white outline-none focus:border-[#ff8c14]/50"
+            className="mt-1 w-full rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[15px] text-brand-ink outline-none focus:border-brand-link/50"
             placeholder="e.g. Ada"
           />
         </label>
@@ -78,26 +78,26 @@ export default function ReferWorkspace() {
           <button
             type="button"
             onClick={generate}
-            className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black"
+            className="rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black"
           >
             {code ? "Regenerate code" : "Generate code"}
           </button>
           {code && (
-            <span className="inline-flex items-center rounded-full border border-white/15 px-4 py-2 text-[13px] font-mono text-white">
+            <span className="inline-flex items-center rounded-full border border-brand-ink/15 px-4 py-2 text-[13px] font-mono text-brand-ink">
               {code}
             </span>
           )}
         </div>
         {shareUrl && (
           <div className="mt-5 space-y-3">
-            <div className="break-all rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-[13px] text-brand-soft">
+            <div className="break-all rounded-xl border border-brand-ink/10 bg-brand-well px-4 py-3 text-[13px] text-brand-soft">
               {shareUrl}
             </div>
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"
                 onClick={copy}
-                className="rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white"
+                className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink"
               >
                 {copied ? "Copied" : "Copy link"}
               </button>
@@ -113,7 +113,7 @@ export default function ReferWorkspace() {
                 href={waIntro}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white"
+                className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink"
               >
                 Notify us of a referral
               </a>

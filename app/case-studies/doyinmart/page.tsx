@@ -19,7 +19,7 @@ export default function DoyinMartCaseStudy() {
           <p className="mt-8 text-sm font-semibold uppercase tracking-wider text-primary">
             Case Study
           </p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-white leading-tight">
+          <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold text-brand-ink leading-tight">
             DoyinMart — African Software Marketplace
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -31,7 +31,7 @@ export default function DoyinMartCaseStudy() {
               (t) => (
                 <span
                   key={t}
-                  className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-brand-soft"
+                  className="px-3 py-1 rounded-full border border-brand-ink/10 bg-brand-ink/5 text-xs text-brand-soft"
                 >
                   {t}
                 </span>
@@ -41,14 +41,14 @@ export default function DoyinMartCaseStudy() {
 
           <div className="mt-12 space-y-10 text-brand-soft leading-relaxed">
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">The Challenge</h2>
+              <h2 className="text-2xl font-bold text-brand-ink mb-3">The Challenge</h2>
               <p>
                 African creators and businesses needed a simple place to discover and sell software, learning systems and digital tools with local currency and a modern buying experience.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">The Solution</h2>
+              <h2 className="text-2xl font-bold text-brand-ink mb-3">The Solution</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Product catalogue with categories, ratings and pricing in ₦ and $</li>
                 <li>Clean storefront UI optimised for mobile and desktop</li>
@@ -57,7 +57,7 @@ export default function DoyinMartCaseStudy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-white mb-3">Results</h2>
+              <h2 className="text-2xl font-bold text-brand-ink mb-3">Results</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Professional marketplace presence for the brand</li>
                 <li>Fast, modern shopping experience</li>
@@ -76,7 +76,7 @@ export default function DoyinMartCaseStudy() {
               </a>
               <a
                 href="/contact"
-                className="px-6 py-3 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 transition"
+                className="px-6 py-3 rounded-xl border border-brand-ink/15 text-brand-ink text-sm font-semibold hover:bg-brand-ink/5 transition"
               >
                 Start a Similar Project
               </a>

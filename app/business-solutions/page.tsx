@@ -138,8 +138,8 @@ export default function BusinessSolutionsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-16 pt-24">
         <header className="mx-auto max-w-[780px] px-6 text-center">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">Free tools · no sign-up</p>
-          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[46px]">The problems that hold businesses back, and the tools that fix them</h1>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">Free tools · no sign-up</p>
+          <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[46px]">The problems that hold businesses back, and the tools that fix them</h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-soft">
             Power, cash, imports, staff costs, deadlines, procurement, paperwork, funding and customers. Pick your biggest problem and get a number you can act on today.
           </p>
@@ -147,7 +147,7 @@ export default function BusinessSolutionsPage() {
 
         <nav aria-label="Jump to a problem" className="mx-auto mt-8 flex max-w-[980px] flex-wrap justify-center gap-2 px-6">
           {PROBLEMS.map((p) => (
-            <a key={p.id} href={`#${p.id}`} className="inline-flex min-h-10 items-center rounded-full border border-white/15 px-4 text-[13px] font-semibold text-brand-soft hover:border-[#ff8c14] hover:text-white">
+            <a key={p.id} href={`#${p.id}`} className="inline-flex min-h-10 items-center rounded-full border border-brand-ink/15 px-4 text-[13px] font-semibold text-brand-soft hover:border-brand-link hover:text-brand-ink">
               {p.tag}
             </a>
           ))}
@@ -155,16 +155,16 @@ export default function BusinessSolutionsPage() {
 
         <div className="mx-auto mt-10 grid max-w-[1100px] gap-4 px-6 md:grid-cols-2 lg:grid-cols-3">
           {PROBLEMS.map((p, i) => (
-            <section key={p.id} id={p.id} className="flex scroll-mt-28 flex-col rounded-2xl border border-white/10 bg-brand-surface p-6">
-              <p className="text-[12px] font-semibold text-[#ff8c14]">Problem {i + 1}</p>
-              <h2 className="mt-1 text-[19px] font-semibold leading-snug text-white">{p.problem}</h2>
+            <section key={p.id} id={p.id} className="flex scroll-mt-28 flex-col rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+              <p className="text-[12px] font-semibold text-brand-link">Problem {i + 1}</p>
+              <h2 className="mt-1 text-[19px] font-semibold leading-snug text-brand-ink">{p.problem}</h2>
               <p className="mt-1 text-[13px] text-brand-muted">{p.who}</p>
               <p className="mt-3 text-[14px] text-brand-soft">{p.pain}</p>
-              <p className="mt-2 text-[14px] text-white"><span className="font-semibold text-[#3ddc97]">Fix: </span>{p.fix}</p>
+              <p className="mt-2 text-[14px] text-brand-ink"><span className="font-semibold text-[#3ddc97]">Fix: </span>{p.fix}</p>
               <ul className="mt-4 space-y-2">
                 {p.tools.map(([label, href], k) => (
                   <li key={href}>
-                    <Link href={href} className={`flex min-h-11 items-center justify-between rounded-xl px-4 text-[14px] font-semibold ${k === 0 ? "bg-[#ff8c14] text-black hover:bg-[#ffa040]" : "border border-white/15 text-black hover:border-white/35"}`}>
+                    <Link href={href} className={`flex min-h-11 items-center justify-between rounded-xl px-4 text-[14px] font-semibold ${k === 0 ? "bg-brand-accent text-black hover:bg-[#ffa040]" : "border border-white/15 text-black hover:border-white/35"}`}>
                       {label}
                       <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                     </Link>
@@ -172,7 +172,7 @@ export default function BusinessSolutionsPage() {
                 ))}
               </ul>
               {p.more && (
-                <Link href={p.more[1]} className="mt-3 text-[13px] text-brand-muted underline underline-offset-2 hover:text-white">
+                <Link href={p.more[1]} className="mt-3 text-[13px] text-brand-muted underline underline-offset-2 hover:text-brand-ink">
                   Go further: {p.more[0]}
                 </Link>
               )}
@@ -181,24 +181,24 @@ export default function BusinessSolutionsPage() {
         </div>
 
         <section className="mx-auto mt-14 max-w-[980px] px-6">
-          <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/5 p-6 sm:p-8">
-            <h2 className="text-[22px] font-semibold text-white">Need it built around your own data?</h2>
+          <div className="rounded-2xl border border-brand-link/30 bg-brand-link/5 p-6 sm:p-8">
+            <h2 className="text-[22px] font-semibold text-brand-ink">Need it built around your own data?</h2>
             <p className="mt-2 text-[15px] text-brand-soft">
               We build e-procurement portals, payroll and HR systems, compliance trackers and owner dashboards for companies, schools, NGOs and government agencies.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <Link href="/contact" className="inline-flex min-h-11 items-center rounded-full bg-[#ff8c14] px-6 text-[14px] font-semibold text-black">Talk to us</Link>
-              <Link href="/tools" className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-6 text-[14px] font-semibold text-white">All free tools</Link>
+              <Link href="/contact" className="inline-flex min-h-11 items-center rounded-full bg-brand-accent px-6 text-[14px] font-semibold text-black">Talk to us</Link>
+              <Link href="/tools" className="inline-flex min-h-11 items-center rounded-full border border-brand-ink/15 px-6 text-[14px] font-semibold text-brand-ink">All free tools</Link>
             </div>
           </div>
         </section>
 
         <section className="mx-auto mt-14 max-w-[780px] px-6">
-          <h2 className="text-[24px] font-semibold text-white">Questions</h2>
+          <h2 className="text-[24px] font-semibold text-brand-ink">Questions</h2>
           <dl className="mt-4 space-y-5">
             {FAQS.map((f) => (
               <div key={f.q}>
-                <dt className="text-[16px] font-semibold text-white">{f.q}</dt>
+                <dt className="text-[16px] font-semibold text-brand-ink">{f.q}</dt>
                 <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
               </div>
             ))}

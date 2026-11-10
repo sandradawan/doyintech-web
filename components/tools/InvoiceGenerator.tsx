@@ -71,7 +71,7 @@ function formatDate(iso: string) {
 }
 
 const field =
-  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-primary/50";
+  "w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-primary/50";
 const label = "block text-xs font-medium text-gray-400 mb-1";
 
 type DocType = "Invoice" | "Quote" | "Proforma" | "Receipt" | "PurchaseOrder";
@@ -302,7 +302,7 @@ export default function InvoiceGenerator({
 
   return (
     <div className="space-y-6">
-      <div className="invoice-no-print space-y-6 rounded-3xl border border-white/10 bg-surface/80 p-5 md:p-8">
+      <div className="invoice-no-print space-y-6 rounded-3xl border border-brand-ink/10 bg-surface/80 p-5 md:p-8">
         <div className="flex flex-wrap gap-2">
           {(["Invoice", "Quote", "Proforma", "Receipt", "PurchaseOrder"] as const).map((t) => (
             <button
@@ -311,8 +311,8 @@ export default function InvoiceGenerator({
               onClick={() => setDocType(t)}
               className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
                 docType === t
-                  ? "border-primary bg-primary/20 text-white"
-                  : "border-white/10 text-gray-400"
+                  ? "border-primary bg-primary/20 text-brand-ink"
+                  : "border-brand-ink/10 text-gray-400"
               }`}
             >
               {DOC_LABEL[t]}
@@ -363,7 +363,7 @@ export default function InvoiceGenerator({
               onChange={(e) => setStatus(e.target.value as typeof status)}
             >
               {(["Unpaid", "Paid", "Partial", "Overdue"] as const).map((s) => (
-                <option key={s} value={s} className="bg-black">
+                <option key={s} value={s} className="bg-brand-surface text-brand-ink">
                   {s}
                 </option>
               ))}
@@ -372,8 +372,8 @@ export default function InvoiceGenerator({
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
-            <legend className="px-1 text-sm font-semibold text-white">
+          <fieldset className="space-y-3 rounded-2xl border border-brand-ink/10 p-4">
+            <legend className="px-1 text-sm font-semibold text-brand-ink">
               From (your business)
             </legend>
             <input className={field} placeholder="Business name" value={biz.name} onChange={(e) => setBiz({ ...biz, name: e.target.value })} />
@@ -386,8 +386,8 @@ export default function InvoiceGenerator({
             <input className={field} placeholder="CAC / Tax ID (optional)" value={biz.taxId} onChange={(e) => setBiz({ ...biz, taxId: e.target.value })} />
           </fieldset>
 
-          <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
-            <legend className="px-1 text-sm font-semibold text-white">
+          <fieldset className="space-y-3 rounded-2xl border border-brand-ink/10 p-4">
+            <legend className="px-1 text-sm font-semibold text-brand-ink">
               {docType === "PurchaseOrder" ? "Supplier" : "Bill to (client)"}
             </legend>
             <input className={field} placeholder="Client / company name" value={client.name} onChange={(e) => setClient({ ...client, name: e.target.value })} />
@@ -402,14 +402,14 @@ export default function InvoiceGenerator({
 
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-sm font-semibold text-white">Line items</p>
+            <p className="text-sm font-semibold text-brand-ink">Line items</p>
             <button type="button" onClick={addItem} className="text-xs font-semibold text-primary hover:underline">
               + Add item
             </button>
           </div>
           <div className="space-y-3">
             {items.map((it) => (
-              <div key={it.id} className="grid gap-2 rounded-xl border border-white/10 p-3 sm:grid-cols-12">
+              <div key={it.id} className="grid gap-2 rounded-xl border border-brand-ink/10 p-3 sm:grid-cols-12">
                 <input className={field + " sm:col-span-5"} placeholder="Description" value={it.description} onChange={(e) => updateItem(it.id, { description: e.target.value })} />
                 <input type="number" min={0} className={field + " sm:col-span-2"} placeholder="Qty" value={it.qty} onChange={(e) => updateItem(it.id, { qty: Number(e.target.value) || 0 })} />
                 <input type="number" min={0} className={field + " sm:col-span-3"} placeholder={`Unit price (${currencySymbol(currency)})`} value={it.unitPrice} onChange={(e) => updateItem(it.id, { unitPrice: Number(e.target.value) || 0 })} />
@@ -433,15 +433,15 @@ export default function InvoiceGenerator({
           </div>
           <div className="flex flex-col justify-end rounded-xl border border-primary/30 bg-primary/10 px-3 py-2">
             <span className="text-[11px] uppercase text-gray-400">Total</span>
-            <span className="text-lg font-bold text-white">{money(total)}</span>
+            <span className="text-lg font-bold text-brand-ink">{money(total)}</span>
           </div>
         </div>
 
-        <fieldset className="space-y-3 rounded-2xl border border-white/10 p-4">
-          <legend className="px-1 text-sm font-semibold text-white">Payment method</legend>
+        <fieldset className="space-y-3 rounded-2xl border border-brand-ink/10 p-4">
+          <legend className="px-1 text-sm font-semibold text-brand-ink">Payment method</legend>
           <div className="flex flex-wrap gap-2">
             {([["bank", "Bank transfer"], ["paystack", "Paystack"], ["flutterwave", "Flutterwave"], ["cash", "Cash"], ["other", "Other"]] as const).map(([id, lab]) => (
-              <button key={id} type="button" onClick={() => setPayment({ ...payment, method: id })} className={`rounded-full border px-3 py-1.5 text-xs ${payment.method === id ? "border-primary bg-primary/20 text-white" : "border-white/10 text-gray-400"}`}>
+              <button key={id} type="button" onClick={() => setPayment({ ...payment, method: id })} className={`rounded-full border px-3 py-1.5 text-xs ${payment.method === id ? "border-primary bg-primary/20 text-brand-ink" : "border-brand-ink/10 text-gray-400"}`}>
                 {lab}
               </button>
             ))}
@@ -472,8 +472,8 @@ export default function InvoiceGenerator({
         <PaidGate
           toolSlug="branded-invoice"
           preview={
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-              <p className="text-sm font-semibold text-white">Make it look like your brand</p>
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-4">
+              <p className="text-sm font-semibold text-brand-ink">Make it look like your brand</p>
               <p className="mt-1 text-sm text-gray-400">
                 Add your logo and brand colour, and remove the &quot;Generated with DoyinTech&quot; line.
                 Included in{" "}
@@ -486,7 +486,7 @@ export default function InvoiceGenerator({
           }
         >
           <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4">
-            <p className="text-sm font-semibold text-white">Branding</p>
+            <p className="text-sm font-semibold text-brand-ink">Branding</p>
             <div className="mt-3 flex flex-wrap items-center gap-4">
               <label className="text-xs text-gray-400">
                 Logo (PNG/JPG, under 400 KB)
@@ -498,7 +498,7 @@ export default function InvoiceGenerator({
                   type="color"
                   value={brand.color}
                   onChange={(e) => saveBrand({ ...brand, color: e.target.value })}
-                  className="mt-1 block h-9 w-14 cursor-pointer rounded border border-white/10 bg-transparent"
+                  className="mt-1 block h-9 w-14 cursor-pointer rounded border border-brand-ink/10 bg-transparent"
                 />
               </label>
               {brand.logo && (
@@ -551,7 +551,7 @@ export default function InvoiceGenerator({
         )}
       </div>
 
-      <div id="invoice-sheet" className="invoice-sheet overflow-hidden rounded-2xl border border-white/10 bg-white text-gray-900 shadow-xl">
+      <div id="invoice-sheet" className="invoice-sheet overflow-hidden rounded-2xl border border-brand-ink/10 bg-white text-gray-900 shadow-xl">
         <div className="border-b-4 px-6 py-6 sm:px-10" style={{ borderColor: accent }}>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>

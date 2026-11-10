@@ -27,14 +27,14 @@ export default function InvoicePrint({
           <button
             type="button"
             onClick={() => window.print()}
-            className="rounded-full bg-[#ff8c14] px-5 py-2 text-sm font-semibold text-black"
+            className="rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-black"
           >
             Print / Save PDF
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full border border-white/30 px-5 py-2 text-sm text-white"
+            className="rounded-full border border-brand-ink/30 px-5 py-2 text-sm text-brand-ink"
           >
             Close
           </button>
@@ -42,7 +42,7 @@ export default function InvoicePrint({
 
         <article
           id="doyinops-invoice-print"
-          className="rounded-2xl border border-white/10 bg-white p-8 text-black shadow-xl print:rounded-none print:border-0 print:shadow-none"
+          className="rounded-2xl border border-brand-ink/10 bg-brand-ink p-8 text-brand-deep shadow-xl print:rounded-none print:border-0 print:shadow-none"
         >
           <header className="flex flex-wrap items-start justify-between gap-4 border-b border-gray-200 pb-6">
             <div>

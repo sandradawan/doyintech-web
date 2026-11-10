@@ -34,9 +34,9 @@ export default function ServiceDepositButton({ offer }: { offer: ServiceOffer })
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-brand-surface p-5">
+    <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5">
       <p className="text-[13px] text-brand-muted">Pay 50% deposit to lock your slot</p>
-      <p className="mt-1 text-[28px] font-semibold text-white">{offer.depositNgn}</p>
+      <p className="mt-1 text-[28px] font-semibold text-brand-ink">{offer.depositNgn}</p>
       <p className="text-[12px] text-brand-subtle">
         Total package {offer.totalNgn} · balance before handoff
       </p>
@@ -46,7 +46,7 @@ export default function ServiceDepositButton({ offer }: { offer: ServiceOffer })
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/15 bg-black/40 px-3 py-2.5 text-sm text-white outline-none focus:border-[#ff8c14]"
+          className="mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none focus:border-brand-link"
           placeholder="you@email.com"
         />
       </label>
@@ -54,7 +54,7 @@ export default function ServiceDepositButton({ offer }: { offer: ServiceOffer })
         type="button"
         disabled={loading || !email.includes("@")}
         onClick={pay}
-        className="mt-4 w-full rounded-full bg-[#ff8c14] py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
+        className="mt-4 w-full rounded-full bg-brand-accent py-3.5 text-[15px] font-semibold text-black disabled:opacity-50"
       >
         {loading ? "Redirecting…" : `Pay deposit · ${offer.depositNgn}`}
       </button>

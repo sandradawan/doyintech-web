@@ -33,16 +33,16 @@ export default function BlogPostExtras({ slug, title, description, published }: 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav aria-label="Keep reading" className="mt-12 border-t border-white/10 pt-6">
-        <h2 className="text-[18px] font-semibold text-white">Keep reading</h2>
+      <nav aria-label="Keep reading" className="mt-12 border-t border-brand-ink/10 pt-6">
+        <h2 className="text-[18px] font-semibold text-brand-ink">Keep reading</h2>
         <ul className="mt-2">
           {related.map((p) => (
             <li key={p.slug}>
-              <Link href={`/blog/${p.slug}`} className="inline-flex min-h-11 items-center text-[15px] text-[#ff8c14] hover:underline">{p.label}</Link>
+              <Link href={`/blog/${p.slug}`} className="inline-flex min-h-11 items-center text-[15px] text-brand-link hover:underline">{p.label}</Link>
             </li>
           ))}
           <li>
-            <Link href="/website-cost-nigeria" className="inline-flex min-h-11 items-center text-[15px] text-[#ff8c14] hover:underline">How much is a website in Nigeria?</Link>
+            <Link href="/website-cost-nigeria" className="inline-flex min-h-11 items-center text-[15px] text-brand-link hover:underline">How much is a website in Nigeria?</Link>
           </li>
         </ul>
       </nav>

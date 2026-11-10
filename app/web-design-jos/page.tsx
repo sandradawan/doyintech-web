@@ -13,10 +13,10 @@ export default function WebDesignJosPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Jos · Plateau
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink">
             Web design in Jos for SMEs that want enquiries
           </h1>
           <p className="mt-4 text-[17px] text-brand-muted">
@@ -31,8 +31,8 @@ export default function WebDesignJosPage() {
             <li>✓ Free 3-minute audit of your current link</li>
           </ul>
           <div className="mt-10 flex flex-wrap gap-3">
-            <a href="/hire" className="rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black">See packages</a>
-            <a href="/free-audit" className="rounded-full border border-white/20 px-6 py-3 text-[14px] font-semibold text-white">Free audit</a>
+            <a href="/hire" className="rounded-full bg-brand-accent px-6 py-3 text-[14px] font-semibold text-black">See packages</a>
+            <a href="/free-audit" className="rounded-full border border-brand-ink/20 px-6 py-3 text-[14px] font-semibold text-brand-ink">Free audit</a>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#25D366] px-6 py-3 text-[14px] font-semibold text-black">WhatsApp Jos team</a>
           </div>
           <p className="mt-8 text-[14px] text-brand-subtle">

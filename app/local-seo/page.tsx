@@ -32,10 +32,10 @@ export default function LocalSeoPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             Local · Jos & Nigeria
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[40px]">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">
             Google Business + website that gets local enquiries
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-brand-muted">
@@ -47,17 +47,17 @@ export default function LocalSeoPage() {
             {steps.map((s, i) => (
               <div
                 key={s.t}
-                className="rounded-2xl border border-white/10 bg-brand-surface p-5"
+                className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5"
               >
-                <p className="text-[12px] font-semibold text-[#ff8c14]">Step {i + 1}</p>
-                <h2 className="mt-1 text-[18px] font-semibold text-white">{s.t}</h2>
+                <p className="text-[12px] font-semibold text-brand-link">Step {i + 1}</p>
+                <h2 className="mt-1 text-[18px] font-semibold text-brand-ink">{s.t}</h2>
                 <p className="mt-2 text-[14px] text-brand-muted">{s.d}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
-            <h2 className="text-[20px] font-semibold text-white">We build the site</h2>
+          <div className="mt-12 rounded-2xl border border-brand-link/25 bg-brand-link/5 p-6">
+            <h2 className="text-[20px] font-semibold text-brand-ink">We build the site</h2>
             <p className="mt-2 text-[14px] text-brand-muted">
               Landing page from ₦100,000 or Local Business Website ₦250,000 — fixed price, 50%
               deposit, WhatsApp-ready. You (or we guide you) claim Google Business.
@@ -65,13 +65,13 @@ export default function LocalSeoPage() {
             <div className="mt-5 flex flex-wrap gap-3">
               <a
                 href="/hire"
-                className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black"
+                className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black"
               >
                 Fixed-price packages
               </a>
               <a
                 href="/free-audit"
-                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white"
+                className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink"
               >
                 Free site audit
               </a>

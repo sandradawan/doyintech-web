@@ -25,10 +25,10 @@ export default function ImperialVillaCaseStudy() {
             ← All case studies
           </Link>
 
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-[#ff8c14]">
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-brand-link">
             Case study · Property
           </p>
-          <h1 className="mt-3 text-4xl font-bold leading-tight text-white md:text-5xl">
+          <h1 className="mt-3 text-4xl font-bold leading-tight text-brand-ink md:text-5xl">
             Imperial Villa Property Platform
           </h1>
           <p className="mt-4 text-xl text-brand-muted">
@@ -40,7 +40,7 @@ export default function ImperialVillaCaseStudy() {
             {["Next.js", "Laravel / PHP", "MySQL", "Auth", "Dashboards"].map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-brand-soft"
+                className="rounded-full border border-brand-ink/10 bg-brand-ink/5 px-3 py-1 text-xs text-brand-soft"
               >
                 {t}
               </span>
@@ -51,9 +51,9 @@ export default function ImperialVillaCaseStudy() {
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center"
+                className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-4 text-center"
               >
-                <p className="text-2xl font-bold text-white">{m.value}</p>
+                <p className="text-2xl font-bold text-brand-ink">{m.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wider text-brand-subtle">
                   {m.label}
                 </p>
@@ -63,7 +63,7 @@ export default function ImperialVillaCaseStudy() {
 
           <div className="mt-12 space-y-10 leading-relaxed text-brand-soft">
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">The challenge</h2>
+              <h2 className="mb-3 text-2xl font-bold text-brand-ink">The challenge</h2>
               <p>
                 Imperial Villa needed a professional digital presence and internal tools to
                 manage clients, RSA accounts, equity mortgage products and multi-branch
@@ -72,7 +72,7 @@ export default function ImperialVillaCaseStudy() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">What we shipped</h2>
+              <h2 className="mb-3 text-2xl font-bold text-brand-ink">What we shipped</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>
                   Marketing website showcasing estates, 25% Equity Mortgage and lead capture.
@@ -85,7 +85,7 @@ export default function ImperialVillaCaseStudy() {
             </section>
 
             <section>
-              <h2 className="mb-3 text-2xl font-bold text-white">Business results</h2>
+              <h2 className="mb-3 text-2xl font-bold text-brand-ink">Business results</h2>
               <ul className="list-disc space-y-2 pl-5">
                 <li>One brand site instead of scattered pages and documents</li>
                 <li>Clearer path for property enquiries and mortgage interest</li>
@@ -94,8 +94,8 @@ export default function ImperialVillaCaseStudy() {
               </ul>
             </section>
 
-            <div className="rounded-2xl border border-[#ff8c14]/25 bg-[#ff8c14]/5 p-6">
-              <p className="text-[13px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+            <div className="rounded-2xl border border-brand-link/25 bg-brand-link/5 p-6">
+              <p className="text-[13px] font-semibold uppercase tracking-wide text-brand-link">
                 Similar project?
               </p>
               <p className="mt-2 text-[15px] text-brand-soft">
@@ -105,7 +105,7 @@ export default function ImperialVillaCaseStudy() {
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
                   href="/hire"
-                  className="rounded-full bg-[#ff8c14] px-5 py-2.5 text-sm font-semibold text-black"
+                  className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black"
                 >
                   Hire · fixed price
                 </a>
@@ -113,7 +113,7 @@ export default function ImperialVillaCaseStudy() {
                   href={discoveryCallLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white"
+                  className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-sm font-semibold text-brand-ink"
                 >
                   Free discovery call
                 </a>

@@ -62,32 +62,32 @@ export default function SmallCompanyTaxCheckerPage() {
       newsletterSource="small-company-tax"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Growing past the small-company limit?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Growing past the small-company limit?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             Clean records make tax time painless. DoyinTech Pro gives you branded invoices,
             receipts, payslips and contracts for ₦5,000/month, and{" "}
-            <Link href="/hire" className="text-[#ff8c14] hover:underline">
+            <Link href="/hire" className="text-brand-link hover:underline">
               we build websites that take payments online
             </Link>
             .
           </p>
-          <Link href="/pro" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <Link href="/pro" className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             See DoyinTech Pro
           </Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">The 2026 company tax rules at a glance</h2>
-        <table className="mt-4 w-full overflow-hidden rounded-xl border border-white/10 text-left text-[14px]">
-          <thead className="bg-white/[0.05] text-white">
+        <h2 className="text-[22px] font-semibold text-brand-ink">The 2026 company tax rules at a glance</h2>
+        <table className="mt-4 w-full overflow-hidden rounded-xl border border-brand-ink/10 text-left text-[14px]">
+          <thead className="bg-brand-ink/[0.05] text-brand-ink">
             <tr>
               <th className="px-4 py-2.5 font-semibold">Company</th>
               <th className="px-4 py-2.5 font-semibold">Income tax</th>
               <th className="px-4 py-2.5 font-semibold">Development levy</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/10">
+          <tbody className="divide-y divide-brand-ink/10">
             <tr>
               <td className="px-4 py-2.5">Small (≤ ₦50m turnover, ≤ ₦250m fixed assets, not professional services)</td>
               <td className="px-4 py-2.5">0%</td>

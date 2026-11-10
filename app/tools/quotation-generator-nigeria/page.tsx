@@ -58,10 +58,10 @@ export default function QuotationGeneratorPage() {
       newsletterSource="quotation-generator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Let clients accept and pay online</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Let clients accept and pay online</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             Send a payment link with your quote so the client can pay the deposit by card or transfer the moment they agree.{" "}
-            <Link href="/stores" className="text-[#ff8c14] hover:underline">
+            <Link href="/stores" className="text-brand-link hover:underline">
               Payment links come free with a DoyinTech shop
             </Link>
             .
@@ -70,7 +70,7 @@ export default function QuotationGeneratorPage() {
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">How to write a quotation that wins the job</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">How to write a quotation that wins the job</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5">
           <li>Break the work into clear line items so the client sees what they&apos;re paying for.</li>
           <li>State whether prices include VAT (7.5%).</li>

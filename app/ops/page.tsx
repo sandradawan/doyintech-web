@@ -33,10 +33,10 @@ export default function OpsLandingPage() {
     <>
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[980px] px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#ff8c14]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-link">
             DoyinTech product · DoyinOps
           </p>
-          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-white sm:text-[44px]">
+          <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">
             Run your pipeline and money in one place
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
@@ -47,13 +47,13 @@ export default function OpsLandingPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/ops/app"
-              className="rounded-full bg-[#ff8c14] px-6 py-3 text-[15px] font-semibold text-black"
+              className="rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black"
             >
               Open free workspace
             </Link>
             <Link
               href="/hire"
-              className="rounded-full border border-white/20 px-6 py-3 text-[15px] font-semibold text-white"
+              className="rounded-full border border-brand-ink/20 px-6 py-3 text-[15px] font-semibold text-brand-ink"
             >
               Need a custom system?
             </Link>
@@ -71,20 +71,20 @@ export default function OpsLandingPage() {
             {pillars.map((p) => (
               <article
                 key={p.title}
-                className="rounded-2xl border border-white/10 bg-gradient-to-b from-brand-raised to-brand-deep p-5"
+                className="rounded-2xl border border-brand-ink/10 bg-gradient-to-b from-brand-raised to-brand-deep p-5"
               >
-                <h2 className="text-[17px] font-semibold text-white">{p.title}</h2>
+                <h2 className="text-[17px] font-semibold text-brand-ink">{p.title}</h2>
                 <p className="mt-2 text-[14px] leading-relaxed text-brand-muted">{p.body}</p>
               </article>
             ))}
           </div>
 
           <div className="mt-12 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-brand-surface p-6">
+            <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
               <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-400">
                 Free forever (browser)
               </p>
-              <h2 className="mt-2 text-[20px] font-semibold text-white">Local workspace</h2>
+              <h2 className="mt-2 text-[20px] font-semibold text-brand-ink">Local workspace</h2>
               <ul className="mt-3 space-y-1 text-[14px] text-brand-muted">
                 <li>✓ Contacts, pipeline, invoices, tasks</li>
                 <li>✓ Data stays on this device (localStorage)</li>
@@ -93,16 +93,16 @@ export default function OpsLandingPage() {
               </ul>
               <Link
                 href="/ops/app"
-                className="mt-5 inline-flex rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black"
+                className="mt-5 inline-flex rounded-full bg-brand-ink px-5 py-2.5 text-[13px] font-semibold text-brand-deep"
               >
                 Start free →
               </Link>
             </div>
-            <div className="rounded-2xl border border-[#ff8c14]/30 bg-[#ff8c14]/10 p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#ff8c14]">
+            <div className="rounded-2xl border border-brand-link/30 bg-brand-link/10 p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
                 Coming · paid cloud
               </p>
-              <h2 className="mt-2 text-[20px] font-semibold text-white">Team + sync tier</h2>
+              <h2 className="mt-2 text-[20px] font-semibold text-brand-ink">Team + sync tier</h2>
               <ul className="mt-3 space-y-1 text-[14px] text-brand-soft">
                 <li>→ Cloud accounts + multi-device sync</li>
                 <li>→ Team seats for staff</li>
@@ -114,7 +114,7 @@ export default function OpsLandingPage() {
                 href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20put%20me%20on%20the%20DoyinOps%20cloud%20waitlist."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[13px] font-semibold text-black"
+                className="mt-5 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
               >
                 Join cloud waitlist
               </a>

@@ -58,10 +58,10 @@ export default function ProformaInvoicePage() {
       newsletterSource="proforma-invoice-generator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Need quotes, invoices and receipts that look official?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Need quotes, invoices and receipts that look official?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             Add your logo and brand colour to every document for a one-off ₦3,500, or get every premium tool with{" "}
-            <Link href="/pro" className="text-[#ff8c14] hover:underline">
+            <Link href="/pro" className="text-brand-link hover:underline">
               DoyinTech Pro
             </Link>
             .
@@ -70,17 +70,17 @@ export default function ProformaInvoicePage() {
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Proforma invoice vs quotation vs invoice</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Proforma invoice vs quotation vs invoice</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>
-            <strong className="text-white">Quotation:</strong> an offer the client can accept or negotiate.
+            <strong className="text-brand-ink">Quotation:</strong> an offer the client can accept or negotiate.
           </li>
           <li>
-            <strong className="text-white">Proforma invoice:</strong> the agreed amount in invoice form, before supply, often for advance payment or approvals.
+            <strong className="text-brand-ink">Proforma invoice:</strong> the agreed amount in invoice form, before supply, often for advance payment or approvals.
           </li>
           <li>
-            <strong className="text-white">Invoice:</strong> the final bill after supply.{" "}
-            <Link href="/tools/invoice-generator-nigeria" className="text-[#ff8c14] hover:underline">
+            <strong className="text-brand-ink">Invoice:</strong> the final bill after supply.{" "}
+            <Link href="/tools/invoice-generator-nigeria" className="text-brand-link hover:underline">
               Make an invoice
             </Link>
             .

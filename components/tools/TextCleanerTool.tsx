@@ -22,9 +22,9 @@ export default function TextCleanerTool() {
         onChange={(e) => setRaw(e.target.value)}
         rows={8}
         placeholder="Paste messy text here…"
-        className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none"
+        className="w-full rounded-xl border border-brand-ink/10 bg-brand-well px-3 py-2.5 text-sm text-brand-ink outline-none"
       />
-      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+      <div className="rounded-xl border border-brand-ink/10 bg-brand-ink/5 p-4">
         <p className="text-xs font-semibold uppercase tracking-wide text-brand-subtle">Cleaned</p>
         <pre className="mt-2 whitespace-pre-wrap text-sm text-gray-200">{cleaned || "—"}</pre>
       </div>
@@ -32,7 +32,7 @@ export default function TextCleanerTool() {
         type="button"
         disabled={!cleaned}
         onClick={() => navigator.clipboard?.writeText(cleaned)}
-        className="w-full rounded-full bg-white py-3 text-sm font-semibold text-black disabled:opacity-40"
+        className="w-full rounded-full bg-brand-ink py-3 text-sm font-semibold text-brand-deep disabled:opacity-40"
       >
         Copy cleaned text
       </button>

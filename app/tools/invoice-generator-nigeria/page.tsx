@@ -62,23 +62,23 @@ export default function InvoiceGeneratorNigeriaPage() {
       newsletterSource="invoice-generator"
       upsell={
         <>
-          <h2 className="text-[18px] font-semibold text-white">Sending invoices every week?</h2>
+          <h2 className="text-[18px] font-semibold text-brand-ink">Sending invoices every week?</h2>
           <p className="mt-2 text-[14px] text-brand-muted">
             DoyinTech Pro gives you branded invoices, receipts, payslips, contracts and every
             premium tool for ₦5,000/month. Or let clients pay you online —{" "}
-            <Link href="/hire" className="text-[#ff8c14] hover:underline">
+            <Link href="/hire" className="text-brand-link hover:underline">
               we build websites with Paystack checkout
             </Link>
             .
           </p>
-          <Link href="/pro" className="mt-4 inline-flex rounded-full bg-[#ff8c14] px-5 py-2.5 text-[14px] font-semibold text-black">
+          <Link href="/pro" className="mt-4 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[14px] font-semibold text-black">
             See DoyinTech Pro
           </Link>
         </>
       }
     >
       <section>
-        <h2 className="text-[22px] font-semibold text-white">How to make an invoice in 4 steps</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">How to make an invoice in 4 steps</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5">
           <li>Enter your business name, address, phone and CAC or TIN number.</li>
           <li>Add your client and each item or service with quantity and unit price.</li>
@@ -87,13 +87,13 @@ export default function InvoiceGeneratorNigeriaPage() {
         </ol>
       </section>
       <section>
-        <h2 className="text-[22px] font-semibold text-white">Invoice, quote or receipt?</h2>
+        <h2 className="text-[22px] font-semibold text-brand-ink">Invoice, quote or receipt?</h2>
         <p className="mt-3">
-          Send a <strong className="text-white">quote</strong> before the work so the client
-          agrees the price, an <strong className="text-white">invoice</strong> to request payment,
-          and a <strong className="text-white">receipt</strong> once you&apos;ve been paid. The
+          Send a <strong className="text-brand-ink">quote</strong> before the work so the client
+          agrees the price, an <strong className="text-brand-ink">invoice</strong> to request payment,
+          and a <strong className="text-brand-ink">receipt</strong> once you&apos;ve been paid. The
           generator does all three — switch the document type at the top, or use{" "}
-          <Link href="/tools/receipt-generator-nigeria" className="text-[#ff8c14] hover:underline">
+          <Link href="/tools/receipt-generator-nigeria" className="text-brand-link hover:underline">
             the receipt generator
           </Link>
           .

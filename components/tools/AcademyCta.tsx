@@ -27,7 +27,7 @@ export default function AcademyCta({
       <p className="text-xs font-semibold uppercase tracking-wider text-primary">
         Learn this skill
       </p>
-      <h3 className="mt-1 font-display text-lg font-bold text-white">
+      <h3 className="mt-1 font-display text-lg font-bold text-brand-ink">
         Continue on DoyinTech Academy
       </h3>
       <p className="mt-2 text-sm text-brand-soft">

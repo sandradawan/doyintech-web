@@ -74,7 +74,7 @@ export default function CashFlowForecast() {
             </thead>
             <tbody>
               {rows.map((r, i) => (
-                <tr key={i} className="border-t border-white/5">
+                <tr key={i} className="border-t border-brand-ink/5">
                   <td className="pr-2"><input aria-label="Item" className={field} value={r.label} onChange={(e) => setRow(i, "label", e.target.value)} /></td>
                   <td className="pr-2">
                     <select aria-label="In or out" className={field} value={r.kind} onChange={(e) => setRow(i, "kind", e.target.value)}>
@@ -94,7 +94,7 @@ export default function CashFlowForecast() {
                     <input aria-label={r.freq === "monthly" ? "Week of the month (1 to 4)" : "Week number"} type="number" min={1} max={r.freq === "monthly" ? 4 : FORECAST_WEEKS} className={field} value={r.week} onChange={(e) => setRow(i, "week", e.target.value)} />
                   </td>
                   <td>
-                    <button type="button" aria-label={`Remove ${r.label || "row"}`} onClick={() => setRows(rows.filter((_, j) => j !== i))} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-muted hover:text-white">
+                    <button type="button" aria-label={`Remove ${r.label || "row"}`} onClick={() => setRows(rows.filter((_, j) => j !== i))} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-muted hover:text-brand-ink">
                       <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
                     </button>
                   </td>
@@ -107,7 +107,7 @@ export default function CashFlowForecast() {
         <button type="button" className={ghostBtn} onClick={() => setRows([...rows, { label: "", kind: "out", amount: "", freq: "once", week: "1" }])}>+ Add item</button>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-brand-surface p-5" aria-live="polite">
+      <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-5" aria-live="polite">
         {f.firstNegative ? (
           <p className="rounded-xl border border-[#ff6b6b]/40 bg-[#ff6b6b]/10 p-3 text-[14px] text-[#ffb3b3]">
             Cash runs out in <b>week {f.firstNegative.week}</b>. You need about <b>{naira0(-f.lowest.closing)}</b> more by week {f.lowest.week}: chase invoices, take deposits, or move a payment.
@@ -124,7 +124,7 @@ export default function CashFlowForecast() {
             const y = w.closing >= 0 ? zeroY - h : zeroY;
             return (
               <g key={w.week}>
-                <rect x={i * 40 + 8} y={y} width="24" height={h} rx="3" fill={w.closing < 0 ? "#ff6b6b" : "#ff8c14"} />
+                <rect x={i * 40 + 8} y={y} width="24" height={h} rx="3" fill={w.closing < 0 ? "#ff6b6b" : "#2e7d12"} />
                 <text x={i * 40 + 20} y={H + 14} textAnchor="middle" fontSize="10" fill="#8b919c">W{w.week}</text>
                 <title>{`Week ${w.week}: ${naira0(w.closing)}`}</title>
               </g>
@@ -136,11 +136,11 @@ export default function CashFlowForecast() {
             <thead><tr className="text-brand-muted"><th className="py-1.5 text-left font-medium">Week</th><th className="font-medium">Cash in</th><th className="font-medium">Cash out</th><th className="font-medium">Closing</th></tr></thead>
             <tbody>
               {f.weeks.map((w) => (
-                <tr key={w.week} className="border-t border-white/5">
-                  <th scope="row" className="py-1.5 text-left font-medium text-white">Week {w.week}</th>
+                <tr key={w.week} className="border-t border-brand-ink/5">
+                  <th scope="row" className="py-1.5 text-left font-medium text-brand-ink">Week {w.week}</th>
                   <td className="text-[#a8f0cf]">{k(w.inflow)}</td>
                   <td className="text-brand-soft">{k(w.outflow)}</td>
-                  <td className={w.closing < 0 ? "font-semibold text-[#ff6b6b]" : "text-white"}>{naira0(w.closing)}</td>
+                  <td className={w.closing < 0 ? "font-semibold text-[#ff6b6b]" : "text-brand-ink"}>{naira0(w.closing)}</td>
                 </tr>
               ))}
             </tbody>

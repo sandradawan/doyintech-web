@@ -38,34 +38,34 @@ function SuccessBody() {
   }, [invoice, reference]);
 
   return (
-    <div className="w-full max-w-md rounded-2xl border border-white/10 bg-brand-deep p-8 text-center">
+    <div className="w-full max-w-md rounded-2xl border border-brand-ink/10 bg-brand-deep p-8 text-center">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 text-2xl text-emerald-400">
         ✓
       </div>
-      <h1 className="mt-4 text-2xl font-semibold text-white">
+      <h1 className="mt-4 text-2xl font-semibold text-brand-ink">
         {status === "paid" ? "Payment confirmed" : "Payment received"}
       </h1>
-      <p className="mt-2 text-sm text-white/55">
+      <p className="mt-2 text-sm text-brand-ink/55">
         Thank you. Your payment was submitted successfully
         {invoice ? (
           <>
             {" "}
-            for invoice <span className="font-mono text-[#ff8c14]">{invoice}</span>
+            for invoice <span className="font-mono text-brand-link">{invoice}</span>
           </>
         ) : null}
         .
       </p>
       {reference && (
-        <p className="mt-3 break-all text-[11px] text-white/35">Reference: {reference}</p>
+        <p className="mt-3 break-all text-[11px] text-brand-ink/35">Reference: {reference}</p>
       )}
-      <p className="mt-4 text-[13px] text-white/45">
+      <p className="mt-4 text-[13px] text-brand-ink/45">
         {status === "checking"
           ? "Confirming with Paystack…"
           : "You can close this tab. The business workspace will mark the invoice paid automatically."}
       </p>
       <Link
         href="/ops/app"
-        className="mt-6 inline-flex rounded-full bg-[#ff8c14] px-6 py-2.5 text-sm font-semibold text-black"
+        className="mt-6 inline-flex rounded-full bg-brand-accent px-6 py-2.5 text-sm font-semibold text-black"
       >
         Open DoyinOps
       </Link>
@@ -76,7 +76,7 @@ function SuccessBody() {
 export default function OpsPaySuccessPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-brand-deepest px-6">
-      <Suspense fallback={<p className="text-white/50">Loading…</p>}>
+      <Suspense fallback={<p className="text-brand-ink/50">Loading…</p>}>
         <SuccessBody />
       </Suspense>
     </main>

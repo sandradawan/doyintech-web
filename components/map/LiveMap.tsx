@@ -20,7 +20,7 @@ export default function LiveMap() {
   const position: [number, number] = [9.8965, 8.8583];
 
   return (
-    <div className="h-95 w-full overflow-hidden rounded-2xl border border-white/10 bg-black/20">
+    <div className="h-95 w-full overflow-hidden rounded-2xl border border-brand-ink/10 bg-brand-well">
       <MapContainer
         center={position}
         zoom={12}

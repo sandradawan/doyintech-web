@@ -211,8 +211,8 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
       </div>
 
       {selected.size > 0 && (
-        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-[#ff8c14]/30 bg-[#ff8c14]/[0.07] px-3 py-2 text-[13px]">
-          <span className="font-semibold text-white">{selected.size} selected</span>
+        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-brand-link/30 bg-brand-link/[0.07] px-3 py-2 text-[13px]">
+          <span className="font-semibold text-brand-ink">{selected.size} selected</span>
           {bulkEditable.map((f) => (
             <select
               key={f.key}
@@ -239,7 +239,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
               Delete selected
             </button>
           )}
-          <button type="button" onClick={() => setSelected(new Set())} className="ml-auto text-[12px] text-brand-muted hover:text-white">
+          <button type="button" onClick={() => setSelected(new Set())} className="ml-auto text-[12px] text-brand-muted hover:text-brand-ink">
             Clear selection
           </button>
         </div>
@@ -250,7 +250,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
       <div className={`${panel} overflow-hidden`}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-[13px]">
-            <thead className="border-b border-white/[0.07] bg-white/[0.02] text-[11px] uppercase tracking-wide text-brand-subtle">
+            <thead className="border-b border-brand-ink/[0.07] bg-brand-ink/[0.02] text-[11px] uppercase tracking-wide text-brand-subtle">
               <tr>
                 <th className="w-10 px-3 py-2.5">
                   <input
@@ -258,12 +258,12 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
                     aria-label="Select all on this page"
                     checked={allChecked}
                     onChange={() => setSelected(allChecked ? new Set() : new Set(rows.map((r) => String(r[pk]))))}
-                    className="h-4 w-4 accent-[#ff8c14]"
+                    className="h-4 w-4 accent-brand-link"
                   />
                 </th>
                 {columns.map((c) => (
                   <th key={c.key} className="px-3 py-2.5 font-medium">
-                    <button type="button" onClick={() => toggleSort(c.key)} className="inline-flex items-center gap-1 hover:text-white">
+                    <button type="button" onClick={() => toggleSort(c.key)} className="inline-flex items-center gap-1 hover:text-brand-ink">
                       {c.label}
                       {sort === c.key && <span aria-hidden>{dir === "asc" ? "↑" : "↓"}</span>}
                     </button>
@@ -271,7 +271,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.05]">
+            <tbody className="divide-y divide-brand-ink/[0.05]">
               {!loading && rows.length === 0 && (
                 <tr>
                   <td colSpan={columns.length + 1} className="px-3 py-14 text-center text-[13px] text-brand-subtle">
@@ -282,7 +282,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
               {rows.map((row) => {
                 const id = String(row[pk]);
                 return (
-                  <tr key={id} className={`cursor-pointer transition hover:bg-white/[0.03] ${selected.has(id) ? "bg-[#ff8c14]/[0.05]" : ""}`} onClick={() => setDrawer({ record: row })}>
+                  <tr key={id} className={`cursor-pointer transition hover:bg-brand-ink/[0.03] ${selected.has(id) ? "bg-brand-link/[0.05]" : ""}`} onClick={() => setDrawer({ record: row })}>
                     <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
                       <input
                         type="checkbox"
@@ -296,11 +296,11 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
                             return n;
                           })
                         }
-                        className="h-4 w-4 accent-[#ff8c14]"
+                        className="h-4 w-4 accent-brand-link"
                       />
                     </td>
                     {columns.map((c, i) => (
-                      <td key={c.key} className={`max-w-[260px] px-3 py-2.5 align-top ${i === 0 ? "font-medium text-white" : "text-brand-soft"}`}>
+                      <td key={c.key} className={`max-w-[260px] px-3 py-2.5 align-top ${i === 0 ? "font-medium text-brand-ink" : "text-brand-soft"}`}>
                         <CellValue field={c} value={row[c.key]} />
                       </td>
                     ))}
@@ -310,7 +310,7 @@ export default function ResourceManager({ resource }: { resource: Resource }) {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.07] px-3 py-2.5 text-[12px] text-brand-subtle">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-brand-ink/[0.07] px-3 py-2.5 text-[12px] text-brand-subtle">
           <label className="flex items-center gap-2">
             Rows
             <select value={pageSize} onChange={(e) => setParams({ pageSize: e.target.value, page: null })} className={`${inputCls} !w-auto !py-1`}>

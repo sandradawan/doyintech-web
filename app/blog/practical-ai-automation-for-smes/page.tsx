@@ -20,7 +20,7 @@ export default function Post() {
           <p className="mt-8 text-sm text-primary font-medium">
             AI Automation · August 2026 · 4 min read
           </p>
-          <h1 className="mt-3 font-display text-3xl md:text-4xl font-bold text-white leading-tight">
+          <h1 className="mt-3 font-display text-3xl md:text-4xl font-bold text-brand-ink leading-tight">
             Practical AI Automation for SMEs (Not Hype)
           </h1>
           <div className="mt-10 space-y-6 text-brand-soft leading-relaxed">
@@ -52,8 +52,8 @@ export default function Post() {
               path="/blog/practical-ai-automation-for-smes"
             />
 
-            <div className="border-t border-white/10 pt-8">
-              <p className="text-sm font-semibold text-white mb-3">Related</p>
+            <div className="border-t border-brand-ink/10 pt-8">
+              <p className="text-sm font-semibold text-brand-ink mb-3">Related</p>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link

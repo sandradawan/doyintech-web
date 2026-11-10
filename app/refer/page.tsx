@@ -27,8 +27,8 @@ export default function ReferPage() {
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <div className="mx-auto max-w-[720px] px-6">
           <div className="text-center">
-            <p className="section-eyebrow text-[#ff8c14]">Refer & earn</p>
-            <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-white sm:text-[42px]">
+            <p className="section-eyebrow text-brand-link">Refer & earn</p>
+            <h1 className="mt-3 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[42px]">
               Refer a business → ₦10,000 credit
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-brand-muted">
@@ -41,8 +41,8 @@ export default function ReferPage() {
             <ReferWorkspace />
           </div>
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-brand-surface p-6">
-            <h2 className="text-[18px] font-semibold text-white">How it works</h2>
+          <div className="mt-10 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+            <h2 className="text-[18px] font-semibold text-brand-ink">How it works</h2>
             <ol className="mt-4 space-y-3 text-[15px] text-brand-soft">
               <li>1. Generate your referral link and share it.</li>
               <li>2. They book a call or pay a deposit on Hire.</li>
@@ -50,26 +50,26 @@ export default function ReferPage() {
             </ol>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-white/10 bg-brand-surface p-6">
-            <h2 className="text-[18px] font-semibold text-white">Rules (plain English)</h2>
+          <div className="mt-8 rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
+            <h2 className="text-[18px] font-semibold text-brand-ink">Rules (plain English)</h2>
             <ul className="mt-4 space-y-2">
               {rules.map((r) => (
                 <li key={r} className="flex gap-2 text-[14px] text-brand-soft">
-                  <span className="text-[#ff8c14]">•</span> {r}
+                  <span className="text-brand-link">•</span> {r}
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <a href="/hire" className="glass-card p-5 transition hover:border-[#ff8c14]/40">
-              <p className="text-[13px] font-semibold text-[#ff8c14]">Packages</p>
-              <p className="mt-1 text-[16px] font-semibold text-white">Fixed-price hire</p>
+            <a href="/hire" className="glass-card p-5 transition hover:border-brand-link/40">
+              <p className="text-[13px] font-semibold text-brand-link">Packages</p>
+              <p className="mt-1 text-[16px] font-semibold text-brand-ink">Fixed-price hire</p>
               <p className="mt-1 text-[13px] text-brand-subtle">Deposits that unlock your credit</p>
             </a>
-            <a href="/case-studies" className="glass-card p-5 transition hover:border-[#ff8c14]/40">
-              <p className="text-[13px] font-semibold text-[#ff8c14]">Proof</p>
-              <p className="mt-1 text-[16px] font-semibold text-white">Case studies</p>
+            <a href="/case-studies" className="glass-card p-5 transition hover:border-brand-link/40">
+              <p className="text-[13px] font-semibold text-brand-link">Proof</p>
+              <p className="mt-1 text-[16px] font-semibold text-brand-ink">Case studies</p>
               <p className="mt-1 text-[13px] text-brand-subtle">Share real results with referrals</p>
             </a>
           </div>

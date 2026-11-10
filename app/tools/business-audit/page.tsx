@@ -25,7 +25,7 @@ export default function BusinessAuditPage() {
           <Link href="/tools" className="text-sm text-primary hover:underline">
             ← All tools
           </Link>
-          <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">
+          <h1 className="mt-4 font-display text-3xl font-bold text-brand-ink md:text-4xl">
             How Strong Is Your Business Online?
           </h1>
           <p className="mt-3 text-brand-muted">
@@ -35,7 +35,7 @@ export default function BusinessAuditPage() {
             <BusinessAudit />
           </div>
           <article className="mt-14 space-y-3 text-sm text-brand-muted">
-            <h2 className="font-display text-xl font-bold text-white">Why audit your digital presence?</h2>
+            <h2 className="font-display text-xl font-bold text-brand-ink">Why audit your digital presence?</h2>
             <p>
               Many businesses have a logo and social pages but leak customers through missing
               payments, weak mobile experience, or no SEO. A structured audit highlights the

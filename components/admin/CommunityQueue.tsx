@@ -8,9 +8,9 @@ type Reply = { id: number; display_name: string; body: string; community_posts: 
 type Report = { id: number; kind: "post" | "reply"; item_id: number; reason: string; text: string };
 type Queue = { posts: Post[]; replies: Reply[]; reports: Report[] };
 
-const card = "rounded-xl border border-white/10 bg-white/[0.03] p-4";
-const yes = "min-h-10 rounded-full bg-[#ff8c14] px-4 text-[13px] font-semibold text-black";
-const no = "min-h-10 rounded-full border border-white/20 px-4 text-[13px] font-semibold text-white";
+const card = "rounded-xl border border-brand-ink/10 bg-brand-ink/[0.03] p-4";
+const yes = "min-h-10 rounded-full bg-brand-accent px-4 text-[13px] font-semibold text-black";
+const no = "min-h-10 rounded-full border border-brand-ink/20 px-4 text-[13px] font-semibold text-brand-ink";
 
 export default function CommunityQueue() {
   const [queue, setQueue] = useState<Queue | null>(null);
@@ -38,13 +38,13 @@ export default function CommunityQueue() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-[24px] font-semibold text-white">Community</h1>
+      <h1 className="text-[24px] font-semibold text-brand-ink">Community</h1>
       {error && <p role="alert" className="text-[14px] text-red-300">{error}</p>}
       {empty && <p className="text-[14px] text-brand-muted">Nothing is waiting for you.</p>}
 
       {queue.reports.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-[16px] font-semibold text-white">Reported ({queue.reports.length})</h2>
+          <h2 className="text-[16px] font-semibold text-brand-ink">Reported ({queue.reports.length})</h2>
           {queue.reports.map((r) => (
             <article key={r.id} className={card}>
               <p className="text-[13px] font-semibold text-red-300">Reason: {r.reason}</p>
@@ -60,11 +60,11 @@ export default function CommunityQueue() {
 
       {queue.posts.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-[16px] font-semibold text-white">Questions to approve ({queue.posts.length})</h2>
+          <h2 className="text-[16px] font-semibold text-brand-ink">Questions to approve ({queue.posts.length})</h2>
           {queue.posts.map((p) => (
             <article key={p.id} className={card}>
               <p className="text-[12px] text-brand-muted">{p.display_name} · {p.topic}</p>
-              <h3 className="mt-1 text-[15px] font-semibold text-white">{p.title}</h3>
+              <h3 className="mt-1 text-[15px] font-semibold text-brand-ink">{p.title}</h3>
               <p className="mt-1 whitespace-pre-line break-words text-[14px] text-brand-soft">{p.body}</p>
               <div className="mt-3 flex gap-2">
                 <button type="button" onClick={() => decide("post", p.id, "approve")} className={yes}>Approve</button>
@@ -77,7 +77,7 @@ export default function CommunityQueue() {
 
       {queue.replies.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-[16px] font-semibold text-white">Replies to approve ({queue.replies.length})</h2>
+          <h2 className="text-[16px] font-semibold text-brand-ink">Replies to approve ({queue.replies.length})</h2>
           {queue.replies.map((r) => (
             <article key={r.id} className={card}>
               <p className="text-[12px] text-brand-muted">{r.display_name} · on &quot;{r.community_posts?.title}&quot;</p>

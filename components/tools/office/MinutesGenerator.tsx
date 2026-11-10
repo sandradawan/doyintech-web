@@ -86,7 +86,7 @@ export default function MinutesGenerator() {
         {items.map((i, n) => (
           <div key={i.id} className={panel}>
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[14px] font-semibold text-white">Agenda item {n + 1}</p>
+              <p className="text-[14px] font-semibold text-brand-ink">Agenda item {n + 1}</p>
               {items.length > 1 && (
                 <button type="button" onClick={() => setItems(items.filter((x) => x.id !== i.id))} className="min-h-10 px-2 text-[13px] text-[#ff8a8a] hover:underline" aria-label={`Remove agenda item ${n + 1}`}>
                   Remove

@@ -50,13 +50,13 @@ export default function GiftCardsPage() {
         <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#ff8c14]">Gift cards</p>
-              <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-white sm:text-[40px]">Give the gift of a better business</h1>
+              <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-brand-link">Gift cards</p>
+              <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-brand-ink sm:text-[40px]">Give the gift of a better business</h1>
               <p className="mt-3 max-w-2xl text-[17px] text-brand-muted">
                 A website deposit, premium tools, templates or ebooks: let them choose. Delivered by email in seconds.
               </p>
             </div>
-            <Link href="/gift-cards/redeem" className="rounded-full border border-white/20 px-5 py-2.5 text-[14px] font-semibold text-white hover:bg-white/5">
+            <Link href="/gift-cards/redeem" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink hover:bg-brand-ink/5">
               Have a gift card? Check balance
             </Link>
           </div>
@@ -66,11 +66,11 @@ export default function GiftCardsPage() {
           </div>
 
           <section className="mt-16 max-w-3xl">
-            <h2 className="text-[22px] font-semibold text-white">Questions</h2>
+            <h2 className="text-[22px] font-semibold text-brand-ink">Questions</h2>
             <dl className="mt-4 space-y-5">
               {FAQS.map((f) => (
                 <div key={f.q}>
-                  <dt className="text-[15px] font-semibold text-white">{f.q}</dt>
+                  <dt className="text-[15px] font-semibold text-brand-ink">{f.q}</dt>
                   <dd className="mt-1 text-[15px] leading-relaxed text-brand-soft">{f.a}</dd>
                 </div>
               ))}
