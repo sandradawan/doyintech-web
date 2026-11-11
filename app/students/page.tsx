@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import { formatUsdFromNgn, CURRENCY_NOTE } from "@/lib/currency";
+import StudentHero from "@/components/students/StudentHero";
+import StudentMagazine from "@/components/students/StudentMagazine";
+import { STUDENT_SPOTLIGHTS } from "@/lib/students/spotlights";
 
 export const metadata: Metadata = { alternates: { canonical: "/students" },
   title: "Student research tools & AI Project Studio",
@@ -117,7 +120,8 @@ export default function StudentsHubPage() {
             </Link>{" "}
             / Students
           </p>
-          <p className="section-eyebrow mt-4">Students · Worldwide</p>
+          <StudentHero slides={STUDENT_SPOTLIGHTS} />
+          <p className="section-eyebrow mt-10">Students · Worldwide</p>
           <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[42px]">
             All student tools in one place
           </h1>
@@ -167,8 +171,8 @@ export default function StudentsHubPage() {
               >
                 Hire full project support
               </Link>
-              <Link href="/" className="rounded-full border border-brand-ink/10 px-5 py-2.5 text-[13px] font-semibold text-brand-muted hover:text-brand-ink">
-                ← Back to home
+              <Link href="#magazine" className="rounded-full border border-brand-ink/10 px-5 py-2.5 text-[13px] font-semibold text-brand-muted hover:text-brand-ink">
+                Read the student magazine
               </Link>
             </div>
           </div>
@@ -199,6 +203,8 @@ export default function StudentsHubPage() {
             </p>
             <ToolGrid items={managedTools} />
           </section>
+
+          <StudentMagazine students={STUDENT_SPOTLIGHTS} />
 
           <p className="mt-10 max-w-xl text-[12px] leading-relaxed text-[#6b7280]">
             {CURRENCY_NOTE}
