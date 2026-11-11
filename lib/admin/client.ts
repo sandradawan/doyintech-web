@@ -23,6 +23,17 @@ export async function adminApi<T>(path: string, init: RequestInit = {}): Promise
   return data as T;
 }
 
+/** Sends a form with files to an admin API route; throws the route's error message. */
+export async function adminUpload<T>(path: string, form: FormData): Promise<T> {
+  const res = await fetch(path, { method: "POST", body: form, headers: await authHeader(), cache: "no-store" });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const d = data as { error?: string; hint?: string };
+    throw new Error([d.error || `Request failed (${res.status})`, d.hint].filter(Boolean).join(" "));
+  }
+  return data as T;
+}
+
 /** Downloads an authenticated file (e.g. CSV export). */
 export async function adminDownload(path: string, filename: string) {
   const res = await fetch(path, { headers: await authHeader(), cache: "no-store" });

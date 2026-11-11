@@ -1,40 +1,43 @@
 /**
- * Students we have worked with. The hero on /students slides through `banner`,
- * and the magazine shows `photo`, `name` and `school`.
+ * Students we have worked with. The hero on /students slides through them,
+ * and the magazine shows each one's photo, name and school tag.
  *
- * To add a student: put a 1920x1080 banner and a 4:5 portrait in public/students,
- * then add an entry here. Leave `name` or `school` empty and that line is simply not shown.
+ * New students are added at /admin/student-magazine (stored in Supabase).
+ * The two below are built in, so the page is never empty.
  * Only add someone who has agreed to appear on the site.
  */
 export type StudentSpotlight = {
   id: string;
+  /** Empty hides the name line. */
   name: string;
+  /** Shown as a tag, e.g. "FCAHPT Vom". Empty hides the tag. */
   school: string;
   /** What we did together, in a few words. */
   work: string;
-  banner: string;
-  bannerAlt: string;
   photo: string;
+  /** A ready-made 16:9 banner. Without one, the slideshow draws a slide from the photo, name and school. */
+  banner?: string;
+  bannerAlt?: string;
 };
 
-export const STUDENT_SPOTLIGHTS: StudentSpotlight[] = [
+export const BUILT_IN_SPOTLIGHTS: StudentSpotlight[] = [
   {
     id: "fcahpt-vom-research-writing",
     name: "",
     school: "FCAHPT Vom",
     work: "Project research and writing",
+    photo: "/students/portrait-1.webp",
     banner: "/students/thank-you-1.webp",
     bannerAlt: "Thank you for trusting and recommending DoyinTech for project research and writing at FCAHPT Vom.",
-    photo: "/students/portrait-1.webp",
   },
   {
     id: "research-software-development",
     name: "",
     school: "",
     work: "Project research software development",
+    photo: "/students/portrait-2.webp",
     banner: "/students/thank-you-2.webp",
     bannerAlt: "Thank you for trusting and recommending DoyinTech for project research software development.",
-    photo: "/students/portrait-2.webp",
   },
 ];
 

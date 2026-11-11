@@ -888,3 +888,15 @@ body {
   background: var(--band-bg);
   z-index: -1;
 }
+
+/* Students slideshow: the bar fills over the 10 seconds before the next slide. */
+@keyframes student-hero-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.student-hero-progress {
+  animation: student-hero-progress 10s linear forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-hero-progress { animation: none; width: 0; }
+}

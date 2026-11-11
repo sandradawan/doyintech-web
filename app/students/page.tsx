@@ -4,7 +4,10 @@ import Footer from "@/components/ui/Footer";
 import { formatUsdFromNgn, CURRENCY_NOTE } from "@/lib/currency";
 import StudentHero from "@/components/students/StudentHero";
 import StudentMagazine from "@/components/students/StudentMagazine";
-import { STUDENT_SPOTLIGHTS } from "@/lib/students/spotlights";
+import { getStudentSpotlights } from "@/lib/students/spotlights-server";
+
+// Students added in the admin show up without a redeploy.
+export const revalidate = 300;
 
 export const metadata: Metadata = { alternates: { canonical: "/students" },
   title: "Student research tools & AI Project Studio",
@@ -109,7 +112,8 @@ function ToolGrid({ items }: { items: Tool[] }) {
   );
 }
 
-export default function StudentsHubPage() {
+export default async function StudentsHubPage() {
+  const spotlights = await getStudentSpotlights();
   return (
     <>
       <main className="pb-24 pt-28">
@@ -120,7 +124,7 @@ export default function StudentsHubPage() {
             </Link>{" "}
             / Students
           </p>
-          <StudentHero slides={STUDENT_SPOTLIGHTS} />
+          <StudentHero slides={spotlights} />
           <p className="section-eyebrow mt-10">Students · Worldwide</p>
           <h1 className="mt-3 font-display text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[42px]">
             All student tools in one place
@@ -204,7 +208,7 @@ export default function StudentsHubPage() {
             <ToolGrid items={managedTools} />
           </section>
 
-          <StudentMagazine students={STUDENT_SPOTLIGHTS} />
+          <StudentMagazine students={spotlights} />
 
           <p className="mt-10 max-w-xl text-[12px] leading-relaxed text-[#6b7280]">
             {CURRENCY_NOTE}
