@@ -66,7 +66,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="theme-dark panel-glow border-t border-white/[0.08] bg-black text-[14px] text-brand-muted">
+    <footer className="theme-dark border-t border-white/[0.08] bg-black text-[14px] text-brand-muted">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-6">
         {/* Brand, contact and newsletter */}
         <div className="grid gap-10 py-12 sm:py-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16">

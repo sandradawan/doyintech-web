@@ -2,39 +2,39 @@
 
 /* Brand colours: deep green, white, orange and black. Change them here and the whole site follows. */
 @theme {
-  /* Light body by default. Dark areas (header, hero, panels, footer) switch these in .theme-dark below. */
-  --color-brand-deepest: #e9eee9;
-  --color-brand-deep: #f4f6f4;
-  --color-brand-surface: #ffffff;
-  --color-brand-raised: #eaf0ea;
-  --color-brand-ink: #0b2a1c;
-  --color-brand-soft: #24443a;
-  --color-brand-muted: #4a6359;
-  --color-brand-subtle: #4d665b;
-  --color-brand-link: #2e7d12;
-  --color-brand-accent: #a3e635;
-  --color-brand-accent-hover: #b7f04f;
-  --color-brand-well: rgba(11, 42, 28, 0.05);
-  --color-primary: #2e7d12;
-  --color-accent: #a3e635;
-  --color-surface: #ffffff;
-  --color-background: #f4f6f4;
+  /* Black pages, deep green cards, orange accent, white text. Light and green sections switch these below. */
+  --color-brand-deepest: #000000;
+  --color-brand-deep: #000000;
+  --color-brand-surface: #0d2b1f;
+  --color-brand-raised: #143d2c;
+  --color-brand-ink: #f5f5f7;
+  --color-brand-soft: #e3e8e5;
+  --color-brand-muted: #a9b5ae;
+  --color-brand-subtle: #8e9b94;
+  --color-brand-link: #ff9d3b;
+  --color-brand-accent: #ff8c14;
+  --color-brand-accent-hover: #ffa03a;
+  --color-brand-well: rgba(255, 255, 255, 0.06);
+  --color-primary: #ff8c14;
+  --color-accent: #ff8c14;
+  --color-surface: #0d2b1f;
+  --color-background: #000000;
 }
 
 :root {
-  --apple-bg: #f4f6f4;
-  --apple-surface: #ffffff;
-  --apple-elevated: #eaf0ea;
-  --apple-ink: #0b2a1c;
-  --apple-muted: #4a6359;
-  --apple-blue: #2e7d12;
-  --apple-blue-solid: #a3e635;
-  --apple-accent: #2e7d12;
-  --apple-hairline: rgba(11, 42, 28, 0.12);
-  --apple-nav: rgba(4, 22, 13, 0.9);
+  --apple-bg: #000000;
+  --apple-surface: #0d2b1f;
+  --apple-elevated: #143d2c;
+  --apple-ink: #f5f5f7;
+  --apple-muted: #a9b5ae;
+  --apple-blue: #ff9d3b;
+  --apple-blue-solid: #ff8c14;
+  --apple-accent: #ff8c14;
+  --apple-hairline: rgba(255, 255, 255, 0.12);
+  --apple-nav: rgba(0, 0, 0, 0.78);
   --glass-bg: rgba(255, 255, 255, 0.07);
-  --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -66,7 +66,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(163, 230, 53, 0.35);
+  background-color: rgba(255, 140, 20, 0.35);
   color: #fff;
 }
 
@@ -133,7 +133,7 @@ body {
 
 .apple-link:hover {
   background-size: 100% 1.5px;
-  color: #b7f04f;
+  color: #ffa03a;
 }
 
 .footer-link {
@@ -173,18 +173,18 @@ body {
 }
 
 .apple-btn-primary:hover {
-  background: #b7f04f;
-  box-shadow: 0 8px 28px rgba(163, 230, 53, 0.35);
+  background: #ffa03a;
+  box-shadow: 0 8px 28px rgba(255, 140, 20, 0.35);
 }
 
 .apple-btn-secondary {
   background: transparent;
   color: var(--apple-blue);
-  border: 1px solid rgba(163, 230, 53, 0.55);
+  border: 1px solid rgba(255, 140, 20, 0.55);
 }
 
 .apple-btn-secondary:hover {
-  background: rgba(163, 230, 53, 0.12);
+  background: rgba(255, 140, 20, 0.12);
   border-color: var(--apple-blue);
 }
 
@@ -231,9 +231,9 @@ body {
 .pro-card:hover,
 .glass-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(163, 230, 53, 0.28);
+  border-color: rgba(255, 140, 20, 0.28);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(163, 230, 53, 0.08);
+    0 0 0 1px rgba(255, 140, 20, 0.08);
 }
 
 .pro-card::before {
@@ -291,12 +291,12 @@ body {
   font-weight: 500;
   transition: background 0.2s ease, box-shadow 0.25s ease,
     transform 0.2s var(--ease-out-soft);
-  box-shadow: 0 4px 16px rgba(163, 230, 53, 0.25);
+  box-shadow: 0 4px 16px rgba(255, 140, 20, 0.25);
 }
 
 .btn-primary:hover {
-  background: #b7f04f;
-  box-shadow: 0 8px 28px rgba(163, 230, 53, 0.4);
+  background: #ffa03a;
+  box-shadow: 0 8px 28px rgba(255, 140, 20, 0.4);
   transform: translateY(-1px);
 }
 
@@ -637,30 +637,58 @@ body {
 
 /* Brand finish */
 /* ------------------------------------------------------------------
-   Light body, dark green header areas, lime accent.
+   Theme: black pages, deep green cards and panels, orange accent, white sections.
    ------------------------------------------------------------------ */
+:root {
+  --color-brand-deepest: #000000;
+  --color-brand-deep: #000000;
+  --color-brand-surface: #0d2b1f;
+  --color-brand-raised: #143d2c;
+  --color-brand-ink: #f5f5f7;
+  --color-brand-soft: #e3e8e5;
+  --color-brand-muted: #a9b5ae;
+  --color-brand-subtle: #8e9b94;
+  --color-brand-link: #ff9d3b;
+  --color-brand-well: rgba(255, 255, 255, 0.06);
+  --color-primary: #ff8c14;
+  --apple-blue: #ff9d3b;
+  --apple-accent: #ff8c14;
+  --apple-hairline: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+  --tone-green: #6ee7b7;
+  --tone-amber: #fcd34d;
+  --tone-red: #fca5a5;
+  --tone-blue: #93c5fd;
+  --tone-purple: #c4b5fd;
+  --card-bg: linear-gradient(160deg, #11382a 0%, #0a2419 100%);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 44px -22px rgba(0, 0, 0, 0.8);
+  --card-hover-border: rgba(255, 140, 20, 0.5);
+  --on-primary: #0a0a0a;
+}
 html {
-  scrollbar-color: rgba(11, 42, 28, 0.3) #f4f6f4;
+  scrollbar-color: rgba(255, 255, 255, 0.25) #000000;
 }
 body {
-  background-color: var(--color-brand-deep);
+  background-color: #000000;
   color: var(--color-brand-ink);
 }
 ::-webkit-scrollbar-track {
-  background: #f4f6f4;
+  background: #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(11, 42, 28, 0.28);
+  background: rgba(255, 255, 255, 0.22);
 }
 ::selection {
-  background-color: rgba(163, 230, 53, 0.45);
-  color: #0b2a1c;
+  background-color: rgba(255, 140, 20, 0.4);
+  color: #ffffff;
 }
 :focus-visible {
   outline-color: var(--color-brand-link);
 }
 
-/* Dark areas. Anything with a solid dark background becomes one automatically, so its text turns white. */
+/* Dark scope: used to go back to black inside a light or green section. Solid dark backgrounds join it automatically. */
 .theme-dark,
 .bg-black,
 [class*="bg-black/6"],
@@ -675,48 +703,117 @@ body {
 .bg-neutral-950,
 .bg-zinc-900,
 .bg-zinc-950 {
-  --color-brand-deepest: #03130b;
-  --color-brand-deep: #061c11;
-  --color-brand-surface: #0d2c1c;
-  --color-brand-raised: #143a28;
-  --color-brand-ink: #ffffff;
-  --color-brand-soft: #e4f0ea;
-  --color-brand-muted: #bdd4c9;
-  --color-brand-subtle: #9cbcae;
-  --color-brand-link: #a3e635;
-  --color-brand-well: rgba(0, 0, 0, 0.3);
-  --color-primary: #a3e635;
-  --apple-blue: #a3e635;
-  --apple-accent: #a3e635;
+  --color-brand-deepest: #000000;
+  --color-brand-deep: #000000;
+  --color-brand-surface: #0d2b1f;
+  --color-brand-raised: #143d2c;
+  --color-brand-ink: #f5f5f7;
+  --color-brand-soft: #e3e8e5;
+  --color-brand-muted: #a9b5ae;
+  --color-brand-subtle: #8e9b94;
+  --color-brand-link: #ff9d3b;
+  --color-brand-well: rgba(255, 255, 255, 0.06);
+  --color-primary: #ff8c14;
+  --apple-blue: #ff9d3b;
+  --apple-accent: #ff8c14;
   --apple-hairline: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
   --tone-green: #6ee7b7;
   --tone-amber: #fcd34d;
   --tone-red: #fca5a5;
   --tone-blue: #93c5fd;
   --tone-purple: #c4b5fd;
+  --card-bg: linear-gradient(160deg, #11382a 0%, #0a2419 100%);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 44px -22px rgba(0, 0, 0, 0.8);
+  --card-hover-border: rgba(255, 140, 20, 0.5);
+  --on-primary: #0a0a0a;
   color: var(--color-brand-ink);
 }
-:root {
-  --glass-border: rgba(11, 42, 28, 0.1);
-  --glass-highlight: rgba(255, 255, 255, 0.6);
+
+/* Light scope: Apple's soft grey-white, near-black text, white cards. */
+.section-light,
+.band,
+.bg-white,
+.bg-gray-50,
+.bg-gray-100 {
+  --color-brand-deepest: #ebebef;
+  --color-brand-deep: #f5f5f7;
+  --color-brand-surface: #ffffff;
+  --color-brand-raised: #e8e8ed;
+  --color-brand-ink: #1d1d1f;
+  --color-brand-soft: #333336;
+  --color-brand-muted: #55555a;
+  --color-brand-subtle: #636366;
+  --color-brand-link: #b34700;
+  --color-brand-well: rgba(0, 0, 0, 0.04);
+  --color-primary: #b34700;
+  --apple-blue: #b34700;
+  --apple-accent: #b34700;
+  --apple-hairline: rgba(0, 0, 0, 0.12);
+  --glass-border: rgba(0, 0, 0, 0.08);
   --tone-green: #047857;
   --tone-amber: #92400e;
   --tone-red: #b91c1c;
   --tone-blue: #1d4ed8;
   --tone-purple: #6d28d9;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.07);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 18px 40px -24px rgba(0, 0, 0, 0.28);
+  --card-hover-border: rgba(179, 71, 0, 0.45);
+  --on-primary: #ffffff;
+  color: var(--color-brand-ink);
 }
-/* A dark panel: deep green with a soft lime and emerald glow, as on the hero. */
-.theme-dark.panel-glow,
-.theme-dark .panel-glow {
-  background:
-    radial-gradient(40rem 26rem at 88% 0%, rgba(163, 230, 53, 0.14), transparent 62%),
-    radial-gradient(44rem 30rem at 0% 100%, rgba(34, 139, 104, 0.3), transparent 62%),
-    linear-gradient(160deg, #0a2b1a 0%, #04160c 100%);
+.section-light {
+  background: #f5f5f7;
 }
 
-/* Pale status and grey text was written for dark backgrounds; give it readable tones on light. */
+/* Green scope: deep green sections and panels with white text. */
+.section-mint,
+.panel-glow {
+  --color-brand-deepest: #062a1d;
+  --color-brand-deep: #0a3526;
+  --color-brand-surface: #124a37;
+  --color-brand-raised: #1a5a44;
+  --color-brand-ink: #ffffff;
+  --color-brand-soft: #e6f0eb;
+  --color-brand-muted: #c2d4cb;
+  --color-brand-subtle: #a8c0b4;
+  --color-brand-link: #ffab57;
+  --color-brand-well: rgba(0, 0, 0, 0.22);
+  --color-primary: #ff8c14;
+  --apple-blue: #ffab57;
+  --apple-accent: #ff8c14;
+  --apple-hairline: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --tone-green: #86efac;
+  --tone-amber: #fcd34d;
+  --tone-red: #fca5a5;
+  --tone-blue: #93c5fd;
+  --tone-purple: #c4b5fd;
+  --card-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 44px -22px rgba(0, 0, 0, 0.6);
+  --card-hover-border: rgba(255, 140, 20, 0.6);
+  --on-primary: #0a0a0a;
+  color: var(--color-brand-ink);
+}
+.section-light.section-mint,
+.section-mint {
+  background: linear-gradient(180deg, #0c3d2c 0%, #082b1f 100%);
+}
+.theme-dark.panel-glow,
+.panel-glow {
+  background:
+    radial-gradient(38rem 24rem at 90% 0%, rgba(255, 140, 20, 0.16), transparent 62%),
+    linear-gradient(160deg, #0f4634 0%, #072a1e 100%);
+}
+footer.panel-glow {
+  background: #000000;
+}
+
+/* Pale status and grey text follows the scope it sits in. */
 :is(.text-emerald-200, .text-emerald-300, .text-emerald-400, .text-green-200, .text-green-300, .text-green-400, .text-teal-300, .text-teal-400, .text-lime-300, .text-lime-400, .text-\[\#25d366\], .text-\[\#25D366\], .text-\[\#3ddc97\], .text-\[\#4ade80\], .text-\[\#a8f0cf\]) {
   color: var(--tone-green);
 }
@@ -738,23 +835,81 @@ body {
 :is(.text-gray-300, .text-\[\#bbb\], .text-\[\#94a3b8\], .text-\[\#a3a29a\]) {
   color: var(--color-brand-muted);
 }
-.text-gray-400 {
+:is(.text-gray-400, .text-\[\#6b7280\], .text-\[\#64748b\], .text-\[\#6e7380\]) {
   color: var(--color-brand-subtle);
 }
+.bg-primary {
+  color: var(--on-primary);
+}
 
-/* Type and buttons follow the theme. */
-.apple-section-black,
-.apple-section-white,
-.apple-section-gray {
-  background: transparent;
+/* ------------------------------------------------------------------
+   Typography, in the spirit of apple.com: SF on Apple devices, Inter elsewhere,
+   large tight headlines, calm 17px body copy.
+   ------------------------------------------------------------------ */
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.011em;
+}
+.font-display,
+h1,
+h2,
+h3 {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter), "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+}
+.font-serif {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+}
+h1 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.07;
+}
+h2 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.2;
+}
+:root {
+  --text-display: clamp(2.75rem, 6.4vw, 5.25rem);
+  --text-h1: clamp(2.25rem, 4.6vw, 3.5rem);
+  --text-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-lead: clamp(1.1rem, 1.5vw, 1.3125rem);
+}
+.t-display {
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+.apple-headline {
+  font-size: clamp(2.5rem, 5.6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.032em;
   color: var(--color-brand-ink);
 }
-.apple-headline,
 .section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
   color: var(--color-brand-ink);
 }
 .apple-subhead,
-.section-lead,
+.section-lead {
+  font-size: clamp(1.125rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.36;
+  letter-spacing: -0.012em;
+  color: var(--color-brand-muted);
+}
 .section-eyebrow,
 .prose-muted,
 .footer-link {
@@ -765,6 +920,8 @@ body {
 }
 .t-lead {
   color: var(--color-brand-soft);
+  line-height: 1.42;
+  letter-spacing: -0.012em;
 }
 .t-eyebrow {
   color: var(--color-brand-link);
@@ -774,109 +931,121 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
 }
+.apple-section-black,
+.apple-section-white,
+.apple-section-gray {
+  background: transparent;
+  color: var(--color-brand-ink);
+}
+.apple-section {
+  padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+}
+
+/* Links and buttons. */
 .apple-link {
   color: var(--color-brand-link);
 }
 .apple-link:hover {
   color: var(--color-brand-link);
-  filter: brightness(0.85);
+  filter: brightness(1.12);
+}
+.apple-btn {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  padding: 0.78rem 1.5rem;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.35s var(--ease-out-soft), box-shadow 0.35s ease;
+}
+.apple-btn:hover {
+  transform: translateY(-1px);
+}
+.apple-btn:active {
+  transform: scale(0.97);
 }
 .apple-btn-primary,
 .btn-primary {
   background: var(--color-brand-accent);
-  color: #0b2a1c;
+  color: #0a0a0a;
   font-weight: 600;
-  box-shadow: 0 6px 18px -8px rgba(101, 163, 13, 0.7);
+  box-shadow: 0 8px 22px -10px rgba(255, 140, 20, 0.8);
 }
 .apple-btn-primary:hover,
 .btn-primary:hover {
   background: var(--color-brand-accent-hover);
-  box-shadow: 0 10px 24px -8px rgba(101, 163, 13, 0.8);
+  box-shadow: 0 12px 28px -10px rgba(255, 140, 20, 0.9);
 }
 .apple-btn-secondary {
   color: var(--color-brand-ink);
-  border: 1px solid color-mix(in srgb, var(--color-brand-ink) 28%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-brand-ink) 30%, transparent);
   background: transparent;
 }
 .apple-btn-secondary:hover {
-  background: color-mix(in srgb, var(--color-brand-ink) 7%, transparent);
-  border-color: color-mix(in srgb, var(--color-brand-ink) 50%, transparent);
+  background: color-mix(in srgb, var(--color-brand-ink) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-brand-ink) 55%, transparent);
 }
 
-/* Cards: white with a hairline and a soft shadow on light; frosted glass inside dark areas. */
+/* Cards follow the scope: deep green on black, white on light, frosted on green. */
 .glass,
 .apple-card,
 .apple-card-dark,
 .glass-card,
 .pro-card {
-  background: #ffffff;
-  border: 1px solid rgba(11, 42, 28, 0.09);
-  box-shadow: 0 1px 2px rgba(11, 42, 28, 0.05), 0 16px 36px -22px rgba(11, 42, 28, 0.28);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   color: var(--color-brand-ink);
+  transition: transform 0.5s var(--ease-out-soft), border-color 0.3s ease, box-shadow 0.5s ease;
 }
 .apple-card:hover,
 .glass-card:hover,
 .pro-card:hover {
-  border-color: rgba(46, 125, 18, 0.45);
-  box-shadow: 0 1px 2px rgba(11, 42, 28, 0.06), 0 24px 46px -22px rgba(11, 42, 28, 0.36);
+  transform: translateY(-4px);
+  border-color: var(--card-hover-border);
 }
 .bg-brand-surface:is([class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-[2"]):not([class*="shadow"]) {
-  box-shadow: 0 1px 2px rgba(11, 42, 28, 0.05), 0 14px 32px -22px rgba(11, 42, 28, 0.25);
-}
-.theme-dark :is(.glass, .apple-card, .glass-card, .pro-card),
-.theme-dark.glass {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 48%, rgba(255, 255, 255, 0.03) 100%);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 40px -18px rgba(0, 0, 0, 0.55);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
-}
-.theme-dark .bg-brand-surface:is([class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-[2"]):not([class*="shadow"]) {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 34px -18px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--card-shadow);
 }
 .glass-strong {
-  background: linear-gradient(155deg, rgba(10, 43, 26, 0.9) 0%, rgba(4, 22, 12, 0.88) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(155deg, rgba(13, 43, 31, 0.92) 0%, rgba(0, 0, 0, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 60px -20px rgba(0, 0, 0, 0.7);
   -webkit-backdrop-filter: blur(22px) saturate(170%);
   backdrop-filter: blur(22px) saturate(170%);
 }
 .glass-hero {
-  background: linear-gradient(155deg, rgba(8, 40, 24, 0.66) 0%, rgba(4, 22, 12, 0.58) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 60px -20px rgba(0, 0, 0, 0.6);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  backdrop-filter: blur(16px) saturate(150%);
+  background: linear-gradient(155deg, rgba(10, 43, 30, 0.6) 0%, rgba(0, 0, 0, 0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
 }
 .glass-navbar {
+  background: var(--apple-nav);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.55);
+  box-shadow: none;
 }
 .glass-menu {
-  background: linear-gradient(160deg, #0b2f1c 0%, #04160c 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 60px -20px rgba(0, 0, 0, 0.65);
+  background: linear-gradient(160deg, #0d2b1f 0%, #000000 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 28px 60px -20px rgba(0, 0, 0, 0.8);
 }
 
-/* White and mint sections, and full-width bands on inner pages. */
-.section-light {
-  background: #ffffff;
-}
-.section-light.section-mint {
-  background: #ecf4ec;
-}
+/* Full-width light bands on inner pages. */
 .band {
-  --band-bg: #ffffff;
-  margin-block: 4rem;
-  padding-block: 4rem;
+  --band-bg: #f5f5f7;
+  margin-block: 4.5rem;
+  padding-block: 4.5rem;
   position: relative;
   isolation: isolate;
   background: transparent;
 }
 .band.section-mint {
-  --band-bg: #ecf4ec;
+  --band-bg: #0a3526;
+  background: transparent;
 }
 .band::before {
   content: "";
@@ -887,6 +1056,30 @@ body {
   transform: translateX(-50%);
   background: var(--band-bg);
   z-index: -1;
+}
+
+/* ------------------------------------------------------------------
+   Motion: sections rise and fade in as they scroll into view.
+   Pure CSS, so content is never hidden where this is unsupported.
+   ------------------------------------------------------------------ */
+@keyframes apple-rise {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main :is(section, .band):not([aria-roledescription="carousel"]) {
+      animation: apple-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0px entry 280px;
+    }
+  }
 }
 
 /* Students slideshow: the bar fills over the 10 seconds before the next slide. */

@@ -111,8 +111,8 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
       {/* Legibility: dark left side for the text, fade into the page below */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,22,12,0.5)_0%,rgba(4,22,12,0.35)_100%)] sm:bg-[linear-gradient(90deg,rgba(4,22,12,0.72)_0%,rgba(4,22,12,0.3)_55%,rgba(4,22,12,0.08)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#061c11] to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0.35)_100%)] sm:bg-[linear-gradient(90deg,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.3)_55%,rgba(0,0,0,0.08)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black to-transparent" />
 
       {/* Copy */}
       <div className="mx-auto flex w-full max-w-[1200px] flex-1 items-center px-5 sm:px-6">
@@ -148,7 +148,7 @@ export default function Hero() {
               <motion.span variants={pop} className="inline-flex">
                 <Link
                   href={slide.cta.href}
-                  className="hero-cta apple-btn relative overflow-hidden bg-brand-accent px-6 font-semibold text-black shadow-[0_8px_30px_rgba(163,230,53,0.35)] transition hover:-translate-y-0.5 hover:brightness-110"
+                  className="hero-cta apple-btn relative overflow-hidden bg-brand-accent px-6 font-semibold text-black shadow-[0_8px_30px_rgba(255,140,20,0.35)] transition hover:-translate-y-0.5 hover:brightness-110"
                 >
                   {slide.cta.label}
                 </Link>

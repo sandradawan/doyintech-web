@@ -37,7 +37,7 @@ export default function KidsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen bg-brand-deep pb-24 pt-24">
         <section className="relative overflow-hidden">
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(163,230,53,0.25),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.2),transparent_40%),radial-gradient(circle_at_50%_90%,rgba(74,222,128,0.15),transparent_45%)]" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,140,20,0.25),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.2),transparent_40%),radial-gradient(circle_at_50%_90%,rgba(74,222,128,0.15),transparent_45%)]" />
           <div className="relative mx-auto max-w-5xl px-4 py-12 text-center sm:px-6 sm:py-16">
             <p className="text-[48px]" aria-hidden>🚀🧮🧠⭐</p>
             <h1 className="mt-2 text-[40px] font-black tracking-tight text-brand-ink sm:text-[56px]">Kids zone</h1>

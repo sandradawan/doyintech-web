@@ -121,7 +121,7 @@ export default function AdminConversionsPage() {
             <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-brand-muted">
               <Legend color="#2997ff" label="Leads" />
               <Legend color="#25D366" label="WhatsApp clicks" />
-              <Legend color="#2e7d12" label="Payments" />
+              <Legend color="#ff8c14" label="Payments" />
             </div>
           </Panel>
 

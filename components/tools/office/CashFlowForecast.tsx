@@ -124,7 +124,7 @@ export default function CashFlowForecast() {
             const y = w.closing >= 0 ? zeroY - h : zeroY;
             return (
               <g key={w.week}>
-                <rect x={i * 40 + 8} y={y} width="24" height={h} rx="3" fill={w.closing < 0 ? "#ff6b6b" : "#2e7d12"} />
+                <rect x={i * 40 + 8} y={y} width="24" height={h} rx="3" fill={w.closing < 0 ? "#ff6b6b" : "#ff8c14"} />
                 <text x={i * 40 + 20} y={H + 14} textAnchor="middle" fontSize="10" fill="#8b919c">W{w.week}</text>
                 <title>{`Week ${w.week}: ${naira0(w.closing)}`}</title>
               </g>

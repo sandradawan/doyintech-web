@@ -67,7 +67,7 @@ export default function AdminLoginPage() {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-brand-deepest px-5">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(163,230,53,0.16),_transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,140,20,0.16),_transparent_50%)]" />
       <form
         onSubmit={onSubmit}
         className="relative w-full max-w-md space-y-5 rounded-3xl border border-brand-ink/10 bg-brand-deep/90 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
@@ -122,7 +122,7 @@ export default function AdminLoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-gradient-to-r from-[#ff9a2e] to-brand-accent py-3.5 font-semibold text-black shadow-[0_8px_28px_rgba(163,230,53,0.3)] disabled:opacity-50"
+          className="w-full rounded-full bg-gradient-to-r from-[#ff9a2e] to-brand-accent py-3.5 font-semibold text-black shadow-[0_8px_28px_rgba(255,140,20,0.3)] disabled:opacity-50"
         >
           {loading ? "Signing in…" : "Enter dashboard"}
         </button>

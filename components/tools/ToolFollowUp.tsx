@@ -61,7 +61,7 @@ export default function ToolFollowUp({ source }: { source: string }) {
     <form
       onSubmit={submit}
       className={`mt-6 rounded-2xl border p-5 transition sm:p-6 ${
-        nudge ? "border-brand-link/60 bg-brand-link/10 shadow-[0_0_0_4px_rgba(163,230,53,0.12)]" : "border-brand-ink/10 bg-brand-surface"
+        nudge ? "border-brand-link/60 bg-brand-link/10 shadow-[0_0_0_4px_rgba(255,140,20,0.12)]" : "border-brand-ink/10 bg-brand-surface"
       }`}
     >
       <p className="text-[15px] font-semibold text-brand-ink">

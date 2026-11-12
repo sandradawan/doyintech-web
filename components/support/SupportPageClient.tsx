@@ -70,7 +70,7 @@ const CHANNELS = [
     href: discoveryCallLink(),
     cta: "Book a call",
     external: true,
-    accent: "#2e7d12",
+    accent: "#ff8c14",
   },
 ];
 
@@ -296,7 +296,7 @@ export default function SupportPageClient() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full rounded-full bg-brand-accent py-3.5 text-[14px] font-semibold text-black shadow-[0_8px_28px_rgba(163,230,53,0.28)] disabled:opacity-60 sm:w-auto sm:px-10"
+                      className="w-full rounded-full bg-brand-accent py-3.5 text-[14px] font-semibold text-black shadow-[0_8px_28px_rgba(255,140,20,0.28)] disabled:opacity-60 sm:w-auto sm:px-10"
                     >
                       {loading ? "Sending…" : "Send support request"}
                     </button>

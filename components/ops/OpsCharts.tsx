@@ -7,7 +7,7 @@ import { DEAL_STAGES } from "@/lib/ops/types";
 import { formatNgn } from "@/lib/ops/store";
 
 const COLORS = [
-  "#2e7d12",
+  "#ff8c14",
   "#2997ff",
   "#34d399",
   "#a78bfa",
@@ -317,8 +317,8 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
     <svg viewBox={`0 0 ${w} ${h}`} className="h-40 w-full">
       <defs>
         <linearGradient id="opsLineFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2e7d12" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#2e7d12" stopOpacity="0" />
+          <stop offset="0%" stopColor="#ff8c14" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#ff8c14" stopOpacity="0" />
         </linearGradient>
       </defs>
       {[0.25, 0.5, 0.75].map((t) => (
@@ -341,7 +341,7 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
       <motion.path
         d={lineD}
         fill="none"
-        stroke="#2e7d12"
+        stroke="#ff8c14"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -356,7 +356,7 @@ function LineChart({ points }: { points: { label: string; value: number }[] }) {
           cy={c.y}
           r={4}
           fill="#0a0f1a"
-          stroke="#2e7d12"
+          stroke="#ff8c14"
           strokeWidth={2}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -390,7 +390,7 @@ function buildChartData(ws: OpsWorkspace) {
   const statusOrder = ["paid", "sent", "overdue", "draft", "cancelled"] as const;
   const statusColors: Record<string, string> = {
     paid: "#34d399",
-    sent: "#2e7d12",
+    sent: "#ff8c14",
     overdue: "#f87171",
     draft: "#94a3b8",
     cancelled: "#64748b",
