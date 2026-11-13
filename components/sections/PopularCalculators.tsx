@@ -23,6 +23,8 @@ const GROUPS: { title: string; links: { href: string; label: string }[] }[] = [
     links: [
       { href: "/salary-calculator/canada", label: "Canada salary calculator" },
       { href: "/salary-calculator/ireland", label: "Ireland salary calculator" },
+      { href: "/salary-calculator/philippines", label: "Philippines salary calculator" },
+      { href: "/salary-calculator/singapore", label: "Singapore salary calculator" },
       { href: "/tools/paye-calculator-nigeria", label: "Nigeria PAYE calculator" },
       { href: "/tools/profit-margin-calculator", label: "Profit margin calculator" },
       { href: "/tools/break-even-calculator", label: "Break-even calculator" },

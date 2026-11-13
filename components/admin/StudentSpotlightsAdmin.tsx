@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { adminApi, adminUpload } from "@/lib/admin/client";
 
-type Row = { id: number; name: string; school: string; work: string; photo_url: string; banner_url: string | null; created_at: string };
+type Row = { id: number; name: string; school: string; work: string; photo_url: string; banner_url: string | null; created_at: string; published?: boolean; source?: string; contact?: string };
 
 const input = "mt-1 w-full rounded-xl border border-brand-ink/15 bg-brand-well px-3 py-2.5 text-[14px] text-brand-ink outline-none focus:border-brand-link";
 const label = "block text-[13px] font-medium text-brand-muted";
@@ -68,6 +68,16 @@ export default function StudentSpotlightsAdmin() {
       setError(err instanceof Error ? err.message : "That didn't save.");
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function setPublished(row: Row, published: boolean) {
+    setError("");
+    try {
+      await adminApi("/api/admin/student-spotlights", { method: "PATCH", body: JSON.stringify({ id: row.id, published }) });
+      load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "That didn't work.");
     }
   }
 
@@ -158,7 +168,15 @@ export default function StudentSpotlightsAdmin() {
                 <p className="truncate text-[14px] font-semibold text-brand-ink">{r.name || "No name"}</p>
                 <p className="truncate text-[12px] font-semibold uppercase tracking-wide text-brand-link">{r.school}</p>
                 <p className="truncate text-[12px] text-brand-subtle">{r.work || "No work added"}{r.banner_url ? " · has banner" : ""}</p>
+                {r.published === false && (
+                  <p className="mt-1 text-[12px] font-semibold text-amber-300">Waiting for your approval{r.contact ? ` · ${r.contact}` : ""}</p>
+                )}
               </div>
+              {r.published === false && (
+                <button type="button" onClick={() => setPublished(r, true)} className="min-h-10 shrink-0 rounded-full bg-brand-accent px-3 text-[12px] font-semibold text-black">
+                  Approve
+                </button>
+              )}
               <button type="button" onClick={() => remove(r)} className="min-h-10 shrink-0 rounded-full border border-brand-ink/20 px-3 text-[12px] font-semibold text-brand-ink hover:border-red-500/50">
                 Remove
               </button>

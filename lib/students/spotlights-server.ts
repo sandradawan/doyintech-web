@@ -12,6 +12,9 @@ export type SpotlightRow = {
   photo_url: string;
   banner_url: string | null;
   published: boolean;
+  source?: string;
+  consent?: boolean;
+  contact?: string;
   created_at: string;
 };
 

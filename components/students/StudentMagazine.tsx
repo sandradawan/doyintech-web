@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MAGAZINE_ISSUE, type StudentSpotlight } from "@/lib/students/spotlights";
+import { MAGAZINE_ISSUE, schoolSlug, type StudentSpotlight } from "@/lib/students/spotlights";
 
 /** The student e-magazine: a green page with the DoyinTech mark behind it, and a round portrait and school tag per student. */
 export default function StudentMagazine({ students }: { students: StudentSpotlight[] }) {
@@ -54,9 +54,9 @@ export default function StudentMagazine({ students }: { students: StudentSpotlig
               </span>
             </div>
             {s.school && (
-              <span className="relative z-10 -mt-3.5 max-w-full truncate rounded-full bg-[#ff8c14] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-black shadow-md">
+              <Link href={`/students/schools/${schoolSlug(s.school)}`} className="relative z-10 -mt-3.5 max-w-full truncate rounded-full bg-[#ff8c14] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-black shadow-md transition hover:brightness-110">
                 {s.school}
-              </span>
+              </Link>
             )}
             {s.name && <h3 className="mt-3 font-serif text-[19px] font-bold leading-tight text-white">{s.name}</h3>}
             {s.work && <p className={`${s.name ? "mt-1" : "mt-3"} max-w-[200px] text-[13px] leading-snug text-white/75`}>{s.work}</p>}
@@ -71,6 +71,9 @@ export default function StudentMagazine({ students }: { students: StudentSpotlig
         </div>
         <Link href="/students/projects" className="inline-flex shrink-0 rounded-full bg-[#ff8c14] px-6 py-3 text-[14px] font-semibold text-black transition hover:brightness-110">
           Start a project →
+        </Link>
+        <Link href="/students/get-featured" className="inline-flex shrink-0 rounded-full border border-white/30 px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/60">
+          Worked with us? Get featured
         </Link>
       </div>
     </section>

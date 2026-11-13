@@ -3,7 +3,7 @@
 import Link from "next/link";
 import ScrollReveal from "../animations/ScrollReveal";
 import { PRIMARY_CTA } from "@/lib/cta";
-import { bookCallLink, hasCalendarBooking, whatsappDiscoveryLink } from "@/lib/booking";
+import { bookCallLink, hasCalendarBooking } from "@/lib/booking";
 
 const bullets = [
   "15-minute call — no pressure",
@@ -48,12 +48,12 @@ export default function BookCall() {
                   {PRIMARY_CTA.label}
                 </Link>
                 <a
-                  href={calendar ? primary : whatsappDiscoveryLink()}
+                  href={calendar ? primary : "/book-call"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-full border border-brand-ink/20 px-6 py-3.5 text-[15px] text-brand-ink transition hover:bg-brand-ink/5 sm:w-auto sm:min-w-[260px]"
                 >
-                  {calendar ? "Book a free 15-min call" : "Ask on WhatsApp first"}
+                  {calendar ? "Book a free 15-min call" : "Pick a time for a free call"}
                 </a>
                 <p className="text-center text-[12px] text-brand-muted lg:text-right">
                   Or email{" "}

@@ -179,6 +179,41 @@ function ireland(g: number): SalaryResult {
   ]);
 }
 
+/** Philippines 2026: TRAIN income tax after the employee's SSS, PhilHealth and Pag-IBIG contributions. */
+function philippines(g: number): SalaryResult {
+  const monthly = g / 12;
+  const sss = Math.min(Math.max(monthly, 5000), 35000) * 0.05 * 12;
+  const philhealth = Math.min(Math.max(monthly, 10000), 100000) * 0.025 * 12;
+  const pagibig = Math.min(monthly, 10000) * 0.02 * 12;
+  const taxable = pos(g - sss - philhealth - pagibig);
+  const tax = bandTax(taxable, [[250000, 0], [400000, 0.15], [800000, 0.2], [2000000, 0.25], [8000000, 0.3], [Infinity, 0.35]]);
+  return result(g, [
+    { label: "Income tax", amount: tax },
+    { label: "SSS", amount: sss },
+    { label: "PhilHealth", amount: philhealth },
+    { label: "Pag-IBIG", amount: pagibig },
+  ]);
+}
+
+/** Singapore, income earned in 2026: resident income tax and employee CPF (citizen or PR, aged 55 or under). */
+function singapore(g: number): SalaryResult {
+  const cpf = Math.min(g, 96000) * 0.2;
+  const taxable = pos(g - cpf - 1000);
+  const tax = bandTax(taxable, [
+    [20000, 0], [30000, 0.02], [40000, 0.035], [80000, 0.07], [120000, 0.115], [160000, 0.15], [200000, 0.18],
+    [240000, 0.19], [280000, 0.195], [320000, 0.2], [500000, 0.22], [1000000, 0.23], [Infinity, 0.24],
+  ]);
+  return result(g, [
+    { label: "Income tax", amount: tax },
+    { label: "CPF (employee)", amount: cpf },
+  ]);
+}
+
+/** UAE: there is no personal income tax on salaries. */
+function uae(g: number): SalaryResult {
+  return result(g, [{ label: "Income tax", amount: 0 }]);
+}
+
 export const SALARY_COUNTRIES: SalaryCountry[] = [
   {
     slug: "united-kingdom",
@@ -284,6 +319,45 @@ export const SALARY_COUNTRIES: SalaryCountry[] = [
     covers: "income tax for a single person (20% up to €44,000, 40% above, less the €2,000 personal and €2,000 employee credits), USC, and Class A PRSI at 4.35% with the low-pay PRSI credit",
     excludes: "married or one-parent bands and credits, pension contributions and other tax credits",
     calc: ireland,
+  },
+  {
+    slug: "philippines",
+    country: "Philippines",
+    short: "Philippines",
+    currency: "PHP",
+    locale: "en-PH",
+    taxYear: "2026",
+    authority: "the BIR",
+    example: 600000,
+    covers: "income tax at the TRAIN law rates (the first ₱250,000 of taxable income is tax-free) after the employee share of SSS at 5%, PhilHealth at 2.5% and Pag-IBIG at 2%, each with its monthly cap",
+    excludes: "the tax-free part of 13th month pay and bonuses (up to ₱90,000), de minimis benefits, and the exact SSS salary-credit brackets, so SSS can differ by a few pesos",
+    calc: philippines,
+  },
+  {
+    slug: "singapore",
+    country: "Singapore",
+    short: "Singapore",
+    currency: "SGD",
+    locale: "en-SG",
+    taxYear: "2026",
+    authority: "IRAS",
+    example: 72000,
+    covers: "resident income tax at the current progressive rates with the S$1,000 earned income relief, and employee CPF at 20% up to the S$8,000 monthly ordinary wage ceiling, for a citizen or permanent resident aged 55 or under",
+    excludes: "foreigners on work passes (who pay no CPF), CPF on bonuses, older-age CPF rates, and other reliefs such as spouse, child and NSman relief",
+    calc: singapore,
+  },
+  {
+    slug: "uae",
+    country: "United Arab Emirates",
+    short: "UAE",
+    currency: "AED",
+    locale: "en-AE",
+    taxYear: "2026",
+    authority: "the Federal Tax Authority",
+    example: 180000,
+    covers: "the UAE's zero personal income tax on salaries, so an expatriate employee's take-home pay equals gross pay",
+    excludes: "pension contributions for UAE and GCC nationals, end-of-service gratuity, and any tax you owe in your home country",
+    calc: uae,
   },
 ];
 

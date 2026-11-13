@@ -50,5 +50,10 @@ export const BUILT_IN_SPOTLIGHTS: StudentSpotlight[] = [
   },
 ];
 
+/** "FCAHPT Vom" -> "fcahpt-vom": the address of a school's page. */
+export function schoolSlug(school: string): string {
+  return school.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 /** Shown on the magazine masthead. Change it when you publish a new batch. */
 export const MAGAZINE_ISSUE = { number: "01", date: "November 2026" };

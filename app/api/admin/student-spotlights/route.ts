@@ -79,6 +79,19 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true, student: data as SpotlightRow });
 }
 
+/** Approves a student's own submission (or hides an entry again). */
+export async function PATCH(req: NextRequest) {
+  const g = await guard(req);
+  if (!g.sb) return g.res;
+  const body = (await req.json().catch(() => ({}))) as { id?: number; published?: boolean };
+  const id = Number(body.id);
+  if (!Number.isInteger(id) || id <= 0) return NextResponse.json({ error: "Missing student id." }, { status: 400 });
+  const { error } = await g.sb.from(SPOTLIGHT_TABLE).update({ published: body.published !== false }).eq("id", id);
+  if (error) return setupError(error.message);
+  revalidatePath("/students");
+  return NextResponse.json({ ok: true });
+}
+
 /** Removes one student and their images. */
 export async function DELETE(req: NextRequest) {
   const g = await guard(req);
