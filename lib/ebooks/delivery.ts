@@ -66,7 +66,7 @@ export function formatEbookHtml(book: Ebook): string {
       "' alt='" +
       esc(book.title) +
       " cover' width='220' style='width:220px;max-width:100%;height:auto;display:inline-block'/></div>",
-    "<div style='padding:24px;background:#0a3d2e;color:#fff'>",
+    "<div style='padding:24px;background:#111111;color:#fff'>",
     "<p style='margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#ff8c14'>DoyinTech</p>",
     "<h1 style='margin:8px 0 6px;font-size:28px'>" + esc(book.title) + "</h1>",
     "<p style='margin:0;opacity:.9;font-size:15px'>" + esc(book.subtitle) + "</p>",

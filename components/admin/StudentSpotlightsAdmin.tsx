@@ -134,9 +134,9 @@ export default function StudentSpotlightsAdmin() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center rounded-2xl bg-[#093b1d] p-5 text-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl bg-[#0b0b0c] p-5 text-center">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">Preview</p>
-          <div className="relative h-28 w-28 overflow-hidden rounded-full bg-[#0d4a25] shadow-[0_0_0_4px_#093b1d,0_0_0_6px_#ff8c14]">
+          <div className="relative h-28 w-28 overflow-hidden rounded-full bg-[#1d1d1f] shadow-[0_0_0_4px_#0b0b0c,0_0_0_6px_#ff8c14]">
             {/* eslint-disable-next-line @next/next/no-img-element -- a local preview of the chosen file */}
             {preview && <img src={preview} alt="" className="h-full w-full object-cover object-top" />}
           </div>

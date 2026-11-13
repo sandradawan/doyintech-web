@@ -9,10 +9,10 @@ import pathlib
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "public" / "ebooks" / "covers"
+OUT = ROOT / "public" / "ebooks" / "covers-bw"
 FONTS = pathlib.Path("C:/Windows/Fonts")
-GREEN, DARK, WHITE, ORANGE, BLACK = "#0a3d2e", "#062a20", "#ffffff", "#ff8c14", "#0b0b0b"
-SOFT = "#cfe0d8"
+GREEN, DARK, WHITE, ORANGE, BLACK = "#111111", "#000000", "#ffffff", "#ff8c14", "#0b0b0b"
+SOFT = "#d2d2d7"
 SS = 2  # draw at double size, then shrink, for clean edges
 W, H = 1000, 1500
 
@@ -471,7 +471,7 @@ def layout_panel(book, num, pic):
     d.rectangle([0, 150 * SS, W * SS, panel_end * SS], fill=WHITE)
     y = draw_block(d, 70, 205, ls, f, GREEN, int(size * 1.14))
     d.rectangle([70 * SS, (y + 26) * SS, 200 * SS, (y + 38) * SS], fill=ORANGE)
-    draw_block(d, 70, y + 66, sub, font("arial.ttf", 33), "#31564a", 45)
+    draw_block(d, 70, y + 66, sub, font("arial.ttf", 33), "#515154", 45)
     side = min(370, H - 120 - panel_end - 70)
     tile = Pic(side, GREEN, WHITE, ORANGE)
     pic(tile)

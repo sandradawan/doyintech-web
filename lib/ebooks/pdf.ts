@@ -57,9 +57,9 @@ function buildPageStream(lines: { text: string; size: number; gapAfter?: number 
   return ops.join("\n");
 }
 
-/** Cover background in brand colours: deep green page, orange foot and the DoyinTech mark. */
+/** Cover background in brand colours: black page, orange foot and the DoyinTech mark. */
 const COVER_ART = [
-  "0.039 0.239 0.180 rg 0 0 612 792 re f",
+  "0.067 0.067 0.067 rg 0 0 612 792 re f",
   "1 0.549 0.078 rg 0 0 612 58 re f",
   "1 0.549 0.078 rg",
   "544 760 m 557.25 760 568 749.25 568 736 c 568 722.75 557.25 712 544 712 c 530.75 712 520 722.75 520 736 c 520 749.25 530.75 760 544 760 c f",

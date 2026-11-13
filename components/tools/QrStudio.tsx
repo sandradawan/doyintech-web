@@ -61,7 +61,7 @@ export default function QrStudio() {
   const [bg, setBg] = useState("#ffffff");
   const [logo, setLogo] = useState<string>("");
   const [caption, setCaption] = useState("Scan to order");
-  const [frameColor, setFrameColor] = useState("#0b2a1c");
+  const [frameColor, setFrameColor] = useState("#111111");
   const [error, setError] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { unlocked: branded } = usePaidUnlock("branded-qr");

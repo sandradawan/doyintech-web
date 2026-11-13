@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
-/* Brand colours: deep green, white, orange and black. Change them here and the whole site follows. */
+/* Brand colours: black, orange and white. Change them here and the whole site follows. */
 @theme {
-  /* Black pages, deep green cards, orange accent, white text. Light and green sections switch these below. */
+  /* Black pages, dark grey cards, orange accent, white text. Light and grey sections switch these below. */
   --color-brand-deepest: #000000;
   --color-brand-deep: #000000;
-  --color-brand-surface: #0d2b1f;
-  --color-brand-raised: #143d2c;
+  --color-brand-surface: #161617;
+  --color-brand-raised: #1d1d1f;
   --color-brand-ink: #f5f5f7;
-  --color-brand-soft: #e3e8e5;
-  --color-brand-muted: #a9b5ae;
-  --color-brand-subtle: #8e9b94;
+  --color-brand-soft: #e8e8ed;
+  --color-brand-muted: #a1a1a6;
+  --color-brand-subtle: #86868b;
   --color-brand-link: #ff9d3b;
   --color-brand-accent: #ff8c14;
   --color-brand-accent-hover: #ffa03a;
   --color-brand-well: rgba(255, 255, 255, 0.06);
   --color-primary: #ff8c14;
   --color-accent: #ff8c14;
-  --color-surface: #0d2b1f;
+  --color-surface: #161617;
   --color-background: #000000;
 }
 
 :root {
   --apple-bg: #000000;
-  --apple-surface: #0d2b1f;
-  --apple-elevated: #143d2c;
+  --apple-surface: #161617;
+  --apple-elevated: #1d1d1f;
   --apple-ink: #f5f5f7;
-  --apple-muted: #a9b5ae;
+  --apple-muted: #a1a1a6;
   --apple-blue: #ff9d3b;
   --apple-blue-solid: #ff8c14;
   --apple-accent: #ff8c14;
@@ -41,12 +41,12 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) #06291f;
+  scrollbar-color: rgba(255, 255, 255, 0.25) #000000;
 }
 
 body {
-  background-color: #06291f;
-  color: #f6faf8;
+  background-color: #000000;
+  color: #f5f5f7;
   font-family:
     var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -79,7 +79,7 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #06291f;
+  background: #000000;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.22);
@@ -91,14 +91,14 @@ body {
 }
 
 .apple-section-black {
-  background: #06291f;
-  color: #f6faf8;
+  background: #000000;
+  color: #f5f5f7;
 }
 
 .apple-section-white,
 .apple-section-gray {
-  background: #06291f;
-  color: #f6faf8;
+  background: #000000;
+  color: #f5f5f7;
 }
 
 .apple-headline {
@@ -106,7 +106,7 @@ body {
   font-weight: 600;
   line-height: 1.06;
   letter-spacing: -0.03em;
-  color: #f6faf8;
+  color: #f5f5f7;
   text-wrap: balance;
 }
 
@@ -114,7 +114,7 @@ body {
   font-size: clamp(1.05rem, 2vw, 1.5rem);
   font-weight: 400;
   line-height: 1.45;
-  color: #b5cdc2;
+  color: #a1a1a6;
   text-wrap: pretty;
   max-width: 42rem;
 }
@@ -137,14 +137,14 @@ body {
 }
 
 .footer-link {
-  color: #b5cdc2;
+  color: #a1a1a6;
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s var(--ease-out-soft);
   display: inline-block;
 }
 
 .footer-link:hover {
-  color: #f6faf8;
+  color: #f5f5f7;
   transform: translateX(2px);
 }
 
@@ -191,13 +191,13 @@ body {
 .apple-card {
   background: linear-gradient(
     165deg,
-    rgba(17, 74, 57, 0.9) 0%,
-    rgba(11, 58, 44, 0.95) 100%
+    rgba(29, 29, 31, 0.9) 0%,
+    rgba(22, 22, 23, 0.95) 100%
   );
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--glass-border);
-  color: #f6faf8;
+  color: #f5f5f7;
   transition: transform 0.4s var(--ease-out-soft), border-color 0.3s ease,
     box-shadow 0.4s ease;
 }
@@ -209,9 +209,9 @@ body {
 }
 
 .apple-card-dark {
-  background: #0b3a2c;
+  background: #161617;
   border-color: transparent;
-  color: #f6faf8;
+  color: #f5f5f7;
 }
 
 .glass-card,
@@ -223,7 +223,7 @@ body {
   border-radius: 24px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 var(--glass-highlight);
-  color: #f6faf8;
+  color: #f5f5f7;
   transition: transform 0.4s var(--ease-out-soft), border-color 0.3s ease,
     box-shadow 0.4s ease;
 }
@@ -253,7 +253,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #b5cdc2;
+  color: #a1a1a6;
 }
 
 .section-title {
@@ -261,20 +261,20 @@ body {
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.15;
-  color: #f6faf8;
+  color: #f5f5f7;
   text-wrap: balance;
 }
 
 .section-lead {
   font-size: clamp(0.95rem, 1.6vw, 1.125rem);
   line-height: 1.55;
-  color: #b5cdc2;
+  color: #a1a1a6;
   max-width: 36rem;
   text-wrap: pretty;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #f6faf8 0%, #b5cdc2 100%);
+  background: linear-gradient(135deg, #f5f5f7 0%, #a1a1a6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -397,9 +397,9 @@ body {
 .text-shine {
   background: linear-gradient(
     90deg,
-    #b5cdc2 0%,
-    #f6faf8 40%,
-    #b5cdc2 80%
+    #a1a1a6 0%,
+    #f5f5f7 40%,
+    #a1a1a6 80%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -409,7 +409,7 @@ body {
 }
 
 .prose-muted {
-  color: #b5cdc2;
+  color: #a1a1a6;
   line-height: 1.65;
 }
 
@@ -564,7 +564,7 @@ body {
 .t-lead {
   font-size: var(--text-lead);
   line-height: 1.55;
-  color: #dce9e3;
+  color: #e8e8ed;
 }
 .t-eyebrow {
   font-size: 0.75rem;
@@ -637,17 +637,17 @@ body {
 
 /* Brand finish */
 /* ------------------------------------------------------------------
-   Theme: black pages, deep green cards and panels, orange accent, white sections.
+   Theme: black pages, dark grey cards and panels, orange accent, white sections.
    ------------------------------------------------------------------ */
 :root {
   --color-brand-deepest: #000000;
   --color-brand-deep: #000000;
-  --color-brand-surface: #0d2b1f;
-  --color-brand-raised: #143d2c;
+  --color-brand-surface: #161617;
+  --color-brand-raised: #1d1d1f;
   --color-brand-ink: #f5f5f7;
-  --color-brand-soft: #e3e8e5;
-  --color-brand-muted: #a9b5ae;
-  --color-brand-subtle: #8e9b94;
+  --color-brand-soft: #e8e8ed;
+  --color-brand-muted: #a1a1a6;
+  --color-brand-subtle: #86868b;
   --color-brand-link: #ff9d3b;
   --color-brand-well: rgba(255, 255, 255, 0.06);
   --color-primary: #ff8c14;
@@ -656,12 +656,12 @@ body {
   --apple-hairline: rgba(255, 255, 255, 0.12);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-highlight: rgba(255, 255, 255, 0.1);
-  --tone-green: #6ee7b7;
-  --tone-amber: #fcd34d;
+  --tone-green: #ff9d3b;
+  --tone-amber: #ff9d3b;
   --tone-red: #fca5a5;
-  --tone-blue: #93c5fd;
-  --tone-purple: #c4b5fd;
-  --card-bg: linear-gradient(160deg, #11382a 0%, #0a2419 100%);
+  --tone-blue: #e8e8ed;
+  --tone-purple: #e8e8ed;
+  --card-bg: linear-gradient(160deg, #1c1c1e 0%, #111112 100%);
   --card-border: rgba(255, 255, 255, 0.1);
   --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 44px -22px rgba(0, 0, 0, 0.8);
   --card-hover-border: rgba(255, 140, 20, 0.5);
@@ -688,7 +688,7 @@ body {
   outline-color: var(--color-brand-link);
 }
 
-/* Dark scope: used to go back to black inside a light or green section. Solid dark backgrounds join it automatically. */
+/* Dark scope: used to go back to black inside a light or grey section. Solid dark backgrounds join it automatically. */
 .theme-dark,
 .bg-black,
 [class*="bg-black/6"],
@@ -705,12 +705,12 @@ body {
 .bg-zinc-950 {
   --color-brand-deepest: #000000;
   --color-brand-deep: #000000;
-  --color-brand-surface: #0d2b1f;
-  --color-brand-raised: #143d2c;
+  --color-brand-surface: #161617;
+  --color-brand-raised: #1d1d1f;
   --color-brand-ink: #f5f5f7;
-  --color-brand-soft: #e3e8e5;
-  --color-brand-muted: #a9b5ae;
-  --color-brand-subtle: #8e9b94;
+  --color-brand-soft: #e8e8ed;
+  --color-brand-muted: #a1a1a6;
+  --color-brand-subtle: #86868b;
   --color-brand-link: #ff9d3b;
   --color-brand-well: rgba(255, 255, 255, 0.06);
   --color-primary: #ff8c14;
@@ -719,12 +719,12 @@ body {
   --apple-hairline: rgba(255, 255, 255, 0.12);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-highlight: rgba(255, 255, 255, 0.1);
-  --tone-green: #6ee7b7;
-  --tone-amber: #fcd34d;
+  --tone-green: #ff9d3b;
+  --tone-amber: #ff9d3b;
   --tone-red: #fca5a5;
-  --tone-blue: #93c5fd;
-  --tone-purple: #c4b5fd;
-  --card-bg: linear-gradient(160deg, #11382a 0%, #0a2419 100%);
+  --tone-blue: #e8e8ed;
+  --tone-purple: #e8e8ed;
+  --card-bg: linear-gradient(160deg, #1c1c1e 0%, #111112 100%);
   --card-border: rgba(255, 255, 255, 0.1);
   --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 44px -22px rgba(0, 0, 0, 0.8);
   --card-hover-border: rgba(255, 140, 20, 0.5);
@@ -753,11 +753,11 @@ body {
   --apple-accent: #b34700;
   --apple-hairline: rgba(0, 0, 0, 0.12);
   --glass-border: rgba(0, 0, 0, 0.08);
-  --tone-green: #047857;
-  --tone-amber: #92400e;
+  --tone-green: #b34700;
+  --tone-amber: #b34700;
   --tone-red: #b91c1c;
-  --tone-blue: #1d4ed8;
-  --tone-purple: #6d28d9;
+  --tone-blue: #333336;
+  --tone-purple: #333336;
   --card-bg: #ffffff;
   --card-border: rgba(0, 0, 0, 0.07);
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 18px 40px -24px rgba(0, 0, 0, 0.28);
@@ -769,17 +769,17 @@ body {
   background: #f5f5f7;
 }
 
-/* Green scope: deep green sections and panels with white text. */
+/* Grey scope: dark grey sections and panels with white text. */
 .section-mint,
 .panel-glow {
-  --color-brand-deepest: #062a1d;
-  --color-brand-deep: #0a3526;
-  --color-brand-surface: #124a37;
-  --color-brand-raised: #1a5a44;
+  --color-brand-deepest: #0a0a0a;
+  --color-brand-deep: #111112;
+  --color-brand-surface: #1d1d1f;
+  --color-brand-raised: #2a2a2c;
   --color-brand-ink: #ffffff;
-  --color-brand-soft: #e6f0eb;
-  --color-brand-muted: #c2d4cb;
-  --color-brand-subtle: #a8c0b4;
+  --color-brand-soft: #e8e8ed;
+  --color-brand-muted: #b0b0b5;
+  --color-brand-subtle: #98989d;
   --color-brand-link: #ffab57;
   --color-brand-well: rgba(0, 0, 0, 0.22);
   --color-primary: #ff8c14;
@@ -787,11 +787,11 @@ body {
   --apple-accent: #ff8c14;
   --apple-hairline: rgba(255, 255, 255, 0.14);
   --glass-border: rgba(255, 255, 255, 0.14);
-  --tone-green: #86efac;
-  --tone-amber: #fcd34d;
+  --tone-green: #ff9d3b;
+  --tone-amber: #ff9d3b;
   --tone-red: #fca5a5;
-  --tone-blue: #93c5fd;
-  --tone-purple: #c4b5fd;
+  --tone-blue: #e8e8ed;
+  --tone-purple: #e8e8ed;
   --card-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
   --card-border: rgba(255, 255, 255, 0.14);
   --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 44px -22px rgba(0, 0, 0, 0.6);
@@ -801,13 +801,13 @@ body {
 }
 .section-light.section-mint,
 .section-mint {
-  background: linear-gradient(180deg, #0c3d2c 0%, #082b1f 100%);
+  background: linear-gradient(180deg, #161617 0%, #0d0d0e 100%);
 }
 .theme-dark.panel-glow,
 .panel-glow {
   background:
     radial-gradient(38rem 24rem at 90% 0%, rgba(255, 140, 20, 0.16), transparent 62%),
-    linear-gradient(160deg, #0f4634 0%, #072a1e 100%);
+    linear-gradient(160deg, #1d1d1f 0%, #0b0b0c 100%);
 }
 footer.panel-glow {
   background: #000000;
@@ -984,7 +984,7 @@ h3 {
   border-color: color-mix(in srgb, var(--color-brand-ink) 55%, transparent);
 }
 
-/* Cards follow the scope: deep green on black, white on light, frosted on green. */
+/* Cards follow the scope: dark grey on black, white on light, frosted on grey. */
 .glass,
 .apple-card,
 .apple-card-dark,
@@ -1008,14 +1008,14 @@ h3 {
   box-shadow: var(--card-shadow);
 }
 .glass-strong {
-  background: linear-gradient(155deg, rgba(13, 43, 31, 0.92) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: linear-gradient(155deg, rgba(22, 22, 23, 0.92) 0%, rgba(0, 0, 0, 0.9) 100%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 60px -20px rgba(0, 0, 0, 0.7);
   -webkit-backdrop-filter: blur(22px) saturate(170%);
   backdrop-filter: blur(22px) saturate(170%);
 }
 .glass-hero {
-  background: linear-gradient(155deg, rgba(10, 43, 30, 0.6) 0%, rgba(0, 0, 0, 0.55) 100%);
+  background: linear-gradient(155deg, rgba(22, 22, 23, 0.6) 0%, rgba(0, 0, 0, 0.55) 100%);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 24px 60px -20px rgba(0, 0, 0, 0.7);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
@@ -1029,7 +1029,7 @@ h3 {
   box-shadow: none;
 }
 .glass-menu {
-  background: linear-gradient(160deg, #0d2b1f 0%, #000000 100%);
+  background: linear-gradient(160deg, #161617 0%, #000000 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 28px 60px -20px rgba(0, 0, 0, 0.8);
 }
@@ -1044,7 +1044,7 @@ h3 {
   background: transparent;
 }
 .band.section-mint {
-  --band-bg: #0a3526;
+  --band-bg: #111112;
   background: transparent;
 }
 .band::before {

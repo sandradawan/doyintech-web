@@ -10,7 +10,7 @@ export default function StudentMagazine({ students }: { students: StudentSpotlig
     <section
       id="magazine"
       aria-labelledby="magazine-heading"
-      className="theme-dark relative isolate mt-16 scroll-mt-24 overflow-hidden rounded-[28px] bg-[#093b1d] px-5 py-10 shadow-[0_30px_70px_-34px_rgba(11,42,28,0.7)] sm:px-10 sm:py-14"
+      className="theme-dark relative isolate mt-16 scroll-mt-24 overflow-hidden rounded-[28px] border border-white/10 bg-[#0b0b0c] px-5 py-10 sm:px-10 sm:py-14"
     >
       {/* The logo, large and faint, behind the page. */}
       <Image src="/logo.png" alt="" width={640} height={640} aria-hidden className="pointer-events-none absolute -right-24 -top-20 -z-10 h-[420px] w-[420px] select-none object-contain opacity-[0.07] sm:h-[560px] sm:w-[560px]" />
@@ -40,7 +40,7 @@ export default function StudentMagazine({ students }: { students: StudentSpotlig
         {students.map((s, i) => (
           <li key={s.id} className="flex flex-col items-center text-center">
             <div className="relative">
-              <div className="relative h-32 w-32 overflow-hidden rounded-full bg-[#0d4a25] shadow-[0_0_0_4px_#093b1d,0_0_0_6px_#ff8c14,0_18px_30px_-12px_rgba(0,0,0,0.6)] sm:h-40 sm:w-40">
+              <div className="relative h-32 w-32 overflow-hidden rounded-full bg-[#1d1d1f] shadow-[0_0_0_4px_#0b0b0c,0_0_0_6px_#ff8c14,0_18px_30px_-12px_rgba(0,0,0,0.6)] sm:h-40 sm:w-40">
                 <Image
                   src={s.photo}
                   alt={s.name ? `${s.name}${s.school ? `, ${s.school}` : ""}` : `A student DoyinTech worked with${s.school ? ` at ${s.school}` : ""}`}
@@ -49,7 +49,7 @@ export default function StudentMagazine({ students }: { students: StudentSpotlig
                   className="object-cover object-top"
                 />
               </div>
-              <span className="absolute -left-1 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-white font-serif text-[13px] font-bold text-[#093b1d] shadow-md">
+              <span className="absolute -left-1 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-white font-serif text-[13px] font-bold text-[#0b0b0c] shadow-md">
                 {String(i + 1).padStart(2, "0")}
               </span>
             </div>

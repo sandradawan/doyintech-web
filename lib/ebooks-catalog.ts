@@ -27,7 +27,7 @@ function withFullBook(book: Ebook): Ebook {
     chapters,
     pagesLabel: `${chapters.length} chapters · ${size}`,
     // Drawn by scripts/make_ebook_covers.py in the brand colours.
-    coverImage: `/ebooks/covers/${book.slug}.jpg`,
+    coverImage: `/ebooks/covers-bw/${book.slug}.jpg`,
   };
 }
 

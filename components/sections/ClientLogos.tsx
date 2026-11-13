@@ -71,7 +71,7 @@ function LogoChip({ client, prefix }: { client: Client; prefix: string }) {
           unoptimized={client.logo.startsWith("http")}
         />
       </span>
-      <span className="text-[15px] font-semibold tracking-tight text-[#0a3d2e] sm:text-[17px]">
+      <span className="text-[15px] font-semibold tracking-tight text-[#1d1d1f] sm:text-[17px]">
         {client.name}
       </span>
     </span>
@@ -108,7 +108,7 @@ function Row({ prefix }: { prefix: string }) {
 export default function ClientLogos() {
   return (
     <section className="bg-white py-14">
-      <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-[#0a3d2e]">
+      <p className="mb-8 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-[#1d1d1f]">
         Trusted by growing businesses
       </p>
       <div className="relative overflow-hidden">

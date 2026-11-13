@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { StudentSpotlight } from "@/lib/students/spotlights";
 
 const INTERVAL_MS = 10_000;
-const GREEN = "#093b1d";
+const GREEN = "#0b0b0c";
 const ORANGE = "#ff8c14";
 
 /** A thank-you slide drawn from the student's photo, name and school, for students without a ready-made banner. */
