@@ -39,6 +39,15 @@ export const BUILT_IN_SPOTLIGHTS: StudentSpotlight[] = [
     banner: "/students/thank-you-2.webp",
     bannerAlt: "Thank you for trusting and recommending DoyinTech for project research software development.",
   },
+  {
+    id: "fcahpt-vom-research-writing-2",
+    name: "",
+    school: "FCAHPT Vom",
+    work: "Project research and writing",
+    photo: "/students/portrait-3.webp",
+    banner: "/students/thank-you-3.webp",
+    bannerAlt: "Thank you for trusting and recommending DoyinTech for project research and writing at FCAHPT Vom.",
+  },
 ];
 
 /** Shown on the magazine masthead. Change it when you publish a new batch. */

@@ -5,8 +5,8 @@ import {
   getPlaylistVideos,
   getYoutubeChannelUrl,
   getYoutubePlaylistTitle,
-  getYoutubePlaylistUrl,
-} from "@/lib/youtube";
+  getYoutubePlaylistUrl, getLatestShorts, getYoutubeShortsUrl } from "@/lib/youtube";
+import LatestShorts from "@/components/sections/LatestShorts";
 
 export const metadata = { alternates: { canonical: "/blog" },
   title: "Website and Business Blog for Nigerian SMEs",
@@ -96,7 +96,7 @@ const posts = [
 ];
 
 export default async function BlogPage() {
-  const videos = await getPlaylistVideos(10);
+  const [videos, shorts] = await Promise.all([getPlaylistVideos(10), getLatestShorts(8)]);
   const sorted = [...videos].sort((a, b) => {
     const da = a.published ? new Date(a.published).getTime() : 0;
     const db = b.published ? new Date(b.published).getTime() : 0;
@@ -136,6 +136,8 @@ export default async function BlogPage() {
               </Link>
             ))}
           </div>
+
+          <LatestShorts videos={shorts} shortsUrl={getYoutubeShortsUrl()} />
 
           <YouTubeShorts
             videos={sorted.slice(0, 10)}

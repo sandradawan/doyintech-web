@@ -204,6 +204,41 @@ export async function getPlaylistVideos(limit = 10): Promise<YoutubeVideo[]> {
   return FALLBACK_PLAYLIST.slice(0, limit);
 }
 
+/** The channel behind youtube.com/@doyintechfoundation. */
+const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || "UCzZeP2RV2VuS2ymtoaealGQ";
+
+/**
+ * The channel's newest Shorts, newest first. YouTube keeps a Shorts-only list for every channel
+ * ("UUSH" + the channel id without its "UC"), so new Shorts show up here without any setup.
+ * Refreshes every 30 minutes; returns an empty list if YouTube can't be reached.
+ */
+export async function getLatestShorts(limit = 8): Promise<YoutubeVideo[]> {
+  if (!CHANNEL_ID.startsWith("UC")) return [];
+  try {
+    const res = await fetch(`https://www.youtube.com/feeds/videos.xml?playlist_id=UUSH${CHANNEL_ID.slice(2)}`, {
+      next: { revalidate: 1800 },
+      headers: {
+        Accept: "application/atom+xml, application/xml, text/xml, */*",
+        "User-Agent": "Mozilla/5.0 (compatible; DoyinTechBot/1.0; +https://www.doyintech.com)",
+      },
+    });
+    if (!res.ok) return [];
+    const entries = (await res.text()).match(/<entry>[\s\S]*?<\/entry>/g) || [];
+    return entries
+      .map(mapEntry)
+      .filter((v): v is YoutubeVideo => v !== null)
+      .map((v) => ({ ...v, isShort: true, url: `https://www.youtube.com/shorts/${v.id}`, thumbnail: `https://i.ytimg.com/vi/${v.id}/oar2.jpg` }))
+      .sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime())
+      .slice(0, limit);
+  } catch {
+    return [];
+  }
+}
+
+export function getYoutubeShortsUrl(): string {
+  return "https://www.youtube.com/@doyintechfoundation/shorts";
+}
+
 /** Channel uploads (legacy helper). */
 export async function getLatestYoutubeVideos(
   limit = 10
