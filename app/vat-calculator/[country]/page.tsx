@@ -34,7 +34,7 @@ function headline(v: VatCountry) {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const v = getVatCountry((await params).country);
   if (!v) return {};
-  const title = `${headline(v)} 2026 — Add or Remove ${pct(v.standard)} ${v.tax}`;
+  const title = `${headline(v)} 2026: Add or Remove ${pct(v.standard)} ${v.tax} Online`;
   const description = `Free ${v.country} ${v.tax} calculator: add ${v.tax} to a price or take it out of a ${v.currency} amount at ${pct(v.standard)}${v.reduced?.length || v.presets ? " or the other rates" : ""}. Instant net, ${v.tax} and gross totals.`;
   const url = `/vat-calculator/${v.slug}`;
   return { title, description, alternates: { canonical: url }, openGraph: { images: ["/opengraph-image"], title, description, url } };
@@ -56,6 +56,8 @@ export default async function VatCountryPage({ params }: Params) {
     { q: `What is the ${v.tax} rate in ${v.country}?`, a: `The standard ${v.tax} rate in ${v.country} is ${pct(v.standard)}.${v.presets ? ` Other rates: ${v.presets.map((p) => p.label).join(", ")}.` : v.reduced?.length ? ` Reduced rates of ${v.reduced.map(pct).join(", ")} apply to specific goods and services.` : ""}${v.note ? " " + v.note : ""}` },
     { q: `How do I add ${v.tax} to a price?`, a: `Multiply the net price by ${(defaultRate / 100).toString()} to get the ${v.tax}, then add it. For ${money(v, 1000)}: ${v.tax} is ${money(v, ex.tax)} and the total is ${money(v, ex.gross)}.` },
     { q: `How do I remove ${v.tax} from a price?`, a: `Divide the price that includes ${v.tax} by ${factor}. For ${money(v, 1000)} including ${v.tax}, the net price is ${money(v, back.net)} and the ${v.tax} is ${money(v, back.tax)}.` },
+    { q: `How much is ${v.tax} on ${money(v, 100)} in ${v.country}?`, a: `At ${pct(defaultRate)}, ${v.tax} on ${money(v, 100)} is ${money(v, vatSplit(100, defaultRate, "add").tax)}, so the total is ${money(v, vatSplit(100, defaultRate, "add").gross)}. If ${money(v, 100)} already includes ${v.tax}, the ${v.tax} inside it is ${money(v, vatSplit(100, defaultRate, "remove").tax)}.` },
+    { q: `How do I work out ${v.tax} on an invoice?`, a: `Add up the net prices of the taxable items, multiply the total by ${(defaultRate / 100).toString()} to get the ${v.tax}, and show the net total, the ${v.tax} and the amount due on separate lines.` },
     { q: "Is this calculator free?", a: "Yes. It works in your browser with no sign-up, and you can turn the result into a free invoice in the same currency." },
   ];
 
@@ -100,6 +102,24 @@ export default async function VatCountryPage({ params }: Params) {
         </table>
         {v.note && <p className="mt-3">{v.note}</p>}
         <p className="mt-3">{v.authority ? `${v.tax} in ${v.country} is administered by ${v.authority}. ` : ""}Rates change; confirm the rate for your goods or service with the tax authority before you file.</p>
+      </section>
+      <section>
+        <h2 className="text-[22px] font-semibold text-brand-ink">{v.tax} on common amounts at {pct(defaultRate)}</h2>
+        <p className="mt-3">How much {v.tax} to add to a net price, and how much is inside a price that already includes it.</p>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[520px] text-left text-[15px]">
+            <thead><tr className="border-b border-brand-ink/10 text-brand-muted"><th className="py-2 pr-3 font-medium">Amount</th><th className="py-2 pr-3 font-medium">{v.tax} to add</th><th className="py-2 pr-3 font-medium">Total with {v.tax}</th><th className="py-2 font-medium">{v.tax} if included</th></tr></thead>
+            <tbody>
+              {[50, 100, 250, 500, 1000, 2500, 5000, 10000].map((n) => {
+                const add = vatSplit(n, defaultRate, "add");
+                const inc = vatSplit(n, defaultRate, "remove");
+                return (
+                  <tr key={n} className="border-b border-brand-ink/5"><td className="py-2 pr-3 text-brand-ink">{money(v, n)}</td><td className="py-2 pr-3">{money(v, add.tax)}</td><td className="py-2 pr-3">{money(v, add.gross)}</td><td className="py-2">{money(v, inc.tax)}</td></tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </section>
       <section>
         <h2 className="text-[22px] font-semibold text-brand-ink">The {v.tax} formulas</h2>

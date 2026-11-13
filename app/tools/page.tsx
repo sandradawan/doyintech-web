@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PopularCalculators from "@/components/sections/PopularCalculators";
 import Footer from "@/components/ui/Footer";
 import ToolsHubClient from "@/components/tools/ToolsHubClient";
 import AllToolsDirectory from "@/components/tools/AllToolsDirectory";
@@ -38,6 +39,8 @@ export default function ToolsHubPage() {
           <ToolsHubClient />
 
           <AllToolsDirectory />
+
+          <PopularCalculators className="mt-16 -mx-6" />
 
           <section className="theme-dark panel-glow mt-16 rounded-[28px] p-6 md:p-8">
             <h2 className="font-display text-2xl font-bold text-brand-ink">

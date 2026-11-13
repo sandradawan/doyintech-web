@@ -20,7 +20,7 @@ const money = (c: SalaryCountry, n: number) =>
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const c = getSalaryCountry((await params).country);
   if (!c) return {};
-  const title = `${c.short} Salary Calculator ${c.taxYear} — Take-Home Pay After Tax`;
+  const title = `${c.short} Salary Calculator ${c.taxYear}: Net Take-Home Pay After Tax`;
   const r = c.calc(c.example);
   const description = `Free ${c.country} take-home pay calculator for ${c.taxYear}. On ${money(c, c.example)} a year you take home ${money(c, r.net)} (${money(c, r.net / 12)} a month). See every deduction, yearly and monthly.`;
   const url = `/salary-calculator/${c.slug}`;

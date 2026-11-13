@@ -10,6 +10,7 @@ import FAQ from "@/components/sections/FAQ";
 import BookCall from "@/components/sections/BookCall";
 import Footer from "@/components/ui/Footer";
 import FeaturedShops from "@/components/storefront/FeaturedShops";
+import PopularCalculators from "@/components/sections/PopularCalculators";
 
 import type { Metadata } from "next";
 
@@ -44,6 +45,7 @@ export default function Home() {
         <Testimonials />
         <PassiveProducts />
         <FeaturedShops />
+        <PopularCalculators className="py-16" />
         <FAQ />
         <BookCall />
       </main>
