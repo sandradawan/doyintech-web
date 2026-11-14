@@ -31,6 +31,40 @@ export function productCategory(p: DigitalProduct): ProductCategory {
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
   {
+    id: "ai-prompt-library",
+    name: "AI Prompt Library for Small Business (130 prompts)",
+    description:
+      "130 ready-to-use prompts for ChatGPT, Claude, Gemini and Copilot across marketing, sales, customer service, website copy, email, SEO, money, operations, hiring, strategy, admin and freelancing. Comes as a PDF guide and a searchable Excel library that fills in your business details automatically.",
+    priceUsd: "$10",
+    priceNgn: "₦15,000",
+    amountKobo: 1500000,
+    type: "one-time",
+    badge: "New",
+    category: "Business",
+    audience: "Business owners, freelancers and teams who want useful results from AI tools, anywhere in the world",
+    features: [
+      "130 prompts in 13 categories, each with 'use it when' guidance",
+      "Excel library: type your business details once and every prompt fills them in",
+      "Prompt builder that turns 5 simple answers into a strong prompt",
+      "10 follow-up prompts that improve any AI answer",
+      "Works with ChatGPT, Claude, Gemini, Copilot and others",
+      "Safety tips: what never to paste into AI and what to fact-check",
+    ],
+    contents: [
+      "AI Prompt Library guide (PDF + Markdown)",
+      "ai-prompt-library.xlsx (searchable, auto-fills your details)",
+    ],
+    delivery: "Instant download after payment: PDF guide + Excel prompt library",
+    downloadPath: "/digital-products/ai-prompt-library.md",
+    downloadPaths: [
+      "/digital-products/xlsx/ai-prompt-library.xlsx",
+      "/digital-products/ai-prompt-library.md",
+    ],
+    demandNote:
+      "AI prompt packs are among the best-selling digital downloads worldwide. Most are long lists of generic prompts; this one is built around real small-business tasks and fills in your own details.",
+    addedAt: "2026-11-14",
+  },
+  {
     id: "xlsx-business-spreadsheet-bundle",
     name: "Business Spreadsheet Bundle (4 Excel templates)",
     description:
