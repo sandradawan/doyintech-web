@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { userFromBearer } from "@/lib/auth/request-user";
 import { activeSubscriptions, manageLink } from "@/lib/subscriptions/server";
-import { getPlan } from "@/lib/subscriptions/plans";
+import { getPlan, grantsPro } from "@/lib/subscriptions/plans";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 
 /** The signed-in user's memberships, and whether they include Pro. */
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(
     {
       email: user.email,
-      pro: subs.some((s) => getPlan(s.planId)?.family === "pro"),
+      pro: subs.some((s) => grantsPro(s.planId)),
       subscriptions: subs.map((s) => ({
         planId: s.planId,
         name: getPlan(s.planId)?.name || s.planId,

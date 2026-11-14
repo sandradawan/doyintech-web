@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import LeadForm from "@/components/ui/LeadForm";
+import { Money, PriceText } from "@/components/ui/Price";
 
 const TITLE = "AI Customer Assistant for Your Business Website and WhatsApp";
 const DESCRIPTION =
-  "An AI assistant that answers customer questions, collects booking requests and captures leads on your website and WhatsApp. Setup from ₦75,000, support from ₦25,000 a month.";
+  "An AI assistant that answers customer questions, collects booking requests and captures leads on your website and WhatsApp. For businesses anywhere. Setup from ₦75,000 (about $50), support from ₦25,000 (about $16) a month.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -26,26 +27,26 @@ const DOES = [
 const PLANS = [
   {
     name: "Basic",
-    setup: "₦75,000 – ₦150,000",
+    setup: "{₦75000} – {₦150000}",
     fit: "One website chat assistant trained on your FAQs, prices and services.",
     items: ["Website chat", "Up to 50 questions and answers", "Lead capture to email", "1 round of changes"],
   },
   {
     name: "Business",
-    setup: "₦150,000 – ₦350,000",
+    setup: "{₦150000} – {₦350000}",
     fit: "Website and WhatsApp, with booking requests and quotes.",
     items: ["Website chat and WhatsApp Business", "Booking and quote requests", "Leads to email and a dashboard", "Staff handover"],
     featured: true,
   },
   {
     name: "Advanced",
-    setup: "₦350,000 – ₦750,000",
+    setup: "{₦350000} – {₦750000}",
     fit: "Connected to your booking, CRM or stock system.",
     items: ["Everything in Business", "Integration with your systems", "Several branches or departments", "Custom reports"],
   },
 ];
 
-const FOR = ["Hotels and short lets", "Restaurants", "Salons and spas", "Schools and training centres", "Clinics", "Property and estate agents"];
+const FOR = ["Hotels and short lets", "Agencies and consultants", "Restaurants", "Salons and spas", "Schools and training centres", "Clinics", "Property and estate agents"];
 
 export default function AiAssistantPage() {
   return (
@@ -81,7 +82,7 @@ export default function AiAssistantPage() {
           <section className="mt-20" aria-labelledby="ai-pricing">
             <h2 id="ai-pricing" className="text-[28px] font-semibold tracking-tight text-brand-ink sm:text-[36px]">Pricing</h2>
             <p className="mt-3 max-w-2xl text-[16px] text-brand-muted">
-              A one-off setup fee, then a monthly plan from ₦25,000 that covers hosting, AI usage within an agreed limit, updates and support.
+              A one-off setup fee, then a monthly plan from <Money ngn={25000} both /> that covers hosting, AI usage within an agreed limit, updates and support.
               You get a fixed quote before you pay anything.
             </p>
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
@@ -91,8 +92,8 @@ export default function AiAssistantPage() {
                     <span className="absolute -top-3 left-6 rounded-full bg-brand-accent px-3 py-1 text-[11px] font-semibold text-black">Most chosen</span>
                   )}
                   <h3 className="text-[20px] font-semibold text-brand-ink">{p.name}</h3>
-                  <p className="mt-3 text-[24px] font-semibold tracking-tight text-brand-ink">{p.setup}</p>
-                  <p className="text-[13px] text-brand-subtle">one-off setup · then from ₦25,000/month</p>
+                  <p className="mt-3 text-[24px] font-semibold tracking-tight text-brand-ink"><PriceText text={p.setup} /></p>
+                  <p className="text-[13px] text-brand-subtle">one-off setup · then from <Money ngn={25000} />/month</p>
                   <p className="mt-4 text-[14px] text-brand-muted">{p.fit}</p>
                   <ul className="mt-4 space-y-2">
                     {p.items.map((i) => (
@@ -115,7 +116,7 @@ export default function AiAssistantPage() {
               <h2 className="text-[28px] font-semibold tracking-tight text-brand-ink sm:text-[36px]">Get a quote</h2>
               <p className="mt-4 text-[16px] leading-relaxed text-brand-muted">
                 Tell us about your business and where customers contact you. We reply within one working day with a fixed price and a
-                timeline, usually 1–2 weeks.
+                timeline, usually 1–2 weeks. We work with businesses in Nigeria and abroad, in English, across time zones.
               </p>
             </div>
             <LeadForm

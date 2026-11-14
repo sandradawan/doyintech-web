@@ -20,11 +20,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Website Design in Nigeria, Free Business Tools and Ebooks | DoyinTech",
+    default: "DoyinTech: Websites, Business Software and AI Automation | Nigeria and Worldwide",
     template: "%s | DoyinTech",
   },
   description:
-    "Fixed-price website design for Nigerian businesses, free invoice and tax tools, PDF ebooks and digital products. Pay securely with Paystack. Live in days.",
+    "Fixed-price websites, AI assistants and business software for businesses in Nigeria and around the world, plus DoyinOps, templates, ebooks and free business tools.",
   keywords: [
     "fixed price website",
     "WhatsApp business system",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 };
 
 // Tells Google the site's name for search results.
-const websiteLd = { "@context": "https://schema.org", "@type": "WebSite", name: "DoyinTech", alternateName: "DoyinTech Nigeria", url: SITE_URL };
+const websiteLd = { "@context": "https://schema.org", "@type": "WebSite", name: "DoyinTech", alternateName: "DoyinTech", url: SITE_URL };
 
 const jsonLd = {
   "@context": "https://schema.org",

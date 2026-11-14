@@ -17,8 +17,8 @@ import type { Metadata } from "next";
 // Featured (sponsored) shops change as sellers buy placement.
 export const revalidate = 600;
 
-const TITLE = "DoyinTech: Websites, Business Software and AI Automation in Nigeria";
-const DESCRIPTION = "Fixed-price websites, AI assistants and business software for Nigerian and international businesses, plus DoyinOps, templates, ebooks and free business tools. Pay securely with Paystack.";
+const TITLE = "DoyinTech: Websites, Business Software and AI Automation for Businesses Worldwide";
+const DESCRIPTION = "Fixed-price websites, AI assistants and business software for businesses in Nigeria and worldwide, plus DoyinOps, templates, ebooks and free business tools. Pay securely with Paystack.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

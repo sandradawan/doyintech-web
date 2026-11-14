@@ -243,6 +243,12 @@ export async function activeSubscriptions(email: string): Promise<ActiveSubscrip
     }));
 }
 
+/** True when any active plan passes the test (e.g. grantsPro, grantsOpsSync). */
+export async function hasActivePlan(email: string, test: (planId: string) => boolean): Promise<boolean> {
+  const subs = await activeSubscriptions(email);
+  return subs.some((s) => test(s.planId));
+}
+
 export async function hasActiveFamily(email: string, family: PlanFamily): Promise<boolean> {
   const subs = await activeSubscriptions(email);
   return subs.some((s) => getPlan(s.planId)?.family === family);

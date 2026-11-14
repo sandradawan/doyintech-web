@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import ServiceDepositButton from "@/components/services/ServiceDepositButton";
 import ServiceAddons from "@/components/services/ServiceAddons";
+import { Money } from "@/components/ui/Price";
 import { SERVICE_OFFERS, serviceWhatsAppLink } from "@/lib/service-offers";
 import { discoveryCallLink } from "@/lib/packages";
 
@@ -82,9 +83,9 @@ export default function HirePage() {
                 )}
                 <h2 className="text-[22px] font-semibold text-brand-ink">{offer.name}</h2>
                 <p className="mt-2 text-[14px] text-brand-muted">{offer.tagline}</p>
-                <p className="mt-4 text-[28px] font-semibold text-brand-ink">{offer.totalNgn} <span className="text-[14px] font-normal text-brand-subtle">({offer.totalUsd})</span></p>
+                <p className="mt-4 text-[28px] font-semibold text-brand-ink"><Money ngn={offer.amountKobo / 50} both /></p>
                 <p className="text-[13px] text-brand-subtle">
-                  Deposit {offer.depositNgn} · {offer.timeline}
+                  Deposit <Money ngn={offer.amountKobo / 100} /> · {offer.timeline}
                 </p>
                 <p className="mt-3 text-[13px] text-brand-soft">Ideal for: {offer.idealFor}</p>
 
@@ -174,7 +175,7 @@ export default function HirePage() {
               },
               {
                 q: "Where are you based?",
-                a: "We work remotely with clients worldwide. HQ in Jos, Nigeria — payments via Paystack.",
+                a: "We work remotely with clients worldwide, in English and across time zones. Our team is based in Jos, Nigeria. You pay by card through Paystack, which accepts cards from any country; prices are charged in naira and your bank converts them.",
               },
               {
                 q: "Why is checkout in Naira if prices show USD?",

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Footer from "@/components/ui/Footer";
+import { PriceText } from "@/components/ui/Price";
 import { DIVISIONS, type Division } from "@/lib/divisions";
 
 /** The page for one division: its promise, everything it sells with a starting price, and links to the other two. */
@@ -25,7 +26,7 @@ export default function DivisionHub({ division, children }: { division: Division
                     className="apple-card flex h-full flex-col p-6 transition hover:-translate-y-0.5"
                   >
                     <span className="text-[19px] font-semibold tracking-tight text-brand-ink">{o.name}</span>
-                    <span className="mt-1 text-[14px] font-semibold text-brand-link">{o.price}</span>
+                    <span className="mt-1 text-[14px] font-semibold text-brand-link"><PriceText text={o.price} /></span>
                     <span className="mt-3 flex-1 text-[15px] leading-snug text-brand-muted">{o.desc}</span>
                     <span className="mt-4 text-[14px] font-medium text-brand-link">{external ? "Visit ↗" : "See details ›"}</span>
                   </Link>

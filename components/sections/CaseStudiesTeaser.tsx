@@ -16,7 +16,7 @@ export default function CaseStudiesTeaser() {
               <p className="section-eyebrow">Proof</p>
               <h2 className="section-title mt-2">Real projects. Clear outcomes.</h2>
               <p className="section-lead mt-3">
-                Not stock screenshots — work shipped for Nigerian businesses.
+                Not stock screenshots — work shipped for real businesses.
               </p>
             </div>
             <Link

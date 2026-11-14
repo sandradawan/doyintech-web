@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import PlanCard from "@/components/subscriptions/PlanCard";
+import { OPS_PLANS } from "@/lib/subscriptions/plans";
 
 export const metadata: Metadata = {
-  title: "DoyinOps — SME operations platform",
+  title: "DoyinOps: Simple CRM and Invoicing Software for Small Businesses",
   description:
-    "DoyinOps by DoyinTech: contacts, pipeline, invoices, tasks, and printable invoices for small businesses. Free in your browser.",
+    "Track clients, deals, invoices and tasks in one place. Free in your browser; cloud sync and support from ₦7,500 (about $5) a month. Works for small businesses anywhere.",
   alternates: { canonical: "/ops" },
 };
 
@@ -40,8 +42,8 @@ export default function OpsLandingPage() {
             Run your pipeline and money in one place
           </h1>
           <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-brand-muted">
-            DoyinOps is the SME operations layer from DoyinTech — built for businesses that live on
-            WhatsApp and still lose leads and unpaid invoices. Start free in the browser today.
+            DoyinOps keeps your clients, deals, invoices and follow-ups in one place, for small businesses
+            anywhere that run on WhatsApp and email and still lose leads and unpaid invoices. Start free in your browser today.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -51,12 +53,12 @@ export default function OpsLandingPage() {
             >
               Open free workspace
             </Link>
-            <Link
-              href="/hire"
+            <a
+              href="#plans"
               className="rounded-full border border-brand-ink/20 px-6 py-3 text-[15px] font-semibold text-brand-ink"
             >
-              Need a custom system?
-            </Link>
+              See plans
+            </a>
             <a
               href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20I%20want%20DoyinOps%20for%20my%20business."
               target="_blank"
@@ -79,47 +81,32 @@ export default function OpsLandingPage() {
             ))}
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-brand-ink/10 bg-brand-surface p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-400">
-                Free forever (browser)
-              </p>
-              <h2 className="mt-2 text-[20px] font-semibold text-brand-ink">Local workspace</h2>
-              <ul className="mt-3 space-y-1 text-[14px] text-brand-muted">
-                <li>✓ Contacts, pipeline, invoices, tasks</li>
-                <li>✓ Data stays on this device (localStorage)</li>
-                <li>✓ Print / PDF invoices</li>
-                <li>✓ Demo data to explore in seconds</li>
-              </ul>
-              <Link
-                href="/ops/app"
-                className="mt-5 inline-flex rounded-full bg-brand-ink px-5 py-2.5 text-[13px] font-semibold text-brand-deep"
-              >
-                Start free →
-              </Link>
+          <section id="plans" className="mt-16 scroll-mt-28">
+            <h2 className="text-[28px] font-semibold tracking-tight text-brand-ink">Plans</h2>
+            <p className="mt-2 max-w-2xl text-[15px] text-brand-muted">
+              Start free in your browser. Upgrade when you want your workspace backed up and on every device. Billed monthly through
+              Paystack in naira; cards from any country work. Cancel any time.
+            </p>
+            <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              <div className="flex h-full flex-col rounded-[22px] border border-brand-ink/10 bg-brand-surface p-6">
+                <h3 className="text-[19px] font-semibold text-brand-ink">Free</h3>
+                <p className="mt-1 text-[14px] text-brand-muted">Everything you need on one device.</p>
+                <p className="mt-5 text-[34px] font-semibold tracking-tight text-brand-ink">₦0</p>
+                <p className="text-[12px] text-brand-subtle">Free forever</p>
+                <ul className="mt-5 flex-1 space-y-2.5 text-[14px] leading-snug text-brand-soft">
+                  <li>✓ Contacts, pipeline, invoices and tasks</li>
+                  <li>✓ Print and PDF invoices</li>
+                  <li>✓ Data stays on this device</li>
+                </ul>
+                <Link href="/ops/app" className="mt-6 inline-flex min-h-11 items-center justify-center rounded-full border border-brand-ink/20 text-[14px] font-semibold text-brand-ink">
+                  Start free
+                </Link>
+              </div>
+              {OPS_PLANS.map((p) => (
+                <PlanCard key={p.id} plan={p} highlight={p.id === "ops-professional"} />
+              ))}
             </div>
-            <div className="rounded-2xl border border-brand-link/30 bg-brand-link/10 p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-link">
-                Coming · paid cloud
-              </p>
-              <h2 className="mt-2 text-[20px] font-semibold text-brand-ink">Team + sync tier</h2>
-              <ul className="mt-3 space-y-1 text-[14px] text-brand-soft">
-                <li>→ Cloud accounts + multi-device sync</li>
-                <li>→ Team seats for staff</li>
-                <li>→ Paystack payment links on invoices</li>
-                <li>→ WhatsApp notification hooks</li>
-                <li>→ Vertical packs (salon, property)</li>
-              </ul>
-              <a
-                href="https://wa.me/2348085343926?text=Hi%20DoyinTech%2C%20put%20me%20on%20the%20DoyinOps%20cloud%20waitlist."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex rounded-full bg-brand-accent px-5 py-2.5 text-[13px] font-semibold text-black"
-              >
-                Join cloud waitlist
-              </a>
-            </div>
-          </div>
+          </section>
         </div>
       </main>
       <Footer />

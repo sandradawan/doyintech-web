@@ -37,7 +37,7 @@ export default function Testimonials() {
             </p>
             <h2 className="apple-headline mt-2">Results clients talk about.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-xl">
-              Real feedback from Nigerian businesses we built for — not vanity metrics.
+              Real feedback from businesses we built for — not vanity metrics.
             </p>
           </div>
         </ScrollReveal>

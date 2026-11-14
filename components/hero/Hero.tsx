@@ -1,5 +1,6 @@
 "use client";
 
+import { PriceText } from "@/components/ui/Price";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,7 +24,7 @@ const SLIDES: Slide[] = [
     tab: "Websites",
     eyebrow: "Fixed-price websites",
     title: "Website design that brings you customers.",
-    desc: "Landing pages from ₦100,000 and business websites from ₦250,000, with WhatsApp booking built in. Pay a 50% deposit and go live in 1–2 weeks.",
+    desc: "Landing pages from {₦100000} and business websites from {₦250000} with WhatsApp booking built in. Pay a 50% deposit and go live in 1–2 weeks.",
     cta: PRIMARY_CTA,
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2400&q=80",
   },
@@ -31,7 +32,7 @@ const SLIDES: Slide[] = [
     tab: "Care plans",
     eyebrow: "Website care plans",
     title: "Looked after, every month.",
-    desc: "Security, backups, updates and monthly improvements, from ₦50,000 a month, so your site keeps working while you run the business.",
+    desc: "Security, backups, updates and monthly improvements, from {₦50000} a month, so your site keeps working while you run the business.",
     cta: { href: "/care-plans", label: "See care plans" },
     img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=2400&q=80",
   },
@@ -47,7 +48,7 @@ const SLIDES: Slide[] = [
     tab: "AI Assistant",
     eyebrow: "AI customer assistant",
     title: "Answer every customer, even when you're busy.",
-    desc: "An assistant on your website and WhatsApp that answers questions, collects booking requests and sends you every lead. Setup from ₦75,000.",
+    desc: "An assistant on your website and WhatsApp that answers questions, collects booking requests and sends you every lead. Setup from {₦75000}.",
     cta: { href: "/ai-assistant", label: "See the AI Assistant" },
     img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=2400&q=80",
   },
@@ -142,7 +143,7 @@ export default function Hero() {
               ))}
             </motion.h1>
             <motion.p variants={rise} className="t-lead mt-5 max-w-[560px] font-medium text-brand-ink/85">
-              {slide.desc}
+              <PriceText text={slide.desc} />
             </motion.p>
             <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">
               <motion.span variants={pop} className="inline-flex">

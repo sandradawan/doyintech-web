@@ -81,7 +81,7 @@ export default function CloudSync({ workspace, onPull }: Props) {
       res.ok
         ? "Workspace saved to cloud."
         : json.code === "PRO_REQUIRED"
-          ? "Cloud sync is part of DoyinTech Pro — upgrade at doyintech.com/pro, then push again."
+          ? "Cloud sync comes with a DoyinOps plan (from ₦7,500 a month) or DoyinTech Pro. Choose one at doyintech.com/ops, then push again."
           : json.error || "Save failed"
     );
   }

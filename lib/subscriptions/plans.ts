@@ -3,7 +3,7 @@
  * Prices are the source of truth: Paystack plans are created from these on first checkout
  * (see lib/subscriptions/server.ts), or pinned with PAYSTACK_PLAN_<ID> env vars.
  */
-export type PlanFamily = "pro" | "care" | "store";
+export type PlanFamily = "pro" | "care" | "store" | "ops";
 export type PlanInterval = "monthly" | "annually";
 
 export type SubscriptionPlan = {
@@ -119,6 +119,66 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     ],
   },
 ];
+
+/** DoyinOps paid plans: every tier syncs the workspace; Professional and Business include all of Pro. */
+export const OPS_PLANS: SubscriptionPlan[] = [
+  {
+    id: "ops-starter",
+    family: "ops",
+    name: "DoyinOps Starter",
+    tagline: "Your workspace backed up and on every device.",
+    amountNgn: 7_500,
+    interval: "monthly",
+    features: [
+      "Cloud backup and sync for clients, deals, invoices and tasks",
+      "Use it on your phone and laptop",
+      "Email support",
+      "Cancel any time",
+    ],
+  },
+  {
+    id: "ops-professional",
+    family: "ops",
+    name: "DoyinOps Professional",
+    tagline: "For growing businesses that live in DoyinOps.",
+    amountNgn: 15_000,
+    interval: "monthly",
+    badge: "Most popular",
+    features: [
+      "Everything in Starter",
+      "Every DoyinTech Pro premium tool included",
+      "Setup call: we import your existing clients and invoices",
+      "Priority WhatsApp support",
+    ],
+  },
+  {
+    id: "ops-business",
+    family: "ops",
+    name: "DoyinOps Business",
+    tagline: "Set up and adjusted for you by our team.",
+    amountNgn: 35_000,
+    interval: "monthly",
+    features: [
+      "Everything in Professional",
+      "Up to 2 hours a month of custom setup: invoice templates, fields and reports",
+      "Monthly check-in call",
+      "Same-business-day support",
+    ],
+  },
+];
+SUBSCRIPTION_PLANS.push(...OPS_PLANS);
+
+/** Plans that unlock the Pro premium tools. */
+export function grantsPro(planId: string): boolean {
+  const plan = getPlan(planId);
+  return plan?.family === "pro" || planId === "ops-professional" || planId === "ops-business";
+}
+
+/** Plans that include DoyinOps cloud sync. */
+export function grantsOpsSync(planId: string): boolean {
+  const family = getPlan(planId)?.family;
+  return family === "pro" || family === "ops";
+}
 
 export function getPlan(id: string): SubscriptionPlan | undefined {
   return SUBSCRIPTION_PLANS.find((p) => p.id === id);

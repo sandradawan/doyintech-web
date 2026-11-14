@@ -78,7 +78,7 @@ export default function Footer() {
               DoyinTech
             </Link>
             <p className="mt-4 max-w-md text-[15px] leading-relaxed">
-              Fixed-price websites, online shops and free business tools for small businesses in Nigeria and around the world.
+              Websites, business software, AI automation and digital products for businesses in Nigeria and around the world.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href={PRIMARY_CTA.href} className="apple-btn bg-brand-accent text-black hover:brightness-110">

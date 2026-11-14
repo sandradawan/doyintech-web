@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
-import { getPlan } from "@/lib/subscriptions/plans";
+import { getPlan, grantsPro } from "@/lib/subscriptions/plans";
 import SavedTools from "@/components/account/SavedTools";
 
 type Membership = {
@@ -211,7 +211,7 @@ function AccountInner() {
                       </button>
                     )}
                   </div>
-                  {getPlan(m.planId)?.family === "pro" && (
+                  {grantsPro(m.planId) && (
                     <p className="mt-3 text-[13px] text-emerald-300">
                       Premium tools unlock automatically while you&apos;re signed in.{" "}
                       <Link href="/tools" className="text-brand-link hover:underline">

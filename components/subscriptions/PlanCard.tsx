@@ -1,6 +1,6 @@
 import type { SubscriptionPlan } from "@/lib/subscriptions/plans";
 import { intervalLabel } from "@/lib/subscriptions/plans";
-import { formatUsdFromNgn } from "@/lib/currency";
+import { Money } from "@/components/ui/Price";
 import SubscribeButton from "@/components/subscriptions/SubscribeButton";
 
 export default function PlanCard({ plan, highlight = false }: { plan: SubscriptionPlan; highlight?: boolean }) {
@@ -24,11 +24,11 @@ export default function PlanCard({ plan, highlight = false }: { plan: Subscripti
       <p className="mt-1 text-[14px] text-brand-muted">{plan.tagline}</p>
       <p className="mt-5">
         <span className="text-[34px] font-semibold tracking-tight text-brand-ink">
-          ₦{plan.amountNgn.toLocaleString("en-NG")}
+          <Money ngn={plan.amountNgn} />
         </span>
         <span className="text-[14px] text-brand-subtle"> / {per}</span>
       </p>
-      <p className="text-[12px] text-brand-subtle">≈ {formatUsdFromNgn(plan.amountNgn)} / {per}</p>
+      <p className="text-[12px] text-brand-subtle">Charged in naira · cards from any country work</p>
       <ul className="mt-5 flex-1 space-y-2.5">
         {plan.features.map((f) => (
           <li key={f} className="flex gap-2 text-[14px] leading-snug text-brand-soft">

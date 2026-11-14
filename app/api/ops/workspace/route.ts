@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { hasActiveFamily } from "@/lib/subscriptions/server";
+import { hasActivePlan } from "@/lib/subscriptions/server";
+import { grantsOpsSync } from "@/lib/subscriptions/plans";
 
 function clientFromAuthHeader(req: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -79,18 +80,18 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Workspace too large to sync" }, { status: 413 });
     }
 
-    // Cloud sync is a DoyinTech Pro benefit. Workspaces that already sync keep working.
+    // Cloud sync comes with DoyinOps plans and DoyinTech Pro. Workspaces that already sync keep working.
     const { data: existing } = await sb
       .from("ops_workspaces")
       .select("user_id")
       .eq("user_id", user.id)
       .maybeSingle();
-    if (!existing && !(await hasActiveFamily(user.email || "", "pro"))) {
+    if (!existing && !(await hasActivePlan(user.email || "", grantsOpsSync))) {
       return NextResponse.json(
         {
-          error: "Cloud sync is included with DoyinTech Pro.",
+          error: "Cloud sync comes with a DoyinOps plan or DoyinTech Pro.",
           code: "PRO_REQUIRED",
-          upgradeUrl: "/pro",
+          upgradeUrl: "/ops#plans",
         },
         { status: 402 }
       );

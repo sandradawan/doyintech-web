@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Money } from "@/components/ui/Price";
 import DivisionHub from "@/components/sections/DivisionHub";
 import { getDivision } from "@/lib/divisions";
 
 const TITLE = "DoyinOps and DoyinTech Pro: Business Software for Small Businesses";
 const DESCRIPTION =
-  "Manage clients, deals, invoices and follow-ups with DoyinOps, and unlock every premium DoyinTech tool with Pro for ₦5,000 a month.";
+  "Manage clients, deals, invoices and follow-ups with DoyinOps from ₦7,500 (about $5) a month, and unlock every premium DoyinTech tool with Pro.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -33,7 +34,7 @@ export default function CloudPage() {
               <tr>
                 <th className="px-4 py-3 font-semibold">Feature</th>
                 <th className="px-4 py-3 font-semibold">Free</th>
-                <th className="px-4 py-3 font-semibold">Pro · ₦5,000/month</th>
+                <th className="px-4 py-3 font-semibold">Pro · <Money ngn={5000} />/month</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +48,7 @@ export default function CloudPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-[13px] text-brand-subtle">Pro is also ₦50,000 a year. Cancel any time.</p>
+        <p className="mt-3 text-[13px] text-brand-subtle">Pro is also <Money ngn={50000} /> a year. DoyinOps plans start at <Money ngn={7500} /> a month. Cancel any time; cards from any country work.</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/pro" className="apple-btn apple-btn-primary">Get Pro</Link>
           <Link href="/ops" className="apple-btn apple-btn-secondary">See DoyinOps</Link>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PriceText } from "@/components/ui/Price";
 import { DIVISIONS } from "@/lib/divisions";
 
 /** Homepage: the three things DoyinTech sells, so every visitor finds their door in one glance. */
@@ -17,7 +18,7 @@ export default function Divisions() {
                 {d.offers.slice(0, 4).map((o) => (
                   <li key={o.name} className="flex items-baseline justify-between gap-3 text-[15px]">
                     <Link href={o.href} className="text-brand-ink/90 hover:text-brand-link hover:underline">{o.name}</Link>
-                    <span className="shrink-0 text-[13px] text-brand-subtle">{o.price}</span>
+                    <span className="shrink-0 text-[13px] text-brand-subtle"><PriceText text={o.price} /></span>
                   </li>
                 ))}
               </ul>
