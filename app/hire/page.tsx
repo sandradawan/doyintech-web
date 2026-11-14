@@ -82,9 +82,9 @@ export default function HirePage() {
                 )}
                 <h2 className="text-[22px] font-semibold text-brand-ink">{offer.name}</h2>
                 <p className="mt-2 text-[14px] text-brand-muted">{offer.tagline}</p>
-                <p className="mt-4 text-[28px] font-semibold text-brand-ink">{offer.totalUsd || offer.totalNgn}</p>
+                <p className="mt-4 text-[28px] font-semibold text-brand-ink">{offer.totalNgn} <span className="text-[14px] font-normal text-brand-subtle">({offer.totalUsd})</span></p>
                 <p className="text-[13px] text-brand-subtle">
-                  Deposit {offer.depositUsd || offer.depositNgn} · {offer.timeline}
+                  Deposit {offer.depositNgn} · {offer.timeline}
                 </p>
                 <p className="mt-3 text-[13px] text-brand-soft">Ideal for: {offer.idealFor}</p>
 

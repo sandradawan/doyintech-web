@@ -19,8 +19,8 @@ export default function Packages() {
             </p>
             <h2 className="apple-headline mt-2">Packages & pricing.</h2>
             <p className="apple-subhead mx-auto mt-3 max-w-2xl">
-              Fixed starting prices. Final quote after a free discovery call — no
-              surprises.
+              Naira prices for Nigerian businesses. International projects are quoted in US dollars.
+              Final quote after a free discovery call.
             </p>
             <a href={discoveryCallLink()} target="_blank" rel="noopener noreferrer" className="apple-link mt-4 inline-block text-[17px]">
               Book a free discovery call ›
@@ -48,9 +48,9 @@ export default function Packages() {
 
                 <div className="mt-5">
                   <p className="text-[26px] font-semibold tracking-tight text-brand-ink">
-                    {pkg.priceUsd}
+                    {pkg.priceNgn}
                   </p>
-                  <p className="text-[13px] text-brand-muted">{pkg.priceNgn}</p>
+                  <p className="text-[13px] text-brand-muted">International clients: {pkg.priceUsd.replace(/^From /, "from ")}</p>
                   <p className="mt-1 text-[12px] text-brand-link">{pkg.timeline}</p>
                 </div>
 

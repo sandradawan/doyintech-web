@@ -21,10 +21,10 @@ export const SERVICE_OFFERS: ServiceOffer[] = [
     id: "service-landing-page-deposit",
     name: "Landing Page Starter",
     tagline: "One sharp page that sells one offer. Live in about a week.",
-    totalNgn: "$65",
-    totalUsd: "$65",
-    depositNgn: "$32",
-    depositUsd: "$32",
+    totalNgn: "₦100,000",
+    totalUsd: "about $65",
+    depositNgn: "₦50,000",
+    depositUsd: "about $32",
     amountKobo: 5000000,
     timeline: "5–10 days after content + deposit",
     badge: "New · entry price",
@@ -50,10 +50,10 @@ export const SERVICE_OFFERS: ServiceOffer[] = [
     id: "service-local-website-deposit",
     name: "Local Business Website",
     tagline: "Live in 7–14 days. WhatsApp-ready. Built to get enquiries.",
-    totalNgn: "$161",
-    totalUsd: "$161",
-    depositNgn: "$81",
-    depositUsd: "$81",
+    totalNgn: "₦250,000",
+    totalUsd: "about $161",
+    depositNgn: "₦125,000",
+    depositUsd: "about $81",
     amountKobo: 12500000,
     timeline: "7–14 days after content + deposit",
     badge: "Fixed price",
@@ -79,10 +79,10 @@ export const SERVICE_OFFERS: ServiceOffer[] = [
     id: "service-growth-website-deposit",
     name: "Growth Website",
     tagline: "More pages, stronger conversion, ready to rank and measure.",
-    totalNgn: "$290",
-    totalUsd: "$290",
-    depositNgn: "$145",
-    depositUsd: "$145",
+    totalNgn: "₦450,000",
+    totalUsd: "about $290",
+    depositNgn: "₦225,000",
+    depositUsd: "about $145",
     amountKobo: 22500000,
     timeline: "2–4 weeks after content + deposit",
     badge: "Most booked",
@@ -110,7 +110,7 @@ export function getServiceOffer(id: string): ServiceOffer | undefined {
 }
 
 export function serviceWhatsAppLink(offer: ServiceOffer): string {
-  const text = `Hi DoyinTech, I want the "${offer.name}" package (${offer.totalUsd}). I can pay the ${offer.depositUsd} deposit. Let's confirm scope.`;
+  const text = `Hi DoyinTech, I want the "${offer.name}" package (${offer.totalNgn}). I can pay the ${offer.depositNgn} deposit. Let's confirm scope.`;
   return `https://wa.me/2348085343926?text=${encodeURIComponent(text)}`;
 }
 
