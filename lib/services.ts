@@ -67,7 +67,7 @@ export const SERVICES: ServiceItem[] = [
     short: "Chatbots, workflows & smart tools",
     desc: "Practical AI for SMEs — website chatbots, WhatsApp automation, lead qualification, and process automation that saves hours every week.",
     img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
-    href: "/services/ai-automation",
+    href: "/ai-assistant",
     tags: ["Chatbots", "WhatsApp", "Automation"],
     featured: true,
   },

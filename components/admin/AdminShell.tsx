@@ -73,7 +73,6 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/admin/r/email_subscribers", label: "Email subscribers" },
       { href: "/admin/r/site_events", label: "Tracking events" },
-      { href: "/admin/community", label: "Community" },
       { href: "/admin/content", label: "Content" },
       { href: "/admin/analytics", label: "Social analytics" },
     ],

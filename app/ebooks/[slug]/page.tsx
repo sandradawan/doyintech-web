@@ -31,7 +31,7 @@ const EBOOK_TOOLS: Record<string, { href: string; label: string }[]> = {
   "AI & Productivity": [{ href: "/tools/ai-usecase", label: "AI use-case finder" }, { href: "/tools/pomodoro-timer", label: "Pomodoro focus timer" }, { href: "/tools/daily-checklist", label: "Daily checklist" }],
   Fitness: [{ href: "/tools/daily-checklist", label: "Daily checklist" }, { href: "/tools/countdown-timer", label: "Countdown timer" }, { href: "/tools/pomodoro-timer", label: "Pomodoro timer" }],
   Food: [{ href: "/tools/savings-goal-tracker", label: "Savings goal tracker" }, { href: "/tools/percentage-calculator", label: "Percentage calculator" }, { href: "/tools/daily-checklist", label: "Daily checklist" }],
-  Culture: [{ href: "/community", label: "DoyinTech Community" }, { href: "/listen", label: "Listen to African podcasts" }, { href: "/trivia", label: "Daily trivia quiz" }],
+  Culture: [{ href: "/tools/business-plan-generator", label: "Business plan generator" }, { href: "/ebooks", label: "More ebooks" }, { href: "/products", label: "Templates and kits" }],
 };
 
 export function generateStaticParams() {

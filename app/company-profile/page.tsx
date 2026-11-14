@@ -133,7 +133,7 @@ export default function CompanyProfilePage() {
                 {
                   title: "AI Automation",
                   desc: "Practical workflows that remove repetitive work",
-                  href: "/services/ai-automation",
+                  href: "/ai-assistant",
                 },
                 {
                   title: "System Architecture",

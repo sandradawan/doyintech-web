@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
-import { SHOWS } from "@/lib/listen/shows";
 import { DIGITAL_PRODUCTS } from "@/lib/products";
 import { sitemapEntries } from "@/lib/sitemap-entries";
 import { TOOLS_META } from "@/lib/tools/config";
@@ -27,8 +26,6 @@ const SECTIONS: { heading: string; match: (path: string) => boolean }[] = [
   { heading: "Salary calculators by country", match: (p) => p.startsWith("/salary-calculator/") },
   { heading: "Blog", match: (p) => p.startsWith("/blog/") },
   { heading: "Case studies", match: (p) => p.startsWith("/case-studies/") },
-  { heading: "Podcasts", match: (p) => p.startsWith("/listen/") },
-  { heading: "Kids", match: (p) => p.startsWith("/kids/") },
   { heading: "Website templates", match: (p) => p.startsWith("/templates/") },
   { heading: "Next.js components", match: (p) => p.startsWith("/components/") },
 ];
@@ -45,7 +42,6 @@ export default function AllPagesPage() {
     ...TOOLS_META.map((t): [string, string] => [t.href, t.title]),
     ...ALL_EBOOKS.map((b): [string, string] => [`/ebooks/${b.slug}`, b.title]),
     ...DIGITAL_PRODUCTS.map((p): [string, string] => [`/products/${p.id}`, p.name]),
-    ...SHOWS.map((s): [string, string] => [`/listen/${s.slug}`, s.name]),
   ]);
   const paths = Array.from(new Set(sitemapEntries().map((e) => e.path).filter(Boolean)));
   const label = (p: string) => names.get(p) ?? humanise(p);

@@ -9,72 +9,97 @@ export type NavGroup = { label: string; href: string; intro: string; cta: string
 
 export const NAV_GROUPS: NavGroup[] = [
   {
-    label: "Websites",
-    href: "/hire",
-    intro: "Fixed-price websites and systems that bring in enquiries, live in 1–2 weeks.",
-    cta: "See packages",
+    label: "Solutions",
+    href: "/solutions",
+    intro: "Websites, business software and AI automation, built for you at a fixed price.",
+    cta: "All solutions",
     sections: [
       {
-        title: "Get a website",
+        title: "Websites",
         links: [
-          { name: "Packages & pricing", href: "/hire", desc: "Fixed price · 50% deposit" },
+          { name: "Packages & pricing", href: "/hire", desc: "From ₦100,000 · 50% deposit" },
           { name: "Websites by industry", href: "/websites", desc: "Schools, clinics, churches, hotels" },
-          { name: "Ecommerce websites", href: "/ecommerce-website-nigeria", desc: "Sell online with Paystack" },
-          { name: "School management software", href: "/school-management-software-nigeria", desc: "Results, fees, parents portal" },
-          { name: "Hotel booking websites", href: "/hotel-booking-website-nigeria", desc: "Rooms, payments, WhatsApp" },
+          { name: "Online shops", href: "/ecommerce-website-nigeria", desc: "Sell online with Paystack" },
+          { name: "What a website costs", href: "/website-cost-nigeria", desc: "2026 price guide" },
+          { name: "Our work", href: "/case-studies", desc: "Case studies & results" },
         ],
       },
       {
-        title: "Grow your business",
+        title: "Software & automation",
         links: [
-          { name: "Website care plans", href: "/care-plans", desc: "Monthly security & updates" },
+          { name: "AI Assistant", href: "/ai-assistant", desc: "Answers customers, takes bookings" },
+          { name: "Hotel & booking systems", href: "/hotel-booking-website-nigeria", desc: "Rooms, payments, WhatsApp" },
+          { name: "School management software", href: "/school-management-software-nigeria", desc: "Results, fees, parents portal" },
+          { name: "Property management", href: "/solutions#property", desc: "Tenants, rent, agents" },
+          { name: "Custom apps & CRMs", href: "/services", desc: "Backend, mobile, APIs" },
+        ],
+      },
+      {
+        title: "Keep growing",
+        links: [
+          { name: "Website care plans", href: "/care-plans", desc: "From ₦50,000 a month" },
           { name: "Free website audit", href: "/free-audit", desc: "2–3 fixes in your inbox" },
           { name: "Get on Google Maps", href: "/google-business-profile-setup", desc: "Business profile setup" },
           { name: "Domain & business email", href: "/business-email-domain-nigeria", desc: "you@yourbusiness.com" },
-          { name: "CAC business name registration", href: "/business-name-registration-nigeria", desc: "Register without the stress" },
-        ],
-      },
-      {
-        title: "Learn more",
-        links: [
-          { name: "Our work", href: "/case-studies", desc: "Case studies & results" },
-          { name: "What a website costs", href: "/website-cost-nigeria", desc: "2026 price guide" },
-          { name: "Services", href: "/services", desc: "Backend, mobile, AI automation" },
-          { name: "Web design Lagos", href: "/web-design-lagos" },
+          { name: "CAC business name registration", href: "/business-name-registration-nigeria" },
           { name: "White-label for agencies", href: "/white-label" },
         ],
       },
     ],
   },
   {
-    label: "Shop",
-    href: "/shops",
-    intro: "Buy from small businesses, or open your own free shop and get paid online.",
-    cta: "Browse shops",
+    label: "Cloud",
+    href: "/cloud",
+    intro: "Software you subscribe to: run your business and unlock every premium tool.",
+    cta: "See Cloud",
+    sections: [
+      {
+        title: "Subscriptions",
+        links: [
+          { name: "DoyinOps", href: "/ops", desc: "Clients, deals, invoices, tasks" },
+          { name: "DoyinTech Pro", href: "/pro", desc: "₦5,000/month · every premium tool" },
+          { name: "AI Assistant plans", href: "/ai-assistant", desc: "From ₦25,000/month" },
+        ],
+      },
+      {
+        title: "For clients",
+        links: [
+          { name: "Client portal", href: "/client-portal", desc: "Track your project and payments" },
+          { name: "Report Studio", href: "/reports", desc: "Brand & social presence reports" },
+          { name: "Your account", href: "/account" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Digital",
+    href: "/digital",
+    intro: "Templates, ebooks, code and training. Pay once and download straight away.",
+    cta: "See Digital",
     sections: [
       {
         title: "Buy",
         links: [
-          { name: "Browse shops", href: "/shops", desc: "Buy from small businesses" },
           { name: "Templates & kits", href: "/products", desc: "HR, payroll, office, school packs" },
           { name: "Ebooks", href: "/ebooks", desc: "Business, Excel, bookkeeping" },
           { name: "Gift cards", href: "/gift-cards", desc: "Give tools, templates or a website" },
-          { name: "Report Studio", href: "/reports", desc: "Social & brand presence reports" },
-        ],
-      },
-      {
-        title: "Sell",
-        links: [
-          { name: "Free online shop", href: "/stores", desc: "Sell on WhatsApp with one link" },
-          { name: "Get paid online", href: "/get-paid", desc: "Payment links + reminders" },
-          { name: "Feature your shop", href: "/get-featured", desc: "Be seen by more buyers" },
         ],
       },
       {
         title: "For developers",
         links: [
+          { name: "Website templates", href: "/templates", desc: "Ready-made Next.js pages" },
           { name: "UI components", href: "/components", desc: "Next.js + Tailwind blocks" },
-          { name: "Page templates", href: "/templates", desc: "Ready-made landing pages" },
+          { name: "Sell your code", href: "/sell", desc: "Join the Developer Market" },
+          { name: "DoyinTech Academy", href: "https://doyintechacademy.vercel.app", desc: "Courses & mentorship" },
+        ],
+      },
+      {
+        title: "Sell online",
+        links: [
+          { name: "Free online shop", href: "/stores", desc: "Sell on WhatsApp with one link" },
+          { name: "Browse shops", href: "/shops", desc: "Buy from small businesses" },
+          { name: "Get paid online", href: "/get-paid", desc: "Payment links + reminders" },
         ],
       },
     ],
@@ -127,11 +152,8 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         title: "Workspace",
         links: [
-          { name: "Daily Money Quiz", href: "/daily-quiz", desc: "5 questions a day, keep your streak" },
           { name: "All free tools", href: "/tools", desc: "Business & website tools" },
           { name: "Office & HR tools", href: "/tools?for=office", desc: "Minutes, ID cards, timesheets" },
-          { name: "DoyinTech Pro", href: "/pro", desc: "Every premium tool, one membership" },
-          { name: "DoyinOps", href: "/ops", desc: "Clients, deals & invoices" },
         ],
       },
     ],
@@ -155,41 +177,6 @@ export const NAV_GROUPS: NavGroup[] = [
           { name: "Student tools", href: "/students", desc: "Outlines, citations, analysis" },
           { name: "Final year project kit", href: "/products/final-year-project-starter-kit", desc: "Chapters 1–5 templates" },
           { name: "Project support", href: "/students/projects", desc: "Guided research support" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Play",
-    href: "/kids",
-    intro: "Free games, daily puzzles and podcasts for the whole family: kids, teens and adults.",
-    cta: "Open the Kids zone",
-    sections: [
-      {
-        title: "Kids (ages 5–13)",
-        links: [
-          { name: "Daily challenge", href: "/kids/daily-challenge", desc: "New maths and word puzzles daily" },
-          { name: "Times tables race", href: "/kids/times-tables", desc: "60-second multiplication game" },
-          { name: "Memory match", href: "/kids/memory-game", desc: "Find the pairs" },
-        ],
-      },
-      {
-        title: "For everyone",
-        links: [
-          { name: "Community", href: "/community", desc: "Ask questions, share what you know" },
-          { name: "Listen to podcasts", href: "/listen", desc: "Business, tech, ideas and kids' stories" },
-          { name: "Daily trivia", href: "/trivia", desc: "10 questions a day, beat the clock" },
-          { name: "Family quiz night", href: "/trivia/family-quiz-night", desc: "Pass-the-phone game for 2–6" },
-          { name: "Daily Money Quiz", href: "/daily-quiz", desc: "5 questions on money and business" },
-          { name: "Quiz Night Host Pack", href: "/products/quiz-night-host-pack", desc: "Printable rounds for events" },
-        ],
-      },
-      {
-        title: "For parents",
-        links: [
-          { name: "Printable maths worksheets", href: "/kids/maths-worksheets", desc: "Free, with answers" },
-          { name: "Maths practice workbook", href: "/products/primary-maths-practice-workbook", desc: "40 sheets, ages 5–11" },
-          { name: "Routine & reward chart pack", href: "/products/kids-routine-reward-holiday-pack", desc: "Charts and holiday plan" },
         ],
       },
     ],

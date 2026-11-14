@@ -44,11 +44,11 @@ const SLIDES: Slide[] = [
     img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=2400&q=80",
   },
   {
-    tab: "Free audit",
-    eyebrow: "Free website audit",
-    title: "Find the enquiries you're losing.",
-    desc: "Send your web address and get 2–3 specific fixes in your inbox. Do them yourself, or let us handle them.",
-    cta: { href: "/free-audit", label: "Get a free audit" },
+    tab: "AI Assistant",
+    eyebrow: "AI customer assistant",
+    title: "Answer every customer, even when you're busy.",
+    desc: "An assistant on your website and WhatsApp that answers questions, collects booking requests and sends you every lead. Setup from ₦75,000.",
+    cta: { href: "/ai-assistant", label: "See the AI Assistant" },
     img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=2400&q=80",
   },
 ];

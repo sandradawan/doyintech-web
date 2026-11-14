@@ -13,8 +13,6 @@ import ReferralCapture from "@/components/ui/ReferralCapture";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ConversionTracker from "@/components/analytics/ConversionTracker";
 import GiftCardPill from "@/components/giftcards/GiftCardPill";
-import OfflinePlayHint from "@/components/game/OfflinePlayHint";
-import ServiceWorkerRegister from "@/components/game/ServiceWorkerRegister";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -121,8 +119,6 @@ export default function RootLayout({
             <div id="main-content">{children}</div>
           </PageTransition>
           <WhatsAppButton />
-          <OfflinePlayHint />
-          <ServiceWorkerRegister />
           <CookieConsent />
           <ConversionTracker />
           <GiftCardPill />

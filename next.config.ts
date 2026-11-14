@@ -96,6 +96,18 @@ const nextConfig: NextConfig = {
       ["/ai/:path*", "/tools"],
       ["/solve", "/tools"],
       ["/pricing-quiz", "/pricing"],
+      // Nov 2026 restructure: free games, quizzes, podcasts and community removed to keep the site focused on what we sell.
+      ["/kids", "/students"],
+      ["/kids/:path*", "/students"],
+      ["/play", "/"],
+      ["/trivia", "/"],
+      ["/trivia/:path*", "/"],
+      ["/daily-quiz", "/tools"],
+      ["/listen", "/blog"],
+      ["/listen/:path*", "/blog"],
+      ["/community", "/support"],
+      ["/community/:path*", "/support"],
+      ["/services/ai-automation", "/ai-assistant"],
       // Branded invoices consolidated into the search-tuned page (branding is now the paid upgrade).
       // /tools/invoice-generator is now its own page: the global, any-currency generator.
       ["/tools/branded-invoice", "/tools/invoice-generator-nigeria"],

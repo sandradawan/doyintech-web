@@ -40,7 +40,7 @@ export default function Post() {
             </p>
             <div className="pt-6">
               <a
-                href="/services/ai-automation"
+                href="/ai-assistant"
                 className="inline-flex px-6 py-3 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 transition"
               >
                 Explore AI automation

@@ -1,4 +1,3 @@
-import { SHOWS } from "@/lib/listen/shows";
 import type { MetadataRoute } from "next";
 import { TOOLS_META } from "@/lib/tools/config";
 import { INDUSTRIES } from "@/lib/industries";
@@ -54,7 +53,11 @@ const MONEY: Entry[] = [
   page("/services", 0.85),
   page("/services/backend", 0.8),
   page("/services/mobile", 0.8),
-  page("/services/ai-automation", 0.8),
+  page("/ai-assistant", 0.9),
+  page("/solutions", 0.9),
+  page("/cloud", 0.85),
+  page("/digital", 0.85),
+  page("/sell", 0.6),
   page("/white-label", 0.7),
   page("/templates", 0.75),
   page("/components", 0.7),
@@ -119,7 +122,7 @@ const HIGH_DEMAND_TOOLS = new Set([
   "meeting-minutes-generator", "cv-builder", "qr-generator", "nigeria-vat-calculator", "small-company-tax-checker",
   "freelancer-tax-calculator-nigeria", "timesheet-calculator", "study-timetable-planner",
   "solar-vs-generator-calculator", "import-duty-calculator-nigeria", "cash-flow-forecast", "employee-cost-calculator-nigeria",
-  "bid-evaluation-tool", "compliance-calendar-nigeria", "hourly-to-salary-calculator", "freelance-rate-calculator", "discount-calculator", "late-payment-interest-calculator", "daily-quiz",
+  "bid-evaluation-tool", "compliance-calendar-nigeria", "hourly-to-salary-calculator", "freelance-rate-calculator", "discount-calculator", "late-payment-interest-calculator",
   "profit-margin-calculator", "break-even-calculator", "loan-emi-calculator",
 ]);
 
@@ -150,14 +153,7 @@ export function sitemapEntries(): Entry[] {
     page("/salary-calculator", 0.9),
     ...SALARY_COUNTRIES.map((c) => page(`/salary-calculator/${c.slug}`, 0.85)),
     ...VAT_COUNTRIES.filter((v) => !VAT_EXISTING_PAGES[v.slug]).map((v) => page(`/vat-calculator/${v.slug}`, 0.8)),
-    page("/kids", 0.85),
-    page("/trivia", 0.85),
-    page("/trivia/family-quiz-night", 0.8),
-    page("/community", 0.8),
     page("/all-pages", 0.4),
-    page("/listen", 0.85),
-    ...SHOWS.map((s) => page(`/listen/${s.slug}`, 0.6)),
-    ...["daily-challenge", "times-tables", "memory-game", "maths-worksheets"].map((s) => page(`/kids/${s}`, 0.8)),
   ];
 
   const local: Entry[] = [

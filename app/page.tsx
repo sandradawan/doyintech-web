@@ -1,6 +1,6 @@
 import Hero from "@/components/hero/Hero";
 import TrustBar from "@/components/sections/TrustBar";
-import TodayStrip from "@/components/daily/TodayStrip";
+import Divisions from "@/components/sections/Divisions";
 import ClientLogos from "@/components/sections/ClientLogos";
 import CaseStudiesTeaser from "@/components/sections/CaseStudiesTeaser";
 import Packages from "@/components/sections/Packages";
@@ -17,8 +17,8 @@ import type { Metadata } from "next";
 // Featured (sponsored) shops change as sellers buy placement.
 export const revalidate = 600;
 
-const TITLE = "Website Design in Nigeria, Free Business Tools and Ebooks | DoyinTech";
-const DESCRIPTION = "Fixed-price website design for Nigerian businesses, free invoice and tax tools, PDF ebooks and digital products. Pay securely with Paystack. Live in days.";
+const TITLE = "DoyinTech: Websites, Business Software and AI Automation in Nigeria";
+const DESCRIPTION = "Fixed-price websites, AI assistants and business software for Nigerian and international businesses, plus DoyinOps, templates, ebooks and free business tools. Pay securely with Paystack.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -38,7 +38,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
-        <TodayStrip />
+        <Divisions />
         <ClientLogos />
         <CaseStudiesTeaser />
         <Packages />
