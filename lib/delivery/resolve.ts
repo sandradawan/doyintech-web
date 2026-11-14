@@ -23,7 +23,7 @@ export function resolveProductDelivery(productId: string): ResolvedDelivery | nu
     return {
       productId: digital.id,
       productName: digital.name,
-      mdPaths: paths.filter((p) => /\.(md|csv|txt|xlsx)$/.test(p)),
+      mdPaths: paths.filter((p) => /\.(md|csv|txt|xlsx|pptx)$/.test(p)),
       kind: "digital",
     };
   }
@@ -74,10 +74,17 @@ function productFileExists(webPath: string): boolean {
 
 /** Binary files (Excel workbooks) are delivered as-is, never folded into the text/PDF pack. */
 export function isBinaryProductFile(webPath: string): boolean {
-  return webPath.endsWith(".xlsx");
+  return /\.(xlsx|pptx)$/.test(webPath);
 }
 
-export const XLSX_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+const BINARY_TYPES: Record<string, string> = {
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+};
+
+export function binaryContentType(webPath: string): string {
+  return BINARY_TYPES[webPath.split(".").pop() || ""] || "application/octet-stream";
+}
 
 export async function readProductFileBuffer(webPath: string): Promise<Buffer | null> {
   const full = locateProductFile(webPath);

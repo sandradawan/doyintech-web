@@ -19,6 +19,8 @@ export type DigitalProduct = {
   audience?: string;
   /** What's inside, file by file, for the product page. */
   contents?: string[];
+  /** Preview images (in /public) shown on the product page. */
+  previewImages?: { src: string; alt: string; width: number; height: number }[];
 };
 
 export const PRODUCT_CATEGORIES = ["Business", "Office & HR", "Students", "Schools & organisations", "Marketing & sales", "Kids & parents"] as const;
@@ -30,6 +32,52 @@ export function productCategory(p: DigitalProduct): ProductCategory {
 }
 
 export const DIGITAL_PRODUCTS: DigitalProduct[] = [
+  {
+    id: "social-media-templates",
+    name: "Social Media Templates Pack (120 editable designs)",
+    description:
+      "120 ready-made post and story designs for Instagram, Facebook, LinkedIn, TikTok and WhatsApp Status: 30 posts and 10 stories in each of 3 colour styles. Import into Canva, or edit in PowerPoint, Google Slides or Keynote. Change the text, drop in your photos, export and post.",
+    priceUsd: "$12",
+    priceNgn: "₦19,000",
+    amountKobo: 1900000,
+    type: "one-time",
+    badge: "New",
+    category: "Marketing & sales",
+    audience: "Small businesses, creators, coaches and social media managers who want to post consistently without a designer",
+    features: [
+      "90 square posts (1080 × 1080) and 30 stories (1080 × 1920)",
+      "3 colour styles: Bold, Clean and Soft",
+      "Sales, reviews, tips, carousels, events, hiring, giveaways, price lists and more",
+      "Works in Canva (import), PowerPoint, Google Slides and Keynote",
+      "Photo placeholders you can replace in one click",
+      "Quick-start guide with posting tips",
+    ],
+    contents: [
+      "social-posts-bold.pptx, social-posts-clean.pptx, social-posts-soft.pptx (30 posts each)",
+      "social-stories-bold.pptx, social-stories-clean.pptx, social-stories-soft.pptx (10 stories each)",
+      "Quick-start guide (PDF + Markdown)",
+    ],
+    previewImages: [
+      { src: "/products/social-templates/posts-bold.webp", alt: "Nine post templates in the Bold style: dark background with orange", width: 948, height: 948 },
+      { src: "/products/social-templates/posts-clean.webp", alt: "Nine post templates in the Clean style: white background with blue", width: 948, height: 948 },
+      { src: "/products/social-templates/posts-soft.webp", alt: "Nine post templates in the Soft style: cream background with green", width: 948, height: 948 },
+      { src: "/products/social-templates/stories.webp", alt: "Six story templates across the three colour styles", width: 1164, height: 344 },
+    ],
+    delivery: "Instant download after payment: 6 template files + PDF guide",
+    downloadPath: "/digital-products/social-media-templates.md",
+    downloadPaths: [
+      "/digital-products/social/social-posts-bold.pptx",
+      "/digital-products/social/social-posts-clean.pptx",
+      "/digital-products/social/social-posts-soft.pptx",
+      "/digital-products/social/social-stories-bold.pptx",
+      "/digital-products/social/social-stories-clean.pptx",
+      "/digital-products/social/social-stories-soft.pptx",
+      "/digital-products/social-media-templates.md",
+    ],
+    demandNote:
+      "Ready-made social media designs are one of the best-selling digital products worldwide. Most small businesses post less than they want to because designing takes too long.",
+    addedAt: "2026-11-14",
+  },
   {
     id: "ai-prompt-library",
     name: "AI Prompt Library for Small Business (130 prompts)",

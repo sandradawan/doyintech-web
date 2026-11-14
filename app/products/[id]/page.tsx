@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/ui/Footer";
@@ -102,6 +103,25 @@ export default async function ProductPage({ params }: Props) {
                 </ul>
               </section>
 
+              {p.previewImages && (
+                <section className="mt-10">
+                  <h2 className="text-[20px] font-semibold text-brand-ink">Preview</h2>
+                  <div className="mt-4 grid gap-4">
+                    {p.previewImages.map((img) => (
+                      <Image
+                        key={img.src}
+                        src={img.src}
+                        alt={img.alt}
+                        width={img.width}
+                        height={img.height}
+                        sizes="(min-width: 1024px) 640px, 100vw"
+                        className="h-auto w-full rounded-xl border border-brand-ink/10"
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {p.contents && (
                 <section className="mt-10">
                   <h2 className="text-[20px] font-semibold text-brand-ink">Files in your download</h2>
@@ -132,7 +152,9 @@ export default async function ProductPage({ params }: Props) {
                   <li>Enter your email and pay by card, transfer or USSD through Paystack.</li>
                   <li>Download links appear straight away and are emailed to you with the PDF attached.</li>
                   <li>
-                    {p.downloadPaths?.some((f) => f.endsWith(".xlsx"))
+                    {p.downloadPaths?.some((f) => f.endsWith(".pptx"))
+                      ? "Import the .pptx files into Canva (Create a design > Import file) or open them in PowerPoint, Google Slides or Keynote. Change the text and photos, then export as PNG."
+                      : p.downloadPaths?.some((f) => f.endsWith(".xlsx"))
                       ? "Open the .xlsx workbook in Excel, Google Sheets, LibreOffice or Numbers. Formulas, dropdowns and colour alerts are already built in."
                       : p.downloadPaths?.some((f) => f.endsWith(".csv"))
                       ? "Open the spreadsheets in Excel or Google Sheets and adapt the templates to your organisation."

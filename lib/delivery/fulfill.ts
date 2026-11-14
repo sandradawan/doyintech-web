@@ -117,7 +117,7 @@ export async function fulfillPaidProduct(opts: {
   for (const p of mdPaths) {
     if (isBinaryProductFile(p)) {
       const buf = await readProductFileBuffer(p);
-      if (buf) attachments.push({ filename: p.split("/").pop() || "workbook.xlsx", content: buf });
+      if (buf) attachments.push({ filename: p.split("/").pop() || "file", content: buf });
       continue;
     }
     const content = await readPublicFile(p);

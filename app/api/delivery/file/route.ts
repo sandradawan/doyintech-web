@@ -5,7 +5,7 @@ import {
   readProductFileBuffer,
   isBinaryProductFile,
   resolveProductDelivery,
-  XLSX_TYPE,
+  binaryContentType,
 } from "@/lib/delivery/resolve";
 import { textToPdfBuffer } from "@/lib/delivery/pdf";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
       return new NextResponse(new Uint8Array(buf), {
         status: 200,
         headers: {
-          "Content-Type": XLSX_TYPE,
+          "Content-Type": binaryContentType(pathParam),
           "Content-Disposition": `attachment; filename="${name}"`,
           "Cache-Control": "no-store",
         },
