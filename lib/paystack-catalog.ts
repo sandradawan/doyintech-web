@@ -4,6 +4,7 @@ import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
+import { bundleBooks, findEbookBundle } from "@/lib/ebooks/bundles";
 import { getStudentPackage } from "@/lib/students/packages";
 import { resolveAmountKobo } from "@/lib/pricing/overrides";
 
@@ -45,6 +46,16 @@ function basePayItemSync(id: string): PayItem | undefined {
       name: tool.title + " Unlock",
       amountKobo: tool.amountKobo,
       delivery: "Instant unlock on this browser after payment",
+    };
+  }
+
+  const bundle = findEbookBundle(id);
+  if (bundle) {
+    return {
+      id: bundle.id,
+      name: `${bundle.name} (${bundleBooks(bundle).length} ebooks)`,
+      amountKobo: bundle.priceNgn * 100,
+      delivery: "Every ebook in the pack unlocked on site + PDF downloads",
     };
   }
 

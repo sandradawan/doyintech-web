@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/ui/Footer";
 import EbookDelivery from "@/components/ebooks/EbookDelivery";
+import EbookBundleDelivery from "@/components/ebooks/EbookBundleDelivery";
 import ProductUpsells, {
   ServiceSuccessChecklist,
 } from "@/components/products/ProductUpsells";
@@ -14,12 +15,13 @@ import { rememberPurchaseRef } from "@/lib/shop/usePurchaseUnlock";
 // Mirrors ProductSummary in lib/payments/purchase.ts (server-only module).
 type ProductSummary = {
   id: string;
-  kind: "ebook" | "component" | "template" | "tool" | "digital" | "service" | "other";
+  kind: "ebook" | "ebook-bundle" | "component" | "template" | "tool" | "digital" | "service" | "other";
   title: string;
   slug?: string;
   toolSlug?: string;
   unlockKey?: string;
   isBundle?: boolean;
+  books?: { id: string; title: string; slug: string }[];
 };
 
 type VerifyResult = {
@@ -117,6 +119,8 @@ function SuccessInner() {
                 reference={reference}
                 email={email}
               />
+            ) : product?.kind === "ebook-bundle" && product.books ? (
+              <EbookBundleDelivery reference={reference} title={product.title} books={product.books} />
             ) : product?.kind === "ebook" && product.slug ? (
               <EbookDelivery
                 productId={product.id}

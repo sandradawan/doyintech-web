@@ -9,6 +9,7 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { getPayItem } from "@/lib/paystack-catalog";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
+import { bundleBooks, bundleCovers, findEbookBundle } from "@/lib/ebooks/bundles";
 import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getPaidToolByProductId } from "@/lib/tools/paid";
@@ -149,6 +150,8 @@ export function purchaseCovers(paidProductId: string, requestedId: string): bool
     return paidTpl.id === reqTpl.id || paidTpl.slug === TEMPLATE_BUNDLE_SLUG;
   }
 
+  if (findEbookBundle(paidProductId) && findAnyEbook(requestedId)) return bundleCovers(paidProductId, requestedId);
+
   const paidBook = findAnyEbook(paidProductId);
   const reqBook = findAnyEbook(requestedId);
   if (paidBook && reqBook) return paidBook.id === reqBook.id;
@@ -156,7 +159,7 @@ export function purchaseCovers(paidProductId: string, requestedId: string): bool
   return false;
 }
 
-export type ProductKind = "ebook" | "component" | "template" | "tool" | "digital" | "service" | "other";
+export type ProductKind = "ebook" | "ebook-bundle" | "component" | "template" | "tool" | "digital" | "service" | "other";
 
 export type ProductSummary = {
   id: string;
@@ -166,6 +169,8 @@ export type ProductSummary = {
   toolSlug?: string;
   unlockKey?: string;
   isBundle?: boolean;
+  /** For an ebook bundle: the books it unlocks. */
+  books?: { id: string; title: string; slug: string }[];
 };
 
 /** Small, content-free description of a product for client UIs. */
@@ -178,6 +183,17 @@ export function describeProduct(productId: string): ProductSummary {
       title: tool.title,
       toolSlug: tool.toolSlug,
       unlockKey: tool.unlockKey,
+    };
+  }
+  const bundle = findEbookBundle(productId);
+  if (bundle) {
+    return {
+      id: bundle.id,
+      kind: "ebook-bundle",
+      title: bundle.name,
+      slug: bundle.slug,
+      isBundle: true,
+      books: bundleBooks(bundle).map((b) => ({ id: b.id, title: b.title, slug: b.slug })),
     };
   }
   const book = findAnyEbook(productId);

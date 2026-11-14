@@ -8,7 +8,7 @@ import {
 } from "@/lib/ebooks/delivery";
 import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 
-import { verifyPurchase } from "@/lib/payments/purchase";
+import { purchaseCovers, verifyPurchase } from "@/lib/payments/purchase";
 import { limitRequest } from "@/lib/rate-limit";
 import { absoluteUrl } from "@/lib/site";
 
@@ -49,7 +49,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const book = findEbookByProductId(check.productId);
+    // A bundle payment can deliver any book it covers; otherwise the paid book itself.
+    const requested = String(body.productId || "").trim();
+    const book =
+      requested && requested !== check.productId && purchaseCovers(check.productId, requested)
+        ? findEbookByProductId(requested)
+        : findEbookByProductId(check.productId);
     if (!book) {
       return NextResponse.json(
         {

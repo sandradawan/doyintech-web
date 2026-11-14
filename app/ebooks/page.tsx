@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Footer from "@/components/ui/Footer";
 import EbookCatalog from "@/components/ebooks/EbookCatalog";
+import EbookBundles from "@/components/ebooks/EbookBundles";
 import { ALL_EBOOKS } from "@/lib/ebooks-catalog";
 import { catalogEbook } from "@/lib/shop/public";
 
 export const metadata: Metadata = {
-  title: "Business and Career Ebooks for Nigerians (PDF)",
+  title: "Business and Career Ebooks (PDF) and Bundles",
   description:
     "Practical PDF ebooks on registering a business, Excel, bookkeeping, grants, remote jobs, final year projects and marketing. Read chapter one free.",
   alternates: { canonical: "/ebooks" },
@@ -20,11 +21,13 @@ export default function EbooksPage() {
             DoyinTech Press
           </p>
           <h1 className="mt-2 text-[34px] font-semibold tracking-tight text-brand-ink sm:text-[44px]">
-            Practical ebooks for business, work and school in Nigeria
+            Practical ebooks for business, work and school
           </h1>
           <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-brand-muted">
             Practical books for running a business, getting ahead at work and finishing school: registration and tax, Excel, bookkeeping, funding, remote jobs, final year projects, marketing and money. Read the first chapter free, then get the full PDF and on-site reader after payment.
           </p>
+
+          <EbookBundles />
 
           <EbookCatalog books={ALL_EBOOKS.map(catalogEbook)} />
         </div>

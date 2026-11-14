@@ -9,6 +9,8 @@ import {
 } from "@/components/ebooks/EbookShop";
 import { formatEbookPrice } from "@/lib/ebooks";
 import { ALL_EBOOKS, findAnyEbook } from "@/lib/ebooks-catalog";
+import EbookBundles from "@/components/ebooks/EbookBundles";
+import { bundleForEbook, findEbookBundle } from "@/lib/ebooks/bundles";
 import { publicEbook } from "@/lib/shop/public";
 import { absoluteUrl } from "@/lib/site";
 import { EBOOK_SEO } from "@/lib/ebooks-seo";
@@ -152,6 +154,8 @@ export default async function EbookDetailPage({ params }: Props) {
             </div>
           </div>
           <RelatedLinks heading="You may also like" links={related} />
+          {book.onSale && <EbookBundles only={[bundleForEbook(book.id), findEbookBundle("ebook-bundle-complete")].filter((b) => b !== undefined)} />}
+
           <RelatedLinks heading="Free tools that go with this book" links={EBOOK_TOOLS[book.category] ?? EBOOK_TOOLS.Business} />
         </div>
       </main>
