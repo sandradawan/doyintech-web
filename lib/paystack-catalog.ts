@@ -6,6 +6,7 @@ import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
 import { bundleBooks, findEbookBundle } from "@/lib/ebooks/bundles";
 import { getStudentPackage } from "@/lib/students/packages";
+import { DATA_ANALYSIS_PRODUCT } from "@/lib/students/analysis/product";
 import { resolveAmountKobo } from "@/lib/pricing/overrides";
 
 export type PayItem = {
@@ -86,6 +87,15 @@ function basePayItemSync(id: string): PayItem | undefined {
       name: tpl.name + " (Template)",
       amountKobo: tpl.amountKobo,
       delivery: "Full template source unlock on site after payment",
+    };
+  }
+
+  if (id === DATA_ANALYSIS_PRODUCT.id) {
+    return {
+      id,
+      name: DATA_ANALYSIS_PRODUCT.name,
+      amountKobo: DATA_ANALYSIS_PRODUCT.amountKobo,
+      delivery: "Word and PDF downloads unlocked for your data set on the tool page",
     };
   }
 

@@ -14,6 +14,7 @@ import { UI_COMPONENTS } from "@/lib/ui-components";
 import { PAGE_TEMPLATES } from "@/lib/page-templates";
 import { getPaidToolByProductId } from "@/lib/tools/paid";
 import { getDigitalProduct } from "@/lib/products";
+import { DATA_ANALYSIS_PRODUCT } from "@/lib/students/analysis/product";
 import { getServiceAddon, getServiceOffer } from "@/lib/service-offers";
 import { GIFT_ONLY_REF_RE, captureGiftHold, giftOnlyTransaction } from "@/lib/giftcards/server";
 
@@ -222,5 +223,6 @@ export function describeProduct(productId: string): ProductSummary {
   if (service) return { id: service.id, kind: "service", title: service.name };
   const digital = getDigitalProduct(productId);
   if (digital) return { id: digital.id, kind: "digital", title: digital.name };
+  if (productId === DATA_ANALYSIS_PRODUCT.id) return { id: productId, kind: "other", title: DATA_ANALYSIS_PRODUCT.name };
   return { id: productId, kind: "other", title: productId };
 }

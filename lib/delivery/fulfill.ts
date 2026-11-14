@@ -7,6 +7,7 @@ import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
 import { formatEbookDocument } from "@/lib/ebooks/delivery";
 import { SITE_URL } from "@/lib/site";
+import { DATA_ANALYSIS_PRODUCT } from "@/lib/students/analysis/product";
 
 export type FulfillResult = {
   ok: boolean;
@@ -83,6 +84,23 @@ export async function fulfillPaidProduct(opts: {
       emailed: emailResult.ok,
       error: emailResult.ok ? undefined : emailResult.error,
     };
+  }
+
+  // The data analysis unlock has no files: the report is built in the student's browser.
+  if (opts.productId === DATA_ANALYSIS_PRODUCT.id) {
+    const downloadLinks = [
+      {
+        label: "Download your Chapter Four (on another device, upload the same data file and enter the payment reference below)",
+        url: `${origin}${DATA_ANALYSIS_PRODUCT.path}`,
+      },
+    ];
+    const emailResult = await sendProductDeliveryEmail({
+      to: email,
+      productName: DATA_ANALYSIS_PRODUCT.name,
+      reference: opts.reference,
+      downloadLinks,
+    });
+    return { ok: true, productName: DATA_ANALYSIS_PRODUCT.name, email, downloadLinks, emailed: emailResult.ok, error: emailResult.ok ? undefined : emailResult.error };
   }
 
   const resolved = resolveProductDelivery(opts.productId);

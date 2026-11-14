@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ChangeEvent, type DragEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ChangeEvent, type DragEvent, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import {
   SCALES,
@@ -15,8 +15,60 @@ import {
 } from "@/lib/students/analysis/dataset";
 import { analyze, type Block, type Hypothesis, type Report, type Target } from "@/lib/students/analysis/analyze";
 import { SAMPLE_TITLE, sampleCsv } from "@/lib/students/analysis/sample";
+import { DATA_ANALYSIS_PRODUCT } from "@/lib/students/analysis/product";
 
 type Step = 1 | 2 | 3 | 4;
+
+// ------------------------------------------------------------------ payment unlock
+
+const UNLOCKS_KEY = "doyintech_da_unlocks";
+const SESSION_KEY = "doyintech_da_session";
+const PRICE = DATA_ANALYSIS_PRODUCT.priceNgn;
+
+type SavedSession = {
+  ds: Dataset;
+  fileName: string;
+  title: string;
+  distributed: string;
+  alpha: number;
+  showPercent: boolean;
+  columns: ColumnConfig[];
+  groups: string[];
+  hypotheses: Hypothesis[];
+};
+
+/** Fingerprint of the raw responses: settings can change after paying, the data cannot. */
+async function datasetHash(ds: Dataset): Promise<string> {
+  const bytes = new TextEncoder().encode(JSON.stringify([ds.headers, ds.rows]));
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function readUnlocks(): string[] {
+  try {
+    const v = JSON.parse(localStorage.getItem(UNLOCKS_KEY) || "[]");
+    return Array.isArray(v) ? v.filter((x) => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function addUnlock(hash: string) {
+  try {
+    const list = readUnlocks().filter((h) => h !== hash);
+    localStorage.setItem(UNLOCKS_KEY, JSON.stringify([hash, ...list].slice(0, 50)));
+  } catch {
+    /* private mode: the unlock lasts for this visit only */
+  }
+}
+
+/** Where the free preview stops: just before the research question tables. */
+function previewCut(blocks: Block[]): number {
+  const i = blocks.findIndex((b) => b.type === "h2" && /Analysis of Research Questions/i.test(b.text));
+  if (i > 0) return i;
+  const t = blocks.findIndex((b) => b.type === "h2" && /Test of Hypotheses/i.test(b.text));
+  return t > 0 ? t : Math.ceil(blocks.length / 3);
+}
 
 const ROLE_LABELS: Record<ColumnRole, string> = {
   likert: "Rating item (Strongly agree…)",
@@ -115,9 +167,9 @@ function PrimaryButton({ children, onClick, disabled }: { children: ReactNode; o
   );
 }
 
-function GhostButton({ children, onClick }: { children: ReactNode; onClick?: () => void }) {
+function GhostButton({ children, onClick, submit }: { children: ReactNode; onClick?: () => void; submit?: boolean }) {
   return (
-    <button type="button" onClick={onClick} className="min-h-[44px] rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink hover:border-brand-link">
+    <button type={submit ? "submit" : "button"} onClick={onClick} className="min-h-[44px] rounded-full border border-brand-ink/20 px-5 py-2.5 text-[14px] font-semibold text-brand-ink hover:border-brand-link">
       {children}
     </button>
   );
@@ -152,12 +204,33 @@ function Stepper({ step, maxStep, go }: { step: Step; maxStep: Step; go: (s: Ste
   );
 }
 
-function ReportPreview({ report }: { report: Report }) {
+function ReportPreview({ report, locked }: { report: Report; locked: boolean }) {
+  const cut = locked ? previewCut(report.blocks) : report.blocks.length;
+  const hidden = report.blocks.length - cut;
   return (
     <div className="rounded-2xl bg-white p-5 font-serif text-[15px] leading-relaxed text-black shadow-lg sm:p-10">
-      {report.blocks.map((b, i) => (
+      {report.blocks.slice(0, cut).map((b, i) => (
         <PreviewBlock key={i} b={b} />
       ))}
+      {locked && hidden > 0 && (
+        // Only section names are shown here: the results themselves never reach the page until it is unlocked.
+        <div className="mt-4 rounded-xl border-2 border-dashed border-black/20 bg-[#f6f6f6] p-5 font-sans">
+          <p className="text-[15px] font-bold">Also in your full Chapter Four</p>
+          <ul className="mt-2 space-y-1 text-[14px]">
+            {report.blocks
+              .slice(cut)
+              .filter((b): b is Extract<Block, { type: "h2" | "h3" }> => b.type === "h2" || b.type === "h3")
+              .map((b, i) => (
+                <li key={i} className={b.type === "h3" ? "pl-4 text-black/70" : "font-semibold"}>
+                  {b.text}
+                </li>
+              ))}
+          </ul>
+          <p className="mt-3 text-[13px] text-black/70">
+            {report.blocks.slice(cut).filter((b) => b.type === "table").length} more tables with interpretation. Unlock above for {PRICE}.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
@@ -257,6 +330,78 @@ export default function DataAnalysisTool() {
   const [busy, setBusy] = useState<"" | "word" | "pdf">("");
   const [downloadError, setDownloadError] = useState("");
 
+  // Payment
+  const [hash, setHash] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [payEmail, setPayEmail] = useState("");
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState("");
+  const [payNote, setPayNote] = useState("");
+  const [refInput, setRefInput] = useState("");
+  const [checkingRef, setCheckingRef] = useState(false);
+
+  /** Ask the server whether `reference` paid for the data set with fingerprint `want`. */
+  async function confirmPayment(reference: string, want: string): Promise<{ ok: boolean; error?: string; paidHash?: string }> {
+    try {
+      const res = await fetch(`/api/students/data-analysis/unlock?reference=${encodeURIComponent(reference)}`);
+      const data = await res.json();
+      if (!data.ok) return { ok: false, error: data.error || "We couldn't confirm that payment." };
+      addUnlock(data.datasetHash);
+      if (want && data.datasetHash !== want) return { ok: false, paidHash: data.datasetHash, error: "That payment was for a different data file. Upload the file you paid for, or pay for this one." };
+      return { ok: true, paidHash: data.datasetHash };
+    } catch {
+      return { ok: false, error: "Network problem while confirming your payment. Check your connection and try again." };
+    }
+  }
+
+  // Back from Paystack: restore the saved work and confirm the payment.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const reference = q.get("reference") || q.get("trxref");
+    if (!reference) return;
+    window.history.replaceState(null, "", window.location.pathname);
+    let saved: SavedSession | null = null;
+    try {
+      saved = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    } catch {
+      saved = null;
+    }
+    void (async () => {
+      const savedHash = saved?.ds ? await datasetHash(saved.ds) : "";
+      if (saved?.ds) {
+        setDs(saved.ds);
+        setFileName(saved.fileName);
+        setTitle(saved.title);
+        setDistributed(saved.distributed);
+        setAlpha(saved.alpha);
+        setShowPercent(saved.showPercent);
+        setColumns(saved.columns);
+        setGroups(saved.groups);
+        setHypotheses(saved.hypotheses);
+        setHash(savedHash);
+        setStep(4);
+        setMaxStep(4);
+      }
+      setPayNote("Confirming your payment…");
+      const r = await confirmPayment(reference, savedHash);
+      if (r.ok && saved?.ds) {
+        setUnlocked(true);
+        setPayNote("Payment confirmed. Your Chapter Four is unlocked: download it below.");
+        try {
+          localStorage.removeItem(SESSION_KEY);
+        } catch {
+          /* ignore */
+        }
+      } else if (r.ok || r.paidHash) {
+        setPayNote("Payment confirmed. Upload the same data file again to download your Chapter Four.");
+      } else {
+        setPayNote("");
+        setPayError(`${r.error} Your payment reference is ${reference}.`);
+      }
+    })();
+    // Runs once, on arrival from the payment page.
+  }, []);
+
   const go = (s: Step) => {
     setStep(s);
     setMaxStep((m) => (s > m ? s : m));
@@ -276,6 +421,56 @@ export default function DataAnalysisTool() {
     setHypotheses(suggestHypotheses(dataset, det.columns, det.groups));
     setLoadError("");
     setMaxStep(2);
+    setHash("");
+    setUnlocked(false);
+    void datasetHash(dataset).then((h) => {
+      setHash(h);
+      setUnlocked(readUnlocks().includes(h));
+    });
+  }
+
+  async function pay(e: FormEvent) {
+    e.preventDefault();
+    if (!ds || !hash) return;
+    setPaying(true);
+    setPayError("");
+    const session: SavedSession = { ds, fileName, title, distributed, alpha, showPercent, columns, groups, hypotheses };
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    } catch {
+      /* too large or blocked: after paying, the student uploads the same file again */
+    }
+    try {
+      const res = await fetch("/api/paystack/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: DATA_ANALYSIS_PRODUCT.id, email: payEmail, name: "Student", datasetHash: hash }),
+      });
+      const data = await res.json();
+      if (res.status === 503 || data.code === "NO_KEYS") {
+        window.location.href = `https://wa.me/2348085343926?text=${encodeURIComponent(`Hi, I want to pay ${PRICE} to download my Chapter Four data analysis.`)}`;
+        return;
+      }
+      if (!res.ok || !data.authorization_url) throw new Error(data.error || "We couldn't start the payment. Please try again.");
+      window.location.href = data.authorization_url;
+    } catch (err) {
+      setPayError(err instanceof Error ? err.message : "We couldn't start the payment. Please try again.");
+      setPaying(false);
+    }
+  }
+
+  async function useReference(e: FormEvent) {
+    e.preventDefault();
+    const ref = refInput.trim();
+    if (!ref || !hash) return;
+    setCheckingRef(true);
+    setPayError("");
+    const r = await confirmPayment(ref, hash);
+    setCheckingRef(false);
+    if (r.ok) {
+      setUnlocked(true);
+      setPayNote("Payment confirmed. Your Chapter Four is unlocked.");
+    } else setPayError(r.error || "We couldn't confirm that payment.");
   }
 
   async function readFile(file: File) {
@@ -358,7 +553,7 @@ export default function DataAnalysisTool() {
   const fileBase = `Chapter-Four-${(title.trim() || "data-analysis").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").slice(0, 60) || "data-analysis"}`;
 
   async function downloadWord() {
-    if (!report) return;
+    if (!report || !unlocked) return;
     setBusy("word");
     setDownloadError("");
     try {
@@ -373,7 +568,7 @@ export default function DataAnalysisTool() {
   }
 
   async function downloadPdf() {
-    if (!report) return;
+    if (!report || !unlocked) return;
     setBusy("pdf");
     setDownloadError("");
     try {
@@ -708,24 +903,75 @@ export default function DataAnalysisTool() {
       {/* ------------------------------------------------ step 4 */}
       {step === 4 && report && (
         <div className="mt-6 space-y-5">
-          <Card>
-            <h2 className="text-[18px] font-semibold text-brand-ink">Your Chapter Four is ready</h2>
-            <p className="mt-1 text-[14px] text-brand-muted">
-              Download it as a Word file to edit, or as a PDF. Read through it and adjust the interpretation to fit your study before you submit.
+          {payNote && (
+            <p role="status" className="rounded-2xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-3 text-[14px] text-emerald-300">
+              {payNote}
             </p>
-            <p className="mt-3 rounded-xl bg-brand-link/10 px-3 py-2 text-[13px] text-brand-link">Downloads are free while we test this tool.</p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <PrimaryButton disabled={!!busy} onClick={downloadWord}>
-                {busy === "word" ? "Preparing Word file…" : "Download Word (.docx)"}
-              </PrimaryButton>
-              <GhostButton onClick={downloadPdf}>{busy === "pdf" ? "Preparing PDF…" : "Download PDF"}</GhostButton>
-            </div>
-            {downloadError && (
-              <p role="alert" className="mt-3 text-[13px] text-red-400">
-                {downloadError}
+          )}
+
+          {unlocked ? (
+            <Card>
+              <h2 className="text-[18px] font-semibold text-brand-ink">Your Chapter Four is ready</h2>
+              <p className="mt-1 text-[14px] text-brand-muted">
+                Download it as a Word file to edit, or as a PDF. Read through it and adjust the interpretation to fit your study before you submit. You can change settings and download again as often as you need for this data file.
               </p>
-            )}
-          </Card>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <PrimaryButton disabled={!!busy} onClick={downloadWord}>
+                  {busy === "word" ? "Preparing Word file…" : "Download Word (.docx)"}
+                </PrimaryButton>
+                <GhostButton onClick={downloadPdf}>{busy === "pdf" ? "Preparing PDF…" : "Download PDF"}</GhostButton>
+              </div>
+              {downloadError && (
+                <p role="alert" className="mt-3 text-[13px] text-red-400">
+                  {downloadError}
+                </p>
+              )}
+            </Card>
+          ) : (
+            <Card>
+              <h2 className="text-[18px] font-semibold text-brand-ink">Your Chapter Four is ready</h2>
+              <p className="mt-1 text-[14px] text-brand-muted">
+                Unlock the full analysis and download it as an editable Word file and a PDF for <strong className="text-brand-ink">{PRICE}</strong>, one payment for this data file. Change settings and download again as often as you need.
+              </p>
+              <form onSubmit={pay} className="mt-4 space-y-3">
+                <div>
+                  <label htmlFor="da-email" className={labelCls}>
+                    Email for your receipt
+                  </label>
+                  <input
+                    id="da-email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    value={payEmail}
+                    onChange={(e) => setPayEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className={`mt-1.5 ${inputCls}`}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={paying || !hash}
+                  className="min-h-[48px] w-full rounded-full bg-brand-accent px-6 py-3 text-[15px] font-semibold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                >
+                  {paying ? "Opening secure payment…" : `Pay ${PRICE} and download`}
+                </button>
+                <p className="text-[12px] text-brand-muted">Secure payment by Paystack: card, bank transfer or USSD. You come straight back here to download.</p>
+              </form>
+              {payError && (
+                <p role="alert" className="mt-3 text-[13px] text-red-400">
+                  {payError}
+                </p>
+              )}
+              <details className="mt-4 text-[13px] text-brand-muted">
+                <summary className="cursor-pointer font-semibold text-brand-ink">Already paid for this file?</summary>
+                <form onSubmit={useReference} className="mt-3 flex flex-col gap-2 sm:flex-row">
+                  <input aria-label="Payment reference" value={refInput} onChange={(e) => setRefInput(e.target.value)} placeholder="Payment reference from your receipt email" className={inputCls} />
+                  <GhostButton submit>{checkingRef ? "Checking…" : "Unlock"}</GhostButton>
+                </form>
+              </details>
+            </Card>
+          )}
 
           {report.warnings.length > 0 && (
             <div role="status" className="rounded-2xl border border-amber-400/40 bg-amber-400/10 p-4 text-[14px] text-amber-200">
@@ -738,7 +984,7 @@ export default function DataAnalysisTool() {
             </div>
           )}
 
-          <ReportPreview report={report} />
+          <ReportPreview report={report} locked={!unlocked} />
 
           <div className="flex flex-wrap justify-between gap-3">
             <GhostButton onClick={() => go(3)}>Back to hypotheses</GhostButton>

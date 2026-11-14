@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import DataAnalysisTool from "@/components/students/DataAnalysisTool";
+import { DATA_ANALYSIS_PRODUCT } from "@/lib/students/analysis/product";
 
 export const metadata: Metadata = {
   title: "Data Analysis Tool for Final Year Projects (Chapter Four)",
@@ -33,6 +34,9 @@ export default function DataAnalysisPage() {
           <h1 className="mt-3 font-display text-[30px] font-semibold leading-tight text-brand-ink sm:text-[36px]">Chapter Four data analysis tool</h1>
           <p className="mt-3 max-w-[680px] text-[15px] text-brand-muted">
             Upload your questionnaire responses and get your data presentation, analysis and interpretation as a ready-to-edit Word document or PDF, in the format supervisors expect.
+          </p>
+          <p className="mt-2 text-[14px] font-semibold text-brand-ink">
+            Free to try and preview. Download your full Chapter Four for {DATA_ANALYSIS_PRODUCT.priceNgn}.
           </p>
           <ul className="mt-5 grid gap-2 text-[14px] text-brand-ink sm:grid-cols-2">
             {FEATURES.map((f) => (

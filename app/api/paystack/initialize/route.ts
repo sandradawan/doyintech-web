@@ -7,6 +7,7 @@ import { captureGiftHold, checkGiftCode, holdGiftCredit, newRef } from "@/lib/gi
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { SITE_URL } from "@/lib/site";
 import { limitRequest } from "@/lib/rate-limit";
+import { DATA_ANALYSIS_PRODUCT, DATASET_HASH_RE } from "@/lib/students/analysis/product";
 
 const SECRET = process.env.PAYSTACK_SECRET_KEY || "";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,15 +56,24 @@ export async function POST(req: NextRequest) {
     }
 
     const isServiceDeposit = item.id.startsWith("service-");
+    // The data analysis unlock is tied to one data set and returns the student to the tool.
+    const isDataAnalysis = item.id === DATA_ANALYSIS_PRODUCT.id;
+    const datasetHash = String(body.datasetHash || "").trim().toLowerCase();
+    if (isDataAnalysis && !DATASET_HASH_RE.test(datasetHash)) {
+      return NextResponse.json({ error: "Please upload your data again, then pay." }, { status: 400 });
+    }
     const callbackPath = isServiceDeposit
       ? `/hire/success?product=${encodeURIComponent(item.id)}`
-      : `/products/success?product=${encodeURIComponent(item.id)}`;
+      : isDataAnalysis
+        ? `${DATA_ANALYSIS_PRODUCT.path}?paid=1`
+        : `/products/success?product=${encodeURIComponent(item.id)}`;
 
     // ── Gift card ────────────────────────────────────────────────────────
     let giftKobo = 0;
     const reference = newRef("DT");
     // An empty or invalid card never blocks checkout: the buyer simply pays the full price.
-    const card = giftCode ? await checkGiftCode(giftCode).catch(() => null) : null;
+    // Gift-card-only payments carry no Paystack metadata, so they can't hold a data set unlock.
+    const card = giftCode && !isDataAnalysis ? await checkGiftCode(giftCode).catch(() => null) : null;
     if (card?.usable && card.balanceKobo > 0) {
       const fullRef = newRef("GC");
       const covered = card.balanceKobo >= item.amountKobo ? await holdGiftCredit(giftCode, fullRef, item.amountKobo, item.id, email) : 0;
@@ -105,7 +115,8 @@ export async function POST(req: NextRequest) {
         product_name: item.name,
         customer_name: name || undefined,
         delivery: item.delivery,
-        kind: isServiceDeposit ? "service_deposit" : "digital",
+        kind: isServiceDeposit ? "service_deposit" : isDataAnalysis ? "data_analysis" : "digital",
+        ...(isDataAnalysis ? { dataset_hash: datasetHash } : {}),
         display_currency: "USD",
         quoted_kobo: chargeKobo,
         quote_sig: signQuote(item.id, chargeKobo),
