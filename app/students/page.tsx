@@ -12,7 +12,7 @@ export const revalidate = 300;
 export const metadata: Metadata = { alternates: { canonical: "/students" },
   title: "Student research tools & AI Project Studio",
   description:
-    "All student tools in one place: AI Project Studio, questionnaire analyzer, citations, cover letter, CV builder, and managed research projects with USD pricing.",
+    "All student tools in one place: AI Project Studio, Chapter Four data analysis, citations, cover letter, CV builder, and managed research projects with USD pricing.",
 };
 
 type Tool = {
@@ -45,12 +45,12 @@ const writeTools: Tool[] = [
 
 const dataTools: Tool[] = [
   {
-    href: "/students/analyzer",
+    href: "/students/data-analysis",
     eyebrow: "Free",
     eyebrowClass: "text-brand-link",
     borderHover: "hover:border-brand-link/40",
-    title: "Questionnaire analyzer",
-    body: "Upload CSV responses — descriptive tables plus an AI-style results narrative for Chapter 4.",
+    title: "Chapter Four data analysis",
+    body: "Upload your questionnaire responses and download a complete Chapter Four (tables, tests and interpretation) as Word or PDF.",
   },
 ];
 
@@ -147,7 +147,7 @@ export default async function StudentsHubPage() {
               {[
                 { n: "1", t: "Topic", href: "/students/studio" },
                 { n: "2", t: "AI outline", href: "/students/studio" },
-                { n: "3", t: "CSV analysis", href: "/students/analyzer" },
+                { n: "3", t: "Data analysis", href: "/students/data-analysis" },
                 { n: "4", t: "Chapter draft", href: "/students/studio" },
                 { n: "5", t: "Portal track", href: "/students/projects" },
               ].map((step) => (

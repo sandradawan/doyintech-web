@@ -63,7 +63,7 @@ const MONEY: Entry[] = [
   page("/components", 0.7),
   page("/students", 0.85),
   page("/students/projects", 0.8),
-  page("/students/analyzer", 0.7),
+  page("/students/data-analysis", 0.8),
   page("/students/studio", 0.7),
   page("/students/citations", 0.75),
   page("/students/get-featured", 0.5),

@@ -19,11 +19,11 @@ export const INTENTS: ChatIntent[] = [
   {
     id: "students",
     keywords: [
-      "student", "students", "research project", "questionnaire", "analyzer", "thesis",
+      "student", "students", "research project", "questionnaire", "analyzer", "data analysis", "chapter four", "thesis",
       "dissertation", "chapter", "final year", "project studio", "citation", "cover letter",
     ],
     answer:
-      "Student tools (worldwide, USD pricing):\n• AI Project Studio — free outlines, chapter scaffolds, abstracts, templates → /students/studio\n• Questionnaire analyzer — CSV → tables + results narrative → /students/analyzer\n• Citation formatter (APA/MLA/Chicago/Harvard) → /students/citations\n• AI cover letter → /students/cover-letter\n• Managed research projects with 50% deposit & Request ID tracking → /students/projects\n\nWhich one do you need?",
+      "Student tools (worldwide, USD pricing):\n• AI Project Studio — free outlines, chapter scaffolds, abstracts, templates → /students/studio\n• Chapter Four data analysis — upload questionnaire responses (Excel or CSV), get tables, tests and interpretation as Word or PDF → /students/data-analysis\n• Citation formatter (APA/MLA/Chicago/Harvard) → /students/citations\n• AI cover letter → /students/cover-letter\n• Managed research projects with 50% deposit & Request ID tracking → /students/projects\n\nWhich one do you need?",
   },
   {
     id: "services",

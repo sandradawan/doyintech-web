@@ -98,6 +98,8 @@ const nextConfig: NextConfig = {
       ["/pricing-quiz", "/pricing"],
       // Nov 2026 restructure: free games, quizzes, podcasts and community removed to keep the site focused on what we sell.
       ["/kids", "/students"],
+      // Nov 2026: the basic analyzer became the full Chapter Four data analysis tool.
+      ["/students/analyzer", "/students/data-analysis"],
       ["/kids/:path*", "/students"],
       ["/play", "/"],
       ["/trivia", "/"],

@@ -90,7 +90,7 @@ export default function AiProjectStudioPage() {
           </h1>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-brand-muted">
             Generate research outlines, chapter scaffolds, abstracts, and academic templates.
-            Pair with the analyzer and project portal when you need full support.
+            Pair with the data analysis tool and project portal when you need full support.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-2">
@@ -233,8 +233,8 @@ export default function AiProjectStudioPage() {
                     </button>
                   ))}
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <Link href="/students/analyzer" className="rounded-full bg-brand-ink px-5 py-2.5 text-[13px] font-semibold text-brand-deep">
-                      Open analyzer
+                    <Link href="/students/data-analysis" className="rounded-full bg-brand-ink px-5 py-2.5 text-[13px] font-semibold text-brand-deep">
+                      Open data analysis
                     </Link>
                     <Link href="/students/projects" className="rounded-full border border-brand-ink/20 px-5 py-2.5 text-[13px] font-semibold text-brand-ink">
                       Project portal
@@ -289,8 +289,8 @@ export default function AiProjectStudioPage() {
           </div>
 
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
-            <Link href="/students/analyzer" className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 hover:border-brand-link/40">
-              <p className="text-[15px] font-semibold text-brand-ink">Questionnaire analyzer</p>
+            <Link href="/students/data-analysis" className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 hover:border-brand-link/40">
+              <p className="text-[15px] font-semibold text-brand-ink">Chapter Four data analysis</p>
               <p className="mt-1 text-[13px] text-brand-muted">CSV → tables + narrative</p>
             </Link>
             <Link href="/students/citations" className="rounded-2xl border border-brand-ink/10 bg-brand-ink/[0.03] p-5 hover:border-brand-link/40">
