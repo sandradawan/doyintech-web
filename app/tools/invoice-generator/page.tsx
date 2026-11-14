@@ -1,4 +1,5 @@
 import Link from "next/link";
+import OpsUpsell from "@/components/ops/OpsUpsell";
 import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd } from "@/components/tools/SeoToolPage";
 import { INVOICE_CURRENCIES } from "@/lib/global/currencies";
@@ -31,7 +32,7 @@ export default function Page() {
       h1="Free invoice generator for any currency"
       intro="Fill in your details, add items and tax, and download a clean PDF invoice in seconds. Switch to a quote, receipt, proforma or purchase order with one click."
       jsonLd={jsonLd}
-      tool={<InvoiceGenerator defaultCurrency="USD" detectCurrency />}
+      tool={<><InvoiceGenerator defaultCurrency="USD" detectCurrency /><OpsUpsell /></>}
       faqs={FAQS}
       newsletterSource="invoice-generator-global"
       upsell={

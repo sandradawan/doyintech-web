@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import OpsUpsell from "@/components/ops/OpsUpsell";
 import Link from "next/link";
 import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
@@ -57,7 +58,7 @@ export default function ReceiptGeneratorNigeriaPage() {
       h1="Free receipt generator for Nigerian businesses"
       intro="Confirm a payment with a professional receipt in naira — for sales, services, rent or fees. Print or save as PDF in seconds."
       jsonLd={jsonLd}
-      tool={<InvoiceGenerator initialDocType="Receipt" />}
+      tool={<><InvoiceGenerator initialDocType="Receipt" /><OpsUpsell /></>}
       faqs={FAQS}
       newsletterSource="receipt-generator"
       upsell={

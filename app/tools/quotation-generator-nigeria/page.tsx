@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import OpsUpsell from "@/components/ops/OpsUpsell";
 import Link from "next/link";
 import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
@@ -53,7 +54,7 @@ export default function QuotationGeneratorPage() {
       h1="Free quotation generator for Nigerian businesses"
       intro="Send clients a clean price quote in naira with VAT and a validity date. Print or save as PDF, then convert it to an invoice when they accept."
       jsonLd={jsonLd}
-      tool={<InvoiceGenerator initialDocType="Quote" />}
+      tool={<><InvoiceGenerator initialDocType="Quote" /><OpsUpsell /></>}
       faqs={FAQS}
       newsletterSource="quotation-generator"
       upsell={

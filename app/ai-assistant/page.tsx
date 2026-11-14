@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import LeadForm from "@/components/ui/LeadForm";
+import ServiceDepositButton from "@/components/services/ServiceDepositButton";
+import { AI_ASSISTANT_OFFERS } from "@/lib/service-offers";
 import { Money, PriceText } from "@/components/ui/Price";
 
 const TITLE = "AI Customer Assistant for Your Business Website and WhatsApp";
@@ -109,6 +111,23 @@ export default function AiAssistantPage() {
             <p className="mt-4 text-[13px] text-brand-subtle">
               WhatsApp Business messaging fees from Meta are billed at cost. Heavy use above your plan&apos;s limit is quoted before it is charged.
             </p>
+          </section>
+
+          <section className="mt-20" aria-labelledby="ai-start">
+            <h2 id="ai-start" className="text-[28px] font-semibold tracking-tight text-brand-ink sm:text-[36px]">Start today with a deposit</h2>
+            <p className="mt-3 max-w-2xl text-[16px] text-brand-muted">
+              Know what you need? Pay 50% now to book your setup. We send a short form for your FAQs and prices, and you pay the balance
+              before your assistant goes live.
+            </p>
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
+              {AI_ASSISTANT_OFFERS.map((o) => (
+                <div key={o.id}>
+                  <h3 className="text-[19px] font-semibold text-brand-ink">{o.name}</h3>
+                  <p className="mb-4 mt-1 text-[14px] text-brand-muted">{o.tagline} {o.timeline}.</p>
+                  <ServiceDepositButton offer={o} />
+                </div>
+              ))}
+            </div>
           </section>
 
           <section id="quote" className="mt-20 grid scroll-mt-28 gap-8 lg:grid-cols-[1fr_1.2fr]">

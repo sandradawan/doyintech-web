@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import OpsUpsell from "@/components/ops/OpsUpsell";
 import Link from "next/link";
 import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
@@ -57,7 +58,7 @@ export default function InvoiceGeneratorNigeriaPage() {
       h1="Free invoice generator for Nigerian businesses"
       intro="Create a clean invoice in naira with VAT, bank details and a due date, then print or save it as a PDF. No sign-up needed."
       jsonLd={jsonLd}
-      tool={<InvoiceGenerator initialDocType="Invoice" />}
+      tool={<><InvoiceGenerator initialDocType="Invoice" /><OpsUpsell /></>}
       faqs={FAQS}
       newsletterSource="invoice-generator"
       upsell={

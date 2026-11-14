@@ -105,8 +105,42 @@ export const SERVICE_OFFERS: ServiceOffer[] = [
   },
 ];
 
+/** AI Assistant setups sold with an online 50% deposit (shown on /ai-assistant, not with the website packages). */
+export const AI_ASSISTANT_OFFERS: ServiceOffer[] = [
+  {
+    id: "service-ai-assistant-basic",
+    name: "AI Assistant Basic",
+    tagline: "A website chat assistant trained on your FAQs, prices and services.",
+    totalNgn: "₦100,000",
+    totalUsd: "about $65",
+    depositNgn: "₦50,000",
+    depositUsd: "about $32",
+    amountKobo: 5_000_000,
+    timeline: "7–10 days after your information + deposit",
+    scope: ["Website chat assistant", "Up to 50 questions and answers", "Lead capture to email", "1 round of changes"],
+    notIncluded: ["WhatsApp Business", "Booking and quote requests", "Monthly support plan (from ₦25,000)"],
+    idealFor: "Small businesses that answer the same questions every day",
+    delivery: "50% deposit online · balance before go-live",
+  },
+  {
+    id: "service-ai-assistant-business",
+    name: "AI Assistant Business",
+    tagline: "Website and WhatsApp, with booking requests and quotes.",
+    totalNgn: "₦250,000",
+    totalUsd: "about $160",
+    depositNgn: "₦125,000",
+    depositUsd: "about $81",
+    amountKobo: 12_500_000,
+    timeline: "10–14 days after your information + deposit",
+    scope: ["Website chat and WhatsApp Business", "Booking and quote requests", "Leads to email and a dashboard", "Staff handover"],
+    notIncluded: ["Integration with your own systems (Advanced plan)", "Meta WhatsApp messaging fees", "Monthly support plan (from ₦25,000)"],
+    idealFor: "Hotels, salons, clinics and schools with daily enquiries",
+    delivery: "50% deposit online · balance before go-live",
+  },
+];
+
 export function getServiceOffer(id: string): ServiceOffer | undefined {
-  return SERVICE_OFFERS.find((o) => o.id === id);
+  return SERVICE_OFFERS.find((o) => o.id === id) || AI_ASSISTANT_OFFERS.find((o) => o.id === id);
 }
 
 export function serviceWhatsAppLink(offer: ServiceOffer): string {

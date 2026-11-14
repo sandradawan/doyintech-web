@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import OpsUpsell from "@/components/ops/OpsUpsell";
 import Link from "next/link";
 import InvoiceGenerator from "@/components/tools/InvoiceGenerator";
 import SeoToolPage, { faqJsonLd, type Faq } from "@/components/tools/SeoToolPage";
@@ -53,7 +54,7 @@ export default function ProformaInvoicePage() {
       h1="Free proforma invoice generator"
       intro="Issue a proforma invoice in naira for advance payment or approvals. Add items, VAT and a validity date, then print or save as PDF."
       jsonLd={jsonLd}
-      tool={<InvoiceGenerator initialDocType="Proforma" />}
+      tool={<><InvoiceGenerator initialDocType="Proforma" /><OpsUpsell /></>}
       faqs={FAQS}
       newsletterSource="proforma-invoice-generator"
       upsell={

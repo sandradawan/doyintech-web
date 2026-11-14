@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
 import PlanCard from "@/components/subscriptions/PlanCard";
-import { OPS_PLANS } from "@/lib/subscriptions/plans";
+import SubscribeButton from "@/components/subscriptions/SubscribeButton";
+import { Money } from "@/components/ui/Price";
+import { OPS_ANNUAL_PLANS, OPS_PLANS } from "@/lib/subscriptions/plans";
 
 export const metadata: Metadata = {
   title: "DoyinOps: Simple CRM and Invoicing Software for Small Businesses",
@@ -105,6 +107,22 @@ export default function OpsLandingPage() {
               {OPS_PLANS.map((p) => (
                 <PlanCard key={p.id} plan={p} highlight={p.id === "ops-professional"} />
               ))}
+            </div>
+            <div className="mt-8 rounded-2xl border border-brand-link/30 bg-brand-link/[0.06] p-6">
+              <h3 className="text-[19px] font-semibold text-brand-ink">Pay yearly, get two months free</h3>
+              <ul className="mt-4 grid gap-4 md:grid-cols-3">
+                {OPS_ANNUAL_PLANS.map((p) => (
+                  <li key={p.id} className="flex flex-col rounded-xl border border-brand-ink/10 bg-brand-surface p-4">
+                    <p className="text-[15px] font-semibold text-brand-ink">{p.name.replace(" — Annual", "")}</p>
+                    <p className="mt-1 text-[22px] font-semibold tracking-tight text-brand-ink">
+                      <Money ngn={p.amountNgn} /> <span className="text-[13px] font-normal text-brand-subtle">/ year</span>
+                    </p>
+                    <div className="mt-3">
+                      <SubscribeButton planId={p.id} label="Pay yearly" />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         </div>

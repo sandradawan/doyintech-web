@@ -166,12 +166,23 @@ export const OPS_PLANS: SubscriptionPlan[] = [
     ],
   },
 ];
-SUBSCRIPTION_PLANS.push(...OPS_PLANS);
+/** Yearly DoyinOps plans: pay for 10 months, get 12 (the same deal as Pro). */
+export const OPS_ANNUAL_PLANS: SubscriptionPlan[] = OPS_PLANS.map((p) => ({
+  ...p,
+  id: `${p.id}-annual`,
+  name: `${p.name} — Annual`,
+  tagline: "Two months free versus monthly.",
+  amountNgn: p.amountNgn * 10,
+  interval: "annually" as const,
+  badge: undefined,
+  features: [`Everything in ${p.name}`, "Pay once a year — two months free", "Cancel renewal any time"],
+}));
+SUBSCRIPTION_PLANS.push(...OPS_PLANS, ...OPS_ANNUAL_PLANS);
 
 /** Plans that unlock the Pro premium tools. */
 export function grantsPro(planId: string): boolean {
   const plan = getPlan(planId);
-  return plan?.family === "pro" || planId === "ops-professional" || planId === "ops-business";
+  return plan?.family === "pro" || /^ops-(professional|business)(-annual)?$/.test(planId);
 }
 
 /** Plans that include DoyinOps cloud sync. */
