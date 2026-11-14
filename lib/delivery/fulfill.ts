@@ -1,6 +1,6 @@
 import { textToPdfBuffer } from "./pdf";
 import { issueDeliveryToken } from "./tokens";
-import { resolveProductDelivery, readPublicFile } from "./resolve";
+import { resolveProductDelivery, readPublicFile, readProductFileBuffer, isBinaryProductFile } from "./resolve";
 import { sendProductDeliveryEmail } from "./email";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
@@ -115,6 +115,11 @@ export async function fulfillPaidProduct(opts: {
   const attachments: { filename: string; content: Buffer }[] = [];
   let combinedMd = `# ${productName}\n\nPayment ref: ${opts.reference}\n\n`;
   for (const p of mdPaths) {
+    if (isBinaryProductFile(p)) {
+      const buf = await readProductFileBuffer(p);
+      if (buf) attachments.push({ filename: p.split("/").pop() || "workbook.xlsx", content: buf });
+      continue;
+    }
     const content = await readPublicFile(p);
     if (content) {
       const base = p.split("/").pop() || "file.md";
@@ -131,7 +136,8 @@ export async function fulfillPaidProduct(opts: {
   }
   try {
     const pdf = textToPdfBuffer(productName, combinedMd.slice(0, 50000));
-    attachments.push({
+    // First, so the attachment cap below never drops the PDF guide.
+    attachments.unshift({
       filename: `${opts.productId || "product"}.pdf`,
       content: pdf,
     });

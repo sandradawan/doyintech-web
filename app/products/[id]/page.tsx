@@ -132,7 +132,9 @@ export default async function ProductPage({ params }: Props) {
                   <li>Enter your email and pay by card, transfer or USSD through Paystack.</li>
                   <li>Download links appear straight away and are emailed to you with the PDF attached.</li>
                   <li>
-                    {p.downloadPaths?.some((f) => f.endsWith(".csv"))
+                    {p.downloadPaths?.some((f) => f.endsWith(".xlsx"))
+                      ? "Open the .xlsx workbook in Excel, Google Sheets, LibreOffice or Numbers. Formulas, dropdowns and colour alerts are already built in."
+                      : p.downloadPaths?.some((f) => f.endsWith(".csv"))
                       ? "Open the spreadsheets in Excel or Google Sheets and adapt the templates to your organisation."
                       : "Print the pages you need, or edit the Markdown copy to make it your own."}
                   </li>

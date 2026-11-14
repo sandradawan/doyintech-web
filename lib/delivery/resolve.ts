@@ -23,7 +23,7 @@ export function resolveProductDelivery(productId: string): ResolvedDelivery | nu
     return {
       productId: digital.id,
       productName: digital.name,
-      mdPaths: paths.filter((p) => p.endsWith(".md") || p.endsWith(".csv") || p.endsWith(".txt")),
+      mdPaths: paths.filter((p) => /\.(md|csv|txt|xlsx)$/.test(p)),
       kind: "digital",
     };
   }
@@ -72,7 +72,25 @@ function productFileExists(webPath: string): boolean {
   return locateProductFile(webPath) !== null;
 }
 
+/** Binary files (Excel workbooks) are delivered as-is, never folded into the text/PDF pack. */
+export function isBinaryProductFile(webPath: string): boolean {
+  return webPath.endsWith(".xlsx");
+}
+
+export const XLSX_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+export async function readProductFileBuffer(webPath: string): Promise<Buffer | null> {
+  const full = locateProductFile(webPath);
+  if (!full) return null;
+  try {
+    return await readFile(full);
+  } catch {
+    return null;
+  }
+}
+
 export async function readPublicFile(webPath: string): Promise<string | null> {
+  if (isBinaryProductFile(webPath)) return null;
   const full = locateProductFile(webPath);
   if (!full) return null;
   try {

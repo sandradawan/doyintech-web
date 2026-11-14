@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyDeliveryToken } from "@/lib/delivery/tokens";
-import { readPublicFile, resolveProductDelivery } from "@/lib/delivery/resolve";
+import {
+  readPublicFile,
+  readProductFileBuffer,
+  isBinaryProductFile,
+  resolveProductDelivery,
+  XLSX_TYPE,
+} from "@/lib/delivery/resolve";
 import { textToPdfBuffer } from "@/lib/delivery/pdf";
 import { findAnyEbook } from "@/lib/ebooks-catalog";
 import { buildEbookPdf, ebookPdfFilename } from "@/lib/ebooks/pdf";
@@ -42,9 +48,21 @@ export async function GET(req: NextRequest) {
     if (!pathParam || !grant.paths.includes(pathParam)) {
       return new NextResponse("File not in grant", { status: 403 });
     }
+    const name = pathParam.split("/").pop() || "file.md";
+    if (isBinaryProductFile(pathParam)) {
+      const buf = await readProductFileBuffer(pathParam);
+      if (!buf) return new NextResponse("File not found", { status: 404 });
+      return new NextResponse(new Uint8Array(buf), {
+        status: 200,
+        headers: {
+          "Content-Type": XLSX_TYPE,
+          "Content-Disposition": `attachment; filename="${name}"`,
+          "Cache-Control": "no-store",
+        },
+      });
+    }
     const content = await readPublicFile(pathParam);
     if (!content) return new NextResponse("File not found", { status: 404 });
-    const name = pathParam.split("/").pop() || "file.md";
     const type = name.endsWith(".csv")
       ? "text/csv; charset=utf-8"
       : "text/markdown; charset=utf-8";
